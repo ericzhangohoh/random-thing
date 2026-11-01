@@ -1,0 +1,1255 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Modeling world population growth in Python: absolute and relative errors, a constant growth model, and simulating population over time." name="description" />
+<meta property="og:title" content="5. World Population" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://allendowney.github.io/ModSimPy/chap05.html" />
+<meta property="og:site_name" content="Modeling and Simulation in Python" />
+<meta property="og:description" content="Modeling world population growth in Python: absolute and relative errors, a constant growth model, and simulating population over time." />
+<meta property="og:image" content="https://raw.githubusercontent.com/AllenDowney/ModSimPy/master/modsimpy_cover.png" />
+<meta property="og:image:alt" content="Cover of Modeling and Simulation in Python by Allen B. Downey" />
+
+    <title>5. World Population &#8212; Modeling and Simulation in Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chap05';</script>
+    <link rel="canonical" href="https://allendowney.github.io/ModSimPy/chap05.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Proportional Growth" href="chap06.html" />
+    <link rel="prev" title="4. Sweeping Parameters" href="chap04.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Modeling and Simulation in Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    ModSimPy: Free Online Book with Jupyter Notebooks
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap01.html">1. Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Bike Share System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Iteration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Sweeping Parameters</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">5. World Population</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Proportional Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Limits to Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Projecting Population Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Analysis of Population Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Case Studies Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Epidemiology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Modeling Vaccination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Sweeping Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap14.html">14. Nondimensionalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap15.html">15. Cooling Coffee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap16.html">16. Adding Milk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Pharmacokinetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Glucose and Insulin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Case Studies Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap20.html">20. The Empire State Building Strikes Back</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap21.html">21. Drag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap22.html">22. Baseball</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap23.html">23. Optimal Baseball</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap24.html">24. Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap25.html">25. Torque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap26.html">26. Case Studies Part 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap27.html">27. Under the Hood</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="queue.html">One Queue or Two</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://allendowney.github.io/ModSimPy/api/index.html">API Documentation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/AllenDowney/ModSimPy" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chap05.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>World Population</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#world-population-growth">5.1. World Population Growth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-and-relative-errors">5.2. Absolute and Relative Errors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-population-growth">5.3. Modeling Population Growth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulating-population-growth">5.4. Simulating Population Growth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">5.5. Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">5.6.1. Exercise 1</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>Printed and electronic copies of <em>Modeling and Simulation in Python</em> are available from <a class="reference external" href="https://nostarch.com/modeling-and-simulation-python">No Starch Press</a> and <a class="reference external" href="https://bookshop.org/p/books/modeling-and-simulation-in-python-allen-b-downey/17836697?ean=9781718502161">Bookshop.org</a> and <a class="reference external" href="https://amzn.to/3y9UxNb">Amazon</a>.</p>
+<section class="tex2jax_ignore mathjax_ignore" id="world-population">
+<h1><span class="section-number">5. </span>World Population<a class="headerlink" href="#world-population" title="Link to this heading">#</a></h1>
+<p>In 1968 Paul Ehrlich published <em>The Population Bomb</em>, in which he
+predicted that world population would grow quickly during the 1970s,
+that agricultural production could not keep up, and that mass starvation in the next two decades was inevitable (see
+<a class="reference external" href="https://modsimpy.com/popbomb">https://modsimpy.com/popbomb</a>). As someone who grew up during those
+decades, I am happy to report that those predictions were wrong.</p>
+<p>But world population growth is still a topic of concern, and it is an
+open question how many people Earth can sustain while maintaining
+and improving our quality of life.</p>
+<p>In this chapter and the next, we use tools from the previous chapters to model world population growth since 1950 and generate predictions for the next 50-100 years.
+For background on world population growth, watch this video from the
+American Museum of Natural History <a class="reference external" href="https://modsimpy.com/human">https://modsimpy.com/human</a>.</p>
+<p>This chapter is available as a Jupyter notebook where you can read the text, run the code, and work on the exercises.
+Click here to access the notebooks: <a class="reference external" href="https://allendowney.github.io/ModSimPy/">https://allendowney.github.io/ModSimPy/</a>.</p>
+<section id="world-population-growth">
+<h2><span class="section-number">5.1. </span>World Population Growth<a class="headerlink" href="#world-population-growth" title="Link to this heading">#</a></h2>
+<p>The Wikipedia article on world population contains tables with estimates of world population from prehistory to the present, and projections for the future (<a class="reference external" href="https://modsimpy.com/worldpop">https://modsimpy.com/worldpop</a>).</p>
+<p>To read this data, we will use the Pandas library, which provides functions for
+working with data. The function we’ll use is <code class="docutils literal notranslate"><span class="pre">read_html</span></code>, which can read a web page and extract data from any tables it contains. Before we can use it, we have to import it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">read_html</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can use it like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;World_population_estimates.html&#39;</span>
+<span class="n">tables</span> <span class="o">=</span> <span class="n">read_html</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span>
+                   <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
+                   <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                   <span class="n">decimal</span><span class="o">=</span><span class="s1">&#39;M&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The arguments are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">filename</span></code>: The name of the file (including the directory it’s in)
+as a string. This argument can also be a URL starting with <code class="docutils literal notranslate"><span class="pre">http</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">header</span></code>: Indicates which row of each table should be considered the
+<em>header</em>, that is, the set of labels that identify the columns. In
+this case it is the first row (numbered 0).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">index_col</span></code>: Indicates which column of each table should be
+considered the <em>index</em>, that is, the set of labels that identify
+the rows. In this case it is the first column, which contains the
+years.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">decimal</span></code>: Normally this argument is used to indicate which
+character should be considered a decimal point, because some
+conventions use a period and some use a comma. In this case I am
+abusing the feature by treating <code class="docutils literal notranslate"><span class="pre">M</span></code> as a decimal point, which allows
+some of the estimates, which are expressed in millions, to be read
+as numbers.</p></li>
+</ul>
+<p>The result, which is assigned to <code class="docutils literal notranslate"><span class="pre">tables</span></code>, is a sequence that contains
+one <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> for each table. A <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> is an object, defined by
+Pandas, that represents tabular data.</p>
+<p>To select a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> from <code class="docutils literal notranslate"><span class="pre">tables</span></code>, we can use the bracket operator
+like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table2</span> <span class="o">=</span> <span class="n">tables</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>This line selects the third table (numbered 2), which contains
+population estimates from 1950 to 2016.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">head</span></code> to display the first few lines of the table.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>United States Census Bureau (2017)[28]</th>
+      <th>Population Reference Bureau (1973–2016)[15]</th>
+      <th>United Nations Department of Economic and Social Affairs (2015)[16]</th>
+      <th>Maddison (2008)[17]</th>
+      <th>HYDE (2007)[24]</th>
+      <th>Tanton (1994)[18]</th>
+      <th>Biraben (1980)[19]</th>
+      <th>McEvedy &amp; Jones (1978)[20]</th>
+      <th>Thomlinson (1975)[21]</th>
+      <th>Durand (1974)[22]</th>
+      <th>Clark (1967)[23]</th>
+    </tr>
+    <tr>
+      <th>Year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1950</th>
+      <td>2557628654</td>
+      <td>2.516000e+09</td>
+      <td>2.525149e+09</td>
+      <td>2.544000e+09</td>
+      <td>2.527960e+09</td>
+      <td>2.400000e+09</td>
+      <td>2.527000e+09</td>
+      <td>2.500000e+09</td>
+      <td>2.400000e+09</td>
+      <td>NaN</td>
+      <td>2.486000e+09</td>
+    </tr>
+    <tr>
+      <th>1951</th>
+      <td>2594939877</td>
+      <td>NaN</td>
+      <td>2.572851e+09</td>
+      <td>2.571663e+09</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1952</th>
+      <td>2636772306</td>
+      <td>NaN</td>
+      <td>2.619292e+09</td>
+      <td>2.617949e+09</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1953</th>
+      <td>2682053389</td>
+      <td>NaN</td>
+      <td>2.665865e+09</td>
+      <td>2.665959e+09</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1954</th>
+      <td>2730228104</td>
+      <td>NaN</td>
+      <td>2.713172e+09</td>
+      <td>2.716927e+09</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The first column, which is labeled <code class="docutils literal notranslate"><span class="pre">Year</span></code>, is special.  It is the <em>index</em> for this <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>, which means it contains the labels for the rows.</p>
+<p>Some of the values use scientific notation; for example, <code class="docutils literal notranslate"><span class="pre">2.516000e+09</span></code> is shorthand for <span class="math notranslate nohighlight">\(2.516 \cdot 10^9\)</span> or 2.516 billion.</p>
+<p><code class="docutils literal notranslate"><span class="pre">NaN</span></code> is a special value that indicates missing data.</p>
+<p>The column labels are long strings, which makes them hard to work with.
+We can replace them with shorter strings like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table2</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;census&#39;</span><span class="p">,</span> <span class="s1">&#39;prb&#39;</span><span class="p">,</span> <span class="s1">&#39;un&#39;</span><span class="p">,</span> <span class="s1">&#39;maddison&#39;</span><span class="p">,</span> 
+                  <span class="s1">&#39;hyde&#39;</span><span class="p">,</span> <span class="s1">&#39;tanton&#39;</span><span class="p">,</span> <span class="s1">&#39;biraben&#39;</span><span class="p">,</span> <span class="s1">&#39;mj&#39;</span><span class="p">,</span> 
+                  <span class="s1">&#39;thomlinson&#39;</span><span class="p">,</span> <span class="s1">&#39;durand&#39;</span><span class="p">,</span> <span class="s1">&#39;clark&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can select a column from the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> using the dot operator,
+like selecting a state variable from a <code class="docutils literal notranslate"><span class="pre">State</span></code> object.</p>
+<p>Here are the estimates from the United States Census Bureau:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">census</span> <span class="o">=</span> <span class="n">table2</span><span class="o">.</span><span class="n">census</span> <span class="o">/</span> <span class="mf">1e9</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The result is a Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code>, which is similar to the <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> and <code class="docutils literal notranslate"><span class="pre">SweepSeries</span></code> objects we’ve been using.</p>
+<p>The number <code class="docutils literal notranslate"><span class="pre">1e9</span></code> is a shorter way to write <code class="docutils literal notranslate"><span class="pre">1000000000</span></code> or one billion.
+When we divide a <code class="docutils literal notranslate"><span class="pre">Series</span></code> by a number, it divides all of the elements of the <code class="docutils literal notranslate"><span class="pre">Series</span></code>.
+From here on, we’ll express population estimates in terms of billions.</p>
+<p>We can use <code class="docutils literal notranslate"><span class="pre">tail</span></code> to see the last few elements of the <code class="docutils literal notranslate"><span class="pre">Series</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">census</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Year
+2012    7.013871
+2013    7.092128
+2014    7.169968
+2015    7.247893
+2016    7.325997
+Name: census, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The left column is the <em>index</em> of the <code class="docutils literal notranslate"><span class="pre">Series</span></code>; in this example it contains the dates.
+The right column contains the <em>values</em>, which are population estimates.
+In 2016 the world population was about 7.3 billion.</p>
+<p>Here are the estimates from the United Nations
+Department of Economic and Social Affairs (U.N. DESA):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">un</span> <span class="o">=</span> <span class="n">table2</span><span class="o">.</span><span class="n">un</span> <span class="o">/</span> <span class="mf">1e9</span>
+<span class="n">un</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Year
+2012    7.080072
+2013    7.162119
+2014    7.243784
+2015    7.349472
+2016         NaN
+Name: un, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The most recent estimate we have from the U.N. is for 2015, so the value for 2016 is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
+<p>Now we can plot the estimates like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_estimates</span><span class="p">():</span>
+    <span class="n">census</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;US Census&#39;</span><span class="p">)</span>
+    <span class="n">un</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;UN DESA&#39;</span><span class="p">)</span>
+    <span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">,</span> 
+             <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;World population (billions)&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<p>The keyword argument <code class="docutils literal notranslate"><span class="pre">style=':'</span></code> specifies a dotted line; <code class="docutils literal notranslate"><span class="pre">style='--'</span></code> specifies a dashed line.
+The <code class="docutils literal notranslate"><span class="pre">label</span></code> argument provides the string that appears in the legend.</p>
+<p>And here’s what it looks like.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_estimates</span><span class="p">()</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;World population estimates&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e3e8eba38a42d6659f31b50658c86a3463211f2c47c3493e577d0c0465f4d948.png" src="_images/e3e8eba38a42d6659f31b50658c86a3463211f2c47c3493e577d0c0465f4d948.png" />
+</div>
+</div>
+<p>The lines overlap almost completely, but the most recent estimates diverge slightly.
+In the next section, we’ll quantify these differences.</p>
+</section>
+<section id="absolute-and-relative-errors">
+<h2><span class="section-number">5.2. </span>Absolute and Relative Errors<a class="headerlink" href="#absolute-and-relative-errors" title="Link to this heading">#</a></h2>
+<p>Estimates of world population from the U.S. Census and the U.N. DESA differ slightly.
+One way to characterize this difference is <em>absolute error</em>, which is the absolute value of the difference between the estimates.</p>
+<p>To compute absolute errors, we can import <code class="docutils literal notranslate"><span class="pre">abs</span></code> from NumPy:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="nb">abs</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And use it like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">abs_error</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">un</span> <span class="o">-</span> <span class="n">census</span><span class="p">)</span>
+<span class="n">abs_error</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Year
+2012    0.066201
+2013    0.069991
+2014    0.073816
+2015    0.101579
+2016         NaN
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>When you subtract two <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects, the result is a new <code class="docutils literal notranslate"><span class="pre">Series</span></code>.
+Because one of the estimates for 2016 is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>, the result for 2016 is <code class="docutils literal notranslate"><span class="pre">NaN</span></code>.</p>
+<p>To summarize the results, we can compute the <em>mean absolute error</em>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean</span>
+
+<span class="n">mean</span><span class="p">(</span><span class="n">abs_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.029034508242424265
+</pre></div>
+</div>
+</div>
+</div>
+<p>On average, the estimates differ by about 0.029 billion.
+But we can also use <code class="docutils literal notranslate"><span class="pre">max</span></code> to compute the maximum absolute error.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="nb">max</span>
+
+<span class="nb">max</span><span class="p">(</span><span class="n">abs_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.10157921199999986
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the worst case, they differ by about 0.1 billion.</p>
+<p>Now 0.1 billion is a lot of people, so that might sound like a serious discrepancy.
+But counting everyone in the world is hard, and we should not expect the estimates to be exact.</p>
+<p>Another way to quantify the magnitude of the difference is <em>relative error</em>, which is the size of the error divided by the estimates themselves.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rel_error</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">abs_error</span> <span class="o">/</span> <span class="n">census</span>
+<span class="n">rel_error</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Year
+2012    0.943860
+2013    0.986888
+2014    1.029514
+2015    1.401500
+2016         NaN
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>I multiplied by 100 so we can interpret the results as a percentage.  In 2015, the difference between the estimates is about 1.4%, and that happens to be the maximum.</p>
+<p>Again, we can summarize the results by computing the mean.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean</span><span class="p">(</span><span class="n">rel_error</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5946585816022846
+</pre></div>
+</div>
+</div>
+</div>
+<p>The mean relative error is about 0.6%.
+So that’s not bad.</p>
+<p>You might wonder why I divided by <code class="docutils literal notranslate"><span class="pre">census</span></code> rather than <code class="docutils literal notranslate"><span class="pre">un</span></code>.
+In general, if you think one estimate is better than the other, you put the better one in the denominator.
+In this case, I don’t know which is better, so I put the smaller one in the denominator, which makes the computed errors a little bigger.</p>
+</section>
+<section id="modeling-population-growth">
+<h2><span class="section-number">5.3. </span>Modeling Population Growth<a class="headerlink" href="#modeling-population-growth" title="Link to this heading">#</a></h2>
+<p>Suppose we want to predict world population growth over the next 50 or
+100 years. We can do that by developing a model that describes how
+populations grow, fitting the model to the data we have so far, and then using the model to generate predictions.</p>
+<p>In the next few sections I demonstrate this process starting with simple models and gradually improving them.</p>
+<p>Although there is some curvature in the plotted estimates, it looks like world population growth has been close to linear since 1960 or so. So we’ll start with a model that has constant growth.</p>
+<p>To fit the model to the data, we’ll compute the average annual growth
+from 1950 to 2016. Since the UN and Census data are so close, we’ll use the Census data.</p>
+<p>We can select a value from a <code class="docutils literal notranslate"><span class="pre">Series</span></code> using the bracket operator:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">census</span><span class="p">[</span><span class="mi">1950</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.557628654
+</pre></div>
+</div>
+</div>
+</div>
+<p>So we can get the total growth during the interval like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_growth</span> <span class="o">=</span> <span class="n">census</span><span class="p">[</span><span class="mi">2016</span><span class="p">]</span> <span class="o">-</span> <span class="n">census</span><span class="p">[</span><span class="mi">1950</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this example, the labels 2016 and 1950 are part of the data, so it
+would be better not to make them part of the program.
+Putting values like these in the program is called <em>hard coding</em>; it is considered bad practice because if the data change in the future, we have to change the program (see <a class="reference external" href="https://modsimpy.com/hardcode">https://modsimpy.com/hardcode</a>).</p>
+<p>It would be better to get the labels from the <code class="docutils literal notranslate"><span class="pre">Series</span></code>.
+We can do that by selecting the index from <code class="docutils literal notranslate"><span class="pre">census</span></code> and then selecting the first element.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_0</span> <span class="o">=</span> <span class="n">census</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">t_0</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1950
+</pre></div>
+</div>
+</div>
+</div>
+<p>So <code class="docutils literal notranslate"><span class="pre">t_0</span></code> is the label of the first element, which is 1950.
+We can get the label of the last element like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">t_end</span> <span class="o">=</span> <span class="n">census</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">t_end</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2016
+</pre></div>
+</div>
+</div>
+</div>
+<p>The value <code class="docutils literal notranslate"><span class="pre">-1</span></code> indicates the last element; <code class="docutils literal notranslate"><span class="pre">-2</span></code> indicates the second-to-last element, and so on.</p>
+<p>The difference between <code class="docutils literal notranslate"><span class="pre">t_0</span></code> and <code class="docutils literal notranslate"><span class="pre">t_end</span></code> is the elapsed time between them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">t_end</span> <span class="o">-</span> <span class="n">t_0</span>
+<span class="n">elapsed_time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>66
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can use <code class="docutils literal notranslate"><span class="pre">t_0</span></code> and <code class="docutils literal notranslate"><span class="pre">t_end</span></code> to select the population at the beginning and end of the interval.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p_0</span> <span class="o">=</span> <span class="n">census</span><span class="p">[</span><span class="n">t_0</span><span class="p">]</span>
+<span class="n">p_end</span> <span class="o">=</span> <span class="n">census</span><span class="p">[</span><span class="n">t_end</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And compute the total growth during the interval.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">total_growth</span> <span class="o">=</span> <span class="n">p_end</span> <span class="o">-</span> <span class="n">p_0</span>
+<span class="n">total_growth</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.768368055
+</pre></div>
+</div>
+</div>
+</div>
+<p>Finally, we can compute average annual growth.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">annual_growth</span> <span class="o">=</span> <span class="n">total_growth</span> <span class="o">/</span> <span class="n">elapsed_time</span>
+<span class="n">annual_growth</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.07224800083333333
+</pre></div>
+</div>
+</div>
+</div>
+<p>From 1950 to 2016, world population grew by about 0.07 billion people per year, on average.
+The next step is to use this estimate to simulate population growth.</p>
+</section>
+<section id="simulating-population-growth">
+<h2><span class="section-number">5.4. </span>Simulating Population Growth<a class="headerlink" href="#simulating-population-growth" title="Link to this heading">#</a></h2>
+<p>Our simulation will start with the observed population in 1950, <code class="docutils literal notranslate"><span class="pre">p_0</span></code>,
+and add <code class="docutils literal notranslate"><span class="pre">annual_growth</span></code> each year. To store the results, we’ll use a
+<code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> object:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can set the first value in the new <code class="docutils literal notranslate"><span class="pre">TimeSeries</span></code> like this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="p">[</span><span class="n">t_0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s what it looks like so far.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">show</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Quantity</th>
+    </tr>
+    <tr>
+      <th>Time</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1950</th>
+      <td>2.557629</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Now we set the rest of the values by simulating annual growth:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_end</span><span class="p">):</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">annual_growth</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The values of <code class="docutils literal notranslate"><span class="pre">t</span></code> go from <code class="docutils literal notranslate"><span class="pre">t_0</span></code> to <code class="docutils literal notranslate"><span class="pre">t_end</span></code>, including the first but not the last.</p>
+<p>Inside the loop, we compute the population for the next year by adding the population for the current year and <code class="docutils literal notranslate"><span class="pre">annual_growth</span></code>.</p>
+<p>The last time through the loop, the value of <code class="docutils literal notranslate"><span class="pre">t</span></code> is 2015, so the last label in <code class="docutils literal notranslate"><span class="pre">results</span></code> is 2016.</p>
+<p>Here’s what the results look like, compared to the estimates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">)</span>
+<span class="n">plot_estimates</span><span class="p">()</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Constant growth model&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c79acb97951ff7626ec20287c2fc94b6c953b52a8141a4b6ee9bc94de6997fcf.png" src="_images/c79acb97951ff7626ec20287c2fc94b6c953b52a8141a4b6ee9bc94de6997fcf.png" />
+</div>
+</div>
+<p>From 1950 to 1990, the model does not fit the data particularly well, but after that, it’s pretty good.</p>
+</section>
+<section id="summary">
+<h2><span class="section-number">5.5. </span>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p>This chapter is a first step toward modeling changes in world population growth during the last 70 years.</p>
+<p>We used Pandas to read data from a web page and store the results in a <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code>.
+From the <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> we selected two <code class="docutils literal notranslate"><span class="pre">Series</span></code> objects and used them to compute absolute and relative errors.</p>
+<p>Then we computed average population growth and used it to build a simple model with constant annual growth.
+The model fits recent data pretty well; nevertheless, there are two reasons we should be skeptical:</p>
+<ul class="simple">
+<li><p>There is no obvious mechanism that could cause population growth to be constant from year to year. Changes in population are determined by the fraction of people who die and the fraction of people who give birth, so we expect them to depend on the current population.</p></li>
+<li><p>According to this model, world population would keep growing at the same rate forever, and that does not seem reasonable.</p></li>
+</ul>
+<p>In the next chapter we’ll consider other models that might fit the data better and make more credible predictions.</p>
+</section>
+<section id="exercises">
+<h2><span class="section-number">5.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1">
+<h3><span class="section-number">5.6.1. </span>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
+<p>Try fitting the model using data from 1970 to the present, and see if that does a better job.</p>
+<p>Suggestions:</p>
+<ol class="arabic simple">
+<li><p>Define <code class="docutils literal notranslate"><span class="pre">t_1</span></code> to be 1970 and <code class="docutils literal notranslate"><span class="pre">p_1</span></code> to be the population in 1970.  Use <code class="docutils literal notranslate"><span class="pre">t_1</span></code> and <code class="docutils literal notranslate"><span class="pre">p_1</span></code> to compute annual growth, but use <code class="docutils literal notranslate"><span class="pre">t_0</span></code> and <code class="docutils literal notranslate"><span class="pre">p_0</span></code> to run the simulation.</p></li>
+<li><p>You might want to add a constant to the starting value to match the data better.</p></li>
+</ol>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">t_0</span> <span class="o">=</span> <span class="n">census</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">t_1</span> <span class="o">=</span> <span class="mi">1970</span>
+<span class="n">t_end</span> <span class="o">=</span> <span class="n">census</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">elapsed_time</span> <span class="o">=</span> <span class="n">t_end</span> <span class="o">-</span> <span class="n">t_1</span>
+
+<span class="n">p_0</span> <span class="o">=</span> <span class="n">census</span><span class="p">[</span><span class="n">t_0</span><span class="p">]</span>
+<span class="n">p_1</span> <span class="o">=</span> <span class="n">census</span><span class="p">[</span><span class="n">t_1</span><span class="p">]</span>
+<span class="n">p_end</span> <span class="o">=</span> <span class="n">census</span><span class="p">[</span><span class="n">t_end</span><span class="p">]</span>
+
+<span class="n">total_growth</span> <span class="o">=</span> <span class="n">p_end</span> <span class="o">-</span> <span class="n">p_1</span>
+<span class="n">annual_growth</span> <span class="o">=</span> <span class="n">total_growth</span> <span class="o">/</span> <span class="n">elapsed_time</span>
+<span class="n">annual_growth</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.07854997754347826
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">TimeSeries</span><span class="p">()</span>
+<span class="n">results</span><span class="p">[</span><span class="n">t_0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_0</span> <span class="o">-</span> <span class="mf">0.45</span>
+
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">t_0</span><span class="p">,</span> <span class="n">t_end</span><span class="p">):</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">+</span> <span class="n">annual_growth</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">results</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;model&#39;</span><span class="p">)</span>
+<span class="n">plot_estimates</span><span class="p">()</span>
+<span class="n">decorate</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Constant growth model, t0=1970&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9f3e1c1b1c08ecc64880d3c80264e704a937c1238b7ed05ca3a3ff41b3d0ecbd.png" src="_images/9f3e1c1b1c08ecc64880d3c80264e704a937c1238b7ed05ca3a3ff41b3d0ecbd.png" />
+</div>
+</details>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chap04.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Sweeping Parameters</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chap06.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Proportional Growth</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#world-population-growth">5.1. World Population Growth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-and-relative-errors">5.2. Absolute and Relative Errors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modeling-population-growth">5.3. Modeling Population Growth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulating-population-growth">5.4. Simulating Population Growth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">5.5. Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">5.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">5.6.1. Exercise 1</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script>new Image().src="https://greenteapress.com/gh.gif?u="+encodeURIComponent(location.href)+"&r="+encodeURIComponent(document.referrer)</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

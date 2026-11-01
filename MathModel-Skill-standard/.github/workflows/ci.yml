@@ -1,0 +1,134 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  core:
+    name: Core ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt -r requirements-modeling.txt
+
+      - name: Verify dependencies
+        run: python -m pip check
+
+      - name: Check portable payload
+        run: python scripts/check_skills.py
+
+      - name: Compile Python sources
+        run: python -m compileall -q skills scripts tests install.py
+
+      - name: Run test suite
+        run: python -u tests/run_tests.py
+
+      - name: Check complete-paper scope regressions
+        run: python tests/test_paper_scope.py
+
+      - name: Check data import integrity
+        run: python tests/test_data_integrity.py
+
+      - name: Check numerical tools and current-run data bindings
+        run: python tests/test_modeling_tools.py
+
+      - name: Check execution receipt integrity and timeouts
+        run: python tests/test_runner_integrity.py
+
+      - name: Check fail-closed evidence and problem extraction
+        run: python tests/test_evidence_integrity.py
+
+      - name: Check numerical claim semantics and authoring freshness
+        run: python tests/test_claim_bindings.py
+
+      - name: Check split designs and solver evidence
+        run: python tests/test_validation_tools.py
+
+      - name: Run offline evidence-to-claim benchmarks
+        run: python tests/test_validation_integration.py
+
+      - name: Test installed ZIP workflows
+        run: python tests/test_installed_workflow.py
+
+  render:
+    name: LibreOffice render gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Install LibreOffice
+        run: sudo apt-get update && sudo apt-get install -y libreoffice-writer
+
+      - name: Run required render integration test
+        env:
+          MATHMODEL_REQUIRE_RENDER: "1"
+        run: python -m unittest discover -s tests -p test_installed_workflow.py -k installed_render_pipeline
+
+  packages:
+    name: Install and package / ${{ matrix.os }} / ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.11", "3.12"]
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Test installer without third-party dependencies
+        run: python -S tests/test_installation.py
+
+      - name: Verify tracked archives
+        run: python scripts/build_release_packages.py --verify
+
+      - name: Build twice
+        run: |
+          python scripts/build_release_packages.py --output-dir build-a
+          python scripts/build_release_packages.py --output-dir build-b
+
+      - name: Compare archive hashes
+        shell: bash
+        run: |
+          cmp build-a/MathModel-Skill-Standard.zip build-b/MathModel-Skill-Standard.zip
+          cmp build-a/MathModel-Skill-Standard.zip dist/MathModel-Skill-Standard.zip
+          cmp build-a/SHA256SUMS.txt build-b/SHA256SUMS.txt

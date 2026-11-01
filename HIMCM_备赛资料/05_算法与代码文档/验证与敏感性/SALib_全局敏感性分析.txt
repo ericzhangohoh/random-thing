@@ -1,0 +1,924 @@
+Source: https://salib.readthedocs.io/en/latest/user_guide/basics.html
+Retrieved: 2026-11-02T09:39:11.818069+11:00
+
+Basics — SALib's documentation
+Skip to main content
+Back to top
+Ctrl
++
+K
+Getting started
+Basics
+SALib Interface
+Advanced
+Wrappers
+More
+FAQ
+API
+Developers Guide
+Release Guide
+Changes
+Complete Module Reference
+License
+Authors
+Projects that use SALib
+Search
+Ctrl
++
+K
+System Settings
+Light
+Dark
+Choose version
+GitHub
+Search
+Ctrl
++
+K
+Getting started
+Basics
+SALib Interface
+Advanced
+Wrappers
+FAQ
+API
+Developers Guide
+Release Guide
+Changes
+Complete Module Reference
+License
+Authors
+Projects that use SALib
+System Settings
+Light
+Dark
+Choose version
+GitHub
+Collapse Sidebar
+Expand Sidebar
+Section Navigation
+Basics
+Basics
+#
+What is Sensitivity Analysis?
+#
+According to
+Wikipedia
+,
+sensitivity analysis is “the study of how the uncertainty in the output of a
+mathematical model or system (numerical or otherwise) can be apportioned to
+different sources of uncertainty in its inputs.”  The sensitivity of each input
+is often represented by a numeric value, called the
+sensitivity index
+.
+Sensitivity indices come in several forms:
+First-order indices: measures the contribution to the output variance by a single
+model input alone.
+Second-order indices: measures the contribution to the output variance caused by
+the interaction of two model inputs.
+Total-order index: measures the contribution to the output variance caused by
+a model input, including both its first-order effects (the input varying alone)
+and all higher-order interactions.
+What is SALib?
+#
+SALib is an open source library written in Python for performing
+sensitivity analyses.  SALib provides a decoupled workflow, meaning it does not
+directly interface with the mathematical or computational model.  Instead,
+SALib is responsible for generating the model inputs, using one of the
+sample
+functions, and computing the sensitivity indices from the model
+outputs, using one of the
+analyze
+functions.  A typical sensitivity
+analysis using SALib follows four steps:
+Determine the model inputs (parameters) and their sample range.
+Run the
+sample
+function to generate the model inputs.
+Evaluate the model using the generated inputs, saving the model outputs.
+Run the
+analyze
+function on the outputs to compute the sensitivity indices.
+SALib provides several sensitivity analysis methods, such as Sobol, Morris,
+and FAST.  There are many factors that determine which method is appropriate
+for a specific application, which we will discuss later.  However, for now, just
+remember that regardless of which method you choose, you need to use only two
+functions:
+sample
+and
+analyze
+.  To demonstrate the use of SALib,
+we will walk through a simple example.
+An Example
+#
+In this example, we will perform a Sobol’ sensitivity analysis of the Ishigami
+function (shown below) using the core SALib functions. The example is repeated
+in the next tutorial using an object-oriented interface which some may find
+easier to use.
+The Ishigami function is commonly used to test uncertainty and sensitivity
+analysis methods because it exhibits strong nonlinearity and nonmonotonicity.
+\[f(x) = \sin(x_1) + a \sin^2(x_2) + b x_3^4 \sin(x_1)\]
+Importing SALib
+#
+The first step is the import the necessary libraries.  In SALib, the
+sample
+and
+analyze
+functions are stored in separate
+Python modules.  For example, below we import the
+saltelli
+sample
+function and the
+sobol
+analyze function.  We also import the Ishigami
+function, which is provided as a test function within SALib.  Lastly, we
+import
+numpy
+, as it is used by SALib to store the model inputs and
+outputs in a matrix.
+from
+SALib.sample
+import
+saltelli
+from
+SALib.analyze
+import
+sobol
+from
+SALib.test_functions
+import
+Ishigami
+import
+numpy
+as
+np
+Defining the Model Inputs
+#
+Next, we must define the model inputs.  The Ishigami function has three inputs,
+\(x_1, x_2, x_3\)
+where
+\(x_i \in [-\pi, \pi]\)
+.  In SALib, we define
+a
+dict
+defining the number of inputs, the names of the inputs, and
+the bounds on each input, as shown below.
+problem
+=
+{
+'num_vars'
+:
+3
+,
+'names'
+:
+[
+'x1'
+,
+'x2'
+,
+'x3'
+],
+'bounds'
+:
+[[
+-
+3.14159265359
+,
+3.14159265359
+],
+[
+-
+3.14159265359
+,
+3.14159265359
+],
+[
+-
+3.14159265359
+,
+3.14159265359
+]]
+}
+Generate Samples
+#
+Next, we generate the samples.  Since we are performing a Sobol’ sensitivity
+analysis, we need to generate samples using the Saltelli sampler, as shown
+below.
+param_values
+=
+saltelli
+.
+sample
+(
+problem
+,
+1024
+)
+Here,
+param_values
+is a NumPy matrix.  If we run
+param_values.shape
+, we see that the matrix has shape 8192 by 3.
+The Saltelli sampler generated 8192 samples.  The Saltelli sampler generates
+\(N*(2D+2)\)
+samples, where in this example N is 1024 (the argument we
+supplied) and D is 3 (the number of model inputs).
+Had we supplied the keyword argument
+calc_second_order=False
+,
+second-order indices would have been excluded, resulting in a smaller
+sample matrix with
+\(N*(D+2)\)
+rows instead.
+Run Model
+#
+As mentioned above, SALib is not involved in the evaluation of the mathematical
+or computational model.  If the model is written in Python, then generally you
+will loop over each sample input and evaluate the model:
+Y
+=
+np
+.
+zeros
+([
+param_values
+.
+shape
+[
+0
+]])
+for
+i
+,
+X
+in
+enumerate
+(
+param_values
+):
+Y
+[
+i
+]
+=
+evaluate_model
+(
+X
+)
+If the model is not written in Python, then the samples can be saved to a text
+file:
+np
+.
+savetxt
+(
+"param_values.txt"
+,
+param_values
+)
+Each line in
+param_values.txt
+is one input to the model.  The output
+from the model should be saved to another file with a similar format: one
+output on each line.  The outputs can then be loaded with:
+Y
+=
+np
+.
+loadtxt
+(
+"outputs.txt"
+,
+float
+)
+In this example, we are using the Ishigami function provided by SALib.  We
+can evaluate these test functions as shown below:
+Y
+=
+Ishigami
+.
+evaluate
+(
+param_values
+)
+Perform Analysis
+#
+With the model outputs loaded into Python, we can finally compute the sensitivity
+indices.  In this example, we use
+sobol.analyze
+, which will compute
+first, second, and total-order indices.
+Si
+=
+sobol
+.
+analyze
+(
+problem
+,
+Y
+)
+Si
+is a Python
+dict
+-like with the keys
+"S1"
+,
+"S2"
+,
+"ST"
+,
+"S1_conf"
+,
+"S2_conf"
+, and
+"ST_conf"
+.  The
+_conf
+keys store the corresponding confidence
+intervals, typically with a confidence level of 95%. Use the keyword argument
+print_to_console=True
+to print all indices.
+Alternatively, we can print the individual values from
+Si
+as shown below.
+print
+(
+Si
+[
+'S1'
+])
+[
+0.316832
+0.443763
+0.012203
+]
+Here, we see that x1 and x2 exhibit first-order sensitivities but x3 appears to
+have no first-order effects.
+print
+(
+Si
+[
+'ST'
+])
+[
+0.555860
+0.441898
+0.244675
+]
+If the total-order indices are substantially larger than the first-order
+indices, then there is likely higher-order interactions occurring.  We can look
+at the second-order indices to see these higher-order interactions:
+print
+(
+"x1-x2:"
+,
+Si
+[
+'S2'
+][
+0
+,
+1
+])
+print
+(
+"x1-x3:"
+,
+Si
+[
+'S2'
+][
+0
+,
+2
+])
+print
+(
+"x2-x3:"
+,
+Si
+[
+'S2'
+][
+1
+,
+2
+])
+x1
+-
+x2
+:
+0.0092542
+x1
+-
+x3
+:
+0.2381721
+x2
+-
+x3
+:
+-
+0.0048877
+We can see there are strong interactions between x1 and x3.  Some computing
+error will appear in the sensitivity indices.  For example, we observe a
+negative value for the x2-x3 index.  Typically, these computing errors shrink as
+the number of samples increases.
+The output can then be converted to a Pandas DataFrame for further analysis.
+total_Si
+,
+first_Si
+,
+second_Si
+=
+Si
+.
+to_df
+()
+# Note that if the sample was created with `calc_second_order=False`
+# Then the second order sensitivities will not be returned
+# total_Si, first_Si = Si.to_df()
+Basic Plotting
+#
+Basic plotting facilities are provided for convenience.
+Si
+.
+plot
+()
+The
+plot()
+method returns matplotlib axes for later adjustment.
+Another Example
+#
+When the model you want to analyse depends on parameters that are not part of
+the sensitivity analysis, like position or time, the analysis can be performed
+for each time/position “bin” separately.
+Consider the example of a parabola:
+\[f(x) = a + b x^2\]
+The parameters
+\(a\)
+and
+\(b\)
+will be subject to the sensitivity analysis,
+but
+\(x\)
+will be not.
+We start with a set of imports:
+import
+numpy
+as
+np
+import
+matplotlib.pyplot
+as
+plt
+from
+SALib.sample
+import
+saltelli
+from
+SALib.analyze
+import
+sobol
+and define the parabola:
+def
+parabola
+(
+x
+,
+a
+,
+b
+):
+"""Return y = a + b*x**2."""
+return
+a
++
+b
+*
+x
+**
+2
+The
+dict
+describing the problem contains therefore only
+\(a\)
+and
+\(b\)
+:
+problem
+=
+{
+'num_vars'
+:
+2
+,
+'names'
+:
+[
+'a'
+,
+'b'
+],
+'bounds'
+:
+[[
+0
+,
+1
+]]
+*
+2
+}
+The triad of sampling, evaluating and analysing becomes:
+# sample
+param_values
+=
+saltelli
+.
+sample
+(
+problem
+,
+2
+**
+6
+)
+# evaluate
+x
+=
+np
+.
+linspace
+(
+-
+1
+,
+1
+,
+100
+)
+y
+=
+np
+.
+array
+([
+parabola
+(
+x
+,
+*
+params
+)
+for
+params
+in
+param_values
+])
+# analyse
+sobol_indices
+=
+[
+sobol
+.
+analyze
+(
+problem
+,
+Y
+)
+for
+Y
+in
+y
+.
+T
+]
+Note how we analysed for each
+\(x\)
+separately.
+Now we can extract the first-order Sobol indices for each bin of
+\(x\)
+and plot:
+S1s
+=
+np
+.
+array
+([
+s
+[
+'S1'
+]
+for
+s
+in
+sobol_indices
+])
+fig
+=
+plt
+.
+figure
+(
+figsize
+=
+(
+10
+,
+6
+),
+constrained_layout
+=
+True
+)
+gs
+=
+fig
+.
+add_gridspec
+(
+2
+,
+2
+)
+ax0
+=
+fig
+.
+add_subplot
+(
+gs
+[:,
+0
+])
+ax1
+=
+fig
+.
+add_subplot
+(
+gs
+[
+0
+,
+1
+])
+ax2
+=
+fig
+.
+add_subplot
+(
+gs
+[
+1
+,
+1
+])
+for
+i
+,
+ax
+in
+enumerate
+([
+ax1
+,
+ax2
+]):
+ax
+.
+plot
+(
+x
+,
+S1s
+[:,
+i
+],
+label
+=
+r
+'S1$_\mathregular{{
+{}
+}}$'
+.
+format
+(
+problem
+[
+"names"
+][
+i
+]),
+color
+=
+'black'
+)
+ax
+.
+set_xlabel
+(
+"x"
+)
+ax
+.
+set_ylabel
+(
+"First-order Sobol index"
+)
+ax
+.
+set_ylim
+(
+0
+,
+1.04
+)
+ax
+.
+yaxis
+.
+set_label_position
+(
+"right"
+)
+ax
+.
+yaxis
+.
+tick_right
+()
+ax
+.
+legend
+(
+loc
+=
+'upper right'
+)
+ax0
+.
+plot
+(
+x
+,
+np
+.
+mean
+(
+y
+,
+axis
+=
+0
+),
+label
+=
+"Mean"
+,
+color
+=
+'black'
+)
+# in percent
+prediction_interval
+=
+95
+ax0
+.
+fill_between
+(
+x
+,
+np
+.
+percentile
+(
+y
+,
+50
+-
+prediction_interval
+/
+2.
+,
+axis
+=
+0
+),
+np
+.
+percentile
+(
+y
+,
+50
++
+prediction_interval
+/
+2.
+,
+axis
+=
+0
+),
+alpha
+=
+0.5
+,
+color
+=
+'black'
+,
+label
+=
+f
+"
+{
+prediction_interval
+}
+% prediction interval"
+)
+ax0
+.
+set_xlabel
+(
+"x"
+)
+ax0
+.
+set_ylabel
+(
+"y"
+)
+ax0
+.
+legend
+(
+title
+=
+r
+"$y=a+b\cdot x^2$"
+,
+loc
+=
+'upper center'
+)
+.
+_legend_box
+.
+align
+=
+"left"
+plt
+.
+show
+()
+With the help of the plots, we interpret the Sobol indices. At
+\(x=0\)
+, the variation in
+\(y\)
+can be explained to 100 % by
+parameter
+\(a\)
+as the contribution to
+\(y\)
+from
+\(b
+x^2\)
+vanishes. With larger
+\(|x|\)
+, the contribution to the
+variation from parameter
+\(b\)
+increases and the contribution from
+parameter
+\(a\)
+decreases.
+previous
+Getting Started
+next
+SALib Interface Basics
+On this page
+What is Sensitivity Analysis?
+What is SALib?
+An Example
+Importing SALib
+Defining the Model Inputs
+Generate Samples
+Run Model
+Perform Analysis
+Basic Plotting
+Another Example
+Show Source
+© Copyright 2026, Jon Herman, Will Usher and others.
+Created using
+Sphinx
+9.2.0.
+Built with the
+PyData Sphinx Theme
+0.23.0.

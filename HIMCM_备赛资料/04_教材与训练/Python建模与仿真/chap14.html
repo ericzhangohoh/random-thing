@@ -1,0 +1,1426 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Nondimensionalization of the SIR model: the contact number, and how simulation and analysis estimate it, in Python." name="description" />
+<meta property="og:title" content="14. Nondimensionalization" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://allendowney.github.io/ModSimPy/chap14.html" />
+<meta property="og:site_name" content="Modeling and Simulation in Python" />
+<meta property="og:description" content="Nondimensionalization of the SIR model: the contact number, and how simulation and analysis estimate it, in Python." />
+<meta property="og:image" content="https://raw.githubusercontent.com/AllenDowney/ModSimPy/master/modsimpy_cover.png" />
+<meta property="og:image:alt" content="Cover of Modeling and Simulation in Python by Allen B. Downey" />
+
+    <title>14. Nondimensionalization &#8212; Modeling and Simulation in Python</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chap14';</script>
+    <link rel="canonical" href="https://allendowney.github.io/ModSimPy/chap14.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="15. Cooling Coffee" href="chap15.html" />
+    <link rel="prev" title="13. Sweeping Parameters" href="chap13.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Modeling and Simulation in Python</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    ModSimPy: Free Online Book with Jupyter Notebooks
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Front Matter</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="preface.html">Preface</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapters</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="chap01.html">1. Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap02.html">2. Bike Share System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap03.html">3. Iteration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap04.html">4. Sweeping Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap05.html">5. World Population</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap06.html">6. Proportional Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap07.html">7. Limits to Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap08.html">8. Projecting Population Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap09.html">9. Analysis of Population Growth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap10.html">10. Case Studies Part 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap11.html">11. Epidemiology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap12.html">12. Modeling Vaccination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap13.html">13. Sweeping Parameters</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">14. Nondimensionalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap15.html">15. Cooling Coffee</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap16.html">16. Adding Milk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap17.html">17. Pharmacokinetics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap18.html">18. Glucose and Insulin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap19.html">19. Case Studies Part 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap20.html">20. The Empire State Building Strikes Back</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap21.html">21. Drag</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap22.html">22. Baseball</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap23.html">23. Optimal Baseball</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap24.html">24. Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap25.html">25. Torque</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap26.html">26. Case Studies Part 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chap27.html">27. Under the Hood</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Examples</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="queue.html">One Queue or Two</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://allendowney.github.io/ModSimPy/api/index.html">API Documentation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/AllenDowney/ModSimPy" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/chap14.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Nondimensionalization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-the-results">14.1. Exploring the Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contact-number">14.2. Contact Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-and-simulation">14.3. Analysis and Simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-contact-number">14.4. Estimating Contact Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">14.5. Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">14.6.1. Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">14.6.2. Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">14.6.3. Exercise 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#under-the-hood">14.7. Under the Hood</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p>Printed and electronic copies of <em>Modeling and Simulation in Python</em> are available from <a class="reference external" href="https://nostarch.com/modeling-and-simulation-python">No Starch Press</a> and <a class="reference external" href="https://bookshop.org/p/books/modeling-and-simulation-in-python-allen-b-downey/17836697?ean=9781718502161">Bookshop.org</a> and <a class="reference external" href="https://amzn.to/3y9UxNb">Amazon</a>.</p>
+<section class="tex2jax_ignore mathjax_ignore" id="nondimensionalization">
+<h1><span class="section-number">14. </span>Nondimensionalization<a class="headerlink" href="#nondimensionalization" title="Link to this heading">#</a></h1>
+<p>In the previous chapter we swept the parameters of the Kermack-McKendrick (KM) model: the contact rate, <code class="docutils literal notranslate"><span class="pre">beta</span></code>, and the recovery rate, <code class="docutils literal notranslate"><span class="pre">gamma</span></code>.
+For each pair of parameters, we ran a simulation and computed the total fraction of the population infected.</p>
+<p>In this chapter we’ll investigate the relationship between the parameters and this metric, using both simulation and analysis.</p>
+<p>This chapter is available as a Jupyter notebook where you can read the text, run the code, and work on the exercises.
+Click here to access the notebooks: <a class="reference external" href="https://allendowney.github.io/ModSimPy/">https://allendowney.github.io/ModSimPy/</a>.</p>
+<p>The figures in the previous chapter suggest that there is a relationship between the parameters of the KM model, <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">gamma</span></code>, and the fraction of the population that is infected. Let’s think about what that relationship might be.</p>
+<ul class="simple">
+<li><p>When <code class="docutils literal notranslate"><span class="pre">beta</span></code> exceeds <code class="docutils literal notranslate"><span class="pre">gamma</span></code>, there are more contacts
+than recoveries during each day. The difference between <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">gamma</span></code> might be called the <em>excess contact rate</em>, in units of contacts per day.</p></li>
+<li><p>As an alternative, we might consider the ratio <code class="docutils literal notranslate"><span class="pre">beta/gamma</span></code>, which
+is the number of contacts per recovery. Because the numerator and
+denominator are in the same units, this ratio is <em>dimensionless</em>, which means it has no units.</p></li>
+</ul>
+<p>Describing physical systems using dimensionless parameters is often a
+useful move in the modeling and simulation game. In fact, it is so useful that it has a name: <em>nondimensionalization</em> (see
+<a class="reference external" href="http://modsimpy.com/nondim">http://modsimpy.com/nondim</a>).
+So that’s what we’ll try first.</p>
+<section id="exploring-the-results">
+<h2><span class="section-number">14.1. </span>Exploring the Results<a class="headerlink" href="#exploring-the-results" title="Link to this heading">#</a></h2>
+<p>In the previous chapter, we wrote a function, <code class="docutils literal notranslate"><span class="pre">sweep_parameters</span></code>,
+that takes an array of values for <code class="docutils literal notranslate"><span class="pre">beta</span></code> and an array of values for <code class="docutils literal notranslate"><span class="pre">gamma</span></code>.
+It runs a simulation for each pair of parameters and returns a <code class="docutils literal notranslate"><span class="pre">SweepFrame</span></code> with the results.</p>
+<p>I’ll run it again with the following arrays of parameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">beta_array</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> 
+              <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span> <span class="p">,</span> <span class="mf">1.1</span><span class="p">]</span>
+<span class="n">gamma_array</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
+<span class="n">frame</span> <span class="o">=</span> <span class="n">sweep_parameters</span><span class="p">(</span><span class="n">beta_array</span><span class="p">,</span> <span class="n">gamma_array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here’s what the first few rows look like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frame</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0.2</th>
+      <th>0.4</th>
+      <th>0.6</th>
+      <th>0.8</th>
+    </tr>
+    <tr>
+      <th>Parameter</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.1</th>
+      <td>0.010756</td>
+      <td>0.003642</td>
+      <td>0.002191</td>
+      <td>0.001567</td>
+    </tr>
+    <tr>
+      <th>0.2</th>
+      <td>0.118984</td>
+      <td>0.010763</td>
+      <td>0.005447</td>
+      <td>0.003644</td>
+    </tr>
+    <tr>
+      <th>0.3</th>
+      <td>0.589095</td>
+      <td>0.030185</td>
+      <td>0.010771</td>
+      <td>0.006526</td>
+    </tr>
+    <tr>
+      <th>0.4</th>
+      <td>0.801339</td>
+      <td>0.131563</td>
+      <td>0.020917</td>
+      <td>0.010780</td>
+    </tr>
+    <tr>
+      <th>0.5</th>
+      <td>0.896577</td>
+      <td>0.396409</td>
+      <td>0.046140</td>
+      <td>0.017640</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">SweepFrame</span></code> has one row for each value of <code class="docutils literal notranslate"><span class="pre">beta</span></code> and one column for each value of <code class="docutils literal notranslate"><span class="pre">gamma</span></code>.
+We can print the values in the <code class="docutils literal notranslate"><span class="pre">SweepFrame</span></code> like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">gamma</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="n">column</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">metric</span> <span class="o">=</span> <span class="n">column</span><span class="p">[</span><span class="n">beta</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1 0.2 0.010756340768063644
+0.2 0.2 0.11898421353185373
+0.3 0.2 0.5890954199973404
+0.4 0.2 0.8013385277185551
+0.5 0.2 0.8965769637207062
+0.6 0.2 0.942929291399791
+0.7 0.2 0.966299311298026
+0.8 0.2 0.9781518959989762
+0.9 0.2 0.9840568957948106
+1.0 0.2 0.9868823507202488
+1.1 0.2 0.988148177093735
+0.1 0.4 0.0036416926514175607
+0.2 0.4 0.010763463373360094
+0.3 0.4 0.030184952469116566
+0.4 0.4 0.131562924303259
+0.5 0.4 0.3964094037932606
+0.6 0.4 0.5979016626615987
+0.7 0.4 0.7284704154876106
+0.8 0.4 0.8144604459153759
+0.9 0.4 0.8722697237137128
+1.0 0.4 0.9116692168795855
+1.1 0.4 0.9386802509510287
+0.1 0.6 0.002190722188881611
+0.2 0.6 0.005446688837466351
+0.3 0.6 0.010771139974975585
+0.4 0.6 0.020916599304195316
+0.5 0.6 0.04614035896610047
+0.6 0.6 0.13288938996079536
+0.7 0.6 0.3118432512847451
+0.8 0.6 0.47832565854255393
+0.9 0.6 0.605687582114665
+1.0 0.6 0.7014254793376209
+1.1 0.6 0.7738176405451065
+0.1 0.8 0.0015665254038139675
+0.2 0.8 0.003643953969662994
+0.3 0.8 0.006526163529085194
+0.4 0.8 0.010779807499500693
+0.5 0.8 0.017639902596349066
+0.6 0.8 0.030291868201986594
+0.7 0.8 0.05882382948158804
+0.8 0.8 0.13358889291095588
+0.9 0.8 0.2668895539427739
+1.0 0.8 0.40375121210421994
+1.1 0.8 0.519583469821867
+</pre></div>
+</div>
+</div>
+</div>
+<p>This is the first example we’ve seen with one <code class="docutils literal notranslate"><span class="pre">for</span></code> loop inside another:</p>
+<ul class="simple">
+<li><p>Each time the outer loop runs, it selects a value of <code class="docutils literal notranslate"><span class="pre">gamma</span></code> from
+the columns of the <code class="docutils literal notranslate"><span class="pre">SweepFrame</span></code> and extracts the corresponding
+column.</p></li>
+<li><p>Each time the inner loop runs, it selects a value of <code class="docutils literal notranslate"><span class="pre">beta</span></code> from the index of the column and selects the corresponding element, which is the fraction of the population that got infected.</p></li>
+</ul>
+<p>Since there are 11 rows and 4 columns, the total number of lines in the output is 44.</p>
+<p>The following function uses the same loops to enumerate the elements of the <code class="docutils literal notranslate"><span class="pre">SweepFrame</span></code>, but instead of printing a line for each element, it plots a point.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_sweep_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">column</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">gamma</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="n">column</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="n">metric</span> <span class="o">=</span> <span class="n">column</span><span class="p">[</span><span class="n">beta</span><span class="p">]</span>
+            <span class="n">plot</span><span class="p">(</span><span class="n">beta</span><span class="o">/</span><span class="n">gamma</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For each element of the <code class="docutils literal notranslate"><span class="pre">SweepFrame</span></code> it plots a point with the ratio <code class="docutils literal notranslate"><span class="pre">beta/gamma</span></code> as the <span class="math notranslate nohighlight">\(x\)</span> coordinate and <code class="docutils literal notranslate"><span class="pre">metric</span></code> — which is the fraction of the population that’s infected — as the <span class="math notranslate nohighlight">\(y\)</span> coordinate.</p>
+<p>Here’s what it looks like:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_sweep_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Contact number (beta/gamma)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Fraction infected&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/ad600ccb2ebb4b276fa6e21cc563bb62188b9ba31f74578d82c172f800b9a57e.png" src="_images/ad600ccb2ebb4b276fa6e21cc563bb62188b9ba31f74578d82c172f800b9a57e.png" />
+</div>
+</div>
+<p>The results fall on a single curve, at least approximately. That means that we can predict the fraction of the population that will be infected based on a single parameter, the ratio <code class="docutils literal notranslate"><span class="pre">beta/gamma</span></code>. We don’t need to know the values of <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">gamma</span></code> separately.</p>
+</section>
+<section id="contact-number">
+<h2><span class="section-number">14.2. </span>Contact Number<a class="headerlink" href="#contact-number" title="Link to this heading">#</a></h2>
+<p>From Chapter 11, recall that the number of new infections in a
+given day is <span class="math notranslate nohighlight">\(\beta s i N\)</span>, and the number of recoveries is
+<span class="math notranslate nohighlight">\(\gamma i N\)</span>. If we divide these quantities, the result is
+<span class="math notranslate nohighlight">\(\beta s / \gamma\)</span>, which is the number of new infections per recovery
+(as a fraction of the population).</p>
+<p>When a new disease is introduced to a susceptible population, <span class="math notranslate nohighlight">\(s\)</span> is
+approximately 1, so the number of people infected by each sick person is <span class="math notranslate nohighlight">\(\beta / \gamma\)</span>. This ratio is called the <em>contact number</em> or <em>basic reproduction number</em> (see <a class="reference external" href="http://modsimpy.com/contact">http://modsimpy.com/contact</a>). By convention it is usually denoted <span class="math notranslate nohighlight">\(R_0\)</span>, but in the context of an SIR model, that notation is confusing, so we’ll use <span class="math notranslate nohighlight">\(c\)</span> instead.</p>
+<p>The results in the previous section suggest that there is a relationship between <span class="math notranslate nohighlight">\(c\)</span> and the total number of infections. We can derive this relationship by analyzing the differential equations from
+Chapter 11:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\frac{ds}{dt} &amp;= -\beta s i \\
+\frac{di}{dt} &amp;= \beta s i - \gamma i\\
+\frac{dr}{dt} &amp;= \gamma i\end{aligned}
+\end{split}\]</div>
+<p>In the same way we divided the
+contact rate by the recovery rate to get the dimensionless quantity
+<span class="math notranslate nohighlight">\(c\)</span>, now we’ll divide <span class="math notranslate nohighlight">\(di/dt\)</span> by <span class="math notranslate nohighlight">\(ds/dt\)</span> to get a ratio of rates:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{di}{ds} = \frac{\beta s i - \gamma i}{-\beta s i}
+\]</div>
+<p>Which we can simplify as</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{di}{ds} = -1 + \frac{\gamma}{\beta s}
+\]</div>
+<p>Replacing <span class="math notranslate nohighlight">\(\beta/\gamma\)</span> with <span class="math notranslate nohighlight">\(c\)</span>, we can write</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{di}{ds} = -1 + \frac{1}{c s}
+\]</div>
+<p>Dividing one differential equation by another is not an obvious move, but in this case it is useful because it gives us a relationship between <span class="math notranslate nohighlight">\(i\)</span>, <span class="math notranslate nohighlight">\(s\)</span>, and <span class="math notranslate nohighlight">\(c\)</span> that does not depend on time. From that relationship, we can derive an equation that relates <span class="math notranslate nohighlight">\(c\)</span> to the final value of <span class="math notranslate nohighlight">\(s\)</span>. In theory, this equation makes it possible to infer <span class="math notranslate nohighlight">\(c\)</span> by observing the course of an epidemic.</p>
+<p>Here’s how the derivation goes. We multiply both sides of the previous
+equation by <span class="math notranslate nohighlight">\(ds\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+di = \left( -1 + \frac{1}{cs} \right) ds
+\]</div>
+<p>And then integrate both sides:</p>
+<div class="math notranslate nohighlight">
+\[
+i = -s + \frac{1}{c} \log s + q
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(q\)</span> is a constant of integration. Rearranging terms yields:</p>
+<div class="math notranslate nohighlight">
+\[
+q = i + s - \frac{1}{c} \log s
+\]</div>
+<p>Now let’s see if we can figure out what <span class="math notranslate nohighlight">\(q\)</span> is. At the beginning of an epidemic, if the fraction infected is small and nearly everyone is susceptible, we can use the approximations <span class="math notranslate nohighlight">\(i(0) = 0\)</span> and <span class="math notranslate nohighlight">\(s(0) = 1\)</span> to compute <span class="math notranslate nohighlight">\(q\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+q = 0 + 1 + \frac{1}{c} \log 1
+\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\log 1 = 0\)</span>, we get <span class="math notranslate nohighlight">\(q = 1\)</span>.</p>
+<p>Now, at the end of the epidemic, let’s assume that <span class="math notranslate nohighlight">\(i(\infty) = 0\)</span>, and <span class="math notranslate nohighlight">\(s(\infty)\)</span> is an unknown quantity, <span class="math notranslate nohighlight">\(s_{\infty}\)</span>. Now we have:</p>
+<div class="math notranslate nohighlight">
+\[
+q = 1 = 0 + s_{\infty}- \frac{1}{c} \log s_{\infty}
+\]</div>
+<p>Solving for <span class="math notranslate nohighlight">\(c\)</span>, we get</p>
+<div class="math notranslate nohighlight">
+\[
+c = \frac{\log s_{\infty}}{s_{\infty}- 1}
+\]</div>
+<p>By relating <span class="math notranslate nohighlight">\(c\)</span> and <span class="math notranslate nohighlight">\(s_{\infty}\)</span>, this equation makes it possible to estimate <span class="math notranslate nohighlight">\(c\)</span> based on data, and possibly predict the behavior of future epidemics.</p>
+</section>
+<section id="analysis-and-simulation">
+<h2><span class="section-number">14.3. </span>Analysis and Simulation<a class="headerlink" href="#analysis-and-simulation" title="Link to this heading">#</a></h2>
+<p>Let’s compare this analytic result to the results from simulation. I’ll create an array of values for <span class="math notranslate nohighlight">\(s_{\infty}\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">s_inf_array</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">0.003</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>And compute the corresponding values of <span class="math notranslate nohighlight">\(c\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">log</span>
+
+<span class="n">c_array</span> <span class="o">=</span> <span class="n">log</span><span class="p">(</span><span class="n">s_inf_array</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">s_inf_array</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>To get the total infected, we compute the difference between <span class="math notranslate nohighlight">\(s(0)\)</span> and
+<span class="math notranslate nohighlight">\(s(\infty)\)</span>, then store the results in a <code class="docutils literal notranslate"><span class="pre">Series</span></code>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frac_infected</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">s_inf_array</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The ModSim library provides a function called <code class="docutils literal notranslate"><span class="pre">make_series</span></code> we can use to put <code class="docutils literal notranslate"><span class="pre">c_array</span></code> and <code class="docutils literal notranslate"><span class="pre">frac_infected</span></code> in a Pandas <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frac_infected_series</span> <span class="o">=</span> <span class="n">make_series</span><span class="p">(</span><span class="n">c_array</span><span class="p">,</span> <span class="n">frac_infected</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we can plot the results:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_sweep_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+<span class="n">frac_infected_series</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;analysis&#39;</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Contact number (c)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Fraction infected&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/10409490765ce17ac536a6e4285bd53f1c72e3bcbd242e2763b0f4e2f493a966.png" src="_images/10409490765ce17ac536a6e4285bd53f1c72e3bcbd242e2763b0f4e2f493a966.png" />
+</div>
+</div>
+<p>When the contact number exceeds 1, analysis and simulation agree. When
+the contact number is less than 1, they do not: analysis indicates there should be no infections; in the simulations there are a small number of infections.</p>
+<p>The reason for the discrepancy is that the analysis assumes that the initial number of infections is negligible, which is like assuming the population is very large.
+In the simulation, the initial infection is one student, which is about 1% of the class.
+When the contact number is less than 1, that student infects a few others before recovering, even though the disease can’t spread through the population.
+When the contact number is greater than 1, these few infections are negligible compared to the outbreak.</p>
+</section>
+<section id="estimating-contact-number">
+<h2><span class="section-number">14.4. </span>Estimating Contact Number<a class="headerlink" href="#estimating-contact-number" title="Link to this heading">#</a></h2>
+<p>The previous figure shows that if we know the contact number, we can estimate the fraction of the population that will be infected with just a few arithmetic operations.
+We don’t have to run a simulation.</p>
+<p>We can also read the figure the other way; if we know what fraction of the population was affected by a past outbreak, we can estimate the contact number.
+Then, if we know one of the parameters, like <code class="docutils literal notranslate"><span class="pre">gamma</span></code>, we can use the contact number to estimate the other parameter, like <code class="docutils literal notranslate"><span class="pre">beta</span></code>.</p>
+<p>At least in theory, we can.
+In practice, it might not work very well, because of the shape of the curve.</p>
+<ul class="simple">
+<li><p>When the contact number is low, the curve is quite steep, which means that small changes in <span class="math notranslate nohighlight">\(c\)</span> yield big changes in the number of infections. If we observe that the total fraction infected is anywhere from 25% to 60%, we would conclude that <span class="math notranslate nohighlight">\(c\)</span> is near 1.3.</p></li>
+<li><p>And when the contact number is high, the curve is nearly flat, which means that it’s hard to see the difference between values of <span class="math notranslate nohighlight">\(c\)</span> between 3 and 6.</p></li>
+</ul>
+<p>With the uncertainty of real data, we might not be able to estimate <span class="math notranslate nohighlight">\(c\)</span> with much precision.
+But as one of the exercises below, you’ll have a chance to try.</p>
+</section>
+<section id="summary">
+<h2><span class="section-number">14.5. </span>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p>In this chapter we used simulations to explore the relationship between <code class="docutils literal notranslate"><span class="pre">beta</span></code>, <code class="docutils literal notranslate"><span class="pre">gamma</span></code>, and the fraction infected.
+Then we used analysis to explain that relationship.</p>
+<p>With that, we are done with the Kermack-McKendrick model.
+In the next chapter we’ll move on to thermal systems and the notorious coffee cooling problem.</p>
+</section>
+<section id="exercises">
+<h2><span class="section-number">14.6. </span>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<section id="exercise-1">
+<h3><span class="section-number">14.6.1. </span>Exercise 1<a class="headerlink" href="#exercise-1" title="Link to this heading">#</a></h3>
+<p>At the beginning of this chapter, I suggested two ways to relate <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">gamma</span></code>: we could compute their difference or their ratio.</p>
+<p>Because the ratio is dimensionless, I suggested we explore it first, and that led us to discover the contact number, which is <code class="docutils literal notranslate"><span class="pre">beta/gamma</span></code>.
+When we plotted the fraction infected as a function of the contact number, we found that this metric falls on a single curve, at least approximately.
+That indicates that the ratio is enough to predict the results; we don’t have to know <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">gamma</span></code> individually.</p>
+<p>But that leaves a question open: what happens if we do the same thing using the difference instead of the ratio?</p>
+<p>Write a version of <code class="docutils literal notranslate"><span class="pre">plot_sweep_frame</span></code>, called <code class="docutils literal notranslate"><span class="pre">plot_sweep_frame_difference</span></code>, that plots the fraction infected versus the difference <code class="docutils literal notranslate"><span class="pre">beta-gamma</span></code>.</p>
+<p>What do the results look like, and what does that imply?</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_sweep_frame_difference</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">column</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">gamma</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="n">column</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="n">metric</span> <span class="o">=</span> <span class="n">column</span><span class="p">[</span><span class="n">beta</span><span class="p">]</span>
+            <span class="n">plot</span><span class="p">(</span><span class="n">beta</span> <span class="o">-</span> <span class="n">gamma</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">plot_sweep_frame_difference</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Excess infection rate (infections-recoveries per day)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Fraction infected&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4ae78f5112a3a9eb60f0814e4abc6f3c49df4168a6adf4cbf8437c7378aed896.png" src="_images/4ae78f5112a3a9eb60f0814e4abc6f3c49df4168a6adf4cbf8437c7378aed896.png" />
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># The results don&#39;t fall on a curve, which means that if we </span>
+<span class="c1"># know the difference between `beta` and `gamma`, </span>
+<span class="c1"># but not their ratio, that&#39;s not enough to predict </span>
+<span class="c1"># the fraction infected.</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="exercise-2">
+<h3><span class="section-number">14.6.2. </span>Exercise 2<a class="headerlink" href="#exercise-2" title="Link to this heading">#</a></h3>
+<p>Suppose you run a survey at the end of the semester and find that 26% of students had the Freshman Plague at some point.
+What is your best estimate of <code class="docutils literal notranslate"><span class="pre">c</span></code>?</p>
+<p>Hint: if you display <code class="docutils literal notranslate"><span class="pre">frac_infected_series</span></code>, you can read off the answer.</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">show</span><span class="p">(</span><span class="n">frac_infected_series</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>values</th>
+    </tr>
+    <tr>
+      <th>index</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5.826623</th>
+      <td>0.997000</td>
+    </tr>
+    <tr>
+      <th>3.855292</th>
+      <td>0.976857</td>
+    </tr>
+    <tr>
+      <th>3.281996</th>
+      <td>0.956714</td>
+    </tr>
+    <tr>
+      <th>2.944613</th>
+      <td>0.936571</td>
+    </tr>
+    <tr>
+      <th>2.708398</th>
+      <td>0.916429</td>
+    </tr>
+    <tr>
+      <th>2.528340</th>
+      <td>0.896286</td>
+    </tr>
+    <tr>
+      <th>2.383888</th>
+      <td>0.876143</td>
+    </tr>
+    <tr>
+      <th>2.263951</th>
+      <td>0.856000</td>
+    </tr>
+    <tr>
+      <th>2.161874</th>
+      <td>0.835857</td>
+    </tr>
+    <tr>
+      <th>2.073358</th>
+      <td>0.815714</td>
+    </tr>
+    <tr>
+      <th>1.995467</th>
+      <td>0.795571</td>
+    </tr>
+    <tr>
+      <th>1.926111</th>
+      <td>0.775429</td>
+    </tr>
+    <tr>
+      <th>1.863750</th>
+      <td>0.755286</td>
+    </tr>
+    <tr>
+      <th>1.807220</th>
+      <td>0.735143</td>
+    </tr>
+    <tr>
+      <th>1.755617</th>
+      <td>0.715000</td>
+    </tr>
+    <tr>
+      <th>1.708229</th>
+      <td>0.694857</td>
+    </tr>
+    <tr>
+      <th>1.664484</th>
+      <td>0.674714</td>
+    </tr>
+    <tr>
+      <th>1.623917</th>
+      <td>0.654571</td>
+    </tr>
+    <tr>
+      <th>1.586142</th>
+      <td>0.634429</td>
+    </tr>
+    <tr>
+      <th>1.550839</th>
+      <td>0.614286</td>
+    </tr>
+    <tr>
+      <th>1.517739</th>
+      <td>0.594143</td>
+    </tr>
+    <tr>
+      <th>1.486613</th>
+      <td>0.574000</td>
+    </tr>
+    <tr>
+      <th>1.457264</th>
+      <td>0.553857</td>
+    </tr>
+    <tr>
+      <th>1.429523</th>
+      <td>0.533714</td>
+    </tr>
+    <tr>
+      <th>1.403242</th>
+      <td>0.513571</td>
+    </tr>
+    <tr>
+      <th>1.378295</th>
+      <td>0.493429</td>
+    </tr>
+    <tr>
+      <th>1.354567</th>
+      <td>0.473286</td>
+    </tr>
+    <tr>
+      <th>1.331959</th>
+      <td>0.453143</td>
+    </tr>
+    <tr>
+      <th>1.310383</th>
+      <td>0.433000</td>
+    </tr>
+    <tr>
+      <th>1.289761</th>
+      <td>0.412857</td>
+    </tr>
+    <tr>
+      <th>1.270022</th>
+      <td>0.392714</td>
+    </tr>
+    <tr>
+      <th>1.251104</th>
+      <td>0.372571</td>
+    </tr>
+    <tr>
+      <th>1.232948</th>
+      <td>0.352429</td>
+    </tr>
+    <tr>
+      <th>1.215505</th>
+      <td>0.332286</td>
+    </tr>
+    <tr>
+      <th>1.198727</th>
+      <td>0.312143</td>
+    </tr>
+    <tr>
+      <th>1.182573</th>
+      <td>0.292000</td>
+    </tr>
+    <tr>
+      <th>1.167003</th>
+      <td>0.271857</td>
+    </tr>
+    <tr>
+      <th>1.151982</th>
+      <td>0.251714</td>
+    </tr>
+    <tr>
+      <th>1.137479</th>
+      <td>0.231571</td>
+    </tr>
+    <tr>
+      <th>1.123464</th>
+      <td>0.211429</td>
+    </tr>
+    <tr>
+      <th>1.109908</th>
+      <td>0.191286</td>
+    </tr>
+    <tr>
+      <th>1.096788</th>
+      <td>0.171143</td>
+    </tr>
+    <tr>
+      <th>1.084080</th>
+      <td>0.151000</td>
+    </tr>
+    <tr>
+      <th>1.071762</th>
+      <td>0.130857</td>
+    </tr>
+    <tr>
+      <th>1.059815</th>
+      <td>0.110714</td>
+    </tr>
+    <tr>
+      <th>1.048220</th>
+      <td>0.090571</td>
+    </tr>
+    <tr>
+      <th>1.036960</th>
+      <td>0.070429</td>
+    </tr>
+    <tr>
+      <th>1.026019</th>
+      <td>0.050286</td>
+    </tr>
+    <tr>
+      <th>1.015381</th>
+      <td>0.030143</td>
+    </tr>
+    <tr>
+      <th>1.005034</th>
+      <td>0.010000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="c1"># It looks like the fraction infected is 0.26 when the contact </span>
+<span class="c1"># number is about 1.16</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+</section>
+<section id="exercise-3">
+<h3><span class="section-number">14.6.3. </span>Exercise 3<a class="headerlink" href="#exercise-3" title="Link to this heading">#</a></h3>
+<p>So far the only metric we have considered is the total fraction of the population that gets infected over the course of an epidemic.  That is an important metric, but it is not the only one we care about.</p>
+<p>For example, if we have limited resources to deal with infected people, we might also be concerned about the number of people who are sick at the peak of the epidemic, which is the maximum of <code class="docutils literal notranslate"><span class="pre">I</span></code>.</p>
+<p>Write a version of <code class="docutils literal notranslate"><span class="pre">sweep_beta</span></code> that computes this metric, and use it to compute a <code class="docutils literal notranslate"><span class="pre">SweepFrame</span></code> for a range of values of <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">gamma</span></code>.
+Make a contour plot that shows the value of this metric as a function of <code class="docutils literal notranslate"><span class="pre">beta</span></code> and <code class="docutils literal notranslate"><span class="pre">gamma</span></code>.</p>
+<p>Then use <code class="docutils literal notranslate"><span class="pre">plot_sweep_frame</span></code> to plot the maximum of <code class="docutils literal notranslate"><span class="pre">I</span></code> as a function of the contact number, <code class="docutils literal notranslate"><span class="pre">beta/gamma</span></code>.
+Do the results fall on a single curve?</p>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sweep_beta_max</span><span class="p">(</span><span class="n">beta_array</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
+    <span class="n">sweep</span> <span class="o">=</span> <span class="n">SweepSeries</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="n">beta_array</span><span class="p">:</span>
+        <span class="n">system</span> <span class="o">=</span> <span class="n">make_system</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">update_func</span><span class="p">)</span>
+        <span class="n">sweep</span><span class="p">[</span><span class="n">beta</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">i</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">sweep</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sweep_parameters_max</span><span class="p">(</span><span class="n">beta_array</span><span class="p">,</span> <span class="n">gamma_array</span><span class="p">):</span>
+    <span class="n">frame</span> <span class="o">=</span> <span class="n">SweepFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">gamma_array</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">gamma_array</span><span class="p">:</span>
+        <span class="n">frame</span><span class="p">[</span><span class="n">gamma</span><span class="p">]</span> <span class="o">=</span> <span class="n">sweep_beta_max</span><span class="p">(</span><span class="n">beta_array</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">frame</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">frame_max</span> <span class="o">=</span> <span class="n">sweep_parameters_max</span><span class="p">(</span><span class="n">beta_array</span><span class="p">,</span> <span class="n">gamma_array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">contour</span><span class="p">(</span><span class="n">frame_max</span><span class="p">)</span>
+
+<span class="n">decorate</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;Recovery rate (gamma)&#39;</span><span class="p">,</span>
+         <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;Contact rate (beta)&#39;</span><span class="p">,</span>
+         <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Contour plot, maximum I&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/c9ce15eac40ad77b7c44ea0967e620c8ff9000fe70dd30f18bcba12f0195db71.png" src="_images/c9ce15eac40ad77b7c44ea0967e620c8ff9000fe70dd30f18bcba12f0195db71.png" />
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">system</span> <span class="o">=</span> <span class="n">make_system</span><span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">run_simulation</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">update_func</span><span class="p">)</span>
+<span class="n">plot_results</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">i</span><span class="p">,</span> <span class="n">results</span><span class="o">.</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cadcd988a427add195d053d7074218937178ffc6c1faf513505817f1ea52a493.png" src="_images/cadcd988a427add195d053d7074218937178ffc6c1faf513505817f1ea52a493.png" />
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_sweep_frame</span><span class="p">(</span><span class="n">frame</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">series</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[</span><span class="n">gamma</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="n">series</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="n">metric</span> <span class="o">=</span> <span class="n">series</span><span class="p">[</span><span class="n">beta</span><span class="p">]</span>
+            <span class="n">plot</span><span class="p">(</span><span class="n">beta</span><span class="o">/</span><span class="n">gamma</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;C1&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell content</p>
+<p class="expanded admonition-title">Hide code cell content</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solution</span>
+
+<span class="n">plot_sweep_frame</span><span class="p">(</span><span class="n">frame_max</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d3bfe4f9c7704daccdcb8c91760a3454d6bca272d16eee94e5dc100d88772159.png" src="_images/d3bfe4f9c7704daccdcb8c91760a3454d6bca272d16eee94e5dc100d88772159.png" />
+</div>
+</details>
+</div>
+</section>
+</section>
+<section id="under-the-hood">
+<h2><span class="section-number">14.7. </span>Under the Hood<a class="headerlink" href="#under-the-hood" title="Link to this heading">#</a></h2>
+<p>ModSim provides <code class="docutils literal notranslate"><span class="pre">make_series</span></code> to make it easier to create a Pandas Series.  In this chapter, we used it like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">frac_infected_series</span> <span class="o">=</span> <span class="n">make_series</span><span class="p">(</span><span class="n">c_array</span><span class="p">,</span> <span class="n">frac_infected</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you import <code class="docutils literal notranslate"><span class="pre">Series</span></code> from Pandas, you can make a <code class="docutils literal notranslate"><span class="pre">Series</span></code> yourself, like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">Series</span>
+
+<span class="n">frac_infected_series</span> <span class="o">=</span> <span class="n">Series</span><span class="p">(</span><span class="n">frac_infected</span><span class="p">,</span> <span class="n">c_array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The difference is that the arguments are in reverse order: the first argument is stored as the values in the <code class="docutils literal notranslate"><span class="pre">Series</span></code>; the second argument is stored as the index.</p>
+<p>I find that order counterintuitive, which is why I use <code class="docutils literal notranslate"><span class="pre">make_series</span></code>.
+<code class="docutils literal notranslate"><span class="pre">make_series</span></code> takes the same optional keyword arguments as <code class="docutils literal notranslate"><span class="pre">Series</span></code>, which you can read about at <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html">https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html</a>.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chap13.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">13. </span>Sweeping Parameters</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chap15.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">15. </span>Cooling Coffee</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exploring-the-results">14.1. Exploring the Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contact-number">14.2. Contact Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-and-simulation">14.3. Analysis and Simulation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-contact-number">14.4. Estimating Contact Number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">14.5. Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">14.6. Exercises</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-1">14.6.1. Exercise 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-2">14.6.2. Exercise 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-3">14.6.3. Exercise 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#under-the-hood">14.7. Under the Hood</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Allen B. Downey
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <script>new Image().src="https://greenteapress.com/gh.gif?u="+encodeURIComponent(location.href)+"&r="+encodeURIComponent(document.referrer)</script>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

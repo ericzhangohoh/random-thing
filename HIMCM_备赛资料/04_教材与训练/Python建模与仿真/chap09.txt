@@ -1,0 +1,1005 @@
+Source: https://allendowney.github.io/ModSimPy/chap09.html
+Retrieved: 2026-11-02T09:39:11.818069+11:00
+
+9. Analysis of Population Growth — Modeling and Simulation in Python
+Skip to main content
+Back to top
+Ctrl
++
+K
+Modeling and Simulation in Python
+ModSimPy: Free Online Book with Jupyter Notebooks
+Front Matter
+Preface
+Chapters
+1. Modeling
+2. Bike Share System
+3. Iteration
+4. Sweeping Parameters
+5. World Population
+6. Proportional Growth
+7. Limits to Growth
+8. Projecting Population Growth
+9. Analysis of Population Growth
+10. Case Studies Part 1
+11. Epidemiology
+12. Modeling Vaccination
+13. Sweeping Parameters
+14. Nondimensionalization
+15. Cooling Coffee
+16. Adding Milk
+17. Pharmacokinetics
+18. Glucose and Insulin
+19. Case Studies Part 2
+20. The Empire State Building Strikes Back
+21. Drag
+22. Baseball
+23. Optimal Baseball
+24. Rotation
+25. Torque
+26. Case Studies Part 3
+27. Under the Hood
+Examples
+One Queue or Two
+API Reference
+API Documentation
+.ipynb
+.pdf
+Analysis of Population Growth
+Contents
+9.1. Difference Equations
+9.2. Differential Equations
+9.3. Analysis and Simulation
+9.4. Analysis with WolframAlpha
+9.5. Analysis with SymPy
+9.6. Differential Equations In SymPy
+9.7. Solving the Quadratic Growth Model
+9.8. Summary
+9.9. Exercises
+9.9.1. Exercise 1
+9.9.2. Exercise 2
+Printed and electronic copies of
+Modeling and Simulation in Python
+are available from
+No Starch Press
+and
+Bookshop.org
+and
+Amazon
+.
+9.
+Analysis of Population Growth
+#
+In this chapter we’ll express the models from previous chapters as
+difference equations and differential equations, solve the equations,
+and derive the functional forms of the solutions. And I’ll present some thoughts about the complementary roles of mathematical analysis and simulation.
+This chapter is available as a Jupyter notebook where you can read the text, run the code, and work on the exercises.
+Click here to access the notebooks:
+https://allendowney.github.io/ModSimPy/
+.
+9.1.
+Difference Equations
+#
+The population models in the previous chapters are simple
+enough that we didn’t really need to run simulations. We could have
+solved them mathematically. For example, we wrote the constant growth
+model like this:
+results
+[
+t
++
+1
+]
+=
+results
+[
+t
+]
++
+annual_growth
+In mathematical notation, we would write the same model like this:
+\[
+x_{n+1} = x_n + c
+\]
+where
+\(x_n\)
+is the population during year
+\(n\)
+,
+\(x_{n+1}\)
+is the population during year
+\(n+1\)
+,
+and
+\(c\)
+is constant annual growth.
+This way of representing the model, where future population is a function of current population, is a
+difference equation
+; see
+https://en.wikipedia.org/wiki/Linear_difference_equation
+.
+For a given value of
+\(n\)
+, sometimes it is possible to compute
+\(x_n\)
+directly; that
+is, without computing the intervening values from
+\(x_1\)
+through
+\(x_{n-1}\)
+.
+In the case of constant growth we can see that
+\(x_1 = x_0 + c\)
+, and
+\(x_2 = x_1 + c\)
+. Combining these, we get
+\(x_2 = x_0 + 2c\)
+, then
+\(x_3 = x_0 + 3c\)
+, and we can see that in general
+\[
+x_n = x_0 + nc
+\]
+So if we want to know
+\(x_{100}\)
+and we don’t care about the other values, we can compute it with one multiplication and one addition.
+We can also write the proportional model as a difference equation:
+\[
+x_{n+1} = x_n + \alpha x_n
+\]
+Or more conventionally as:
+\[
+x_{n+1} = x_n (1 + \alpha)
+\]
+Now we can see that
+\(x_1 = x_0 (1 + \alpha)\)
+, and
+\(x_2 = x_0 (1 + \alpha)^2\)
+, and in general
+\[
+x_n = x_0 (1 + \alpha)^n
+\]
+A sequence with this functional form is called a
+geometric progression
+;
+see
+http://modsimpy.com/geom
+. When
+\(\alpha\)
+is positive, the factor
+\(1+\alpha\)
+is greater than 1, so the elements of the sequence grow
+without bound.
+Finally, we can write the quadratic model like this:
+\[
+x_{n+1} = x_n + \alpha x_n + \beta x_n^2
+\]
+or with the more conventional parameterization like this:
+\[
+x_{n+1} = x_n + r x_n (1 - x_n / K)
+\]
+There is no analytic solution to this equation, but we can approximate it with a differential equation and solve that, which is what we’ll do in the next section.
+9.2.
+Differential Equations
+#
+Starting again with the constant growth model
+\[
+x_{n+1} = x_n + c
+\]
+If we define
+\(\Delta x\)
+to be the change in
+\(x\)
+from one time step to the next, we can write:
+\[
+\Delta x = x_{n+1} - x_n = c
+\]
+If we define
+\(\Delta t\)
+to be the time step, which is one year in the example, we can
+write the rate of change per unit of time like this:
+\[
+\frac{\Delta x}{\Delta t} = c
+\]
+This is a
+discrete
+model, which
+means time is only defined at integer values of
+\(n\)
+and not in between.
+But in reality, people are born and die all the time, not once a year,
+so it might be more realistic to use a
+continuous
+model, which means
+time is defined at all values of
+\(t\)
+, not just integers.
+In a continuous model, we write the rate of change in the
+form of a derivative:
+\[
+\frac{dx}{dt} = c
+\]
+This way of representing the model is a
+differential equation
+, which is an equation that involves at least one derivative (see
+http://modsimpy.com/diffeq
+).
+To solve this equation, we multiply both sides by
+\(dt\)
+:
+\[
+dx = c dt
+\]
+And then integrate both sides:
+\[
+x(t) = c t + x_0
+\]
+Similarly, we can write the proportional growth model like this:
+\[
+\frac{\Delta x}{\Delta t} = \alpha x
+\]
+And as a differential equation
+like this:
+\[
+\frac{dx}{dt} = \alpha x
+\]
+If we multiply both sides by
+\(dt\)
+and divide by
+\(x\)
+, we get
+\[
+\frac{1}{x}~dx = \alpha~dt
+\]
+Now we
+integrate both sides, yielding:
+\[
+\ln x = \alpha t + K
+\]
+where
+\(\ln\)
+is the natural logarithm and
+\(K\)
+is the constant of integration.
+Exponentiating both sides, we have
+\[
+\exp(\ln(x)) = \exp(\alpha t + K)
+\]
+The exponential function can be written
+\(\exp(x)\)
+or
+\(e^x\)
+. In this book I use the first form because it resembles the Python code.
+We can rewrite the previous equation as
+\[
+x = \exp(\alpha t) \exp(K)
+\]
+Since
+\(K\)
+is an arbitrary constant,
+\(\exp(K)\)
+is also an arbitrary constant, so we can write
+\[
+x = C \exp(\alpha t)
+\]
+where
+\(C = \exp(K)\)
+. There are many solutions to this differential equation, with different values of
+\(C\)
+. The particular solution we want is the one that has the value
+\(x_0\)
+when
+\(t=0\)
+.
+When
+\(t=0\)
+,
+\(x(t) = C\)
+, so
+\(C = x_0\)
+and the solution we want is
+\[
+x(t) = x_0 \exp(\alpha t)
+\]
+If you would like to see this derivation done more carefully, you might like this video:
+http://modsimpy.com/khan1
+.
+9.3.
+Analysis and Simulation
+#
+Once you have designed a model, there are generally two ways to proceed: simulation and analysis. Simulation often comes in the form of a computer program that models changes in a system over time, like births and deaths, or bikes moving from place to place. Analysis often comes in the form of algebra and calculus; that is, symbolic manipulation using mathematical notation.
+Analysis and simulation have different capabilities and limitations.
+Simulation is generally more versatile; it is easy to add and remove parts of a program and test many versions of a model, as we have done in the previous examples.
+But there are several things we can do with analysis that are harder or impossible with simulations:
+With analysis we can sometimes compute, exactly and efficiently, a
+value that we could only approximate, less efficiently, with
+simulation. For example, in the quadratic model we plotted net growth versus population and saw it crosses through zero when the population is
+near 14 billion.  We could estimate the crossing point using a
+numerical search algorithm (more about that later). But with a bit of algebra, we derived the general result that
+\(K=-\alpha/\beta\)
+.
+Analysis sometimes provides “computational shortcuts”, that is, the
+ability to jump forward in time to compute the state of a system
+many time steps in the future without computing the intervening
+states.
+We can use analysis to state and prove generalizations about models;
+for example, we might prove that certain results will always or
+never occur. With simulations, we can show examples and sometimes
+find counterexamples, but it is hard to write proofs.
+Analysis can provide insight into models and the systems they
+describe; for example, sometimes we can identify
+qualitatively different ways the system can behave and key parameters that control
+those behaviors.
+When people see what analysis can do, they sometimes get drunk with
+power and imagine that it gives them a special ability to see past the veil of the material world and discern the laws of mathematics that govern the universe. When they analyze a model of a physical system, they talk about “the math behind it” as if our world is the mere shadow of a world of ideal mathematical entities (I am not making this up; see
+http://modsimpy.com/plato
+).
+This is, of course, nonsense. Mathematical notation is a language
+designed by humans for a purpose, specifically to facilitate symbolic
+manipulations like algebra. Similarly, programming languages are
+designed for a purpose, specifically to represent computational ideas
+and run programs.
+Each of these languages is good for the purposes it was designed for and less good for other purposes. But they are often complementary, and one of the goals of this book is to show how they can be used together.
+9.4.
+Analysis with WolframAlpha
+#
+Until recently, most analysis was done by rubbing graphite on wood
+pulp, a process that is laborious and error-prone. A useful
+alternative is symbolic computation. If you have used services like
+WolframAlpha, you have used symbolic computation.
+For example, if you go to
+https://www.wolframalpha.com/
+and enter
+df
+(
+t
+)
+/
+dt
+=
+alpha
+f
+(
+t
+)
+WolframAlpha infers that
+f(t)
+is a function of
+t
+and
+alpha
+is a
+parameter; it classifies the query as a “first-order linear ordinary
+differential equation”, and reports the general solution:
+\[
+f(t) = c_1 \exp(\alpha t)
+\]
+If you add a second equation to specify the initial condition:
+df
+(
+t
+)
+/
+dt
+=
+alpha
+f
+(
+t
+),
+f
+(
+0
+)
+=
+p_0
+WolframAlpha reports the particular solution:
+\[
+f(t) = p_0 \exp(\alpha t)
+\]
+WolframAlpha is based on Mathematica, a powerful programming language
+designed specifically for symbolic computation.
+9.5.
+Analysis with SymPy
+#
+Python has a library called SymPy that provides symbolic computation
+tools similar to Mathematica. They are not as easy to use as
+WolframAlpha, but they have some other advantages.
+To use it, we’ll define
+Symbol
+objects that represent names of variables and functions.
+The
+symbols
+function takes a string and returns
+Symbol
+objects.
+from
+sympy
+import
+symbols
+t
+=
+symbols
+(
+'t'
+)
+Now when we use
+t
+, Python treats it like a variable name rather than a specific number.
+For example, if we use
+t
+as part of an expression, like this,
+expr
+=
+t
++
+1
+expr
+\[\displaystyle t + 1\]
+Python doesn’t try to perform numerical addition; rather, it creates a
+new
+Symbol
+that represents the sum of
+t
+and
+1
+. We can evaluate the
+sum using
+subs
+, which substitutes a value for a symbol. This example
+substitutes 2 for
+t
+:
+expr
+.
+subs
+(
+t
+,
+2
+)
+\[\displaystyle 3\]
+Functions in SymPy are represented by a special kind of
+Symbol
+:
+from
+sympy
+import
+Function
+f
+=
+Function
+(
+'f'
+)
+f
+f
+Now if we write
+f(t)
+, we get an object that represents the evaluation of a function,
+\(f\)
+, at a value,
+\(t\)
+.
+f
+(
+t
+)
+\[\displaystyle f{\left(t \right)}\]
+But again SymPy doesn’t actually
+try to evaluate it.
+9.6.
+Differential Equations In SymPy
+#
+SymPy provides a function,
+diff
+, that can differentiate a function. We can apply it to
+f(t)
+like this:
+from
+sympy
+import
+diff
+dfdt
+=
+diff
+(
+f
+(
+t
+),
+t
+)
+dfdt
+\[\displaystyle \frac{d}{d t} f{\left(t \right)}\]
+The result is a
+Symbol
+that represents the derivative of
+f
+with
+respect to
+t
+. But again, SymPy doesn’t try to compute the derivative
+yet.
+To represent a differential equation, we use
+Eq
+:
+from
+sympy
+import
+Eq
+alpha
+=
+symbols
+(
+'alpha'
+)
+eq1
+=
+Eq
+(
+dfdt
+,
+alpha
+*
+f
+(
+t
+))
+eq1
+\[\displaystyle \frac{d}{d t} f{\left(t \right)} = \alpha f{\left(t \right)}\]
+The result is an object that represents an equation.  Now
+we can use
+dsolve
+to solve this differential equation:
+from
+sympy
+import
+dsolve
+solution_eq
+=
+dsolve
+(
+eq1
+)
+solution_eq
+\[\displaystyle f{\left(t \right)} = C_{1} e^{\alpha t}\]
+The result is the
+general solution
+, which still contains an unspecified constant,
+\(C_1\)
+.
+To get the
+particular solution
+where
+\(f(0) = p_0\)
+, we substitute
+\(p_0\)
+for
+C1
+.
+First, we have to tell Python that
+C1
+is a symbol.
+C1
+=
+symbols
+(
+'C1'
+)
+Now we can substitute the value of
+\(p_0\)
+for
+C1
+.
+For example, if
+\(p_0\)
+is 1000:
+particular
+=
+solution_eq
+.
+subs
+(
+C1
+,
+1000
+)
+particular
+\[\displaystyle f{\left(t \right)} = 1000 e^{\alpha t}\]
+When
+\(t=0\)
+, the value of
+\(f(0)\)
+is
+\(p_0\)
+, which confirms that this is the solution we want.
+particular
+.
+subs
+(
+t
+,
+0
+)
+\[\displaystyle f{\left(0 \right)} = 1000\]
+9.7.
+Solving the Quadratic Growth Model
+#
+To solve the quadratic growth curve, we’ll use the
+r,
+K
+parameterization, so we’ll need two more symbols:
+r
+,
+K
+=
+symbols
+(
+'r K'
+)
+Now we can write the differential equation.
+eq2
+=
+Eq
+(
+diff
+(
+f
+(
+t
+),
+t
+),
+r
+*
+f
+(
+t
+)
+*
+(
+1
+-
+f
+(
+t
+)
+/
+K
+))
+eq2
+\[\displaystyle \frac{d}{d t} f{\left(t \right)} = r \left(1 - \frac{f{\left(t \right)}}{K}\right) f{\left(t \right)}\]
+And solve it.
+solution_eq
+=
+dsolve
+(
+eq2
+)
+solution_eq
+\[\displaystyle f{\left(t \right)} = \frac{K e^{C_{1} K + r t}}{e^{C_{1} K + r t} - 1}\]
+The result,
+solution_eq
+, contains
+rhs
+, which is the right-hand side of the solution.
+general
+=
+solution_eq
+.
+rhs
+general
+\[\displaystyle \frac{K e^{C_{1} K + r t}}{e^{C_{1} K + r t} - 1}\]
+We can evaluate the right-hand side at
+\(t=0\)
+at_0
+=
+general
+.
+subs
+(
+t
+,
+0
+)
+at_0
+\[\displaystyle \frac{K e^{C_{1} K}}{e^{C_{1} K} - 1}\]
+Now we want to find the value of
+C1
+that makes
+f(0)
+=
+p_0
+.
+So we’ll create the equation
+at_0
+=
+p_0
+and solve for
+C1
+.  Because this is just an algebraic equation, not a differential equation, we use
+solve
+, not
+dsolve
+.
+from
+sympy
+import
+solve
+p_0
+=
+symbols
+(
+'p_0'
+)
+solutions
+=
+solve
+(
+Eq
+(
+at_0
+,
+p_0
+),
+C1
+)
+The result from
+solve
+is a list of solutions.
+type
+(
+solutions
+),
+len
+(
+solutions
+)
+(list, 1)
+In this case, there is only one solution, but we still get a list, so we have to use the bracket operator,
+[0]
+, to select the first one.
+value_of_C1
+=
+solutions
+[
+0
+]
+value_of_C1
+\[\displaystyle \frac{\log{\left(- \frac{p_{0}}{K - p_{0}} \right)}}{K}\]
+Now in the general solution, we want to replace
+C1
+with the value of
+C1
+we just figured out.
+particular
+=
+general
+.
+subs
+(
+C1
+,
+value_of_C1
+)
+particular
+\[\displaystyle - \frac{K p_{0} e^{r t}}{\left(K - p_{0}\right) \left(- \frac{p_{0} e^{r t}}{K - p_{0}} - 1\right)}\]
+The result is complicated, but SymPy provides a function that tries to simplify it.
+simpler
+=
+particular
+.
+simplify
+()
+simpler
+\[\displaystyle \frac{K p_{0} e^{r t}}{K + p_{0} e^{r t} - p_{0}}\]
+This function is called the
+logistic growth curve
+; see
+http://modsimpy.com/logistic
+. In the context of growth models, the
+logistic function is often written like this:
+\[
+f(t) = \frac{K}{1 + A \exp(-rt)}
+\]
+where
+\(A = (K - p_0) / p_0\)
+.
+If you would like to see this differential equation solved by hand, you might like this video:
+http://modsimpy.com/khan2
+.
+9.8.
+Summary
+#
+In this chapter we wrote the growth models from the previous chapters in terms of difference and differential equations. We solved some of these equations by hand; for others, we used WolframAlpha and SymPy.
+What I called the “constant growth” model is more commonly called
+linear growth
+because the solution is a line.  If we model time as continuous, the solution is
+\[
+f(t) = p_0 + c t
+\]
+where
+\(c\)
+is net annual growth.
+Similarly, the proportional growth model is usually called
+exponential growth
+because the solution is an exponential function:
+\[
+f(t) = p_0 \exp(\alpha t)
+\]
+Finally, the quadratic growth model is called
+logistic growth
+because the solution is a logistic function:
+\[
+f(t) = \frac{K}{1 + A \exp(-rt)}
+\]
+where
+\(A = (K - p_0) / p_0\)
+.
+I avoided these terms until now because they are based on results we had not derived yet.
+With that, we are done modeling world population growth.
+The next chapter presents case studies where you can apply the tools we have learned so far.
+9.9.
+Exercises
+#
+9.9.1.
+Exercise 1
+#
+Use SymPy to solve the quadratic growth equation using the alternative parameterization
+\[
+\frac{df(t)}{dt} = \alpha f(t) + \beta f^2(t)
+\]
+Show code cell content
+Hide code cell content
+# Solution
+alpha
+,
+beta
+=
+symbols
+(
+'alpha beta'
+)
+Show code cell content
+Hide code cell content
+# Solution
+eq3
+=
+Eq
+(
+diff
+(
+f
+(
+t
+),
+t
+),
+alpha
+*
+f
+(
+t
+)
++
+beta
+*
+f
+(
+t
+)
+**
+2
+)
+eq3
+\[\displaystyle \frac{d}{d t} f{\left(t \right)} = \alpha f{\left(t \right)} + \beta f^{2}{\left(t \right)}\]
+Show code cell content
+Hide code cell content
+# Solution
+solution_eq
+=
+dsolve
+(
+eq3
+)
+solution_eq
+\[\displaystyle f{\left(t \right)} = \frac{\alpha e^{\alpha \left(C_{1} + t\right)}}{\beta \left(1 - e^{\alpha \left(C_{1} + t\right)}\right)}\]
+Show code cell content
+Hide code cell content
+# Solution
+general
+=
+solution_eq
+.
+rhs
+general
+\[\displaystyle \frac{\alpha e^{\alpha \left(C_{1} + t\right)}}{\beta \left(1 - e^{\alpha \left(C_{1} + t\right)}\right)}\]
+Show code cell content
+Hide code cell content
+# Solution
+at_0
+=
+general
+.
+subs
+(
+t
+,
+0
+)
+Show code cell content
+Hide code cell content
+# Solution
+solutions
+=
+solve
+(
+Eq
+(
+at_0
+,
+p_0
+),
+C1
+)
+value_of_C1
+=
+solutions
+[
+0
+]
+value_of_C1
+\[\displaystyle \frac{\log{\left(\frac{\beta p_{0}}{\alpha + \beta p_{0}} \right)}}{\alpha}\]
+Show code cell content
+Hide code cell content
+# Solution
+particular
+=
+general
+.
+subs
+(
+C1
+,
+value_of_C1
+)
+particular
+.
+simplify
+()
+\[\displaystyle \frac{\alpha p_{0} e^{\alpha t}}{\alpha - \beta p_{0} e^{\alpha t} + \beta p_{0}}\]
+9.9.2.
+Exercise 2
+#
+Use
+WolframAlpha
+to solve the quadratic growth model, using either or both forms of parameterization:
+df(t) / dt = alpha f(t) + beta f(t)^2
+or
+df(t) / dt = r f(t) (1 - f(t)/K)
+Find the general solution and also the particular solution where
+f(0)
+=
+p_0
+.
+previous
+8.
+Projecting Population Growth
+next
+10.
+Case Studies Part 1
+Contents
+9.1. Difference Equations
+9.2. Differential Equations
+9.3. Analysis and Simulation
+9.4. Analysis with WolframAlpha
+9.5. Analysis with SymPy
+9.6. Differential Equations In SymPy
+9.7. Solving the Quadratic Growth Model
+9.8. Summary
+9.9. Exercises
+9.9.1. Exercise 1
+9.9.2. Exercise 2
+By Allen B. Downey
+© Copyright 2023.

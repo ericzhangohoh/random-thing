@@ -1,0 +1,98 @@
+# Standard Output Layout
+
+All current-contest generated artifacts stay under `paper_output/`. Installed skills remain reusable and must not contain contest-specific code or results.
+
+```text
+paper_output/
+├── OUTPUT_LAYOUT.md
+├── preflight_report.json
+├── input_manifest.json
+├── step1/
+│   └── problem_analysis.json
+├── plan/
+│   ├── model_route.json
+│   ├── rubric_alignment.json
+│   ├── scoring_strategy.md
+│   ├── data_plan.json
+│   ├── visualization_plan.json
+│   ├── paper_outline.json
+│   └── writing_plan.json
+├── code/
+│   ├── data_processing/
+│   ├── visualization/
+│   ├── modeling/
+│   └── qa/
+├── data_cleaned/
+│   ├── load_report.json
+│   ├── cleaning_report.json # current import sources, sheets, counts and hashes
+│   └── runs/<id>/*.csv      # isolated imports; never scan previous runs
+├── figures/
+├── figure_index.json
+├── tables/
+│   └── table_index.json
+├── results/
+│   ├── run_manifest.json
+│   ├── model_results.json
+│   ├── metrics.json
+│   └── conclusions.json
+├── qa/
+│   ├── workflow_guard_report.json
+│   ├── evidence_gate_report.json
+│   ├── draft_audit.json
+│   ├── repair_queue.json
+│   └── rendered/
+├── context/
+│   ├── authoring_state.json
+│   └── workflow_memory.json
+├── drafts/
+│   ├── sections/           # <id>.md and <id>.claims.json
+│   ├── repairs/
+│   ├── legacy/
+│   │   ├── micro_units/
+│   │   ├── legacy_scaffold.md
+│   │   ├── legacy_scaffold.docx
+│   │   └── legacy_ref_check.md
+│   ├── assembled_draft.md
+│   └── assembled_draft.claims.json
+├── quickstart/
+├── final_paper_source.md
+├── final_paper_source.claims.json
+├── final_paper.docx
+├── format_check_report.md
+└── format_check_report.json
+```
+
+## Ownership
+
+| Path | Owner |
+|---|---|
+| `step1/` | problem analysis |
+| `plan/model_route.json` | model/rubric selector |
+| `code/`, `results/`, `tables/` | current-contest computation |
+| `qa/evidence_gate_report.json` | quality-assurance-auditor |
+| `plan/writing_plan.json`, `context/authoring_state.json` | paper-formal-writer |
+| `drafts/sections/`, `drafts/assembled_draft.md` | formal S7 |
+| `drafts/repairs/` | queued micro repair |
+| `drafts/legacy/`, `quickstart/` | non-formal scaffolds |
+| `final_paper_source.md`, `final_paper.docx` | sole formal manuscript path |
+| `drafts/**/*.claims.json`, `final_paper_source.claims.json` | numerical claim bindings; audit only, not rendered |
+
+`tasks.json` may appear for legacy/quickstart compatibility. It is not required by S6 or formal S7.
+
+The generic data helper preserves empty cells, identifiers and repeated observations.
+Its PASS means loss-preserving import, not validated field semantics. A present but
+failed or stale cleaning report blocks S3/S6; its inputs and outputs are also bound
+into the evidence gate so later changes invalidate formal authoring.
+
+New modeling scaffolds require a current cleaning report and never scan old runs.
+`code/modeling/modeling_tools.py` and `data_inputs.py` are generated, reusable helpers
+bound into the run manifest. Explicit regression baselines also emit
+`results/q1_baseline.json` and a held-out prediction table; these are not automatic
+official results. See the model-code skill's `references/modeling-tools.md` for APIs.
+
+When a writing plan has required metrics, each formal draft has a sibling
+`.claims.json` with its source SHA-256 and exact result-sentence bindings.
+Global mode uses `drafts/global_draft.md` and `drafts/global_draft.claims.json`.
+The assembler merges bindings; the final writer updates them after revision.
+See the formal writer's `references/metric-claims.md` for metric metadata,
+CSV row selectors, permissible conversions and verification requirements.
