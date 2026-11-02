@@ -1,0 +1,798 @@
+=== PHYSICAL PAGE 1 ===
+Putting the Spark Back in the
+         Electric Car
+           Team #11422
+          February 14, 2011
+
+
+
+
+                  1
+
+
+=== PHYSICAL PAGE 2 ===
+Team #11422                                                         Page 2 of 20
+
+
+Contents
+1 Clarification of Problem                                                      3
+
+2 Plan of Attack                                                                3
+
+3 Assumptions                                                                   3
+
+4 On Types of Cars                                                              4
+
+5 Model for Number of Cars                                                      4
+
+6 Microeconomic Model                                                           5
+  6.1 Global Influence Model . . . . . . . . . . . . . . . . . . . . . . .      5
+      6.1.1 Strengths & Weaknesses . . . . . . . . . . . . . . . . . . .        7
+  6.2 Localized Behavior . . . . . . . . . . . . . . . . . . . . . . . . . .    8
+      6.2.1 Cellular automata . . . . . . . . . . . . . . . . . . . . . .       8
+  6.3 Strengths and Weaknesses . . . . . . . . . . . . . . . . . . . . . .      9
+
+7 Macroeconomic Model: Meeting the Energy Demand                               10
+  7.1 Current Energy Source and Demand . . . . . . . . . . . . . . . . 10
+  7.2 Current Pollution rates . . . . . . . . . . . . . . . . . . . . . . . . 11
+  7.3 Quantizing Pollution . . . . . . . . . . . . . . . . . . . . . . . . . 11
+       7.3.1 Health . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+  7.4 Quantizing Cost . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+  7.5 α Parameter . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+  7.6 Minimizing X: Genetic and Nelder-Mead Methods . . . . . . . . 14
+  7.7 Using Alpha to Determine Cost, and Vice Versa . . . . . . . . . 14
+  7.8 Example Calculation . . . . . . . . . . . . . . . . . . . . . . . . . 16
+  7.9 Fossil Fuels Saved . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+  7.10 Strengths and Weaknesses . . . . . . . . . . . . . . . . . . . . . . 17
+
+8 Meshing the Micro and Macro Models                                           18
+
+9 Conclusion                                                                   19
+
+
+=== PHYSICAL PAGE 3 ===
+Team #11422                                                            Page 3 of 20
+
+
+1     Clarification of Problem
+With the recent introduction of the Nissan Leaf and Chevy Volt to the world
+car fleet and the fading supply of petroleum, the possibility of electric vehicles
+replacing standard petroleum cars is increasing. Questions arise concerning the
+feasibility of such vehicles, specifically regarding the amount of fossil fuels saved
+through widespread use of electric cars, and the economic feasibility. It is of
+great concern to auto-manufacturers and environmentalists alike to determine
+how to cause electric cars to ’catch on,’ and of equally great concern to govern-
+ments to determine how to augment the power grid to meet the demand of the
+electric car fleet. The models proposed within this paper will offer an insight to
+these problems.
+
+
+2     Plan of Attack
+  Our objective is to model the effects of electric vehicles on the environment,
+public health, and economy. We need to determine which methods would be
+most effective in causing widespread use of electric vehicles, within a reasonable
+time scale. Large scale use of electric vehicles would also put an increased strain
+on the power grid, which would have to be corrected. To determine the most
+efficient way to do this, we will proceed as follows:
+    1. Create a model for the amount of electric cars at any given point in time.
+       (Micro)
+
+    2. Create a model that gives a single value to the effect electric cars have on
+       the environment, health, and economy. (Macro)
+    3. Connect these models so that, by giving setup conditions, we can deter-
+       mine the cost to minimize the pollution values.
+
+
+3     Assumptions
+Due to the extrapolative nature of our model, and the difficulty in obtaining
+reliable global information, several assumptions were made in order to complete
+our model. These simplifying assumptions will be used throughout the paper
+and could feasibly be replaced with reliable data when it becomes available.
+
+    • The cost of building more coal, oil, and natural gas plants is negligible to
+      the cost of yearly fossil fuel production. That is to say, energy costs simply
+      rely on production prices from the plants themselves, and not creation of
+      the plants.
+
+    • We assume 100% efficiency of converting fossil fuels to energy for electric-
+      ity. This makes the calculations for energy easier, removing the need to
+      know the electric energy conversion rate for electric generators.
+    • World Governments can control addition of power plants to determine the
+      proportions of energy from each source. This is essential in changing the
+
+
+=== PHYSICAL PAGE 4 ===
+Team #11422                                                            Page 4 of 20
+
+
+      makeup of the power grid. By being able to change the ratio of the energy
+      sources of our electricity production can we can change the ratio of the
+      pollutants produced for each unit of electrical energy.
+    • Ratios of energy sources into demand sectors for the US in 2009 is the
+      same as the ratios across the world. This allowed us to generalize the
+      information that we had to the world-wide energy system.
+    • Price increases quadratically as demand increases for fossil fuels. This
+      allows us to extrapolate the past data, allowing us to produce a prediction
+      of the cost of fossil fuels in the future.
+    • Population within the next 50 years can be modeled with a cubic fit. This
+      allows us to extrapolate the past data as well, ensuring that we know the
+      amount of cars in a given year.
+    • A major factor in choosing which car to buy is what the people around you
+      own. The movie ”Who Killed the Electric Car?” suggested that the main
+      reason that electric cars did not become popular was because many people
+      did not know about them or their properties. This assumption is the basis
+      in the models for the spread of electric cars throughout a population. [9]
+    • It is economically and environmentally infeasible to increase current en-
+      ergy contribution to the electric power grid for each power source by more
+      than %25 percent. This is to establish upper bounds for the Nelder-Mead
+      methods, and can be replaced with projected maximum contribution for
+      2060 if/when these values become available.
+
+
+4     On Types of Cars
+  We have decided to base our model solely on electric vehicles versus gasoline
+vehicles, instead of including hybrid vehicles. We have chosen to do this because
+we are concerned with the widespread usage of electric vehicles. If electric
+vehicle usage is widespread, then the idea of a hybrid car is useless, since electric
+cars can be used for most transportation usages and gas cars can be used for
+any transportation that electric cars cannot do. Hybrid models were created
+to transition from gas cars to electric cars. However, if we are to consider
+widespread usage of electric vehicles, hybrids won’t be necessary. It is worth
+noting that electric vehicles do have limited range, causing some range anxiety.
+Modern estimates suggest that 90% of automobile users do not have needs that
+exceed the limitations of electric cars, however, so the range anxiety will only
+affect 10% of the population[9].
+
+
+5     Model for Number of Cars
+  In order to model the change towards electric cars and its impact on the
+environment, we need a model for the number of cars in the future. We found an
+estimated 134 motor vehicles per 1000 people in the top 130 developed countries.
+From this, an estimate of 120 vehicles per 1000 people in the world can be made.
+
+
+=== PHYSICAL PAGE 5 ===
+Team #11422                                                               Page 5 of 20
+
+
+Using this and population data, we can expect to have C cars in t years after
+1950 based on the following equation [10] :
+
+        C(t) = .002t(2.55 · 109 + 3.91 · 107 t + 1.1 · 106 t2 − 9.38 · 103 t3 )
+
+  We decided upon a cubic fit to model the population because it fitted popu-
+lation data very well. However, this fit will only accurately model population
+data until 2060, due to the cubic nature of the function. We have a multiplier of
+.002t because the number of cars per capita will increase over time, as data has
+shown[1]. We are going to let E equal the proportion of cars which are electric.
+The following 2 equations give the number of electric and gasoline vehicles over
+time in terms of E.
+                                 E(t) = E · C(t)
+                               G(t) = (1 − E) · C(t)
+  In our microeconomic model, we examine how E will change 50 years in the
+future based on an initial proportion of electric cars. This will allow us to
+see what must be done to make electric vehicle usage widespread. For our
+macroeconomic model, we let E = .9 since we wish to examine the effects of
+widespread electric vehicle usage.
+
+
+6     Microeconomic Model
+  Through examination of how individuals react to electric car usage we can
+model the change from petroleum vehicles to electric vehicles. Our small-scale
+model needs to be based on the likelihood that individuals will switch to electric
+vehicles. We propose two models. Both of these models require a government
+subsidy for electric cars in order to ”jumpstart” their production, and explosion
+in popularity. The first model is based on coupled differential equations for how
+one might expect the number of electric vehicles and the number of gasoline
+vehicles will change over a continuous time interval. The second model is a
+2D cellular automata simulation to model the local influence as well as global
+influence of the number of electric vehicles, over a discrete time interval.
+
+6.1    Global Influence Model
+  This model assumes that individuals are influenced by the global proportion
+of people who have electric cars. An individual who is going to buy a new car or
+replace a broken down gas car will buy an electric car with a probability equal
+to the proportion of people who have electric cars. This is because the more
+people who have electric cars, the more likely an individual is to hear about
+electric cars and be persuaded to switch to an electric car. This allows us to
+define the following coupled differential equations where BDE and BDG is the
+probability that an electric and gas car will break down during one year. Since
+gas cars last for about 8 years and electric cars last for about 20 years, we let
+BDE = 20  1
+             and BDG = 18 [4].
+                                                                              
+  0          E(t)         0                                           E(t)
+E (t) =               · (C (t) + BDG · G(t)) − BDE · E(t) · 1 −
+         E(t) + G(t)                                               E(t) + G(t)
+
+
+=== PHYSICAL PAGE 6 ===
+Team #11422                                                                     Page 6 of 20
+
+                                 
+                       E(t)                                                        E(t)
+G0 (t) =       1−                     · (C 0 (t) + BDE · E(t)) − BDG · G(t) ·
+                    E(t) + G(t)                                                 E(t) + G(t)
+   Since our C(t) and is only valid for fifty years in the future, solving these
+equations outright is unnecessary. We use Euler’s Method to approximate E(t)
+and G(t). To do this, we need two points, one for E(t) and one for G(t). Since t
+is measured in years after 1950, we let G(60) = C(60). We cannot let E(60)=0
+since the only way for the number of gas cars to grow is from the probability
+E(t)
+C(t) . This model requires that a certain number of electric cars be seeded into
+the population to jump start the growth of electric cars. In order to seed these
+cars, the government could pay the difference in cost between an electric vehicle
+and an average gas car to give people an incentive to buy an electric car. By
+spending this money to encourage people to use electric cars, the government
+would save money later by spending less money for fossil fuels, such as oil. We
+will examine how this works after we have built our macroeconomic model. To
+determine the seeding cost, we assume that the government will pay the differ-
+ence between the cost of an electric vehicle and a gasoline vehicle. We decided
+this cost per car would be $41, 000 − $28, 400 = $12, 600. The following graphs
+demonstrate the rate at which the proportion of electric vehicles grows (with
+seeding values of .05 and .3) and the following table summarizes this data with
+varying proportions of seeding in 2011.
+
+
+=== PHYSICAL PAGE 7 ===
+Team #11422                                                         Page 7 of 20
+
+
+
+
+              Seed Proportion       Seeding Cost       E in 2060
+                    0.01              1.0327 · 1011      0.267
+                    0.05             5.16348 · 1011      0.667
+                     0.1              1.0327 · 1012      0.815
+                    0.15             1.54854 · 1012      0.877
+                     0.2             2.06514 · 1012      0.912
+                    0.25             2.58174 · 1012      0.933
+                     0.3             3.09834 · 1012      0.948
+     The more money spent on jumpstarting electric vehicles, the larger E will
+be 50 years in the future. In order to determine which proportion of seeded cars
+would be most profitable in the future, we would need to know the make up
+of the power grid, which we determine in our macroeconomic model. We will
+connect this model to the macroeconomic model later.
+
+6.1.1   Strengths & Weaknesses
+  A strength of this model is that it allows the government to see what would
+need to be done in order for people to want to buy electric cars. By basing
+this model on the proportion of people who have electric cars, this model can
+realistically model an individual’s likelihood of switching to an electric car.
+      A weakness in this model is that seeding only occurs in one year, instead
+of a range of years. Another weakness of this model is that it does not include
+locality, which misses out on what seems to be a crucial point in the rise of
+electric vehicles. Another weakness of this model is it does not consider current
+sources of energy. Currently, electric cars are not better for the environment
+because the largest source of electrical energy is coal; this will be considered
+and changed in the macroeconomic model.
+
+
+=== PHYSICAL PAGE 8 ===
+Team #11422                                                           Page 8 of 20
+
+
+6.2     Localized Behavior
+The previous model assumes that the total percentage of electric cars influences
+the chance of a single person purchasing one. However, a person is affected
+by the people closest to them in addition to the global behavior. This is why
+we decided to model the spread of electric cars using 2-dimensional cellular
+automata. First, we decided that a cell’s percentage to pick either electric or
+gas is based on the 8 cells that are adjacent, known as the Moore Neighborhood.
+The influence from locality is converted into a chance of buying an electric car
+based on the number of your neighbors who are electric cars (N ) according to
+the following equation:
+
+                    P(if electric stay electric)= 81 · (.1N + .1)
+                                                 1
+                    P(if gas become electric)= 20    · (.1N + .1)
+
+Global influence is also considered with this model, and is incorporated with
+what we call the ”snowball constant.” The differential equations given above can
+be applied to cellular automata rules by setting C 0 (t) = 0, since the number of
+                                                   E(t)
+cells is constant, which allows us to substitute E(t)+G(t) with Ep t, the proportion
+of electric vehicles. Ultimately we can rewrite our differential equations as:
+
+                                            3Ep (t)
+                    Epn+1 (t) − Epn (t) =           · (1 − Ep (t))
+                                              40
+                                          3Ep (t)
+                    Gpn+1 (t) − Gpn (t) =         · (Ep (t) − 1)
+                                            40
+To consider both the local and globalized behavior (L and W ), we can simply
+weight these with the relative importance of localized behavior (due to the
+snowball effect) with that of global behavior. Exact values of snowball constants
+will have to be determined through real world observations, and will likely vary
+throughout the population. For our data, we used a snowball constant k = 4,
+assuming that localized behavior is responsible for 80% of buying patterns. Our
+final proportion looks like this:
+                                        k·L+W
+                                  P =
+                                         1+k
+    The amount of electric cars that are placed initially is changed in order to
+model the seeding program that the government has put in place. The output
+of the model gives the percentage of electric cars out of the total population of
+cars. This percentage can be traced from year to year to give you the effect of
+governmental electric car seeding, both in the final percent as well as the year
+when government seeding no longer plays a role in the percentage of cars.
+
+6.2.1   Cellular automata
+ Initial seeding is important as there is no point to seeding more cars if fewer
+   cars will get you to your goal percentage of electric cars on the road by a
+  certain year. By using both the global and the local model, we determined
+    that the final percentage of cars that are electric, for a given number of
+
+
+=== PHYSICAL PAGE 9 ===
+Team #11422                                                         Page 9 of 20
+
+
+seeding, is less in the local model than in the global model, meaning that these
+local interactions seem to slow down the distribution of cars. The final state of
+  one simulation and a chart of the proportion of electric vehicles versus time
+                       are shown below:
+
+
+
+
+6.3    Strengths and Weaknesses
+The benefits of a cellular automata model are many: this model differs from
+all others in this report int that there is no population increase, which means
+that this model is independent of the flawed population model, and is free from
+all flaws that come with that. This means that this model can more accurately
+model years after 1960. Modifications can be made to increase the chances of
+buying an electric car as time goes on, due to improvements in technology and
+the decrease in electric car cost. Furthermore, the effects of localized behav-
+ior are well documented, and completely overlooked with differential equation
+models. The effects of these localized behavior can be combined with the differ-
+ential equation model with the snowball constant– an option unavailable to the
+
+
+=== PHYSICAL PAGE 10 ===
+Team #11422                                                         Page 10 of 20
+
+
+differential equation model. This localized model is not without it’s weakness.
+Because of the finite number of cells, it is difficult to incorporate growth of the
+population (of total cars) into the CA model. Much of our values for proba-
+bilities rely on rough probabilities and assumptions of the snowball constant.
+These can be adjusted on a product-by-product, or even a cell-by-cell basis, but
+it complicates the model greatly. We also could have overlooked crucial values
+in our probability models percentages needed to factor into the lifetime cost
+of a car, relative usability values like the average range an electric car can go
+without recharging, and more qualitative values like sticker shock.
+
+
+7     Macroeconomic Model: Meeting the Energy
+      Demand
+Whereas our microeconomic model focused on the necessary parameters to en-
+sure a large number of electric cars in the future, our macroeconomic model
+focuses on the changes that need to be made to accommodate the increased
+demand of electricity. It is important to consider both the costs required to
+produce these new amounts of electric energy, and the ”hidden” costs of pollu-
+tion. Without considering these ”hidden” costs, our model would simply gener-
+ate the cheapest solution to the increased power demand, which could possibly
+just trade one fossil fuel (gasoline) for another (coal, etc.). Thus, we’ve gener-
+ated an equation to determine the cost associated with the increased electricity
+demand, depending upon how much of each energy source we utilize, and a
+variable parameter equating pollution to cost.
+
+7.1    Current Energy Source and Demand
+Data from the EIA has shown that 38.075 quadrillion BTU was used for elec-
+tricity in 2009, producing 11.159 trillion kWh [7]. The breakdown of energy
+sources contributing to this statistic is summarized in the following chart. Since
+it is assumed that this breakdown is roughly equal for all highly-developed coun-
+tries,the countries who will have the largest number of electric cars, and thus
+increased demand for electricity.
+
+
+
+
+                                                      [7]
+
+
+=== PHYSICAL PAGE 11 ===
+Team #11422                                                             Page 11 of 20
+
+
+
+
+    The most recent electric cars from Li-ion Motors Corp have a range of 120
+miles and require 8 hours of charging from a 110V source [4]. This means that
+52.8 kWh are needed for a full charge, or .44kWh per mile of travel. This
+translates to 1501.3 BTU needed a mile in an electric vehicle. The average pas-
+senger car can travel 31 miles on a gallon of gasoline. Since a gallon of gasoline
+contains roughly 116,090 BTU, the average gas car runs on 3744.84 BTU per
+mile [1]. This is more than twice as much energy required by electric cars, so
+switching to electric cars decreases the amount of energy required worldwide
+for transportation purposes, but also requires a switch from the 100% gasoline
+power source for gas cars, to the medley of power sources used for electricity.
+
+7.2     Current Pollution rates
+Burning fossil fuels creates pollutants that damage the environment, increasing
+acid rain, respiratory illness, and photochemical smog. Using current energy
+source quantities, the pounds per mile of use of electric and gas cars is sum-
+marized in the following table. Though nuclear power sources have not gained
+widespread popularity due to social fears of nuclear accidents and the relative
+cost of creating a network of reactors, their carbon footprints are negligible. It
+also goes without saying that the footprint of renewable energy sources are also
+negligible.
+         Pollutant       Electric Car      Gasoline Car         Difference
+       Carbon Dioxide     0.183969302        0.61415376         0.430184458
+      Carbon Monoxide     0.000161195        0.00012358       −3.76149 · 10−5
+      Nitrogen Oxides     0.000360913       0.001677688         0.001316776
+       Sulfur Dioxide     0.001884252        0.00420171         0.002317459
+        Particulates      0.001980545       0.000314567        -0.001665978
+          Mercury        1.16351 · 10−8    2.62139 · 10−8      1.45788 · 10−8
+
+From our equation of the number of cars in terms of years since 1950, C(t), and
+the proportion of those which are electric E, we create the following equations
+for the pounds of pollutant reduced each year.
+                 Pollutant                  Pounds Saved
+               Carbon Dioxide           0.430 · 12, 200 · E · C(t)
+              Carbon Monoxide       −3.76 · 10−5 · 12, 200 · E · C(t)
+              Nitrogen Oxides          0.00132·12, 200 · E · C(t)
+               Sulfur Dioxide          0.00232·12, 200 · E · C(t)
+                Particulates          -0.00167·12, 200 · E · C(t)
+                  Mercury           1.46 · 10−8 · 12, 200 · E · C(t)
+
+7.3     Quantizing Pollution
+The pollution value is a metric that determines how good for the environment
+having a certain percentage of electric cars are. The first value that determines
+this metric is the amount of pollution that is being saved in pounds per year.
+The second value is the percent pollutant decrease, which describes how much
+
+
+=== PHYSICAL PAGE 12 ===
+Team #11422                                                        Page 12 of 20
+
+
+control of that pollutant is had. For example, if you could either cut 50% of
+the total carbon monoxide emissions or 25% of the total carbon dioxide emis-
+sions, that 50% decrease is weighted heavier, regardless of the actual pounds of
+emissions you are eliminating. A third, hypothetical, value would be the bad-
+ness of each pollutant. Since not all pollutants damage the environment and
+peoples health as much as others, this badness relates to the degree to which
+the current yearly amounts of pollutants are damaging the environment. In the
+trials we ran, we assumed that the total yearly emissions of every pollutant were
+equally bad, so each badness value was set at 1. Given the set of pollutants,
+{CO2 , CO, N Ox , SO2 , P articulate}, where the subscripts, G, E, and T corre-
+spond to the amount emitted from gas cars, the amount saved by electric cars,
+and total emissions, respectively, our pollution can be defined as follows:
+                                      pollutants
+                                         X         jG + E · jE
+                       P ollution =
+                                          j
+                                                       jT
+
+7.3.1   Health
+  In examining the effects of pollution, we should also consider the effects on
+health. This is incorporated in our Pollution function because if we can only
+change a small percent of the quantity of a pollutant, it will have a smaller
+effect on health, whereas if we can change a larger percent of the quantity of a
+pollutant, it will have a larger effect on health. However, some pollutants may
+be more damaging to the environment than others, meaning that eliminating
+50 % of one pollutant would not be equivalent to eliminating 50% of another.
+By analyzing data concerning the effects of the pollutants on health and the
+environment, a badness factor could be determined by which each pollution
+percentage change could be multiplied with. By minimizing X, which is a func-
+tion for cost and pollution, we will also be minimizing the effects. However in
+this model, we assumed that the badness factor, or the relative damage each
+pollutant causes to the environment and health, of each pollutant is the same.
+
+7.4     Quantizing Cost
+Online sources can be used to estimate the small-scale cost of each BTU of each
+power source, in addition to the current production in the US [3]. Bereft of data
+of the maximum production limits of each power source, it can be assumed that
+it would be economically infeasible to increase the current production limits
+for each power source to electricity by a factor greater than 25%. This can
+be modified if more accurate statistics were obtained. Since widespread use of
+electric cars will require a major revamping of the power grid, demand will rise
+dramatically, potentially with no increase in supply. The prices of commodities
+increase with their scarcity, as seen by supply and demand curves. Again lacking
+data of supply and demand curves for power sources, we’ll be forced to make
+several assumptions. Given our maximum production limits, m, and our current
+production limits (defined to be 0 here) and prices, i, we can define the price
+of a commoditiy to be ten times it’s current cost when we reach maximum
+production. We’ll also define the price to be 2.5 times current cost when we
+
+
+=== PHYSICAL PAGE 13 ===
+Team #11422                                                                   Page 13 of 20
+
+
+are halfway between current and maximum production limits. Using these data
+points, we can set up a quadratic fit to model the price p(L) of one quadrillion
+BTU’s of a particular energy source per quadrillion BTU (L)more than current
+production as:
+                                      3i · L 12i · L2
+                          p(L) = i −        +
+                                        m       m2
+to determine the total cost to increase production from current values to pro-
+duction l, we can simply integrate from 0 to l:
+                                 Z l
+                                                        3i · l2   4i · l3
+                    Ptot (l) =         P (l) dl = l −           +
+                                  0                      2m        m2
+
+So total cost for all power sources is equivalent to:
+                            P owerX
+                                  Sources
+                                                      3ij · lj2   4ij · lj3
+                   Cost =                      lj −             +
+                                       j
+                                                       2mj          m2j
+
+The current production, cost, and maximum values are shown in the following
+table, where all productions are in QBTU, and cost in dollars per QBTU[3].
+
+  Power Source         Current Production                  Max Production         Current Cost
+    Petroleum                 0.383                              .479              3.63 ∗ 1010
+   Natural Gas                6.894                             8.6175             1.47 ∗ 1010
+       Coal                  18.384                              22.98              8.7 ∗ 109
+ Renewable Energy             4.213                              5.266              2.2 ∗ 1010
+  Nuclear Energy              8.426                            10.5325              5.9 ∗ 109
+
+7.5    α Parameter
+With cost and pollution both quantized, we can define an objective function as
+
+                            X = Cost + α · P ollution
+
+Where the number of electric cars, and hence their energy demand, is held
+constant. X is dependent on the number of quadrillion BTU’s we add to each
+power source and the alpha value, because cost is dependent on the power
+sources, and pollution is dependent on both power sources and α. Since we
+want to minimize both cost and pollution, our goal is to minimize X. The α
+value simply serves as a constant defining how much the government values cost
+to environment. For example, if α = 0, damage to the environment is not taken
+into effect and minimizing X is simply minimizing Cost. In and of itself, α
+is a relative value, as the relationship between it and pollution is very messy
+(again, dependent on all power sources). However, given a maximum amount
+of allowable pollutants, an α can be determined. Possible values for α and their
+meaning will be discussed further in this report.
+
+
+=== PHYSICAL PAGE 14 ===
+Team #11422                                                         Page 14 of 20
+
+
+7.6    Minimizing X: Genetic and Nelder-Mead Methods
+With X being a function of six variables (five power sources, and alpha), there
+are several methods that we can use search for global minimum, subject to
+the constraints that each power source is never to decrease from current pro-
+duction standards (under the assumption that removal of production facilities
+is both costly and creates largescale unemployment), and is never to exceed
+previously defined maximum production standards. However, the nonlinear of
+nature eliminates the possibility of linear algebra techniques. Instead, we’ll rely
+heavily upon a Nelder-Mead iterative search technique and a genetic algorithm
+to define global minima. Though both of our techniques warrant equivalent so-
+lutions, we found that the Nelder-Mead search was much more computationally
+efficient, so the genetic methods were ruled out. Thus, we run a minimiza-
+tion of X = Cost + α · P ollution subject to the following constraints, with
+variables {P etr, N at, Coal, Ren, N uc} defining the amount of qBTU’s added to
+the power grid for petroleum, natural gas, coal, renewable energy and nuclear
+power, respectively :
+
+                M inimize X = Cost + α · P ollution Subject to
+
+          P etr + N at + Coal + Ren + N uc ≤ T otal Energy Demand
+          Current P roduction ≤ P etr ≤ Current P roduction · 1.25
+With the final constraint repeated for all power sources.
+
+7.7    Using Alpha to Determine Cost, and Vice Versa
+Since α simply refers to the amount to which we care about the environment,
+something that is difficult to assign a concrete value to, we’ve allowed for α to
+vary. By iterating the Nelder-Mead optimization for a range of α values, we can
+generate plots of each of the Power sources versus alpha. In plainspeak, that is
+to say that by choosing some α value (e.g., we care x much about damage to the
+environment), we can locate the values of each power source qBTU by simply
+reading the graph. Since Cost is simply a function of the power sources and is
+monotonically increasing with α, we can generate a graph showing cost versus
+alpha, by simply repeating the above procedure, and then calculating the cost
+from the values of each power source, plotting this to a particular alpha value.
+Shown below are graphs of ’cost Vs. α’ and ’Power Sources Vs. α’ with 90% of
+the motor fleet being electric cars, 50 years from today:
+
+
+=== PHYSICAL PAGE 15 ===
+Team #11422                                                        Page 15 of 20
+
+
+
+
+These graphs allow us to offer some insight into the behavior of the relation-
+ship between α (how much we care about the environment) and how we should
+augment the power grid. As is intuitive, a high reliance on coal and natural gas
+are necessary with α = 0. Nuclear power seems constantly limited by our maxi-
+mum production value, suggesting that nuclear power, if production levels could
+be raised high enough, could be utilized in generating a low-cost, low-footprint
+power grid. Also intuitive is the monotonic behavior of the cost vs α graph.
+The piecewise behavior is likely a result of certain ’feasible pockets’ within the
+polytope scanned with the Nelder-Mead method.
+
+
+=== PHYSICAL PAGE 16 ===
+Team #11422                                                        Page 16 of 20
+
+
+7.8    Example Calculation
+Knowing that governments tend to care about budgets, the following example
+will demonstrate how one could utilize these plots to calculate the benefit to
+the environment on a constrained budget. Working from a $200 Billion dollar
+budget. We simply draw a horizontal line at 2 ∗ 1011 , and then a vertical line
+at the point of intersection. This will become the α value used to lookup the
+power source values.
+
+
+
+
+ From here, one could either input this α, in this case, ≈ 37500, and use the
+   Nelder-Mead minimization to generate power source values, or one could
+   graphically look up the values of the power sources. Pollution values can
+be calculated from these values, in percent change from the current emissions [2]
+
+
+=== PHYSICAL PAGE 17 ===
+Team #11422                                                          Page 17 of 20
+
+
+
+
+7.9    Fossil Fuels Saved
+  Using data on average annual mileage of vehicles, we are going to assume
+that the annual mileage of a car stays constant from year to year, at 12,200
+miles/year. The average miles per gallon is 31mpg. We also have our function
+C(t) for the number of cars at year t. This formula expresses the amount of
+fossil fuel saved over one year.
+                             12, 200
+                   F (t) =           · E · C(t) ≈ 19.68 · E · C(t)
+                             31 · 20
+
+7.10    Strengths and Weaknesses
+Our macroeconomic model provides a quantitative and computationally inten-
+sive outlook of how to augment the power grid to attend to the increased demand
+caused by electric vehicles. It’s strength resides in its ability to minimize cost
+and pollution on the global scale. For a given α, say the budget to be spent on
+energy augmentations, we’ll be able to determine the amount of QBTU’s that
+need to be added to the current power grid, and how good that will be for the
+environment. We can also run this model in the opposite direction, so given
+an acceptable pollution, we can determine the cost needed to meet the energy
+demand. On the other hand, our model relies on many simplifying assumptions
+due to a lack of data. Certain things cannot be figured out, such as the demand
+curve behaviors and the maximum production limitations. Thus, given reliable
+data on these values, we can easily reconfigure our model and offer a more ac-
+curate estimate. Additionally, the α value has an ambiguous, or at least veiled,
+meaning. It requires further interpretation to give real world values.
+
+
+=== PHYSICAL PAGE 18 ===
+Team #11422                                                          Page 18 of 20
+
+
+8     Meshing the Micro and Macro Models
+  The government’s incentive program will allow a proportion of all cars in
+the first year to be electric. Based on this seeding proportion, our differential
+equations microeconomic model predicts what proportion of vehicles will be
+electric in 2060. We can use these E values in our macroeconomic model to
+minimize pollution and cost. Adding the cost for the power grid in 2060 and
+the cost for seeding cars in 2011 will allow us to see what proportion should be
+seeded in order to save the most money. The following table shows sample seed
+proportions and the corresponding E values for 2060.
+ Proportion of Seeds     0.05        0.1    0.15     0.2    0.25     0.3     0.35
+     E in 2060           0.667      0.815   0.877   0.912   0.933   0.948    0.959
+    The following tables show the cost of the power grid and the total cost for
+a given α and the E values resulting from seeding.
+    If α = 0:
+         Seed     Seeding Cost        Power Grid Cost        Total Cost
+         0.05      5.16348 · 1011       8.90292 · 1010      6.05377 · 1011
+          0.1       1.0327 · 1012       1.15992 · 1011      1.14869 · 1012
+         0.15      1.54854 · 1012       1.27262 · 1011      1.6758 · 1012
+          0.2      2.06514 · 1012       1.33811 · 1011      2.19895 · 1012
+         0.25      2.58174 · 1012       1.37837 · 1011      2.71958 · 1012
+          0.3      3.09834 · 1012       1.40766 · 1011      3.23911 · 1012
+         0.35      3.61494 · 1012       1.42946 · 1011      3.75789 · 1012
+    If α = 50, 000:
+         Seed     Seeding Cost        Power Grid Cost        Total Cost
+         0.05      5.16348 · 1011        1.6473 · 1011      6.81078 · 1011
+          0.1       1.0327 · 1012       1.94567 · 1011      1.22726 · 1012
+         0.15      1.54854 · 1012       2.09133 · 1011      1.75767 · 1012
+          0.2      2.06514 · 1012       2.18027 · 1011      2.28317 · 1012
+         0.25      2.58174 · 1012       2.23616 · 1011      2.80536 · 1012
+          0.3      3.09834 · 1012        2.2773 · 1011      3.32607 · 1012
+         0.35      3.61494 · 1012       2.30813 · 1011      3.84575 · 1012
+    If α = 200, 000:
+         Seed     Seeding Cost        Power Grid Cost        Total Cost
+         0.05      5.16348 · 1011       2.20897 · 1011      7.37245 · 1011
+          0.1       1.0327 · 1012       2.47626 · 1011      1.28032 · 1011
+         0.15      1.54854 · 1012       2.59299 · 1011      1.80784 · 1012
+          0.2      2.06514 · 1012       2.66206 · 1011      2.33135 · 1012
+         0.25      2.58174 · 1012       2.70493 · 1011      2.85223 · 1012
+          0.3      3.09834 · 1012       2.73629 · 1011      3.37197 · 1012
+         0.35      3.61494 · 1012       2.75971 · 1011      3.89091 · 1012
+    If α = 500, 000:
+
+
+=== PHYSICAL PAGE 19 ===
+Team #11422                                                        Page 19 of 20
+
+
+         Seed    Seeding Cost      Power Grid Cost         Total Cost
+         0.05     5.16348 · 1011     2.20897 · 1011       7.37245 · 1011
+          0.1      1.0327 · 1012     2.47626 · 1011       1.28032 · 1012
+         0.15     1.54854 · 1012     2.59299 · 1011       1.80784 · 1012
+          0.2     2.06514 · 1012     2.66206 · 1011       2.33135 · 1012
+         0.25     2.58174 · 1012     2.70493 · 1011       2.85223 · 1012
+          0.3     3.09834 · 1012     2.73629 · 1011       3.37197 · 1012
+         0.35     3.61494 · 1012     2.73629 · 1011       7.37245 · 1012
+
+When α = 0, α = 50, 000, and α = 500, 000 the best seed is 5% of cars since this
+is when the total cost is the least. Even though the power grid cost is increasing
+with the seed proportion, the total cost between paying to seed cars and paying
+for the power grid is lowest when the seed is 5 − 10%. When α = 200, 000,
+the best seed is 1% of cars. Once a government has determined the α value
+they would like to use, they could find more E values corresponding to seed
+proportions and determine the total costs associated with that seed proportion.
+This would allow the government to spend just enough money on an incentive
+program to shift people towards electric cars while minimizing total cost between
+the incentive program and the pay off in 50 years. For a seed of 10% and an α
+of 200,000, energy sources should be as follows:
+                    Energy Source       Quadrillion BTUs
+                      Petroleum                35.3
+                     Natural Gas              26.15
+                        Coal                  25.95
+                      Renewable               10.45
+                       Nuclear                 10.3
+
+
+9    Conclusion
+We have modeled the effects of electrical vehicle usage by examining their envi-
+ronmental, social, economic, and health effects. First, we examined the spread
+of electrical vehicle usage based on the individual. We did this in two ways:
+using coupled differential equations to model global influence, and using a two-
+dimensional cellular automata to model local and global influence. In order to
+initiate the transition to widespread electric vehicle usage, the government could
+create an incentive program to seed a proportion of electric vehicles. Secondly,
+we used algorithms to minimize cost and pollution for a given year based on
+the proportion of cars which are electric and the value of α. The value of α
+allows governments to measure how much they value decreasing pollution with
+minimizing cost. Finally, we combined these models to determine the propor-
+tion of cars which would need to become electric in 2011, for a given α, which
+would transition the population to electric cars and minimize overall cost. Our
+model suggests that the government should create an incentive program so that
+5%-10% of cars are electric in 2011. This will allow for the minimal cost. In
+order to support the increase in electric cars, the power grid should increase
+by the following quadrillion btus: petroleum: 0, natural gas: 2.75, coal: 6.25,
+renewable: 2.75, and nuclear: 2.
+
+
+=== PHYSICAL PAGE 20 ===
+Team #11422                                                        Page 20 of 20
+
+
+References
+[1] Average fuel efficiency of u.s. passenger cars and light trucks. (2010, Novem-
+    ber 30). Retrieved from: http://www.bts.gov/publications/national_
+    transportation_statistics/html/table_04_23.html
+[2] BP Statistical Review of World Energ. (2010, Jun). Retrieved from:
+    http://www.bp.com/liveassets/bp_internet/globalbp/globalbp_
+    uk_english/reports_and_publications/statistical_energy_review_
+    2008/STAGING/local_assets/2010_downloads/statistical_review_
+    of_world_energy_full_report_2010.pdf
+[3] International Energy Annual. (2009, Jan 21). Retrieved from http://www.
+    eia.doe.gov/emeu/iea/
+
+[4] Li-Ion Motors. (2011). Retrieved from http://ceocentral.com/m/store/
+    view/LMCO-Li-ion-Motors-Corp
+[5] Manaham, S.E. (1991). Environmental Chemistry. Chelsea, MI: Lewis Pub-
+    lishers.
+
+[6] Natural gas and the environment. (2010). Retrieved from: http://www.
+    naturalgas.org/environment/naturalgas.asp
+[7] U.S. Primary Energy Flow by Source and Sector. (2009). Retrieved from:
+    http://www.eia.doe.gov/aer/pecss_diagram.html
+[8] Wright, R.T. (2005). Environmental Science. Uppder Saddle River, NJ:
+    Pearson Prentice Hall.
+[9] Paine, Chris (Director). (2006). Who Killed The Electric Car? [DVD].
+[10] U.S. Census Bureau, (2010). World population: 1950-2050 Retrieved from
+    http://www.census.gov/ipc/www/idb/worldpopinfo.php

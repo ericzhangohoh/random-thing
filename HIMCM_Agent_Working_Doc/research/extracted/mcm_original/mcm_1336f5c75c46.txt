@@ -1,0 +1,1207 @@
+=== PHYSICAL PAGE 1 ===
+                                  Team Control Number
+
+
+                                   22905
+   For office use only                                          For office use only
+   T1 _______________                                           F1 _______________
+   T2 _______________                                           F2 _______________
+   T3 _______________                                           F3 _______________
+                                     Problem Chosen
+   T4 _______________                                           F4 _______________
+                                           B
+                         Keep Water Crisis Away from Us
+                                          Summary
+     Limited fresh water resource has become a restrictive factor for development in
+most regions across the world, thus how to handle water shortage in light of the cost is
+an ever pressing issue. Premised on the real situations in China, this paper analyzes
+the issue from three perspectives and comes up with sound coping strategies.
+     First of all, based on China’s status, we create a risk assessment model of water
+shortage nationwide. Risk is defined as the product of risk occurrence probability (P)
+and level of loss (C). Here, the probability of risk occurrence is quantified by weight
+model while the level of loss is quantified by GDP and population density. By means
+of cluster analysis, the grade of risk is divided into five levels and the risk level
+prognostic map concerning all the provinces of China in 2025 is proposed. The map
+demonstrates a severe risk of water shortage that might confront China. Therefore, we
+come up with corresponding strategies from different perspectives so as to reduce the
+risk of water shortage.
+     The first strategy focuses on North China, a place that experiences the most severe
+water shortage, and manages to address the distribution of water resources. We create
+a multi-target dynamic optimization model that takes into account various restrictions
+like storage, transportation, supply and demand. Through the genetic algorithm, the
+optimal water distribution plan in each sub-region is produced.
+     The second strategy facilitates the site selection of desalination plants in coastal
+cities of North China, as well as the evaluation of economic benefits for desalination
+plants. Based on a comprehensive analysis of the impact of all the factors, the analytic
+hierarchy process is adopted to formulate the order of priority for building plants in
+the five cities in Bohai coastal region. The result shows that Tianjin is the optimal
+location for building plants. Matter-element assessment model is established in
+consistent with the principle of maximizing the benefits and is compared with the
+economic benefits of South-to-North water diversion project in Tianjin. The
+conclusion is that desalination is a better choice.
+     The third strategy analyzes the influencing factors of water price and water
+demand, as well as the mathematic relation between the two. By introducing elasticity
+coefficient, a progressive explanation of how to save water by means of adjusting the
+water price is made, which may provide guidance for local pricing of water. Finally, a
+regression analysis is conducted on water price and the use of water in Nanjing over
+the recent decade, the result of which is explained and verified.
+     Further, we discuss strengths and weaknesses of our models. Conclusion is
+rendered in the non-technical position paper.
+
+
+=== PHYSICAL PAGE 2 ===
+Team#22905                                                                                            Page 2 of 26
+
+
+                                                Contents
+   1.Background ...................................................................................................... 3
+   2. Terminology and Definitions ........................................................................... 3
+      2.1 Terminology .............................................................................................. 3
+      2.2 Symbol Definition...................................................................................... 4
+   3. General Assumptions ....................................................................................... 4
+   4.A Risk Assessment Model of Water Shortage Nationwide ................................ 4
+      4.1 Introduction ............................................................................................... 4
+      4.2 Definition of Risk ...................................................................................... 5
+      4.3 Quantification of the Probability of Risk (P) .............................................. 5
+      4.4 Quantification of the Level of Loss(C) ....................................................... 7
+      4.5 The Division for the Level of Water Shortage ............................................ 8
+      4.6 Conclusion ................................................................................................. 9
+   5.Strategy I-a Multi-Target Dynamic Optimization Model ................................. 10
+      5.1 Multi-Objective Optimization in Optimal Problems ................................. 10
+      5.2 Constraints ............................................................................................... 11
+      5.3 Solving Steps Based on Genetic Algorithm .............................................. 12
+      5.4 Conclusion ............................................................................................... 13
+   6.Strategy II-a Assessment Model of Desalination Plant .................................... 14
+      6.1 Selecting the Site for Desalination Plant ................................................... 14
+      6.2Matter-element Assessment Model of Economic Efficiency ...................... 17
+   7.Strategy III- Sustainable Development of Water Price Model ......................... 20
+      7.2 Basic model ............................................................................................. 21
+      7.3 Improved Model ...................................................................................... 22
+      7.4 Model Promotion for Agricultural Water.................................................. 23
+      7.5 Model testing ........................................................................................... 23
+      7.6 Conclusion ............................................................................................... 24
+   8.Strengths and Weaknesses .............................................................................. 24
+      8.1 Strengths .................................................................................................. 24
+      8.2 Weakness ................................................................................................. 24
+   9.References ...................................................................................................... 25
+   Position Paper for Governmental Leadership ..................................................... 26
+
+
+=== PHYSICAL PAGE 3 ===
+Team#22905                                                                Page 3 of 26
+
+
+1.Background
+   Significant threats to water resources exist across China. Climate change is an
+emerging challenge in all parts of the country, but numerous long term problems also
+exist, with serious implications for China’s environment, economy and society [Rob
+de Loe, PhD, 2008].
+    Fortunately, China currently have an overarching national water strategy that
+facilitates more effective response to current and emerging challenges and threats.
+The benefits of having such a strategy are numerous. Examples include the following:
+    •More consistent and effective responses to concerns with national dimensions,
+such as water exports and climate change
+    •Increased accountability due to broader stakeholder participation in governance
+    •Enhanced environmental protection and a stronger foundation for economic
+productivity
+    •Stronger national capacity to respond to threats and crises
+    • Better positioning to meeting growing international expectations and
+obligations.
+    Of course, the existing problems are obvious:
+    • The distribution of water resource is far uneven in China. Though
+South-to-North water diversion project has already been under construction, its
+effectiveness is still invisible at the present.
+    • The period of rainfall focuses mainly on summer, and therefore, it is not
+uncommon to confront with dry seasons.
+    • The pollution of water is increasingly severe but no effective supervision
+measures have been taken and work.
+
+
+2. Terminology and Definitions
+2.1 Terminology
+Desalinization: the removal of salt (especially from sea water).
+Elastic coefficient: growth rate of two economic indicators in a certain period. It is a
+measurement of relationship between two economic indicators’ growth.
+
+
+=== PHYSICAL PAGE 4 ===
+Team#22905                                                                 Page 4 of 26
+
+
+2.2 Symbol Definition
+                                          Table 1.
+                                     Main parameters.
+ Parameter               Meaning
+ P                       Probability of risk
+ C                       Level of loss
+S( x)                    Social objective
+J ( x)                   Economic objective
+H ( x)                   Environmental objective
+E( x)                    Ecological objective
+1                       Price elastic coefficient
+2                       Income elastic coefficient
+
+
+3. General Assumptions
+ •No great climate changes will take place in the years to come.
+ •The influence of new technologies which may affect the cost of desalination plants
+can be neglected.
+ • Population of China increases normally, such as without great amount of
+immigration, nationwide disease and so on.
+ •We do not take into account the construction time for desalination
+plants, divert project and so on. That is to say, all strategies we come up
+with can be put into effect immediately.
+
+
+
+4.A Risk Assessment Model of Water Shortage
+Nationwide
+4.1 Introduction
+    Given the current situation of China’s water resource, people will confront with
+various problems in their daily living if no proper measures will be taken. Thus, it’s
+essential to give an evaluation to every province’s situation of water shortage in China.
+Therefore, we combine the level of water shortage with risk assessment concept in
+economics to formulate a risk assessment model of water shortage.
+
+
+=== PHYSICAL PAGE 5 ===
+Team#22905                                                                                  Page 5 of 26
+
+
+                                         Choosing five risk factors
+                                         (according to preexisting
+                                               documents)
+
+                                                          Grey
+                                                       Prediction
+
+
+                                          Predicting the five risk
+                                           factors’data in the
+                                              future 14 years
+
+                                                      Correspondence
+                                                          Analysis
+
+                                         Obtaining the weight of
+                                            five risk factors
+
+
+                    Obtaining the risk                                 Obtaining the loss
+                      probability of             risk R=P*C                degree of
+                     a certain region                                   a certain region
+                            (P)                       clustering               (C)
+                                                       analysis
+
+
+                                          Obtaining the risk degree
+                                             of a certain region
+
+
+
+                         Figure 1. The flow chart of the risk assessment model.
+
+
+    Many scholars have made a multitude of researches to choose risk factors while
+the results are similar to each other. Hence, we pick out 5 risk factors from related
+documents [written by Wei Xin et al.2011] and they’re annual precipitation, GDP,
+population, forest coverage, and the amount of wastewater treatment.
+4.2 Definition of Risk
+    Risk (R) is not only a function of the probability of risk, but also the function of
+the consequence triggered by the risk. So it is easy to understand the point that the
+probability of the risk may be high while its damage may not so huge. On contrary,
+there might be a risk with little probability but a huge loss. We obtain the following
+formula after analysis:
+             Risk (R)= probability of risk (P)×level of loss(C)                (4-1)
+   The level of loss means the loss degree of objects which will suffer from water
+shortage when water shortage is taking place at a certain probability. Next, we take
+Heibei Province as an example to explain our calculate procedure and get its risk level.
+Other provinces’ risk level comes with the same way at the end.
+
+
+4.3 Quantification of the Probability of Risk (P)
+    We obtain the assessed value of P by the weight model which is shown by the
+following formula:
+                    P  w1 x1  w2 x2 w3 x3 w4 x4                        w5 x5
+                                                                                                     (4-2)
+
+
+=== PHYSICAL PAGE 6 ===
+Team#22905                                                                                    Page 6 of 26
+
+    Each factor’s weight can be calculated by normalizing factors’ degree of
+association
+                                         Z0 i
+                            wi      k
+                                                       (k  1 , 2 , . . . 5 )
+                                   Z
+                                    i 1
+                                                0i
+                                                                                                        (4-3)
+    Because the probability of risk correlates positively with water shortage, we
+consider water shortage as a reference sequence, five other risk factors as the
+comparative sequence. With the help of SPSS17.0, we carry the correlation analysis,
+and then obtain the correlation coefficient between water shortage and other risk
+factors to find the weight of risk factors.
+    In order to calculate the risk in 2025, we should use present data to predict the
+data in following 14 years. Next we use grey forecasting model to predict the
+reference sequence and the comparative sequence. Each sequence’s tendency chart is
+showed in the picture below:
+
+
+
+
+  Figure 2. The tendency of annual precipitation, GDP, population, forest coverage, the amount of wastewater
+                       treatment and the amount of water shortage in the span of 46 years
+
+
+=== PHYSICAL PAGE 7 ===
+Team#22905                                                                                     Page 7 of 26
+
+  We get the weight of each risk factor via correlation analysis with the help of
+SPSS17.0 by using the data after 2000. The result is listed in Table 1.
+                                                   Table 1.
+                                         Weights of five risk factors.
+                               GDP                                              0.233
+                            Population                                          0.176
+                         Forest coverage                                        0.206
+                        Annual precipitation                                    0.209
+                 The amount of wastewater treatment                             0.176
+
+   The probabilities of risk in Heibei province from 2012 to 2025 can be calculated
+and shown in the following table.
+
+                                                   Table 2.
+              Statistical chart of the probabilities of risk in Heibei province from 2012 to 2025.
+      Year                  2012              2013               2014              2015              2016
+ Risk Probability           0.613             0.759              0.844             0.665             0.724
+      Year                  2017              2018               2019              2020              2021
+ Risk Probability           0.646             0.700              0.619             0.818             0.799
+      Year                  2022              2023               2024              2025
+ Risk Probability           0.713             0.799              0.844             0.885
+
+
+
+4.4 Quantification of the Level of Loss(C)
+   The level of loss is quantified by GDP and population density. We take the
+method of range transformation to normalize the two factors and obtain G0 and D0.
+The formulas are shown as follows:
+
+                                           Di  Dm i n
+                                     D0 
+                                          Dm a x D m i n
+                                    
+                                    G  Gi  Gm i n
+                                     0 Gm a x G m i n
+                                                                                   (4-4)
+    On the basis of calculation method for the level of loss in the evaluation of nature
+disaster level:
+                                         G0  D0
+                                 C
+                                            2                                                          (4-5)
+   We obtain the level of loss of Heibei province from 2012 to 2025.
+
+
+=== PHYSICAL PAGE 8 ===
+Team#22905                                                                                        Page 8 of 26
+
+                                                    Table 3.
+                   Statistical chart of the level of loss of Heibei province from 2012 to 2025.
+      Year                      2012               2013              2014              2015              2016
+   Loss Degree                  0.381              0.396             0.405             0.413             0.429
+      Year                      2017               2018              2019              2020              2021
+   Loss Degree                  0.437              0.440             0.453             0.463             0.478
+      Year                      2022               2023              2024              2025
+   Loss Degree                  0.494              0.518             0.535             0.551
+
+
+
+4.5 The Division for the Level of Water Shortage
+    We make cluster analysis for the data of the risk of water shortage to obtain the
+division for the level of the risk.
+
+
+
+
+      Figure 3. The division for the level of water shortage with respect to risk probability and loss degree
+
+
+    With the division upper, we obtain grade interval classification. To get the
+criterion of classification, we take the maximum and minimum of each level’s data
+and its adjoining maximum and minimum’s average as the boundary of the risk level.
+Finally, we make the criterion of classification as follows: (the following standard
+level divide):
+
+
+=== PHYSICAL PAGE 9 ===
+Team#22905                                                                                       Page 9 of 26
+
+                                                      Table 4.
+                                           The criterion of classification.
+
+                Level                Value of Assessment                        Interpretation
+                   I                          0~0.069                           Very Low
+                   II                      0.069~0.165                             Low
+                  III                      0.165~0.237                          Moderate
+
+                  IV                       0.237~0.340                             High
+
+                   V                          0.340~1                          Very High
+
+
+   From the results above, we can easily find that the value of assessment for Heibei
+province in 2025 is 0.487, designated in level V, which means it has a very high
+probability of suffering water shortage.
+   By applying the same method to other provinces, we obtain the level of the risk of
+water shortage nationwide, as shown in the map bellow:
+
+
+
+
+     Figure 4.The map of assessment result, each color represents a level of risk of water shortage, and the
+                             specification is shown in the left bottom of the figure.
+
+4.6 Conclusion
+    From the figure above, it is easily seen that the distribution of water resource is far
+uneven in China. However, the China government has been aware of the seriousness
+of the problem and already took some appropriate measures, such as South-to-North
+
+
+=== PHYSICAL PAGE 10 ===
+Team#22905                                                                       Page 10 of 26
+
+water diversion project. In the following part, we will build models to analyze a
+certain region which locates in North China and has the most severe situation.
+
+
+5.Strategy I-a Multi-Target Dynamic
+Optimization Model
+5.1 Multi-Objective Optimization in Optimal Problems
+    The objective of the use of water resource should be focused on four aspects:
+social, economic, environmental and ecological. Overall optimal is what the optimal
+allocation pursue.
+                            F  o p t i m{i z( e )S, x( )J, x ( H) , x ( E) }x           (5-1)
+Where, parameter Z is allocation vector; S( x), J( x), H( x), E( x) represent social
+objective, economic objective, environmental objective and ecological objective,
+respectively.
+    According to the principle that sub-region division should be in accordance with
+administrative partition, we divide the North China region that we will investigate
+into four sub-regions: Hebei Province, Shanxi Province, Beijing and Tianjin. There
+are four water-consuming sectors: domestic, industrial, agricultural and
+ecological[FengYao-long et al.2003]. The mathematical descriptions of the models
+are as follows:
+                 K YS ( k )       HY ( i )
+                                                                
+S( x)  min    ai  (Qkij  xkij ) 
+               k 1 i 1             j 1                     
+                K                 
+                          YS ( k ) HY ( i )
+                                                            
+ J( x)  min
+
+
+                     β  k   
+                           i 1  j 1
+                                               ( cij xkij ) 
+                k 1                                        
+
+                    K                                               
+                         YS ( k ) HY   ( i )
+
+ H  ( x )  min         
+                  k 1  i 1
+                                             (0.01   d kij kij kij 
+                                                           p   x   )
+                                   j 1                             
+                 K             HY ( i )
+
+ E( x)  min    ( xkij / EX )
+
+                k  1 iE( k ) j  1
+                                                                                        (5-2)
+
+ai :Stands for the weight coefficients reflecting the influences on social benefit
+
+triggered by water shortage in area i
+Qkij :Stands for forecast water demand of industry j in sector i of sub-region k
+
+xkij :Stands for water consumption allocated to industry j in sector i of sub-region k
+
+βk :Stands for weight coefficients in sub-region k
+
+
+=== PHYSICAL PAGE 11 ===
+Team#22905                                                                                               Page 11 of 26
+
+
+cij :Stands for benefit of unit water consumption of industry j in sector i
+
+dkij :Stands for unit discharge of wastewater of industry j in sector i of sub-region k
+
+pkij :Stands for coefficients of sewage discharge of industry j in sector i of sub-region
+
+k
+E( k ) :Stands for the set of eco-environment water-using sector in sub-region k
+
+5.2 Constraints
+(1)Constraint of Total Water Volume
+                      K Y S( k)        H (Y ) i               G                 K          (D )k
+
+                     
+                     k 1   i 1
+                                       xk i j
+                                        j 1
+                                                                 Q g
+                                                                 g 1
+                                                                                 Q
+                                                                                k 1    d 1
+                                                                                                   k d
+                                                                                                                 (5-3)
+
+Where, g is public water source; d is independent water source; Qg is the amount of
+
+water available in public water source g; Qkd is the amount of water available in
+
+independent water source d.
+(2) Constraint of available water supply
+                                       K        G                       G
+
+                                      D   Q
+                                      k 1 g  1
+                                                         k
+                                                         g
+                                                                  g 1
+                                                                            g
+                                                                                                                 (5-4)
+
+Where, Dgk represents the amount of water allocated to sub-region k from public
+
+water source g.
+(3)Constraint of water transportation capacity
+Public resource:                                        Dgk  Sgk m a x
+                                                                                                                (5-5)
+
+Where, Sgk max represents the amount of water transported to sub-region k from public
+
+water resource g.
+                                   YS( k ) HY ( i )                 G               D( k )
+Independent water source              xkij   Dgk   Sdk max
+                                    i 1       j 1                g 1             d 1
+                                                                                                             (5-6)
+
+Where, Sdk max represents the water volume of independent water resource d in
+sub-region k
+(4)Constraint of transported water volume
+                                                      HY ( i )
+                               X     k min
+                                     i
+                                                  xkij  Xik max
+                                                       j 1
+                                                                                                                 (5-7)
+
+Where, Xik min , Xik max represent the maximum and minimum water demand of sector i
+
+
+=== PHYSICAL PAGE 12 ===
+Team#22905                                                                                        Page 12 of 26
+
+in sub-region k, respectively.
+(5)Water allocation of sub-regions
+                       Y S( k)   H (Y ) i                    (D )k         G
+
+                        
+                        i 1
+                                  xk i j
+                                 j 1
+                                                      Q kd
+                                                       d 1
+                                                                           D  g 1
+                                                                                      k
+                                                                                          g
+                                                                                                          (5-8)
+(6)Constraint of water quality
+                        YS ( k )HY i ( )
+
+                           (0.01d p x )
+                          i 1   j 1
+                                                       kij    kij    kij
+
+                                        YS ( k ) HY ( i )
+                                                                            Wk
+                          Qk ,h    pkij xkij
+                                         i 1     j 1
+                                                                             (5-9)
+    where, Qk ,h represents the amount of water in the river channel of sub-region
+k; Wk represents the maximum acceptable concentration of important pollutants in
+water [Yang Ai-min et al.2004].
+5.3 Solving Steps Based on Genetic Algorithm
+    We build a two-level multi-objective optimal model, and apply GA for several
+times. At last, we achieved the best system comprehensive objective. Specified steps
+are as shown below:
+                                                                                 1st step
+                                                                           Section coordination
+
+                                                                                Subsegment 1
+                             2nd step                                             (MOGA)
+                        System coordination
+
+                                                                                Subsegment 2
+                          Regional total                                          (MOGA)
+                           resources D
+                             (MOGA)                                             Subsegment 3
+                                                                                  (MOGA)
+
+                                                                                          …
+                                                                                          …
+
+                                                                                Subsegment n
+                                                                                  (MOGA)
+
+                          Figure 6. Specified steps of genetic algorithm
+(1)Optimization of Subsegment in First Level
+The procedures of solving the problem are as follow:
+Step1:Firstly, decision variables in the first level are encoded;
+Step2:Initial feasible solution can be obtained through genetic algorithm. Putting the
+solution into each the sub-functions and computing the functional value.
+Sub-Objection sort methods which mentioned above can be applied to work out
+fitness and optimize independently in the section of sub segment.
+    Although we can get optimum solution and the corresponding fitness in the
+section of subsegment through genetic algorithm, it may not be best equilibrium
+solution in the section. Hence, optimum solution and the corresponding fitness in the
+section of subsegment are fed back to the second level and coordination theory should
+be applied to the second level.
+(2)The coordination of the second level system
+
+
+=== PHYSICAL PAGE 13 ===
+Team#22905                                                                                       Page 13 of 26
+
+    The task of is the second level is to make optimum solution in the section of
+subsegment to be best equilibrium solution in the section. The coordination of the
+second level system also adopts genetic algorithm and the procedures are as follow:
+Step1:Producing initial population, namely producing pre-allocated resources D and
+passing them to each subsegment in the first level.
+Step2:Optimizing each subsegment, namely optimizing subsystems in the level, and
+optimum solution and the corresponding fitness of each subsegment are fed back to
+the second level.
+Step3:The second level decodes information and calculates the fitness based on the
+feedback it gets，makes selection, crossover, mutation and gets the new group, that is
+new sorting program .
+Step4:Judging the optimal individual in new population whether satisfies the
+terminating condition, or whether the generation number reaches the preset value. If
+satisfies, namely water resources has fulfilled optimum distribution, then stop
+computing of the evolution, output optimized calculation. Otherwise, passing new
+generation population/ new sorting program to the new level, namely turn to the step2
+until satisfy the terminating condition or reach the generation number.
+                                                          Table 5.
+                                               Specified solution of allocation
+     Sub-region          Agriculture           Industry           Living          Economy        Total
+        Beijing             10.82                  5.14           15.43              4.02         35.41
+        Tianjin             11.03                  4.85            5.55              1.24         22.67
+        Hebei              143.81                 23.16           24.05              2.95        193.97
+        Shanxi              38.64                  2.76           10.69              2.66         53.75
+     The unit of allocation is 109 m3 /year.
+                                                          Table 6.
+                                                   The result of allocation
+Sub-region         Balance           Agriculture           Industry           Living       Economy     Total
+   Beijing         Short A               0                     0               0.611          0         0
+   Tianjin         Short A               0                     0               0.126          0         0
+   Hebei           Short A              3.1                    0               0.776          0         0
+   Shanxi          Short A               0                     0               0.254          0         0
+                   Need A              204.3                 35.91             55.72         10.87     306.8
+     North         Supply A            201.2                35.91             53.953         10.87    301.933
+     China          Short A              3.1                   0               1.767           0       4.867
+                    Short R            0.015                   0              0.0317           0      0.0467
+A and R represent amount and rate, respectively. The unit of allocation is 109 m3 /year.
+
+5.4 Conclusion
+   From Table 6 above, it can be easily seen that the shortage of water in North
+China has been alleviated greatly. So, we can implement this method to other regions
+which suffer the same problem of water shortage.
+
+
+=== PHYSICAL PAGE 14 ===
+Team#22905                                                                    Page 14 of 26
+
+
+6.Strategy II-a Assessment Model of
+Desalination Plant
+6.1 Selecting the Site for Desalination Plant
+(1)Pick Up the Correlation Index
+    Developing seawater desalination technology is an important approach of solving
+the problem of scarcity of water for coastal cities in northern China. Selecting the
+appropriate site for desalination plant is a big challenge when financial support from
+the government is limited.
+    In order to decide the location of desalination plant, we must set a number of
+parameters and establish a database for comparison (The data comes from
+www.stats.gov.cn). After carefully and thoroughly analyzing the condition of each
+city, we develop six most significant parameters as shown below:
+•The urban economy (M1)
+    Since constructing desalination plant is a high, long-term investment, a great
+amount of money is needed to sustain the running of desalination plant, which
+requires that the city must have adequate fund. GDP of a city reflects the
+developmental level of its economy and is easy to be found via the Internet.
+•Land price of the city (M2)
+    The building cost of projects is mainly determined by the price of the land. Hence,
+this factor must be considered carefully when selecting the site.
+•Energy cost (M3)
+    Desalination is an energy-consuming project, making energy cost an indispensable
+factor. Desalination plant utilizes the electrical energy directly or indirectly at the
+present. Under the condition of same productivity, electricity price is proportional to
+energy cost of desalination.
+•Human capital(M4)
+    Human resource is an irreplaceable role through the operation of the project.
+Apparently, it is not desirable that the labor cost is very high, so it is important to take
+into account the average wage of local residents.
+•The degree of water shortage(M5)
+    Solving the problem of water shortage is the main purpose of the desalination
+project. The degree of water shortage will have a huge impact on government’s
+decision-making period. The index can be described by the amount of annual water
+deficit, which has been mentioned above.
+•Environmental protection cost(M6)
+    Desalination plant will produce strong brine containing high level minerals which
+is harmful to the seawater around if dumped into the sea without treatment. A good
+environmental protection facilities service will benefit reducing the adverse impact of
+seawater desalination project to the minimum, and the emphasis of environmental
+protection in a region is measured by the cost of environment protection.
+
+
+=== PHYSICAL PAGE 15 ===
+Team#22905                                                                                            Page 15 of 26
+
+    In summary, the relationship of each index can been shown clearly as hierarchical
+structure. Hierarchical structure of selecting the site is listed in the following:
+
+                                         Index layer
+
+                                        The urban                                    Solution layer
+                                        economy
+                                                                                        Dalian
+                                        Land price
+                                        of the city
+                                                                                        Yingkou
+      Target layer                        Energy
+                                           cost
+          Site                                                                         Qin Huang
+       selection                                                                          Dao
+                                      The degree of
+                                      water shortage
+                                                                                        Tianjin
+                                          Human
+                                          capital
+                                                                                        Weihai
+                                      Environmental
+                                      protection cost
+
+                              Figure 7. Hierarchical structure of selecting the site
+
+
+
+    m ij (i  1, 2,   ,6; j  1, 2,   ,5) from the each data should be normalized at first.
+
+Procedures are shown as follow:
+                                                  m ij  n j
+                                        m'ij                                                                 (6-1)
+                                                   N j  nj
+
+                              Where N j  max{m ij }
+                                                1i  5
+
+
+                                        nj  min{mij }
+                                                1 i  5
+
+
+                                mij' [0,1] (i  1, 2,         ,6; j  1, 2,   ,5)
+
+
+=== PHYSICAL PAGE 16 ===
+Team#22905                                                                                 Page 16 of 26
+
+                                                Table 7.
+                       A database of five cities containing six parameters
+                       The different parameters in the table are made dimensionless.
+                        M1             M2             M3             M4             M5            M6
+     Dalian            0.833          1.000          0.800          0.810          0.121         1.000
+    Yingkou            0.346          0.234          0.779          0.898          0.512         0.433
+ Qin Huang Dao         0.874          0.841          0.866          0.865          0.956         0.766
+     Tianjin           1.000          0.866          0.899          0.881          1.000         0.855
+     Weihai            0.653          0.857          1.000          1.000          0.789         0.713
+
+(2)Comparison
+   We realize that some of the parameters are somehow more important than others.
+So in an effort to make our model more accurate and reliable, we introduce a
+weighted index wi, with
+         I  M1 w1  M5 w5 M6 w6                M2 w2       M3 
+                                                                  w3         M4 w4                (6-2)
+
+The value of I is bigger, the more likely for the relevant city to catch the chance.
+   We determine the weights via the Analytical Hierarchy Process (AHP)
+[Saaty 1982]. We build a 6×6 matrix reciprocal matrix by pair comparison:
+                                M1     M2      M3      M4      M5       M6
+                           M1  1     1/ 3 1 1/ 4 1/ 2 1/ 2
+                                                          
+                           M2  3      1   3  1    2    2 
+                           M3  1     1/ 3 1 1/ 4 1/ 2 1/ 2
+                                                          
+                           M4  4      1 4    1    3    3 
+                           M5  2     1/ 2 2 1/ 3  1    1 
+                                                          
+                           M6  2    1/ 2 2 1/ 3  1    1 
+
+   The meaning of the number in each cell is explained in Table 8 The numbers
+themselves are based on our own subjective decisions.
+
+                                                Table 8.
+                                     The multiplication table of D10.
+  Intensity of Value       Interpretation
+           1               Requirements i and j have equal value.
+           3               Requirement i has a slightly higher value than j.
+           5               Requirement i has a strongly higher value than j.
+           7               Requirement i has a very strongly higher value than j.
+           9               Requirement i has an absolutely higher value than j.
+       2, 4, 6, 8          Intermediate scales between two adjacent judgments.
+     Reciprocals           Requirement i has a lower value than j.
+
+   We then input the matrix into a Matlab program that calculates the
+
+
+=== PHYSICAL PAGE 17 ===
+Team#22905                                                                            Page 17 of 26
+
+weight wi of each factor, as given in Table 9.
+                                             Table 9.
+                                      AHP-derived weights.
+  Factor        M1           M2                M3                   M4         M5            M6
+ Weight        0.211        0.294             0.190             0.103         0.112         0.09
+
+
+    We test the consistency of the preferences for this instance of the AHP.
+For good consistency [Alonso and Lamata 2006, 446–447]:
+•The principal eigenvalue λmax of the matrix should be close to the number
+  n of alternatives, here 6; we get λmax = 6.0427.
+•The consistency index CI = (λmax−n)/(n−1) should be close to 0; we
+ get CI = 0.0086.
+•The consistency ratio CR = CI/RI (where RI is the average value of CI
+ for random matrices) should be less than 0.01; we get CR = 0.005.
+Hence, our decision method displays perfectly acceptable consistency and
+the weights are reasonable.
+    We calculate the value of I for each city via calculator, as given in Table 10.
+                                             Table 10.
+                                    The value of I for each city.
+   City       Dalian       Yingkou           Qin Huang Dao               Tianjin       Weihai
+    I         0.131         0.494                0.560                    0.664        0.512
+
+(3)Conclusion
+    According to the value of I from largest to smallest, we obtain the result
+that First, Tianjin; Second, Qin Huang Dao; Third, Weihai; Forth, Yingkou; Finally,
+Dalian.
+    Our suggestion is that when the condition is allowed, Tianjin is the the top
+candidates for the site of desalination plant. Then, Qin Huang Dao should be
+considered and so on.
+6.2Matter-element Assessment Model of Economic Efficiency
+(1)Selection of Indexes
+    In general, cost displays an inverse correlation with economic efficiency, while
+output and economic efficiency have positive correlation. Hence, total investment,
+average cost, energy consumption, supply and output value are chosen as indexes to
+estimate economic efficiency. The first three indexes come from the aspect of cost
+while the latter two stands for output. We analysis economic efficiency of both
+South-to-North Water Transfer and desalination in Tianjin. The former is regarded as
+the standard object. The latter one is considered as the comparison object.
+(2)Data Pre-Processing
+    Firstly, we transform negative indicators into positive indicators:
+
+
+=== PHYSICAL PAGE 18 ===
+Team#22905                                                               Page 18 of 26
+
+
+                        x for positiveindicators
+                  yi   i                                                       (6-3)
+                        xi for negative indicators
+                                        i=1,2,..p
+we have                    Y=[y1,y2,…yp,]=[yij].                               (6-4)
+    Then, we standardizing original data so as to eliminate the difference on orders of
+magnitude or dimension among variables. Elements in the matrix are transformed as
+follow:
+
+                       Z1T   Z1 1 Z 1 2        Z p 1
+                        T                           
+                         Z       Z2 1 Z 2 2      Z p 2
+                     Z 2                                                   (6-5)
+                        
+                        T                           
+                       Zn  Zn1 Zn1          Znp 
+
+(3)The Procedures of Building the Model
+Step1:Confirm Matter Element[Cai Yuan 2006,55-60]
+                  N C1 , V1   N(t ), C1 (t ),  a1 (t ), b1 (t )  
+                                                                    
+                     C 2 , V2        C2 (t ),  a2 (t ), b2 (t )  
+         R(t )                                                                 (6-6)
+                                                                    
+                                                                    
+                    Cn , Vn       Cn (t ),  an (t ), bn (t )  
+    Where, N(t) is the water supply manner; Ci(t) is the i economic index such as
+output which is mentioned above; Vi=<a(t),bi(t)>, and it is quantitative field of Ci(t)
+(i=1,2,⋯,n). We set m kinds of assessment Level such as N1, N2,⋯,Nm and build the
+corresponding matter element.
+                      N C1 , Xi 1  N (t ) , C 1 , ai b1 i , 1
+                                                                
+                        C 2 , Xi 2          C 2,  ai ,2bi 2 
+                Ri                                                          (6-7)
+                                                                
+                                                                
+                       Cn , Xin          Cn ,  ain , bin  
+Where, Xij(j=1,2,⋯,n) are the quantitative field of economic indexes Ci(i=1,2,⋯,n)
+in Ni level(i=1,2,⋯,m). And we define Xij as the classical matter elements.
+                    N C1 , XP1   N(t ), C1 ,  aP 1, bP 1 
+                                                              
+                        C2 , XP 2        C2 ,  aP 2 , bP 2  
+              RP                                                          (6-8)
+                                                              
+                                                              
+                       Cn , XPn       Cn ,  aPn , bPn  
+   We construct the extensional matter elements based on t the classical matter
+elements. We build the matter elements RP and set RP  Ri. We define
+XPi=<aPi,bPi>(i=1,2,…n) as the extensional matter elements of Ci(i=1,2,…,n) for
+NP.
+   Apparently, XPi=<aPi ,bPi>(i=1,2,…n). We have obtained the result of the object
+P which should be distinguished.
+
+
+=== PHYSICAL PAGE 19 ===
+Team#22905                                                                                    Page 19 of 26
+
+
+                                  P , C1 , x1 
+                                               
+                                      C 2 , x2 
+                            Ro                                                                       (6-9)
+                                               
+                                               
+                                     Cn , xn 
+Step2:The Calculation of Distance
+                     ( x , X )  x  ( a  b ) / 2  (b  a ) / 2
+                          j    ij      j       ij    ij           ij     ij
+             Dij                                                                                   (6-10)
+                     ( x j , XPj )  x j  ( apj  bpj ) / 2  (bi j  ai j ) / 2
+                   
+                             i  1,2,, m; j  1,2,, n .
+Step3:Build the Correlation Function of Various Indexes for the Comparison Object
+in Each Level
+                         ( x ,X ) /        Xij                                 x j  xij
+                                j     ij
+          Ki ( x j )                                                                               (6-11)
+                         ( x j , Xij ) /  P( x j , XPi )   ( x j , Xij )  x j  xij
+                       
+                              i  1,2,, m; j  1,2,, n .
+Step4:Compute Weight Coefficient
+   The function of calculating weight coefficient is as follow:
+                           xij
+                    aij  n               i  1,2,, m; j  1,2,, n                                 (6-12)
+                          xij
+                            i 1
+
+Step5:Work out the Degree of Association between the Comparison Object P0 and
+the Level of j
+                                                        n
+                             We set K j ( P)   aij K j ( xi ) ,                                   (6-13)
+                                                       i 1
+
+
+and define Kj(P) as the degree of association between the comparison object P and
+the level of j
+(4)Discussion
+   • If K j ( P)  1.0 , which means that of desalination is higher than that of
+
+South-to-North Water Transfer. The bigger the value is, the higher the economic
+efficiency is;
+   • If K j ( P)  0 ,which means that of desalination is lower than that of
+
+South-to-North Water Transfer. The smaller the value is, the lower the economic
+efficiency is;
+   •If 0  K j ( P)  1.0 , which means that of desalination is lower than that of
+
+South-to-North Water Transfer. The changes of value in this section make little
+difference on the economic efficiency.
+
+
+=== PHYSICAL PAGE 20 ===
+Team#22905                                                                Page 20 of 26
+
+(5)The Case
+    We collect the data from www.stats-tj.gov.cn, and the results are listed as follow：
+    The amount of total investment of South-to-North Water Transfer in Tianjin is as
+much as 620 million yuan! Average water price produced by this method about
+2.5yuan/m3.Although annual value of production in South-to-North Water Transfer
+can reach almost 1,000 million yuan, 4000 hectares of land are occupied by the
+project! The amount of total investment of desalination plant with production capacity
+of 3000 m3 per day is merely 24 million yuan. Energy cost of producing one ton water
+is 1.7kWh. Average water price produced by desalination is about 3.2yuan/m3.What’s
+more, annual value of production of is 57 million yuan.
+(6)Conclusion
+    Putting the data into the matter element model, with the help of Matlab7.0, we get
+Kj(P)=1.6.Since the result is bigger than one, we may safely come to the conclusion
+that it is a smart strategy to construct desalination plant in Tianjin！
+
+
+7.Strategy III- Sustainable Development of
+Water Price Model
+7.1 Introduction
+    Water is not only a natural resource, but also a product in the market. Adjusting
+water price is a critical part for the strategy of water resources. Quite a lot of
+experience has proved that water price plays a significant impact on the demand for
+water. If the overall water resources are under certain conditions, the higher water
+price is, the smaller the demand is, and the higher the utilization efficiency is. This
+phenomenon is called the elasticity of supply and demand [Shen Da-jun et al.1999].
+Therefore, we ought to establish reasonable water price so as to achieve the goal of
+saving water.
+    Due to the low water price of China, it is prevalent to waste domestic, agricultural
+and industrial water greatly. The direct consequence of low water price is that people
+pay little attention to water conservation and water price, thereby developing many
+water-consuming habits. In most regions of China, water irrigation is the only way for
+agriculture which has very low use efficiency, so do in industry. In this section, we
+build models to analyze the measures of setting the price of domestic water and
+agricultural water respectively.
+
+
+=== PHYSICAL PAGE 21 ===
+Team#22905                                                                             Page 21 of 26
+
+
+7.2 Basic model
+    We suppose Q is per capita water consumption and P is water price. We call the
+ratio of two numbers-the decline of water demand and the increased on water price as
+elasticity coefficient E, namely
+                                             P Q
+                                        E    
+                                             Q P .                                            (7-1)
+By integral, we can get:
+                                        Q  K PE0 .                                           (7-2)
+Where, K is a constant, E0 is the price model of water demand.
+   According to the formula, we can roughly obtain the relationship between the
+water price and the per capita water as follow:
+
+
+
+
+      Figure 8. Demand curve between per capita water consumption and price of water
+
+
+    However, the water price elasticity coefficient is not a constant. It is kept on
+adjusting with the changes of water price. Figure 9. describes the correlation between
+water price and per capita water consumption perfectly.
+
+
+
+
+                            Figure 9. Diagram of water price elasticity coefficient
+
+
+=== PHYSICAL PAGE 22 ===
+Team#22905                                                                                Page 22 of 26
+
+   If we set:
+                                    E   In( P)   ,                                            (7-3)
+then, we can get:
+                                         P Q
+                                E             In( P)  
+                                         Q P                .                                    (7-4)
+Both sides are integrated, we have
+                                         Q P2
+                                         Q2
+                                     Q1 Q
+                                             ( In( P)   )d( InP)
+                                              P1
+                                                                      ,                          (7-5)
+
+                                                           
+                InQ2 - InQ1        ln 2 P2    ln P2 -       ln 2 P1 -   ln P1
+                                2                           2                         .           (7-6)
+Where the coefficients  and  can be derived from the numerical analysis fitting.
+    We suppose the current water price P1 and the current water demand Q1 is given.
+Once the price after adjusting Q2 is specific, we can easily calculate the water demand
+after adjusting the price Q2.
+
+7.3 Improved Model
+   Above basic model, we take income elasticity into account, because only when the
+water price's rise is proportional to the rise of income, can this have an effect on water
+conservation. In reality, there are many researches which show that when the water
+consumption accounts for 1 percent of family's total income, people trend to neglect it,
+and when it comes to 2 percent, people begin to pay little attention to it. Only when it
+comes to 5 percent, do people pay much attention to it. Thus,
+                                    Q  K  PE0  M
+                                                  E1
+                                                                                                 (7-7)
+
+    Where, M stands for the per capita disposable income, E 1 represents income
+elastic coefficient for water demand.
+    According to the characteristic of the equation, we transform it into the following
+equation in order to ensure statistical regression methods can be applied.
+                       ln(Q)  1 ln( P)  2 ln( M)                                           (7-8)
+
+   The meaning of the regression coefficients is listed as follow:
+    1 —price elastic coefficient
+   If water price doubles, water consumption falls by 1 percentage.
+     2 —income elastic coefficient
+   If the per capita disposable income increases by one percentage, water
+consumption rises by 1 percentage.
+
+
+=== PHYSICAL PAGE 23 ===
+Team#22905                                                                                         Page 23 of 26
+
+
+ 1
+  1 det er min ed by the income
+ 2
+ 1
+       1 in equilibrium
+  2
+ 
+  1  1 det er min ed by water price
+   2                                                                                                       (7-9)
+
+7.4 Model Promotion for Agricultural Water
+    The condition of agricultural water is similar with living water. But we should
+take annual precipitation into consideration when we discuss the function of
+agricultural water. Here, the parameter R is introduced to describe the function. So we
+obtain the function of agricultural water as follow:
+                     Q ) 1
+                   ln(                n (  )2
+                                     lP                lMn ( 3 )      R l n (     )+                     (7-10)
+
+Where, Q represents water demand for agricultural water, P                                   is the price for
+agricultural water.
+7.5 Model testing
+     We take the data related with demand in households in Nanjing from 2001 to 2010
+for the use of statistical analysis. (The data sources from www.njtj.gov.cn.). The data
+is listed in the Table 11.
+                                                      Table 11.
+            Statistical chart of the data related with demand in households in Nanjing from 2001 to 2010.
+                       Water consumption                                                      The per capita
+    Year                                                      Water price
+                           per capita                                                       disposable income
+    2001                       55.51                                 1.45                           8848
+    2002                       55.67                                 1.63                           9157
+    2003                       56.23                                 1.99                          10196
+    2004                       56.66                                 2.14                          11602
+    2005                       56.99                                 2.23                          14998
+    2006                       56.20                                 2.30                          17538
+    2007                       56.45                                 2.40                          20317
+    2008                       56.47                                 2.70                          23123
+    2009                       56.67                                 2.90                          25504
+    2010                       55.41                                 3.10                          28311
+   The unit of water consumption per capita is ton/year. The unit of water price is yuan. The unit of the per capita
+disposable income is yuan/year.
+    We make regression analysis for the data in the table via SPSS17.0 and obtain the
+regression equation as given in the following:
+                      I n( Q) - 0 . 3 1I 8n P( )           0 . I5 n0 9M (      ) - 0.441                  (7-11)
+
+
+=== PHYSICAL PAGE 24 ===
+Team#22905                                                                 Page 24 of 26
+
+
+                          R2 =0.61      DW =0.92        F =13.151
+
+           1
+   Since       1 ,the equation shows that the increasing of income mainly contributes
+           2
+to the growing of water price. However, water consumption per capita undergoes little
+change in the ten years.
+
+7.6 Conclusion
+    There is a negative correlativity between water demand and water price. The
+adjustment of water price has a very strong inhibition effect on water demand. Since
+water price still has much room to go up in China, the authorities can regulating water
+price properly to fulfill optimal allocation of water resources in the whole society.
+Therefore, under the circumstance of water shortage and low water price, we should
+give full play to the leverage of water price to adjust water price reasonably.
+
+8.Strengths and Weaknesses
+8.1 Strengths
+•Our model is based on quantitative analysis/data, so the output is objective and
+reasonable.
+•The results of our model conform to the data that we found.
+•Our model is based on categories of leaf types that are the most typical and common
+•The numerical computations in the research are precise.
+•Our study has scientific value for the research on rational use of water resources in
+the future .
+8.2 Weakness
+•We take the North China as an example in particular when analyzing, which may not
+cover all the situations nationwide.
+•Our analysis of adjusting water price is rather cursory, specific solutions for national
+significance are not explained.
+•We have limited grades of risk , so the complexity of water risk cannot be described
+precisely.
+•We ignore the influence of South-to-North Water Transfer Project when we make
+strategies.
+
+
+=== PHYSICAL PAGE 25 ===
+Team#22905                                                           Page 25 of 26
+
+
+9.References
+Rob de Loe, PhD. 2008. Toward a Canadian National Water Strategy Final Report.
+    Guelph, ON: Rob de Consulting Services.
+Wei Xin, Dong Xiao-xiao, Tang Di, and Luo Wan-chun. 2011. Screening model of
+    risk factors of the shortage of water resources. Mathematics in Practice and
+    Theory Vol.41, No.23 (December 2011): 140-141.
+Feng Yao-long, Han Wen-xiu, Wang Hong-jiang, Lian Ji-jian. 2003. Study on the
+    sustainable development oriented optimal allocation to region water resources.
+    Systems Engineering-Theory & Practice, No.2(February 2003):133-135.
+Yang Ai-min, Tang ke-wang, Wang Hao, Liu Xiao-yong.2004.Theory and calculation
+    method of ecological water use, SHULI XUEBAO, NO.12(December
+    2011):39-41.
+Alonso, José Antonio, and Ma [Mar´ıa] Teresa Lamata. 2006. Consistency
+    in the analytic hierarchy process: A new approach. International Journal
+    of Uncertainty, Fuzziness and Knowledge-Based Systems 14 (4): 445–459.
+Saaty, Thomas L. 1982. Strategy and Organization, The Analytical Hierarchy Process
+    for Decisions in a ComplexWorld. Belmont, CA: Lifetime Learning Pub.
+Cai, Yuan.1994. The matter-element model and its application.Beijing: Science and
+    Technology Literature Press.
+Shen Da-jun, Yang Xiao-liu, Wang Hao. 1999. Analysis of urban residential water
+    demand function in China. Journal of Hydraulic Engineering, No.12(December
+    1999): 6–10.
+
+
+=== PHYSICAL PAGE 26 ===
+Team#22905                                                                 Page 26 of 26
+
+
+Position Paper for Governmental Leadership
+Dear Leaders：
+    As we all know, China is faced with great challenges with respect to the strategy
+of water resource, for the fact that the distribution of water resource is far uneven and
+per capita water resource is well below the average level of the world. In order to
+minimize the probability of water crisis, we put forward the following remedies, on
+the basis our thorough analysis, which is helpful to policy-making.
+    As the development of new technology in recent years, the cost of seawater
+desalination has decreased to a large extent, especially in certain regions, it is even
+lower than the water diversion cost. Hence, it has huge market potential for the
+implementation of building desalination plants. Specifically, the construction site of
+desalination plants is supposed to converge around the coastal cities in north China,
+the best one of which is Tianjin and it is derived from the comprehensive
+consideration of economic factors.
+    Not only should we divert water resource well enough, but also we should make
+full use of it. So, it is crucial to reasonably allocate water resource locally. However,
+considering that China has a vast territory, it is impossible to take all regions into
+account. Therefore, we should make the most severe region a priority, such as regions
+in North China. Scheming by region and supplying by demand with various
+constraints are regarded as the most effective solution.
+    With limited water resource, it is a practical method to adjust the water price for
+the sake of saving water, giving the fact that water price has an effect on people’s
+water consumption. Most past policies failed to pay much attention to the rise of
+people’s income, thereby making the ratio of income to water price kept in a low level
+as well as failing to divert people’s attention to water conservation. Thus, it is high
+time that we should raise water price slightly in some regions, according to this paper.
+    In a word, only we spare no effort to insist on the strategy of water resource and
+make instant adjustment according to the current situation, can we keep water crisis
+away from us.
+
+                                                                       Sincerely yours
+                                                                          Team 22905
+                                                                     February 4th, 2013

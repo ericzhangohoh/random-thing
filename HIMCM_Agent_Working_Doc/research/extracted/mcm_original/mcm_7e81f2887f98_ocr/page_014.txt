@@ -1,0 +1,46 @@
+Team # 22 Page 14 of 20
+
+(17) AU; =RideScore — LineTime x p> 0
+LineTime < RideScore/p
+
+This gives an approximate upper bound on LineTime.
+
+Similar to the effect in Section 5.2, when there are no idle users, opening a
+vitural queue increases the overall waiting time in the normal lines. When there
+are no idle users, if we increase the ratio of QuickPass users, the waiting time will
+increase until it reaches this upper bound. After it reaches this upper bound,
+it remains constant while idle users appear and affect utility gains. In brief,
+the advantage of the QuickPass system is insignificant when we only issue a few
+passes, but it becomes significant as more idle users appear.
+
+6 Park Simulation
+
+6.1 Assumptions
+
+Some of the interactions between real park users and real parks are too compli-
+cated to simulate in a computer. We therefore make the following assumptions
+to simplify the problem:
+
+e The park distribution is simple. Topoland opens for 12 hours a day.
+The 6 hours in the middle are considered to be busy hours. Park users
+arrive and leave sequentially in the first and last three hours, rather than
+rush in and out simultaneously. The park occupancy distribution assumed
+is depicted in Figure 3.
+
+e Park users act in groups of 10. This reduces the computation time by
+a great factor, and the effect of the clustering tends to average out when
+the number of park users is large.
+
+e Park users spend minimal time walking and always use their
+QuickPasses.
+
+e Each park user has the same User’s Patience and User’s Idle
+Constant These are set to the average values obtained in Section 4.3.
+
+6.2 Formulation
+
+We construct the simulation as follows:
+
+e Each attraction in the park is represented by a real queue and a virtual
+queue. The real queue holds the park users who wait in the normal line,
+while the virtual queue tracks the park users who use QuickPasses.

@@ -1,0 +1,926 @@
+=== PHYSICAL PAGE 1 ===
+                         MODELING THE SPREAD OF EBOLA
+
+
+
+
+                                            1. Summary
+
+   Ebola is a rare and deadly disease caused by infection with a strain of Ebola virus. The current
+
+2014 Ebola epidemic outbreak in West Africa (first cases notified in March 2014) is the largest and
+
+most complex Ebola outbreak since the Ebola virus was first discovered in 1976, affecting multiple
+
+countries in West Africa. The Ebola virus causes an acute, serious illness, which is often fatal if
+
+untreated. Thus, it is important to give an epidemic model that considers not only the spread of
+
+the disease, but also possible feasible delivery system, speed of manufacturing of the vaccine or
+
+drug for Ebola so that we can optimize the eradication of Ebola.
+
+   We use existing data from Liberia and Sierra Leone and Guinea to parameterize a mathematical
+
+model of Ebola. We model the course of the outbreaks and the spread of the disease via an SEIR
+
+(susceptible-exposed-infectious-removed) epidemic model to predict the future scenario without any
+
+intervention. Using this method we find out that without any intervention, the Ebola will eventually
+
+be out of control, any individuals in S, E, I categories will eventually goes to R category.
+
+   After that we propose three approaches to optimize the eradication of Ebola: Vaccination inter-
+
+vention, Quarantine intervention, and Delivery system optimization. We simulate the vaccination
+
+intervention in assortative and proportionate mixing patterns. We simulate the vaccination in-
+
+tervention in assortative and proportionate mixing patterns, and compare the results for different
+
+vaccination rate. For quarantine intervention, we apply graph model to figure out the rate of con-
+
+tact between people. Based on that, we estimate the optimal number of people we need to remove
+
+to prevent the disease from spreading due to person-to-person interaction.
+
+   In conclusion, the spread of Ebola is disastrous but it can be well controlled. The three methods
+
+we developed tested across Liberia and Sierra Leone, and we got different reasonable simulation
+
+results.
+                                                  1
+
+
+=== PHYSICAL PAGE 2 ===
+                                            Page 2 of 19                      Control Number 38725
+
+                                           2. Abstract
+
+  The current 2014 Ebola epidemic outbreak in West Africa (first cases notified in March 2014) is
+
+the largest and most complex Ebola outbreak since the Ebola virus was first discovered in 1976,
+
+affecting multiple countries in West Africa. Thus, it is important to give an epidemic model that
+
+considers not only the spread of the disease, but also possible feasible delivery system, speed of
+
+manufacturing of the vaccine or drug for Ebola so that we can optimize the eradication of Ebola.
+
+  We use existing data from Liberia and Sierra Leone and Guinea to parameterize a mathematical
+
+model of Ebola. We model the course of the outbreaks and the spread of the disease via an SEIR
+
+(susceptible-exposed-infectious-removed) epidemic model to predict the future scenario without any
+
+intervention. Using this method we find out that without any intervention, the Ebola will eventually
+
+be out of control, any individuals in S, E, I categories will eventually goes to R category.
+
+  After that we propose three approaches to optimize the eradication of Ebola: Vaccination inter-
+
+vention, Quarantine intervention, and Delivery system optimization. In conclusion, the spread of
+
+Ebola is disastrous but it can be controlled under several methods.
+
+
+                     3. A Letter to the World Medical Association
+
+  World Medical Association: Greetings!
+
+  Since the World Health Organization (WHO) have reported a major Ebola outbreak in Guinea,
+
+in 2014, the disease then rapidly spread to the neighboring countries of Liberia and Sierra Leone,
+
+as well as multiple countries in West Africa, causing thousands of casualties. Mathematical models
+
+of disease outbreaks can be helpful by providing forecasts for the development of the epidemic that
+
+account for the complex and non-linear dynamics of infectious diseases and by projecting the likely
+
+impact of proposed interventions before they are implemented. Here, we use the SEIR model. By
+
+judging and weighting the relationship between the susceptible, exposed, infectious and removed
+
+individuals, we come up with intervention of vaccination, quarantine, and optimization of medical
+
+delivery system. By simulating and examining the potential impacts of those interventions, we can
+
+say with some confidence that although Ebola is disastrous, it is possible to control and reduce the
+
+infected individuals, and keep the balanced situation.
+
+
+=== PHYSICAL PAGE 3 ===
+                                             Page 3 of 19                      Control Number 38725
+
+  Cheers!
+
+
+                                              Contents
+
+  1.     Summary                                                                                      1
+
+  2.     Abstract                                                                                     2
+
+  3.     A Letter to the World Medical Association                                                    2
+
+  4.     Introduction                                                                                 3
+
+  4.1.    Background.                                                                                 3
+
+  4.2.    Outbreak Data.                                                                              4
+
+  5.     Modeling                                                                                     4
+
+  5.1.    A Rudimentary Model                                                                         4
+
+  5.2.    A Model with Intervention                                                                   9
+
+  6.     Conclusion                                                                                  18
+
+  References                                                                                         19
+
+
+
+
+                                          4. Introduction
+
+4.1. Background. In March2014, the World Health Organization (WHO) reported a major Ebola
+
+outbreak in Guinea, the disease then rapidly spread to the neighboring countries of Liberia and
+
+Sierra Leone, as well as multiple countries in West Africa, causing thousands of casualties. Accord-
+
+ing to WHO, 2014 Ebola first started in Guinea then spread across land borders to Sierra Leone
+
+and Liberia, by air (1 traveler only) to Nigeria, and by land (1 traveler) to Senegal.
+
+  Ebola is generally characterized by sporadic, primarily rural outbreaks, and has not been seen
+
+before in West Africa, or in an outbreak of this size. Ebola in humans is caused by four of five viruses
+
+of the genus Ebola virus. The four are Bundibugyo virus (BDBV), Sudan virus (SUDV), Ta Forest
+
+virus (TAFV) and one simply called Ebola virus (EBOV, formerly Zaire Ebola virus). EBOV, is the
+
+most dangerous of the known Ebola virus disease-causing viruses, and is responsible for the largest
+
+number of outbreaks. The fifth virus, Reston virus (RESTV), is not thought to cause disease in
+
+
+=== PHYSICAL PAGE 4 ===
+                                           Page 4 of 19                    Control Number 38725
+
+humans, but has caused disease in other primates (Hoenen T, Groseth A, Feldmann H (July 2012).
+
+”Current Ebola vaccines”). Notably, Ebola is transmitted into the human population through
+
+physical contact with blood, secretions, organs or other bodily fluids of infected animals such as
+
+chimpanzees, gorillas, fruit bats, monkeys, forest antelope and porcupines found ill or dead or in
+
+the rain forest. It then spreads through human-to human transmission via direct contact (through
+
+broken skin or mucous membranes) with blood, secretions, organs or other bodily fluids of infected
+
+people, and with surfaces and materials contaminated with these fluids. Ebola is characterized by
+
+initial flu-like symptoms including sudden onset of fever, fatigue, muscle pain, headache and sore
+
+throat. This then rapidly progresses to vomiting, rash, symptoms of impaired kidney and liver
+
+function, and in some cases, both internal and external bleeding. Most infected persons die within
+
+10 days after their initial infection (80%-90% mortality).
+
+  Using a simple SEIR(susceptible-exposed-infectious-removed) epidemic model and data from
+
+Ebola outbreaks in Sierra Leone and Liberia, 2014 , we calculate the tendency of the situation.
+
+
+4.2. Outbreak Data. A time series of reported Ebola cases was collected from public data released
+
+by the WHO, based on the three most serious infected countries, Guinea, Liberia and Sierra Leone.
+
+From the comparison we can have the general idea of the impact that Ebola has on death rate in
+
+different regions in West Africa.
+
+
+
+                                           5. Modeling
+
+5.1. A Rudimentary Model.
+
+
+5.1.1. Epidemic model. A compartmental model is introduced here, adapted from Legrand et al,
+
+which was previously used to describe the 2000 Uganda Ebola outbreaks. This is a stochastic
+
+compartmental model where individuals are classified as
+
+     • S: Number of susceptible individuals, who can be infected
+
+     • E: Number of exposed individuals, who have been infected but not yet infectious
+
+     • I: Number of infectious cases in the community, who are capable of transmitting the disease
+
+
+=== PHYSICAL PAGE 5 ===
+                                              Page 5 of 19                       Control Number 38725
+
+
+
+
+(a) Cumulative cases by data of reporting infec- (b) Cumulative cases by data of reporting infection
+tion without control efforts in Guinea, Liberia, Sierra without control efforts and deaths in Guinea, March
+Leone, March 25, 2014 - November 26, 2014, by data 25, 2014 - November 26, 2014, by data of WHO Situ-
+of WHO Situation Report, n = 15901                      ation Report, n = 2134
+
+
+
+
+(c) Cumulative cases by data of reporting infection (d) Cumulative Cases by Data of Reporting infection
+without control efforts and deaths in Liberia, March without control efforts and deaths in Sierra Leone,
+25, 2014 - November 26, 2014, by data of WHO Situ- March 25, 2014 - November 28, 2014, by data of WHO
+ation Report, n = 7168                               Situation Report, n = 659
+
+
+      • R: Number of individuals removed from the chain of transmission.(cured or dead and
+
+        buried)
+
+The population will be constant during the outbreak, i.e., the total population at time t will be
+
+denoted by N where N (t) = S(t) + E(t) + I(t) + R(t). Our model is:
+
+                                            dS     βSI
+                                               =−
+                                            dt      N
+                                            dE    βSI
+                                               =      − δE
+                                            dt     N
+                                                                                                       (1)
+                                            dI
+                                               = δE − γI
+                                            dt
+                                            dR
+                                               = γI
+                                            dt
+The model we used above takes into consideration the number of people infected due to direct
+
+contact with an infected individual and the number of people infected due to direct contact with
+
+
+=== PHYSICAL PAGE 6 ===
+                                               Page 6 of 19                        Control Number 38725
+
+latent individuals: βSI/N . Here, we have β = pc where p denotes the probability of successfully
+
+getting infected when coming into contact with an infected individual, and c is the per-capita
+
+contact rate. The parameter q(0 ≤ q ≤ 1) is a weight factor added to the model because a
+
+susceptible individual has a higher chance of getting infected from an infectious individual.
+
+  The individuals in the latent stage will eventually show the symptoms of the disease and enter
+
+into the infectious stage. This is denoted as δE, where δ is the per-capita infectious rate. In that
+
+case, 1/δ becomes the average time for a latent individual to become infectious.
+
+  The death rate is denoted by γI, where γ is the per-capita death rate. Here, although recoveries
+
+do occur, we will not return these individuals to the susceptible class again (actually even if we do,
+
+the number of recovered individuals reported so far is extremely small, so it really doesn’t matter
+
+here).
+
+  The method structure can be described in a flow chart (Table 1) as below, note that the arrows
+
+indicate the possible transitions, and the parameters that govern them.
+
+                                        1           2                3
+                               S              E              I            R
+
+
+
+
+                          Table 1. The stochastic compartmental model
+
+                         No.             Transition              Transition Rate
+                          1        (S, E) → (S − 1, E + 1)           βSI/N
+                          2        (S, E) → (S − 1, E + 1)             δE
+                          3        (I, R) → (I − 1, R + 1)              γI
+
+
+
+5.1.2. Model Fitting and Validation. To solve the system of differential equations, we first make
+
+three assumptions:
+
+    (1) At the very first beginning of the epidemic, N (t) = S(t).
+
+    (2) Initially, there is a constant number of individuals infected. (i.e., dI
+                                                                              dt = 0)
+
+    (3) In order for an individual to become infectious, he/she must pass through the latent stage.
+
+         The data for the latent stage is thus the same as the data for the infectious stage.
+
+
+=== PHYSICAL PAGE 7 ===
+                                                  Page 7 of 19              Control Number 38725
+
+        Table 2. Model Parameters and Fitted Values for a model of an Ebola Epidemic
+        in Liberia and Sierra Leone, 2014
+
+         Parameter             Fitted values for Sierra Leone Fitted values for Liberia
+       Contact rate β                        0.128                       0.16
+    Incubation period 1/δ                  10 days                     12 days
+    Infectious Period 1/γ                 10.38 days                  13.31 days
+
+
+
+
+A deterministic version of the model was fit and validated against the current outbreak data us-
+
+ing weighted least-squares optimization, with seed values from the Uganda outbreak described in
+
+Legrand et al. Notice that 1/δ is the average time it takes for a latent individual to become infec-
+
+tious, and 1/γ is the average time it takes for an infectious individual to die. The model is given
+
+one-quarter of the weight, to capture improved case detection and the bulk of cases. There is no
+
+completed data on the Internet for Guinea; in that case, we eliminated it from the discussion. The
+
+fitted parameters for this model, as well as their descriptions, may be found in Table 2. Before the
+
+commencement of an analysis, we need to nondimensionalize the differential system. Below is the
+
+entirely analogous procedure:
+
+                      [S], [I], [R], [E] : individuals
+
+                      [S 0 ], [I 0 ], [R0 ], [E 0 ] : individuals / time
+
+                      [N ] : total number of individuals : N = S + I + R + E
+                                      1
+                      [β] :
+                             individuals · time
+                                   1
+                      [γ], [δ] :
+                                 time
+                      [t] : Time unit
+
+  Next, we nondimensionalize the system using N for population size and 1/γ for time. We set
+
+the value of N to be unity and divide through with N . Since N = 1, all values remain unchanged.
+
+
+=== PHYSICAL PAGE 8 ===
+                                             Page 8 of 19                     Control Number 38725
+
+The variables N, S, E, I, R become dimensionless, as they have the same unit as N . Let
+
+                                                      S
+                                                Ŝ =
+                                                      N
+                                                      I
+                                                 Iˆ =
+                                                      N                                         (2)
+                                                      R
+                                                R̂ =
+                                                      N
+                                                 t̂ = γt
+
+Therefore, the dimensionless series equations are then given by:
+
+                                           dŜ    β
+                                               = − Ŝ Iˆ
+                                           dt̂    γ
+                                           dÊ   β       δ
+                                                = Ŝ Iˆ − Ê
+                                           dt̂   γ       γ
+                                                                                                (3)
+                                           dIˆ   δ
+                                                = Ê − Iˆ
+                                            dt̂  γ
+                                           dR̂
+                                               = Iˆ
+                                           dt̂
+All the parameter values are known now, so we can solve the system of differential equations. The
+
+system of differential equations cannot be solved analytically, so we will solve it numerically. We
+
+will solve the system of linear equation using initial conditions with values corresponding to the
+
+two countries. Particularly we assume that for both countries the initial exposed populations are
+
+both 10% of the aggregate ones. In addition, the data 1 to 4 in the graph indicate S, E, R, and I
+
+respectively.
+
+  For Sierra Leone, we take the population taken in 2013, which is the latest one, to be the total
+
+population. Therefore the initial condition is (5.4828 (million), 0.6092 (million), 0, 0).
+
+  For Liberia, similarly we take population of 2013 to be the total amount. The initial condition
+
+is then (3.8646 (million), 0.4294 (million), 0, 0).
+
+  Both graphs state that the only equilibrium is (0, 0, 0, R∗) while R* equals the total population
+
+at the beginning. Due to the nondimentionalizing process the two graphs look similar despite the
+
+vertical axis. What is identical is that the system of each country reaches the equilibrium at the
+
+same moment in terms of the nondimentionalized time. In the real world, based on the model,
+
+
+=== PHYSICAL PAGE 9 ===
+                                            Page 9 of 19                      Control Number 38725
+
+the populations in both countries are bound to drop to 0 if no control is executed. According to
+
+the collected data earlier, right now both countries are at the state when the slope of the removed
+
+population is still flat while the ones of the exposed and infectious population are growing steeper
+
+(somewhere around t = 1 in the graphs). Note that the output of the model does not fit the real
+
+data shown earlier, especially that the time period does not match. The reason is that our model
+
+assumes that populations are mixed together, which means each individual has an equal probability
+
+in meeting any other individual in the given area. However we all know that it’s not true in the
+
+real world, people have higher probability meeting others who are in the nearby communities than
+
+meeting ones a few cities away, which limits the spread of virus. But our goal does not focus on
+
+predicting the time when the spread will grow out of control, but on how the result will be affected
+
+by the coefficients.
+
+
+
+5.2. A Model with Intervention.
+
+
+
+5.2.1. Quarantine. The model suggests that Ebola will eventually be out of control, yet we haven’t
+
+found a way to cure Ebola, but we do have an effective way to prevent the spread, the quarantine. We
+
+introduce the variable Q to denote the infectious population being hospitalized by the governments
+
+and other medical organizations, and the variable α to denote the rate of infectious individuals being
+
+hospitalized. Here we assume that the hospitalized individuals share the same death probability
+
+with the normal infectious ones but do not infect any exposed individual or susceptible one. Hence
+
+the original system becomes as follows:
+
+                                   dS      β
+                                       = − · S · (1 − α) · I
+                                    dt     γ
+                                   dE    β                   δ
+                                       = · S · (1 − α) · I − · E
+                                   dt    γ                   γ
+                                    dI   δ                                                        (4)
+                                       = ·E−I
+                                    dt   γ
+                                   dR
+                                       =I
+                                   dt
+                                   dQ
+                                       =α·I
+                                   dt
+
+
+=== PHYSICAL PAGE 10 ===
+                                             Page 10 of 19                      Control Number 38725
+
+Note that it is impossible to hold as many quarantine spots as infectious population. However we
+
+need to hold a necessary amount, which is sufficient to control the spread. We will deem it sufficient
+
+if the dI/dt is not larger than dR/dt before R = N , that is, when the growth rate of infectious
+
+population is not greater than that of removed population. At that point, the spread of virus is
+
+under control, and we have the following relationship:
+
+                                                    2γ
+                                              E≤       ·I                                            (5)
+                                                     δ
+
+At first the relation is false since the assumption based on the reality suggests that the initial I is
+
+zero while E is not. Therefore we modify it a bit. Instead of being true all the time, we need it to be
+
+true after the time when E reaches its peak value. Measures are taken to determine the approximate
+
+α in Sierra Leone and Liberia with the same initial conditions mentioned earlier. The graphs below
+
+illustrate the results. Note that, again, data 1 to 4 indicates S, E, I, and R respectively. In addition,
+
+data 5 represents (2γ/δ · I − E).
+
+   For Sierra Leone, the measured α is about 0.7, the initial condition is (5.4828 (million), 0.6092
+
+(million), 0, 0).
+
+   For Liberia, the measured α is about 0.5, the initial condition is (3.8646 (million), 0.4294 (mil-
+
+lion), 0, 0).
+
+   Based on the graphs above, we find that to hold the epidemic spread under control, the hospi-
+
+talized rate, which is defined to be the rate of hospitalized infectious population versus the total
+
+infectious population, needs to be around 0.7 or 0.8. Therefore we claim that if the residents in
+
+Sierra Leone or Liberia are mixed so each individual has an equal probability meeting any other in
+
+the country (which is the worst case), when Ebola breaks out about 80% of the infectious population
+
+must be held in quarantine. But neither of the countries are able to reach this level.
+
+   Instead, graph theory can be applied to cope with quarantine problem. Let N be the total
+
+population size, that is, the combined population of Liberia, and Sierra Leone. The estimated
+
+population is N̂ = 10, 386, 000. k will be the number of connections. The first model that can
+
+be applied here is the basic square grid graph, assuming that each people in the infected region
+
+has k = 4 connections. The grid graph is not infinite, that is, bounded in that the borders of the
+
+
+=== PHYSICAL PAGE 11 ===
+                                           Page 11 of 19                   Control Number 38725
+
+three countries is under control, and there is Atlantic Ocean that constrains people from escpaing
+
+the boundary. The estimated population size = N̂ = 10, 386, 000 ≈ 10192 . Thus, the grid graph
+
+with odd number of nodes on the horizon and vertical will be considered. Further assumption will
+
+be that the graph is 2-dimensional. People in the infected region will generally move on ground,
+
+and the infection can only take place by person-to-person direct contact, hence the validity of the
+
+supposition. The graph will look like the following(9 × 9 : case):
+
+
+
+
+The left graph is the one of our interest, while the right one is a more complex case with k = 6.
+
+The dots represent individuals. We want to isolate all the individuals by removing a number of
+
+dots. Removing them in a way that minimizes the number of removal will produce the following
+
+sequence. The sequence is particularly for the cases of (odd number × odd number):
+
+
+
+
+                            N Size = (2n − 1) × (2n − 1)       Removal
+                            1           1×1                       0
+                            9           3×3                       4
+                           25           5×5                      12
+                           49           7×7                      24
+                           91           9×9                      40
+                           121         11 × 1                    60
+                            ..            ..                      ..
+                             .             .                       .
+
+
+=== PHYSICAL PAGE 12 ===
+                                             Page 12 of 19                    Control Number 38725
+
+                                n−1
+                                      4k = 2n(n−1). Since N ≈ 10192 , n = 1019, hence 2·1019·1018 =
+                                P
+Therefore number of removal =
+                                k=1
+2, 074, 684.
+
+This gives us a more realistic estimate of α = 0.2. It is still a large number. Nonetheless, this is
+
+the number of people that should be removed in order to isolate every individual.
+
+In the more complex case, where k = 6, the following sequence takes place:
+
+
+                            N Size = (2n − 1) × (2n − 1)        Removal
+                            1           1×1                        0
+                            9           3×3                        5
+                           25           5×5                       16
+                           49           7×7                       33
+                           91           9×9                       56
+                           121         11 × 1                     85
+                            ..            ..                       ..
+                             .             .                        .
+
+
+
+
+The number of removal in this case is (n − 1)(4n − 1). Plugging n = 1019 results in 4,148,350
+
+removals. This is also the case with any k > 6. This infers α = 0.4, which is still an improvement,
+
+though, too large to apply in the real world situation.
+
+In the real world, network between people follow power-law distribution:
+
+
+
+
+This shows that, the more connection there is, the less probability of contact. In addition, regarding
+
+the fact that population in Liberia and Sierra Leone is sparsely located(The population density is
+
+
+=== PHYSICAL PAGE 13 ===
+                                              Page 13 of 19                    Control Number 38725
+
+31/km2 and 79/km2 respectively. The avergage density of 248 countries is 364.387/km2 ). There-
+
+fore, we may assume a small number of k, in order to estimate the extent of quarantine.
+
+Lastly we may assume a case where k = 3. In this case, the square grid graph is not applicable.
+
+This results in the following sequence:
+
+                                          N(n)    Removal(n)
+                                           1          0
+                                           4          1
+                                           10         3
+                                           22         7
+                                           46        15
+                                           94        31
+                                            ..        ..
+                                             .         .
+
+
+
+                             n−1
+                                   3 · 2k−1 and removal = 2n−1 − 1. In this case we can let n = 23, so
+                             P
+  In this case N (n) = 1 +
+                             k=1
+that N = 12582910 and the removal = 4194302, which is much larger than 2,074,684, which is the
+
+case with k = 4. When regarding that the estimate of the total number of exposed individuals(E) =
+
+1038600, our first graph model(k = 4) fits the data the best. After all, we do not have to remove
+
+70 80% of population for a quarantine measure. Removal of approximate 20% of the population
+
+will assure that there will be no infection by physical contact.
+
+5.2.2. Vaccination. We introduce a fifth class of individuals by letting V(t) be the number of
+
+individuals who have been vaccinated. We let the vaccination rate be given as a function of time by
+
+(t). Thus (t) is the number of individuals being vaccinated per unit time at time t. The differential
+
+equations model then becomes:
+                                             dS     βSI
+                                                =−      −η
+                                             dt      N
+                                             dE    βSI
+                                                =      − δE
+                                             dt     N
+                                             dI
+                                                = δE − γI                                          (6)
+                                             dt
+                                             dR
+                                                = γI
+                                             dt
+                                             dV
+                                                =η
+                                             dt
+
+
+=== PHYSICAL PAGE 14 ===
+                                              Page 14 of 19                 Control Number 38725
+
+Here, we will have N = S(t) + E(t) + I(t) +R(t) + V(t). Letting (t) = 0 predicts the spread of
+
+the infection through the population. From the previous model we know that the resulting spread
+
+is unacceptable. Introducing a vaccination program, which is used to prevent the epidemic, could
+
+alter the courses of infection. After normalize the dependent variables and treat the proportion of
+
+susceptible, exposed, infective, removed, and vaccinated individuals, we will have:
+
+                                         dŜ    β
+                                             = − Ŝ Iˆ − η̂
+                                         dt̂    γ
+                                         dÊ   β       δ
+                                              = Ŝ Iˆ − Ê
+                                         dt̂   γ       γ
+                                          dIˆ  δ
+                                              = Ê − Iˆ                                         (7)
+                                          dt̂  γ
+                                         dR̂
+                                             = Iˆ
+                                         dt̂
+                                         dV̂
+                                             = η̂
+                                         dt̂
+Next, we consider the spread of epidemic in different connection network. Connections between
+
+individuals are often described in terms of the mixing pattern of the network. We will consider
+
+two types of mixing patters here: Assortative mixing and Proportionate mixing. Assortative
+
+mixing describes situations in which individuals are more likely to interact with other individuals
+
+who are similar to them in some respects; Proportionate mixing (or random mixing) occurs when
+
+interactions have no particular preference.
+
+
+=== PHYSICAL PAGE 15 ===
+                                          Page 15 of 19                    Control Number 38725
+
+The networks exhibit (a) proportionate, and (b) assortative mixing patterns. In each case, the
+
+network has six individuals who have two neighbors and four individuals who have three neighbors.
+
+In each case, the average connectivity of individuals is 2.4. The connection pool contains in total
+
+62+43 =24 elements with equally weighted proportion from both six individuals and four individ-
+
+uals.
+
+From the graph above we know that for proportionate mixing, the average connectivity of the neigh-
+
+bors of individuals (2.5) exceeds that in assortative mixing pattern (2.4). Based on this fact, we
+
+will raise the vaccination rate relatively in proportionate mixing pattern compared to assortative
+
+mixing pattern. Setting η(t) = 0.5 for proportionate mixing patterns in both Sierra Leone and
+
+Liberia and η(t) = 0.2 in assortative mixing patterns in both Sierra and Liberia, together with the
+
+initial condition, we will have:
+
+
+
+  (A)Liberia with η(t) = 0.2
+
+
+=== PHYSICAL PAGE 16 ===
+                                  Page 16 of 19   Control Number 38725
+
+(B)Liberia with η(t) = 0.5
+
+
+
+
+(C)Sierra Leone with η(t) = 0.2
+
+
+
+
+(D)Sierra Leone with η(t) = 0.5
+
+
+=== PHYSICAL PAGE 17 ===
+                                              Page 17 of 19                    Control Number 38725
+
+5.2.3. Delivery. At the outbreak of an epidemic such as Ebola, a prompt delivery of medical supplies
+
+is crucial in thwarting the growth of the plague. This section considers the problem of delivering
+
+medical supplies to cities that have reported infectious individuals. The complexity of this problem
+
+is self-evident: numerous factors can influence the best way of delivery: the distance from the cities
+
+to the national medical center where a delivery car is dispatched, the reported number of infectious
+
+individuals (I), the rate of increment in the number of infectious patients (dI/dt), etc. To discuss
+
+this problem in a concrete manner, first we need to formally define our problem.
+
+  Suppose n cities C1 , . . . , Cn have found and reported instances of infectious individuals. Denote
+
+by Ii the current (reported) number of infectious individuals found in city Ci . The numbers Ii ’s are
+
+not constants, obviously, as they may increase or decrease over time. In order to distribute medical
+
+supplies to the infected cities, the national medical center C0 wants to visit every infected city Ci
+
+in such an order that minimizes the total number of infectious people.
+
+  Define a Hamiltonian path P to be a path that traverses the medical center as well as each city
+
+exactly once in some order P : Cπ(0) → · · · → Cπ(n) where π(·) is the permutation function. We
+
+use πP (i) to indicate the index of Ci in the path P. For ease of notation in the rest of the paper, we
+
+drop the subscript and simply write π(i) when the path P is clear from the context. Then our goal
+
+is to find a Hamiltonian path P starting at C0 : Cπ(0) → · · · → Cπ(n) that minimizes the following
+
+sum:
+                                     X              X             dIk
+                                            tpq           (Ik +       )                            (8)
+                                                                   dt
+                                     pq∈P         π(k)>π(p)
+
+Note that π(0) = 0 as all paths in the context of this problem start at the medical center. In (8),
+
+Ik + dI
+      dt is summing over all cities Ck that will be visited later than Cp in the path P.
+        k
+
+
+
+  This problem can be thought of as a generalization of the famous Traveling Salesman Prob-
+
+lem(TSP), which is NP-hard. The goal of the classical TSP is to find the shortest possible route
+
+that visits each city exactly once. The “weights” of the edges in TSP are distances between cities,
+
+hence are constants. Our delivery problem is harder than TSP since the weights of the edges in
+
+our problem are in nature much more complex to compute and it is thus impossible to find an
+
+efficient algorithm that solves our delivery problem specified in (8). Despite this, since the number
+
+
+=== PHYSICAL PAGE 18 ===
+                                            Page 18 of 19                     Control Number 38725
+
+of infected cities tend to be reasonably small, one can simply try all n! permutation of the cities to
+
+find an optimal ordering.
+
+                                          6. Conclusion
+
+  The world is currently having a difficult time fighting ebola virus. Nonetheless, the deadly virus
+
+must be dealt with. This is not merely fighting against a disease. This is an event where different
+
+nations and companies cooperate for the common cause. Mankind may face similar situation,
+
+or worse. Coming up with an efficient solution for this problem will definitely contribute to the
+
+challenges that we might face in the future. In this paper, we came up with a mathematical model
+
+that can be applied to the fight against ebola. First, we applied a rudimentary SEIR model, then
+
+added three intervention variables that will offset the limits of the original model.
+
+  According to the original model, the number of people we need to remove as a part of the
+
+quarantine measure is too large to apply. Therefore, a graph model is used to cope with this
+
+problem. By doing so, we can reduce the removal rate by 50 60%.
+
+  In case of vaccination, we used the linear model. In the real setting, the case may be more
+
+complex. On the other hand, by simulating the difference according to the vaccination rate, we
+
+were able to figure out the optimal vaccination rate. Then we constructed a mathematical model
+
+for optimal delivery of vaccine. This model may have its limits, though, it was built upon strong
+
+data. It has a more realistic approach to solving the problem, which will work much more efficiently
+
+under the premise that the current cooperation remains.
+
+
+=== PHYSICAL PAGE 19 ===
+                                               Page 19 of 19                         Control Number 38725
+
+                                               References
+
+[1] http://www.cdc.gov/vhf/ebola/outbreaks/2014-west-africa/index.html?s_cid=cs_4926.
+
+[2] http://www.public.asu.edu/~hnesse/classes/sir.html.
+
+[3] https://data.hdx.rwlabs.org/ebola.
+
+[4] http://www.who.int/csr/don/archive/disease/ebola/en/.
+
+[5] http://www.public.asu.edu/~hnesse/classes/seir.html
+
+[6] Legrand J, Grais RF, Boelle PY. ”Understanding the dynamics of Ebola epidemics. Epidemiology and Infection.”
+
+   2007; 135 (4): 610-21
+
+[7] Lawrence C. Evans. Partial Differential Equations. Providence: American Mathematical Society, 2010.

@@ -1,0 +1,836 @@
+=== PHYSICAL PAGE 1 ===
+
+
+=== PHYSICAL PAGE 2 ===
+             Optimal Scheduling for the Big Long River
+                                        Team # 15420
+
+                                      February 13, 2012
+
+
+                                            Abstract
+    This paper addresses the problem of scheduling the maximum number of rafting trips along
+the Big Long River. An optimal schedule for this problem would minimize the number crossovers
+while maximizing the percentage of campsites used and matching a target distribution of trip
+lengths. Three main models are proposed for this problem. The Priority Model iteratively
+generates a schedule by scheduling trip locations daily and allows for crossovers. The Density
+Perturbation Model places all trips at their optimal campsites and then iteratively perturbs this
+structure until no trips are in conflict. The Bone Growth Model solves for a schedule with no
+crossovers globally using a heuristic greedy algorithm that builds off an initial input sequence of
+trips. Because all models attempt to maximize the number of campsites covered, each assume
+that there is no cost in launching or recieving many trips at once or for boats crossing each
+other, but this would not be difficult to address with minor improvements. The Priority Model
+is able to cover 80% of campsites with up to 30 crossovers per trip and the Bone Growth Model
+covers about 50% with no crossovers. Both models were able to cover more campsites as the
+number of campsites increased. There is also a tendency of the distribution of trips length
+to skew towards the shorter length trips. The Bone Model was very robust to changes in the
+number of campsites and target distributions, but is senstive to intial conditions. The Priority
+model number of crossovers increases exponentially as the number of campsites gets larger. The
+Priority model’s schedule is prefered if crossovers are not a problem for a wide river, whereas
+the Bone Growth Model is preferred for no crossovers. Each model produces a fairly uniform
+distribution of launch dates for trips of any length and it is possible to mix models over different
+time windows. Given a wide variety of objectives, we believe that one or more of these models
+can produce an nearly optimal solution.
+
+
+
+
+                                                 1
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 15420                                                                            Page 2 of 20
+
+
+1    Introduction
+We address the problem of generating an optimal schedule for rafting trips along the Big Long
+River during a six month period. All rafting trips start at the beginning of the river, at mile 0,
+and end at mile 225. The rafting trips are for 7 to 19 days of actual rafting on the river with 6 to
+18 stops at campsites during the nights. These campsites are distributed fairly uniformly through-
+out the river and each campsite cannot hold more than one trip on a night. In addition, trips
+should not crossover or pass other trips along on the river to help preserve the wildlife experience.
+Passengers can either take an oar-powered rubber raft, which travels on average 4 miles per hour,
+or a motorized boat, which travels on average 8 miles per hour. Our goal, given a set number of
+campsites, is to create a schedule for the managers of the river that maximizes the number and
+variety of trips, while maintaining an authentic wildlife experience.
+     This problem presents many specific challenges that make it worthwhile. First, It is extremely
+difficult to get a variety of trips, have no trips passing each other, and to not have trips crossing
+each other. Second, most of previous work in scheduling algorithm and queueing theory does not
+apply to the Big Long River Problem. The majority of these algorithms are designed for scenarios
+where there are identical parallel machines or a single machine. Finally, it is not easily optimized
+via integer programming due to the large solution space.
+     Therefore we developed several original algorithms to attempt to try solve this problem.
+     First, we created a naı̈ve algorithm that adds trips to a schedule one at a time. If a new trip
+can fit, then it is discarded.
+     This was extened to a priority model, which gives priority to the trips that have to go the
+farthest each day. To implement this, each day was scheduled iteratively, instead of scheduling
+trips one at a time. If two trips try to stop at the same campsite, then this algorithm arranges
+them so that they do not cross over and therefore less trips are discarded.
+     The next model that was attempted was a density perturbation algorithm. Similar to the prior-
+ity model, each day is scheduled iteratively. The difference between the two models is that the miles
+traveled by each boat is considered instead of the campsite that each boat stops at. Therefore, the
+problem is treated in a continous space and then converts back to the discrete space of the finite
+number of campsites afterwards. If trips try to move to locations that are too close to each other,
+then a density vector is created that finds how close the trips are to each other and moves them
+apart so that a one-to-one mapping to the campsites can be found.
+     The last model that was created was a bone growth model. This model uses a heuristic algo-
+rithm to maximize the number of trips while guaranteeing no crossovers. A bone structure sequence
+of trips is initialized and fattened to saturation by adding additional trips. This model is a greedy
+deterministic model that is very sensitive to the initial bone structure, but guarentees a local op-
+timal solution.
+
+
+
+2    Definitions and Variables
+The following definitions and variables will be used in our discussion of the Big Long River Problem.
+
+    • A ‘Crossover’ occurs when a trip passes over another trip during the day.
+
+    • A ‘Trip’ is sequence of pairs of campsites and nights that denote where a group of passengers
+      are expected to be on any given night.
+
+    • X is the number of trips to be scheduled
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 15420                                                                              Page 3 of 20
+
+
+    • Y is the number of campsites along the Big Long River.
+
+    • T is the number of nights available for camping in the six month period.
+
+    • P is a distribution of trip preferences.
+
+    • S is the Schedule. There are two Scheduling Matrix Formats, S1, S2 that we used. The first
+      format is where S1i,j ∈ {0, . . . , Y + 1} describes the campsite that trip i makes on night j.
+      Each row represents a passenger trip and each column represents a night. The second format
+      is where S2i,j ∈ {0, 1, . . . , X} describes the trip number (0 is none) that campsite i hosts on
+      night j.
+
+    • The ‘Open Campsite %’ is the fraction of campsites that are unoccupied during the 180 days
+      divided by the total number of campsites. This percentage will never reach 100% since the
+      last campsites on early days and the first campsites in the last days can never be used by
+      trips.
+
+    • Dmax is the maximum guaranteed distance a trip can be expected to travel in a day. In our
+      schedules, no trip is scheduled to travel further than Dmax , but it is assumed that all trips
+      can make Dmax .
+
+    • The Big Long River Problem is the following. Given some probability distribution of trip
+      preferences P and some spacing of campsites along the river Y our goal is to generate a
+      Schedule S that maximizes the number of trips X and campsites used, minimize the number
+      of crossover, and attempt to match the same distribution of trips.
+
+    • C(Y ) is the carrying capacity of the river which is defined to be the maximum number of
+      trips in 180 days divided by the total number of campsites in the Big Long River with respect
+      to some trip distribution. C(Y ) = max X(Y )/Y .
+
+
+3     Assumptions
+3.1    Distribution of Oar-Powered Rubber Rafts to Motor Boats and Trip Lengths
+We assume that we only have to worry about trip length and not vessel type, because of a strong
+correlation between vessel type and trip length. The following table is the River Trip Statistics for
+the Colorado River for 2010, 2009, 2008, and 2007 [1].
+                              Vessel Type    2010    2009   2008   2007
+                                Motor         415    409    426     425
+                              Non-Motor       183    183    184     181
+Since the motorized boats can always travel the necessary distance to reach the end in the necessary
+number of days and the oar-powered rubber rafts can almost always travel the necessary distance
+to arrive at the end, it is assumed the whole schedule can be made independently of the choice of
+motorized boat or rubber raft and then afterwards any trips that cannot accomodate a rubber raft
+will automatically use a motorized boat and the rest of the trips can be chosen as needed.
+
+3.2    No Hybrid-Trips
+We assume that passengers are not allowed to switch which type of boat they are on during their
+trip.
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 15420                                                                           Page 4 of 20
+
+
+3.3   ‘Guaranteed’ Distance Traveled
+the maximum distance a trip is guaranteed to travel is 64 miles in the motorized boats. This is
+because, we assume motor boats will travel on average of and 8-mph during each day and that
+each day allows for 8 hours of travel. We assume that the river is not challenging enough to slow
+the passengers down significantly. We noticed that most River Rafting Trips in the Grand Canyon
+have itineraries of up to 8 hours of rafting with stops for scenic hikes and lunch [2, 3]. We assume
+that what trips do during the day outside of rafting is neglibile and there is no concern that too
+many parties stopping at a campsite for lunch or other activities. We will also ignore the effects
+of weather and river levels in our model that will effect the speed of the rubber rafts and motor
+boats.
+
+3.4   Distribution and Approximate Number of Campsites
+We assume that the distances of campsites along the Big Long River is similar to the distances of
+campsites along the Salmon River in Idaho and the Colorado River in the Grand Canyon. According
+to Whitewater Campsites [8], there are 162 campsites along 250 miles of the Colorado River and 185
+campsites along 180.6 miles of the Salmon River. The following histogram shows the distribution
+of the distances between campsites along the river.
+
+
+
+
+                     Figure 1: Histogram of the distances between campsites
+
+   The campsite distribution is therefore assumed to be uniform with different distances between
+campsites in different trials. The different distances between campsites we test include 5, 1.5, and
+1 miles/campsite, which means our tests are done for Y = 45, 150, and 225 campsites.
+
+3.5   No Equipment and Labor Constraints
+We assume that there are enough people employed and that the starting location has a large enough
+dock so that an unlimited number of boats for any length trip may be launched down the river in
+one day.
+
+3.6   Daytime Does Not Matter
+We assume in our models that time is discrete and only worry about the campsite location of each
+trip each night. We assume that all the boats and rafts are able to start off early enough in the
+day so that they are able to get to the designed campsite by the end of the day. This is equivalent
+to assuming that the density of boats and rafts at any section of the river has no impact on the
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 15420                                                                               Page 5 of 20
+
+
+distance the trips are able to go. This assumption is not very realistic, however we can account for
+this in two ways; we penalize crossovers in our model evaluation and we can decrease the maximum
+expected distance that trips are allowed to travel.
+
+
+4     Models
+Our models address the Big Long River Problem by attempting to generate the ‘optimal’ schedule.
+Optimal is defined to be a schedule that satisfies the contraint of no two trips staying at the same
+campsite during the same night.
+   The current algorithms in scheduling theory and queueing theory do not address the Big Long
+River problem. The Big Long River problem is similar to scheduling n activities (trips), where
+each activity requires Y+1 jobs (traveling along river sections) with precendence (order matters).
+Each section of the river can be treated as a machine that does one job. However, the majority of
+scheduling algorithms today solve scenarios where there are identical parallel machines or a single
+machine. Our problem requires a sequence of jobs to be complete in order, but among unique
+machines (different river section). Markov processes and queueing theory also do not apply as
+However, this problem is one where every campsite only has a queue of one person per night and
+any people beyond that experience balking with probability equal to one.
+
+4.1    Naı̈ve model
+Our first attempt at an algorithm to solve this problem was to start with an empty schedule and
+iteratively add trips until no more trips could be added. We did not expect this solution to be
+optimal, but we belived it would provide a good initial exploration of the problem.
+The General Idea
+
+    • A trip to be added can be randomly selected from a distribution of lengths.
+
+    • If the trip fits anywhere on the schedule, add it at that point.
+
+    • If no fit is found for the entire 6 months, remove the trip length from the distribution.
+
+The Algorithm
+Input: empty Schedule, trip length distribution
+Output: populated schedule
+
+While distribution 6= ∅:
+
+    1. Randomly select one trip length t from the distribution
+
+    2. For n in [1, T − t]:
+
+        (a) Attempt to insert the trip into the schedule starting at night n:
+               i. Try to cover an equal portion of the river each day
+              ii. If a desired campsite is taken, move to the closest avialable site, breaking ties ran-
+                  domly
+             iii. If no camptites are available within tolerance, then insert failed
+             iv. If a valid campsite is found for every night in [n, n + t], then insert succeded
+        (b) If success then break
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 15420                                                                             Page 6 of 20
+
+
+
+
+                   Figure 2: Steps for scheduling three trips in the Naı̈ve Model
+
+
+  3. If failure for all n then distribution := distrubution \ {t}
+
+Problems with this approach
+
+   • This schedule allocation has no regard for crossovers.
+
+   • Scheduling long trips all at once may block off short trips with large distances to cover from
+     using the campsites they need.
+
+   These problems propmted us to move on to more advanced models, and the naı̈ve model was
+excluded from formal testing.
+
+4.2   Priority Model
+The Priority model builds on the naı̈ve model by filling the schedule one night at a time instead of
+one trip at a time, and by giving scheduling priority to trips with a high ratio of distance remaining
+to days remaining.
+The General Idea
+
+   • Trips with higher (distance left) / (days left) ratios can less afford to be pushed back.
+
+   • Scheduling one night at a time instead of one trip at a time should give a better “cooperation”
+     between trips.
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 15420                                                                             Page 7 of 20
+
+
+   • Crossings can be avoided by examinig other trips in the area when scheduling the next
+     campsite for a trip.
+
+   • Trips which cannot be scheduled to any campsite get removed.
+
+
+
+
+                  Figure 3: Steps for scheduling three trips in the Priority Model
+
+The Algorithm
+Input: proposed list of departures for every day
+Output: populated schedule
+
+last := ∅
+For night in [0, 180]:
+
+  1. last = last ∪ departures[night]
+
+  2. With probability p, sort last by distance remaining
+                                        days remaining   in descending order
+     else, randomly shuffle last
+
+  3. next := ∅
+
+  4. For each trip in last:
+
+       (a) Find best camp as campsite closest to current position + distance remaining
+                                                                      days remaining
+       (b) If best camp is already taken by a trip in next then
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 15420                                                                             Page 8 of 20
+
+
+             i. Find campsite range [min camp, max camp] based on minimum and maximum travel
+                distance
+            ii. Remove all campsites that are already taken in next
+           iii. Rank remaining camps primarily by if they incur a crossover and secondarily by
+                proximity to best camp
+           iv. Choose the first ranked camp as new camp
+           else use best camp as new camp
+       (c) If trip is finished, then add to schedule,
+           else, store the pair (new camp, trip) in next
+
+  5. last := next
+
+4.3   Density Perturbation Algorithm
+In this section a model is proposed where none of the trips are presumed to be more important
+than any other trips and crossovers are allowed to happen without bound. Previous models have
+worked off of the idea that the trips with fewer days have less flexibility and therefore need to be
+scheduled first. The optimal distance to travel in one day for a trip is clearly the total distance
+left to travel divided by the total number of days left to travel this distance. However, there may
+be several trips which would end the day at the same campsight if they all traveled their optimal
+distance. Therefore, some trips will have to be moved to other nearby campsights. Note also that
+the shortest trips have to travel the farthest distance on average. Since the shortest trips have to
+travel the farthest every day, if they are pushed very far from their optimal campsight they will
+either be traveling farther on that day or they will have to travel farther than the average distance
+they need to travel on each subsequent day. This could be a problem since the oar-powered rafts
+can only travel an assumed maximum of 32 miles a day and the motorized boats can only travel
+64 miles a day. The point in scheduling the shortest trips first is to make sure these trips travel as
+close to the average distance as possible each day so that they don’t have to travel well over their
+average one day and as a result travel further then the maximum distance for one day.
+The model in this section contradicts the other model. The idea here is that all trips are important
+and none is more important than the other. While it is necessary for all boats to travel as close to
+their average distance every day so they don’t have to travel too far, this is actually a poor way to
+select the trips for two reasons. First, note that for a six night trip the boats have to travel 32.14
+miles per day. Therefore, it is going to be extremely difficult for an oar-powered raft to make this
+trip anyways since it can only travel a maximum of 32 miles per day. Therefore, most of the shorter
+trips are going to be with motorized boats anyways, and since these can travel a maximum distance
+of 64 miles per day, traveling an extra 20 miles in one day, which would be a very extreme case, is
+not even an issue. Even if the oar-powered boats are used for trips as short as 8 nights they still
+only need to travel 25 miles per day and can travel a little further every day. The second reason
+the new model is proposed in this section is that by treating the people with the shortest trips as
+the most important and not scheduling the people with the longest trips until the end the people
+with the longest trips become extremely hard to fit into the schedule and are often left out. Since
+most of the campsights have already been taken by people with shorter trips each night the people
+with the longer trips have to go a much longer distance then their average on some days and then
+compensate for this by only moving a few miles on some days. Therefore, the model proposed in
+this section treats everyone with the same importance.
+The model in this section works by keeping track of the location that every boat is at in terms
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 15420                                                                                   Page 9 of 20
+
+
+of the mile instead of the campsite so that the data is continuous instead of discrete. The model
+moves every boat to their optimal location for the next day, where the optimal location is the
+location the boat would need to move to so that they would be traveling the same distance every
+single day. As wonderful as this idea is in theory, there will clearly be many boats trying to move
+to the same campsite. Therefore, a density vector is calculated for each boat. A boat contributes
+to another trip’s density vector if it is trying to move to a location that is less than the distance
+between two campsites away from the other boat. If a boat is farther down the river than the other
+boat, it will contribute positively to the other boats density vector. If a boat is behind another
+boat, it will contribute negatively to that boat’s density vector. Finally, if two boats are at the
+same spot, the same magnitude will be contributed to each boat’s density vector, although one will
+be chosen positive and the other will be chosen negative at random. Therefore, subtracting the
+density vector from the boat’s current locations will spread them out and keep them from trying
+to stop at the same campsight. The amount added to the density vectors increases linearly as
+the boats get closer to each other. The amount contributed by boat i to boat j’s density vector
+ρij can be seen in Equation (1), where di is the specific location in miles of boat i, and dcampsite
+is the distance between campsite. Note that this equation assumes the two boats are within one
+campsite’s distance of each other. If the two boats are not within a campsite’s distance of each
+other, the contribution to the density vector is set to zero.
+                         d −d   d −d 
+                           j    i      j    i
+             ρi,j = sign           −                       if   |dj − di |  (0, dcampsite ]            (1)
+                         dcampsite   dcampsite
+
+Note that Equation (1) maps from {[−1, 0) ∪ (0, 1]} to (−1, 1). If the density between the two boats
+is zero, the function will map to −1, 1 at random. The total density vector for a boat is the sum of
+the contributions from other boats. This can be seen in Equation (2), where n is the total number
+of boats on the river.
+                                                 Xn
+                                            ρj =       ρi,j                                      (2)
+                                               i=1, i6=j
+
+ For each day, the total density is calculated and subtracted from the positions until the boats are
+sufficiently spread out. Since the boats cannot stop at the same campsite, sufficiently spread out
+corresponds to nearly a whole campsite distance away from each other. Note that the boats don’t
+have to be quite a whole campsite distance away from each other. If one boat is only 99% of a
+campsite ahead of another one and the next boat is 101% of a campsite away from the boat farther
+down river, there is still a one-to-one mapping of boats to campsites. In the extremely rare case
+that two boats try to stop at the same campsite, one boat is discarded.
+One of the benefits to this model is that it does not rely on any prior information about the
+distribution of the trips. Therefore, if the rafting company so chooses, it can take orders from
+customers for rafting trips and use this model to fit them all in instead of having a set rafting
+schedule from each year and letting people pick from all of the available trips. If the rafting
+company has a set schedule and it turns out that one year a lot more people want to do 18 day
+trips and fewer people want to do 6 day trips they could lose a lot of business since they haven’t
+planned enough trips to accommadate all the people who want to do the 18 day trips. This model
+tries to fit in everybody’s preferences and not lose any business. Note that one of the disadvantages
+to this model though is that it does nothing to prevent people from passing each other on the river,
+and if it schedules a trip in which a party gets passed by other boats frequently it could lessen the
+authenticity of the wilderness experience.
+Figure 4 shows one result from this algorithm. The algorithm fit 1978 trips into the 180 day time
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 15420                                                                           Page 10 of 20
+
+
+
+
+Figure 4: One result from the density perturbation algorithm. Results in 1978 trips in 180 days
+with 200 campsites and no trips stopping at the same campsite. Each thread represents a different
+trip. The campsite number at an integral number of days gives the campsite that the trip stops at
+on that day.
+
+
+
+period with 200 campsites along the river. The campsites start at mile 10 and are distributed
+uniformly up through mile 215.
+
+4.4   Bone Growth Model
+The Bone Growth Model attempts to maximize the number of trips while matching a given distri-
+bution of trip preferences. The main selling point of this model is that it uses a heuristic algorithm
+to maximize the number of trips while guaranteeing no crossovers. The motivation behind this
+model is to exploit symmetry and to have a deterministic alogrithm that can improve upon pre-
+vious optimal guesses. We initially start with a “Bone” structure of sequences and fatten it to
+saturation by adding additional trips. This Algorithm is able to fill approximately 50 % of the
+campsites with an average carrying capacity of 7.5 trips per campsite over 180 days with respect
+to a slightly skewed uniform distribution of trips. This Algorithm generates very uniform spread
+of launch times of trips of all lengths.
+   The main idea of the model is based on the following two Heuristics.
+Heuristic 1: Long Trips are the Rate Determining Trips.
+    The order of launches by trip type on a single day begins with the shortest length trips and
+increases to the the longest length trips. In addition, the shortest length trip we launch must be
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 15420                                                                                 Page 11 of 20
+
+
+greater or equal in length to the remaining days of the longest trip on the river. If this is not
+satisfied then we will have sent a short trip that will finish before a long trip and will have to
+crossover the long trip.
+    Therefore the optimal sequence alternates between a monotonically increasing sequence from 6
+to 18 days and a monotone decreasing sequence from 18 to 6 days (e.g. {6, 7, 8, .., 17, 18, 18, 17, ..., 8, 6}).
+The sequence also fixes the launch and finish dates of the trip.
+Heuristic 2: Packing towards Center Maximizes Number of Trips.
+    At maximum saturation, another trip of any length cannot be added without crossing another.
+To determine if a sequence of trips is possible it is necessary that all trips could be ‘squeezed’ into
+the center. Since the launch and finish dates of a trip are determined, ‘squeezing’ is pulling the
+trajectory of the trip to be as close to the trip closest to the center. This is a necessary condition
+once the launch and finish dates of a sequence are determined, since all other schedules involve
+‘peeling’ or spreading the trips from the clumped up pattern. (See the lower two graphs in Figure
+5). The outline of the Bone Growth algorithm is below.
+
+
+
+
+                        Figure 5: An Example of the Bone Growth Algorithm
+
+
+   1. Start with an intial “Bone” Sequence and a target Distribution of Trips
+
+   2. Try adding another trip to the current sequence to closer match the target distribution.
+
+       (a) Find Possible insertion points from Heuristic 1
+       (b) Build the Schedule from this sequence by Starting with the center and adding additional
+           trips following Heuristic 2.
+       (c) If the new sequence is possible to schedule with no crossovers, spread the trips out in
+           time to make it more uniform
+       (d) If the new sequence is not possible to schedule, attempt to add the next ‘best’ trip to
+           the current schedule.
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 15420                                                                           Page 12 of 20
+
+
+  3. Repeat Process with different starting “Bone” Sequence.
+
+The method of determining the ‘best’ trip to add to the current schedule can be based on various
+criteria. We decided on a greed algorithm that adds the trip that maximizes the sequence’s score
+relative to all others.
+    Figure 5 is an example of the algorithm working over 43 days. The initial Bone Structure is
+shown in the Upper Left. After 40 new trips have been added we obtain the result in the Upper
+Right. The Lower Left is the result when the Bone Structure has been saturated and no further
+trips of any size can be added. Finally, the trips are spread more evenly to obtain the result in the
+Lower Right.
+
+
+
+
+Figure 6: An Example of the Bone Growth with Different Trip Types. Blue are Motor Boats.
+Purple are Oar Powered Rubber Rafts
+
+    This model can be extended to allow for differentiation between motor boats and oar-powered
+rubber rafts. The setup is exactly the same, the only difference is in that oar-powered rubber rafts
+are less flexible than motor boats. An example of this modification is shown in Figure 6. Due to
+time constraints we were not able to adjust our spreading algorithm appropriately to account for
+the less-flexibility of the oar-powered rubber rafts.
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 15420                                                                          Page 13 of 20
+
+
+5     Testing and Results
+
+We tested our model based on the following criterion, which they prioritize in this order: Maximize
+the number of trips and campsites occupied, Minimizes the number of crossovers, and Match a
+target Distribution of Trips. We also checked that no two trips occupy the same campsite at the
+end of the night, and all of our schedules satisfy this necessary condition.
+
+
+5.1    Model Comparison
+
+We tested the Bone Growth Model and Priority Model using 3 different campsite values 45, 150, 225
+and 2 different target distributions, Uniform and Triangle. The uniform distribution would target
+having a uniform number of trip lengths. The Triangle distribution assigned a weight of 40 − l to
+each trip where l is the trip length. To measure how good of a schedule each produced, we looked
+at the percentage of open campsites, the average number of crossovers per trip, and the Variance
+between the Simulated Distribution and the Target Distribution. We obtained the following results
+in the tables below:
+
+    Model       Y     Distr     # of Trips     % Open Avg # Crossovers      Var from Distr −104
+    Bones1      45   Uniform       337           52.32       0.00                   1.83
+    Bones2      45   Uniform       409           48.02       0.00                  14.15
+    Priority    45   Uniform       546           23.80       4.37                   6.19
+    Bones1      45   Triangle      337           53.60       0.00                   3.73
+    Bones2      45   Triangle      405           48.96       0.00                  15.24
+    Priority    45   Triangle      555           24.59       4.37                   6.27
+    Bones1     150   Uniform      1129           52.14       0.00                   1.96
+    Bones2     150   Uniform      1391           47.24       0.00                  14.78
+    Priority   150   Uniform      1900           17.17       18.56                  1.88
+    Bones1     150   Triangle     1129           53.59       0.00                   4.27
+    Bones2     150   Triangle     1387           48.26       0.00                  17.51
+    Priority   150   Triangle     2019           17.39       18.96                  5.54
+    D.Pertb.   200   Uniform      1811           41.07       19.07                  5.85
+    Bones1     225   Uniform      1707           51.82       0.00                   2.09
+    Bones2     225   Uniform      2107           46.80       0.00                  15.04
+    Priority   225   Uniform      2911           16.55       28.93                  1.30
+    Bones1     225   Triangle     1709           53.20       0.00                   4.41
+    Bones2     225   Triangle     2107           47.74       0.00                  18.02
+    Priority   225   Triangle     2937           17.28       29.06                  1.99
+                                             Testing Results
+
+
+5.2    Priority Model Results
+
+There are two trends with the priority model. The first is that as the number of campsites increase,
+we are able to schedule more trips of different varieties. In addition, the carrying capacity this
+algorithm produces is 12.13, 12.66, 12.94 trips/campsite over 180 days for the uniform distribution
+and 12.33, 13.45, 13.05 trips/campsite over 180 days for the triangle distributions. The second is
+that with more trips, the number of crossovers grow exponentially. This is a result of there being
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 15420                                                                                        Page 14 of 20
+
+
+more trips to required to crossover when there are more trips. An example of one of the result is
+shown in Figure 7.
+
+
+
+
+Figure 7: Picture of Y = 225 Target: Uniform. Each line represents a trip. The mix of colors
+shows the overlap between the trips.
+
+
+
+5.3   Bone Growth Model Results
+
+For the Bone Growth Model we used two initial starting Bone Structures:
+
+                       Bones1 =[6, 18, 6, 18, 6, 18, 6, 18, 6, 18, 6, 18, 6, 18, 6, 9, 6]
+
+                Bones2 =[6, 18, 6, 18, 6, 17, 6, 17, 6, 16, 6, 15, 6, 13, 6, 12, 6, 11, 6, 10, 6]
+The first is fairly uniform in 18’s and 6’s and the second decreases the number of large trips. The
+ideas was that the first bone structure would better match the uniform distribution and the second
+bone structure would match the triangle distribution better. What we observed is that the bone
+structures would saturate out all large trip numbers and eventually only have room for shorter
+trips, leading the skew distributions you see in Figure 8. Although Bones2 did not match our
+target distributions, it does match qualitatively what we wanted, a triangle distribution as seen
+in the Lower Left of Figure 8. Bones2 also consistently out performed Bones1 in the number of
+trips, but this is because Bones2 consisted mainly of shorter trips. This model also produces very
+symmetrical results as the algorithm it uses mirrors the left and right about the trip in the center.
+The carrying capacity this algorithm produces is approximately 7.5 trips/campsite over 180 days
+for both distributions under Bones1 and 9 trips/campsite over 180 days for both distributions under
+Bones2 (but does not closely match the distributions in Bones2).
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 15420                                                                        Page 15 of 20
+
+
+
+
+    Figure 8: Picture of Y = 225 Target: Uniform. Blue is using Bones1. Red is using Bones2.
+
+
+6     Analysis of Results
+
+In analyzing our models, we considered
+
+    1. Number of trips in a 6 month period
+
+    2. Distribution of trip lengths
+
+    3. Percentage of campsites left open
+
+    4. Number of crossovers per trip
+
+    5. Carrying capacity using a given model
+
+    We evaluated carrying capacity as the ratio of number of trips in a six month period to number
+of campsites on the river. The carrying capacity could also be evauated using the percentage of
+campsites filled.
+    In all our models, there was a tendency of skewing the distribution of trips towards shorter
+when maximizing campsites used. This is to be expected as it is easier to fit in shorter trips.
+However it was interesting to note that the Priority Model did better at matching the distribution
+as the number of campsites increased, while the Bones Growth model started to skew away from
+the distribution. The Priority Model became increasingly worse with the number of crossovers,
+increasing to around 29 per trip. However, the average number of crossovers is lower in shorter
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 15420                                                                            Page 16 of 20
+
+
+trips and the majority of crossovers are from longer trips. We attempted to decrease the number
+of crossovers, by removing the trips with the highest number of crossovers, but this resulted in
+removing most long trips and reduced our coverage of campsites by 10-15%. The Bone Growth
+model was very consistent in its distribution of trips in time and its ability to utilize approximately
+half of the campsites.
+
+
+6.1   Strengths and Weaknesses
+
+Priority Model - Strengths
+
+   • High river carrying capacity
+
+        – High percentage of campsites filled
+        – High number of trips in 6 months
+
+   • Low variance in distance traveled per day
+
+   Priority Model - Weaknesses
+
+   • The model makes no attempt to resolve crossovers
+
+        – Some crossovers cannot be avoided, but a second pass on the output scedule may be
+          able to remove some unnecesary crossovers
+
+   • The model makes no attempt to reuse space freed in previously scheduled days when trips
+     are removed
+
+        – Bactracking after removing a trip and re-planning nearby trip may reduce crossovers
+          and travel distance variance
+
+   • The mechanics of the model distort the input distribution
+
+        – Long trips constantly have lower distance lef t
+                                             days lef t   ratios and are therefore less likely to get
+          preferred campsites
+        – Long trips also have more days that need to be scheduled, and so more chances to be
+          removed
+
+   • Sensitive to number of trips per day in departures input
+
+        – If the number of trips is too high, the output distribution skews toward shorter trips.
+        – If number of trips is too low, the campsite utilization and acrrying capacity start to drop
+          significantly.
+        – In our experiments, the right number of trips per day was about 12-20.
+
+   • Sensitive to distribution of trips in departures input
+
+        – The output distribution skews toward shorter trips, but in a nonlinear fashion.
+        – An input distribution skewed toward longer trips was used obtain an output distribution
+          that was approximateley uniform.
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 15420                                                                           Page 17 of 20
+
+
+    • Sensitive to probability of sort/shuffle
+
+         – Increasing the probability of sorting also skews the output distribution more toward
+           shorter trips.
+         – We found that p ∈ [0.3, 0.6] was useful four our tests.
+
+    Bone Growth Model - Strengths
+
+    • There are no crossover between any two trips
+
+    • Trips are be evenly spread out along the whole river
+
+    • The launch dates of trips are spread out among the 180 days
+
+    • The model scales well and can be expanded to include oar-powered rubber rafts
+
+    Bone Growth Model - Weaknesses
+
+    • Crossovers are not allowed, reducing the total number of trips and campsite coverage
+
+    • The model is very sensitive to the initial bone structure and the greed algorithm used
+
+         – After testing the model with two bone structures, our team developed some addional
+           bone structures that could drastically increase campsite usage by sacrificing some other
+           properties. For example, scheduling all the six night trips, followed by all the seven day
+           trips, etc.
+
+    • Some trips may be pushed to their speed limits or asked to stay at near same campsite to
+      make room for other trips
+
+    • There are days with high number of launches or high number of arrivals in between days with
+      low activity
+
+
+7    Conclusion
+
+Overall, there are several different ways to address the problem of scheduling rafting trips on the
+Big Long River. While the naı̈ve algorithm and the density perturbation algorithm did not work
+very well, the priority model and bone growth model produced the best results covering 80% and
+50% of campsites respectively. If the managers of the rafting company decide that it is okay for
+trips to occassionally pass each other, then the priority model is best since this model uses the
+highest percentage of the campsites. If the priority algorithm is used, each boat comes into contact
+with another party less than once ever hour. So while this number is not very large, it still provides
+some contact with other people during the trip and it is up to the managers of the rafting company
+to decide whether or not they want to use this model. If the managers of the rafting company want
+to give the most authentic wildlife experience and not allow trips to ever pass each other, then
+the bone growth model produces the best results. We can mix the two models over different time
+periods if desired.
+These models could be extended in many ways. The differences between scheduling oar-powered
+rubber rafts and motorized boats, uneven distribution of campsites, and varying spped on different
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 15420                                                                           Page 18 of 20
+
+
+parts of the river are all areas that could be addressed more strongly. Each of these models also has
+room for individual improvement. We Hypothesize that with more work, either the Bone Growth
+Model or the Density Perturbation model could be made to produce a globally optimal solution.
+For the former, we beleive that a carefully constructed starting sequence may be able to yield a
+schedule with no crossovers and nearly 100% campsite usage. For the latter, we beleive that an
+application of optimization techniques such as simulated annealing may be able to find a globally
+optimal solution for our loss function.
+The modeling dommain presented by this problem is vast, and there is a large amount of room for
+improvement, but we believe that the work we have presented here is a significant and succesful
+attempt at solving this problem.
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 15420                                                                           Page 19 of 20
+
+
+   Memo
+To: Managers of the Big Long River
+From: Team # 15420
+Date: February 13, 2012
+Subject: Rafting Trip Scheduling
+
+    To generate the best schedule for trips and to determine the carrying capacity of the Big Long
+River, we have developed two working algorithms. The goal of both algorithms is to maximize the
+number of trips and campsite usuage, while preventing two trips camping in the same location. We
+were able to cover 70 % to 50 % of campsites depending on preferences of trip distributions and
+crossover minization, leading to carrying capacity of approximately 12.5 to 7.5 trips per campsite
+over 180 days.
+
+    Both algorithms will generate a schedule of campsite locations for each night for the river guides
+and a master list trips locations along the river. Both algorithms are able to generate any ratio of
+trips desired, with launch times fairly uniformly among the six month season.
+
+    The drawbacks of the models are that we assume that First Launch and Final Exit are able
+to accomadate as many trips as possible and that the traveling speed along the river is roughly
+uniform. Of course given more information and time we can adjust these models to account for
+realistic conditions at First Launch and Final Exit, and along the length of the river.
+
+    The first algorithm (Priority Model) will generate a schedule that better maximizes the number
+of campsites being used, but will also schedule crossovers. The second algorithm (Bone Growth
+Model) will generate a schedule that prevents crossovers, but only gets two-thirds as good coverage
+of campsites as the first algorithm. If a middle ground is desired, then you can mix the models
+over the six month period to allow for different pricing options.
+
+Sincerely,
+
+Team # 15420
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 15420                                                                    Page 20 of 20
+
+
+References
+
+[1] ”River Trips”. Grand Canyon National Park. July 25, 2011. National Park Service.
+    www.nps.gov/grca/planyourvisit/whitewater-rafting.htm
+
+[2] ”Whitewater         Resources”.       Hatch       River          Expeditions.      2010.
+    www.hatchriverexpeditions.com/faqs.html
+
+[3] ”Grand Canyon Trips”. Arizona Raft Adventures. www.azraft.com/
+
+[4] Robert, Yves and Frederic Vivien. Introduction to Scheduling. FL: Taylor and Francis
+    Group, LLC, 2010.
+
+[5] Rao, Singiresu. Engineering Optimization. 3rd Edition. IN: John Wiley & Sons, 1996.
+
+[6] Pham, D.T. and D. Karaboga. Intelligent Optimisation Techniques. New York: Springer-
+    Verlag, 2000.
+
+[7] Brucker, Peter. Scheduling Algorithm. 5th Edtion. New York: Springer-Verlag, 2007.
+
+[8] ”Resources for Rafting Trips”.       Whitewater    Campsites.      2009   Will   Hansen.
+    www.whitewatercampsites.com/

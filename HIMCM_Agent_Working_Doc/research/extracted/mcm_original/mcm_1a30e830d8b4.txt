@@ -1,0 +1,1369 @@
+=== PHYSICAL PAGE 1 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+
+
+                                                   Team Control Number
+  For office use only                                                                       For office use only
+  T1
+  T2
+                                                    73156                                   F1
+                                                                                            F2
+  T3                                                                                        F3
+  T4                                                  Problem Chosen                        F4
+                                                            D
+                                                          2018
+                                                MCM/ICM Summary Sheet
+                                       Construct all-electric network
+                   The transformation from gas vehicles to electric vehicles becomes a hot topic all over the
+             world. In order to get the schedule of the location of charging stations and predict the process
+             of transformation tendency, we establish several models to solve the questions.
+                  For question 1, we firstly establish a model based on queuing theory. Furthermore, we
+             construct a multi-objective programming model based on information of the current Tesla
+             charging network in the US. With the help of Matlab, we find that Tesla is on track to allow a
+             complete switch to all-electric in the US. We obtain that the number of charging stations needed
+             is about 1.7million when all gas vehicles transform to electric vehicles, and the distribution
+             proportions of charging stations in urban, suburban and rural areas are 67:23:10.
+                   For question 2, we establish the site selection models of charging station for urban,
+             suburban and rural areas of South Korea, separately. Combining with the programming model
+             which we established in problem 1, we obtain the number, location and distribution of charging
+             stations in Korea. We get the key factors that affect our plan are the building cost of chargers
+             and the government investment. By considering six indexes, we establish a logistic model.
+             Using this model, we firstly give the timeline of the full evolution to electric vehicles. We find
+             that the key factor for this situation is policy orientation. Then we further predict the number
+             of the electric vehicles of urban and rural areas in South Korea separately. Through the logistic
+             model, we obtain that South Korea should give preference to build charging station in cities.
+             Similarly, we find that the two key factors which influent our model most are wealth
+             distribution and government investment. Additionally, we introduce a concept called lag index
+             to measure the relationship between the car and the charging station.
+                   For question 3, we establish a classification system through Q-type clustering model.
+             According to different national conditions, we divide the countries into three categories.
+             Through some analysis of the Q-type clustering model, we find out that the key factors that
+             trigger the selection of different approaches to growing the network are policy orientation,
+             wealth distribution and government investment. According to these factors, a targeted electric
+             network development plan has been proposed.
+                   For question 4, to study the influence of various new technologies, we set several
+             indicators to establish our models, such as GDP and OPH. By analyzing our evaluation model,
+             we find that these technologies impact the growth rate of electric vehicles, which contributes
+             to the growing popularity of electric vehicles. Besides, the population of electric vehicles will
+             be driven by these technologies.
+                   For question 5, we prepare a one-page handout for the leaders identifying the key factors
+             which they should consider as they return to their home country to develop a national plan to
+             migrate personal transportation towards all-electric cars and set a gas vehicle-ban date for
+             different countries.
+
+
+=== PHYSICAL PAGE 2 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+        数模乐园整理提供，更多数学建模资源请关注微信公众平台“数模乐园”或官方网站www.smlyor.com获取
+
+       Key words: site selection model, logistic model, Q-type clustering model, electric network
+
+
+=== PHYSICAL PAGE 3 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 1 of 27
+
+                                                                  Content
+        1 Introduction.................................................................................................................... 2
+             1.1 Background..........................................................................................................2
+             1.2. Restatement of the Problem................................................................................3
+             1.2 Literature Review................................................................................................ 3
+             1.3 Our Work............................................................................................................. 4
+        2 Assumptions and Justifications...................................................................................... 4
+        3 Distribute the charging stations in the US...................................................................... 4
+             3.1 Concepts introduction..........................................................................................5
+             3.2 All-electric evaluation model.............................................................................. 6
+                  3.2.1 The model construction............................................................................ 6
+                  3.2.2 Model solution and analysis..................................................................... 7
+             3.3 Distribution optimization model..........................................................................8
+                  3.3.1 The model construction............................................................................ 8
+                  3.3.2 Model solution and analysis..................................................................... 9
+        4 Study on South Korea.....................................................................................................9
+             4.1 Urban charging station location model..............................................................10
+             4.2 Suburban charging station location model........................................................ 12
+             4.3 Rural charging station location model...............................................................12
+             4.4 Logistic model................................................................................................... 13
+                  4.4.1 Index definition.......................................................................................13
+                  4.4.2 The model construction.......................................................................... 13
+                  4.4.3 Model solution and analysis................................................................... 14
+             4.5 Answers of the Questions.................................................................................. 14
+        5 Create a classification system.......................................................................................16
+             5.1 The model construction..................................................................................... 17
+             5.2 Model solution and analysis.............................................................................. 17
+        6 Comment on the effect of new technologies................................................................ 18
+             6.1 The model construction..................................................................................... 18
+             6.2 Model analysis...................................................................................................18
+        7 Sensitivity Analysis...................................................................................................... 19
+        8 Conclusions.................................................................................................................. 20
+             8.1 Strengths............................................................................................................ 20
+             8.2 Weaknesses........................................................................................................20
+             8.3 Model extension................................................................................................ 20
+        9 A Handout to the Leaders.............................................................................................20
+        10 Reference.................................................................................................................... 21
+        11 Appendix.................................................................................................................... 22
+
+
+=== PHYSICAL PAGE 4 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 2 of 27
+
+
+        1 Introduction
+
+        1.1 Background
+             Nowadays, fossil fuel and the environment protection have become the hottest issues
+        in the world [1]. The main transportations all over the world are based on fossil oil, which
+        has caused serious environmental pollutions. Since the resource of fossil fuels is limited
+        and it always leads to the pollution, the transition of it to more clean energy is inevitable.
+        In order to realize this aim, electric vehicles which are the representatives of new energy
+        vehicles, have been recognized as the main development direction of the transformation
+        in the automotive industry in the 21st century [2].
+             It is well established that electric vehicles are high efficiency, low noise and nearly
+        zero pollution [3]. The advantages of electric vehicles are obvious. Hence, they have been
+        widely used all over the world. To promote the large-scale development of electric
+        vehicles, it is necessary to improve the corresponding infrastructure. As an important part
+        of the construction of electric vehicle facilities, charging stations are crucial to the
+        development of the entire electric vehicle industry. Where and how many do we need to
+        construct the charging stations? Selecting the correct location and estimating the number
+        of charging stations are very important.
+
+        1.2. Restatement of the Problem
+             When we transform the gasoline and fossil fuel cars to electric vehicles, we need to
+        consider the network of charging stations and the growth of them over time. In order to
+        make a development schedule of the charging stations for a country, we are required to
+        answer the following questions.
+             1. Build a model to judge whether or not Tesla can switch to all-electric all over US.
+        Distribute the charging stations in case of full electric.
+             2. Select a country to determine the number and location of charging stations. Make
+        a timeline for the full evolution and find out the key factors that matter your model most.
+             3. Consider whether the model is suitable for the countries with different geographies,
+        population density distributions, and wealth distributions situations, and discuss the
+        feasibility of creating a classification system.
+             4. Consider that how new technologies affect the analysis of the increasing use of
+        electric vehicles.
+             5. Write a one-page handout for the leaders to identify the key factors they should
+        consider and set a gas vehicle-ban date.
+
+        1.2 Literature Review
+             Under the pressure of energy conservation and low carbon, the research on the
+        electric vehicles and the construction of charging station network have made great
+        progress.In the planning of charging facilities, some researchers point out that the layout
+        of charging stations are affected by the number of electric vehicles [4]. The construction
+        of power stations needs to meet the requirements of traffic density. Only in this way can
+        they develop in harmony. Taking California for example, we know that there are one
+        million new energy vehicles in existence [5]. By combining the supply and demand of
+
+
+=== PHYSICAL PAGE 5 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 3 of 27
+        California electricity, they build linear and nonlinear models, aiming at saving energy and
+        reducing emissions. Wang [6] proposed a new method for the layout of charging station.
+        In [6], they considered several influential factors such as technical level, holding capacity
+        and charging behavior of electric vehicles. However, the proposed load-shedding space
+        segment prediction method does not take into the driving features, using mode and
+        charging mode into account. The weight of the method is subjective and the prediction
+        error is large.
+              For selecting the location of charging stations, Holzman [7] aimed at minimizing the
+        square distance of user-to-facility locations, and constructed the location selection model
+        based on network planning. Then he discussed and expanded the model with specific
+        conditions. Additionally, the authors [8] build the optimization model, whose algorithm
+        was based on game theory. Hakimi [9] conducted a systematic study of the selection of
+        facility location. He considers the location of one or more facilities within a network,
+        providing that the total distance or the maximum distance between the facility and the
+        point is minimized. The theory makes the selection of charging station furtherdeveloped
+        on the basis of the original theory.
+              However, the development of electric vehicles are still at the initial stage. The layout
+        planning theory of charging facility is also under exploration and there are still very little
+        studies about the network of charging stations. Although some achievements have been
+        made, we still have lots of the uncertainties to study. In this paper, we propose a brand-
+        new model to imply the location of charging stations. Furthermore, we extend our
+        models to suit different circumstances.
+
+        1.3 Our Work
+              Firstly, we establish a multi-objective programming model to calculate the number
+        of charging stations. Besides, we establish a site selection model to determine the
+        distribution in urban, suburban and rural areas. Then we choose six indexes which affect
+        the number of the electric vehicles. According these indexes, we establish a logistic model
+        to predict the number of the electric vehicles. We can find out the key factors through the
+        predicted data. Furthermore, we can analyze the relationship among the different key
+        factors. Next, we expand our model. We establish a classification system through Q-type
+        clustering model to analyze the electric network development plan for countries in
+        different categories. We also consider the effect of various new technologies, and analyze
+        the status of each technology and the trend of future development. Finally, we write a
+        handout for the leaders to offer them some effective advice on the development of electric
+        network.
+
+        2 Assumptions and Justifications
+           The charging station which has been built cannot be removed. Since the
+            construction of charging station costs a lot of manpower and financial resources, the
+            demolition of it will cause greater losses.
+           The candidate points of charging station are obtained through reasonable
+            analysis and rigorous demonstration. Because if the charging station is built in an
+            area with poor or unsafe conditions, it will lead to fewer cars to be charged.
+
+
+=== PHYSICAL PAGE 6 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 4 of 27
+           Each charging station will not break down during charging process. Because the
+            charging station network will be regularly maintained.
+           Vehicle arrival obeys to Poisson distribution. It is demonstrated in statistics.
+
+        3 Distribute the charging stations in the US
+              Task one requires us to determine whether Tesla is on track to allow a full switch to
+        all-electric in the US, and give the distribution of charging stations based on all-electric
+        condition. Firstly, we searching the population density and car ownership per capita of
+        different states of America. According to population density, we divided the United
+        States into urban, suburban and rural areas. Secondly, the total amount of cars in each
+        area is determined by the amount of car ownership per capita. According to queuing
+        theory, we calculate the average waiting time for car charging. Then, we can get the
+        number of supercharging stations theoretically needed. We compare it with the actual
+        number of charging stations, determine whether or not the US can go all-electric. Finally,
+        with the goal of minimum cost and minimum waiting time, we build a multi-objective
+        optimization model to calculate the number of charging stations required in each region.
+
+        3.1 Concepts introduction
+              Population density
+             Let ρi denote the population density, i.e. the number of people per square kilometer.
+        The population distributions in the US are obtained from the US Census Bureau [10]. We
+        divide the United States into three regions based on the intensity of the population.
+             When the population density is greater than 150, the area is the urban. Similarly,
+        when the population density is between 50 and 150, the area is suburban. Otherwise, the
+        area is the rural. The dividing results are as follows.
+
+
+
+
+                               Figure 1: The population density distribution in the US
+               Car ownership per capita
+               Let Hi denote the car ownership per capita, which means the average number of
+        cars owned by each individual. According to the U.S. official statistic [11], the overall
+        car ownership per capita is 0.8. Wherein the car ownership per capita in urban, suburban,
+        rural areas are 0.94, 0.83, 0.60 respectively.
+               Connectivity rate
+              The distance between two adjacent electric vehicle charging stations has a great
+        influence on the convenience of charging. The closer the charging station is, the higher
+        the charging convenience will be. In general, a supercharging station can provide up to
+        170 miles of power. If the distance between two charging stations is less than or equal to
+        this value, then the car can provide an endless stream of electricity. That is to say, the
+
+
+=== PHYSICAL PAGE 7 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 5 of 27
+        distribution of charging station is reasonable to satisfy the charging needs. Therefore, we
+        define the connectivity rate to reflect the rationality of charging station distribution.
+                                       number of adjacent stations < 170 miles away
+                 connectivity rate =
+                                             number of all adjacent stations /2
+            We find the locations of all the charging stations built and to be built from the Tesla
+        website, and mark them on the US map. Then we connect all adjacent charging stations
+        whose distance is less than 170 miles. The road map is shown as below.
+
+
+
+
+                                        Figure 2: Connectivity diagram
+             As shown in figure 2, the coverage of the charging stations has basically covered the
+        entire United States, especially in areas with a high population density. After calculation,
+        we find that the connectivity rate has reached 71%. Therefore, we have initially judged
+        that Tesla is making the United States on an all-electric track. Next, we will analyze in
+        detail through modeling.
+
+        3.2 All-electric evaluation model
+
+        3.2.1    The model construction
+               1) Actual number of electric vehicles
+               The total number of electric vehicles in a region will be affected by many factors.
+        The macroscopic parameter of rangeis Si which stands for the acreage of ith area. The
+        parameter Pi represents the percentage of electric vehicles in ith area. Hence, we can
+        get the equation between the total number of electric vehicles and the various factors.
+                                             n i  i  S i  H i  P i
+               2) Theoretical number of electric vehicles
+               When the number of electric vehicles reaches a certain level, there needs to be
+        enough charging stations to serve it. Because the supercharging station is much more
+        expensive than the destination charging station, we first consider the number of super
+        charging station. According to the survey data of General Motors in the United States, the
+        utilization rate α of a public charging station is 35%. The electric vehicle can run T
+        miles when charging once at a supercharging station. According to the average annual
+        driving distance L of the car and the average number of driving days D , we can
+        calculate the number of times ( Nsc ) a car is charged on the supercharging station every
+        day.
+                                                            αL
+                                                    Nsc =
+                                                           DT
+               Through multiplying the total number of electric vehicles in each area by the average
+        number of charging times each day, we can get the total number of times all the vehicles
+        in the area needs to be recharged daily. For the charging stations, these are the number
+         Nitotal of charging vehicles they need to service each day,
+
+
+=== PHYSICAL PAGE 8 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 6 of 27
+                                                  Nitotal =Nsc × ni .
+             Vehicle arrival is a typical Poisson distribution event [12]. The average service time
+        of a supercharging station are t hours every day. There are λ vehicles arriving at
+        charging station every hour. Poisson distribution is expressed as follows,
+                                                e- λt (λt)J
+                                     PJ (t) =                 (J = 0,1, 2,...).
+                                                    J!
+             A supercharging station can be viewed as a single service desk model M/M/1. The
+        average service time per car is μ . When the vehicle arrives at the charging station at a
+        Poisson distribution, if at this time there are a number of vehicles are charging, then the
+        vehicle must wait in line,
+                                                         λ2
+                                                 Lq =
+                                                      μ( μ-λ)
+             If the average number of arrivals is greater than a certain degree, cars that arrive later
+        cannot be fully charged in time. Under the condition of stable system, the average waiting
+        time will increase first, and then close to a stable value. That is the average waiting time
+                                                          Lq
+                                                  T     =    .
+                                                       qSC
+                                                                    λ
+              Given a waiting time, we can calculate the total number of cars that a supercharging
+        station can service nsc = λt .
+
+        3.2.2 Model solution and analysis
+             In a charging station, waiting time is generated when more vehicles are queued for
+        charging. The longer the waiting time, the lower the quality of service. In order to make
+        electric vehicles more convenient to charge, we have to shorten the waiting time for the
+        car. Therefore, the number of charging stations need to be increased. The convenience
+        index CIi is defined to reflect the ease of charging in each area.
+                                               CIi = Nitotal
+                                                     n ×r
+                                                               sc       i
+
+             Where ri denotes the actual number of supercharging stations.
+             When the actual number of vehicles needed to be charged is less than the maximum
+        number of vehicles that the charging station can supply, the charging station is considered
+        to be convenient. It can be attributed to the following formula.
+                                            convenient                     ,CI i  1
+                                     type  
+                                            inconvenient                   ,CI i  1
+             All the convenient areas are marked with dark blue, and shown as below.
+
+
+
+
+                                           Figure 3: Convenient area
+             From Figure 3, we can clearly see that the convenient area has a wide coverage and
+        basically covers the entire United States. Based on the previous connectivity map in the
+        United States and the connectivity rate of 71%, we have reason to believe that Tesla is
+        expected to achieve full electrification in the United States.
+
+
+=== PHYSICAL PAGE 9 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 7 of 27
+
+        3.3 Distribution optimization model
+
+        3.3.1 The model construction
+              The distribution of charging stations need to consider many aspects, while at the
+        same time it is subject to economy, time and other factors. In order to obtain the optimal
+        distribution program, we establish a multi-objective model with flexible constraints.
+             Goal of minimum cost:
+             On the basis of ensuring a rational distribution of charging stations, we should
+        minimize the cost of our program. Since the prices of supercharging stations and
+        destination charging stations ( CSC and CDC ) are different, we need to consider the total
+        building cost of them. The number of them are rSC and rDC respectively. So, we get
+        that
+                                    min Z i   rDC  CDC   rSC  CSC .
+
+             Goal of minimum waiting time:
+             The purpose of building a number of charging stations is to shorten the waiting time
+        for the car to be charged, thereby improving service convenience. We consider the
+        average waiting time of the supercharging station and the destination charging station
+        simultaneously, and take their respective number as a weighting factor. The totalwaiting
+        time obtained should be as small as possible
+                               minTi q  TqDC  rDC  TqSC  rSC , i 1, 2,3 .
+                                                r r
+                                                     DC        SC
+
+             Constraint of distance:
+             When the vehicle travels a long trip, it needs enough power to support it. According
+        to the average annual driving distance L of the car and the average number of driving
+        days D , we can calculate the charging miles the car needs every day
+                                                         L
+                                                    A=        .
+                                                          D
+             Wherein α is the utilization rate of a public charging station
+             Hence, the total charging miles required in each area can be obtained from the
+        following formula
+                                               Ai total  Ai  ni
+             When the distribution of charging stations is reasonable, the power provided by the
+        charging station should be greater than the power actually needed. Thus the vehicle can
+        travel a long distance without consuming all the electric. So, the constraint is:
+                                            2
+
+                                   A i total   lk  nk  rk k DC,SC
+                                            k
+
+             Constraint of convenience
+             When the total number of vehicles that the charging station can serve is greater than
+        the actual number of vehicles, the charging station can satisfy the daily needs. According
+        to convenience index defined before, we should increase the number of charging stations
+        while reducing the waiting time at the same time. Therefore, the convenience index
+        should be less than or equal to 1.
+                                                     ni
+                                        CIi                     1
+                                              n r n r
+                                                DC        DC        SC   SC
+
+
+=== PHYSICAL PAGE 10 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 8 of 27
+              Constraint of vehicles
+              The biggest difference between destination charging (DC) and supercharging (SC)
+        lies in the charging efficiency. The former costs a long time to charge, thus providing a
+        long trip. The latter costs a short time to charge, but providing a relatively long trip. Hence,
+        the latter one has a higher charging efficiency. Now we assume that TDC represents the
+        daily power supply time of DC, tDC denotes a fully charged time, while lDC stands for
+        the length of trip one charge can provide. So, the charging efficiency ratio between DC
+        and SC is as follows
+                                                  EFDC T l
+                                    Pefficiency        DC DC TSC lSC .
+                                                  EFSC    tDC         tSC
+              Therefore, under the condition of the same electricity supply, the relationship
+        between the number of DC stations and SC stations is rSC  rDC  Pefficiency .
+              In addition, the required number of charging stations should be greater than or equal
+        to the actual number of charging stations. So, the constraint is:
+                                                         ni
+                                                 rSC 
+                                                         nSC
+             To sum up, the whole optimization model is as follows
+
+
+
+
+        3.3.2 Model solution and analysis
+             According to data statistics, a charging station consists of 8.8 chargers in general.
+        By using MATBLA to solve the optimization model above, we obtain that the US needs
+        about 15 million chargers in all. Therefore, 1,704,500 charge stations are required. After
+        calculation, we get that urban area needs 1,142,015 charge stations, suburban area needs
+        392,035 charge stations, rural area needs 170,450 charge stations.
+                                            Table 1: Distribution results
+                      Area                             Number of charging stations
+                      Urban area                       1,142,015
+                      Suburban area                    392,035
+                      Rural area                       170450
+                      The whole US                     1,704,500
+
+
+=== PHYSICAL PAGE 11 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 9 of 27
+
+
+        4 Study on South Korea
+            South Korea is a typical developed country in Northeast of Asia. It has obvious
+        urban-suburban-rural divisions. The population density distribution is as follows.
+        Wherein the blue area is the densely populated area.
+
+
+
+
+                          Figure 4: The population density distribution in South Korea
+             According to the difference in population density, we divide South Korea into three
+        parts: urban area, suburban area, rural area. For different areas, we will build different
+        charging station site selection model.
+
+        4.1 Urban charging station location model
+              Since there are many electric cars in the city, it is necessary to build a large number
+        of charging stations. On the one hand, there are many restaurants, hotels and shopping
+        malls in the city, most of which have paring lots. Hence, the construction of charging
+        station can rely on the parking lots of these consumption places. On the other hand,
+        according to the location of gas station, the charging stations can also be centrally located
+        next to the main arterial roads with relatively large traffic volumes. We take Seoul as an
+        example to distribute the charging stations.
+
+             1) Total construction cost and average waiting time
+             The following analysis is similar to task one, so we will not elaborate in detail.
+             The total electric vehicles in Seoul is
+                                      nseoul  seoul  Sseoul  Hseoul  P .
+             The number of charging times for a car every day is:
+                                                          L
+                                                     N=          .
+                                                          DY
+             The number of vehicles needed to charge every day is:
+                                                Ntotal =N ×nseoul .
+             The average charging miles of public charging station every day is:
+                                                          L
+                                                      A=        .
+                                                           D
+             The total charging miles required every day is:
+                                                Atotal  A nseoul .
+             According to the driving data of Ministry of Land, Infrastructure and Transport of
+        Korea, South Korean residents mainly drive out from 9:00 to 17:00. Hence, the charging
+        time of the public charging station is T  8 hours. Besides, most drivers tend to choose
+
+
+=== PHYSICAL PAGE 12 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 10 of 27
+        supercharging when going out. So, let the charging time be t  30 min and the mileage
+        be Y  170 miles. The average waiting time of charging is Tq seoul .
+             The total cost of constructing charging stations in Seoul is
+                                            Zseoul  rseoul C .
+
+              2) Location of charging stations
+              Our goal is to select a plurality of consumption places or gas stations in a city to
+        install charging stations. A charging station should meet the charging needs of allnearby
+        vehicles. If we employthe traditional shortest path location model, the selected locations
+        are concentrated in the city center, which will heaven the traffic pressure. On the contrary,
+        if the charging stations are located on the edge of the city, it will be time-consuming for
+        the vehicles to charge. Therefore, the location should take the distance, time and traffic
+        factors into account.
+              We determine the city center based on the electronic map, and then construct a
+         n n weighted network map according to the size of the city. The innermost four
+        squares are the first level and the outward twelve squares are the second level. There are
+         n /2 levels in all. The length of each square, that is, the initial weight is 1. If the actual
+        position corresponding to the side length appears lakes, rivers, oceans and deserts, the
+        default value of the side length is  .
+              In order to reduce the impact on the traffic pressure, we introduce congestion index
+         jk of side length v j vk . For the side length at the ith level, we need to update the weight
+         wjk of vj vk   at the time of the mth calculation
+                                                          n           n
+                                  wjk  1  (m  i) , i  1,.m1
+                                                          2           2
+             Therefore, the sum of shortest path from one point to any other point is:
+                                                  w xjk      jk
+
+
+             The 0-1 variable   xjk indicates whether or not to choose vjvk ,
+                                                    1 choose vj vk
+                                            x jk = 
+                                                   0      not
+             Based on the optimization model of task one, we add a new goal of shortest path. It
+        will make the distance to the charging station as short as possible.
+             So, the new added goal is
+                                             min  wjk  x jk .
+             The determination of the shortest path needs to be within the n n grid range. So,
+        the new constraint is
+                                                         1 j1
+                                        n       n
+                                                        
+                                       xjk   xkj   1 j  n
+                                      k 1    k 1
+                                                         0 j  1, n
+             To sum up, the whole model is as follows
+
+                                            min Zseoul  rseoul C ,
+                                            min Tq seoul ,
+                                            min  w jk  x jk       .
+
+
+=== PHYSICAL PAGE 13 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 11 of 27
+
+
+
+
+            Chargers should be dispersed to the city first. Then, according to the characteristics
+        of urban construction, charging stations are formed. They are distributed near the
+        consumption places and gas stations.
+
+        4.2 Suburban charging station location model
+             We consider that the area between cities are suburbs. Since the suburbs are mainly
+        located on both sides of the road with large traffic flow, we simplify the question to the
+        highway charging station selection question.
+             The macroscopic parameter VFih is the traffic volume in h hours at the ith road.
+        The total number of suburban electric vehicles is:
+                                                       n   24
+
+                                            nsub  P   VFih
+                                                      i1 h1
+
+             The average number of vehicles needed to charge every day is
+                                             Ntotal =N × nsub .
+             The total charging miles required every day is
+                                             Atotal  A nsub .
+             Therefore, the total cost of suburban charging station construction is
+                                               Zsub  rsub C .
+             The specific location along the highway does not affect the optimization objectives
+        and constraints. So, we can get the optimization model directly.
+
+
+
+
+              Since the distance between adjacent charging stations does not exceed 170 miles, we
+        can combine several chargers to form a charging station. The charging stations can be
+        built along the road.
+
+        4.3 Rural charging station location model
+             The rural areas have low density of population, which results in low charging needs.
+        Therefore, we can ignore the waiting time. If the mileage of one charge is larger than the
+        distance between two adjacent charging stations, the charging network can be regarded
+        to cover the entire rural area.
+             We take the location of charging station as the center and the mileage Y as the
+        radius of service circle. The square of the circle is the range that the electric vehicles can
+        reach after charging. To achieve full coverage, there must be another charging station in
+        the circle. From the view of geometric point, that is to make two circles intersect. After
+
+
+=== PHYSICAL PAGE 14 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 12 of 27
+        simplification, the full triangular mesh model can be used to achieve full coverage in rural
+        areas.
+             Generally, the charging station is built at the side of the road. Hence, the triangle
+        structure will be destroyed. We assume that the three sides of the triangle formed by the
+        adjacent three chargers are a, b, c respectively. According the Helen formula:
+                                       S     p( p  a)( p  b)( p  c)
+             We can calculate the area of the triangle. In addition, the economic costs are
+        considered. Hence, the only goal is to minimize the total cost.
+                                          min Zurban  rurban C
+                                                 S  Surban
+                                                
+                                                     1
+                                            s.t  p  (a  b  c)
+                                                    2
+                                                 ac, ab,bc  0
+                                                
+
+        4.4 Logistic model
+
+        4.4.1 Index definition
+             1) Electric vehicle price (EVP)
+             The price of electric cars has a great impact on the sales of electric vehicles. The
+        decrease in the car prices will result in more people buying cars. Hence, we define the
+        electric car price as the average price of all the electric cars sold on the current market.
+             2) Density of population (DP)
+             There will be more electric cars in places with large population density. According
+        to the population density, we divide the US into three parts: urban, suburban and rural.
+             3) Wealth distribution (WD)
+             At present, electric cars are new products, and their prices are relatively high. Hence,
+        there are more electric cars in rich places. We use the GDP value of a certain area to
+        represent the wealth of the region.
+             4) Environmental awareness (EA)
+            Electric vehicles are environmental-friendly products. With the increasing
+        awareness of environmental protection, the sales of electric vehicles will become higher.
+        We define the environmental awareness as:
+            EA=the number of people buying electric cars / the number of people buying cars
+             5) Policy orientation (PO)
+            Policy orientation can guide the purchasing direction of people to a certain extent.
+        We define the amount of subsidies of buying an electric car as policy orientation.
+             6) Government investment (GI)
+             The improvement of supporting services and facilities will largely affect the
+        enthusiasm of consumers purchasing electric cars. So we use the amount of investment
+        in supporting facilities to measure this index.
+
+        4.4.2 The model construction
+           Logistic regression is a generalized linear regression analysis model, which is
+        commonly used in the fields of data mining and economic forecasting. Therefore, it is
+
+
+=== PHYSICAL PAGE 15 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 13 of 27
+        suitable for the question. We select the six indicators defined above as influencing factors,
+        and establish the Logistic regression model to do the prediction
+
+
+
+
+        4.4.3 Model solution and analysis
+             We use SAS to test the model, and the test results are shown in the appendix. After
+        analysis, we find that only WD, PO and GI pass the test. Therefore, we get the logistic
+        regression equation for these three indicators.
+             For cities, the regression equation is
+                             p
+                       ln           0.2176 1.7258WD  0.2987  PO 1.3291 GI .
+                            1 p
+             For rural areas, the regression equation is
+                             p
+                       ln           0.1082  0.9652 WD 1.6549  PO  0.3472  GI .
+                            1 p
+             For the whole country, the regression equation is
+                              p
+                       ln           0.1110 1.7137 WD 1.5000 PO 1.614 GI .
+                            1 p
+
+        4.5 Answers of the Questions
+             (a) After calculation, the optimal number of charging stations in South Korea is
+        about 270,000. The distribution is mainly concentrated in the Seoul Metropolitan Area
+        and the Busan Metropolitan Area. The remaining areas are relatively sparsely distributed.
+        Their general location is shown as following figure.
+
+
+
+
+                             Figure 5: Distribution of charging stations in South Korea
+             The model we constructed above aims to minimize the total cost and the average
+        waiting time. While the cost of the chargers will have a direct impact on the total cost. In
+        addition, the number of chargers affect the total cost and average waiting time as well.
+        The number of chargers is affected by the investment. In conclusion, the key factors that
+        shape the development of our plan are the building cost of chargers and government
+        investment.
+
+
+=== PHYSICAL PAGE 16 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 14 of 27
+             (b) It is well known that the number of chargers and the number of electric vehicles
+        interact and influence each other. In order to facilitate the study, we define a lag index
+        which is  .
+             The macroscopic parameter  is defined as lag cardinality. Therefore, for the
+        function f (x) , the lag index at point x is
+                                                     xy
+                                                         .
+                                                      
+
+
+
+
+                                            Figure 6: Lag index
+             Now we have an exponential function: (x)  axx x  20  0.05
+             Let ( y)  (x  x)  axx , we can get the lag index at point x as
+                                                     yx
+                                               x         .
+                                                       
+              Since (y) can be obtained from the translation of (x) , we regard this lag as
+        synchronous lag. It has been observed that for the phenomenon of synchronous lag, the
+        larger x is, the smaller  x   is. That is  x  x .
+             Based on the growth forecast of supercharging stations [13], we obtain the sales
+        growth forecast curve (x) of Tesla while meeting the service conditions. The curve is
+        exponential. Then, we let   20 and obtain a new Tesla sales growth forecast curve
+        when   0.05 (after one year). However, we find that for the curves of  (x) and (x) ,
+        the relationship of  x  x is not established. As the year grows, the relationship is
+        established.
+
+
+
+
+                                          Figure 7: Change of lag index
+              We can regard the sales growth forecast curve as an exponential curve. If the number
+        of chargers has no effect on the sales volume of Tesla, the overall construction of chargers
+        will be delayed by one year. The new sales growth forecast curve should appear
+        synchronized lag phenomenon and the relationship of  x  x should be established all
+        the time. However, there is no synchronous lag in the actual forecast situation, and the
+        relationship of  x  x even appears. It shows that the construction lag makes the sales
+        of Tesla decline. And the evaporation situation of sales will increase as year grows, thus
+        showing a vicious cycle. Similarly, we use Tesla sales growth to predict the growth of
+        chargers. Then, we put a whole lag into the sales growth curve and analyze the relevant
+        index.
+              According to the conclusion obtained, the investment distribution of chargers is
+        shown as follows.
+
+
+=== PHYSICAL PAGE 17 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 15 of 27
+
+
+
+
+                                    Figure 8: Investment distribution of chargers
+              The whole process is divided into three stages: early, middle and late stage.
+              In the early stage, we need to increase investment in the construction of chargers to
+        ensure that the early owners can get the most basic charging service. Therefore, the
+        number of people buying electric cars will increase.
+              In the middle stage, since the early construction of the chargers is sufficient to deal
+        with the growth of electric vehicles, we can use part of the investment for subsidies. Thus,
+        it can stimulate the new energy automotive industry.
+              In the late stage, the number of vehicles close to a stable condition. So, we need to
+        constantly improve the charging facilities services.
+              To sum up, the country should build all city-based chargers first. Through the curves
+        of urban and rural areas, we can find that the growth rate of Tesla in urban area is always
+        greater than that of the rural area.
+              In the initial stage of construction, we should build charging stations first to promote
+        the purchase of cars. In the later stage of construction, the charging stations are built to
+        cope with the purchase of cars. In conclusion, chargers should be built first.
+              From the test result of Logistic model, we can filter out the key factors. Hence, the
+        key factors that affect our proposed charging station plan are wealth distribution and
+        government investment.
+
+            (c) From the Logistic model established above, we have drawn a trend graph of
+        market share of electric vehicles and the corresponding timeline. The result is as follows.
+
+
+
+
+                               Figure 9: Trend of market share of electric vehicles
+              From the table below, we can clearly see the corresponding years of each degree of
+        full electrification. It is notable that when the market share of electric vehicles reaches 90%,
+        it close to a stable condition. At this time, the government needs to intervene to impose a
+        moratorium on the use of oil and gas, which will eventually lead to real full electrification.
+                                  Table 2: Timeline of full evolution to electric vehicles
+
+         Degree    10%      20%       30%       40%       50%       60%       70%      80%    90%~100%
+         Year      2024     2027      2031      2033      2035      2037      2040     2043   2069
+
+             In 2016, Tesla entered South Korea officially. Besides, there are fewer subsidies to
+        buy electric vehicles in South Korea. It shows that the policy orientation has an important
+        influence on the electrification conversion. Therefore, the key factor that shapes our
+        proposed growth plan timeline is policy orientation.
+
+
+=== PHYSICAL PAGE 18 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 16 of 27
+
+        5 Create a classification system
+             Since countries with different geography, population and wealth distributions have
+        different overall patterns of growth, the network of chargers we proposed earlier does not
+        apply to every country. To help a country determine the overall growth model that it
+        should follow, we establish a Q-based clustering model for each country. Therefore, it
+        can deploy its coverage plan of charging station network better.
+
+        5.1 The model construction
+             To classify different types of countries, it is necessary to describe the similarities
+        between different countries quantitatively. While a country contains many indicators, we
+        can treat each country as a point in space, where p is the number of indicators contained
+        in each country. In order to classify countries more accurately, we selected five different
+        indicators: population density (DP), gross domestic product (GDP), country area (CA),
+        government investment (GI), electric vehicle price (EVP). Next, we characterize the
+        similarities between two countries.
+             In cluster analysis, the Minkowski distance is the most commonly used method.
+
+
+
+             However, when using the Min-style distance, the information will overlap due to the
+        correlation between national indicators. It will emphasize the correlation between some
+        indicators unilaterally. Therefore, we consider to employ Mahilanobis distance to
+        measure the similarity.
+                                        d (x, y)  (x  y)T  (x  y) .
+             Mahalanobis distance of all linear transformation is invariable, so it is not affected
+        by the dimension. Since we have a measure of the similarity between countries, we then
+        measure the similarity between classes.
+            Under this circumstance, the Nearest Neighbor or Single Linkage Method is adopted.
+                                      D(G1, G2 )  min {d (xi , y j )} .
+                                                      xi G1 ,x j G2
+
+             We can simply assume that this is the shortest distance between the nearest two
+        points in the two classes.
+
+        5.2 Model solution and analysis
+            In order to make our classification more representative, we have chosen eight
+        countries in different parts of the world. The information is shown as below.
+                                            Table 3: Eight countries
+                    Index       1           2                  3                   4
+                    Country     Australia    Indonesia             United States   Singapore
+                    Index       5            6                     7               8
+                    Country     Korea        Saudi Arabia          China           Uruguay
+
+               Using the classification system we set up above, we can draw the following cluster
+        map.
+
+
+=== PHYSICAL PAGE 19 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 17 of 27
+
+
+
+
+                                           Figure 10: Cluster diagram
+             According to this classification system, we can divide these countries into three
+        categories.
+             The first category is the developed countries led by the United States. They have
+        invested heavily in the construction of charging stations and will soon enter the saturation
+        period of growth. The key factor for their growth in these countries is investment.
+             The second category is the developing countries led by China. Charging stations in
+        these countries are at an early stage of construction. In the next few years, under the
+        influence of investment, they will usher in an explosion of growth. The key factors of the
+        growth of network are the investment and public awareness of environmental
+        protection.
+               The third category is underdeveloped countries led by Indonesia. These countries
+        have not yet built their charging networks and will grow slowly under the influence of
+        policies and investments in the future. Therefore, the key factors for their growth in these
+        countries are policies and investments.
+
+        6 Comment on the effect of new technologies
+             Super-cycle trains use solar energy for rapid transit between cities, and electric
+        vehicles can improve the quality of the environment. But only aiming at protecting the
+        environment does not mean that electric vehicles can be truly universal. In this regard,
+        we establish an evaluation model to investigate whether these technologies can promote
+        the popularity of electric vehicles.
+
+        6.1 The model construction
+             To investigate whether the electric vehicles are popular, we need to know their
+        growth rate, which is related to the country's GDP, URP and OPH. The general law of
+        things shows that the development of electric vehicles will close to a stable condition, so
+        we use the logistic curve to predict the impact of different technologies on the growth rate
+         r and to determine whether it can contribute to the popularity of electric vehicles.
+             First of all, in order to eliminate the dimensional effect of the above three variables
+        and make each variable have equal expressive force, we standardize the data of GDP,
+        URP and OPH indicators. The formula is as follows.
+
+
+=== PHYSICAL PAGE 20 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 18 of 27
+             Therefore, we can get the expression of the growth rate of electric vehicles. In
+        addition, we can also infer whether these technologies have a catalytic role to promote
+        the popularity of electric vehicles
+
+        6.2 Model analysis
+              The popularity of electric vehicles results from the construction of the fast-
+        changing power station. At present, electric vehicles use liquid lithium batteries, but the
+        biggest problem with liquid lithium batteries is their short life. This is also the key reason
+        that prevents electric vehicles from becoming mainstream. If drivers charge the car
+        regularly or each charging time is too long, it will affect the mind position in the public
+        about electric car. Fortunately, various countries in the world are stepping up the
+        construction of fast-changing electric vehicles. In particular, Tesla has invested heavily
+        in the construction of charging stations (including super-charging stations and destination
+        charging stations), which lays the foundation for the popularity of electric vehicles.
+              The development of autopilot technology has increased the ownership of
+        electric vehicles. Nowadays, Artificial Intelligence (AI) has made breakthrough progress
+        in areas such as machine learning and computer vision fields, thus making autopilot
+        technology possible. Because the cost of maintaining the electric vehicles is lower. The
+        prospect of autonomous driving technology is very broad. On the one hand, most of the
+        two types of people are facing mobility restrictions from the aging and the disabled
+        market, and the development of this technology makes their free passage possible. On the
+        other hand, traffic congestion in cities is a problem that every metropolitan area faces.
+        Autonomous driving on-board sensors can be used in conjunction with intelligent
+        transportation systems to optimize traffic flow at intersections. The green or red-light time
+        interval is dynamic. According to the changes of real-time traffic, we alleviate congestion
+        by increasing the efficiency of traffic flow. This provides a powerful driving force for the
+        popularity of electric vehicles.
+              The development of super-ring trains and flying cars will also contribute to the
+        popularity of electric vehicles. Super Loop trains are solar-powered electric vehicles
+        that can reach 1,223 kilometers per hour at speeds of 340 meters per second. It is
+        apparently faster than any other commercial train traveling on Earth, in terms of future
+        intercity traffic. Revolutionary breakthrough and its construction costs will be lower than
+        the cost of the general high-speed rail construction, under the premise of ignoring the
+        impact of the weather more secure. The demand of public is transferred from flight to the
+        electric vehicles, which improves the ownership of electric vehicles and provides a
+        potential driver for the popularity of electric vehicles.
+             Therefore, we believe that the popularity of electric vehicles will continue to rise. In
+        the near future, the overall popularity of electric vehicles will surely be realized.
+
+        7 Sensitivity Analysis
+             The number of chargers in each charging station has a direct impact on the waiting
+        time of driver. From the model above, we can see that our solution is obtained under the
+        condition that each charging station has 8.8 chargers. In addition, the average waiting
+        time is also affected by the daily charging time and fully charging time. Since the
+        population distribution and economic conditions vary from country to country, the
+        average supplying, there is a slight difference between the daily power supply time and
+        the number of chargers per charging station. To test the robustness of the model and make
+        the model more applicable, we will change the parameters that affect the latency and
+        conduct sensitivity analysis.
+
+
+=== PHYSICAL PAGE 21 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 19 of 27
+              We still take the United States as an example. From an intuitive point of view, we
+        can see that when the waiting time for charging is reduced, all-electric charging requires
+        less charging stations on the original basis. The government can save money to invest in
+        other fields. Next, we mainly consider the number of average chargers (NAV) and the
+        daily supply time (AST). Through the model established before, we calculate the results
+        under different values.
+                                         Table 4: Sensitivity analysis
+                     NAV       8.6        8.7          8.8           8.9       9.0
+                     NCS       1708680    1707530      1704500       1703750   1701980
+                     AST       6          7            8             9         10
+                     NSC       1968320    1839860      1704500       1639670   1542390
+
+             Here NSC is the number of charging stations.
+             Through the table above, we find that the change of these factors does affect the
+        waiting time, thus affecting the number of charging stations required for the full scale.
+        This shows that our model has good stability and strong adaptability.
+
+        8 Conclusions
+
+        8.1 Strengths
+              1) The site-selection model takes the idea of clustering. And it splits the whole
+        network into small cells. Not only effectively solve the distribution problems of charging
+        stations, and simplify the complexity of distribution.
+              2) The site-selection model has improved the traditional model. The shortest sumof
+        the traditional shortest path location model will make the site concentrated in the central
+        area. In our model, we introduce the concept of congestion index. After multiple
+        calculations, the weight of each side is updated every time. In the end, the scattered
+        distribution is achieved. The results obtained is convicing.
+              3) We use the custom indicator "lag index" to analyze the relationship between
+        variables. This idea is very innovative
+              4) Sensitivity analysis shows that our model is robust and reliable.
+
+        8.2 Weaknesses
+             1) There are some restrictions on the use of the model. Thus, this model is a bit rough.
+        If we want to improve the model, we should consider more aspects.
+             2) We do not take the transition time into account, which weakens the accuracy.
+
+        8.3 Model extension
+              The model can be extended to many industries, such as the courier industry, the
+        medical industry, the retail industry.
+              Take the courier industry as an example, we can compare a courier point to a
+        charging station. Courier service range corresponds to the mileage of the electric car after
+        charging, while the average delivery time corresponds to the average waiting time for
+        electric car charging. Moreover, the demand for expressing delivery is very different in
+        cities, suburbs and villages. Therefore, it is completely possible to use the charging station
+        model to distribute the courier points.
+
+
+=== PHYSICAL PAGE 22 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 20 of 27
+
+        9 A Handout to the Leaders
+              To reduce the use of fossil fuels and look for cleaner energy sources, we examine
+        the current status of electric vehicle ownership in most countries, as well as the
+        distribution and size of the corresponding charging stations.
+              First of all, we analyze the present Tesla charging station network. Currently, the
+        United States has 4,200 charging stations at all,550 of which are super charging stations,
+        making it the world's most advanced charging station construction country. In order to
+        explore whether Tesla can be fully galvanized in the United States, we divide the United
+        States into cities, suburbs and rural areas according to the density of population. For
+        different regions, the charging station location planning mode are different. In particular,
+        we collect the location of all existing charging stations in the United States and the
+        blueprint for building charging stations in the future. Based on these data, we map out the
+        connectivity network for charging stations in the United States, which shows that the
+        connectivity network has basically achieved the coverage of the whole country. Only a
+        small part of the countryside has not been covered. In fact, this is similar to most of the
+        developed countries in the world, such as Britain, Germany and France. For developed
+        countries, the key factor which should be considered is investment.
+              Secondly, we analyze the construction of the charging station network in more
+        developed countries such as Korea and China. There are currently 131 charging stations
+        in Korea, 22 of which are super charging stations. Similar to the United States, South
+        Korea also has obvious divisions of the urban, suburban and rural areas, in which cities
+        with densely populated areas are mainly located in coastal areas. Popular cities such as
+        Seoul, for example, has basically covered the network of charging stations, while some
+        ordinary cities have not yet built relevant infrastructure and only a handful of rural
+        residents have charging stations. The car ownership per capita and coverage of electric
+        vehicles in South Korea are all obviously lower than that in United States and other
+        developed countries. For those countries that have just begun to develop electric vehicles,
+        the key factors should be considered are investment and environmental awareness. The
+        charging station should be built first. Because city is the core of a country and it has
+        occupied the majority of the population in these countries. Besides, when employing the
+        strategy of encircling the rural areas from the cities, we should not forget the development
+        of environmental protection.
+              Finally, we have analyzed how underdeveloped countries such as Uruguay and
+        Indonesia build a charging stations network. Due to economic, policy or other reasons,
+        these countries have not yet carried out the construction of related infrastructure, or
+        related construction is extremely small to ignore. It is wise to make a plan to transform
+        personal transport to all-electric vehicles. For those countries that have not developed
+        electric vehicles yet, we suggest that the government should focus on policy and
+        investment. On the one hand, they should encourage citizens to buy electric vehicles and
+        give them considerable subsidies to increase the recognition of electric vehicles among
+        citizens.
+
+
+=== PHYSICAL PAGE 23 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 21 of 27
+
+        10 Reference
+        [1] Gao Jianping. Electric vehicle charging station network planning and optimization
+            [D]. Shandong University, 2012.
+        [2] Etezadi-amoli M, Choma K, Stefani J. Rapid-charge Electric-vehicle Stations[J].
+            IEEE Trans on Power Delivery, 2010, 25(3): 1883-1887.
+        [3] Zhou Hongchao, Li Haifeng. Study on Location Optimization Model of Electric
+            Vehicle Charging Station Based on Game Theory [J]. Science and Technology,
+            2011,11 (02): 51-54.
+        [4] Xu Fan, Yu Guoqin, Gu Linfeng. Electric vehicle charging station layout planning [J]
+            East China Electric Power, 2009,17 (10): 1678-1682.
+        [5] Ahmed Yousuf Saber, Ganesh Kumar Venayagamoorthy. One million plug-in electric
+            vehicles on the road by2015[C]. IEEE Conference on Intelligent Transportation
+            Systems, St.Louis, MO, USA, 2009.
+        [6] Hengsong Wang, Qi Huang. A novel approach for the layout of electric vehicle
+            charging station[A]. IEEE Conferences, 2010.
+        [7] Holzman. An Association Between Air Pollution and Mortality in six US Cities[M].
+            New England J. Med. 1993, 173-175.
+        [8] Zhou Hongchao, Li Haifeng. Research on Location Optimization of Electric Vehicle
+            Charging Station Based on Game Theory[J]. Science and Industry, 2011,11 (2): 51-
+            54.
+        [9] Hakimi. New direction in economical practice[M]. Edward Elgar Publishing Limited,
+            1997.
+        [10] http://www.qiwen.org/renkou/shijierenkou/7769.html
+        [11] http://auto.163.com/18/0125/07/D8VRECD1000884MM.html
+        [12] Zhao Ying. Poisson distribution and its application [J]. Journal of Liaoning Jiaotong
+             University, 2009.
+        [13] http://supercharge.info
+
+
+=== PHYSICAL PAGE 24 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 22 of 27
+
+        11 Appendix
+                                    Table 5: Test results of the urban
+
+
+                           Deviations and Pearson Goodness-of-Fit Statistics
+             Principle    Value       Degree of freedom    Value/degree of freedom Pr>Chi
+             Deviation    1.9697      35                   1.1991                  0.0024
+             Pearson      38.1268     35                   1.0893                  0.4278
+
+
+
+                                      Maximum likelihood estimation
+              Parameter    Degree of freedom     Estimation   Error      Chi-Wald Pr>Chi
+              Intercept    1                     0.2176       0.5357     0.0414   0.0150
+              EVP          1                     -1.2326      0.7627     4.3827   0.8290
+              DP           1                     2.3297       0.6576     4.8723   0.9802
+              WD           1                     1.7258       0.4294     5.1284   0.0300
+              EA           1                     -0.9624      0.5876     3.8527   0.7248
+              PO           1                     0.2987       0.8423     4.7426   0.0186
+              GI           1                     1.3291       0.2343     3.2973   0.0236
+
+
+
+                                    Table 6: Test results of the rural
+
+                           Deviations and Pearson Goodness-of-Fit Statistics
+             Principle    Value       Degree of freedom    Value/degree of freedom Pr>Chi
+             Deviation    1.1837      35                   1.1837                  0.0013
+             Pearson      43.1245     35                   1.8537                  0.3867
+
+
+
+
+                                      Maximum likelihood estimation
+              Parameter    Degree of freedom     Estimation   Error      Chi-Wald Pr>Chi
+              Intercept    1                     0.1082       0.2635     0.4826   0.0150
+              EVP          1                     -1.9238      0.4264     5.3742   0.9868
+              DP           1                     2.1924       0.6336     7.2742   0.6967
+              WD           1                     0.9652       0.2743     4.7358   0.0283
+              EA           1                     1.2731       0.8443     6.8648   0.7242
+              PO           1                     1.6549       0.9535     5.8368   0.0320
+              GI           1                     0.3472       0.4537     3.9586   0.0153
+
+
+=== PHYSICAL PAGE 25 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 23 of 27
+
+
+         Main Program
+
+         %% Initialization environment             end
+         clc                                       %% Map of the Tesla charging station in the
+         clear                                     United States
+         close all                                 [m, n] = size(pdata);
+                                                   rest = zeros(m, n);
+         landcolor = [0.98 0.97 0.97];
+         lakescolor = [0.71 0.84 0.92];            for i = 1:m
+         %% Read and process tesla data                  rest(i, 3) = str2num( pdata{i, 2}); %Will
+         data = importdata('WebData.txt');         it open in the future
+         data = data{1, 1}; %initial data               if ~isempty( strfind(pdata{i, 1},
+                                                   'charge'))
+         flag1 = 'type":["';                                  rest(i, 4) = 1; %Is it an effective
+         flag2 = '"],"open';                       charging station
+         flag3 = 'soon":"';                             end
+         flag4 = '","la';                               if ~isempty( strfind(pdata{i, 1}, 'super'))
+         flag5 = 'latitude":"';                               rest(i, 5) = 1; %Is it a super
+         flag6 = '","long';                        charging station
+         flag7 = 'ngitude":"';                          end
+
+         index1 = strfind(data, flag1);                 rest(i, 1) = str2num( pdata{i,
+         index2 = strfind(data, flag2);            3}); %latitude
+         index3 = strfind(data, flag3);                 rest(i, 2) = str2num( pdata{i,
+         index4 = strfind(data, flag4);            4}); %longitude
+         index5 = strfind(data, flag5);            end
+         index6 = strfind(data, flag6);
+         index7 = strfind(data, flag7);            limit = [26 48 -130 -60];
+                                                   res = [];
+         for i = 1:length(index1)                  for i = 1:m
+               pdata{i, 1} =                             if rest(i, 1) > limit(1) && rest(i, 1) <
+         data(index1(i)+length(flag1):index2(i)-   limit(2) && rest(i, 2) > limit(3) && rest(i, 2)
+         1 ); %location_type                       < limit(4) && rest(i, 4) == 1
+               pdata{i, 2} =                                   res = [res; rest(i, :)];
+         data(index3(i)+length(flag3):index4(i)-         end
+         1 ); %open_soon                           end
+               pdata{i, 3} =
+         data(index5(i)+length(flag5):index6(i)-   mcolor = [249 222 239; 255 86 0; 236 165
+         1 ); %latitude                            201; 47 70 150];
+               pdata{i, 4} = data(index7(i) +      mcolor = mcolor ./255;
+         length(flag7):index7(i) +
+         length(flag7)+10); %longitude             for i = 1:size(res, 1)
+
+
+=== PHYSICAL PAGE 26 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 24 of 27
+
+               curpoint(i).Geometry = 'Point';                   scolor}); %repmat(landcolor,
+               nextpoint(i).Geometry = 'Point';             numel(states), 1)
+               if res(i, 3) == 0                            geoshow(ax, states, 'DisplayType',
+                     curpoint(i).Lon = res(i, 2);           'polygon', ...
+                     curpoint(i).Lat = res(i, 1);                'SymbolSpec', faceColors)
+                     curpoint(i).Name = '';                 rivers = shaperead('worldrivers',
+               end                                          'UseGeoCoords', true);
+               if res(i, 3) == 1                            geoshow(rivers, 'Color', 'blue')
+                     nextpoint(i).Lon = res(i, 2);          geoshow(nextpoint,
+                     nextpoint(i).Lat = res(i, 1);          'MarkerEdgeColor','r','Marker', '.',
+                     nextpoint(i).Name = '';                'MarkerSize',10)
+               end                                          geoshow(curpoint,'MarkerEdgeColor', 'r',
+         end                                                'Marker', '.', 'MarkerSize',10 )
+                                                            set(gcf, 'Position', [100, 100, 800, 400])
+         figure                                             %% Reading the data of Super filling piles in
+         ax = worldmap('World');                            the United States
+         ax = worldmap([25, 55], [230, 300]);               [~, ~, data] =
+         land = shaperead('landareas', 'UseGeoCoords',      xlsread('SuperChargeData.xlsx');
+         true);                                             count = 1;
+         geoshow(ax, land, 'FaceColor', landcolor)          for i = 1:size(data, 1)
+         lakes = shaperead('worldlakes',                          if mod(i, 13) == 8
+         'UseGeoCoords', true);                                        sdata = data{i, 1};
+         geoshow(lakes, 'FaceColor', lakescolor)                       index = strfind(sdata, ', ');
+         states = shaperead('usastatelo', 'UseGeoCoords',              superCharge(count, 1) =
+         true);                                             str2num(sdata(1:index-1));
+         scolor = [];                                                  superCharge(count, 2) =
+         for i = 1:size(states, 1)                          str2num(sdata(index+2:end));
+               if states(i).PopDens2000 >= 150                         superCharge(count, 3) = data{i-1,
+                     scolor = [scolor; mcolor(4, :)];       1};
+               elseif states(i).PopDens2000 >= 50                       SuperChargeStatus{count, 1} =
+                     scolor = [scolor; mcolor(3, :)];       data{i+2, 1};
+               else                                                   count = count + 1;
+                     scolor = [scolor; mcolor(1, :)];             end
+               end                                          end
+         end                                                %% Drawing the data of Super-filling piles
+         index = find(scolor(:, 1) >= 1);                   in the United States
+         for i = 1:size(index, 1)                           count = 1;
+               scolor(index(i), :) = [1 0 0];               superpoint = [];
+         end                                                chargeline = [];
+         faceColors = makesymbolspec('Polygon',...          for i = 1:size(res, 1)
+              {'INDEX', [1 numel(states)],                        if res(i, 3) == 1 && res(i, 5) == 1
+         'FaceColor', ...
+
+
+=== PHYSICAL PAGE 27 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 25 of 27
+
+                     superpoint(count).Geometry = 'Point';            dis = calDis(superpoint(i).Lon,
+                     superpoint(count).Lon = res(i, 2);      superpoint(i).Lat, superpoint(j).Lon,
+                     superpoint(count).Lat = res(i, 1);      superpoint(j).Lat);
+                     superpoint(count).Name = '';                      if dis <= 170*1.6
+                     count = count + 1;                                      chargeline(count).Geometry =
+               end                                           'Line';
+         end                                                                 chargeline(count).Lon =
+         for i = 1:size(superCharge, 1)                      [superpoint(i).Lon superpoint(j).Lon NaN];
+               superpoint(count).Geometry = 'Point';                         chargeline(count).Lat =
+               superpoint(count).Lon = superCharge(i, 2);    [superpoint(i).Lat superpoint(j).Lat NaN];
+               superpoint(count).Lat = superCharge(i, 1);                    count = count + 1;
+               superpoint(count).Name = '';                                  count1 = count1 + 1;
+               count = count + 1;                                      end
+         end                                                           if dis <= 220*1.6
+                                                                             count2 = count2 + 1;
+         figure                                                        end
+         ax = worldmap('World');                                  end
+         ax = worldmap([25, 55], [230, 300]);                     if count2 ~= 0
+         land = shaperead('landareas', 'UseGeoCoords',                 superrate(i) = count1 / count2;
+         true);                                                   end
+         geoshow(ax, land, 'FaceColor', landcolor)           end
+         lakes = shaperead('worldlakes',
+         'UseGeoCoords', true);                              geoshow(chargeline, 'Color', 'red',
+         geoshow(lakes, 'FaceColor', lakescolor)             'LineWidth',1)
+         states = shaperead('usastatelo', 'UseGeoCoords',    geoshow(superpoint,'Marker',
+         true);                                              'o','MarkerEdgeColor','green', 'MarkerSize',
+         faceColors = makesymbolspec('Polygon',...           10, 'MarkerFaceColor','green',
+              {'INDEX', [1 numel(states)],                   'LineWidth',1.5)
+         'FaceColor', ...                                    superratem = mean(superrate);
+              repmat(landcolor, numel(states), 1)});         set(gcf, 'Position', [100, 100, 800, 400])
+         geoshow(ax, states, 'DisplayType', 'polygon', ...   %% Mapping the trend of Super Quick
+              'SymbolSpec', faceColors)                      filling piles in the United States
+         rivers = shaperead('worldrivers',                   figure
+         'UseGeoCoords', true);                              datax = 2013:0.5:2018;
+         geoshow(rivers, 'Color', 'blue')                    datay = [7, 10, 63, 126, 308, 417, 556, 639,
+                                                             767, 873, 1135];
+         count = 1;                                          x = 2013:0.01:2018;
+         for i = 1:length(superpoint)                        y=interp1(datax,datay,x,'v5cubic');
+               count1 = 0;                                   hold on
+               count2 = 0;                                   xr = 2013 + rand(1, 400) * 5;
+                                                             yr = interp1(datax,datay,xr,'v5cubic');
+               for j = 1:length(superpoint)                  xp = 2018:0.01:2019;
+
+
+=== PHYSICAL PAGE 28 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 26 of 27
+
+         poly = polyfit(datax, datay, 4);                                 count = count + 1;
+         yp = polyval(poly, xp);                                    end
+                                                              end
+         plot(xp, yp, 'LineWidth',2, 'LineStyle','--
+         ','color','g');                                      count = 1;
+         plot(x, y, 'r');                                     cityline = [];
+         set(gca, 'YGrid', 'on')                              for i = 1:size(uscities, 2)
+         set(gcf, 'Position', [100, 100, 600, 300])                 temp = randperm(size(uscities, 2));
+         set(gca, 'xtick', 2013:1:2019)                             temp = temp(1:3);
+         xlabel('Years')
+         ylabel('Open Supercharges')                                for j = 1:size(temp)
+         legend('Future Supercharges', 'Current                           cityline(count).Geometry = 'Line';
+         Supercharges')                                                   cityline(count).Lon =
+         scatter(datax, datay, 10, 'filled',                  [uscities(i).Lon uscities(temp).Lon NaN];
+         'MarkerFaceColor', 'r');                                         cityline(count).Lat =
+         scatter(xr, yr, 10, 'filled', 'MarkerFaceColor',     [uscities(i).Lat uscities(temp).Lat NaN];
+         'r');                                                            count = count + 1;
+         %% Mapping urban traffic in the United States              end
+         figure                                               end
+         ax = worldmap('World');                              cityline(1).Name = '';
+         ax = worldmap([25, 55], [230, 300]);
+         land = shaperead('landareas', 'UseGeoCoords',        geoshow(cityline, 'Color', 'red',
+         true);                                               'LineWidth',1.5)
+         geoshow(ax, land, 'FaceColor', landcolor)            geoshow(uscities, 'Marker', 'o',
+         states = shaperead('usastatelo', 'UseGeoCoords',     'MarkerEdgeColor', 'black', 'MarkerSize',10,
+         true);                                               'LineWidth',1.5, 'MarkerFaceColor', 'red')
+         faceColors = makesymbolspec('Polygon',...            set(gcf, 'Position', [100, 100, 800, 400])
+               {'INDEX', [1 numel(states)],                   %% Drawing the percentage chart of Tesla in
+         'FaceColor', ...                                     the United States
+               repmat(landcolor, numel(states), 1)});         endyear = 2050;
+         geoshow(ax, states, 'DisplayType', 'polygon', ...    x = 2013:2017;
+               'SymbolSpec', faceColors)                      x = [x 2017:0.01:endyear];
+         cities = shaperead('worldcities',                    y1 = [17.1 29 34 55 87];
+         'UseGeoCoords', true);                               y2 = [10.3 13.4 15.7 19.4 26.7];
+                                                              poly1 = polyfit(x(1:5), y1, 6);
+         count = 1;                                           poly2 = polyfit(x(1:5), y2, 6);
+         for i = 1:size(cities)                               yp1 = polyval(poly1, x(6:end));
+               lat = cities(i).Lat;                           yp2 = polyval(poly2, x(6:end));
+               lon = cities(i).Lon;                           y1 = [y1 yp1];
+               if lat > limit(1) && lat < limit(2) && lon >   y2 = [y2 yp2];
+         limit(3) && lon < limit(4)                           index = find(x >= 2020);
+                      uscities(count) = cities(i);            for i = index(1):length(x)
+
+
+=== PHYSICAL PAGE 29 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team#73156                            Page 27 of 27
+
+              len = abs(x(i) - x(index(1)));               load index1
+              y2(i) = y2(i) - len*len*1.6;                 load index2
+              y1(i) = y1(i) + len*len*1400;                load indexdouble
+         end                                               color1 = [94 141 193]./255;
+         t = [];                                           color2 = [201 221 241]./255;
+         for i = index(1):length(x)                        ax = worldmap('World');
+               t(i) = 2020 + 6*(x(i) - 2020);              ax = worldmap([25, 55], [230, 300]);
+         end
+         x(index(1):i) = t(index(1):i);                    land = shaperead('landareas',
+         index = find(x >= 2053);                          'UseGeoCoords', true);
+         [hAx,hLine1,hLine2] = plotyy(x(1:index(1)),       geoshow(ax, land, 'FaceColor', landcolor)
+         y1(1:index(1)), x(1:index(1)), y2(1:index(1)));   states = shaperead('usastatelo',
+         hLine1.LineWidth = 2;                             'UseGeoCoords', true);
+         hLine2.LineWidth = 2;
+         hold on                                           for i = 1:length(index22)
+                                                                 scolor(index22(i), :) = color2;
+         legend('U.S. tesla holdings', 'Tesla market       end
+         share')                                           for i = 1:length(index11)
+         set(gcf, 'Position', [100, 100, 700, 300])              scolor(index11(i), :) = color1;
+         set(gca, 'YGrid', 'on')                           end
+         ylabel(hAx(1),'Ten Thousand') % left y-axis       faceColors = makesymbolspec('Polygon',...
+         ylabel(hAx(2),'percentage') % right y-axis              {'INDEX', [1 numel(states)],
+                                                           'FaceColor', ...
+         ylb = get(hAx(2), 'YTickLabel');                        scolor});
+           for i = 1:size(ylb, 1)                          geoshow(ax, states, 'DisplayType',
+                 ylb{i, 1} = strcat( ylb{i, 1}, '%');      'polygon', ...
+           end                                                   'SymbolSpec', faceColors)
+         set(hAx(2), 'YTickLabel',ylb)                     cities = shaperead('worldcities',
+         set(gca, 'xtick', 2013:10:2053)                   'UseGeoCoords', true);
+         %% Mapping the convenience of the major           set(gcf, 'Position', [100, 100, 800, 400])
+         states
+         figure
+
+
+
+         Logistic model
+
+         data a;
+         input x1-x7 y@@;
+         cards;
+         ...
+         ;
+         proc logistic descending order=data;
+         model y = x1-x7/scale=none aggregate;
+         run;

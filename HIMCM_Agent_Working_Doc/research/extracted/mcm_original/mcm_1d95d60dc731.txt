@@ -1,0 +1,1308 @@
+=== PHYSICAL PAGE 1 ===
+                                 Team Control Number
+
+
+
+                               37075
+For office use only                                              For office use only
+T1 ________________                                              F1 ________________
+T2 ________________                                              F2 ________________
+T3 ________________                                              F3 ________________
+                                    Problem Chosen
+T4 ________________                                              F4 ________________
+                                          C
+
+
+          2015 Mathematical Contest in Modeling (MCM) Summary Sheet
+                Organizational Churn: A Roll of the Dice?
+Network science is essential in many interdisciplinary studies due to its potential to
+deal with complex systems. Since the organization of ICM forms a network structure,
+network science can be utilized to analyze dynamic processes within the company, e.g.
+the diffusion effects of organizational churn.
+
+In this paper, we construct a Human Capital network according to the hierarchical
+structure of ICM and create a simple yet effective model to capture the dynamic
+processes, which includes organizational churn, promotion and recruitment. For
+organizational churn, we propose and implement our probabilistic churn model
+inspired by Bayesian learning principles, which estimates and updates the likelihood
+of individual churn using the Beta-Binomial distribution. Then we develop three
+promotion measures based on working experience, inclination to churn, and closeness
+centrality. Moreover, we propose several means of controlling the recruitment rate
+from the HR manager's perspective, and further define some key concepts for
+evaluation, such as dissatisfaction and productivity.
+
+Through extensive simulations, we show that our model is flexible enough to
+encompass most features of the current situation and yield convincing productivity
+and cost results. We further extend our model to scenarios with higher churn rates,
+and discover an interesting fact that higher churn rates lead to lower productivity-cost
+ratios. In an extreme case with no recruitment, we discover differentiated HR health
+degeneration among different offices over two years through visualization.
+
+Ultimately, we incorporate methods from team science and approaches from
+multilayer networks in our context to combine Human Capital network with other
+network layers and discuss how to improve our estimation on organizational churn.
+
+In summary, our model is powerful and reliable for various types of human capital
+dynamic processes. Nevertheless, there are some existing problems such as simulation
+volatility which introduces extra computational costs.
+
+
+=== PHYSICAL PAGE 2 ===
+            Organizational Churn: A Roll of the Dice?
+
+
+
+                                          Contents
+
+
+1   Introduction                                                                                   2
+
+2   Fundamental Assumptions                                                                        2
+
+3   Preliminaries                                                                                  3
+    3.1   Constructing Human Capital Network . . . . . . . . . . . . . . . . . . . . .             3
+    3.2   Terms and Mathematical Notations . . . . . . . . . . . . . . . . . . . . . . .           4
+
+4   Models                                                                                        5
+    4.1   Modeling Staff Churn . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       5
+    4.2   Modeling HR Manager’s Reactions . . . . . . . . . . . . . . . . . . . . . . .            7
+    4.3   Model Functions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        8
+
+5   Simulations                                                                                    9
+    5.1   Task 1: Simulations under Current Situation . . . . . . . . . . . . . . . . .            9
+    5.2   Task 2: Defining Productivity and Testing Churn Influences . . . . . . . .              10
+    5.3   Task 3: Budget Calculation . . . . . . . . . . . . . . . . . . . . . . . . . . . .      11
+    5.4   Task 4: Changing Churn Rate . . . . . . . . . . . . . . . . . . . . . . . . . .         13
+    5.5   Task 5: Pure Promotion and HR Health . . . . . . . . . . . . . . . . . . . .            14
+    5.6   Comparing among Strategies . . . . . . . . . . . . . . . . . . . . . . . . . .          15
+
+6   Task 6: Extension - Team Science and Multilayers                                              16
+    6.1   Incorporating Team Science . . . . . . . . . . . . . . . . . . . . . . . . . . .        16
+    6.2   Incorporating Multilayer Networks         . . . . . . . . . . . . . . . . . . . . . .   17
+
+7   Sensitivity Analysis                                                                          18
+
+8   Strengths and Weaknesses                                                                      19
+
+
+                                                1
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 37075                                                                            Page 2 of 20
+
+
+    8.1   Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   19
+    8.2   Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      19
+
+9   Conclusion                                                                                    20
+
+
+1    Introduction
+
+Network science has gained its popularity in management science. Modeling issues on
+human resource organization is, at root, modeling on its networks. In this problem,
+we need to consider a specific phenomena, churn, in ICM company. To fulfill this, we
+decompose the problem into several steps:
+
+    • Build up a human capital network structure using information provided. Use it as
+      framework for further analysis.
+
+    • Design a model capturing the mechanism of churn effect and design reasonable
+      reactions of the HR manager. Estimate organizational productivity and costs.
+
+    • Analyze the sustainability of the network under different churn rates, and estimate
+      its effects.
+
+    • Set up measures for company health and test effects of various changes. Point out
+      heuristics for the HR manager accordingly.
+
+    • Incorporate ideas from team science into the model and point out the possibilities
+      of analyzing from multilayer view.
+
+    • Implement sensitivity test and analyze model strengths and weaknesses.
+
+
+2    Fundamental Assumptions
+
+    • No staff naturally retire or get fired. Each staff member makes a decision whether
+      to leave or not.
+
+    • The staff members have latent characteristics unknown to the HR manager(and us)
+      which might influence the decision process.
+
+    • Beyond the visible organizational structure, there exists a Human Capital network.
+
+    • A staff member’s monthly decision ("to leave" or "to stay") acts as a piece of infor-
+      mation and flows through the Human Capital network.
+
+    • Individuals digest received information through a learning process. This learning
+      mechanism will affect their decisions.
+
+    • The HR manager can affect the number of people in the positions via different
+      combined uses of promotion and recruitment. A combined use of promotion and
+      recruitment, in this paper, is called a "strategy".
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 37075                                                                        Page 3 of 20
+
+
+3      Preliminaries
+
+3.1     Constructing Human Capital Network
+
+First, we merge the table and graph given in the problem by assigning levels of positions
+to entries based on several reasonable assumptions:
+
+      • Every senior/junior manager has a clerk in his office for administrative tasks.
+      • The level of position of a staff member tend to be higher if his office is closer to the
+        CEO in the organizational graph.
+      • The level of position of a manager cannot be lower than someone whose office
+        belongs to a lower tier in the organization graph.
+
+      Thus we can get the following allocation table for the 370 positions:
+                XX
+       HH          XXX       level
+            HH            XXX      1               2    3    4    5     6       7   Total
+         Tier HH Position     XXX
+         1      CEO                   2   0    0   0   0     0     2    4
+                Research              1   0    0   0   2     0     1    4
+                CIO                   1   2    0   0   8     0     3    14
+                CFO                   1   2    0   0   8     0     3    14
+     2          HR                    0   1    0   0   2     0     1    4
+                VP                    2   0    0   0   0     0     2    4
+                Facilities            1   0    0   0   2     0     1    4
+                Sales Marketing       1   0    0   0   2     0     1    4
+                Networks              0   1    1   0   11    0     1    14
+                Information           0   1    1   0   11    0     1    14
+                Program Manager       0   1    1   0   6     5     1    14
+                Production Manager 1      1    0   0   10    0     2    14
+     3          Plant Blue            0   1    1   0   6     5     1    14
+                Plant Green           0   1    1   0   6     5     1    14
+                Regional              0   1    1   0   6     5     1    14
+                World Wide            0   1    1   0   6     5     1    14
+                Internet              0   1    1   0   6     5     1    14
+     4          Director              0   6    6   0   6     0     6    24
+     5          Branch                0   0    11 25 12      120 0      168
+                Total                 10 20 25 25 110 150 30 370
+   *1:Senior Manager 2:Junior Manager 3:Experienced Supervisor 4:Inexperienced
+Supervisor 5:Experienced Employee 6:Inexperienced Employee 7:Administrative Clerk
+
+                    Table 1: The distribution of staff in different positions
+
+    We begin to build the human capital network in ICM. Define V (G) = {v1 , v2 , ...v370 }
+as the set of all positions. Each node denotes one position. Define E(G) as the set of
+edges in the network. (vi , vj ) ∈ E(G) if at least one of the following holds:
+
+      • i and j are in the same office. Here one entry in the organization graph is consid-
+        ered as an office, whether it consists of two divisions or only four staff members.
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 37075                                                                        Page 4 of 20
+
+
+      • i is the head of an office and j is the head of the directly-related upper office or the
+        opposite. Here the staff member in the highest level of position within an office is
+        considered as the head of the office, such as the junior manager in Networks office
+        and the experienced supervisor in Branch office.
+
+      • i and j are both senior managers.
+
+    G = {V (G), E(G)} defines the graph of Human Capital network. We then visualize
+this network in Figure 1.
+
+
+
+
+                            Figure 1: Information Network in ICM
+
+      Utilizing this network as a frame, we delve into our main part of modeling.
+
+
+3.2     Terms and Mathematical Notations
+
+In order to be clear and consistent through the paper, we now settle down some terms
+and mathematical notations:
+
+      • Level: level of positions, such as managers, supervisors or employees.
+
+      • Abbreviations: we assign each level an abbreviation: SE-Senior Executive, JE - Ju-
+        nior Executive, ES - Experienced Supervisor, IS - Inexperienced Supervisor, EE -
+        Experienced Employee, IE - Inexperienced Employee, AC - Administrative Clerk
+
+      • t: time is discrete and the minimum time interval is one month.
+
+      • Ω(t) : the set of people who leave the company at the end of t.
+
+      • Θ(t) : the set of people who are recruited the company at the beginning of t.
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 37075                                                                                    Page 5 of 20
+
+
+      • Γ(t) : the set of people who work in the companySat the beginning of t after recruit-
+        ment. It’s obvious that the relation Γ(t+1) = Γ(t) Θ(t+1) \Ω(t) holds.
+
+      • f (t) : the mapping from Γ(t) to V (G), which maps individual i ∈ Γ(t) to his position
+        f (t) (i) ∈ V (G) at time t. f (t)−1 is the inverse mapping.
+
+      • d(u, v): the distance between two nodes u, v ∈ V (G), defined by the length of the
+        shortest path connecting u and v in the graph.
+         (t)
+      • dij : the distance between two individuals i, j ∈ Γ(t) at t, defined by d(f (t) (i), f (t) (j)).
+
+
+4      Models
+
+We construct our analysis by modeling the dynamic processes of staff churn, promotion
+and recruitment. Our probabilistic model for staff churn inspired by Bayesian learning
+principles, which estimates and updates the likelihood of individual churn using the
+Beta-Bernoulli distribution. Next, we develop three promotion measures. Moreover, we
+propose several means of controlling the recruitment rate.
+
+
+4.1     Modeling Staff Churn
+
+4.1.1    Preliminaries
+
+In recent studies, Bayesian learning has been used to analyze information aggregation
+in social networks[1], in which individuals modify their decision based on previous out-
+comes of other individuals in the network.
+    For the sake of explaining our intuition, consider a simple Bayesian learning process.
+Suppose an random variable u ∈ {0, 1} is drawn from a Bernoulli distribution, where p
+is unknown:
+                            u ∼ Bernoulli(u; p) = pu (1 − p)1−u                        (1)
+Assume an observer wants to estimate the parameter p by drawing multiple u0 s. The
+individual has a prior estimation f (p) on p, which is described as a Beta distribution1
+
+                                                           pα−1 (1 − p)β−1
+                               f (p) = Beta(p; α, β) =                                                    (2)
+                                                              B(α, β)
+
+where B(α, β) is the normalization constant. When seeing an outcome of u = 1, the
+observer updates his prior according to the Bayes’ law2 : f (p) ∼ (pα−1 (1 − p)β−1 ) · p ∼
+pα (1 − p)β−1 , which can be viewed as increasing α by 1. Similarly, the observer increases
+β by 1 if an outcome of u = 0 is seen. A simple analysis will show that if the number of
+observations reaches infinity, α/β → p, whereas the Beta distribution in this case reduces
+to a Dirac delta function δ(x − p), indicating that the observer’s estimation converges to
+the correct p, regardless of the original prior.
+   1
+     The Beta distribution is chosen because it is the conjugate prior of the Bernoulli distribution. For more
+information on conjugate distributions, please refer to [2]
+   2
+     We ignore the normalization constants for simplicity.
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 37075                                                                     Page 6 of 20
+
+
+4.1.2     Modeling the Churn Rate
+
+In light of this, we introduce a novel method to model the churn rate, which is concep-
+tually similar to the above Bayesian learning process. Specifically, we view leaving the
+position as a decision making process: suppose an individual i decides whether to leave
+                                                               (t)                (t)
+or to stay in a particular month t based on a random variable ui ∈ {0, 1}, where ui = 0
+                          (t)
+indicates to leave, and ui = 1 indicates to stay.
+        (t)                                                             (t)     (t)
+     ui is drawn as follows: First, we assume two hyperparameters αi and βi for i, and
+         (t)          (t)   (t)              (t)            (t)
+draw pi ∼ Beta(αi , βi ); then we draw ui ∼ Bernoulli(pi ); finally, we determine i
+               (t)
+is to stay if ui = 1; to leave otherwise.
+                                                        (t)                             (t)
+    Integrating out the random variable pi , we notice that the distribution of ui is
+a specification of the Beta-Binomial distribution3 with mean α/(α + β) and variance
+(αβ)/((α + β)2 ), which has some nice properties for modeling the churn process: on the
+                                                                              (t)  (t) (t)
+one hand, we can easily estimate i’s probability to leave, which is equal to βi /(αi +βi );
+on the other hand, an increase in αi decreases i’s tendency to leave, while an increase in
+βi increases the tendency to stay. However, three problems remain: How to determine
+the prior αi and βi ? How to update the hyperparameters? How to take the network
+structure into account? We will explain these problems in the following paragraphs.
+
+
+Determining the Prior Given a churn rate p, we can easily model the effect of a churn
+rate of p per year by setting β/(α + β) = p/12. We further observe that the variance of the
+                               αβ
+Beta distribution is                      , so that larger (α + β) leads to smaller variance,
+                     (α + β)2 (α + β + 1)
+indicating better estimation of p, and more knowledge to the company status. Thus, it
+is safe to assume that people on high level positions have a larger (α + β) compared to
+others, and their decisions are less volatile.
+
+                 (t)        (t)
+Updating αi and βi         We notice that in ICM, an individual is more likely to churn
+if he is connected to other individuals who have churned. This can be described as a
+learning process for the individual: each month, he observes the decision made by other
+individuals in last month. For every observation of "to stay", the individual increases his
+α; for every observation of "to leave", the individual increases his β. We normalize the
+update values, so that every month, an individual’s (α + β) increases by 1.
+
+
+Information Reduction The impact of churn information vary upon the distances be-
+tween the source and destination. From an individual’s perspective, the resignation of
+someone in the same department should have a greater impact than that of someone
+from another department. We take this into account by reducing the update value of the
+hyperparameters. Empirically, we reduce the update by d2 if the information takes at
+least d steps to transmit.
+  3
+      For simplicity, we call this the Beta-Bernoulli distribution.
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 37075                                                                      Page 7 of 20
+
+
+4.1.3    An Algorithm for the Churn Model
+
+To summarize, we introduce an algorithm for this process. For every individual i:
+
+      • Sample the churn result for month t using hyperparameters αi,t and βi,t , and de-
+        termine whether to stay or to leave;
+
+      • If i decides to stay, initialize two variables α̂ and β̂ for update;
+                                                                                          1
+      • For every individual j in Γ(t) \Θ(t) (individuals who stays), update α̂ = α̂ +    (t) ;
+                                                                                         dij
+
+                                                             1
+      • For every individual j in Ω(t) , update β̂ = β̂ +    (t) ;
+                                                            dij
+
+                  (t+1)     (t)                 (t+1)    (t)
+      • Update αi         = αi +     α̂
+                                         , and βi     = βi + β̂
+                                   α̂+β̂                     α̂+β̂
+
+
+
+4.2     Modeling HR Manager’s Reactions
+
+After modeling the churn process, we need to consider the strategic process of filling the
+vacancy from the perspective of the HR manager, which combines promotion strategies
+and recruitment strategies. Since recruiting a higher level position usually requires more
+time and money compared to promoting a low-level staff and then recruiting new staff
+for that vacancy, a rational HR manager would always prefer promoting to recruiting
+whenever possible. This allows us to consider these two aspects separately.
+
+
+4.2.1    Promotion Models
+
+We summarize some basic rules for promotion:
+
+      • The HR manager does not read the annual evaluation report, thus does not know
+        anything about the matching between staff and positions. In this way, he will not
+        consider changing staff within one level.
+
+      • His first choice is to promote someone that has reached the experience requirement
+        to fill the vacancy. If no person is qualified and recruiting resources are permitted,
+        he will then post recruitment need for this position on the next.
+
+      • If during the time the recruitment need is posted, he finds that there is one person’s
+        experience has reached the requirement. He will directly promote the first such
+        person and cancel the recruitment post.
+
+      • He will not promote a clerk because recruiting an inexperienced employee is cheaper
+        and less time-consuming than recruiting a clerk. In other words, a "naive" manager
+        never promotes a clerk.
+
+     Under current situations, the HR manager has no knowledge about the capabilities
+of an employee, nor their probability to leave. Therefore, to make the promotion process
+fair, the HR manager should choose the employee on the lower level with the longest
+working experiences. Hence, we have the following strategy:
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 37075                                                                    Page 8 of 20
+
+
+Experience Oriented For a vacancy on level l (l < 6), select the employee on level
+l + 1 with longest working experiences; the employee should also satisfy the promotion
+requirements. If nobody is available, start recruiting.
+   If the HR manager happens to learn the churn model previously mentioned, he can
+make inference on the probability of churn of an individual, thus introducing a slight
+improvement over the experience oriented model:
+Dissatisfaction Oriented For a vacancy on level l (l < 6), select the employee with the
+largest β/α(or the highest churn probability) among all the employees on level l + 1 who
+satisfy the promotion requirements. If nobody is available, start recruiting.
+    The HR manager can also take the Human Capital network structure into considera-
+tion by promoting the employee with the largest centrality:
+Centrality Oriented For a vacancy on level l, select the employee with the largest close-
+ness centrality(tends to be greater when the employee is in the middle of the network)
+from the qualified employees on level l + 1. If nobody is available, start recruiting.
+
+
+4.2.2    Recruitment Models
+
+We make the following assumptions on the recruiting strategies:
+
+      • The HR manager has a maximum possible effort to recruit. He cannot post more
+        recruitment than this maximum because of his ability and resource limits. The
+        maximum effort is not affected when there is vacancy in HR office.
+
+      • When the number of vacant positions is higher than the maximum effort, he ranks
+        the vacant positions from higher level to lower level, and only try to recruit the
+        positions with the highest levels. In other words, he will prioritize recruiting a
+        manager over recruiting an employee.
+
+      • He can only renew his recruitment post over a length of period, e.g. quarterly or
+        semi-annually.
+
+    Thus, the HR manager has two direct means to increase the recruitment rate: he can
+either increase the resource limits, so that more people will be recruited in a fixed time
+period, or simply increase the frequency of the renewal of his recruit post. Also, the HR
+can control the promotion rate by setting different thresholds for promotion, which is
+also an indirect method of controlling recruitment.
+
+
+4.3     Model Functions
+
+Till now, our models have already encompassed a large variety of mentioned features in
+ICM company, including:
+
+      • The information web captures how "churn" diffuses among staff members.
+
+      • The risk of churn can be identified in early stage by observing each staff member’s
+        β/α. The higher β/α is, the more likely the staff member chooses to leave.
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 37075                                                                               Page 9 of 20
+
+
+      • The resignation of a staff member will increase the β parameter of other employees,
+        thus increasing their chance of resigning.
+
+      • We cover the fact that churn rates for middle managers are higher than other levels
+        of positions by allowing different priors α and β for different levels.
+
+      • The HR manager can choose recruitment effort, recruitment time period, and pro-
+        motion threshold to control the recruitment flow.
+
+    Matching between staff members and positions is one aspect that our model cur-
+rently does not encompass. However, it can be incorporated by adding more assump-
+tions about staff’s skill classifications. We will not highlight it in this paper.
+
+
+5      Simulations
+
+Added Assumptions for Simulations
+    In order to get reasonable simulation results, we set some parameters. This, on the
+one hand, offers ease for simulations, while on the other land, does not lose its closeness
+to reality. Our added assumptions for parameters are listed below:
+
+      • The required experience for seven levels are 48 months, 48 months, 24 months, 24
+        months, 12 months, 0 month respectively (from higher level to lower level).
+
+      • The time period for updating the recruitment post is 6 months.
+
+      • The α and β for different levels of positions are144, 120, 64, 48, 32, 24, 24 (from
+        higher level to lower level).
+
+      • The maximum recruiting effort for the HR manager is 9% of 370 (average of 8%-
+        10%) for most cases. Any change in this parameter will be mentioned.
+
+      • All the data given related to recruiting time, recruiting cost, annual salary and
+        training cost are deterministic.
+
+
+5.1     Task 1: Simulations under Current Situation
+
+In this section, we first present our basic simulation results of current situation. Figure
+2 shows the churn rate in different level of positions in 50 simulations. The churn rate
+of middle-manager (JE, ES and IS) is roughly 30% and the churn rate for other positions
+(SE, EE, IE and AC) is around 15%. The overall churn rate of the company is relatively
+stable at 18%, which can accurately depict the current situation of ICM.
+   Another feature of ICM is that churn rate is steadily increasing. 4 The simulation
+result in Figure 3 does exhibit similar trend. We show the overall churn rate in next five
+  4
+    Although our model should maintain the same churn rate in expectation, we can make slight, tractable
+modifications to simulate the steadily increasing process. Given our current α and β, if we want next
+                                                                                               2
+month’s churn rate to increase by ∆p, we can achieve that by multiplying β̂ by 1 + ∆p · (α+β) β+(α+β) .
+Hence, the expected β/(α + β) for next month increases by ∆p
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 37075                                                                                                                              Page 10 of 20
+
+
+years. In spite of a couple of outliers, the major trend can be easily seen in the boxplot.
+The median value of churn rate has shown a slow but steady increase, from 18% in the
+first year to 20% in the fifth year.
+                                                                                Churn Rate in Different Level of Position
+                       1
+
+                      0.9
+
+                      0.8
+
+                      0.7
+
+                      0.6
+
+
+
+
+         Churn rate
+                      0.5
+
+                      0.4
+
+                      0.3
+
+                      0.2
+
+                      0.1
+
+                       0
+
+                            SE                       JE              ES                 IS                       EE             IE   AC      Overall
+                                                                                             Level of Position
+
+
+
+
+                                                 Figure 2: Churn Rates of Different Levels
+
+
+
+
+                                              0.25
+
+
+
+
+                                 Churn rate
+                                               0.2
+
+
+                                              0.15
+
+
+                                               0.1
+                                                          Year1      Year2             Year3               Year4            Year5
+
+
+
+
+                                 Figure 3: Overall Churn Rates in Next Five Years
+
+
+5.2   Task 2: Defining Productivity and Testing Churn Influences
+
+To define a metric to measure this company’s organizational productivity, we start from
+the individual level. This metric should incorporate the following three aspects:
+Position Level People in different levels surely make different contribution to the over-
+all performance of a company. We reasonably assume the relative average annual salary
+               (t)
+of i’s level, Si can properly reflect his actual level contribution.
+Training experience Experience in his current position contributes to one’s productiv-
+ity. We use the training cost the company spent on the individual since he began working
+                                                                   (t)  (t)
+in the current position as a proxy of his experience, denoted by Ti ∗ ti .
+Dissatisfaction An individual more unsatisfied with current situation tends to work
+                                                                                     (t)
+less inefficiently, leading to lower productivity. We calculate i’s dissatisfaction σi as:
+
+                                                                     t−1
+                                                      (t)
+                                                                     X                                           X          1
+                                                     σi =                         e−(τ −(t−1))                      (τ )2
+                                                                          (t)                                      d
+                                                                                                            j∈Ω(τ ) ij
+                                                                  τ =t−ti +1
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 37075                                                                                                              Page 11 of 20
+
+
+                            (t)                                    1
+      We normalize σi             to the form of                       (t) . α is a parameter reflecting the influ-
+                                                            1+α ln (1+σi )
+ence of dissatisfaction. We set α = 0.1 in the following calculation in this part. We will
+carry on sensitivity analysis regarding to this parameter in later section. People tend to
+forget past event at a fast speed[?]. So the exponential term in this expression can depict
+the decline of memory.
+      Incorporating the three components, the productivity of an individual i at time t is:
+                                    (t)                     1                   (t)         (t)       (t)
+                                   pi =                        (t)
+                                                                             (Si + Ti             ∗ ti )
+                                                1 + α ln (1 + σi )
+
+    To calculate organizational productivity, we use weighted sum of individual’s pro-
+                        (t)
+ductivity. The weight wi is determined by information network structure. An individ-
+ual in an important position weighs more. Here we use closeness centrality to reflect this
+importance. So organizational productivity is defined by:
+
+                              X           (t)     (t)
+                                                             X        (t)
+                                                                                    X                 d(v, f (t)−1 (i))
+                 P (t) =             wi ∗ p i =                      pi
+                                                                                                         370 − 1
+                            i∈Γ(t)                          i∈Γ(t)          v∈V (G)\f (t)−1 (i)
+
+
+   Using this measure, we can track the dynamic change of organizational productivity.
+We can distinguish two kinds of effect associated with an individual’s resignation:
+Direct Effect The productivity of resigned individuals.
+Indirect Effect The loss of productivity caused by the increase of dissatisfaction of the
+remaining staff in this company after the resignation.
+
+                                                                              (t)     (t)
+                                                                 X
+                                                  DE (t) =                  wi ∗ pi
+                                                                i∈Ω(t)
+               X            (t)                         1                                         1                 (t)      (t)     (t)
+ IE (t) =                  wi ∗ (                       (t)
+                                                                            −                  (t+1)
+                                                                                                                )(Si + Ti          ∗ ti )
+            i∈Γ(t) \Ω(t)
+                                     1 + α ln (1 + e−1 σi )                     1 + α ln (1 + σi     )
+
+    We now calculate the loss of organizational productivity associated with a person’s
+resignation and decompose it into direct and indirect effect. We run our simulations over
+next five years for 50 times and average the results for presentation in Figure 4.
+    It is obvious that direct and indirect effect on organizational productivity closely fol-
+low the number of resigned staff. An individual’s resignation will cause about 20-unit
+direct effect and 25-unit indirect effect. Total organizational productivity is 2000-2500
+units monthly, so a person’s resignation costs 2% of total organizational productivity.
+    Another observation is the ratio between indirect and direct effect. In the simulations,
+the former is larger than the later with a stable ratio. The parameter α can reflect how a
+person view the resignation of another individual and we will return to it later.
+
+
+5.3     Task 3: Budget Calculation
+
+We now consider the budget of the company related to human capital. The budget con-
+sists of three components: staff salaries, recruitment cost and training cost. To make
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 37075                                                                                                                                                                                 Page 12 of 20
+
+
+
+
+                                                                               Direct Effect and Indirect Effect in Next Five Years
+
+                         Direct effect and
+                                              400                                                                                                                                   Direct effect
+                                                                                                                                                                                    Indirect effect
+                                              200
+
+                          indirect effect
+                                                   0
+                                                        0                     10           20         30           40           50                                                            60
+                                                                                    Number of Resigned Staff in Next Five Years
+
+                                 Number of
+                                                  20
+
+
+                                                  10
+
+                              resigned people
+                                                   0
+                                                        0                     10              20            30           40                                            50                     60
+                                                                                        Ratio of Indirect Effect over Direct Effect
+                                                   2
+                           Indirect effect
+                                                  1.5
+
+                            /direct effect
+                                                   1
+                                                        0                     10                   20           30          40                                         50                     60
+                                                                                                         Time (unit: month)
+
+
+                                                                         Figure 4: Effect on Organizational Productivity
+
+
+calculation easier, as we assumed before, all individuals in the same position level have
+the same salary and training cost, and recruitment cost is uniform in each position level.
+All costs are incurred uniformly distributed across the corresponding time span.
+                    We run simulations of the company and show the calculated cost below:
+                                                            Recruitment Cost in Next Five Years                                                           Training Cost in Next Five Years
+                         10                                                                                                           38
+
+                                                                                                                                     37.5
+                          9
+                                                                                                                                      37
+
+
+
+
+  Recruitment cost (σ)                                                                                           Training cost (σ)
+                          8                                                                                                          36.5
+
+                                                                                                                                      36
+                          7
+                                                                                                                                     35.5
+
+                                                                                                                                      35
+                          6
+                                                                                                                                     34.5
+
+                          5                                                                                                           34
+                              6              12     18          24      30       36     42    48    54    60                                6   12   18     24      30       36     42       48    54   60
+                                                                     Time (unit: month)                                                                          Time (unit: month)
+
+
+                                                                       Figure 5: Budget Calculation for Next Five Years
+
+    The costs presented in Figure 5 are calculated every six months. On average the
+recruitment cost and training cost is approximately 7σ and 37σ every six months respec-
+tively. However, they are only a small fraction of total cost, as we have not reported
+salary cost here, which accounts for the largest part.
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 37075                                                                                                                                            Page 13 of 20
+
+
+5.4    Task 4: Changing Churn Rate
+
+In this part, we run simulations of ICM under different churn rates. We assume an
+increase in average churn rate from current 18% to 25% and 35%. To achieve this goal,
+we can simply adjust the β-to-α ratio: for a churn rate of 25% per year, we let β/α =
+0.25/12 = 0.02083; for 35% per year, we let β/α = 0.35/12 = 0.02916.
+    We run simulations fifty times under each churn rate and take average. Figure 6
+shows our results.5 The line charts reflect the evolution of staff number, monthly orga-
+nizational productivity and monthly cost over next 20 years under different churn rates.
+The trends of three company’s characteristics are quite clear. The company sustains 80%
+of its positions, namely around 300 staff members, under 18% churn rate over a long
+time span. However, its staff number declines dramatically during the first six years if
+churn rate increases to 25% or 35%. Then it gradually becomes stable and settles down
+at approximately 60% and 40% full status of positions.
+
+                                                                                                                                                         Churn Rate=18%
+
+
+
+
+                 Monthly organizational
+                                                                                  The Evolution of Number of Staff in Next Twenty Years
+                                                                                                                                                         Churn Rate=25%
+                                                370
+                                                296                                                                                                      Churn Rate=35%
+                                                222
+                                                148
+                                                 74
+                                                  0
+                                                         0       2   4           6            8            10           12             14          16    18          20
+
+
+
+                      productivity Number of employee
+                                                                         The Evolution of Monthly Organizational Productivity in Next Twenty Years
+                                           3000
+
+                                           2000
+
+                                           1000
+                                                             0   2   4            6              8            10           12          14          16    18          20
+
+
+
+
+       Monthly cost
+                                                                                      The Evolution of Monthly Cost in Next Twenty Years
+                                                        60
+
+                                                        40
+
+                                                        20
+                                                             0   2   4            6              8           10          12           14           16    18          20
+
+
+Figure 6: Evolution of the Company in Next Twenty Years Under Different Churn Rates
+
+    The trend also applies to organizational productivity and cost. Under high churn
+rate, more people leave the company, leading to both higher direct and indirect effect.
+Organizational productivity decreased by around 30% and 50%. Although high churn
+rates incur higher recruitment cost, it is minor compared with the large decline on salary
+and training cost resulted from fewer staff. Cost decreases by nearly 20% and 40%.
+    To sustain in current percentage of status, HR manager should change the recruit-
+ment strategy. In our baseline simulations of current situation, we assume the time pe-
+riod for updating recruitment post is 6 months and recruitment effort is 9%. Now we
+need to change these two parameters to fill in the gap quickly. We change updating in-
+terval to 4 months and recruitment effort to 8.3% under 25% churn rate and 3 months
+and 9% under 35% churn rate to sustain 80% full status of positions. Figure 7 shows the
+distribution of the results from ten simulations:
+    Under new promotion strategies, ICM can roughly sustain 80% capacity. Its monthly
+cost presents no significant change. However, organizational productivity varies a lot.
+It decreases by more than 10% under high churn rate, even if the staff number remains
+   5
+     Due to limited space, we cannot provide full statistical results to prove that churn rates of our simu-
+lations are indeed 25% and 35%. However, we can estimate that is the case using the following method:
+We observe that the recruitment rate is stable for different churn rates, thus the stable percent of employees
+with a 35% churn rate should be around 80×18/35 ∼ 42 percent. This is apparent in the top graph in Figure
+6.
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 37075                                                                               Page 14 of 20
+
+
+                     Number of Emplyee                              Monthly Cost
+          320                                         46
+          300                                         44
+          280                                         42
+          260                                         40
+                   18%      25%       35%                  18%       25%       35%
+                    Monthly Organizational             Monthly Organizational Productivity
+                         Productivity                            /Monthly Cost
+          2800
+          2600                                        8.5
+
+          2400                                          8
+          2200                                        7.5
+                    18%        25%         35%               18%         25%        35%
+
+       Figure 7: Comparison of Different Churn Rate under New Promotion Strategy
+
+
+the same. If we use organizational productivity per unit cost as an indicator of the com-
+pany’s efficiency on using money, we can see from the last boxplot that the company is
+running more efficiently under lower churn rate.
+
+
+5.5     Task 5: Pure Promotion and HR Health
+
+Having set up several scenarios to evaluate the impact of different churn rates, we now
+apply our methodology to help us identity the impact on human resource health with
+no external recruiting. Apparently, with a alarming churn rate, recruiting nobody will
+definitely result in a decrease in the number of employees, cost, and productivity, so
+our emphasis will be on the number of employees in different offices. We modify our
+model to eliminate external recruitment(thus allowing only churn and promotion), and
+estimate the percentage of the employees in the offices. For better estimation, we assume
+a uniformly random distribution on the years of experience for the employees, so that
+one-fourth of the employees in each level are qualified to promote.
+    We visualize our results in Figure 8. We found that the offices in tiers 1 and 2 sustains
+good health, whereas offices in lower tiers suffer significant reduction in HR health. This
+conclusion is rather counter-intuitive at first sight, since middle managers tend to have a
+higher churn rate, but quite plausible given that low-level positions are not supplied by
+recruitment, whereas high-level positions can be sustained by promotion. We report that
+the number of remaining employees after 2 years is around 204 people, which is close to
+the theoretical value6 .
+  6
+      The theoretical value is 370 × 0.85 × (1 − (325 × 0.18 + 45 × 0.30)/370)2 = 204.01
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 37075                                                                                                                                                                                                                                                                                                         Page 15 of 20
+
+
+
+                                                                           CEO                                                                                                                                                                  CEO
+
+
+
+
+                      Facilities              HR             VP                   CIO                   Research                                                                           Facilities              HR             VP                   CIO                   Research
+                                                                                                                               CFO               Sales                                                                                                                                              CFO               Sales
+
+
+
+                              Plant Green       Program Manager                         Information                                                                                                Plant Green       Program Manager                         Information
+                                                                                                                   Networks           Regional     Internet     World Wide                                                                                                              Networks           Regional     Internet     World Wide
+           Plant Blue                                                                                                                                                           Plant Blue
+
+                                                              Product Manager                                                                                                                                                      Product Manager
+
+
+                 Director2               Director5                    Director3                      Director4          Director6                                                     Director2               Director5                    Director3                      Director4          Director6
+                                                                                         Invisible
+
+
+
+
+                                                                                                                                                    Director1                                                                                                 Invisible
+
+
+
+
+                                                                                                                                                                                                                                                                                                                         Director1
+
+
+
+
+      Branch D                                             Branch G    Branch F                         Branch H    Branch K         Branch L    Branch B       Branch A   Branch D                                             Branch G    Branch F                         Branch H    Branch K         Branch L    Branch B       Branch A
+                       Branch C    Branch I     Branch J                           Branch E                                                                                                 Branch C    Branch I     Branch J                           Branch E
+
+
+
+
+                                                                (a) Initially                                                                                                                                             (b) After 12 months
+
+                                                                           CEO                                                                                                                                                                  CEO
+
+
+
+
+                      Facilities              HR             VP                   CIO                   Research                                                                           Facilities              HR             VP                   CIO                   Research
+                                                                                                                               CFO               Sales                                                                                                                                              CFO               Sales
+
+
+
+                              Plant Green       Program Manager                         Information                                                                                                Plant Green       Program Manager                         Information
+                                                                                                                   Networks           Regional     Internet     World Wide                                                                                                              Networks           Regional     Internet     World Wide
+           Plant Blue                                                                                                                                                           Plant Blue
+
+                                                              Product Manager                                                                                                                                                      Product Manager
+
+
+                 Director2               Director5                    Director3                      Director4          Director6                                                     Director2               Director5                    Director3                      Director4          Director6
+                                                                                         Invisible
+
+
+
+
+                                                                                                                                                    Director1                                                                                                 Invisible
+
+
+
+
+                                                                                                                                                                                                                                                                                                                         Director1
+
+
+
+
+      Branch D                                             Branch G    Branch F                         Branch H    Branch K         Branch L    Branch B       Branch A   Branch D                                             Branch G    Branch F                         Branch H    Branch K         Branch L    Branch B       Branch A
+                       Branch C    Branch I     Branch J                           Branch E                                                                                                 Branch C    Branch I     Branch J                           Branch E
+
+
+
+
+                                                     (c) After 18 months                                                                                                                                                  (d) After 24 months
+
+Figure 8: HR health in different periods. Darker colors indicate a office with higher
+percentage of employees. White indicates a 50 percentage.
+
+
+5.6        Comparing among Strategies
+
+Now we aim to improve the current situation by adopting some alternative strategies.
+Currently, when deciding which one to promote among all qualified candidates, HR
+manager will choose the one with the longest working time (Experience). We consider
+two other ways discussed before: selection by centrality within the information network
+(Centrality) and selection by likelihood to leave (Likelihood). We still use closeness cen-
+trality defined in previous sections.
+
+                      Different Strategies                                                                                                       Year2                                Year4                               Year6                              Year8                                        Year10
+                  Experience Staff Number                                                                                                        313.0                                310.7                               304.9                              298.8                                        292.9
+                                Staff Number                                                                                                     311.1                                307.5                               302.0                              295.7                                        290.0
+                  Centrality
+                                Increase(%)                                                                                                      -0.60%                               -1.04%                              -0.94%                             -1.01%                                       -0.99%
+                                Staff Number                                                                                                     311.1                                309.1                               308.4                              303.7                                        300.6
+                  Likelihood
+                                Increase(%)                                                                                                      -0.62%                               -0.52%                              1.16%                              1.64%                                        2.61%
+                  Experience Productivity                                                                                                        2574.9                               2706.2                              2698.5                             2651.7                                       2612.8
+                                Productivity                                                                                                     2589.3                               2789.0                              2878.6                             2897.0                                       2916.8
+                  Centrality
+                                Increase(%)                                                                                                      0.56%                                3.06%                               6.67%                              9.25%                                        11.63%
+                                Productivity                                                                                                     2577.8                               2759.3                              2872.8                             2886.0                                       2904.0
+                  Likelihood
+                                Increase(%)                                                                                                      0.11%                                1.96%                               6.46%                              8.84%                                        11.14%
+
+                                                                      Table 2: Comparison among Different Strategies
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 37075                                                                    Page 16 of 20
+
+
+   From Table 2, we can easily compare different promotion strategies. The staff num-
+ber declines under all three strategies, which is consistent with the steadily increasing
+churn rate. But the staff number under Likelihood strategy is 2.61% higher after ten years
+compared with that under Experience. Besides, both Centrality and Likelihood strategies
+can increase organizational productivity by more than 11% in Year10. So changing pro-
+motion strategy can contribute to the improvement of human capital management.
+
+
+6     Task 6: Extension - Team Science and Multilayers
+
+To fulfill the HR’s vision, we manage to apply team science and discoveries from multi-
+player network research into our model.
+
+
+6.1     Incorporating Team Science
+
+Recent studies on team performance have pointed out many possibilities to rigorously
+model teamwork[7]. There are many established findings from team science that can be
+merged into our models. The two most prospective ones are related to "shared cogni-
+tion" and "team training". Here we point out the possibilities and define some of them
+informally. Incorporating them rigorously needs more modifications.
+
+
+6.1.1    Shared Cognition
+
+Shared cognition has been stressed by many researchers to be one of the crucial factors
+that shape the team performance [3]. In order to work more efficiently, team members
+must predict what other teammates are going to do and what they need to do so, so that
+they can select actions consistent and coordinated with those of their teammates. [6]
+    Shared cognition can form within different kinds of teams. In our context, a reason-
+able choice is an office. Staff working within an office share the same goal and shared
+cognition can positively contribute to its performance. Different measures have been de-
+veloped to scientifically measure shared cognition[3]. We can take advantage of these
+measures to design an extension of our models. Especially when given empirical data
+(the time and numerical shared cognition), we can estimate the shared cognition growth
+using established models. We won’t go into details on these measures or empirical meth-
+ods. Instead, we put forward one possible measure within our context.
+    Consider an office O with several individuals. We assume team cognition is separable
+and additive and focus on interpersonal relation
+                                               Pin pairs.
+                                                       P Define   t(i, j) as the length i and
+j has been working together. We can then use      wi        2
+                                                           t (i, j) as a measure of shared
+                                                i∈O   j∈O\{i}
+cognition. The squared term can reflect the increasing speed of forming cognition and
+the weight reflect the relative importance.
+    Another possibility is to use network related concepts. We can define that two indi-
+viduals are connected if their co-working time is larger than a certain threshold. Then
+we can calculate measures such as the average degree in this network. Similarly, we can
+attach a weight to each edge based on how long individuals have been working together
+and build a weighted graph.
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 37075                                                                    Page 17 of 20
+
+
+6.1.2    Team Training
+
+Another concept that we can potentially utilize in our models is team training. Currently,
+HR manager does not offer any training to the "team" or "office" as a whole. Like offering
+individual’s training, we can take into account the team training. Being trained as a team
+can improve team members’ understanding of each other’s roles, promote teamwork
+and enhance team performance[4]. We can view team training as an accelerator of team
+cognition development. So we can multiply the team cognition measure we developed
+before by a function of team training to reflect this effect.
+   Adding this process will not directly affect the dynamic process of staff’s leaving and
+HR manager’s filling vacancy. However, it will affect the productivity of the company
+by promoting the efficiency of teamwork. effect may change the decision making of HR
+manager with the aim to maximize organizational productivity per unit of cost.
+
+
+6.2     Incorporating Multilayer Networks
+
+In this section, we will explore the progress made by recent studies about multilayer
+networks[5] and apply this concept to our company context to help HR achieve better
+human resource management.
+    In previous sections, we have formulated a model based on the office organizing
+structure. This network describes how the information flows among all individuals.
+However, interpersonal relationship is much more complicated. On the one hand, peo-
+ple are consistently entering and leaving the company, causing a change of structure in
+the network. On the other hand, people have different types of interaction, such as:
+
+      • People in the same office work as a team and usually cooperate with each other
+        more frequently.
+
+      • People can be close friends with each other regardless of their positions.
+
+      • People can have trust in his/her supervisors, and vice versa.
+
+    These interaction networks can provide us with more information, while shedding
+some light on more complex problems and enabling better solutions to problems that
+we are currently dealing with. Since we lack data on other layers of networks, it is
+impossible to implement a simulations. Hence, we provide some rules for connecting the
+information with other layers, as well as some solutions for better churn rate analysis.
+Network based on position Since the information network is already based on po-
+sition, such networks can be easily connected by introducing coupling edges. A simple
+example is the supervision networks, which is a tree structure among different positions.
+Since supervision in office is a strong relationship, information transmitted through su-
+pervision is stronger than the average information network. Another example is the
+teammate relationship, where information is transmitted more frequently.
+Network based on people Some relationships - such as friendship and trust - depend on
+people. Friendship allows for the transmission of more personal information, and trust
+enables directed transmission of information. Both increase the information intensity,
+for one tends to accept advice from friends and mentors more often. However, people
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 37075                                                                                                                                    Page 18 of 20
+
+
+can switch positions or leave the company, so maintaining a static network is unfeasible.
+One approach, however, is to introduce direct cross-layer links with length zero from
+a person node to a position node. A qualified HR manager should track the person-
+position relationship and modify the structure of the network when necessary.
+    Now let us assume that we have incorporated teammate, friendship and trust rela-
+tionship layers to our information network. We provide some improvements over our
+previous solution to churn rate analysis and productivity estimation.
+
+    • Churn information can now also transmit along other layers of networks;
+
+    • We reduce our time slice from one month to a week, which allows more frequent
+      information transmission between friends and teammates;
+
+    • We increase the impact of turnover decisions made by trusted individuals;
+
+    • We take friendship into account when calculating shared cognition, where friends
+      in the same office tend to have increased shared cognition, and hence productivity.
+
+
+7        Sensitivity Analysis
+
+In this section, we implement sensitivity analysis for our model. Specifically, we test the
+sensitivity of parameter α, which we define in calculating productivity. The value of α
+is previously 0.1. Now we test the effects when its value is changed to 0.05, 0.06,..., 0.10,
+0.11,..., 0.15. Figure 9 show the results.
+
+
+
+        Average monthly
+                                                                        Impact of Changing α on Average Monthly Organizational Productivity
+                                   3000
+
+                                   2800
+
+
+
+
+    organizational productivity
+                                   2600
+
+
+                                                          0.05   0.06       0.07     0.08     0.09   0.10      0.11      0.12      0.13      0.14    0.15
+                                                                                                       α
+                                                                         Impact of Changing α on Average Indirect Effect/Direct Effect Ratio
+
+
+                            Average indirect effect
+                                                      4
+
+                                                      3
+
+
+
+                              /direct effect ratio
+                                                      2
+
+
+                                                          0.05   0.06       0.07     0.08     0.09     0.10      0.11     0.12     0.13       0.14   0.15
+                                                                                                        α
+
+                                                                  Figure 9: Sensitivity Analysis on Parameter α
+
+   As we can see, the productivity is insensitive to our parameter α. A 50% change in α
+will bring no more than 5% change in calculated productivity in most cases.
+     It is quite different if we look into the ratio between indirect effect and direct effect.
+It is actually sensitive to the change of α. When α changes from 0.05 to 0.25, the median
+value of the ratio changes from less than 2 to nearly 4. However, we have valid reasons
+for this. Consider how this parameter acts in our model. It is actually a reflection of
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 37075                                                                    Page 19 of 20
+
+
+the psychological impact intensity for how the dissatisfaction in job affects a person’s
+productivity. This impact, in reality, can come from shared cognition, the closeness be-
+tween staff members, company morale and other subtle influence. Quite an amount of
+research has been done for tracking these influences.[8]. So some empirical research may
+help when we want to determine the actual level of this parameter.
+
+
+8      Strengths and Weaknesses
+
+8.1     Strengths
+
+      • Simplicity: Our measures are based on easily understood principles and there are
+        simple ways to compute them. In addition, we make minimum assumptions on
+        individual characteristics: only α and β are required for inference.
+
+      • Parameters: Most of our strategies are non-parametric, and the parameters of the
+        churn model have nice properties, allowing for simple but effective parameter es-
+        timation, reducing the need of tuning to a minimum.
+
+      • Coverage: Our model and measures are capable of simulating various scenarios
+        associated with different churn rates, recruiting and/or promoting strategies.
+
+      • Flexibility: Our model can be easily incorporated with other assumptions. For
+        example, if we assume that an individual accumulates dissatisfaction even without
+        external influence, our model can be modified to cover this assumption simply by
+        increasing the β-to-α ratio every time period.
+
+      • Appealing simulation results: Simulation results of our model are very appealing.
+        Not only do them effectively reflect the current situation, but they present insight-
+        ful predictions for the effect of changes on company situation. In the case of Task
+        4, we discovered that higher churn rates leads to lower productivity-cost ratio.
+
+      • Heuristics for HR: HR can gain considerable heuristics from our paper, e.g. how
+        to change recruiting strategies to sustain a required number of positions, and how
+        to reduce churn rates by providing incentives for those who are likely to churn.
+
+
+8.2     Weaknesses
+
+      • Simulation volatility: Although our model has nice statistical properties, results
+        generated by different simulations suffer high volatility. One possible remedy is to
+        increase the sampling time, which reduces outcome variance at the cost of compu-
+        tational resources.
+
+      • Unrealistic assumptions: Some of our measures are based on unrealistic founda-
+        tions, e.g. productivity increases linearly with training costs, employees have no
+        inclination towards different positions, etc., which results in imperfect characteri-
+        zation for the corresponding problem.
+
+      • Incomplete assumptions: There are also some other perspectives where we fail to
+        consider, such as the positive effects of team cognition on productivity.
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 37075                                                                  Page 20 of 20
+
+
+9   Conclusion
+
+We constructed a Human Capital network using given organizational structure. Build-
+ing on this network, we devised a model to capture the dynamic process of ICM, includ-
+ing churn, promotion and recruitment. We simulated current situation of ICM company
+and got rather stable churn rate and vacancy rate. The results well reproduced the high
+churn rate of middle managers and the steadily increasing churn rate.
+    We then defined productivity, decompose the effect of churn into direct and indirect
+effect and compare their relative size. We also calculate the budget ICM is facing over a
+long time span. Next, we apply our model to different situations: increase of churn rate
+and change of promotion strategies. ICM fails to sustain current capacity. Promoting
+according to likelihood to leave will increase staff number by 2.6% and increase produc-
+tivity by 11.1%, compared with promoting according to experience currently.
+    Several potential ways to enrich the model were explored. Shared cognition and
+team training from team science were discussed. Some concepts related to multilayer
+network were applied in this context for better depicting the organizational network. We
+finally evaluated our model by carrying sensitivity analysis and presenting its strengths
+and weaknesses. We hold expectations that our model can provide heuristic insights for
+managing human capital in organization.
+
+
+References
+
+[1] Daron Acemoglu, Munther A Dahleh, Ilan Lobel, and Asuman Ozdaglar. Bayesian
+    learning in social networks. The Review of Economic Studies, 78(4):1201–1236, 2011.
+[2] Christopher M Bishop et al. Pattern recognition and machine learning, chapter 2, vol-
+    ume 4. springer New York, 2006.
+[3] Janis A Cannon-Bowers and Eduardo Salas. Reflections on shared cognition. Journal
+    of Organizational Behavior, 22(2):195–202, 2001.
+[4] Nancy J Cooke, Eduardo Salas, Preston A Kiekel, and Brian Bell. Advances in mea-
+    suring team cognition. Team cognition: Understanding the factors that drive process and
+    performance, pages 83–106, 2004.
+[5] Mikko Kivelä, Alex Arenas, Marc Barthelemy, James P Gleeson, Yamir Moreno, and
+    Mason A Porter. Multilayer networks. Journal of Complex Networks, 2(3):203–271,
+    2014.
+[6] John E Mathieu, Tonia S Heffner, Gerald F Goodwin, Eduardo Salas, and Janis A
+    Cannon-Bowers. The influence of shared mental models on team process and per-
+    formance. Journal of applied psychology, 85(2):273, 2000.
+[7] Eduardo Salas, Nancy J Cooke, and Michael A Rosen. On teams, teamwork, and
+    team performance: Discoveries and developments. Human Factors: The Journal of the
+    Human Factors and Ergonomics Society, 50(3):540–547, 2008.
+[8] Martin EP Seligman and Mihaly Csikszentmihalyi. Positive psychology: An introduc-
+    tion., volume 55. American Psychological Association, 2000.

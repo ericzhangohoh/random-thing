@@ -1,0 +1,1501 @@
+=== PHYSICAL PAGE 1 ===
+Team # 26718                                                          Page 1 of 28
+
+
+                              Team Control Number
+
+
+                               26718
+      For office use only                              For office use only
+      T1 ________________                              F1 ________________
+      T2 ________________                              F2 ________________
+      T3 ________________                              F3 ________________
+                                Problem Chosen
+      T4 ________________                              F4 ________________
+                                      A
+       2014 Mathematical Contest in Modeling (MCM) Summary Sheet
+
+
+                The Keep-Right-Except-To-Pass Rule
+                                  Abstract
+     In this paper, we discuss and analyze lane changing characteristics of
+vehicle, lane changing motion control program and lane changing security
+features. Through online search resources for freeway traffic data, we
+establish the overtaking models under the keep-right rule and the keep-right
+rule respectively, which realize the minimum longitudinal safe distance. An
+application of T-S fuzzy model in MATLAB SIMULINK yields that the
+driving performance on the keep-right rule, which can effectively improve the
+liquidity and safety of traffic. Finally, road intelligent system can be carried
+out more safety for the overtaking operation.
+     First of all, applying the vehicle conversion coefficients, the number of
+vehicle data is converted to the equivalent standard cars on the highway, and
+the overtaking minimum safe distance model is built. The line chart between
+the accidents and equivalent standard cars is described in Figure 8. When the
+accident rate is lower than the equivalent standard cars, vehicle is driving
+safely. When the minimum safety distance of lane-changing is proportional to
+the limit speed, the performance of the keep-right rule is obtained. Also, the
+accuracy of the conclusion is verified by simulation.
+     Next, we apply the VISSIM simulation software to simulate the keep-left
+driving rule, and we establish the similar model. Computing the minimum
+safe distance for the keep-left rule, we draw a comparison chart with the
+minimum safety distance for the keep-right rule in Figure 13.
+    Finally, under the environment of SIMULINK in MATLAB, we establish
+T-S fuzzy system model and make the intelligent control system graph in
+Figure 14. Setting up the corresponding parameter, we derive that vehicle
+overtaking distance in intelligent control system is 13 meters, which is less
+than the minimum safety distance 17.7 meters in the above system. Therefore,
+the intelligent control system can better change vehicle overtaking the
+minimum safety distance, which can better ensure the safety of driving.
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 26718                                                                                                                   Page 2 of 28
+
+
+Contents
+
+Introduction ....................................................................................................................................3
+Assumptions ...................................................................................................................................4
+Symbols ...........................................................................................................................................4
+Model ...............................................................................................................................................5
+     Overtaking model ..................................................................................................................5
+          Lane changing kinematics analysis .............................................................................5
+          Vehicle lane change motion control solutions ...........................................................6
+          Analysis of lane changing security features ...............................................................7
+          Model assumptions........................................................................................................8
+          The minimum vertical safety distance model ............................................................9
+          Optimization Model.....................................................................................................11
+          Model solution..............................................................................................................14
+          Simulation and analysis of the results of real-life....................................................15
+          Model test......................................................................................................................17
+     Driving on the left side of building and solving of the model.......................................18
+     Intelligent Transportation Systems Analysis ...................................................................22
+          Intelligent Transportation System Definition...........................................................22
+          Intelligent transportation systems affected the results of the analysis before.....22
+          Design of Intelligent Controller .................................................................................23
+          Establish and analyze the results of the system in the Simulink environment ...24
+Evaluations and Solutions ..........................................................................................................25
+     Strengths................................................................................................................................25
+     Weaknesses ...........................................................................................................................26
+Improvements...............................................................................................................................26
+References .....................................................................................................................................27
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 26718                                                          Page 3 of 28
+
+
+
+Introduction
+
+     The rules of worldwide vehicle traveling on the road can be divided into
+driving on the right and on the left, while 90 percent of the world's countries
+comply with the right driving rules. Right now, to develop a traveling
+freeway traffic rules requiring vehicles must drive on the right lane, unless
+the vehicle is overtaking. When overtaking, vehicle must be moved to the left
+lane, and return to the lane before after overtaking.
+     The subject asks us to solve this problem as steps as follows:
+     First, establish a mathematical model [1-4] , and do the performance
+analysis of this rule in the smooth and congestion flow of traffic from traffic
+flow, safety, low speed and other factors. Then, discuss whether or not this
+rule could effectively improve traffic flow. If could not improve, come up
+with a new scheme which can improve safety and traffic flow or other factors;
+analyze and discuss the possibility of the rule by changing the direction of
+travel and traffic rules could also be applied to driving on the left, or other
+conditions needed to added. Last, consider the same rules in the
+transportation control completely in intelligent systems. Think about to what
+extent would modify the results which be obtained before.
+     At the beginning, in order to analyze the performance of this rule, we
+divide this process into three phases, namely change lanes, beyond lanes, and
+and-road lanes. We take the success rate of overtake as a measure of safety
+performance, and the speed of safety performance also has some influence,
+traffic flow can be obtained from the traffic data, so we collect data, calculate
+traffic flow and safety performance at different stages of this rule. We also
+take an evaluation of the rules. Consider the following distance may affect the
+safety; we calculate the minimum safety distance [5-6] and ensure the safety
+distance to the vehicle is greater than the minimum safe distance. As an
+improvement of the rules, we improve the safety performance of the rule.
+After solving the model, we use simulation software for model simulation.
+     In the next step, we change direction of traffic, that is to say driving on
+the left [7-8] , using the data collected to calculate the minimum safety distance.
+We make a comparison of the minimum safety distance about driving a car on
+the left and right, and if the result is not very different, the driving rules can
+be considered that the right solution through a simple change of direction can
+be applied to the left with the rules, or else we make improvements to the
+program, making it suitable for driving left of the rules.
+     Finally, we reference a smart system, and create T-S fuzzy system
+model [9-13] for simulation of intelligent control system [14-25] . We make the
+results of the simulation compared with the results which without intelligent
+systems, and determine whether this intelligent systems change the results of
+the analysis before.
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 26718                                                      Page 4 of 28
+
+
+
+Assumptions
+
+    In order to streamline our model, we have made several key
+assumptions:
+    1. The behavior of beyond one car occurs on a straight road, and the
+function of the car is good, it can meet traffic requirements.
+     2. Considering the vehicle which wants to go before one car needs to
+open the lane changing lights ahead. Therefore, setting the beyond car from
+opening lane changing lamps and starting beyond to changing lanes and its
+completed and the road course, in the original lane and passing lane beyond
+the car near the front and rear no vehicle traveling beyond, and its vehicles
+are rear-following able to maintain adequate security with its Following
+vehicle distance.
+     3. On the beyond road, other vehicles are doing normal road driving,
+after completing transcend, the car needs to return to the original lane and
+normally with Following vehicle.
+    4. Assume that the research on the number of lanes for bidirectional four
+lanes.
+    5. Assume that the vehicle in the lane changing process, transverse speed
+changes will not affect the change of longitudinal velocity.
+    6. Assume that the vehicle in the process of change lanes, lane changing
+vehicle with constant acceleration, other vehicles to keep constant motion.
+
+
+
+Symbols
+
+      Symbols      Explanation
+
+        S 0      Initial distance between the two vehicles
+
+         S t     Distance between M and F cars
+                   Vehicle M formed with the horizontal line when changing
+          
+                   lanes
+          w        Vehicle width
+
+         vF (0)    Front of the vehicle lane F initial velocity
+                   Front of the vehicle lane F initial velocity acceleration of
+          aF
+                   the vehicle
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 26718                                                             Page 5 of 28
+
+
+
+         vM (0)         M's initial velocity
+
+          aM            M's initial acceleration of the vehicle
+
+         x t          Longitudinal displacement
+
+    y  t  、 vy t    Vehicle speed and lateral displacement
+
+        vx  t         Vehicle speed
+
+          SM            The vertical distance of M car traveled
+                        Rear of the vehicle M and L on the target lane minimum
+       S MSD (0)
+                        vertical safety distance
+          ds            Between vehicles in the same lane as its front
+
+          dd            Between the front of the vehicle and its overtaking lane
+                        Brake reaction time for the driver and co-ordination of
+           tr
+                        time
+           td           Deceleration of growth over time
+
+      aYd0 、 aYd1       Maximum deceleration of the vehicle Y0、Y1
+
+
+
+Model
+
+Overtaking model
+
+Lane changing kinematics analysis
+
+     Under the different traffic density condition, the transport state of the
+vehicle is generally not same. For example, in the low-density traffic flow
+state, running state of the vehicle is freedom; in the medium-density traffic
+flow state, the vehicle is traveling with the front vehicle, or the vehicle is
+overtaking state, and the tansport freedom of the vehicle is subject to the
+certain restrictions; in high-density state, the vehicle is always traveling with
+the following state, which is unable to overtake. Thus, only in the
+medium-density state, the possibility of changing lane exists among the
+vehicles. According to lane changing needs, lane changing behavior can be
+changed into two cases: a selective channel (discretionary lane changing) and
+mandatory lane change (mandatory lane changing)
+    The main motivates behavior change lanes selectivity is: to improve the
+vehicle speed, beyond the back lane after overtaking slow-moving vehicles,
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 26718                                                          Page 6 of 28
+
+
+and so on. In the process of selective change lanes, the driver first running
+speed based on the current vehicle lane driveway and objectives, to determine
+whether to change the lane; then observed before and after the target lane and
+the lane where the vehicle is running, the estimated target lane acceptable gap
+size, to determine whether to change lanes to meet the security requirements;
+If met, the vehicle change lanes the contrary, then give up the lane change.
+    Judgment can safely change lanes in the case, and give full consideration
+to vehicle safety with Following vehicle distance beyond the time, the whole
+process is divided into the overtaking lane changing, passing, and the road in
+three phases (Figure 1), and add a different lane the rate-limiting conditions,
+beyond the car as much as possible within a period of transcendence beyond
+the front of the vehicle as the goal, combined with the car following the
+process of moving a safe distance and overtaking cars and the process beyond
+the relationship between being beyond the car trip, the establishment
+overtaking a new model for providing vehicles and auxiliary judgment when
+overtaking and reduce traffic accidents caused by improper overtaking
+frequency of occurrence.
+
+                       Change lane   Overtake lane   And-road lane
+
+
+
+          Vehicle L                  Vehicle M
+
+
+               Vehicle M     Vehicle F     Vehicle F          Vehicle M
+
+                                  Driving direction
+
+                      Fig.1 Three phase, of overtaking process
+
+Vehicle lane change motion control solutions
+
+     Throughout the process of overtaking lane changing, passing, and track
+three stages, will be conditions beyond the limit beyond the car when driving
+into internal and external too. An internal condition mainly refers to: Vehicle
+dimensions, maximum speed, maximum, plus or minus speed; external
+conditions mainly refer to: road terrain conditions, each lane speed limit, and
+vehicle safety with Following vehicle distance. Must meet the internal
+conditions and external conditions beyond the vehicle driving, otherwise, it
+will exist beyond the great traveling security risk.
+     Going beyond the vehicle in the driving, in the corresponding three
+stages of overtaking conditions must meet the requirements, control process
+is shown in Figure 2.
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 26718                                                            Page 7 of 28
+
+
+
+                              overtaking intentions
+
+
+
+                                lane changing            N
+   change lane                                               the original lane
+                                 conditions?
+
+                                    Y
+
+                              start changing lane
+
+
+                                                         N
+                            overtaking conditions?            the overtaking lane
+
+  overtake lane
+                                    Y
+                                start overtaking
+
+
+                                                         N
+                              and-road conditions?            the overtaking lane
+
+
+                                        Y
+   and-road lane
+                                start and-road
+
+
+
+                            end of overtaking behavior           the original lane
+
+
+                   Fig.2   Control plan, of overtaking process
+
+
+
+Analysis of lane changing security features
+
+     In the process, change lanes, the driver is necessary to observe the state of
+the lane around the vehicle, but also to observe the adjacent lane on the target
+vehicle status, driving operation also involves controlling the angle of the
+vehicle longitudinal and lateral angles, so the vehicle's lane change behavior
+more difficult.
+     Vehicles traveling, it will affect the vehicle near some impact from the
+nearest vehicle maximum. We create a simple lane changing environment, set
+the vehicle (vehicle lane changing) as M cars in the same lane, which is
+located in front of the vehicle, respectively F cars on the target lane, the
+vehicle was located behind the L car this will be the car 3 car safety lane
+change have the most direct impact, but because of the lane between F and M
+cars are cars car following relations and security relations between them
+controlled by the F car, so M cars do not need to be considered. This article
+from the vehicle lane changing specific movement and safety, we study the
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 26718                                                                                    Page 8 of 28
+
+
+impact on the car for 2 cars on the road except F, draws a minimum vertical
+safety lane change distance.
+
+
+   Vehicle L                       Vehicle M                                                M
+                                                                                       le
+                                                                                   hic
+                                                                               V e
+      Vehicle M         Vehicle F                             Vehicle M              Vehicle F
+
+               Driving direction                                          Driving direction
+
+     Fig. 3 Vehicle lane-changing                             Fig. 4    Vehicle lane-changing
+           environment model                                             position
+
+     According to the vehicle shown in dashed lines in Figure 3, in the form of
+lane changing trajectory and collide we can see, when the M car change lanes,
+its main vehicle collision near the following situations: In M vehicle
+acceleration lane change process, and if it F longitudinal distance between the
+front of the vehicle does not meet the requirements of the minimum safety
+distance, the car will be F oblique collision; when the M car change lanes to
+reach the target lane, if M longitudinal distance between the vehicle and the
+vehicle does not meet the minimum L requires a safe distance, then L and M
+cars will occur laterally car scratch and rear-end collisions. So long as effective
+to avoid these types of accidents caused by the overtaking, you can draw a
+clear driving rules right performance.
+
+
+
+Model assumptions
+
+     Shown in Figure 4, the vehicle lane change during the positional
+relationship diagram, set the initial time of the vehicle lane change is t0 , the
+initial distance between the two vehicles is S  0  , M car readies to change
+lanes, after a moment of t time, let S  t  is the distance between M and F
+cars, the angle  is the vehicle M formed with the horizontal line when
+changing lanes.
+    Following vehicle accordance with the minimum safety distance formula,
+the minimum safe distance S  t  can sure that changing lanes are available,
+select M car on the left front of the P point as a reference point, it can be
+expressed as:
+                        t 
+                S (t )    (aF  aM )dtd  (vF  0  vM (0) )t  S (0)  W  sin  ,                       (1)
+                        0 0
+
+
+where the angle  is the vehicle M formed with the horizontal line when
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 26718                                                                        Page 9 of 28
+
+
+changing lanes; W is the vehicle width; vF (0) 、 aF , respectively, of the front of
+the vehicle lane F initial velocity and acceleration of the vehicle; vM (0) 、aM , for
+the M's initial velocity and acceleration of the vehicle.
+    Therefore, to ensure that no vehicle collision occurs after time t , we must
+ensure that the following holds:
+
+                    t                                                             
+        S (0)  max    (aF  aM )dtd  (vF  0  vM (0) )t  S (0)  W  sin  ，             (2)
+                    0 0                                                            
+
+                                         y (t ) y (t ) t vx  t 
+                      tan   t                                ,                             (3)
+                                         x(t ) x(t ) t v y  t 
+
+where x  t  、vx  t  respectively denote the longitudinal displacement and the
+vehicle speed; y  t  、 v y  t  respectively represent of the vehicle speed and
+lateral displacement.
+
+
+
+The minimum vertical safety distance model
+
+     (1). The minimum vertical safety distances between M and L cars.
+     When showed in Figure 5, M vehicles change lanes, and after the
+collision in the form of the trajectory of the target line between L figure cars,
+this time may occur between the two vehicles have oblique collision and
+rear-end collisions.
+
+                             S  0
+
+                             vL
+                Vehicle L                               Vehicle L Vehicle M
+
+
+                       Vehicle M            vM
+
+                                              Driving direction
+
+                      Fig.5 Position between vehicle M and L
+     When M car changes lanes to ensure that no collision occurs with the L
+car, you should meet the following conditions:
+                               S (0)  S L  S M  L  W sin ，                                    (4)
+
+where ta is M complete acceleration time; S L is the time ta period L
+longitudinal distance traveled by car; within hours M longitudinal distance
+traveled by car; L is a car length, usually taken 5 meter; W is the vehicle width,
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 26718                                                                  Page 10 of 28
+
+
+usually take 3 meter;  as of the vehicle change lanes and lane M as a
+horizontal angle. Vehicles with lower speed than the high-speed lane change
+into the lane, usually expect to get a higher speed. In order to change lanes
+safety, vehicle acceleration lane change is completed, the speed should be
+consistent with the speed of the target lane, if this time the car is not on the
+target lane and the car collision, then the process is not behind with following
+vehicle collision occurs.
+      By the analysis of knowledge, accelerate the speed of the car vL at the
+end goal should be to speed traffic lane, so the car's acceleration time is:
+ta   vL  vM  aM , aM is the car change lanes taken acceleration lane changing
+acceleration time is usually 3 ~ 5s.
+     In the time of ta , the vehicle M is a longitudinal distance traveled:
+
+                         vL2  vM2 vL  vM vL  vM vL  vM
+                  SM                                    ta .                         (5)
+                           2 aM       2      aM       2
+
+     Assume that a reasonable knowledge of the front, in addition to changing
+road of the vehicle M, the rest of the vehicles are kept uniform motion state,
+so the car on the target lane L vertical distance traveled: S L  vLta .
+
+     So the rear of the vehicle M and L on the target lane minimum vertical
+safety distance:
+
+                             v v                     (v  v ) 2
+          S MSD (0)  vL ta  L M  ta  L  W sin   L M  L  W sin  .                (6)
+                               2                         2 aM
+
+    (2). Minimum vertical safety distance M between the vehicle and the F car.
+    When M car changes lanes, the line came up with the trajectory of his car
+between F shown in Figure 6.
+
+
+                                S  0                                 Vehicle M
+
+                                                                    M
+                       vM                     vF             ehicle
+           Vehicle M              Vehicle F                V          Vehicle F
+
+                                         Driving direction
+
+                    Fig.6 Position between vehicle M and F
+     Vehicle M collision at this time and the vehicle F is oblique collision may
+occur, the most likely figure is the collision point C point, if a collision does
+not occur at the point C, the two vehicles will no longer collide. To ensure that
+vehicle M and F car collision should satisfy the following conditions:
+                            S (0)  S M  S F  L  W sin  ,                             (7)
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 26718                                                            Page 11 of 28
+
+
+where S F is F car within tc hour’s longitudinal distance traveled; S M is
+within this time period the vehicle M vertical distance traveled.
+    Assume M car arrival point C at the time of ( t0  tc ), therefore, in this
+period of time, the vertical distance of M car traveled is:
+                                          1
+                             S M  vM tc  aM tc 2 .                                (8)
+                                          2
+     Vehicle F in front of the car M remains uniform motion, its vertical
+distance traveled: S F  vF tc . So, the safe minimum vertical distance between
+vehicles M cars and F as follows:
+                                     1
+                 S MSD (0)  vM tc  aM tc 2  vF tc  L  W sin 
+                                     2                                              (9)
+                                             1
+                             vM  vF  tc  aM tc 2  L  W sin  .
+                                             2
+
+
+
+Optimization Model
+
+     Different lane car following a safe distance is when carried beyond the
+car change lanes when traveling between the original lane and passing lane in
+front of the vehicle and its angle of collision does not occur, the minimum safe
+distance from the side scraping with following vehicle.
+     When the car carrying transcend beyond traveling with following vehicle
+safe distance between vehicles in the same lane as its front:
+                          d s  Lsa  Lci 2 cos   Lci 2.                         (10)
+
+     Similarly, when the car carrying transcends beyond traveling with
+Following vehicle in a safe distance between the front of the vehicle and its
+overtaking lane is:
+
+                         d d  Lsa  2  Lci 2 cos   Lci 2  ,                   (11)
+
+where Lsa is the vehicle in three different situations safe following distance,
+namely with a utopia speed greater than, equal, less than the vehicle speed
+before.
+     To transcend beyond of the vehicle in a period beyond the front of the
+vehicle as much as the target, taking into account the relationship between the
+car and the vehicle is exceeded beyond the car travel between the car-driving
+safety distance and overtaking process, satisfy the constraints under the
+conditions of the given conditions beyond the vehicle to meet beyond the
+minimum travel speed and travel time accordingly beyond.
+     Constraints are three stages as follows:
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 26718                                                                        Page 12 of 28
+
+
+     (1). Changing channel conditions: beyond the car speed to meet the
+ultra-lane speed limit conditions; beyond the distance of the front and rear
+vehicles and ultra-lane vehicles meet safety requirements to prevent the
+vehicle side scraping; around the car with the original lane beyond the
+distance of the vehicle to meet the security requirements to prevent angle
+touch.
+
+                      
+                      
+                                        v  Vj ,
+                      c  t                tc
+                      
+                                                       
+                        VY1  aY1 t dt   VY0  aY0 t dt  d s ,
+                            0    a              0   a
+                                                                                               (12)
+                      0                   0
+                       tc                 tc
+
+                                                       
+                       VC0  aCa t dt  VY0  aYa t dt  d d ,
+                       0 1     1        0 0 0
+where v is vehicle traveling beyond the speed; V j stands for j-lane speed
+limit; t represents time; tc represents lane change time (lane change lights
+flashing long); aYa1 denotes in the original lane overtaking the first car of the
+maximum acceleration of the vehicle; aYa0 is beyond the maximum vehicle
+acceleration; VC01 denotes in passing lanes beyond the initial speed of the
+vehicle in front of the first car; aCa1 represents in the ultra-lane overtaking the
+first car of the maximum acceleration of the vehicle.
+     (2). Beyond conditions: beyond the car speed to meet the ultra-lane speed
+limit conditions; around beyond cars and ultra-lane of the vehicle to keep a
+safe distance with following vehicle; beyond the period of the car change
+lanes in the original lane of travel is greater than the first is its transcendence
+travel and related security and car spacing distances with following vehicle's
+and I vehicle.
+
+                   
+                   
+                                               v  Vj ,
+                          tc  t0                tc  t0
+                   
+                                                             
+                              0 VC1  aC1 t dt  0 VY0c  aY0 t dt  d s ,
+                                    tc   a                t    a
+                                                                                               (13)
+                   
+                   tc t0
+                                                                             
+                                    
+                                                                          n
+                   
+                           VY0  aY0 t dt  max  SYi   i  1 d s   Lci  ,
+                                 tc    a
+
+                    0                                                i 1  
+
+where t0 represents beyond the stage long; i said i was beyond the
+original lane car beyond the first motor vehicles, and i = 1,2,3 ...; vct1c said tc
+moments C1 vehicle speed; vYtc0 said time tc beyond the speed of vehicles;
+SYi said first i cars were the original lane overtaking is beyond the stage at
+the distance traveled; LCi indicates the length of the first i motor vehicle.
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 26718                                                                                                    Page 13 of 28
+
+
+     (3). And-road Conditions: Conditions beyond the original lane speed
+limit vehicle speed to meet; around beyond cars and ultra-lane vehicles meet
+the security needs of the distance, angle collision prevention; around the car
+with the original lane beyond the distance of the vehicle to meet the security
+requirements, to prevent the vehicle side scratch.
+
+                 
+                 
+                                                              v  Vj ,
+                  tc  t0  t a                                 tc  t0  ta
+                 
+                                V C1
+                                       tc  t0
+                                                a   a
+                                                    C1 t   dt                           
+                                                                                VYt0c t0  aYa0 t dt  d s ,              (14)
+                  t0 tc                                           t0  tc
+                  tc  t0  t a                                   tc  t0  ta
+                 
+                  t t                                                                  
+                                 VYt(ci1)t0  aYa( i1) t dt   VYt0c t0  aYa0 t dt  d d ,
+                  c 0                                                t0  tc
+
+
+where ta is the long and-road stage; VCt1c t0 denotes ( tc  t0 ) moments C1
+vehicle speed; VYt0c t0 represents time ( tc  t0 ) beyond the speed of vehicles;
+VYt(ci1)t0 denotes the first time the original lane speed car (the first one is not
+beyond the car); aYa( i1) is the original car's maximum acceleration lane
+section .In summary, under different conditions of speed overtaking the
+model can be expressed as:
+
+                                                                  n
+                                                                        
+                 min Z  max 0, SY0  max  SYi   i  1 d s   LCi   .                                             (15)
+                                                                i 1  
+
+                                                                 v  V j，
+                   
+                                                                              
+                                         tc
+                   
+                                                          
+                                         0 VY1  VY0  aY1  aY0 t dt  d s ,
+                                                   0      0         a       a
+
+
+                   
+                   
+                                                                              
+                                        tc
+
+                   
+                   
+                                                          
+                                            VC01  VY00  aCa1  aYa0 t dt  d d ,
+                                         0
+                                   tc  t0
+                   
+                                                             
+                                       t VC1c  VY0c  aC1  aY0 t dt  d s ,
+                                                     t       t        a       a
+                                                                               
+                                        c
+                   tc t0                                                                                                (16)
+                                                                                                      
+                   
+                                                  
+                                                                                                n
+
+                          V  Y
+                                 tc
+                                 0
+                                           aY
+                                              a
+                                                0
+                                                  t    dt     max   
+                                                                     
+                                                                        SYi
+                                                                               i  1 d s  
+                                                                                              i 1
+                                                                                                   LCi
+                                                                                                       ,
+                                                                                                       
+                      tc
+
+                           tc  t0  t
+
+                   
+                   
+                                 
+                              tc  t0
+                                                                                  
+                                            VCt1c t0  VYt0c t0  aCa1  aYa0 t dt  d s ,
+                    tc t0 t
+                   
+                                                                                
+                                          VYt(ci1)t0  VYt0c t0  aYai1  aYa0 t dt  d d ,
+                          tc  t0
+
+                                                 i  1, 2,3,..., j  1, 2,3,...,
+
+where SY0 denotes distance traveled beyond the car.
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 26718                                                              Page 14 of 28
+
+
+
+Model solution
+
+     On certain roads, from time to time by the statistics between each time
+period by the number of vehicles of various models of this road and through
+the vehicle conversion factor (see Table 1), the types of vehicles converted into
+equivalent standard car then aggregated results in Table 2 below.
+     Table 1 Various cars represent the reduction factor of model and the
+                      equivalent standard car number
+
+      The car type             The car     Midsized cars Small bus The big bus
+Coefficient of vehicle car       1              1.5         2           3
+
+     Table 2     Every 5 minutes interval statistics on the number of vehicles
+
+                 The   Midsized   Small     The               Traffic   The accident
+                                                    Summary
+                 car     cars      bus    big bus              flow      probability
+
+   10:30-10:35    12      0         1       1         17.0     204         14.3%
+   10:35-10:40    3       0        1        1         8.0      96          40.0%
+   10:40-10:45    10      0        2        4         26.0     312         37.5%
+   10:45-10:50    12      1        0        1         16.5     198         7.1%
+   10:50-10:55     8      0        1        0         10.0     120         11.1%
+   10:55-11:00     3      0        1        0         5.0      60          25.0%
+   11:00-11:05     9      1        0        1         13.5     162         9.1%
+   11:05-11:10    10      0        3        3         25.0     300         37.5%
+   11:10-11:15    5       0        1        2         13.0     156         37.5%
+   11:15-11:20     5      0        0        4         17.0     204         44.4%
+   11:20-11:25     3      2        1        2         14.0     168         37.5%
+   11:25-11:30     5      0        2        3         18.0     216         50.0%
+   11:30-11:35     9      1        1        3         21.5     258         28.6%
+   11:35-11:40     9      1        0        0         10.5     126         0.0%
+   11:40-11:45    10      0        1        0         12.0     144         9.1%
+
+     From Table 2, the number of vehicles in four models can be calculated
+equivalent standard vehicles and traffic, according to a large proportion of the
+total vehicle can obtain the probability of a vehicle the size of each interval of
+the accident, which can determine whether the road traffic safety . The above
+table will be drawn into a graph (see Figure 7); we can more clearly reflect the
+changes in traffic flow and vehicle standards equivalent. Can be derived from
+the figure equivalent standard value of the car is always kept at a critical
+point, and a small variation of the curve and the vehicle is very close to the
+standard vehicle can be obtained depends on the number of equivalents of the
+vehicle by a small vehicle.
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 26718                                                                Page 15 of 28
+
+
+
+                The car    Midsize cars      Small bus     The big bus   Summary
+      30
+      25
+      20
+      15
+      10
+       5
+       0
+  10:3 0-
+  10 10:3
+    :3 5- 5
+  10 0:4  1
+    :4 0-
+  10 0:4
+    :4    1
+       5- 5
+  10 0:5
+    :5 0- 1    0
+               0
+  10 0:5
+  11:5 5-
+    :0 00
+       0-
+  11 11:0 1
+         11 :  5
+    :0 5- 5
+  11 11:1
+    :1 0- 0
+  11 1:1
+    :1 5- 1    5
+  11 1:2
+    :2    1
+       0- 0
+  11 1:2
+    :2 5-
+  11 1:3 11    5
+    :3 0- 0
+  11 1:3
+    :3 5-
+  11 1:4
+    :4   1
+         1
+       0- 0    5
+         11 :4 5
+
+                 Fig.7 A highway through the number of vehicles
+
+                             The accident probability    Summary
+      60
+      50
+      40
+      30
+      20
+      10
+       0
+  10:30-
+  10 0:3
+  10:35- 1
+         10 :4 5
+  10:40-
+    :4 45
+      5-
+  10 0:5
+    :50- 10
+         1  :  0
+               0
+  10:5 55
+      5-
+  11 1:0
+  11:00- 10
+         1
+         11 :  0
+  11:05-
+    :1 10
+      0-
+  11 1:1
+    :1   11
+         1  :0
+            :  5
+               5
+  11  5-
+    :2 20
+      0-
+  11 1:2
+    :25- 11
+         1
+         11 :  5
+  11
+  11:30-
+    :3 35
+      5-
+  11 1:4 11
+         1  :3
+            :  0
+    :40- 11 :4 0
+               5
+
+               Fig.8   Accidents and standard car equivalent line chart
+     Figure 8 shows the comparison of accident rates and equivalent standard
+car, it can be seen from the figure when the accident rate is lower than the
+standard car equivalent of a line chart, you can consider traffic flow and
+traffic safety.
+
+
+
+Simulation and analysis of the results of real-life
+
+    The time tr is the brake reaction time for the driver and co-ordination of
+time, the general value of about 0.8 ~ 1.0s; td is the deceleration of growth
+over time, the general value of about 0.1 ~ 0.2s; aYd0 、 aYd1 are the maximum
+deceleration of the vehicle, the general value of approximately 6.86 ~
+7.84 m / s 2 ; other calculation parameters as shown in Table 3, according to
+equation (10) to (11) for calculating the simulation, where in the length of the
+vehicle are taken 4.2 m;  takes 10°, then the vehicle or changing lanes, and
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 26718                                                               Page 16 of 28
+
+
+road conditions under the previous calculation results shown in the following
+table from the car.
+                Table 3     Safe distance when the vehicle lane changing
+
+                                        Rate-limiting Rate-limiting Rate-limiting
+Conditions                Vehicle
+                                          60km/h        80km/h       100km/h
+                       Prior to
+                                          50      50      60      60       80        80
+                      the car VY01
+                     Following
+                                          55      60      70      80       85        90
+                      the car VY00
+  V V
+     0
+    Y0
+            0
+           Y1
+                     Following
+                                         17.77   20.16   26.16   33.86   38.35      41.4
+                  distance is d s (m)
+                 Following distance
+                                         17.81   20.2    26.2    33.9    37.8       40.9
+                       is d d (m)
+                     Prior to the
+                                          50      60      70      80       90       100
+                        car VY01
+                   Following the
+                                          50      60      70      80       90       100
+                       car VY00
+  VY00  VY01
+                 Following distance
+                                         11.3    15.9    16.06   18.3    21.5       23.8
+                      is d s (m)
+                 Following distance
+                                         11.34   15.94   16.1    18.34   21.7      23.94
+                      is d d (m)
+                     Prior to the
+                                          50      50      70      70       90        90
+                       car VY01
+                   Following the
+                                          40      45      50      60       70        80
+                       car VY00
+  VY00  VY01
+                 Following distance
+                                         7.88    10.61   6.52    12.78    5.2       15.8
+                      is d s (m)
+                 Following distance
+                                         7.92    10.65   6.56    12.82    5.6       15.7
+                       is d d (m)
+
+     Table 3 can be obtained on the analysis: the vehicle speed is greater than
+the current vehicle speed with following vehicle, along with the increase of
+the speed limit change lanes gradually increases with distance following
+vehicle and following vehicle Road, with gradually increasing distance, lane
+change distance with following vehicle and road-following and lane changing
+from a similar distance with following vehicle total is less than the distance
+and the road now; prior to analysis to vehicle speed equal to the speed
+obtained with a utopia vehicle speed is greater than the forward speed of the
+car with the same result following vehicle; current to the vehicle speed a
+utopia with less than when the speed change lanes with following vehicle
+distance and distance does not vary with road speed increases.
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 26718                                                       Page 17 of 28
+
+
+     Table 3 derives from the consolidated results of Table 1 and 2. Figure 7
+and Figure 8 are compared under the influence between traffic flow and
+safety. We find the relationship between them: the greater the traffic flow, the
+number of vehicles traveling on the highway contained when the ratio of
+large vehicle accident that occurred less than 10%. We consider the highway
+is safety. About the requirements for highway speed limit, we find that when
+the speed limit more stringent requirements that the speed limit is smaller,
+overtaking a vehicle overtaking the required safety distance is smaller, the
+easier it is to overtake the vehicle, the vehicle that is more secure. When the
+highway speed limit is too high, the greater the required safety distance, so
+that the vehicle overtaking is not easy to achieve, if hard to overtake, the
+greater the probability of traffic accidents, the more unsafe vehicles.
+
+
+
+Model test
+
+     In considering only one-way dual carriageway freeway, assuming that
+the highway through models for small cars, medium-sized vehicles, trucks
+and large cars, using VISSIM software to the above rule (right road rules) and
+model simulation, vehicle flow animation, shown in the following figure is a
+screen shot:
+
+
+
+
+     Fig.9 Traffic flow simulation software is VISSIM animation Screenshot
+    Screenshot from the simulation, the figure dark gray for the highway and
+two-lane one-way, based on the right road rules, all vehicles on the right lane.
+The actual situation shows that the desired speed is greater than small cars
+and large trucks car, and concluded that the above model : overtaking is less
+than expected because the actual speed of traffic speed, so small cars
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 26718                                                            Page 18 of 28
+
+
+overtaking at most, the figure that is small cars overtaking process
+screenshots.
+     The first picture in front a small car with the car driving in the right lane,
+then a small car is overtaking; second graph after two small cars are
+overtaking, but after a small car is a continuous overtaking. Section three
+figures in a small car after overtaking before a successful return to the right
+lane, after a small car is still going to overtake.
+     Overtaking model, only appears when the roads open overtaking
+phenomenon, it is a case of road traffic simulation smooth. And because the
+accident occurred on the highway is a small probability event, so do not
+consider when doing simulation. By the simulation model, we verify the
+speed of the vehicle on the right road performance difference between the
+rules of traffic flow and safety.
+     The results obtain by the model and the simulation results analysis, the
+right road rules to improve traffic circulation, but not a good safety
+performance and improve results. In order to secure the performance of the
+traffic has increased, improving response to the rules.
+     Overtaking model to analyze the success is important to determine the
+performance of safety performance, while overtaking another success with
+the lateral distance between the vehicle and the vertical distance when
+overtaking, and therefore can add a lateral distance between the vehicle and
+the vertical distance to this rule, whether the vehicle can be used to constrain
+overtaking. Model has been obtained to prohibit overtaking a vehicle
+overtaking a vehicle when the vehicle in front when the minimum safe
+distance between vehicles as shown in Table 3, the provisions of the previous
+car-truck vehicle is less than the distance from the table, add this rule to the
+rules will improve traffic security.
+
+
+
+Driving on the left side of building and solving of the
+
+model
+                      And-road lane   Overtake lane   Change lane
+
+
+
+                                      Vehicle M                     Vehicle L
+
+
+               Vehicle M   Vehicle F        Vehicle F         Vehicle M
+
+                                 Driving direction
+                               Fig.10 Driving left
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 26718                                                                              Page 19 of 28
+
+
+     The Figure 10 shows a schematic diagram of a vehicle overtaking drive
+on the left, to the left and to the right to drive a car and driving a car is no
+essential difference, but due to the long history of evolution, different regions
+have developed different traffic rules appear so by today left and right
+traveling with the rules; traffic safety and order, different driving rules
+corresponding to the position of the car cabin is also different. In order to sure
+that the driver can see the opposite case while driving on the right side of the
+rule, the left cab design on the left, similarly, in driving a car on the left rule,
+the cab on the right design.
+      After checking the data shows that the main advantages of driving on the
+left is a human instinct to avoid its evils, because in an emergency situation,
+the human instinct is to turn the steering wheel to the left to protect the
+position of the heart. Turn left and turn right to the action than the much
+more quickly.
+     The main advantage is that drivers can drive on the right with his left
+hand to keep control of the steering wheel, while using the right hand to
+complete the shift, the operation of the instrument panel and other complex
+actions. This is for people who are right-handed favorable, while left-handed
+people is unfavorable.
+     Data shows: about 90% of the world's countries to implement the right
+line system, 10% of the national implementation of the left line system; the
+world's population, about 80% of the population right-handed (right-handed),
+only 20% of the population usual the left hand (i. e. left-handed). This is why
+most of the country to implement a vehicle right line system.
+
+     The proportion of left-hand and right-hand           The proportion of left-and right line
+                                  the proportion of
+                                    left-hand 20%
+                                                                                 the proportion of left
+                                                                                       line 10%
+
+
+
+
+   the proportion of                                  the proportion of
+    right-hand 80%                                      right line 90%
+
+  Fig. 11 Left-handed and right-handed global left-right line and pie charts
+     Although the vehicles drive on the left and right with no essential
+difference, but it is not able to rule in the right line solutions by simply
+changing the direction of the rules applied to the left line. We should take into
+account that 80% of people worldwide right-handed, so that when the right
+people are running 80 percent favorable, only 20% of people are negative,
+most people can easily manipulate the joystick on the car, in the skilled
+operator can reduce the response time, improved to some extent in some
+emergency situations when needed shift safety performance. Conversely, if
+driving on the left, then 80% of people worldwide are unfavorable, only 20
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 26718                                                          Page 20 of 28
+
+
+percent favorable , when most people are not easy to manipulate the joystick
+to the car, not in some emergency situations when you need to shift skilled
+operation, increasing the reaction time, reducing the safety performance to
+some extent. Considering the advantages and disadvantages of driving on the
+left, we can get the solution that the left safety performance is lower than the
+right.
+     In order to make right with the program rules apply to left-rule, and safe
+performance of the same, you can drive on the left in the rule to reduce
+driving speed (reducing the highway speed limit), to increase the safety
+distance when overtaking. Left in the car line, although the reaction time is
+relatively long, but if we lower the speed, in case of an emergency response
+will vary from reduced, thereby improving safety performance. Increase
+overtaking at a safe distance to avoid increasing the reaction distance is also
+caused by traffic accidents, thus improving safety performance.
+     And driving on the right road in the same situation, speed parameters
+and minimum safety distance drive on the left in the rule has been modified
+in accordance with the rules established by the simulation right in changing
+the direction of travel only under other conditions remain unchanged , on the
+left with the rules simulation, simulation results screenshot below.
+
+
+
+
+          Fig. 12 The left side of the vehicle driving simulation software
+                         VISSIM flow animation Screenshot
+     By setting the parameters of the simulation software VISSIM export
+traffic data, use the same method with the rules and to the right, come
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 26718                                                                    Page 21 of 28
+
+
+forward with the vehicle speed is greater than and equal speed in both cases
+under the a utopia overtaking the minimum safe distance, on the right with
+the minimum safe distance driving rules are compared. The minimum safety
+distance of the overtaking left lane shows in the following table.
+           Table 4 Vehicles drive on the left to change and road safety
+                           distance calculation table
+
+                                                     Rate-limiting Rate-limiting
+       Conditions                 Vehicles
+                                                       80km/h       100km/h
+                              Forward car VY01        60         60      80         80
+                             Following car V   0
+                                                      70         80      85         90
+        VY00  VY01                           Y0
+
+                        Following distance d s (m)   26.8        36.8   39.35       43.7
+                        Following distance d d (m)   27.6        36.1   39.0        42.5
+                              Forward car VY01        70         80      90         100
+                             Following car V   0
+                                                      70         80      90         100
+        VY00  VY01                           Y0
+
+                        Following distance d s (m)   18.4        21.7   23.5        25.8
+                        Following distance d d (m)   18.8        21.1   23.9        25.2
+
+     From the above table can be drawn, regardless of the vehicle speed is
+greater than the forward speed of the car or the car - the car speed is equal to
+the forward speed with autopia, the car following distances are as the speed
+limit increases, and this conclusion by right overtaking vehicles in similar
+minimum safe distance.
+     Through a safe distance drive on the left and right driving safety distance
+for drawing comparison can more clearly see their similarity. Compare line
+chart below.
+
+                      Ds1 right        Dd1 right      Ds1 left           Dd1 left
+                      Ds2 right        Dd2 righte     Ds2 left           Dd2 left
+  50
+
+  40
+
+  30
+
+  20
+
+  10
+
+   0
+               80km/h               80km/h            100km/h              100km/h
+
+           Fig. 13 Left lane to overtake a safe distance comparison chart
+     By comparing the figure before the vehicle speed is greater than the safe
+distance curve trend with four speed overtaking a utopia, draw their values
+although there is a gap, but the gap is small, the value is very close, and the
+
+
+=== PHYSICAL PAGE 22 ===
+Team # 26718                                                       Page 22 of 28
+
+
+trend is the same four curves; then by comparison with equal speed to a safe
+distance from the car trend curves of the four speed overtaking a utopia yield
+the same results. Thus it can be drawn on the left driving the vehicle in the
+country; we can drive on the left to solve the problem by simply changing the
+rules of driving directions.
+
+
+
+Intelligent Transportation Systems Analysis
+
+Intelligent Transportation System Definition
+
+     Intelligent Transportation Systems (Intelligent Transport System, referred
+to as ITS) is an advanced information technology, data communications
+transmission technology, electronic sensor technology, electronic control
+technology and computer processing techniques used to effectively integrate
+the entire transportation management system, and to establish within a
+large-scale, full-functioning, real-time, accurate, efficient and integrated
+transport management system.
+
+
+
+Intelligent transportation systems affected the results of the
+
+analysis before
+
+     Rely on human judgment compliance: because people widespread luck,
+often choose when overtaking lane in the case of traffic congestion, leading to
+more severe congestion and accident, which should not have happened, and
+reduced road’s security. In addition, because people do not have the ability to
+predict the future, people cannot avoid traffic congestion, also couldn’t
+improve the traffic flow.
+     Intelligent Transportation Systems through relative systems to
+dissemination real-time traffic information to ensure people who will face the
+traffic environment have sufficient understanding and according to this made
+the right choice; through the elimination of road congestion and other traffic
+problems, and develop a good traffic control system to reduce the pollution of
+the environment; through the development of intelligent intersection and
+autopilot technology to improve traffic safety, reduce travel time, improve
+roads capacity. Michigan Department of Transportation Intelligent
+Transportation Systems Project Manager Greg • Kruger said: "In Detroit, if
+we can be of 2% to 5% of the vehicles to non-peak route guidance, you can
+greatly ease the traffic congestion.”
+
+
+=== PHYSICAL PAGE 23 ===
+Team # 26718                                                                   Page 23 of 28
+
+
+
+Design of Intelligent Controller
+
+     Takagi and Surgeon made famous T-S fuzzy system model, which
+antecedents is ambiguous, described the piece as a linear antecedent. T-S
+fuzzy model is the nature of the global nonlinear system established by more
+than a simple linear relationship between fuzzy partition, then the output of
+multiple models fuzzy reasoning and judgment, in order to represent
+complex nonlinear relationship. Since TS- fuzzy model can approximate
+arbitrary precision continuous nonlinear systems, so this more than a simple
+linear fuzzy inference system controller obtained by global controller, can be
+well controlled nonlinear systems to solve nonlinear system control issues a
+new way. Expression of T-S fuzzy model fuzzy implied condition statement is
+as follows:
+             IF ( x1 is 
+                        A1 and x2 is    A2  and xi is      Ak )
+                                k
+               Then y  p0     p ,x.
+                               k 1
+                                      i     i
+
+
+
+       Which ( x1 , x2 , , xk ) represents the antecedent of k fuzzy variables,
+( A1 , A2 , , Ak ) represents a former member of the fuzzy set membership
+function parameter called the antecedent parameters of the piece
+parameter, ( p1 , p2 , , pk ) represents after the piece parameter, y represents the
+fuzzy output variable. Membership function of the fuzzy subset taken as a
+piecewise linear convex sets composed.
+    If a given fuzzy input vector ( x1 , x2 , , xk ) , the output fuzzy y i (i  1, 2, , n)
+weighted average calculated by the implicit rules for each of the output:
+                                                 n             n
+                                          y   Gi yi /  Gi ,                            (17)
+                                                i 1          i 1
+
+where n is the number of fuzzy rules, y i is calculated by the i ’s
+conclusions of the equation to get the first rule, the first rule G i is applicable
+to the i ’s degree, calculated by the following formula:
+                                                        k
+                                            G i   Aip ( x p ),                          (18)
+                                                       p 1
+
+
+where  is the fuzzy operator, usually take a small operation.
+     For vehicle motion characteristics, dynamic target position of the vehicle
+ x ， y under the local coordinate system, and dynamic target direction of the
+three variables  as input variables of fuzzy control, the steering angle of the
+vehicle a as the output variable fuzzy control. According to the actual
+control requirements, you can roughly determine the state and control
+variables ranges are x  [0,30] ， y  [0, 6] ，   [0.3, 0.3] , and a  (90,90)
+through the use of adaptive neural network parameter adjustment on T-S
+fuzzy membership function model obtained on the basis of fuzzy inference
+
+
+=== PHYSICAL PAGE 24 ===
+Team # 26718                                                           Page 24 of 28
+
+
+system. One of the training data, check the data and test data generated by the
+simulation.
+
+
+Establish and analyze the results of the system in the Simulink
+
+environment
+
+     In order to ensure the correctness and effectiveness of the system, we
+carried out in automatic overtaking Simulink motion control experiment and
+analyze the experimental platform. Above, according to the design of
+intelligent control strategy in the Simulink environment for intelligent
+automatic vehicle overtaking movement modeling and simulation, system
+simulation structure is shown below.
+
+
+
+
+                   Fig.14 Control system simulation structure
+     In the simulation process, as compared with non-intelligent system,
+assuming the vehicle 1 (controlled vehicle), the initial position coordinates of
+the vehicle 2 and the vehicle 3 are: (2,1,0), (5,1,0) and (5,2,0); its speed were to
+60km/h, 50km/h and 55km/h; wheelbase is 1m; sampling interval of 0.05s.
+After setting the vehicle in which the accused dynamic target position to
+consider the width of the body, the front and rear of the vehicle changing
+lanes and safe distance. Obtained by the simulation system of the vehicle’s
+passing automatically trajectory is based on the dynamic target position
+shown in Figure 15.
+
+
+=== PHYSICAL PAGE 25 ===
+Team # 26718                                                         Page 25 of 28
+
+
+
+               5
+
+               4
+
+               3
+                                   3                       1
+
+               2
+                   1               2                       2
+
+               1
+
+               0
+                   5     10       15       20       25         30
+                            Fig.15 Vehicle trajectory
+     In Figure 15: all vehicles are uniform motion, but the vehicle 1 (controlled
+vehicle) from the initial state (2,1,0) smoothly along a virtual route (blue line)
+to 60km / h constant speed tracking of vehicle 2 and the lane change, and in
+the state (15,2,0), the vehicle speed of a 60km / h for a uniform linear motion,
+a motion when the vehicle is overtaking to satisfy the condition (vehicle 1 and
+the vehicle 2, the vehicle 3 does not collide) , the vehicle continues along a
+virtual route (blue line) overtaking, then for uniform linear motion in (18.4,2,0)
+a safe distance from the state judgment and adjacent channel vehicle is started
+and that, at (25.5,1,0 ) state return to the original route begins uniform linear
+motion, eventually following vehicle the state (30,1,0), the whole process
+showed a smooth, natural features, more reasonably reflect the driver's
+driving behavior.
+     Compare the intelligent control system model obtained results with
+previous results, we can get the result that the intelligence system of the
+vehicle overtaking a minimum safe distance is 13 meters, another model
+calculated minimum safe distance is 17.77 meters. Since the 13 meters <17.77
+meters, the intelligent control system is better in terms of security.
+
+
+
+Evaluations and Solutions
+
+Strengths
+
+1. When we create a model, we experience change lanes、beyond lanes and the
+and-road lanes three stages, so we have a more detailed and clearly analysis
+of the problem, also the results of the model is more accurate.
+2. The model considers all kinds of vehicles that may appear on highway, we
+
+
+=== PHYSICAL PAGE 26 ===
+Team # 26718                                                       Page 26 of 28
+
+
+have a very rigorous consideration about the question, so it has a wider scope
+application.
+3. When establishing the minimum safety distance longitudinally model, we
+take all kinds of overtaking collision into consideration, so we establish a
+comprehensive model.
+4. This model analyzes the traffic flow, safety, speed and other factors on the
+performance of the rules, obviously, the analyses are more thoroughly.
+5. After solving the model, we exam the model with the simulation software,
+making the model more intuitive.
+
+
+
+Weaknesses
+
+1. In order to facilitate solving the model, the model is established under
+certain assumptions, so reducing the usefulness of the model.
+2. The question does not give the original data, therefore, the result’s
+deviation increased.
+
+
+
+Improvements
+
+1. Models only consider the case of one-way two-lane highway, there are
+many highways are one-way multi-lane highway in the real, in which case the
+model will not be used. In order to solve the multi-lane one-way rule
+performance issues, we should consider the interaction of each lane to
+overtake a vehicle. After take this factor into account, again, modeling,
+analysis of traffic flow, safety, and rules limiting the impact on the
+performance of the model will make them more widely used in real life.
+2. In the process of the problem analysis, you can consider the impact of
+individual factors on the road which may change the road safety performance
+and the traffic flow.
+
+
+=== PHYSICAL PAGE 27 ===
+Team # 26718                                                            Page 27 of 28
+
+
+
+References
+
+[1]Y. S. Tang, Z. W. Jiang, Y. Bai et al. Model of vehicle safety distance for
+collision avoidance and simulation study [J]. Journal of Liaoning University of
+Technology (Natural Science Edition), 2008, 28(5): 324-332.
+[2]J. Xu, W. Du, H. Sun. Safety distance about car following [J]. Journal of
+Traffic and Transportation Engineering, 2002, 2(1): 101-104.
+[3]J. Ma. A study on safe distance between the vehicles in freeway [J].
+Journal of Xi’an Highway University,1998,18(4): 90-94.
+[4]L. H. Xu, Q. Luo, H. Fu. Car-following safe distance model based on
+braking process of leading vehicle [J] . Journal of Guangxi Normal University
+( Natural Science Edition), 2010, 28(1):1-5.
+[5] JULA H, KOSM AT OPOU LOS E B, IOANNOU P A. Collision avoidance
+analysis for lane changing and merging [J]. IEEE Transactions on Vehicular
+Technology, 2000, 49(6): 2295-2308.
+[6]Y. L. Zhang, L. E. Wen, CLARK J E. Multi-regime approach for microscopic
+traffic simulation[J]. Transportation Research Record, 1998, 1644: 103-115.
+[7]http://tech.sina.com.cn/d/2006-08-10/18161080810.shtml.
+[8]http://news.qq.com/a/20060331/000770.htm.
+[9]Rajamani Rajesh. Demonstration of integrated longitudinal and lateral
+control for the operation of automated vehicles in platoons [C] IEEE
+Transactions on Control Systems Technology, 2000. USA: IEEE,2000: 695-708.
+[10]Thomas Hessburg. Fuzzy logic control for lane change maneuvers in lateral
+vehicle guidance [R]. USA: University of California, 1995: 2-10.
+[11]M. R. Wang. Simulink modeling and dynamic simulation [M]. Beijing:
+Electronic Industry Press, 2002.
+[12]D. Y. Xue. System based on MATLAB Simulink simulation technology and
+application [M]. Beijing: Tsinghua University Press, 2002.
+[13]J. Yao, S. H. Ma. Simulink modeling and simulation [M]. Xi’an: Xian
+University of Electronic Science and Technology Press, 2002.
+[14]H. w. Tang, C. Z. Han, Z. S. Duan. Intelligent vehicle system development
+and its key technology overview [J]. Highway traffic science and technology, 2002,
+19(6): 127-130.
+[15]B. Li. Intelligent vehicle, Vehicle detection and the research of control methods
+of the safety car distance [D]. Chang Chun: Ji Lin University Traffic Institute,
+2002.
+[16]B. Li. Based on the research of visual intelligent vehicle autonomous navigation
+control [D]. Chang Chun: Ji Lin University Traffic Institute, 2001.
+
+
+=== PHYSICAL PAGE 28 ===
+Team # 26718                                                           Page 28 of 28
+
+
+[17]F. You. Study on autonomous lane changing and autonomous overtaking control
+method of intelligent vehicle [D]. Jilin: Jilin University, 2005.
+[18]W. Bai, C. J. Li. Overtaking model research based on different speed
+conditions [J]. Si Chuan University institute of architecture and environment, 2013,
+13(2): 64-68.
+[19]L. H. Xu, J. Luo, J. W. Wu, etc. Based on the minimum safe distance of
+vehicle with following vehicle model research [J]. Highway traffic science and
+technology, 2010, 27(10): 95-100.
+[20]R. B. Wang, F. You, G. J. Cui, etc. Vehicle safety in trace analysis [J].
+Journal of Jilin University: Engineering science, 2005, 35(2): 179-182.
+[21]Z. Y. Zhang, Z. Y. Yang. MATLAB tutorial[M]. Beijing University of
+Aeronautics and Astronautics Press, 2010.
+[22]H. Yang, X. L. Wang, Y. F. Yin . The impact of speed limits on traffic
+equilibrium and system performance in networks. Transportation Research Part
+B, 2012, 46: 1295–1307.
+[23]S. R. Chen, F. Chen, J. Wu. Multi-scale traffic safety and operational
+performance study of large trucks on mountainous interstate highway.
+Accident Analysis and Prevention,2011, 434: 29–438.
+[24]W. Lv, W. G. Song, X. D. Liu, J. Ma. A microscopic lane changing process
+model for multilane traffic. Physica A, 2013,392: 1142–1152.
+[25]Z.D. Zheng. Recent developments and research needs in modeling lane
+changing. Transportation Research Part B, 2014, 60: 16–32.

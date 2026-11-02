@@ -1,0 +1,1609 @@
+=== PHYSICAL PAGE 1 ===
+                                     Team Control Number
+For office use only                                                   For office use only
+T1                                      1919022                       F1
+T2                                                                    F2
+T3                                      Problem Chosen                F3
+T4
+                                               A                      F4
+
+
+                                        2019
+                                      MCM/ICM
+                                    Summary Sheet
+
+                Dragons and Ecosystem: 1 + n
+                  Meta-population Model
+                                            Abstract
+
+    Dragons are the virtual creatures in the fictional television series Game of Thrones. It is
+interesting and meaningful to consider what would happen if the three dragons were living
+today. The purpose of this problem is to simulate the competition game when new species
+are introduced into the ecosystem. And the result of the simulation can be used for reference
+in the realistic situations.
+   Our paper propose the 1 + n Meta-population Model, where 1 refers to the Growth
+Model Based on Energy Flow focus on the dragon’s growth and n refers to the Improved
+n-population Meta-populaiton Model focus on the ecosystem.
+    We first form the Growth Model Based on Energy Flow to represent the growth process
+of dragons in the food chain. We calculate the energy expenditure using the Kleiber’s Law
+and find the relationship between the energy intake and dragon’s mass based on the energy
+flow in the food chain. Referencing the animals similar to dragons, we set the upper bound
+of dragon’s mass as 1.17 × 103 kg and time-varying growth rates.
+    Then Improved n-population Meta-populaiton Model is generated to quantatively es-
+timate the dragons’ influence on the populations in the ecosystem. Based on the Tilman
+n-population Meta-population Model, we form the initial ecosystem including n kinds of
+populations and then introduce dragons into it. We regard dragons as the interference in the
+ecosystem. According to the amount and the abundance of living beings in the ecosystem,
+we can analyze the influence of dragons. Besides, we further take human beings’ recon-
+struction of environment into consideration, offering guidance for human beings.
+    After that, we apply our models to the different kinds of environments including temper-
+ate deciduous forest, desert and ice sheet. By calculating, we know that an adult dragon per
+should take in 2.4 × 1011 J energy per month and the region must be larger than 1.8 × 107 m2
+to support three dragons.
+  We then analyze the ecological response when dragons are introduced in the ecosystem,
+which conforms to strong population extinction mechanism and Odd-even Symmetry Law.
+     In addition, we conduct sensitivity analysis about the area of the habitat and the time-lag.
+     Finally, we discuss strengths and weaknesses of our models.
+Keywords: Energy Flow; n-population Meta-population Model; Growth Model; Habitat-
+occupancy Proportion; Ecosystem influence
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 1919022                                                                 Page 1 of 29
+
+
+
+                  Dragons and Ecosystem: 1 + n
+                    Meta-population Model
+
+
+                                         January 29, 2019
+
+
+                                            Contents
+
+1   Introduction                                                                                       1
+
+2   Assumptions and Symbols                                                                            1
+    2.1   Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       1
+    2.2   Symbols . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       2
+
+3   Growth Model Based on Energy Flow                                                                  2
+    3.1   Energy Expenditure . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        3
+          3.1.1   Kleiber’s Law . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       3
+          3.1.2   Action and Rest . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       4
+          3.1.3   Mechanism and Energy Consumption of Fire-breathing . . . . . . . . .                  5
+    3.2   Energy Intake . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       5
+    3.3   Absorption . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      6
+    3.4   Body Size . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     6
+          3.4.1   Limit on Body Size . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
+          3.4.2   Mass Growth Function . . . . . . . . . . . . . . . . . . . . . . . . . . . .          7
+
+4   Improved n-population Meta-population Model                                                        7
+    4.1   Minimal Area of the Habitat . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         8
+    4.2   Tilman n-population Meta-population Model . . . . . . . . . . . . . . . . . . .               9
+    4.3   Dragon’s Influence on the Ecosystem . . . . . . . . . . . . . . . . . . . . . . . .           9
+    4.4   Human being’ Restoration to the Ecosystem . . . . . . . . . . . . . . . . . . . .            10
+
+5   Implementation                                                                                     10
+    5.1   Solution Method      . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   11
+    5.2   Standard of Measurement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          11
+    5.3   Basic Parameter Setting . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+
+=== PHYSICAL PAGE 3 ===
+6   Results and Sensitivity Analyses                                                                  12
+    6.1   Calculation on the Energy and the Area Requirement . . . . . . . . . . . . . .              12
+    6.2   The Dragons’ Influence on the Ecosystem . . . . . . . . . . . . . . . . . . . . .           12
+          6.2.1   Influence in Different Ecosystems . . . . . . . . . . . . . . . . . . . . .         12
+          6.2.2   The Law of Ecological Response . . . . . . . . . . . . . . . . . . . . . .          16
+    6.3   Human Beings’ Efforts on Environment Reconstruction . . . . . . . . . . . . .               16
+
+7   Strengths and Weaknesses                                                                          18
+    7.1   Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   18
+    7.2   Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      19
+
+8   Conclusion                                                                                        19
+
+Appendices                                                                                            23
+
+Appendix A Metabolic Rate                                                                             23
+
+Appendix B Energy-weight Regression Code                                                              23
+
+Appendix C Weight Calculation Code                                                                    24
+
+Appendix D Population Calculation Code                                                                25
+
+Appendix E Space Energy Analysis Code                                                                 27
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 1919022                                                         Page 1 of 29
+
+
+1     Introduction
+
+   In the fictional television series Game of Thrones, based on the epic fantasy novel series A
+Song of Ice and Fire, three dragons are raised by Daenerys Targaryen, the “Mother of Drag-
+ons.” As warm-blooded animals, the dragons’ behaviors should follow the basic law of biol-
+ogy. Besides, the dragons also have special characteristics such as the ability to breathe fire,
+longevity and so on, making them capable to greatly influence the ecosystem.
+    It is interesting and meaningful to consider what would happen if the three dragons
+were living today. Based on the reasonable physical and biological assumptions of dragons’
+characteristics, we do research on the requirements and ecological impacts of the dragons.
+Not only can it offer guidance about how to maintain the ecological settings of the story, but
+it also provides insights into the game in realistic ecology.
+    The game of ecology, as one of the most important problems in ecology, has been drawing
+researchers’ attention for a long time. Verhulst et. al [1] proposed Logistic Growth Model
+to simulate the population growth in an asset controlling system. Lotka and Volterra [2]
+presented the predator–prey equations to study the predator–prey competition. Hanski et.
+al [3] proposed Two-population Meta-population Model. However, none of the above works
+take environmental factors and other populations into account at the same time. More-
+over, no prior works have ever introduced dragons, or any kind of virtual creature, into the
+ecosystem.
+   In our work, we propose the 1 + n Meta-population Model combined by two models to
+simulate the growth of dragons and their influences on the ecosystem.
+   The remainder of this article is organized as follows. In Section 2, we put forward the
+assumptions and symbols used in this paper. Section 3 shows the Growth Model Based on
+Energy Flow. Section 4 presents Improved n-population Meta-population Model. In Section
+5, we apply the models to the different kinds of environment. In Section 6, we present the
+results of the simulation and make analysis on them. In Section 7, we discuss the strengths
+and weaknesses of our models. And finally, we conclude the paper in Section 8.
+
+
+2     Assumptions and Symbols
+
+2.1   Assumptions
+
+    First and foremost, we make some basic assumptions and explain their rationales.
+Assumption. 1 The dragon’s biological structure and behaviours are similar to the warm-blooded
+animals.
+   This assumption is the prerequisite of our model. With this assumption, we can analyze
+dragons’ characteristics based on the existing knowledge.
+Assumption. 2 During the time scale we discuss in this paper, the earth’s ecological environment
+keeps stable.
+   In our model, we don’t consider the incidents that may cause great climate changes such
+as meteorite impacts or frequent volcanoes, since their probabilities are small.
+Assumption. 3 The existing communities are climax communities and have reached the homeostasis.
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 1919022                                                         Page 2 of 29
+
+
+    The existing communities on the earth, going through a long-time succession, have adapted
+to the local climate and reached a stable state.
+Assumption. 4 During the time scale we discuss in this paper, a dragon’s body function won’t
+change as the dragon grows old.
+    Dragons live a long life.
+Assumption. 5 Dragons are at the top of the food chain.
+    Considering the power of dragons, the dragons can have influence on all living beings
+in the ecosystem while few living beings can compete with the dragon.
+Assumption. 6 A dragon’s body function won’t change when it is hurt.
+    Dragons can resist tremendous trauma.
+Assumption. 7 There is a upper bound for dragon’s body size.
+    With the limitation of gravity and biological structure, the body size of a dragon cannot
+infinitely increase.
+
+
+2.2   Symbols
+
+    The symbols we define in this paper are shown in the Table. 1.
+
+                           Table 1: Symbols mentioned in this paper
+
+         Symbol                          Definition                         Unit
+         Eexpend                    Energy expenditure                        J
+           Ein                         Energy intake                          J
+          Ef ire                Energy used in breathing fire                 J
+        Eassimilate            Energy the animal assimilates                  J
+           AR                         Assimilation rate                       −
+          N AR                     Net assimilation rate                      −
+           M                          Mass of a dragon                       kg
+            q                          Metabolic rate                  J · kg −1 · h−1
+            σ                          Bone strength                      N · m−2
+          NP P                   Net primary productivity                 J · m−2
+            s            Minimal area to support a dragon’s living           m2
+            S                     A dragon’s living scope                    m2
+            pi        Habitat-occupancy proportion of the population i        −
+            ci                Migration rate of the population i              −
+            di              Mean death rate of the population i          month−1
+            η            Reduction ratio of the habitat-occupancy             −
+            ξ             Reduction ratio of the population types             −
+                                         Time-lag                         month
+            µ                   Human beings’ impact factor                   −
+
+
+
+3     Growth Model Based on Energy Flow
+
+   In this section, we present the Growth Model Based on Energy Flow to simulate the
+growing process of a dragon, covering both energy expenditure and energy intake tasks.
+The framework of the model is shown in Figure. 1. At first, we calculate the dragon’s energy
+expenditure using Kleiber’s Law, which considers two motion states and the fire-breathing
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 1919022                                                                                              Page 3 of 29
+
+
+process. Then, we analyze the assimilation process in the food chain where energy is trans-
+lated from primary producers to senior consumers. Finally, we establish the relationship
+between the amount of the absorbed energy and the dragon’s mass. Also, this model fur-
+ther discusses the upper bound of the dragon’s body size with some physical limitations.
+
+
+
+                𝐸𝐸𝑖𝑖𝑖𝑖 � 𝐴𝐴𝐴𝐴 = 𝐸𝐸𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎 = 𝐸𝐸𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒𝑒 + 𝐸𝐸𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎𝑎
+                                                             metabolism                                           action state /
+                                       metabolism                                                                   rest state
+                                                              energy
+          energy from                   energy                                                   expended
+            the sun                                                                               energy
+                                                                                                                   breathing
+                                                                                                                      fire
+                                                primary                  senior
+                          primary
+                                               consumer                consumer
+                         producer
+                                              (e.g. sheep)           (e.g. dragon)
+                        (e.g. grass)
+                                               AR = 70%                AR = 90%
+
+                                                                                                                   limitation
+                                                                                                 absorbed
+                                                                                                                     of body
+                                                                                                  energy
+                                                                                                                       size
+
+
+
+          Growth Model                                   unassimilated               decomposer
+                                                            energy
+            Based on                                                            (e.g. microorganism)
+
+           Energy Flow
+
+               Figure 1: Framework of the Growth Model Based on Energy Flow
+
+
+3.1     Energy Expenditure
+
+    A dragon’s energy expenditure Eexpend is mainly affected by two factors: its growth con-
+dition and its motion state. The former can be characterized by the dragon’s mass M , while
+the latter is classified into rest state and action state. Besides, the ability to breathe fire is
+one of the biggest differences between dragons and ordinary animals. Without any fire-
+breathing creatures for reference, we use a physical model to calculate the energy use Ef ire
+in fire puffing.
+
+
+3.1.1   Kleiber’s Law
+
+   Because the metabolic rate q is changing as the dragon grows, the energy expenditure
+varies during the growth processes. In this paper, we firstly calculate the metabolic rate q in
+order to get the energy expenditure.
+    In nature, for very small organisms, such as algae, bacteria, and protozoa, their metabolic
+rate per gram of biomass is much higher than that of large organisms, such as trees and
+vertebrates. This phenomenon shows that the metabolic rate negatively relates with the
+animal’s mass, which quantitatively presents the growth degree.
+   As the pioneer of researchers on biology work, Max Kleiber (1947) [4] observed and
+summarized that, for the vast majority of animals, an animal’s metabolic rate scales to the 34
+power of the animal’s mass. This is named as Kleiber’s law and can be written as
+                                                               q = q0 M b                                                          (1)
+where q is the metabolic rate, q0 is the characteristic constant, b = 34 is the proportional
+coefficient.
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 1919022                                                                     Page 4 of 29
+
+
+3.1.2    Action and Rest
+
+    Animals will adapt their metabolic rates q to different motion states, so will the dragons
+do. In Equation (1), the adaption is reflected in the characteristic constant q0 . The motion
+state of a dragon can be divided into two types: rest state and action state. The rest state
+includes sleeping and relaxing while the action state includes flying, preying and so on.
+Dragons consume much more energies in the action state than in the rest state.
+    By this classification, we calculate the characteristic constant q0r for the rest state and q0a
+for the action state. According to the Assumption. 1, dragons’ motion mechanism is similar
+to birds and bats, so we use the metabolic rate of different kinds of birds and bats to fit the q0 .
+Parts of the data are present in the Table. 2, whose third and forth columns are the metabolic
+rate per gram q̂ [5], and the complete data are present in the Appendix A:
+                                               q
+                                        q̂ =     = q0 M b−1 .                                                     (2)
+                                               M
+q̂ represents the metabolic rate of a unit mass of the dragon. Equation (2) can be derived to:
+
+                                    ln q̂ = (b − 1) ln M + ln q0 ,                                                (3)
+
+revealing the linear relation between ln q̂ and ln M . We use linear fitting to calculate the q0 .
+   Table 2: Metabolic rate in rest state and action             5
+   state                                                                                                   action state
+                                                            4.5
+                                                                                                           rest state
+
+                              Metabolic rate                    4
+
+                       Body
+        Flying animals        (cal·g −1 ·hr−1 )             3.5
+                       weight                                   3
+                         (g)  Rest Action
+                                                            2.5
+          Budgerigar      35  15.8       105
+                                                                2
+             Gull        300   7.3        54
+            pigeon       448  7.2         58                1.5
+                                                              3.5    4   4.5   5       5.5   6   6.5   7        7.5       8
+
+          Gyrfalcon     2057   4.9        36
+                                                       Figure 2: Linear fitting to calculate q0r and q0a
+
+   As shown in the Figure. 2, the relationships between qr , qa and ln M are:
+
+                                    ln qˆr = −0.25 ln M + 3.6,
+
+                                    ln qˆa = −0.25 ln M + 5.6,
+                                                                                   3
+so the characteristic constant or the rest state q0r = 36.6cal · hr−1 · g − 4 and the characteristic
+                                                          3
+constant for the action state q0a = 270.4cal · hr−1 · g − 4 , so using the Equation (1), the energy
+expenditure Eexpend can be expressed as:
+
+                                dEexpend            3            3
+                                         = αr q0r M 4 + αa q0a M 4 ,                                              (4)
+                                  dt
+where αr and αa are the coeffcient of proportionality indicating the proportion of the rest
+state and action state in the total time. It’s easy to get that:
+
+                                           αr + αa = 1.
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 1919022                                                         Page 5 of 29
+
+
+3.1.3   Mechanism and Energy Consumption of Fire-breathing
+
+    There has never been a creature that can breathe fire like the dragon. In order to sim-
+ulate the process of dragon’s fire-breathing, we have made a reasonable model based on
+reality rather than merely imagination. The dragon has a gland in its mouth, which can
+produce flammable mixed liquid and spray it out. Like electric eels, the dragon has muscle
+tissue providing a voltage, which is high enough to ignite the flammable mixed liquid. And
+through this way, the dragon can breathe fire as it likes.
+   The fire-breathing process is too complicated to calculate energy consumption in biology.
+So in the later calculation, we simplify the process and give a estimation of the energy it
+costs. From A Song of Ice and Fire, we learn that the dragon prefers grilled meat. In our
+model, the dragon breathes fire mostly to roast food. By estimation and calculation, we
+derived the energy to roast food Ef ire is:
+
+                                   Ef ire = 6.69 × 106 × m,
+
+where m is the mass of the food the dargon eats.
+
+
+3.2     Energy Intake
+
+   We take the dragon’s caloric intake into consideration of the food chain and the food web.
+All living things are in the food chain, where most organisms consume or are consumed by
+more than one type of organisms. Based on the relationship among each nutrient class in
+the food web, there are four nutrient classes: primary producers (chlorophytes), primary
+consumers (herbivores), senior consumers (carnivores) and decomposers (microorganisms).
+Dragons, as carnivores, are classified into senior consumer [6].
+   There are great energy losses during the transfer in the food webs. As the energy is
+transferred to the higher nutrient classes, the amount decreases. Fortunately, the quality of
+the energy increases at the same time, leading to the higher conversion efficiency.
+    We define the assimilation rate AR to quantitatively describe the conversion efficiency.
+AR can be expressed as
+                                             Eassimilate
+                                      AR =               ,
+                                                Ein
+where Ein is the energy gained by ingestion, Eassimilate is the energy that the animal assimi-
+lates. Table.3 shows the approximate percentage values of the biological production, respi-
+ration and the assimilation of different nutrient classes. We can use respiration to calculate
+net assimilation rate.
+   Table 3: Biological production, respiration and assimilation rate of each nutrient class
+
+     Nutrient class     Biological production(%)    Respiration(%)    Assimilation rate(%)
+   Primary producer              60 ∼ 70               30 ∼ 40             60 ∼ 70
+   Primary consumer              40 ∼ 50               50 ∼ 60             70 ∼ 80
+    Senior consumer               5 ∼ 10               90 ∼ 95             90 ∼ 95
+
+
+   In this paper, we take the AR of dragons as 90% to calculate the caloric intake of a dragon.
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 1919022                                                              Page 6 of 29
+
+
+3.3     Absorption
+
+   The energy a dragon assimilates is used in three aspects: absorption, motion expenditure
+and breathing fire. This process can be expressed as:
+
+                               Eassimilate = Eabsorb + Eexpend + Ef ire .                   (5)
+
+By estimation and calculation, Ein is:
+
+                                         Ein = 2 × 107 × m
+
+Eassimilate is:
+                             Eassimilate − Ef ire = Ein × AR − Ef ire
+                                                                Ef ire
+                                                  = Ein × (AR −        )                    (6)
+                                                                Ein
+                                                 def
+                                                  = Ein × K
+Using Equations. (4), (5) and (6), we can get Equation (7):
+                            dEin      dEabsorb
+                                 ×K =          + (αr q0r + αa q0a ) · Mtb                   (7)
+                             dt         dt
+
+   The dragon’s absorption energy Eabsorb is invested into growth, which is measured by
+the mass of the dragon in this paper. We define the dragon’s mass at time point t by Mt , so
+the mass addition can be expressed as:
+                         dM    dEabsorb   dEin
+                     λ       =          =      × K − (αr q0r + αa q0a ) · Mtb               (8)
+                          dt     dt        dt
+
+
+3.4     Body Size
+
+3.4.1   Limit on Body Size
+
+   Due to the current global environment, the dragon’s body size has certain limitations. In
+other words, the dragon cannot grow indefinitely.
+   Creatures living on Earth are affected by gravity. Bones play a supporting role in the
+biological structure to fight against gravity. Table. 4 shows compressive strength of several
+kinds of bones. By these data, we can estimate the bone strength of the dragon.
+
+                   Table 4: Compressive strength of several kinds of bones
+
+                 Kind of bones           Thigh bone            Shin bone    Shoulder bone
+           Compressive strength (N·m−2 )  8.8×107               7.6×107        7.1×107
+
+   We think that the dragon is a powerful creature, and its bone strength is slightly higher
+than the existing creature. In this paper, we define the bone strength of dragon σ as:
+
+                                       σ = 1.2 × 108 N · m−2
+
+The normal stress that the dragon’s bones can withstand F can be expressed as:
+
+                                              F = σ · A.
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 1919022                                                          Page 7 of 29
+
+
+The gravity of the dragon G can be expressed as:
+
+                                        G = ρV g = M g,                                    (10)
+
+where g = 9.8N · kg −1 , the density of the dragon ρ = 1 × 103 kg · m−2 .
+   In order to simplify the model, we consider the cross-sectional area of the bone and the
+biological volume have the following relationship:
+                                       √
+                                       3
+                                                √
+                                                2
+                                         V = 10 A                                      (11)
+
+The bones should be strong enough for the dragon to do daily activities:
+
+                                            F ≥ 25G                                        (12)
+
+Using Equations. (9), (10), (11), (12),we can get Equation. (13):
+                                        σ
+                               M ≤(          )3 · ρ = 1.17 × 105 kg                        (13)
+                                      2500ρg
+
+
+3.4.2    Mass Growth Function
+
+   The growth rates of living beings in nature aren’t constant in different states of life. Von
+Bertalanffy [7] proposed the VB Equation to analyze the change of growth rate. It is rea-
+sonable to assume that dragons’ growth also satisfies the VB Equation, so the relationship
+between the dragon’s mass M and time t can be expressed as
+                                  dM
+                                      = 3kM 2/3 (M∞
+                                                  1/3
+                                                      − M 1/3 ),                           (14)
+                                   dt
+where the unit of the time is month.
+    Integrating the Equation (14), we can get the equation 15:
+                                                                1/3
+                              M (t) = [(1 − e−kt )M∞
+                                                   1/3
+                                                       + e−kt M0 ]3 .                      (15)
+
+   The dragons are 10kg when hatched and are 30 ∼ 40kg after a year grow. Using Equation
+(13), we can get
+                    M (0) = 10kg, M (12) = 35kg, M (∞) = 1.2 × 105 kg.
+So the k can be calculated:
+                                           k = 0.0020.
+
+    The growth process of the dragon is shown in the Figure. 3. The line means the rela-
+tionship between the dragon’s mass M and time t; the deeper is the color, the larger is the
+growth rate. So we can know that the dragon grows most fast aged between 30 and 80 years
+old.
+
+
+4       Improved n-population Meta-population Model
+
+   In this section, the dragons are introduced into the ecosystem. We propose an Improved
+n-population Meta-population Model to quantitively estimate the dragon’s influence on
+other populations in a given region.
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 1919022                                                       Page 8 of 29
+
+
+
+
+             Figure 3: The relationship between the dragon’s mass M and time t
+
+4.1    Minimal Area of the Habitat
+
+    The area required to support the three dragons depends on the energy it can provide.
+The energy comes from solar energy which is transformed to chemical energy by the green
+plants during the photosynthesis. The primary productivity P P of a ecosystem denotes the
+rate of the solar energy and the chemical energy that a producer transforms, which is pro-
+portional to the assimilation rate AR of the producer. And net primary productivity N P P is
+the primary productivity taking off the energy consumption in respiratory. We use net pri-
+mary productivity to estimate the sum of the primary productivity, which is proportional to
+the net assimilation rate N AR of the producer. Table. 5 shows the net primary productivity
+per unit area N
+              \ P P in different kinds of ecosystem [8].
+
+               Table 5: Net primary productivity per unit area in ecosystems
+
+          Type of ecosystem       Net primary productivity per unit area (g · m−2 · a−1 )
+                                 Area(106 km2 )     Range              Average
+      Temperate deciduous forest      7.0          600∼2500             1200
+               Desert                18.0           10∼250               90
+              Ice sheet              24.0            0∼10                 3
+
+   Note that in Table. 5, the primary productivity is measured by the mass of consumer. For
+the primary consumers, there is a linear relationship between the mass and the energy. The
+scale coefficient = 1.8 × 107 J/kg.
+    Table. 3 presents the respiration and assimilation rate of each nutrient class, so we can
+calculate the net assimilation rate N AR:
+                              N AR = (1 − Respiration) · AR,
+so the net assimilation rate of primary consumer N ARpc ≈ 20%.
+   The ingestion energy Ein in the Equation (8) comes from the energy from the primary
+consumers, which can be expressed as:
+
+                                  Ein = N
+                                        \ P P · s · N ARpc ,                                (16)
+where s is the minimal area to support the three dragons’ living.
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 1919022                                                                    Page 9 of 29
+
+
+4.2   Tilman n-population Meta-population Model
+
+    We form a model to simulate ecosystem where the dragon will live. We characterize the
+initial ecosystem.
+    The population denotes all the individuals in a given area. However, because of the
+limitation of the geographical conditions, most of populations live in the fragmented habi-
+tats. As the habitats are divided into fragments, the distribution of populations will change
+from continuous to dispersive. Taking spatial structure and dynamics into consideration, we
+define a group of spatially separated populations of the same species as meta-population,
+which interacts at some level [9].
+   The loss and division of the habitat are the major reasons of the population’s extinction.
+To investigate the ecosystem with n kinds of population, Tilman et al. [10] proposed the
+n-population Meta-population Model:
+
+                        dpi
+                            = ci pi (1 − D − Σij=1 pj ) − di pi − Σi−1
+                                                                   j=1 pi ci pj                  (17)
+                        dt
+where i = 1, 2, · · · , n, is the sort according to the population’s competitive ability in the
+community; pi is the habitat-occupancy proportion of population i; ci is the migration rate
+of the population i; di is the mean death rate of the population i; D is the ratio of destroyed
+habitat to total habitat.
+    Equation (17) reveals that coexistence of n kinds of populations is the result of the home-
+ostasis in competitive ability, migration ability and mortality of different kinds of popula-
+tions.
+    The model sorts the population based on the initial habitat-occupancy proportion. In
+other words, the population occupying the biggest area of the habitat is defined as the
+strongest term, which can compete with any weak population. When the area of habitat
+decreases, the strong population will invade the weak population. So the weak population
+is supposed to have a higher migration rate to survive, which is shown in the last part of
+Equation (17) Σi−1
+                j=1 pi ci pj .
+
+    Besides, this model assumes the death rate of each population is equal and both of the
+initial habitat-occupancy proportion p0i and the migration rate ci are given by the geometric
+distribution:
+                                            di = d
+                                       pi |D=0 = q(1 − q)i−1
+                                        ci = di /(1 − q)2i−1
+
+
+4.3   Dragon’s Influence on the Ecosystem
+
+    Finally the dragon is brought into a given region as introduced species, and we will
+estimated its influence on the ecosystem.
+   Once the introduced species appear in the ecosystem, they will decrease the indigenous
+species’ habitat through competition in moisture, nutrients and so on. From mathematical
+point of view, the introduced species can be deemed as the interference in the ecosystem
+which has reached the homeostasis. The effect of the introduced species depends on whether
+the interference can be rapidly magnified.
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 1919022                                                                 Page 10 of 29
+
+
+   According to the Assumption. 5, dragons don’t have any natural enemies, but have
+the strongest competitive ability among the community, so the dragon can be regarded as
+a destructive factor in the ecosystem and the dragon’s living scope can be regarded as the
+destroyed habitat.
+     The minimal area to support a dragon’s living is changing with time, so we set s as s(t).
+It is reasonable that the scope of a dragon’s activity is much larger than s(t). In this paper,
+we set the dragon’s living scope S(t) as:
+
+                                             S(t) = 5s(t).                                     (18)
+
+So the ratio D of destroyed habitat to total habitat can be expressed as:
+
+                                                       S(t)
+                                            D1 (t) =        ,                                  (19)
+                                                        S0
+where S0 is the area of the given region. So the Equation (17) can be written as:
+
+                        dpi              S(t)
+                            = ci pi (1 −      − Σij=1 pj ) − di pi − Σi−1
+                                                                      j=1 pi ci pj             (20)
+                        dt                S0
+
+
+4.4   Human being’ Restoration to the Ecosystem
+
+    The introduction of dragons may cause the destruction to the existing ecosystem, so it is
+necessary for human beings to help reconstruct the environment. In this part, we quanta-
+tively calculate the impact factory µ of human’s conservation.
+    Human beings reconstruct the environment by repairing the habitat that dragons have
+destroyed. However, human beings cannot completely repair the destruction the dragons
+make. We set human beings’ impact factor as µ. Besides, considering the observation, anal-
+ysis and action of human beings have certain hysteresis, we set the time difference between
+dragons’ destruction and human beings’ reconstruction as . So the ratio of destroyed habi-
+tat to the total habitat D can be updated to Equation (21).
+
+                                                                S(t − )
+                                  D2 (t) = µD1 (t − ) = µ                                     (21)
+                                                                  S0
+Note that D2 (t) = 0, t ≤ . So Equation (22) can be expressed as:
+
+                 dpi              S(t)    S(t − )
+                     = ci pi (1 −      +µ          − Σij=1 pj ) − di pi − Σi−1
+                                                                           j=1 pi ci pj        (22)
+                 dt                S0       S0
+
+
+5     Implementation
+
+    Considering the evolution of population and the succession of the community is a long-
+term process, numerical simulation is one of the most effective methods to simulate this
+process. In this section, we simulate the model we proposed above in three regions with
+different kinds of climates.
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 1919022                                                        Page 11 of 29
+
+
+5.1   Solution Method
+
+    The Equation (22) is a first order linear differential equation system, which is hard to
+work out analytical solutions. To solve this problem, we use Matlab to get numerical solu-
+tions. With the help of ode functions in Matlab, we simulated the dragon’s influence to the
+ecosystem under different conditions. The code is present in the Appendix B, C, D, E.
+
+
+5.2   Standard of Measurement
+
+    In this paper, we put forward two measure indices to quantatively estimate dragons’
+influence: the reduction ratio of the habitat-occupancy and the reduction ratio of the popu-
+lation types.
+   The reduction ratio of the habitat-occupancy η is calculated by:
+                                               Σnj=1 pj (t)
+                                      η(t) =                ,
+                                               Σnj=1 pj (0)
+where p0 is the habitat-occupancy of all populations in the ecosystem initially. This index
+shows the amount of the survival living beings when the dragons are introduced into the
+ecosystem, since the habitat-occupancy of all populations is proportional to the amount of
+living beings.
+   The reduction ratio of the population types ξ is calculated by:
+                                              n(t)
+                                         ξ(t) =    ,
+                                                n
+where n0 is the number of the population types initially. This index shows the abundance of
+the survival living beings when the dragons are introduced into the ecosystem.
+
+
+5.3   Basic Parameter Setting
+
+    As with other animals that migrate, dragons might travel to different regions of the world
+with very different climates. In this paper, we simulate the process of the dragon’s growth
+in the temperate deciduous forest (a warm temperate region), desert (an arid region) and ice
+sheet (an arctic region). The features of these regions can be expressed as:
+
+  1. Temperate deciduous forest
+      Temperate deciduous forests are a variety of temperate forest dominated by trees that
+      lose their leaves each year. They are found in areas with warm moist summers and
+      cool winters [11].
+  2. Desert
+      A desert is a barren area of landscape where little precipitation occurs and, conse-
+      quently, living conditions are hostile for plant and animal life. The lack of vegetation
+      exposes the unprotected surface of the ground to the processes of denudation [12].
+  3. Ice sheet
+      An ice sheet, also known as a continental glacier, is a mass of glacial ice that covers
+      surrounding terrain [13].
+
+Given the features above, we set the parameters in different regions as Table. 6.
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 1919022                                                                          Page 12 of 29
+
+
+                          Table 6: Parameter settings in different ecosystems
+
+                      Kind of ecosystems      N
+                                              \ PP                     αr   i  q            d
+                   Temperate deciduous forest 1.200                   0.75 60 0.1          0.02
+                            Desert            0.090                   0.6 30 0.18          0.02
+                           Ice sheet          0.003                   0.3 15 0.3           0.02
+
+
+6       Results and Sensitivity Analyses
+
+6.1      Calculation on the Energy and the Area Requirement
+
+    By the numerical calculation of the computer, we get the Figure. 4. The left one de-
+scribes the area required to support dragons expanding with the weight gain of the dragons.
+The middle one describes the energy intake increasing with the weight gain of the dragons.
+The left one describes the energy expenditure increasing with the weight gain of the drag-
+ons. From the left one, we can see that in different ecosystems the area required has the
+same trend but different the order of magnitude. The energy intake is slightly larger than
+the energy expenditure, which means the energy of dragon assimilation is mainly used for
+metabolic consumption.
+    By calculating, a young dragon weighting 12.9t needs 6.16 × 1010 J energy per month and
+requires at least 1.5 × 106 m2 region to support itself while an adult dragon whose mass is
+79.2t needs 2.4 × 1011 J energy per month and requires at least 5.9 × 106 m2 . To support three
+dragons, the area of the region must be larger than 1.8 × 107 m2 , which equals to 2500 football
+fields.
+
+
+                                               ice sheet     desert     forest
+
+                                        1013
+                                                                                 1012
+        1010
+                                        1012
+
+
+        108
+                                        1011
+
+                                                                                 1010
+        106                             1010
+
+
+                                        109
+           100      102          104      100              102          104         100           102   104
+
+
+
+
+          Figure 4: Calculation on the energy and the area required to support dragons
+
+
+
+6.2      The Dragons’ Influence on the Ecosystem
+
+6.2.1     Influence in Different Ecosystems
+
+   We use the indices we set in Section 5 to quantatively estimate the influence on the
+ecosystem. We present the result in the figures below.
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 1919022                                                     Page 13 of 29
+
+
+   The left part of each figure shows the habitat-occupancy proportion of the population
+which is changing over time. Each line in the left figure represents a population in the
+ecosystem. The pi at t = 0 can show the competition ability of the population i initially.
+In other words, the population with maximum p is the strongest population at first. Once
+pi = 0, it indicates that the population i has extincted. So using the amount of types of
+survival populations, we can predict the abundance of the survival living beings at any
+time.
+    The right part of each figure shows the reduction ratio of the habitat-occupancy which
+is changing over time. This index indicts the amount of the survival living beings when
+dragons are introduced into the ecosystem.
+   Then we analyze the influence of dragons in different environments with different areas
+S0 of the whole habitat, probing into the sensitivity of it.
+   Temperate deciduous forests
+    Figures 5, 6, 7 show the influence in the temperate deciduous forests. In this region,
+dragons need small space to survive. Because of the high abundance of the populations,
+the ecosystem is stable and hardly influenced by dragons. But it takes a long time for the
+ecosystem to recover once destroyed. Dominant populations are much more likely to be
+affected by the dragons than the vulnerable populations. Comparing the three figures, we
+can know that, as the S0 gets larger, the populations are more difficult to be extincted by
+dragons.
+
+
+
+
+Figure 5: Simulation on the habitat-occupancy proportion of the population and the re-
+duction ratio of the habitat-occupancy in temperate deciduous forest (S0 = 3 × 107 ). The
+reduction ratio of the population types ξ(12000) = 83.33%.
+
+
+
+
+Figure 6: Simulation on the habitat-occupancy proportion of the population and the re-
+duction ratio of the habitat-occupancy in temperate deciduous forest (S0 = 8 × 107 ). The
+reduction ratio of the population types ξ(12000) = 96.67%.
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 1919022                                                         Page 14 of 29
+
+
+
+
+Figure 7: Simulation on the habitat-occupancy proportion of the population and the re-
+duction ratio of the habitat-occupancy in temperate deciduous forest (S0 = 1 × 109 ). The
+reduction ratio of the population types ξ(12000) = 100%.
+
+   Desert
+    Figures. 8, 9, 10 show the influence in desert. In this region, the area required is 10 times
+bigger than that in the temperate deciduous forests. In Figures.8 and 10 , we find that only
+the top populations are hugely affected by the dragons while the weak population are not
+seriously affected. In Figure. 9, we find that in the early 2000 years, the status of adjacent
+populations are interchanged. And as the temperate deciduous forest, the extinction proba-
+bility of populations is smaller in larger area.
+
+
+
+
+Figure 8: Simulation on the habitat-occupancy proportion of the population and the re-
+duction ratio of the habitat-occupancy in desert (S0 = 6 × 108 ). The reduction ratio of the
+population types ξ(12000) = 86.67%.
+
+
+
+
+Figure 9: Simulation on the habitat-occupancy proportion of the population and the re-
+duction ratio of the habitat-occupancy in desert (S0 = 1 × 109 ). The reduction ratio of the
+population types ξ(12000) = 93.33%.
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 1919022                                                         Page 15 of 29
+
+
+
+
+Figure 10: Simulation on the habitat-occupancy proportion of the population and the re-
+duction ratio of the habitat-occupancy in desert (S0 = 1 × 1010 ). The reduction ratio of the
+population types ξ(12000) = 100%.
+
+   Ice sheet
+    Figures. 11, 12, 13 show the influence in ice sheet. In this region, the dragons need largest
+space to survive among all kinds of regions. The ecosystem is easily to collapse, for example,
+as shown in Figure. 11, the reduction ratio η of the population types at the t = 12000month is
+0, which means all populations extinct because of the dragons. However, it takes little time
+for the ecosystem to reach stable state.
+
+
+
+
+Figure 11: Simulation on the habitat-occupancy proportion of the population and the reduc-
+tion ratio of the habitat-occupancy in ice sheet (S0 = 2 × 1010 ). The reduction ratio of the
+population types ξ(12000) = 0%.
+
+
+
+
+Figure 12: Simulation on the habitat-occupancy proportion of the population and the reduc-
+tion ratio of the habitat-occupancy in ice sheet (S0 = 3 × 1010 ). The reduction ratio of the
+population types ξ(12000) = 86.67%.
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 1919022                                                        Page 16 of 29
+
+
+
+
+Figure 13: Simulation on the habitat-occupancy proportion of the population and the reduc-
+tion ratio of the habitat-occupancy in ice sheet (S0 = 5 × 1011 ). The reduction ratio of the
+population types ξ(12000) = 100%.
+
+6.2.2    The Law of Ecological Response
+
+    In the n-population meta-population model, different populations have different responses
+to the dragon. Although the dynamic model is very complicated, there are laws we can sum-
+marize.
+   By further analyzing the phenomenon we observe above, we explore two laws:
+
+   1. Strong population extinction
+        The relaxation time of the ecosystem is very long; the time scale is 103 a. When n-
+        population meta-population model reachs equilibrium, habitat-occupancy proportion
+        of the populations pei satisfies this condition dpi /dt = 0. It means the steady state
+        solution is:
+                                                                                 c
+                            p̂i if p̂i > 0 [p̂i = 1 − D1 − mcii − Σij=1 pej (1 + cji )]
+                          
+                      e
+                     pi =                                                                 (23)
+                            0 if p̂i ≤ 0.
+
+        When
+                                           D1 ≥ 1 − mi /ci ,                               (24)
+        the top i populations will go extinction. The Equation (24) is the threshold condition
+        of the first kind of extinction.
+
+   2. Odd-even Symmetry Law
+        We analyze the dynamics characteristics in the ecosystem when the dragons are intro-
+        duced. As shown in the Figure. , after a long-time evolving and developing, the sort of
+        the populations follow the Odd-even Symmetry Law: if the number of the populations
+        extincting is odd, the populations with even number will eventually evolve into strong
+        populations; If the number of the populations extincting is odd, the populations with
+        even number will eventually evolve into strong populations.
+
+
+6.3     Human Beings’ Efforts on Environment Reconstruction
+
+   After considering the human beings’ effort on environment reconstruction used Equation
+(22), the populations’ changes are shown in the Figures. 14, 15, 16 and 17. Our simulations
+are made in the temperate deciduous forest, and we will probe into the sensitivity of the
+parameter  to analyze the impact of the hysteretic time.
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 1919022                                                     Page 17 of 29
+
+
+    Figure. 15 shows the ecosystem without human beings’ reconstruction. We set incremen-
+tal µ in Figures. 15 and 16. As human beings enhance the reconstruction in the environment,
+the probability for populations grows. We set incremental  in Figures. 16 and 17, which
+shows the timely reconstruction is more efficient.
+   We summarize the influence of the human beings’ reconstruction:
+
+  1. A small amount of human beings’ help can save most of the populations, so it is worth
+     to reconstruct the environment .
+  2. The more the human beings repair the habitat, the better the ecosystem will recover.
+  3. The more timely the human beings repair the habitat, the faster the ecosystem will
+     recover.
+  4. Though the ecosystem will be unstable, human beings can still save a number of en-
+     dangered populations long time after the destruction done by the dragon.
+
+   Through the analysis of human beings’ reconstruction, there are the specific measures to
+reconstruct the environment which is influenced by dragons.
+
+
+
+
+Figure 14: Simulation on the habitat-occupancy proportion of the population and the reduc-
+tion ratio of the habitat-occupancy in temperate deciduous forest without human beings’
+effort (S0 = 2.5 × 107 ). The reduction ratio of the population types ξ(12000) = 56.67%.
+
+
+
+
+Figure 15: Simulation on the habitat-occupancy proportion of the population and the re-
+duction ratio of the habitat-occupancy in temperate deciduous forest within human be-
+ings’ effort (S0 = 2.5 × 107 , µ = 0.4,  = 12). The reduction ratio of the population types
+ξ(12000) = 93.33%.
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 1919022                                                      Page 18 of 29
+
+
+
+
+Figure 16: Simulation on the habitat-occupancy proportion of the population and the re-
+duction ratio of the habitat-occupancy in temperate deciduous forest within human be-
+ings’ effort (S0 = 2.5 × 107 , µ = 0.8,  = 12). The reduction ratio of the population types
+ξ(12000) = 98.33%.
+
+
+
+
+Figure 17: Simulation on the habitat-occupancy proportion of the population and the re-
+duction ratio of the habitat-occupancy in temperate deciduous forest within human beings’
+effort (S0 = 2.5 × 107 , µ = 0.8,  = 600). The reduction ratio of the population types
+ξ(12000) = 91.67%.
+
+    1. Human beings should establish the monitoring system for biodiversity in the given
+       area. The basic monitoring methods include general investigation, taking photographs
+       at the fixed points and so on [14].
+    2. Human beings should introduce native species which extinct because of the dragons’
+       invasion to keep the biodiversity in the ecosystem.
+    3. For the area that has been seriously damaged by dragons, human beings should change
+       the physical environment for the ecosystem. For example, human beings can add soil,
+       nutrients and moisture to the land burned by dragons.
+    4. Human beings can properly provide for the dragons, offering livestock as dragons’
+       food sources, which can reduce the influence of dragons’ predation.
+
+
+7     Strengths and Weaknesses
+
+7.1    Strengths
+    1. We reference both data of the real animals and descriptions in the fictions to assume
+       the dragon’s characteristics, making them reasonable and scientific.
+
+
+=== PHYSICAL PAGE 22 ===
+Team # 1919022                                                     Page 19 of 29
+
+
+    2. Our model adequately considers the influence between different populations in the
+       ecosystem, which can be a reference for the game of ecology in the real world.
+
+    3. Our model can simulate a long-time developing process of the ecosystem, predicting
+       the population types and the amount of living beings at any time point.
+
+    4. The parameters in our model can be adjusted according to the environment, so the
+       model can be applied to different kinds of ecosystem.
+
+
+7.2    Weaknesses
+    1. To simulate the ecosystem in nature with more than 106 kinds of populations, the
+       model’s computation will be large.
+
+    2. Although our model considers the differences in the different regions, we ignore the
+       seasonal variation in the same locality.
+
+
+8     Conclusion
+
+    Our paper provides the 1 + n Meta-population Model combined by two models to effi-
+ciently simulate the growth of dragons and their influence on the ecosystem. The Growth
+Model Based on Energy Flow is generated to simulate the growing process of a dragon
+in the food chain. Then we proposed Improved n-population Meta-population Model to
+quantitively estimate the dragons’ influence on the ecosystem. We apply the models to the
+different kinds of environment including temperate deciduous forest, desert and ice sheet.
+calculating the energy expenditure and intake of dragons and area required to support the
+dragons. We also simulate the dragons’ influence on other populations in the ecosystem
+and discuss the ecological response. Finally, we analyze the human beings’ effect on envi-
+ronment reconstruction and provide some specific measures.
+
+
+=== PHYSICAL PAGE 23 ===
+Team # 1919022                                                        Page 20 of 29
+
+
+Dear George Martin,
+   As loyal readers of A Song of Ice and Fire who have deep interest in the dragons
+appearing in the fiction, we would like to consider these three fictional dragons
+are living today. We form two models dubbed as Growth Model and Improved
+n-population Meta-population Model to simulate the dragons’ lives in the real
+world. And we get interesting and meaningful results, which may help to set
+more scientific assumptions about dragons’ characteristics in your fictions.
+   At first, we discuss the growth process of the dragon, which determines the
+body size and image characteristics of the dragon. The growth rate of dragons
+doesn’t keep constant during different states of lives. According our calculation,
+the dragon grows most fast aged between 30 and 80 years old, which is the pu-
+berty of the dragon; then the dragon reaches an adult age and its growth rate
+will gradually slow down.
+   Although dragons are virtual organisms, the characteristics of the dragons
+conform to the physical and biological conditions. Due to the current global
+environment, the dragon’s body size has certain upper bound. In other words,
+the dragon cannot grow indefinitely. Referencing the data of the real animals, we
+build a physical model considering the gravity affection and calculate the upper
+bound of dragon’s mass is 1.17 × 105 kg, equalling 30 Asian elephants.
+    Then we calculate the energy intake and energy expenditure of the dragon,
+by which we can analyze the scope of a dragon’s activity. We propose a Growth
+Model based energy flow to quantatively estimate the amount of energy. In our
+calculation, an adult dragon must eat 480 sheep weighting 25kg.
+   Besides, it is necessary to reasonably plan the scope of a dragon’s activity so
+that the size of cities can be set more scientifically. In our model, a young dragon
+weighting 12.9t requires at least 1.5 × 106 m2 region to support itself while an
+adult dragon whose mass is 79.2t requires at least 5.9 × 106 m2 . So to support
+three dragons, the area of the region must be larger than 1.8 × 107 m2 , which is
+equal to 2500 football field.
+    What’s more, we propose an improved n-population meta-population model
+to simulation the dragons’ influence on the ecosystem during the given time.
+Once the introduced species appear in the ecosystem, they will decrease the in-
+digenous species’ habitat through competition in moisture, nutrients and so on.
+Dragons don’t have any natural enemies, but have the strongest competitive abil-
+ity among the community. Since there is no competitor, dragons may cause great
+damage to the local ecological. They may lead to the extinction of the local pop-
+ulations.
+    We analyze the influence of the dragons in temperate deciduous forests, desert
+and ice sheet. These are the typical places that the dragons have lived in the fic-
+tion. Our simulation result shows that the dragons struggle to live in the ice
+sheet. So it is reasonable to properly weaken the dragons’ power in the ice sheet.
+Besides, in our model, the larger habitat the dragons have, the less damage they
+
+
+=== PHYSICAL PAGE 24 ===
+Team # 1919022                                                       Page 21 of 29
+
+
+will do to ecological environment. So in the novel, the dragons are supposed to
+have a wider range of activities.
+    We also estimate the human beings’ effort in our model. In fact, if people can
+offer food to dragons, the dragons can live longer. It is of strategical importance
+to Daenerys Targaryen.
+     Thanks for taking your time out of your busy schedule to read my letter. I
+hope my advice can help and your new season of television series will make a
+hit.
+                                                                   Yours sincerely
+                                                                    Team 1919022
+
+
+=== PHYSICAL PAGE 25 ===
+Team # 1919022                                                       Page 22 of 29
+
+
+References
+
+ [1] P F Verhulst. Notice sur la loi que la population suit dans son accroissement.
+     correspondance mathematique et physique publiee par a quetelet, brussels.
+     Quételet, 10:113–121, 01 1838.
+
+ [2] A J. Lotka. The elements of physical biology. Baltimore: Williams and Witkins,
+     01 1925.
+
+ [3] I Hanski. Patch-occupancy dynamics in fragmented landscapes. Trends in
+     Ecology Evolution, 9(4):131–135, 1994.
+
+ [4] M Kleiber. Body size and metabolic rate. Physiological Reviews, 27(4):511–
+     541, 1947.
+
+ [5] Schmidt-Nielsen. Locomotion: energy cost of swimming, flying, and run-
+     ning. Science, 177(4045):222–8, 1972.
+
+ [6] Eugene P. Odum. Fundamentals of Ecology. 1971.
+
+ [7] Troy Day and Peter D. Taylor. Von bertalanffy’s growth equation should
+     not be used to model age and size at maturity. The American Naturalist,
+     149(2):381–393, 1997.
+
+ [8] R H. Whittaker. A criticism of the plant association and climatic climax
+     concepts. Northwest Sci., 25, 01 1951.
+
+ [9] Ilkka Hanski. Hanski i. metapopulation dynamics. nature 396: 41-49. Na-
+     ture, 396:41–49, 11 1998.
+
+[10] David Tilman. Competition and biodiversity in spatially structured habi-
+     tats. Ecology, 75(1):2–16, 1994.
+
+[11] Wikipedia. Temperate deciduous forest. https://en.wikipedia.org/
+     wiki/Temperate_deciduous_forest.
+
+[12] Wikipedia. Desert. https://en.wikipedia.org/wiki/Desert.
+
+[13] Wikipedia. Ice sheet. https://en.wikipedia.org/wiki/Ice_sheet.
+
+[14] Richard Primack. Essentials of conservation biology / richard b. primack.
+     SERBIULA (sistema Librum 2.0), 01 2019.
+
+
+=== PHYSICAL PAGE 26 ===
+Team # 1919022                                                         Page 23 of 29
+
+
+
+Appendices
+Appendix A           Metabolic Rate
+
+   The metabolic rates of different kinds of birds are shown in the Table. 7.
+              Table 7: Metabolic rate in rest state and action state
+
+                                                Metabolic rate
+                 Flying animals      Body       (cal·g −1 ·hr−1 )
+                                   weight (g)
+                                                Rest Action
+                 Hummingbird            3       14.3       204
+                  Budgerigar           35       15.8       105
+                   Sparrow             45       13.2       101
+                   sparrow             62       11.7        97
+                   Coturnix            83        11         90
+                  Gyrfalcon            90        3.8        94
+                     Gull             300        7.3        54
+                    Pigeon            448        7.2        58
+                    Pigeon            621        6.3        51
+                     Eagle            1013      5.9         47
+                  Gyrfalcon           2029       4.9        39
+                  Gyrfalcon           2057       4.9        36
+
+
+
+
+Appendix B           Energy-weight Regression Code
+
+   energyWeightRegression.m
+clear,clc;
+f1 = figure;
+hold all;
+body_weight_1 = [35,45,62,83,90,300,448,621,1013,2029,2057];
+action_q = [105,101,97,90,94,54,58,51,47,39,36];
+log_action_q = log(action_q);
+log_body_weight_1=log(body_weight_1);
+p1 = polyfit(log_body_weight_1,log_action_q,1);
+rest_line = plot(log_body_weight_1,
+   polyval(p1,log_body_weight_1),
+   ’LineWidth’,3,’Color’,[0.98,0.80,0.71]);
+rest_dot = plot(log_body_weight_1,log_action_q,’.’,
+   ’MarkerSize’,18,’Color’,[0.85,0.33,0.10]);
+xlabel(’$\ln{m}$’,’Interpreter’,’latex’,’FontSize’,15);
+ylabel(’$\ln{\hat{q}}$’,’Interpreter’,’latex’,’FontSize’,15);
+text(4.20,4.75,
+   {’$\ln{\hat{q_a}}=-0.25\ln{M}+5.6$’},
+   ’Interpreter’,’latex’,’FontSize’,15);
+body_weight_2 = [35,45,62,83,300,448,621,1013,2029,2057];
+rest_q=[15.8,13.2,11.7,11,7.3,7.2,6.3,5.9,4.9,4.9];
+log_rest_q = log(rest_q);
+log_body_weight_2=log(body_weight_2);
+p2 = polyfit(log_body_weight_2,log_rest_q,1);
+action_line =
+   plot(log_body_weight_2,polyval(p2,log_body_weight_2),
+
+
+=== PHYSICAL PAGE 27 ===
+Team # 1919022                                        Page 24 of 29
+
+
+   ’LineWidth’,3,’Color’,[0.65,0.85,0.98]);
+action_dot = plot(log_body_weight_2,log_rest_q,’.’,
+   ’MarkerSize’,18,’Color’,[0.00,0.45,0.74]);
+xlabel(’$\ln{m}$’,’Interpreter’,’latex’,’FontSize’,15);
+ylabel(’$\ln{\hat{q}}$’,’Interpreter’,’latex’,’FontSize’,15);
+text(4.20,2.65,{’$\ln{\hat{q_r}}=-0.25\ln{M}+3.6$’},
+   ’Interpreter’,’latex’,’FontSize’,15);
+legend([rest_line, action_line],’action state’,’rest
+   state’,’FontSize’,12)
+set(gcf,’position’,[0,0,600,337.5])
+display(p1)
+display(p2)
+% get(gcf,’position’)
+
+
+
+
+Appendix C          Weight Calculation Code
+
+   weight.m
+function dw_dt=weight(t,w,k)
+   dw_dt = 3*k*w^(2/3)*((120*10^3)^(1/3)-w^(1/3));
+
+   calcWeightFunc.m
+clear,clc;
+max_t = 4000;
+init_w = 10;
+min_diff = 100;
+min_diff_k = 0;
+max_growth_rate = 0;
+for i = 0.0001:0.00001:0.008
+   k = i;
+   [~,w]=ode45(@(t,w) weight(t,w,k),[0,12],init_w);
+   % [~,ind]=min(abs(t-12));
+   tmp = abs(w(end)-35);
+   if tmp < min_diff
+      min_diff = tmp;
+      min_diff_k = k;
+   end
+end
+[t,w]=ode45(@(t,w) weight(t,w,min_diff_k),[0,max_t],init_w);
+display(min_diff_k)
+display(min_diff)
+
+   weightFigure.m
+clear,clc;
+mass_init = 10;
+mass_inf = 120*10^3;
+max_t = 4000;
+k = 0.002;
+% syms t;
+% m_t = ((1-exp(1)^(-k*t))*mass_inf^(1/3)+
+   exp(1)^(-k*t)*mass_init^(1/3))^3;
+% dm_dt = diff(m_t,t);
+% m_t = @(t) ...
+% dm_dt = @(t) ...
+
+
+=== PHYSICAL PAGE 28 ===
+Team # 1919022                                        Page 25 of 29
+
+
+t = 0:1:max_t;
+m = arrayfun(m_t,t);
+max_dm_dt = max(arrayfun(dm_dt,t));
+f1 = figure;
+hold on;
+blue_color = [0,0.45,0.74];
+white_color = [1,1,1];
+[~,arr_size] = size(t);
+for i = 1:arr_size
+   ly = [0,m_t(t(i))];
+   lx = [t(i),t(i)];
+   alpha = dm_dt(t(i))/max_dm_dt;
+   tmp_color = blue_color.*alpha + white_color.*(1-alpha);
+   plot(lx,ly,’-’,’Color’,tmp_color);
+end
+plot(t,m,’-’,’LineWidth’,1.5,’Color’,blue_color.*0.8);
+map = zeros(101,3);
+for i = 1:101
+   alpha = 0.01*(i - 1);
+   map(i,:) = blue_color.*alpha + white_color.*(1-alpha);
+end
+colormap(map);
+tks = 0:10:max_dm_dt;
+[~,tick_size] = size(tks);
+tl = cell(1,tick_size);
+for i = 1:tick_size
+   tl(1,i) = {num2str(tks(i))};
+end
+clb = colorbar(’Ticks’,0:(10/max_dm_dt):1, ’TickLabels’,tl);
+xlabel(’$t$ / month’,’Interpreter’,’latex’,’FontSize’,15);
+ylabel(’$M$ / kg’,’Interpreter’,’latex’,’FontSize’,15);
+set(gcf,’position’,[329,202,560,300])
+
+
+
+
+Appendix D        Population Calculation Code
+
+   population.m
+function dp_dt=population(t,p,d,z,e,c,m,max_i)
+   dp_dt = zeros(max_i,1);
+   for i = 1:max_i
+      sum_a = 0;
+      sum_b = 0;
+      for j = 1:i
+         sum_a = sum_a + p(j);
+      end
+      for j = 1:(i - 1)
+         sum_b = sum_b + p(i)*c(j)*p(j);
+      end
+      if t-e<0
+         dp_dt(i,1) = c(i)*p(i)*(1-d(t)-sum_a) - m(i)*p(i) -
+            sum_b;
+      else
+         dp_dt(i,1) = c(i)*p(i)*(1-d(t)+z*d(t-e)-sum_a) -
+            m(i)*p(i) - sum_b;
+      end
+   end
+
+   evalPopulationChange.m
+clear,clc;
+max_i = 15;
+max_t = 12000;
+
+
+=== PHYSICAL PAGE 29 ===
+Team # 1919022                                         Page 26 of 29
+
+
+lbd = 20000000;
+mass_init = 10;
+mass_inf = 120*10^3;
+k = 0.002;
+pp = 0.003;
+ar = 0.3;
+z = 0;
+e = 12;
+s = 2e10;
+syms t;
+m_t = ((1-exp(1)^(-k*t))*mass_inf^(1/3)+
+   exp(1)^(-k*t)*mass_init^(1/3))^3;
+dm_dt = diff(m_t,t);
+% Change: func_d = @(t) blah_blah_blah(copied text)
+% func_d = 3*(lbd*dm_dt +
+    m_t^(3/4)*(36.6*ar+(1-ar)*270.4)*5.35e5)/(pp*33930)/s
+func_d = @(t) ...;
+input_d = zeros(max_t,1);
+for ti = 1:max_t
+   input_d(ti) = func_d(ti);
+end
+q = 0.3;
+m = ones(max_i,1);
+m = m.*0.02;
+c = zeros(max_i,1);
+init_p = zeros(max_i,1);
+for i = 1:max_i
+   init_p(i) = q*(1-q)^(i-1);
+   c(i) = m(i) / (1-q)^(2*i-1);
+end
+[t,p]=ode45(@(t,p)
+   population(t,p,func_d,z,e,c,m,max_i),[0,max_t],init_p);
+f = figure(2);
+subplot(’Position’,[0.1 0.2 0.5 0.7]);
+% axis([0,max_t,0,max(max(p))])
+hold on;
+for j = 1:max_i
+   plot(t,p(:,j),’-’);
+end
+xlabel(’$t$ / month’,’Interpreter’,’latex’,’FontSize’,15);
+ylabel(’$p_{i}$’,’Interpreter’,’latex’,’FontSize’,15);
+subplot(’Position’,[0.7 0.2 0.25 0.7]);
+% axis([0,max_t,0,1.1])
+[t_size,~] = size(t);
+sum_pi_t0 = sum(p(1,:));
+y = zeros(t_size,1);
+for j = 1:t_size
+   y(j) = sum(p(j,:))/sum_pi_t0;
+end
+semilogx(t,y,’-’);
+xlabel(’$t$ / month’,’Interpreter’,’latex’,’FontSize’,15);
+ylabel(’$\eta$’,’Interpreter’,’latex’,’FontSize’,15);
+set(gcf,’position’,[360 265 553 353])
+count = 0;
+for i = 1:max_i
+   if p(end,i) < 10e-5
+      count = count + 1;
+   end
+end
+count/max_i
+% [t,p]=ode45(@(t,p)
+   population(t,p,func_d,z,e,c,m,max_i),[0,max_t],init_p);
+%
+% subplot(2,2,1);
+% hold on;
+
+
+=== PHYSICAL PAGE 30 ===
+Team # 1919022                                           Page 27 of 29
+
+
+% for j = 1:max_i
+%   plot(t,p(:,j),’-’);
+% end
+%
+% subplot(2,2,2);
+% [t_size,~] = size(t);
+% sum_pi_t0 = sum(p(1,:));
+% y = zeros(t_size,1);
+% for j = 1:t_size
+%   y(j) = sum(p(j,:))/sum_pi_t0;
+% end
+% semilogx(t,y,’-’);
+
+
+
+
+Appendix E        Space Energy Analysis Code
+
+   functionDE.m
+clear,clc;
+lbd = 20000000;
+mass_init = 10;
+mass_inf = 120*10^3;
+k = 0.002;
+syms t;
+m_t = ((1-exp(1)^(-k*t))*mass_inf^(1/3)+
+exp(1)^(-k*t)*mass_init^(1/3))^3;
+dm_dt = diff(m_t,t);
+pp = 1.2;
+ar = 0.75;
+func_d1 = 3*(lbd*dm_dt +
+   m_t^(3/4)*(36.6*ar+(1-ar)*270.4)*5.35e5)/(pp*33930)
+pp = 0.09;
+ar = 0.6;
+func_d2 = 3*(lbd*dm_dt +
+   m_t^(3/4)*(36.6*ar+(1-ar)*270.4)*5.35e5)/(pp*33930)
+pp = 0.003;
+ar = 0.3;
+func_d3 = 3*(lbd*dm_dt +
+   m_t^(3/4)*(36.6*ar+(1-ar)*270.4)*5.35e5)/(pp*33930)
+assimi_rate = 0.5655;
+lbd = 20000000;
+mass_init = 10;
+mass_inf = 120*10^3;
+k = 0.002;
+syms t;
+m_t = ((1-exp(1)^(-k*t))*mass_inf^(1/3)+
+exp(1)^(-k*t)*mass_init^(1/3))^3;
+dm_dt = diff(m_t,t);
+ar = 0.75;
+e_exp1 = (ar*36.6+(1-ar)*270.4)*5.35e5*m_t^(3/4)*3
+e_in1 = (e_exp1 + 3*lbd*dm_dt)/assimi_rate
+ar = 0.6;
+e_exp2 = (ar*36.6+(1-ar)*270.4)*5.35e5*m_t^(3/4)*3
+e_in2 = (e_exp2 + 3*lbd*dm_dt)/assimi_rate
+ar = 0.3;
+e_exp3 = (ar*36.6+(1-ar)*270.4)*5.35e5*m_t^(3/4)*3
+e_in3 = (e_exp3 + 3*lbd*dm_dt)/assimi_rate
+
+
+=== PHYSICAL PAGE 31 ===
+Team # 1919022                                        Page 28 of 29
+
+
+   calcDragonSpaceAndEnergy.m
+clear,clc;
+max_t = 4000;
+blue = [0.00,0.45,0.74];
+green = [0.47,0.67,0.19];
+yellow = [0.93,0.69,0.13];
+func_d1 = @(t) ...
+func_d2 = @(t) ...
+func_d3 = @(t) ...
+d = zeros(max_t,1);
+e_exp1 = @(t) ...
+e_in1 = @(t) ...
+e_exp2 = @(t) ...
+e_in2 = @(t) ...
+e_exp3 = @(t) ...
+e_in3 = @(t) ...
+e_in = zeros(max_t,1);
+e_exp = zeros(max_t,1);
+f = figure(3);
+subplot(’Position’,[0.07 0.2 0.2 0.5]);
+for ti = 1:max_t
+   d(ti) = func_d3(ti);
+end
+loglog(1:max_t,d,’Color’,blue,’LineWidth’,1.5);
+hold on;
+for ti = 1:max_t
+   d(ti) = func_d2(ti);
+end
+loglog(1:max_t,d,’Color’,yellow,’LineWidth’,1.5);
+for ti = 1:max_t
+   d(ti) = func_d1(ti);
+end
+loglog(1:max_t,d,’Color’,green,’LineWidth’,1.5);
+axis([0,10e3,0,10e10])
+set(gca,’FontSize’,12);
+xlabel(’$t$ / month’,’Interpreter’,’latex’,’FontSize’,15);
+ylabel(’$S$ / $m^{2}$’,’Interpreter’,’latex’,’FontSize’,15);
+legend(’ice sheet’,’desert’,’forest’,’Location’,’northoutside’);
+subplot(’Position’,[0.35 0.2 0.2 0.5]);
+for ti = 1:max_t
+   e_in(ti) = e_in3(ti);
+end
+loglog(1:max_t,e_in,’Color’,blue,’LineWidth’,1.5);
+hold on;
+for ti = 1:max_t
+   e_in(ti) = e_in2(ti);
+end
+loglog(1:max_t,e_in,’Color’,yellow,’LineWidth’,1.5);
+for ti = 1:max_t
+   e_in(ti) = e_in1(ti);
+end
+loglog(1:max_t,e_in,’Color’,green,’LineWidth’,1.5);
+set(gca,’FontSize’,12);
+xlabel(’$t$ / month’,’Interpreter’,’latex’,’FontSize’,15);
+ylabel(’$$\frac{\mathrm{d}E_{in}}{\mathrm{d}t}$$ / $J \cdot
+    month^{-1}$’,’Interpreter’,’latex’,’FontSize’,15);
+subplot(’Position’,[0.63 0.2 0.2 0.5]);
+for ti = 1:max_t
+   e_exp(ti) = e_exp3(ti);
+end
+loglog(1:max_t,e_exp,’Color’,blue,’LineWidth’,1.5);
+hold on;
+for ti = 1:max_t
+   e_exp(ti) = e_exp2(ti);
+
+
+=== PHYSICAL PAGE 32 ===
+Team # 1919022                                        Page 29 of 29
+
+
+end
+loglog(1:max_t,e_exp,’Color’,yellow,’LineWidth’,1.5);
+for ti = 1:max_t
+   e_exp(ti) = e_exp1(ti);
+end
+loglog(1:max_t,e_exp,’Color’,green,’LineWidth’,1.5);
+set(gca,’FontSize’,12);
+xlabel(’$t$ / month’,’Interpreter’,’latex’,’FontSize’,15);
+ylabel(’$$\frac{\mathrm{d}E_{exp}}{\mathrm{d}t}$$ $J \cdot
+    month^{-1}$’,’Interpreter’,’latex’,’FontSize’,15);
+set(gcf,’position’,[15.7,209.7,1258,333.3])

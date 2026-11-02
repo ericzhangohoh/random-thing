@@ -1,0 +1,795 @@
+=== PHYSICAL PAGE 1 ===
+One, Two Step
+
+Control #31
+February 7, 2005
+
+Abstract
+
+The Saluda River has spent some of its best years calmly flowing from
+Murray Lake, where the hydroelectric dam, which formed the lake, con-
+trols the initial conditions which control its path downstream towards
+Columbia, South Carolina. Although the power retrieved from the dam
+at Murray Lake is significantly large, there are powers even greater and
+less controlled. We set out to determine the effects of a potential flood
+caused by an earthquake breaching the dam. Floods are dynamic events,
+drastically altering the equilibrium of an environment. Fluid flow, and
+in particular, unsteady fluid flow is a complicated phenomenon to cal-
+culate due the the complex hyperbolic relationship between the spacial
+and temporal energy components within the system. In order to model a
+flood caused by the dam at Murray Lake breaching during an earthquake,
+we model two boundary conditions. We initialize the spacial component
+through modeling the geometry of the river and the surrounding area.
+The temporal boundary condition is modeled through the behavior over
+time of the dam breaching due to the earthquake. This model allows
+us to determine the initial quantity and rate that water flows out of the
+dam breach. We construct flood models using both first and second or-
+der numerical approximations to solve the unsteady flow equations which
+govern the dynamics of a sudden, large flow changes in a open channel.
+Our model allows us to approximate the height and velocity of water at
+any point along the river. Using these we are able to determine the back
+flow into Rawls Creek, a small creek which flows into the Saluda a short
+distance from the dam. Using the elevation of the flood water, the velocity
+as it approaches Columbia and energy conservation, we are able to show
+that under the constraints of our flood model, the river will not reach the
+Capitol building.
+
+
+=== PHYSICAL PAGE 2 ===
+Page 2 of 15
+
+Contents
+
+1
+
+Introduction
+
+1.1 Outline of Approach .........-....00..
+
+Modeling River Channel
+
+Modeling Dam Breach Due to an Earthquake
+
+3.1 Murray Lake Dimensions ..............
+3.2. Reality Check. 2... ............-04.
+3.3. Modeling the Boundary Data ............
+
+3.3.1 Approximating the Hydrograph.......
+
+Modeling the Flooding Downstream
+
+4.1 Mathematical Model... ...........0..
+4.2 Numerical Approximation Schemes .........
+4.2.1 The Two Step Flood Model. ........
+4.2.2 The One Step Flood Model .........
+
+Getting Results
+
+5.1 Rawls Creek. 2.2... ee ee
+5.2 The State Capitol ..............005.
+5.2.1 Simple Estimates... ............
+5.2.2 Implications in Our Model... . 2.2... .
+
+Control #31
+
+
+=== PHYSICAL PAGE 3 ===
+Page 3 of 15 Control #31
+
+1 Introduction
+
+Hydroelectric dams provide electricity to millions of people everyday. Com-
+munities and cities thrive in the surrounding areas of these dams due to the
+accessibility of power in these times of high and rapid energy consumption.
+Unfortunately, the hydroelectric dam is not an infallible system. As popula-
+tion density increases in the surrounding area of the dam, it is important to
+have a detailed analysis of the potential flooding due to dam breaches. This
+instructs the development of clear and efficient evacuation plans, and informs
+the possibility of preventing or controlling the ensuing damage.
+
+Although there are many ways dam failure can occur, some of the most
+devastating and sudden effects come from natural disasters such as earthquakes.
+The capitol city of South Carolina rests comfortable at 16 km [1] from the 50,000
+acre Murray Lake, a byproduct of the construction of a large earthen dam of
+the Salad River in the 1930’s. In the case of a breach in the dam due to an
+earthquake, we want to predict when the wave will hit downstream locations,
+how fast it will travel, how deep the water will be and what the spread of the
+flood will be.
+
+1.1 Outline of Approach
+
+e Construct a geometric model of the river channel mapping the topograph-
+ical characteristic utilizing a piecewise linear schematic for both the shape
+of river banks and the riverbed structure by taking cross-sectional data at
+various grid points of pertinent character along the river.
+
+e We model an earthquake breach in an earthen dam. This allows us to
+calculate the maximal flow rate, and compute discharge from the breach.
+
+e Determine a hydrograph of the dam breach (a graphical representation
+of the flood discharge with respect to time for a particular point on a
+stream or river).
+
+e Model Fluid Dynamics of the flood using dynamic routing, a method of
+hydraulic flow routing based on the solution of the Saint- Venant Equations
+to compute the changes of discharge and stage with respect to time at
+various locations along a stream.
+
+e Utilizing hydrograph data, we determine the floodplain— downstream
+areas inundated with water. We then calculate the expected the depth
+and distance at which flood water inundates Rawl Creek.
+
+e Using our flood model we determine the initial conditions necessary for
+water to reach the Capitol building, which sits atop a hill in Columbia,
+South Carolina.
+
+
+=== PHYSICAL PAGE 4 ===
+Page 4 of 15 Control #31
+
+2 Modeling River Channel
+
+In order to route the flood water, we must first have a model of the the river
+channel. Utilizing topographical maps [1], MS paint, a straight edge and some
+help from Matlab, we were able to formulate an interpolated geometric model of
+the area directly surrounding the river. At various distance intervals depending
+on important characteristics— large hills, valleys, locations of concurrent inflows—
+we take cross sectional data, measuring an approximate average slope for various
+points on either side of the riverbank.
+
+Figure 1: Our model of the river valley. Height above normal river location is
+given in feet.
+
+e Simplification: At each cross section along the Saluda River, we construct
+a piecewise linear slope on either side of the existent river. We then create an
+interpolated river system model by assuming linearity between cross sectional
+areas. This is a useful and necessary simplification as we could find no numerical
+data on the geometry of the river channel and did not possess the funds or
+manpower necessary to collect such data. Our piecewise linear interpolation
+allows us to calculate the cross sectional area and depth at any point along the
+river.
+
+Assumptions about the Geometry of the River:
+
+e We assume that the surface roughness coefficients are uniform.
+
+e The geometry of the river is fixed, i.e., during the flood, no erosion
+occurs. This allows us to utilize flow rates in order to compute cross
+sectional area. This in turn tells us the height of the water since the
+relationship between cross-sectional area and water depth is fixed as long
+as we assume no erosion occurs. This is also a good assumption so that
+we may assume that the viscosity of the flood water is uniform. The
+unavailability of sediment data, also makes this a reasonable assumption.
+
+e We assume that the overall slope down the river to be constant. The
+topological map showed a difference of elevation between the dam and the
+
+
+=== PHYSICAL PAGE 5 ===
+Page 5 of 15 Control #31
+
+Capitol Building of fifty feet, which appears by eye to be distributed evenly
+over the 16 km trek downstream. Since this grade is so shallow, and the
+kinetic energy of the flood water so great in comparison, we may assume
+that the potential due to gravity is relatively negligible in comparison to
+the dynamics of the breach discharge that no significant data is lost in
+assuming uniform grade.
+
+e We assume that the curvature of the river is negligible. Both of our dy-
+namic routing methods involve a 1-dimensional flow analysis, thus curva-
+ture is unimportant.
+
+e We ignore the effects of the two bridges that cross the Saluda river in
+order to simplify the problem.
+
+3 Modeling Dam Breach Due to an Earthquake
+
+The simplest model for dynamical routing of a flood would assume a steady
+state discharge. After a dam breach, the volume of water flowing out is so large
+in comparison to the area it flows out of, it seems reasonable for water to flow
+at a constant rate for some time.
+
+However, this is equivalent to assuming that the dam breaks instantly and
+simultaneously water begins to flow. For earthen dams, this is not a practical
+assumption. When earthen dams breach, the damage tends to occur in local
+areas, as water begins to flow, the breach erodes until the water in the reservoir
+is depleted, or the dam resists further erosion. The average width of the breach
+b tends to be bounded by the height h of the dam [8]:
+
+h<b< 3h. (1)
+
+Using these parameters for the height and width of the breach, we can estimate
+the maximal discharge from the breach. A simple formula determined by the
+height of water, and breach dimension is given by the equation [9]:
+
+Q = 5ont (2)
+
+The flow rates are detailed in table (1). The values of The coefficient contains
+the force of gravity and mass terms dealing with water viscosity.
+
+3.1 Murray Lake Dimensions
+
+The water level at Lake Murray is at an altitude of 350 to 358 ft above sea level,
+which is approximately 170 ft above the Saluda River on the other side of the
+dam. The surface area of the lake is 50,000 acres [3].
+
+Using these figures, we give a high and low estimate of the volume
+of water behind the dam.
+
+e Rectangular Approximation: 101! m?
+
+e Pyramid Approximation: 3 x10!° m3
+
+
+=== PHYSICAL PAGE 6 ===
+Control #31
+
+Page 6 of 15
+
+Table 1: Maximal Discharge measured in ft*/sec.
+
+Width (b) | $h | bh | 2h | 3h |
+
+Height (h)
+10 225 490 980 1470
+20 1140 2270 5550 8300
+30 3820 7640 15300 22900
+40 7850 15700 31400 47100
+50 13700 | 27400 54800 82000
+60 21600 | 43200 86400 130000
+70 31800 | 63500 | 127000 | 190000
+90 59000 | 119000 | 238000 | 358000
+110 95000 | 190000 | 381000 | 570000
+130 150000 | 300000 | 597000 | 895000
+150 213000 | 427000 | 854000 | 1280000
+170 292000 | 584000 | 1170000 | 1750000
+
+3.2 Reality Check
+
+Using the Estimated maximal flow rates, and our assumptions that:
+1. An earthen dam breaches in a time period of $ hour to 3 hours [8].
+
+2. The volume of Murray Lake is large.
+
+We find that in an extreme case, assuming instantaneous complete breach, the
+flood would last between 3 and 8 hours. In a large but possible breach, assuming
+breach height of 90ft and maximal breach width, the flood would last between
+
+12 and 40 hours.
+e This tells us that our numbers make sense, and that the Pyramid volume
+
+approximation is closer to reality than the rectangular estimation.
+
+3.3. Modeling the Boundary Data
+
+With our flow rates based on dimension, and rates of erosion during breach of
+an earthen dam [9], we construct hydrographs at the breach.
+
+e A hydrograph is a plot of flow rate vs. time for a particular spacial
+instance. Thus our boundary data for modeling the flood is based on both the
+steady state hydrographs of the river, and the how they change in time due to
+the dynamic hydrograph at the dam breach.
+
+We construct various hydrographs based on breach dimension and the time
+it takes for the breach to reach maximal dimension.
+
+
+=== PHYSICAL PAGE 7 ===
+Page 7 of 15 Control #31
+
+3.3.1 Approximating the Hydrograph
+
+4
+
+e Instantaneous dam failure would be approximated in a hydrograph by a
+right triangle. The base of the triangle represents the time required for
+the reservoir to deplete, the peak flow being represented as the height of
+the triangle.
+
+e We assume half of the total volume of water expelled through the breach
+is used to erode the dam to full area, our hydrograph is represented as an
+isosceles triangle. This is an acceptable model for earthen dams [8].
+
+e We can approximate models with faster breach time by forming triangle
+between right and isosceles.
+
+e Given a breach cross-sectional area, a short completed erosion time will
+correspond to a higher peak flowrate. This has to do with the fact that
+the slower the dam breach erosion occurs, the height in the reservoir is
+lower.
+
+Figure 2: Instant and complete dam failure.
+
+10000
+
+Flow Rate (cumec)
+
+Time (hours)
+
+1. In figure 2, we show a hydrograph of the extreme case of total instant dam
+
+failure. This is highly improbable for an earthen dam, but will be used
+for comparison of our results.
+
+2. Figures 3 and 4 give are example of hydrograph approximations for a large
+
+but more possible dam breach, and a small breach. Variations on these
+are used to construct the data sample for our flood model.
+
+Modeling the Flooding Downstream
+
+We construct a model of the flood utilizing our River model and boundary data.
+Existing Data
+
+
+=== PHYSICAL PAGE 8 ===
+Page 8 of 15 Control #31
+
+Figure 3: A large scale, quickly eroded dam breach hydrograph.
+
+3
+3000m **
+
+Time (hours)
+
+Figure 4: Hydrograph of a comparatively minor, slow eroding dam breach.
+
+1500
+
+Flow Rate (cumec)
+
+Time (hours)
+
+e Note: Our model of the Saluda River extends from the dam at Murray
+Lake downstream to Columbia, South Carolina and area surrounding the
+State Capitol Building. At each position downstream from the dam, we
+have data for the cross-sectional geometry relating to the area that flood
+water can fill.
+
+e Before the dam breaches, we assume that the Saluda river is in steady
+state. We take initial river flow from existing data detailed in table (2).
+
+Table 2: Steady State River Flow Rates (cfs) before Dam Breach [2]
+
+River | Location _| Low Flow | Mean Flow | High Flow |
+Saluda River | Lake Murray 205 1000 5800
+Saluda River Columbia 236 2500 5140
+
+Congaree River Columbia 1010 9800 15700
+
+e We have a sample collection of hydrographs which relate the flowrate at
+
+
+=== PHYSICAL PAGE 9 ===
+Page 9 of 15 Control #31
+
+the dam breach to time.
+
+e These flowrates were computed based on the cross-sectional area of the
+breach in the dam.
+
+Specifications of Our Flood Model
+
+e In order to model the flooding downstream in the event there is a catas-
+trophic earthquake that breaches the dam, we need to estimate the hy-
+drographs at locations affected by the discharge of water from the dam.
+
+e Using the cross-sectional area of initial discharge, we estimate the cross-
+sectional area of fluid flow at the locations affected at intervals down-
+stream.
+
+e We use appropriate flowrate-to-area correlations to model fluid flow, and
+derive the time and position models for these simultaneously.
+
+e The height of the flood water is determined from the cross-sectional area
+as detailed in our River Model.
+
+4.1 Mathematical Model
+Assumptions
+
+e We assume that our flowrate is uniform over the cross-sectional area it
+flows through.
+
+e Assuming such uniformity, we can use a one-dimensional fluid flow model.
+
+Dam breach flood hydrographs are representative of dynamic, unsteady flow
+events. Therefore, the preferred routing approach is to utilize a full unsteady
+flow routing model. It is accepted for many applications that the unsteady flow
+of water in a one-dimensional approach is governed by the shallow water or Saint
+Venant equations. These represent the conservation of mass and momentum
+along the direction of the main flow. In other words, it gives us the relation
+for area and flowrate that models our water as, well, water. It constitutes an
+adequate description for most of the problems associated with open channel flow
+modeled in 1-dimension under the hypothesis of [4]:
+
+e Uniform average velocity over the cross section.
+
+e Small streamline curvature and negligible vertical accelerations. That is,
+hydrostatic pressure distribution.
+
+e Small slope of river bed.
+
+The physical characteristics of the Saluda river satisfy the above hypothesis.
+The basic form of the hyperbolic, non-linear Saint Venant equations can be
+written as the following system of equations:
+
+A, 0Q _
+
+ot Ou 0 (3)
+
+
+=== PHYSICAL PAGE 10 ===
+Page 10 of 15 Control #31
+
+6g , 9Q@_
+OE + dn A gA(So — Ss) (4)
+
+For our one-dimensional model, equation (3) represents the conservation of
+mass, and equation (4) represents the conservation of energy. The parameters
+involved are:
+
+= flow
+A = _ active flow area
+g = acceleration of gravity
+S; = friction slope
+So = river bed slope
+x = flow distance
+t = time
+
+In particular, the friction slope is defined in terms of the Manning’s roughness
+coefficient n,
+
+QIQ|n?
+Sy = 5
+1 WRI )
+with R = A/P, P being the wetted perimeter.
+It is convenient to rewrite equations (3) and (4) into the vector form:
+OU OF
+—+—= 6
+Ot * Ox 6)
+where the vectors are:
+A
+U=
+[2
+Q
+F=| Q
+A
+
+G= | (S = S))aa
+
+4.2 Numerical Approximation Schemes
+The Idea: We have two sets of boundary data.
+
+1. The hydrograph of the discharge of the dam breach gives us the flowrate
+and area (Q(zo,t) and A(zo,t)) for all time values at the position of the
+dam.
+
+2. We also have the initial conditions on the steady state flowrate at every
+position downstream at the particular instant the dam breaches.
+
+We discretize our data in terms of the variables (x;,t,), where x; represents the
+position at the i” position on our grid of the river and t, is the n“ time step.
+e The value of the function at this position and time step will be denoted with
+a subscript for the position index and a superscript for the time step index.
+
+10
+
+
+=== PHYSICAL PAGE 11 ===
+Page 11 of 15 Control #31
+
+We develop two flood routing models based on numerical approximations of
+the Saint Venant Equations. Mathematically, our first model is based on the
+two step predictor-corrector MacCormack method for approximating hyperbolic
+partial differential equations. This model is accurate up to second order. The
+second model is a one step difference scheme of numerical approximation with
+first order accuracy.
+
+4.2.1 The Two Step Flood Model
+
+A classical finite difference numerical scheme suitable for the discretization of
+equation (6) is the explicit two step predictor-corrector MacCormack method,
+which uses the following equations [4].
+
+A
+The predictor step: U? = UP - SF —F?)+ AtG? (7)
+Cc P At 'P 'P P
+The corrector step: Uj = U?- ay Fi —F?_,) + AtG? (8)
+
+n- 1 nm Cc
+Up = 3 (Ui + Uj) (9)
+
+The reason that the MacCormack method is useful in treating unsteady dy-
+namics is that the behavior in time of one of the discrete nodes in the system
+depends on the spacial components on either side, thus it is a good model of
+fluid flow.
+eThe Error and (in)Accuracy of the Two Step Flood Model:
+
+The Two Step Flood model was highly sensitive to our time step interval. It
+worked reasonably well for time steps of 30 seconds. Unfortunately, due to the
+higher order of space-time dependence, in order to get data for the entire river
+model out of this method, we needed the number of spacial nodes beyond the
+confluence of the Congaree river to be in direct correspondence with the number
+of time steps we would need to run our model for 30 second time-steps for the
+large number of iterations necessary to model the dam breach on a time scale of
+hours. Because our river model essentially ended at the State Capitol building
+of Columbia, we could not propagate a flood with the existing river model. In
+order to compensate, we added a rectangular river modeled with the same area
+as our geometric river model to create an “infinite” river. This did give us data
+which showed the flow of the flood moving downstream to the point where Rawls
+Creek met the Saluda River. Unfortunately, due to the high accuracy required
+for this method to approximate well and the highly inaccurate initial conditions
+specified by our linearly interpolated geometric river and hydrographs, this flood
+model was not compatible with the spacial and temporal boundary conditions
+we modeled in order to implement it.
+
+4.2.2 The One Step Flood Model
+
+The idea of the One Step method is similar to the MacCormack model, but
+rather than use a two-sided difference, we used a one sided finite difference
+
+11
+
+
+=== PHYSICAL PAGE 12 ===
+Page 12 of 15 Control #31
+
+Figure 5: 3-D Hydrograph showing river flowrate over time.
+
+method. In this model, given a known space-time coordinate and its flow rate
+and cross-sectional area, the next time step is computed from the known follow-
+ing spacial coordinate data at the same time instance. The equation is given by
+the equation:
+
+. . oto oo, a
+uptt = UP - Ag Fi — FP) + At@?. (10)
+
+e The largest benefit of this model is its stability. More specifically, it is ca-
+pable of coping with discontinuities. Since it is less sensitive to initial boundary
+conditions, it is less accurate, but outputs flood data without egregeous errors.
+
+5 Getting Results
+
+Having modeled the geometry of the river, and collected hydrographs of various
+erosion and flow rates, it is time to embark into the depths of flood. Unfor-
+tunately the fill capacity of our geometric river model could not accommodate
+extreme flood conditions. We found a flood insurance model for the area, and
+although their floodplain was exaggerated for a safe evacuation, it was clear
+from their model that our river model did not span nearly the amount of land
+mass that would be necessary to consider an extreme dam breach [5]. This mod-
+elers intuition of the power and devastation that could be caused by a breach
+in the dam above the Saluda River was clearly clouded by too much time spend
+in front of books, and not enough at the river.
+
+Since modeling the extreme case was out, we instead used a slow erosion
+low flow hydrograph and a quick large flow hydrograph. The quick large flow
+hydrograph utilized in our model reaches its peak flow rate of 3000m?/s at 50
+minutes after the breach. Although we were not able to extrapolate the most
+
+12
+
+
+=== PHYSICAL PAGE 13 ===
+Page 13 of 15 Control #31
+
+extreme effects of a dam breach, according to [8], this is a very large flowrate
+corresponding to one of the largest breaches that is probable to occur in an
+
+earthen dam.
+
+5.1 Rawls Creek
+
+Our flood model allows us to determine the maximal cross-sectional area of flood
+water present where Rawls Creek meets the Saluda River. The flood depth
+corresponding to this maximum area is computed using the known riverbed
+
+geometry.
+e Initializing a maximal dam breach discharge of 3000 m3/s under condi-
+tions of fast erosion we calculate the corresponding flood depth at 12.5
+
+meters. We estimate the flow up Rawls Creek to 3.5km.
+e Setting the breach to be a slow eroding breach of discharge reaching max-
+
+imal output at 1000m3/s, the water depth was 8.9 meters. This corre-
+sponds to flood waters rising to an elevation which at maximum would
+
+flow a distance of 2.5km up Rawls Creek.
+
+Figure 6: Hydrograph at Rawls Creek of Large Discharge Breach Model.
+
+Hydrograph at Rawls Creek section
+aN
+
+3000,
+
+2500]
+
+2000]
+
+1500
+
+Flow Rate in cumec
+
+so00- |
+
+sooh |
+
+1500
+
+ol!
+0 500 1000
+Time in 308
+
+5.2 The State Capitol
+
+5.2.1 Simple Estimates
+We determine a necessary condition for the floodwaters to reach the capitol
+using energy conditions. Specifically, consider a point p in the river. When we
+
+13
+
+
+=== PHYSICAL PAGE 14 ===
+Control #31
+
+Page 14 of 15
+
+Figure 7: Hydrograph at near the State Capitol Building.
+
+Hydrograph at State Capitol Building section
+
+2500)
+\
+/
+~
+
+2000] |
+_
+1500 |
+
+Flow Rate in cumec
+
+500
+
+1500
+
+0 1000
+Time in 308
+
+examine a drop of water at p of mass m, velocity v, and height above sea-level
+
+h, we find
+Energy at p =
+
+Ep
+KE, + PE, + remaining terms
+= $ xmx*v? +mx*g*h+ remaining terms
+where g is the force of gravity, KE denotes kinetic energy, and PE denotes
+potential energy. The kinetic energy when the droplet reaches the capitol must
+
+be at least zero, so
+Etop = KEtop + PEtop + remaining terms
+
+> 0+mx«*g*h' + remaining terms
+By conservation of energy, the remaining terms at the top are greater than
+
+the remaining terms at the bottom. Applying this to the equation
+—5*mx*v2 —m*g*h— remaining terms,,449m >
+
+0 = Etop — Evottom = m * g * h' + remaining terms;o,
+
+we see that:
+
+magehl—S*mev®—mageh <0
+
+thus,
+
+1 mau? >mageh'—mageh=m*g*(hi—h)
+
+or rather, it must be that
+
+uv > J2*g* (hi —h)
+
+for the water to reach the capitol building.
+
+14
+
+
+=== PHYSICAL PAGE 15 ===
+Page 15 of 15 Control #31
+
+5.2.2 Implications in Our Model
+
+Without accounting for the change in height of the flood waters toward the
+bottom of the Saluda River, this implies that the river must be traveling at
+least 65 mph. Using the data from the hydrographs at Columbia city from our
+slow, low flow model the flood elevation when the peak flow reached the city
+was 5.24m. With the flood elevation from our model, the water would have to
+be moving at a speed of 25 mph. In our model the river is flowing at 5 mph.
+Clearly this is a ridiculous speed for our flood to be traveling.e Testing the
+System We attempt to maximize flowrate and minimize cross-sectional area
+in order to maximize the kinetic energy through extensive testing on computer
+generated hydrographs, i.e. hydrographs that did not fit within the parameters
+specified by our flood mode. In our model, whenever the maximal depth of
+the floodwater at the capitol building was 10.6m. The maximal velocity at
+this height was .32 m/s which did not have enough energy to reach the capitol
+building. Without the ability to test extreme flowrates from the dam breach,
+our model was incapable of reaching the State Capitol Building.
+
+6 Strengths and Weaknesses of Our Model
+
+The one-dimensional open channel flood model we adapted is relatively easy to
+understand and to perform calculations with. However, it is insufficient if accu-
+rate floodplain estimation is needed. By the nature of our river model, where
+we assume that the river does not change direction, implicitly and explicitly
+we assumed that water could only flow in one direction. This made computa-
+tion of specific behavior of the flood at points off the mainstream difficult. A
+one-dimensional One Step Flood model could not predict forces of back flow
+in any direction other than downstream. Thus our estimate of the distance up
+Rawls Creek was entirely dependent on the depth of the flood water and our
+less than perfect elevations of the modeled river geometry. This is still a fairly
+decent approximation since the topographical data around the creek was very
+wide and flat, thus water flow in our model would spread so as to remain flat
+and fill the cross sectional area.
+
+A strength of he one-step model is a robust model that allows works well at
+any time step and with less than perfect initial conditions while still yielding
+attenuated waveflow.
+
+15
+
+
+=== PHYSICAL PAGE 16 ===
+Page 16 of 15 Control #31
+
+References
+
+[1]
+[2]
+
+[3]
+
+[4]
+
+[5]
+
+[6]
+
+[7]
+
+[3]
+
+[9]
+
+topozone.com, Accessed February 4, 2005.
+
+http://sc.water.usgs.gov/AAR/wy02/scintro.html, Accessed February 5,
+2005.
+
+http://www.scana.com/SCANA/For+Living/Lake+Murray /default htm,
+Accessed February 6, 2005.
+
+Brufau and Garcia-Navarro. “One-Dimensional
+
+Dam Break Flow Modelling: Some Results.”:
+
+http: //www.hrwallingford.co.uk/projects/CADAM/CADAM/Wallingford/W10.pdf,
+Accessed February 6, 2005.
+
+Federal Emergency Management Agency. “Flood Insurance Study, Rich-
+land County, South Carolina.”: 20 August 2001.
+
+US Army Corps of Engineers. “Engineering and Design-River Hydrolics.”
+Chapters 2 and 5: EM1110-2-1416: 31 October 1993.
+
+US Army Corps of Engineers. “Engineering and Design-Flood Runoff Anal-
+ysis.” Chapter 9: EM1110-2-1417: 31 October 1994.
+
+US Army Corps of Engineers. “Engineering and Design-Hydrologic En-
+gineering Requirements for Resevoirs.”: Chapter 16: EM1110-2-1420. 31
+October 1997.
+
+Washington State Department of Ecology. “Dam Safety Guidelines- Dam
+Break Innundation Analysis.”: July 1992.
+
+16

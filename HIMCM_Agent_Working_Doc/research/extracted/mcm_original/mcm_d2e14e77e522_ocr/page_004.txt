@@ -1,0 +1,38 @@
+Page 4 of 15 Control #31
+
+2 Modeling River Channel
+
+In order to route the flood water, we must first have a model of the the river
+channel. Utilizing topographical maps [1], MS paint, a straight edge and some
+help from Matlab, we were able to formulate an interpolated geometric model of
+the area directly surrounding the river. At various distance intervals depending
+on important characteristics— large hills, valleys, locations of concurrent inflows—
+we take cross sectional data, measuring an approximate average slope for various
+points on either side of the riverbank.
+
+Figure 1: Our model of the river valley. Height above normal river location is
+given in feet.
+
+e Simplification: At each cross section along the Saluda River, we construct
+a piecewise linear slope on either side of the existent river. We then create an
+interpolated river system model by assuming linearity between cross sectional
+areas. This is a useful and necessary simplification as we could find no numerical
+data on the geometry of the river channel and did not possess the funds or
+manpower necessary to collect such data. Our piecewise linear interpolation
+allows us to calculate the cross sectional area and depth at any point along the
+river.
+
+Assumptions about the Geometry of the River:
+
+e We assume that the surface roughness coefficients are uniform.
+
+e The geometry of the river is fixed, i.e., during the flood, no erosion
+occurs. This allows us to utilize flow rates in order to compute cross
+sectional area. This in turn tells us the height of the water since the
+relationship between cross-sectional area and water depth is fixed as long
+as we assume no erosion occurs. This is also a good assumption so that
+we may assume that the viscosity of the flood water is uniform. The
+unavailability of sediment data, also makes this a reasonable assumption.
+
+e We assume that the overall slope down the river to be constant. The
+topological map showed a difference of elevation between the dam and the

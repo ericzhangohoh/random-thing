@@ -1,0 +1,755 @@
+=== PHYSICAL PAGE 1 ===
+Team #39160                                                                                 Page 1 of 17
+
+
+
+
+                                     Team Control Number
+ For office use only                                                 For office use only
+ T1 ________________
+ T2 ________________
+                                     39160                           F1 ________________
+                                                                     F2 ________________
+ T3 ________________                                                 F3 ________________
+                                        Problem Chosen
+ T4 ________________                                                 F4 ________________
+                                              C
+
+          2015 Mathematical Contest in Modeling (MCM) Summary Sheet
+                 (Attach a copy of this page to your solution paper.)
+
+              Type a summary of your results on this page. Do not include
+            the name of your school, advisor, or team members on this page.
+
+          In the modern world, organizations face a number of complex issues related to the recruitment
+and retention of high-quality personnel with the knowledge, skills, and abilities required for the
+organization to compete. Network effects of personnel flow into and out of an organization affect day to
+day operations of that organization. Large organizations, in particular, need to understand these types of
+flows in order to maximize the potential of their human capital. The professional and personal
+relationships amongst the members of the organization will have an effect on the turnover, or churn,
+within that organization.
+         Tasked with modeling churn within Information Cooperative Manufacturing (ICM), we
+developed a network model of this rigidly hierarchical company. This model allowed us to answer
+questions from the Human Resources department regarding dynamic processes within the network,
+budgetary concerns, labor forecasting, and hiring decision support.
+         Using the software package called the Multilayer Networks Library, we built a data structure
+where we treated each layer of a multilayer network as a graph representing a different type of
+relationship within the company. The computer representation of these networks is comprised of a
+multidimensional array, or tensor. We took an object oriented approach to simulating interactions
+between employees, interactions between positions in the hierarchy, and interactions between employees
+and their positions within the hierarchy.
+         In the first of three phases, we used a purely stochastic approach to determining the behavior of
+the various pieces of the simulation. This allowed precise control over the variables in the model,
+particularly the churn rate, allowing us to hit the target churn rates specified in the problem statement.
+         In the next phase, we introduced a satisfaction function through which we gave each “employee”
+of the company the ability to “choose” whether to remain in the company or leave. Using this version of
+the model, we were able to analyze churn at ICM from the perspective of employee satisfaction.
+         The third phase of the model included a productivity function, satisfaction function, and smart
+promotion algorithm, resulting in a realistic simulation of both employee and HR decision making.
+         Based on analyses of our three phase model, we find that ICM must increase the effectiveness of
+its HR office so that it can actively hire more than 10% of positions at a time. Otherwise, the churn rates
+cannot reach 25% if ICM is to maintain an 80% full status. ICM must also find ways to increase
+employee satisfaction. ICM can avoid the network effect whereby an employee’s satisfaction is reduced
+by vacancies in his work group or office group by placing new employees in relatively full sections of the
+company. Furthermore, HR should switch to using employee performance ratings for promotion decisions.
+
+
+=== PHYSICAL PAGE 2 ===
+Team #39160                                                                                    Page 2 of 17
+
+
+
+1 Introduction
+Organizational churn has been frequently studied by sociologists, as evidenced in [1], [2], [3], [4], [5], [6],
+[7]. While numerous definitions for churn exist in the literature, for this paper we will simply define the
+employee churn rate, or simply churn, to be the ratio of employees who leave an organization in a year
+to the total number of positions in that organization. In order to reduce churn within Information
+Cooperative Manufacturing (ICM), we create a Human Capital network model and use it to analyze both
+the productivity and churn within the organization.
+One common way to represent a network model is through the use of a graph. Such a graph might consist
+of a node set representing people, organizations, or other structures which are connected to each other by
+edges. Based upon previous research concerning the “science of team science,” i.e., the study of how
+teams work together on scientific projects, we find that analyzing the dynamic relationships between
+people at ICM is a good way to predict churn within the company [1]. Churn in any company is related to
+multiple factors including hierarchy, friendships, and other types of relationships between employees.
+Thus, we utilize an object presented by Mikko Kivelä, Alexandre Arenas, Marc Barthelemy, James P.
+Gleeson, Yamir Moreno, and Mason A. Porter called a multilayer network, which is a way of
+representing how “sets of entities interact with each other” with respect to considerations like
+relationships, time, and “other complications” [3].
+For the purposes of our paper, we define a multilayer network as a set of layers, where each layer holds a
+directed or undirected graph. We refer to a multilayer network simply as a network throughout this paper
+when the meaning is clear from context. Constructing a network with multiple layers allows us to
+represent different types of connections between nodes on different layers. This means we can assign
+various types of relationships between positions and employees at ICM to different layers of the network,
+thereby representing the structure of the organization.
+
+2 Computer Representation of ICM
+In this section, we outline the representation we use to describe the organizational structure of ICM.
+
+2.1 Multilayer Network: Positions Filled with People
+When creating this model, we first consider one main question; that is, what do the nodes in the
+multilayer network represent: people within the company or positions within the company which may or
+may not be filled with a person? For our model, we use nodes to represent positions within the company
+hierarchy, rather than people. Thus, instead of adding, moving, and removing nodes, we move objects
+(people) from one node to another within each increment of time. This approach allows an employee
+occupying node  to inherit the properties of  , such as professional relationships, rank within the
+hierarchy, and salary. Combining this inheritance property with the perspective of considering each layer
+in the network to represent a different type of relationship between the nodes allows for the flexibility
+necessary to represent various factors that affect churn within ICM.
+
+
+=== PHYSICAL PAGE 3 ===
+Team #39160                                                                                 Page 3 of 17
+
+
+2.1.1 The Multi-dimensional Adjacency Tensor
+Spring-boarding off of [3], we define a tensor || × || × || × || in size to represent the multilayer
+network which in turn represents the structure of ICM. We denote this tensor by ||×||×| |×| | , with 
+being the node set,  the set of types of relationships, and  the set of integers representing time steps.
+In our model, ||×||×| |×| | includes the following two-dimensional adjacency sub-tensors, each of
+which corresponds to a layer in the multilayer network:
+    •   The hierarchical structure of the company (This includes relationships such as “is the boss of”
+        between supervising and the supervised positions). These relationships are immutable. In other
+        words, it does not matter which specific person is placed into a position; the relationship in this
+        layer between a given position and the position one level above or below will not change.
+    •   The relationships among positions within the same work group at the company. These
+        relationships are also immutable.
+    •   The relationships among positions within the same office, but differing work groups. These
+        relationships are also immutable.
+    •   Time (Each two-dimensional sub-tensor representing a relationship type will change with respect
+        to this fourth dimension in the tensor).
+Taking the perspective of considering the network to be a multidimensional tensor allows us to
+conveniently represent such an object in the computer for analysis.
+
+2.1.2 Organizing the Structure of ICM
+In the problem statement, we are given a tree showing the overall hierarchy of ICM and a table showing
+seven levels of employees with the specified number of employees at each level. The given tree structure
+shows five levels of offices and we assign the seven levels of positions to these offices in the following
+way:
+    •   Assign to the position levels the ranks 1-7, with 7 being the highest.
+    •   For each office shown on the given tree, initialize the specified number of positions with
+        appropriate levels, ensuring that every office contains at least one administrative clerk and two
+        positions at the inexperienced supervisor level or higher with one unique highest ranked position
+        in the office.
+    •   In offices consisting of two seven-position divisions, we assign label to one division and the
+        label to the other. We then assign the highest level position in the office to and a second
+        highest level position to . Assign the other positions in the office to and evenly.
+Next, we generate the direct command structure at ICM in the following way:
+    •   For each office at ICM, we assign the title of office manager to the highest ranked position that
+        was assigned to that office.
+    •   In offices containing two divisions, such as the CIO office, we assign the title division manager
+        to the highest ranked position in division .
+
+
+=== PHYSICAL PAGE 4 ===
+Team #39160                                                                                    Page 4 of 17
+
+
+    •   Each office manager within an office of four positions supervises every other position within that
+        office and also supervises the office manager in every directly connected office one level down in
+        the tree structure given in the problem statement.
+    •   If office contains two divisions, the office manager of supervises the six other positions in
+        division as well as the division manager of division within . The office manager of also
+        supervises the office manager in every directly connected office one level down from in the
+        given tree structure.
+    •   Each division manager of a division     supervises the six other positions in .
+We turn our attention to an example showing this hierarchical structure on a smaller scale. Figure 1
+depicts a subset of our multilayer network representing ICM. Specifically, we have depicted the
+connections between the positions in the research and networks offices given in the problem statement.
+                                                      The bottom layer of the figure shows a tree
+                                                      representing the direct command structure described
+                                                      above. The node labeled 0 represents the office
+                                                      manager of the research office. Since this office
+                                                      manager supervises the other positions in the
+                                                      research office, we draw edges to nodes 1, 2, and 3,
+                                                      which represent those positions. This office manager
+                                                      also supervises the networks office manager, so we
+                                                      draw an edge from node 0 to node 4, where node 4
+                                                      represents the networks office manager. The
+                                                      networks office manager, in turn, supervises the six
+                                                      positions in division within the networks office as
+                                                      well as the division manager of division . Thus, we
+                                                      draw edges from node 4 to nodes 5-11. Similarly, we
+                                                      draw edges from node 11, which represents the
+                                                      division manager of the networks office, to nodes
+
+                Figure 1                              12-17.
+                                                     The middle layer represents the “works loosely with”
+relation. Two nodes in this layer are in an edge if and only if they are in the same office, but not in the
+same division. Of mild interest is that this is a complete bipartite graph due to the nature of the relation
+being represented.
+The top layer represents the “works closely with” relation. Two nodes in this layer are connected by an
+edge if and only if they are either in the same four position office or in the same division, so this layer of
+the network is the disjoint union of cliques. The cliques representing the two divisions of the fourteen
+position office are the complement of the complete bipartite graph representing that office.
+
+2.1.3 Treating Objects Like People
+We now define a Person, for the purpose of our models, as an instance of a Python class called “Person.”
+Each Person has some immutable attributes:
+
+
+=== PHYSICAL PAGE 5 ===
+Team #39160                                                                                Page 5 of 17
+
+
+    •   An employee ID
+    •   A gender
+    •   A randomly generated name
+    •   A competence level, which comes from a random normal variable centered at 0.5 and represents
+        the Person’s inherent abilities.
+Furthermore, a Person has the following variable attributes, which may change each tick:
+    •   The node in the multilayer network representing its position in ICM
+    •   Current rank in the company, from 1 to 7, inherited from the position currently occupied by the
+        Person
+    •   A satisfaction level, which is a variable between 0 and 1
+    •   A performance level, which is also a variable between 0 and 1
+    •   The total time the Person has existed within the company
+    •   The total time the Person has occupied its current work group, based on the Person’s position on
+        the multilayer network.
+    •   The current salary of the Person, based on the Person’s current rank.
+Finally, a Person is responsible for tracking the costs given in the table in the problem statement
+associated with its current rank.
+
+3 The Model
+3.1 Background
+Before modeling the dynamic processes within the network, it is useful to consider the many factors
+influencing churn rate at any given company. The structure of ICM is full of teams and sub-teams which
+must coordinate with each other. Some research has been done in the area of the “science of team science,”
+which is the study of how scientific teams work together under various conditions [1]. In this area, each
+team may be considered an “information processing unit” which encodes, stores, and retrieves
+information at both an individual and at a group level [2]. Based upon former work in this area, we
+identify some factors that influence the effectiveness of team work as it pertains to the ICM company
+structure. The following are five of these factors:
+    1. Team training is intended to train teams to coordinate and better understand one another’s roles
+       within a team [2].
+    2. Shared cognition is, in brief, the sum of knowledge about assigned tasks and collective
+       understanding of a situation, which is increased through interaction between team members [2].
+    3. Composition of the team includes the “abilities and styles of team leaders” and the extent to
+       which “team members have worked together previously” [1].
+    4. Communication is the ability of the team to effectively communicate. Factors such as
+       “technological resources” and “conflict-resolution strategies” may affect the quality of
+
+
+=== PHYSICAL PAGE 6 ===
+Team #39160                                                                                    Page 6 of 17
+
+
+        communication among team members [1].
+    5. Collective orientation is the tendency of team members to take care of “task inputs” and the
+       needs of other team members [2].
+With the exception of “Composition of the team,” each of the factors listed is increased in a team that
+works together for a significant amount of time. Thus, we may predict the existence of these factors
+within offices at ICM by keeping track of variables such as average time people spend in the same office.
+Under the assumption that these factors increase productivity and reduce churn, we consider change in
+productivity as a function of average time spent in the same office, average experience of people within
+the office, and the percent of vacancies in the office, and let churn be related to this change.
+
+3.2 Definitions:
+    •   Tick: One repetition of the main loop in our simulation of ICM, representing a time interval of
+        one month.
+    •   Churn rate: the number of employees who have left the organization in the previous “year”
+        divided by the number of positions at ICM.
+    •   Person: a Python class, representing an employee of ICM. Throughout the paper, when we refer
+        to a Person, we are referring to an instance of this class.
+    •   Position: a Python class, representing a position within ICM. We associate each position instance
+        with a node in our network.
+    •   Satisfaction level: A value between 0 and 1 assigned to each Person, which changes with time.
+    •   Office: A staff office, either containing four positions or containing two divisions of 7 positions.
+    •   Division: a set of 7 positions within a staff office.
+    •   External hire: when our algorithm initiates a new Person and places it in a vacant node.
+    •   Internal promotion: when our algorithm moves a Person from one node to another (of higher rank)
+        in the network.
+
+3.3 Initial Phase
+In this phase, we create a simple model using the computer representation of ICM described in the
+previous section as a framework, populate positions with Persons, and randomly mark positions as vacant
+(because the Person associated with that position was promoted or left) such that the median time to
+recruit a person to fill each position is correct according to the information given to us. In this initial
+phase, we utilize purely stochastic processes for hiring and leaving, with the goal of ensuring that our
+framework correctly associates the nodes of the network with Persons. We also check to make sure that
+we are able to simulate the correct churn and vacancy rates specified in the problem statement.
+
+3.3.1 Assumptions:
+    •   Assume the hierarchical structure described in the computer representation section.
+    •   The probability of a Person leaving is 0.015 per tick (0.18/year divided by 12 months).
+
+
+=== PHYSICAL PAGE 7 ===
+Team #39160                                                                                   Page 7 of 17
+
+
+    •   A vacant position of rank 1 or 2 is always filled by an external hire.
+    •   Human Resources (HR) can work on 2/3 of the current vacancies, up to a maximum of 10% of
+        the total company.
+    •   Training costs are incurred as defined in the table in the problem description every tick for every
+        filled position.
+    •   Recruitment costs are incurred as defined in the table in the problem description every tick for
+        every position currently being worked on by HR, regardless of whether the position is eventually
+        filled by an internal promotion or external hire, but not positions which are vacant and not being
+        worked on.
+
+3.3.2 Initializing the Model
+We will use a multilayer network represented by a 370 × 370 × 3 adjacency tensor, where 370 is the
+number of positions in ICM (given in the problem statement), and 3 is the number of types of
+relationships included. The network is initialized according to the structure of ICM.
+We create instances of a Python class called Person with the following attributes: rank of position the
+Person is in, a unique employee ID, time spent at company, and time spent in a work group, which we
+define as either an office containing 4 positions or a division containing 7 positions. These attributes are
+tracked in a table. Each Person initially inherits the rank and location in the ICM hierarchy of the position
+to which it was assigned.
+The network is initialized with 85% of the positions randomly filled with non-empty Persons. All of the
+vacant positions are stored in a queue which we will refer to as the vacancy list. Rather than emptying the
+node for a position if it is vacant, we create a placeholder Person, flagged as “Vacant,” so that each node
+is always full. These placeholder Persons also have a negative employee ID number, consecutive to non-
+vacant Persons. From the vacancy list, 2/3 of the positions are chosen which have been vacant the longest
+and are placed into a separate queue to be filled by the HR office, which we refer to as the HR attention
+list.
+
+3.3.3 Running the Model
+Each time the main loop of our program runs, it goes through 12 time ticks, each of which represents one
+month. In each time tick, the following happens:
+    •   We update the time with company and time with work group attributes of each Person.
+    •   We update the HR attention list. The positions in this list will be vacant for the prescribed number
+        of ticks, and then filled by the hiring algorithm described in the next section.
+    •   We go through each position and if the position is full, determine if the Person filling that
+        instance will leave this tick.
+    •   If the Person in a position quits, we append this position to the end of the vacancy list and add
+        one for each vacated position to the current churn number for the year.
+Throughout a group of 12 ticks, the current time (number of month, beginning with January at 0) is
+updated along with the current training cost in the year to date, the current recruitment cost in the
+
+
+=== PHYSICAL PAGE 8 ===
+Team #39160                                                                                     Page 8 of 17
+
+
+year to date, and churn counter for the year to date (the number of empty positions). The variables
+current training cost and current recruitment cost are functions of the rates given in the problem statement
+and the current number of employees at the company. For time ticks congruent to 1 through 11 mod 12,
+we keep a running count of the number of employees who have left the organization that “year,” then
+divide by 370 in order to calculate churn for that year. The variables current training cost, current
+recruitment cost, and churn counter are reset each year, so that in any given time tick, these three pieces
+of information can be found in an updated list for the current year.
+As each tick is completed, the lists of Persons who have been hired, been promoted, or have left are
+updated. Thus, at the end of the year, a list is printed with training cost as percentage of median salary,
+recruitment cost as percentage of median salary, total churn, and current number of vacancies for the
+entire year.
+3.3.3.1 Hiring Algorithm
+    •   Each position has a corresponding “time to recruit” and “cost of recruitment” that must be applied
+        when hiring for that position.
+    •   After allowing the appropriate number of ticks to pass, a vacant position of rank  > 2 is filled
+        either with an external hire (with a 25% chance) or by an internal promotion of a Person in a
+        position of rank  − 1 .
+    •   If filling a position of rank  internally, choose a random, non-vacant position of rank  − 1 and
+        move the Person in that position to the position being filled.
+    •   If there is no Person of rank  − 1 to hire or we previously took the hire externally option,
+        initialize a new Person and place it in that position.
+3.3.3.2 Quitting Algorithm
+    •   Each Person has a 1.5% chance of leaving per tick.
+
+3.3.4 Analysis of the Initial Phase:
+The stochastic, rather than deterministic nature of this phase of our model construction allows us to test
+the framework upon which subsequent phases will be built, with less complexity than will be introduced
+in later phases. Furthermore, because the variables controlling churn rate in this phase are random rather
+than functions of other variables, we were able to more precisely control churn rate, allowing us to answer
+some of the posed questions in the specified manner.
+
+3.4 Intermediate Phase
+With the intermediate phase, we begin to build upon the simple model from phase one. Rather than
+randomly choosing positions to be vacant, however, we introduce variables which effect the satisfaction
+of employees and thereby affect the churn in ICM.
+
+3.4.1 Further Assumptions:
+    •   In this phase, we assume the satisfaction level in tick  + 1 of Person  is affected by the
+        satisfaction level of  as well as the satisfaction levels of all Persons in positions connected to the
+        position of .
+
+
+=== PHYSICAL PAGE 9 ===
+Team #39160                                                                                     Page 9 of 17
+
+
+    •   The satisfaction of  is most strongly affected by the previous satisfaction of .
+    •   The satisfaction of  is second most strongly affected by the satisfactions of Persons in the same
+        work group as .
+    •   The satisfaction of the direct supervisor of  and the satisfactions of Persons in the same office as
+        , but not in the same work group, weakly affect the satisfaction of .
+    •   The satisfaction of  is sharply increased each time  receives a promotion to a higher position in
+        the company.
+
+3.4.2 Changes in Initializing the Model
+The only change from our initial phase initialization is that we now initialize each Person instance with a
+default starting value of 0.5 for satisfaction, unless that Person is a placeholder representing an empty
+position, in which case it is assigned a satisfaction level of 0.
+
+3.4.3 Satisfaction Function
+With our new concept of satisfaction, we introduce the following variables that affect the satisfaction of a
+Person  in tick  + 1:
+    •   Satisfaction of Person  in time tick , given by the function  ()
+    •   Satisfaction of the direct supervisor of  in tick , given by the function  ( ).
+    •   Average satisfaction in tick  of Persons in the same work group as , given by the function
+         ( ).
+    •   Average satisfaction in tick  of Persons in the same office as , given by the function  ( ).
+From these four variables, we get the function for satisfaction of  in tick  + 1; that is,  () =
+  !  () +   ( ) +   ( ) +   ( ), with constants ! ,  ,  ,  , that add up to 1. By choosing
+constants in this way, we compute a weighted average of the satisfaction level of the various positions
+directly connected to .
+In addition to these basic factors of satisfaction, there are several variables that effect satisfaction in
+specific cases. These are as follows:
+    •   If Person  is promoted in tick  + 1, we calculate the value c(1 −  ()) +  () . We then set
+        the satisfaction of  to the mean of this value and  () as calculated previously.
+    •   If Person  is in a position of rank 4, 5, or 6, we calculate  (1 − ). We then set the satisfaction
+        of  to the mean of this value and  () as calculated previously.
+
+3.4.4 Differences in Running the Model
+In the main loop, we add a new step which updates satisfaction according to the equations described in
+the previous section.
+3.4.4.1 Additions to Hiring Algorithm
+    •   Need 2 yrs experience to be promoted
+
+
+=== PHYSICAL PAGE 10 ===
+Team #39160                                                                                Page 10 of 17
+
+
+3.4.4.2 A New Quitting Algorithm
+    •   Generate a uniform random variable # ∈ (0,1).
+    •   Define  ,  as in the previous section and define a new quitting constant '! .
+    •   If # > '!  (), then Person  leaves the company.
+
+3.4.5 Analysis of the Intermediate Phase
+In the problem statement, we are instructed to consider the effects of employee dissatisfaction on churn.
+The introduction of a satisfaction function in this phase allows us to do so. Further, we introduced
+tracking managerial satisfaction and churn separately from the rest of the company in this phase, allowing
+us to see how total churn is affected by churn in this subset of the employees.
+
+
+
+
+3.5 Final Model
+3.5.1 Further Assumptions
+In this phase, we assume the performance level in tick  + 1 of Person  is affected by the competence
+level of , which was defined when we initialized , as well as the performance levels of all Persons in
+Positions connected to  in a similar manner to the satisfaction function.
+Performance in our model is further affected by performance of the supervisor, under the assumption that
+a highly effective supervisor will cause a supervisee to perform at a higher level.
+We assume that the length of time a Person has been at the company and in its specific work group will
+cause that Person to perform at a higher level.
+
+3.5.2 Changes in Initializing the Model
+Persons are now initialized with both a variable performance attribute and an immutable competence
+attribute, as defined in Section 2.1.3.
+
+3.5.3 Performance Function
+The following are the variable affecting the performance of a Person  at tick  + 1:
+
+
+=== PHYSICAL PAGE 11 ===
+Team #39160                                                                                   Page 11 of 17
+
+
+    •    Competence level of , denoted by (()
+    •    Performance of the direct supervisor of  in tick , given by ) ( )
+    •    Average performance in tick  of Persons in the same work group as , given by ) ( )
+    •    The time  has been at the company, given by *+ ()
+    •    The time  has been at the work group, given by *, ()
+    •    The satisfaction level of  at tick , which is given by the function  () as defined in Section
+         3.4.3
+From these six variables, we get the function for performance of  in tick  + 1, that is,
+                                                                 *+ ()          *, ()
+        ) () =   ! (() +  ) ( ) +  ) ( ) +  -              .+ /-            . + 0  (),
+                                                              *+ () + 1       *, () + 1
+with ∑ 2 = 1. As in the satisfaction function, we chose the constants in this way and the various functions
+that we multiplied by the constants so that ) () remains between 0 and 1 at each tick.
+
+3.5.4 Further Differences in Running the Model
+In the main loop, we add a new step which updates the performance function according to the equations
+described in section 3.5.3.
+3.5.4.1 Additions to the Hiring Algorithm
+    •    We now require the hire function to
+         evaluate the quality of each employee
+         before choosing. Specifically, the hire
+         function chooses the highest performing
+         Person of rank  − 1 when filling a
+         position of rank .
+
+3.5.5 Analysis of the Final Model
+Our main goal in the final model is to set up
+performance as strongly linearly influenced by
+employee satisfaction, under the assumption that an
+employee who is happy with their job will be more
+productive. Figure 3 shows that we achieve this
+goal even with the introduction of numerous other
+variables that we believe affect performance to a lesser extent than satisfaction.
+
+4 Results
+4.1 Budget Requirements for Talent Management
+Figure 4 is a pie chart showing the average budget spent on recruiting versus training over a period of
+thirty years, in terms of σ (the median income for ICM).
+
+
+=== PHYSICAL PAGE 12 ===
+Team #39160                                                                                     Page 12 of 17
+
+
+                                                                            As our model maintains an
+                                                                            average of almost 86% positions
+                                                 Figure 4                   filled in the company over the
+                                                                            thirty years, the recruitment cost is
+                                                                            very low. Training cost is present
+                                                                            for all Persons within ICM,
+                                                                            however, so this value remains
+                                                                            about the same over thirty years,
+                                                                            since the company has about the
+                                                                            same number of employees to
+                                                 Training Cost
+                                                                            continually train over these thirty
+                                                 Recruitment Cost           years.
+                                                                        Figure 5 is a graph showing the
+changes in training cost, recruitment cost, and number of churned employees over the course of thirty
+years. As expected, training cost remains relatively constant since the percent of vacant positions in ICM
+remains nearly constant year by year in our model.
+Since we limit the number of vacancies in ICM that the HR office can work on filling per tick to 2/3 of
+the current vacancies up to 10% of the total number of positions in the company, there is less variance in
+the recruitment cost per year than there is in the number of vacant positions (churned employees) in the
+graph. The trend of churned employees as opposed to recruitment cost based upon this restriction
+indicates that the HR office does not have the capacity to keep up with the number of positions that need
+to be filled. We suggest that the HR office expand in order to recruit and hire for a greater percentage of
+vacant positions in each tick.
+
+ 90
+ 80
+ 70                                                                                            Figure 5
+ 60
+ 50
+                                                                                             Training Cost
+ 40
+                                                                                             Churned Employees
+ 30
+ 20                                                                                          Recruitment Cost
+ 10
+  0
+      1    3    5    7    9   11   13   15      17   19   21     23   25   27   29
+                                         Year
+
+
+4.2 Sustainability of 80% Full Status
+One important question to consider is whether or not ICM can maintain 80% full positions, even with a
+higher churn rate of 25 or 35 percent. We will first consider a churn rate of 25%.
+
+
+=== PHYSICAL PAGE 13 ===
+Team #39160                                                                                       Page 13 of 17
+
+
+As shown in figure 6, as long as the number of vacancies is below the maximum 10% of total positions
+                                                                           (37) that HR can work on
+                                  Figure 6                                 filling, HR is able to
+      39                                                                   increase the number of
+
+
+
+
+   Positions HR is Working on
+      37                                                                   vacancies it is working on
+      35                                                                   filling in proportion to
+      33                                                                   empty positions. Thus,
+      31
+                                                                           assuming HR does not get
+                                                                           behind in its work filling
+      29
+                                                                           vacant positions, ICM can
+      27
+                                                                           maintain its 80% full
+      25
+                                                                           status even with a 25%
+         40      45        50       55     60       65       70       75
+                                                                           churn rate.
+                                                            Vacancies
+                                                                             As there are 370 positions
+in the company, HR is only able to work on filling up to 37 positions at once, regardless of how many
+positions are currently vacant. Thus, when there are more than 55 vacant positions in ICM, HR cannot
+work on filling 2/3 of these positions at once.
+When HR is not able to
+work on at least 2/3 of                                                      Figure 7
+the current vacant                                    160
+positions, the number                                 150
+                                                      140
+
+
+
+
+                                Number of Vacancies
+of            vacancies
+compounds/increases                                   130
+                                                      120
+every year, as shown in
+                                                      110
+Figure 7.
+                                                      100
+As we can see in                                       90
+Figure 8, this means                                   80
+that ICM is not                                        70
+necessarily able to                                    60
+sustain its 80% full                                        0       5   10   15         20   25     30      35
+status with a churn rate                                                     Year number
+at 25%.
+
+
+=== PHYSICAL PAGE 14 ===
+Team #39160                                                                                  Page 14 of 17
+
+
+ 100%
+   90%
+                                                                                                Figure 8
+   80%
+   70%
+   60%
+   50%                                                                                         Pct Pos Vacant
+
+   40%                                                                                         Pct Pos Filled
+
+   30%
+   20%
+   10%
+    0%
+          1    3     5    7    9    11   13    15   17   19   21    23   25    27     29
+
+When introducing a 35% churn rate, ICM begins its very first year with less than 80% filled positions.
+Again, HR cannot work on more than 37 positions at once, and these vacancies compound to the point
+that ICM has an average of 51% filled positions over 30 years.
+The gross cost of this high turnover at ICM is found in the increased recruiting cost (as HR is working on
+filling the maximum number of employees as possible at all times) and the reduced productivity as a
+result of high percentage of vacancies in ICM. However, with fewer employees, the training cost is
+reduced and the amount of money spent paying the salaries of all employees is also reduced. Thus, the net
+cost of turnover is some combination of these four factors.
+In the case that churn rate remains high, we strongly recommend that the HR office expand so that it has a
+greater capacity for filling vacant positions. Without this capacity, there is no guarantee that ICM can
+maintain 80% full status with increasing churn rates.
+
+4.3 Impact of High Supervisor Turnover
+ICM has identified Junior Managers and Experienced Supervisors as “middle managers” whose churn
+rate tends to be higher than the churn in other positions. Thus, it is pertinent to analyze the impact of a
+high churn rate (30%) in these two positions while all other positions maintain an 18% churn rate.
+In order to avoid low productivity, it is preferable for these positions to be filled by Persons in ICM which
+are qualified by a high level of experience within the company. Hence, we consider the aforementioned
+churn rates along with the following two criteria:
+    •    No external recruiting is permitted for these rank 5 and rank 6 positions.
+    •    Only employees of rank  − 1 with at least 2 years of experience are considered qualified for
+         promotion to a rank  position in ICM.
+Running the model with these criteria, we find that a 30% churn rate in the positions of rank 5 and 6 with
+a churn rate of 18% in all other positions does not have a significant effect on the HR health, the ability of
+HR to fill vacant positions in a timely manner, at ICM. Since the set of all positions of rank 5 or 6 is small
+relative to the entire company, HR has the power to work on filling these positions with little difficulty.
+
+
+=== PHYSICAL PAGE 15 ===
+Team #39160                                                                                  Page 15 of 17
+
+
+5 Conclusion
+5.1 Recommendations
+    •   The HR department needs to be expanded to keep pace with the projected vacancy levels of ICM.
+    •   Find ways to increase employee satisfaction. Specifically, group employees in relatively full
+        sections of the company, avoiding the network effect whereby an employee’s satisfaction is
+        reduced by vacancies in his work group or office.
+    •   HR should switch to using employee performance ratings for promotion decisions.
+
+5.2 Further Work
+The framework of our model is very flexible. With more time to work on it, we could easily take into
+consideration more factors effecting the churn and productivity at ICM. We are also able to see some
+interesting dynamic action using the final version of our model. It provides us with a reasonable
+approximation of both satisfaction and productivity as they affect churn at ICM. In fact, satisfaction levels
+feed into productivity levels in our model and vice versa, which realistically simulates the feedback
+between these two variables in real world situations.
+The model is also quite realistic in the way sets of Persons interact within the company. For example, if
+Persons in a work group have high individual satisfaction levels, these cause the entire work group to
+have increased happiness. If Persons in a work group have low satisfaction levels, this too causes a feed-
+back loop and decreased satisfaction across the work group. The productivity of Persons in a work group
+is also compounded in this way, though the process is more complicated than the process for mere
+satisfaction. This is because productivity of a Person  is influenced not only by the productivity of
+Persons in the same work group as , but also by the level of experience of Persons in that work group
+and the volatility of churn in ICM. This is also realistic since a company containing high percentages of
+inexperienced employees will not be as productive as one with more experienced employees, and even an
+employee with high experience will not be as productive when moved to a new position (a result of
+churn).
+Although our model is realistic and flexible in these regards, there are many things we would like to
+further improve. First and foremost, our model currently only includes a few factors which affect turnover.
+In real life, there are countless other factors which can be relevant to the resulting turnover in a company.
+Given more time, we would like to add a friendship relationship as a layer in our model so that
+friendships between employees follow Persons in the company regardless of the professional relationships
+between those Persons. This would allow us to simulate yet another effect of moving people to different
+positions in ICM. It may be that maintaining friendships across divisions would enhance productivity in
+ICM, even when two formerly closely related Persons are moved into separate professional groups at
+ICM, an effect that our current model does not track.
+Another way in which the model could be improved would be to add another attribute to each Person to
+represent workplace skills and abilities possessed by those employees, and to the nodes in the hierarchy to
+represent the skillset required by those positions. These additions would be useful to add another
+dimension to the model to better allow matching of employees to positions and provide another metric for
+simulation of employee performance.
+
+
+=== PHYSICAL PAGE 16 ===
+Team #39160                                                                                Page 16 of 17
+
+
+There are also several things that may occur in ICM according to our current model that do not
+necessarily happen in real life. For example, a Person could theoretically be promoted to a supervisor
+position that is supervising a group of empty positions. This would not likely happen in a real life
+company.
+
+5.3 Other Approaches
+5.3.1 The Tree: Positions Following People
+Another way to model the ICM company is to create a tree that represents the hierarchical relationship
+between employees within ICM. In this initial graph, each person is represented by a node and each
+relationship between people is represented by an edge between the corresponding nodes. In order to
+properly represent all relationships in ICM, we need multiple graphs, including, but not limited to, a tree
+representing the hierarchical structure of the company and a graph representing relationships between
+employees within divisions. Just as in the model we created, other relationships may be tracked in more
+graphs, such as friendships between employees at ICM.
+Since each position held by a person in ICM must be represented as an attribute of that person, the
+hierarchical structure of the company is mutable using this approach. Though we may create our graph
+with immutable connections between the positions, the model must assign attributes to Persons, which
+may include relationships between Persons that would otherwise have been represented with separate
+graphs using this approach.
+This has the potential to make moving people to and from positions in the company quite tricky. However,
+this approach is not entirely separate from the approach we used. Aspects of both approaches must be
+implemented to create a cohesive model of the ICM company.
+
+References
+[1] D. Stokols, K.L. Hall, B.K. Taylor, R.P. Moser. (2008). The Science of Team Science: Overview of
+        the Field and Introduction to the Supplement, Am J Prev Med 2008; 35(2S): S277-S89.
+[2] E. Salas, N.J. Cooke, and M.A. Rosen. (2008). On Teams, Teamwork, and Team Performance:
+        Discoveries and Developments. Human Factors: The Journal of the Human Factors and
+        Ergonomics Society June 2008 vol. 50 no. 3 540-547.
+[3] Mikko Kivelä, Alexandre Arenas, Marc Barthelemy, James P. Gleeson, Yamir Moreno, Mason A.
+       Porter. (2013). Multilayer Networks, J. Complex Networks, 2(3): 203-271 (2014); arXiv preprint
+       arXiv:1309.7233, 2013.
+[4] Kara L. Hall, Annie X. Feng, Richard P. Moser, Daniel Stokols, Brandie K. Taylor, Moving the
+        Science of Team Science Forward: Collaboration and Creativity, American Journal of Preventive
+        Medicine, Volume 35, Issue 2, Supplement, August 2008, Pages S243-S249, ISSN 0749-3797,
+        http://0-dx.doi.org.skyline.ucdenver.edu/10.1016/j.amepre.2008.05.007.
+[5] Louise C. Mâsse, Richard P. Moser, Daniel Stokols, Brandie K. Taylor, Stephen E. Marcus, Glen D.
+        Morgan, Kara L. Hall, Robert T. Croyle, William M. Trochim, Measuring Collaboration and
+        Transdisciplinary Integration in Team Science, American Journal of Preventive Medicine,
+        Volume 35, Issue 2, Supplement, August 2008, Pages S151-S160, ISSN 0749-3797, http://0-
+
+
+=== PHYSICAL PAGE 17 ===
+Team #39160                                                                           Page 17 of 17
+
+
+       dx.doi.org.skyline.ucdenver.edu/10.1016/j.amepre.2008.05.020.
+[6] Daniel Stokols, Shalini Misra, Richard P. Moser, Kara L. Hall, Brandie K. Taylor, The Ecology of
+        Team Science: Understanding Contextual Influences on Transdisciplinary Collaboration,
+        American Journal of Preventive Medicine, Volume 35, Issue 2, Supplement, August 2008, Pages
+        S96-S115, ISSN 0749-3797, http://0-
+        dx.doi.org.skyline.ucdenver.edu/10.1016/j.amepre.2008.05.003.
+[7] Kara L. Hall, Daniel Stokols, Richard P. Moser, Brandie K. Taylor, Mark D. Thornquist, Linda C.
+        Nebeling, Carolyn C. Ehret, Matthew J. Barnett, Anne McTiernan, Nathan A. Berger, Michael I.
+        Goran, Robert W. Jeffery, The Collaboration Readiness of Transdisciplinary Research Teams and
+        Centers: Findings from the National Cancer Institute's TREC Year-One Evaluation Study,
+        American Journal of Preventive Medicine, Volume 35, Issue 2, Supplement, August 2008, Pages
+        S161-S172, ISSN 0749-3797, http://0-
+        dx.doi.org.skyline.ucdenver.edu/10.1016/j.amepre.2008.03.035.

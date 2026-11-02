@@ -1,0 +1,376 @@
+=== PHYSICAL PAGE 1 ===
+                Optimizing a Handmove Sprinkler System
+                                              Team #728
+                                          February 6, 2006
+
+                                                Abstract
+    The task is to devise a nozzle arrangement and scheduling algorithm that will minimize the time
+required to move a hand-move lateral around an 80 m x 30 m field, while maximizing precipitation
+uniformity across the field. We require that no part of the field receive less than 2 cm of precipitation in
+any 4-day period, or more than 0.75 cm in any 1-hour period. We construct a simple model of the piping
+system and use it in conjunction with an empirically-derived family of radial precipitation distributions
+to articulate a space of algorithms parametrized on the number of nozzles, the time between station
+moves, the layout of the lateral stations, and two empirical parameters. We reduce the algorithm space
+by discarding all algorithms that fail to meet the precipitation constraints, then traverse the remaining
+space and compute the time required by the farmer to implement the algorithm and the uniformity of the
+precipitation it deposits on the field. The algorithm which requires the least farmer-time to implement
+is a two-nozzle, uniformly spaced six-position layout with a time interval of 8 hours. The algorithm that
+provides the most uniform precipitation and is most generally optimized is a three-nozzle, seven-position
+staggered layout with a time interval of 6 hours and 40 minutes.
+
+
+=== PHYSICAL PAGE 2 ===
+Team #728                                                                                                       2
+
+
+Contents
+1 Introduction                                                                                                  3
+  1.1 The problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     3
+  1.2 Outline of our approach . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     3
+
+2 Piping System Model                                                                                           4
+
+3 Precipitation Distribution Model                                                                              5
+  3.1 Radial distributions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    5
+  3.2 Two-dimensional precipitation distributions . . . . . . . . . . . . . . . . . . . . . . . . . . . .       5
+
+4 Farmer Seeks Algorithm                                                                                        6
+  4.1 Enumerating the algorithms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      6
+  4.2 Discretization, reduction, and traversal of the algorithm space . . . . . . . . . . . . . . . . . .       6
+  4.3 The Christiansen Coefficient of Uniformity . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      8
+
+5 Findings and Recommendations                                                                                  8
+
+6 Further Model Strengths and Weaknesses; Potential Refinements and Additions                                   9
+
+7 Appendix: Some MATLAB Output                                                                                 10
+
+References                                                                                                     11
+
+
+=== PHYSICAL PAGE 3 ===
+Team #728                                                                                                    3
+
+
+1     Introduction
+1.1     The problem
+Hand-move lateral irrigation systems are a popular alternative to costly fixed sprinkler systems among small
+farmers. In contrast to fixed systems, hand-moves are simple and easy to maintain, but are often unable to
+irrigate all parts of a field simultaneously. This can lead to nonuniform precipitation over the field, which
+in turn usually leads to a reduction in average crop yield [1]. The task at hand is to devise a sprinkler
+head arrangement and scheduling algorithm that will maximize precipitation uniformity over the field while
+minimizing the time the farmer must spend moving the system around on the field.
+
+1.2     Outline of our approach
+We have the following specific objectives:
+
+    1. Minimize the time spent by the farmer tf moving the system around on the field.
+
+    2. Maximize precipitation uniformity across the field.
+
+and the following constraints:
+
+    1. Ensure that all parts of the field receive at least 2 cm of precipitation in any 4-day period.
+
+    2. Ensure that no parts of the field receive more than 0.75 cm of precipitation in any 1-hour period.
+
+We address these objectives and constraints as follows:
+
+    1. We construct a simple theoretical model of the piping system.
+
+    2. We use the piping system model in conjunction with an empirical nozzle model [2] to generate a family
+       of radial precipitation distributions parametrized on number of nozzles and nozzle type (as described
+       by the empirical model).
+
+    3. We articulate two layout types for placement of the lateral on the field.
+
+    4. We define our algorithm space.
+
+    5. We discretize the algorithm space.
+    6. We traverse the algorithm space and discard all algorithms that do not satisfy constraints 1 and 2.
+
+    7. We introduce the Christiansen Coefficient of Uniformity CU [3], for use in determining uniformity of
+       the precipitation distribution produced by a given algorithm.
+
+    8. We traverse the reduced algorithm space and compute tf , CU , and a combined metric for each algorithm
+       in the space.
+
+    9. We make a set of recommendations based on the values of the optimized metrics.
+
+As we go along, we will note the assumptions that we make in constructing each piece of the model and
+interpreting its results. Finally, we will assess the strengths and weaknesses of the model, discuss potential
+refinements and additions, and consider circumstances in which it may be necessary to complete a more
+detailed analysis.
+
+
+=== PHYSICAL PAGE 4 ===
+Team #728                                                                                                                     4
+
+
+2      Piping System Model
+The piping system consists of a water source with volume flux φ0 under static pressure P0 connected to a
+mainline of length l punctuated by n heads. We will assume that uniform distribution of the heads (i.e.,
+distances of l/(n + 1) between heads) will maximize precipitation uniformity; when we consider superposing
+the precipitation from two heads, we see that this is a safe assumption.
+    We wish to determine the nozzle velocity vi at head i as a function of the number of heads n. If we
+assume incompressibility of water1 , conservation of mass becomes φin = φout , or, in our n-sprinkler system
+with source flux φ0 ,
+                                                    A v0
+                                                           vi =                                                              (1)
+                                                    a n
+where v0 = φ0 /A. Note however that Bernoulli’s equation
+                                                        
+                                       d         1
+                                           P + ρv 2 + ρgh = 0                                                                (2)
+                                      dt         2
+implies a maximum theoretical velocity v̂i for a given n (i.e., static pressure in the pipe cannot be negative
+[4]); specifically,
+                                                               
+                                                  1 1
+                                            v̂i =      P0 + v02                                            (3)
+                                                  n ρ
+and so the nozzle velocities are
+                                                      A v0
+                                                           ≤ v̂i .
+                                                        vi =                                                  (4)
+                                                      a n
+We assume that pressure loss due to viscous interactions in the piping system are negligible, i.e., vi = v for all
+1 ≤ i ≤ n, and so (4) simplifies to a scalar equation. For systems in which this is not the case, pressure loss
+can sometimes be approximated as uniformly distributed across the heads and modeled by multiplying v by
+a scalar system efficiency coefficient η, 0 < η < 1 [2]. This allows us to create a nozzle velocity distribution
+parametrized on the number of heads n:
+
+
+
+
+                                   Figure 1: Nozzle velocity versus number of heads.
+
+
+    1 While this is not exactly true, it is a simplification that makes the problem vastly more computationally tractable.
+
+
+=== PHYSICAL PAGE 5 ===
+Team #728                                                                                                 5
+
+
+3     Precipitation Distribution Model
+3.1      Radial distributions
+From the velocities provided by our piping model we can compute a flux φ out of each nozzle, which we can
+in turn use to infer a spatial precipitation distribution ψ(r) around each sprinkler head. For this we turn
+to an empirical model based on the work of Mateos [2] which generates a family of radial distributions that
+correspond closely to a wide variety of real nozzles. We have
+
+                                                          (sR + 1)u (r − sR)2
+                                                                             
+                                        φδt           u
+                               ψ(r) =        (sR + 1) −                                                 (5)
+                                       2Aπ                     (R − sR)2
+where sR < r < R; u and s are parameters that characterize the distributions within the family, −1 < u < 1,
+0 < s < 1; and
+
+
+         (sR + 1)u+2 − 1 (sR + 1)u+1 + 1 R2 (1 − s2 )(sR + 1)u   R2 (3 − 8s + 6s2 − s4 )(sR + 1)u
+    A=                  −               +                      −                                  .      (6)
+              u+2             u+1                  2                        12(1 − s)2
+
+
+
+
+                                   Figure 2: Some radial distributions.
+
+
+
+3.2      Two-dimensional precipitation distributions
+Now we would like to generate a two-dimensional precipitation for the entire n-head lateral, and we do this
+by traversing the field. For each grid point, we calculate the distance to each sprinkler head and add the
+appropriate amount of precipitation. This has the effect of superimposing the distributions of each head on
+top of one another across the field. It also however, has an unintended effect: it introduces a small amount
+of error because the grid points will be distances ri away from the heads that are not stored exactly in the
+discretized precipitation distribution function ψ(r). Fortunately, this error can be contained by increasing
+the resolution of ψ and performing spline interpolation between the values when there is not an exact match:
+
+
+=== PHYSICAL PAGE 6 ===
+Team #728                                                                                                      6
+
+
+
+
+                             Figure 3: A two-dimensional precipitation distribution.
+
+
+
+4     Farmer Seeks Algorithm
+4.1     Enumerating the algorithms
+Before we can enumerating all the algorithms we wish to consider, we need to decide where we will allow
+the lateral to be placed. For simplicity we will restrict lateral orientation to be parallel to the short side of
+the field; however for completeness we will allow it to have any position given that the orientation constraint
+is satisfied. It seems conceivable that under some circumstances such a constraint might discard superior
+algorithms, but as we will see later these are likely to be very extreme conditions which are outside the scope
+of our model in any case.
+    The lateral, at 20 m, is not as wide as the field it must water, and so we can conceive fairly easily of two
+distinct layout types. One is a uniform layout; the other is staggered (see Figs. 4, 5).
+This allows us to define our algorithm space,
+
+                                {u} × {s} × {n} × {δt} × {unif orm, staggered}
+
+and–hypothetically–to determine for each algorithm:
+
+    1. if it satisfies the constraints (see Subsection 2.3), and if so
+    2. the values of tf and CU associated with it.
+
+4.2     Discretization, reduction, and traversal of the algorithm space
+Before we can actually traverse the algorithm space we must discretize its subspaces:
+
+    • The u-space u (−1, 1) and s-space s (0, 1) become u = −1 + 0.10k and s = 0 + 0.05k, respectively,
+      where k = 0, 1, 2, ..., 20.
+    • The n-space, n = 1, 2, ... is unchanged.
+
+
+=== PHYSICAL PAGE 7 ===
+Team #728                                                                                                  7
+
+
+
+
+                                       Figure 4: The uniform layout.
+
+
+
+
+                                      Figure 5: The staggered layout.
+
+
+
+   • The δt-space δt (0, ∞) becomes δt = 1, 2, ....
+   • The layout-space is unchanged.
+
+Now we traverse the algorithm space one subspace at a time and discard any algorithms that fail to satisfy
+the constraints (see Subsection 2.3). This dramatically reduces the available algorithms; in fact we are left
+with:
+
+
+=== PHYSICAL PAGE 8 ===
+Team #728                                                                                                   8
+
+
+    • u = 0.6,
+    • s = 0.7,
+    • n {1, 2, 3, 4}, and
+    • δt {1, 2, ..., 240},
+
+and the layout-space is unchanged. It is easy enough to compute tf for each algorithm remaining in the
+space, but we don’t yet have a way to measure precipitation uniformity.
+
+4.3     The Christiansen Coefficient of Uniformity
+To measure uniformity of precipitation across the entire field, we will employ the Christiansen Coefficient of
+Uniformity CU , introduced by J. E. Christiansen in 1942 [3]. It is given by
+                                                     1
+                                                       Pn
+                                                           i=1 |xi − µ|
+                                                                       
+                                                     n
+                                     CU = 100 1 −                                                          (7)
+                                                              µ
+                                         Pn
+where µ is the mean precipitation, µ = n1 i=1 xi , and CU = 100 indicates a perfectly uniform distribution
+(generally unattainable [5]).
+
+
+5     Findings and Recommendations
+According to our model results, the most generally optimized algorithm is a three-nozzle staggered layout
+with a time interval of 6 hours and 40 minutes. It has CU = 84.69 and requires seven station moves to
+complete one watering period:
+
+
+
+
+                              Figure 6: The most generally optimized algorithm.
+
+
+   The algorithm that requires the least station moves, however, is a two-nozzle, uniformly spaced six-
+position layout with a time interval of 8 hours. It has CU = 74.39:
+
+
+=== PHYSICAL PAGE 9 ===
+Team #728                                                                                                    9
+
+
+
+
+                                      Figure 7: The fastest algorithm.
+
+
+
+    The upper constraint on precipitation limited the number of nozzles suitable for deployment to no more
+than four; anything more would require the farmer to move the lateral at least once an hour. A lateral
+configuration with fewer nozzles allows the farmer to perform less work and still obtain satisfactory precipi-
+tation results. Still, our model results demonstrate that there is a tradeoff between precipitation uniformity
+and work done by the farmer.
+
+
+6    Further Model Strengths and Weaknesses; Potential Refine-
+     ments and Additions
+Perhaps the most crucial assumption that our model employs is that during any given time step, there is no
+net wind. This amounts essentially to assuming no wind at all, which is clearly a strong simplification. It
+allows for fast computation and effective discrimination among a wide range of algorithms, but unfortunately
+it also sharply limits the applicability of the algorithms selected. The model will return useful results for
+regions with low wind variability, but will depart sharply from reality in places with strong, highly variable
+winds. One possible method for incorporating wind without relying on many-particled, real-time, water
+droplet tracking is to track the wind vector field over the area of interest and to translate the precipitation
+that falls at each time step by the corresponding amount. This is of course also a simplification, but by
+keeping the computing power required to assess scheduling algorithms low it may be possible to maximize
+utility of the testing framework in rural areas where computing power is generally limited and hand-moves
+and other simple agricultural systems are most widely used [6].
+
+
+=== PHYSICAL PAGE 10 ===
+Team #728                                                                        10
+
+
+7    Appendix: Some MATLAB Output
+Below is an excerpt from some debug output of our algorithm testing framework.
+
+
+>> farmerJoe(2,1,480,1,1);
+--> we get signal
+--> how are you gentlemen
+   number of elements is 2
+   flux is 0.000579 m^3/s
+   radius is 22.673224 meters
+--> take off every zig
+   6 zigs launching
+--> what happen ?
+   max water is 69.803542 mm
+   min water is 20.037111 mm
+--> for great justice
+   total water is 246169.715525 m^3
+   uniformity coefficient is 74.386729
+--> main screen turn on
+--> you have no chance to survive make your time
+   running time is 15.682376 seconds
+
+
+=== PHYSICAL PAGE 11 ===
+Team #728                                                                                                   11
+
+
+References
+[1] Li, J. and M. Rao, 2001: Crop yield as affected by uniformity of sprinkler irrigation system. International
+    Commission of Agricultural Engineering (CIGR) E-Journal of Scientific Research and Development, 3.
+    http://cigr-ejournal.tamu.edu/submissions/volume3/LW%2001%20004a.pdf.
+
+[2] Mateos, L., 1998: Assessing whole-field uniformity of stationary sprinkler irrigation systems. Irrigation
+    Science, 18, 73-81.
+
+[3] Christiansen, J. E., 1942: Irrigation by sprinkling. California Agricultural Experiment Station Bulletin
+    670, University of California, Berkeley, CA.
+
+[4] Douglas, J. F., J. M. Gasiorek, and J. A. Swaffield. Fluid Mechanics, 3rd ed. London: Longman Scientific
+    & Technical, 1995. p. 167.
+
+[5] Solmon, K. H., 1988: A new way to view sprinkler patterns. Irrigation Notes. California Agricultural
+    Technology Institute Publication #880802. http://cati.csufresno.edu/cit/rese/88/880802.
+
+[6] National Agricultural Statistics Service Charts and Maps:     Farms and Land in Farms.
+    http://www.nass.usda.gov/Charts and Maps/Farms and Land in Farms/fncht6.asp.

@@ -1,0 +1,2517 @@
+=== PHYSICAL PAGE 1 ===
+        Problem Chosen                      2021
+                                                微信公众号：数学模型
+                                                   Team Control Number
+                                          MCM/ICM
+                B                       Summary Sheet                   2105363
+       Rapid Bushfire Response for Emergency Response
+                                           Summary
+     How to respond and deal with fires in time when they occur is a question worth
+  thinking about. This paper provides a fire response plan for Victoria through the ratio-
+  nal deployment of EOC, drones and forward teams.
+                                                                               型
+      In Task 1, the paper establishes the area safety evaluation model with fire frequency,
+
+
+                                                            学
+  size, and recent fire situation as indicators to classify the danger levels of different areas
+  in Victoria. Then, we confirm that drones should provide different services for high-
+
+
+                                                             模
+  risk and dangerous areas. In order to increase the service capacity, we optimize both
+  capacity and cost. For capability, we make the average response time of SSA drones
+  to high-risk areas as short as possible, and reserve as many SSA drones to dangerous
+  areas as possible. For cost, we quantify the demand for SSA drones in terms of fire
+
+                                                    数
+  acreage, and take into account the rounds and the attrition rate of drones. We also
+  consider the mix between SSA drones and radio repeater drones, and calculate the
+
+
+                                   号
+  number of repeater drones using a greedy mix-based maximum number solving algo-
+  rithm. The total cost is calculated and finally the quantity optimization model based on
+
+                                                             m
+  the maximum mix rate and minimum cost is obtained. 200 SSA drones and 32 radio
+
+                                    ：
+  repeater drones are needed, respectively.
+                                                              od
+      In Task 2, we consider countermeasures in terms of both predicting extreme fire
+
+                                                                els
+  events and increasing equipment. We first build a ternary commensurable fire predic-
+
+                           众
+  tion model to predict the probability and magnitude of extreme fire events. Then, we
+  use the expectation of the number of extreme fires to estimate the amount of equip-
+
+
+                    公
+  ment that should be added to the EOC. Also, based on the size of the fire and the
+
+                                             AT
+  number of firefighters’ equipment, we obtain a probability of success formula for ex-
+  treme fires, and the expected value of the additional equipment, given that the success
+
+
+  微
+  rate of each extreme fire rescue by the "boots on the ground" team is 80%. The unit cost
+
+                                                H
+  of the equipment is refined with relevant information to obtain the expected value of
+
+
+   信
+  the increased equipment cost. So the total cost of additional equipment is A$4,952.25.
+
+                                      M
+      In Task 3, we consider signal range loss and drone safety to optimize the distribu-
+  tion range of repeater drones. First, we establish a signal loss model with improved
+
+
+                             ：
+  Standard Propagation Model (SPM) model to quantify the signal-to-noise ratio of the
+  repeater drone’s signal around obstacles of different heights, and eliminate the loca-
+  tions where the repeater signal-to-noise ratio is less than 20 dB. Then, we build a
+
+
+                    号
+  dynamics-based fire spread model to calculate the edge length of fire in each direc-
+  tion. The locations where the distance between the repeater drone and the fire edge is
+  less than 50m are excluded. Finally, we simulate three locations at different altitudes,
+
+
+    微
+  and finds that the wind direction directly affects the distribution of the optimized
+  repeater drones, which is concentrated at the edge of the ideal range perpendicular
+
+
+     信
+  to the wind direction.
+      We verify the robustness of the model by sensitivity analysis with respect to the
+  parameters affecting the safety factors, and find that the recent fire conditions have a
+  strong influence. We analyze the influence of different fire frequencies and regions on
+  the number of SSA drones, and the results with higher sensitivity are, fire frequency
+  in the [1600,2000] interval and located in the central region of Victoria, respectively.
+  Finally, an annotated Budget Request is provided by collating all the expenses.
+
+微信号：MATHmodels
+     Keywords: safety factor       commensurable       signal-to-noise ratio                   2
+
+                                                                                      MATHmodels
+                                                                                                   关注数学模型
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 2 ===
+  Team # 2105363                                  微信公众号：数学模型                          Page 2 of 25
+
+
+                                          Contents
+  1   Introduction                                                                                    3
+      1.1 Problem Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .              3
+      1.2 Restatement of the Problem . . . . . . . . . . . . . . . . . . . . . . . . . .              3
+
+  2   Preparation of the Models
+
+                                                                               型
+      2.1 Assumptions and Justifications . . . . . . . . . . . . . . . . . . . . . . . .
+      2.2 Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                      3
+                                                                                                      3
+                                                                                                      4
+
+
+                                                              学
+      2.3 Drones voyage model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      2.4 Data pre-processing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                      4
+                                                                                                      5
+
+  3   Task 1: Optimal Numbers and Mix of Two Types of Drones
+                                                               模
+      3.1 Area safety evaluation model . . . . . . . . . . . . . . . . . . . . . . . . .
+           3.1.1 Indicators establishment . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                      5
+                                                                                                      5
+                                                                                                      5
+
+                                                     数
+           3.1.2 Safety factors S(x, y) and danger levels . . . . . . . . . . . . . . .
+           3.1.3 Result analyze of heat map . . . . . . . . . . . . . . . . . . . . . .
+      3.2 Optimization of the number and mix of drones . . . . . . . . . . . . . . .
+                                                                                                      7
+                                                                                                      8
+                                                                                                      8
+
+                                    号
+           3.2.1 Maximum drone capability . . . . . . . . . . . . . . . . . . . . . .
+
+                                                               m
+           3.2.2 Minimal drone costs . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                      8
+                                                                                                      9
+
+
+                                     ：                          od
+           3.2.3 Number and mix of drones . . . . . . . . . . . . . . . . . . . . . .
+      3.3 Optimization model with maximum mix rate and minimum cost . . . .
+
+
+                                                                  els
+           3.3.1 Result Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                      9
+                                                                                                     13
+                                                                                                     13
+
+  4
+                            众
+      Task 2: Adaptation of Model and Cost Increases for Equipment
+      4.1 Ternary commensurable fire prediction model . . . . . . . . . . . . . . .
+                                                                                                     13
+                                                                                                     14
+
+                   公
+           4.1.1 Model building process . . . . . . . . . . . . . . . . . . . . . . . .
+
+                                              AT
+           4.1.2 Result of ternary commensurable fire prediction model . . . . . .
+      4.2 Increased Equipment Costs . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                     14
+                                                                                                     16
+                                                                                                     16
+
+
+  微                                              H
+           4.2.1 Additional equipment costs for EOCs Cost(EOC) . . . . . . . . .
+           4.2.2 Additional equipment costs for firefighters Cost(firefighter) . . .
+                                                                                                     17
+                                                                                                     17
+
+
+  5信       4.2.3 Results of additional equipment . . . . . . . . . . . . . . . . . . .
+
+      Task 3: Location Optimization    M
+      5.1 Signal loss model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                     18
+
+                                                                                                     18
+                                                                                                     18
+
+                              ：
+      5.2 Drone safety . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      5.3 Result analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                     19
+                                                                                                     21
+
+  6
+                     号
+      Sensitivity analysis
+      6.1 Sensitivity Analysis of safety factor S(x, y) . . . . . . . . . . . . . . . . .
+                                                                                                     21
+                                                                                                     21
+
+
+      微
+      6.2 Sensitivity analysis of fire frequency in different regions per year . . . .               22
+
+  7   Strengths and Weaknesses                                                                       23
+
+
+
+  8
+       信
+      7.1 Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      7.2 Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+      Annotated Budget Request
+                                                                                                     23
+                                                                                                     23
+
+                                                                                                     23
+
+  References                                                                                         25
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 3 ===
+  Team # 2105363                              微信公众号：数学模型                        Page 3 of 25
+
+
+
+  1     Introduction
+
+  1.1    Problem Background
+      Australia’s hot and dry climate, with many hills and few mountains, makes it one
+  of the most forest fire-prone places in the world. Since the first fire in New South Wales
+
+                                                                          型
+  in September 2019, New South Wales and eastern Victoria was severly affected.
+      Firefighters have used drones for surveillance and situational awareness (SSA) to
+
+
+                                                          学
+  allow the Emergency Operations Center (EOC) best direct active crews for optimal
+  effect and maximal safety. The main task of drones is to monitor places where fires are
+
+
+                                                           模
+  violent and where it is easy to grow into active fires.
+
+
+  1.2    Restatement of the Problem
+
+                                                  数
+      After understanding the relevant background information, the team are supposed
+  to do the following:
+
+                                  号                        m
+      • Create a model to determine the optimal numbers and mix of SSA drones and
+
+
+                                   ：
+        Radio Repeater drones.
+
+                                                            od
+      • Illustrate how your model adapts to the changing likelihood of extreme fire events
+        over the next decade. Project what equipment cost increases will occur assuming
+
+
+                          众
+        the cost of drone systems stays constant.
+                                                              els
+      • Determine a model for optimizing the locations of hovering VHF/UHF radio-
+        repeater drones.
+
+
+  2
+                   公
+        Preparation of the Models          AT
+  微                                           H
+   信
+  2.1    Assumptions and Justifications
+                                    M
+  1. The EOC can be deployed and moved to locations as needed for firefighting mis-
+     sions, with negligible cost of deployment and movement. And it is responsible
+
+                            ：
+     for fire rescue situations in only one area at a time.
+      EOC can be moved and deployed according to the fire situation, and its cost is labor
+
+                    号
+      cost and equipment cost. The labor cost is more complicated and is a fixed expendi-
+      ture for the fire department, so it is not considered.
+
+
+
+      微
+  2. When calculating the distance we consider that the distance is a straight line dis-
+     tance in a spatial three-dimensional coordinate system.
+
+
+       信
+      There is a big difference between the altitude of the Victorian mountains and the
+      plains, so the distance obtained by considering the altitude is more accurate.
+
+  3. The repeaters can receive signals from multiple targets and forward them to mul-
+     tiple targets.
+      This is determined by the function of the repeater. A repeater located between the
+      front lines and the EOC can relay radio signals both from the front lines to the EOC
+
+微信号：MATHmodels
+      and from the EOC to the front lines.                                                 关注数学模型
+                                                                                           2
+
+                                                                                  MATHmodels
+
+
+                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 4 ===
+  Team # 2105363                              微信公众号：数学模型                               Page 4 of 25
+
+
+  4. Drones only serve part of the fire.
+    Fires in Australia are common, thus it is less likely to attract widespread attention
+    when an average sized fire occurs. And can be quickly extinguished by local fire
+    forces, without dedicated drone deployment.
+
+  5. The drone needs to adjust its position when working.
+    To avoid damage to the drone caused by the effects of fire.
+                                                                                型
+  2.2   Notations
+                                                              学
+                                                               模
+     The primary notations used in this paper are listed in Table 1.
+
+                                      Table 1: Notations
+
+              Symbol
+                 r
+                             Definition
+                             drone scanning radius 数
+               (x, y)
+              f (x, y)
+                                  号
+                             a place with longitude x and latitude y
+                             fire frequency at (x, y)
+                                                              m
+                                   ：
+             size(x, y)      fire size at (x, y)
+          situation(x, y)
+              S(x, y)
+                             recent fire situation at (x, t)
+                             safety factor at (x, y)           od
+                 xi
+           Cost(drone)
+                 m          众                                    els
+                             the distance between the EOC and the high-risk area
+                             total cost of two types of drones
+                             number of SSA drones
+                 n
+                 L2
+                   公         number radio repeater drones
+
+                                           AT
+                             signal-to-noise ratio
+
+
+
+  微
+  2.3   Drones voyage model                   H
+   信                                M
+      Considering the drone power problem,
+  the flight range of the drones are related
+  to the average velocity (only consider single
+                                                    Voyage(km)
+
+
+
+
+                            ：
+  trip), and the relationship between them is
+  parabolic. For practical considerations, we
+                                                    30
+
+
+
+
+                    号
+  formulate that the average speed of the drone
+  cannot exceed 10m/s (i.e., max{v} = 10m/s).
+  When the drone is in the maximum flight
+                                                   27.8
+
+
+
+                                                                       At this speed, the drone
+
+
+
+    微
+  time (i.e. 2.5 hours), the drone range is max-
+  imum, and the average velocity of the drone
+                                                                       has the largest range.
+
+
+
+
+     信
+  is 30km/2.5h ≈ 3.3m/s. The corresponding                0      3.3                                  10
+  relationship is shown in the figure below.                           vavg (m / s )
+
+     Figure 1 shows the length of drones’ voy- Figure 1: Relationship of V oyage and vmax
+  age average velocity curve, which is a parabolic. What we obtain is as follows by fitting
+  data.
+                     V oyage(v) = −0.2 × v 2 + 1.32 × v + 27.8 (km),                     (1)
+  where V oyage(v) is the length of vayage when drones travel with the average speed of
+微信号：MATHmodels
+  v.                                                                                    关注数学模型    2
+
+                                                                                         MATHmodels
+
+
+                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 5 ===
+  Team # 2105363                                           微信公众号：数学模型               Page 5 of 25
+
+
+  2.4     Data pre-processing
+      In order to simplify the problem, the range of the repeater signal in the calculation
+  of the first question is always 20 km. Handheld two-way radios have a range of 2 km
+  in urban, forest and mountainous areas and 5 km elsewhere. This greatly simplifies
+  the calculation and will be further optimized in the third question.
+      Fires data processing
+                                                                              型
+     Combined with life experience we know that the spread of fire presents a convex
+
+
+                                                              学
+  polygon, which is approximately estimated as a circle. The circumference of the j th fire
+  with latitude and longitude of (xj , yj ) is dj (xj , yj ), which yields:
+
+
+
+                                                               模
+                                   dj (xj ,yj )
+      • Radius: rj (xj , yj ) =        2π
+                                                ;
+      • Area: Scircle,j (xj , yj ) = π × rj2 (xj , yj ).
+     We combine fires that occurred on the same day and in close proximity into one fire
+  point.
+                                                           数
+  3
+                                             号
+          Task 1: Optimal Numbers and Mix of Two Types of
+                                                               m
+          Drones
+                                              ：                 od
+                                                                  els
+     In the model for determining the number and combination of drones, it is necessary
+
+                                众
+  to provide an evaluation standard for whether the fire point needs drone rescue to
+  improve rescue efficiency. To do this, we first classify the fires into different safety
+  levels. On the basis of the known safety level of each area, we optimize the number
+
+                      公                              AT
+  and combination of drones based on maximum mix rate and minimum cost.
+
+
+
+
+  微
+  3.1     Area safety evaluation model
+                                                        H
+   信  In order to assess the safety factor for dif-
+  ferent areas of Victoria, the gridded map is
+  shown in Figure 2. The longitude and lati-
+  tude of each region are denoted by x, y, re-
+                                                    M
+                                  ：
+  spectively. For different latitude and longi-
+  tude (x, y) regions, we establish three eval-
+
+
+                        号
+  uation indicators: fire frequency f (x, y), re-
+  cent fire situation situation(x, y), andfire size
+  size(x,y) , which are used to measure the
+
+
+      微
+  safety factor S(x, y). The safety coefficients of
+  the grid and the adjacent grid are scored to
+
+
+       信
+  get the safety levels of the different grids on
+  the map.                                                  Figure 2: Map gridding schematic
+
+
+  3.1.1    Indicators establishment
+
+        (1) Fire frequency f (x, y)
+
+
+微信号：MATHmodels
+      In order to fully understand the fire frequency when fires are most severe in differ-    2
+
+                                                                                      MATHmodels
+                                                                                                   关注数学模型
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 6 ===
+  Team # 2105363                                                 微信公众号：数学模型                                     Page 6 of 25
+
+
+  ent areas, we need the maximum value of the daily fire frequency at that location and
+  explore it on different time scales to estimate that maximum value.
+
+                                                                      u(ts , i, x, y)
+                                               f (x, y) = max{                        },                                       (2)
+                                                                             ts
+  where:
+     • ts is the time scale in days, ts ∈ [1, 365];
+     • i denotes the number of times, i ∈ [1, b 365 c];
+                                                                                                      型
+                                                                                   学
+                                                 ts
+     • u(ts , i, x, y) = [number of fires that occurred from day (1 + (i − 1) × ts ) to day (1 +
+       i × ts )]/ts (in place (x,y)), indicating the number of fires that occurred in the ith
+       time scale.
+     Figure 3 shows a detailed illustration about the time scale.                   模
+                     𝑡                                                  数
+                                                     𝑢(𝑡 , 𝑖) is the number of fires
+                                                     that occurred during this period
+
+
+
+
+                                                号
+                    𝑖=1         𝑖=2                               𝑖
+                                                                                             A year (365days)
+                1         1+𝑡         1 + 2𝑡           1 + (𝑖 − 1)𝑡     1+𝑖 𝑡
+
+                                               Figure 3: Time scale diagram
+
+
+                                                 ：                                      mod
+                                  众
+     (2) Recent fire situation situation(x, y)
+
+                            [2]
+                                                                                           els
+                    公
+      From the website we know that the "mini-weather zone" formed by smoke and
+
+                                                            AT
+  heat absorbing atmospheric moisture can continue to spread the fire through the sparks
+  and form new ignition sites, which is also known as "embers attack". In other words,
+
+
+  微
+  the area where the fire just broke out is more likely to reignite. during the period t0
+
+                                                               H
+  (the time period corresponding to Figure 1 in the title, i.e., October 1, 2019 to January
+
+
+   信
+  7, 2020). We use t0 as the time criterion for determining the presence of recent fires and
+
+                                                   M
+  the period for updating the safety level, making the following divisions.
+
+                                           Table 2: A three-way score table
+
+                                   ：
+                                  Recent fire situation                                    Scores
+
+
+                         号            Burning
+                                 Happened recently
+                                Not happened recently
+                                                                                             3
+                                                                                             2
+                                                                                             1
+
+
+    微(3) Fire size size(x, y)
+
+     信                                                                             [1]
+      Based on the data obtained from Active Fire Data , we extract the circumference
+  dj (x, y) for the j th fire in the (x, y) region and obtain annual average size:
+                                                                 365
+                                                                 X   dj (x, y)
+                                                size(x, y) =                        .                                          (3)
+                                                                  j=1
+                                                                            365
+
+微信号：MATHmodels                                                                                                             2
+
+                                                                                                                  MATHmodels
+                                                                                                                                     关注数学模型
+
+                                                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 7 ===
+  Team # 2105363                                微信公众号：数学模型                           Page 7 of 25
+
+
+  3.1.2   Safety factors S(x, y) and danger levels
+
+     1. Safety factors based on AHP AHP is a systematic and hierarchical multi-objective
+  comprehensive evaluation method. We build the importance matrix of S(x, y):
+                                                
+                                      1 2 1/6
+                                     2 1 1/5  .
+                                      6 5 1
+                                                                            型
+      We take the average size of the fire as the most important indicator, and the purpose
+
+
+                                                            学
+  is to make the area with a high safety factor correspond to a larger average size. The
+  resulting fire is more active or can develop into a more larger size, which is in line with
+
+
+                                                             模
+  the characteristics of the objects monitored by drones.
+     The consistency ratio is
+                                           CR = 0.0739,
+
+                                                   数
+  which is less than 0.1, so the degree of inconsistency of S(x, y) is within the tolerance
+  range. And it passes the consistency test.
+
+
+
+                                   号
+      In order to eliminate the differences in the different magnitudes, after normaliza-
+  tion, we get:
+                                                             m
+                                    ：
+                S(x, y) = a1 × f (x, y) + a2 × situation(x, y) + a3 × size(x, y).
+
+                                                              od
+     The result of Formula 4 is a1 = 0.1628, a2 = 0.1088, a3 = 0.7285.
+
+                                                                els
+                                                                                                    (4)
+
+
+
+
+                             众
+     2. Safety Assessment of the area:
+      When we consider whether a region is safe or not, in addition to the safety fac-
+
+
+                   公
+  tor S(x, y) for that region, for its neighboring regions is also of reference value. We
+
+                                               AT
+  convolve the nine safety factors with a convolution kernel
+                 
+                   S(x − 1, y + 1) S(x, y + 1) S(x + 1, y + 1)
+                                                                
+                                                                      0.05 0.05 0.05
+                                                                                      
+
+
+  微 S 0 (x, y) =  S(x − 1, y)       S(x, y)
+                                                  H
+                                                 S(x + 1, y)  ⊗  0.05 0.6 0.05  .
+                   S(x − 1, y − 1) S(x, y − 1) S(x + 1, y − 1)        0.05 0.05 0.05
+
+
+   信                                  M
+      While the safety factor is already a valuable indicator when considering the safety
+  situation, it is clear that we cannot ignore the influence of topography for the Rapid
+  Bushfire Response program. There are significant differences in landscape from region
+
+                             ：
+  to region. Therefore, fires in forested and vegetated hills and mountains (collectively
+  referred to as flammable topography) are more likely to develop over time into fires
+
+
+                     号
+  that are fierce and difficult to extinguish. And urban, desert, plains and other areas
+  (collectively referred to as non-combustible topography) after the fire is difficult to
+  further develop into a larger scale. Do the following division.
+
+
+    微                        Table 3: Dangerous level classification
+
+
+
+     信         Non-flammable topography
+             Safety factor
+               0 0.25
+                                Danger level
+                                  very safe
+                                                          Flammable topography
+                                                    Safety factor
+                                                      0 0.25
+                                                                       Danger level
+                                                                           safe
+              0.25 0.5              safe             0.25 0.5             general
+              0.5 0.75            general            0.5 0.75           dangerous
+
+微信号：MATHmodels 0.75 1            dangerous            0.75 1             high-risk              2
+
+                                                                                       MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 8 ===
+  Team # 2105363                               微信公众号：数学模型                         Page 8 of 25
+
+
+  3.1.3   Result analyze of heat map
+
+     The map of different security levels is shown in Figure 4. The areas in different
+  colors represent areas of different levels.
+
+                                                               High-risk
+                                                               Dangerous
+                                                               General
+                                                               Safe & very safe   型
+                                                           学
+                                                            模
+                                                  数
+                                  号
+                     Figure 4: Different danger levels on the Victoria map
+
+                                                            m
+                                   ：                         od
+      As can be seen in Figure 4, central Victoria is safer, probably because it is at a low
+  altitude and is not affected much by climate. There are many high-risk areas in the
+
+                                                               els
+                          众
+  east, west and south, which is because these areas are very vegetated.
+      For SSA drones, it should maintain timely response capability to the high-risk area
+  and have certain prevention capability to the dangerous area. Repeater drones, on the
+
+                   公                       AT
+  other hand, work with SSA drones to maintain communications and surveillance ac-
+  tivities in high-risk areas, while reserving a certain number of radio-repeater drones
+  for dangerous areas to support communications that may be established. In order to
+
+  微                                           H
+  ensure the safety of the EOC, set the EOC to move freely in the safe area.
+
+
+
+   信
+  3.2
+                                    M
+          Optimization of the number and mix of drones
+     After dividing the gridded map into areas with different security levels, we dis-
+
+                           ：
+  patch drones to implement emergency response or preventive deployment based on
+  the security level of the fire, demonstrating the advantages and disadvantages of the
+
+
+                    号
+  solution using capability and cost metrics. We evaluate the mix of the two types of
+  drones and optimize the number of drones based on as much capability and as little
+  cost as possible.
+
+
+    微
+  3.2.1   Maximum drone capability
+
+
+     信
+     The capability of the drone is reflected in two aspects: the response time of the
+  high-risk area is as short as possible (response capability) and the response time of
+  the dangerous area is as reasonable as possible (prevention capability). There are M
+  high-risk areas and N precautionary areas in the statistics. These two capabilities are
+  analyzed separately below.
+
+     • Response capability
+微信号：MATHmodels                                                                               2
+
+                                                                                    MATHmodels
+                                                                                                 关注数学模型
+
+                                                                                                 获取更多资讯
+
+
+=== PHYSICAL PAGE 9 ===
+  Team # 2105363                                  微信公众号：数学模型                       Page 9 of 25
+
+
+      We consider the ith EOC to be responsible for communication and surveillance. the
+  role of the EOC is to direct the SSA drone to reach the high risk area from a location
+  closer to the ith high risk area in a safer area, such that the average response time tavg is
+  minimized.
+                                                   M
+                                                  X   ti
+                                           tavg =        ,
+                                                  i=1
+                                                      M
+
+                                           ti =
+                                                   xi
+                                                  vmax
+                                                         .
+                                                                            型
+     To ensure that the drone can travel back to,
+                                                             学
+                                                              模
+                                   xi < 0.5 × V oyage(vmax ).                                     (5)
+
+      xi is the distance between the EOC and the high-risk area, and ti is the time the
+
+
+                                                        数
+  aircraft flies in the process. In order to maximize the response capability of the drone,
+  tavg should be as small as possible. Therefore, we make the EOC located at the nearest
+  point to the ith high-risk area in the safer region.
+
+     • Prevention capability
+                                   号                         m
+                                    ：
+     We configure a certain number of SSA drones in the dangerous area, so that when
+
+                                                              od
+  the EOC is movable, we can ensure that there are SSA drones or EOCs in the dangerous
+  area at regular intervals to check whether there are fires. Prepare a certain number of
+
+                                                                els
+  drones, the more the number, the better the ability to prevent, see Section 3.2.3 for
+  quantification.
+                           众
+  3.2.2
+                   公
+          Minimal drone costs
+
+                                            AT
+      We calculate the total cost of the two drones and their number separately. Let the
+
+  微                                            H
+  number of SSA drones be m and the number of Radio Repeater drones be n. The
+  calculation is as follows.
+
+
+   信                                 M
+          Cost(drone) = m × Cost(SSA drone) + n × Cost(radio repeater drone),
+
+  where Cost(SSA drone) = SSA drones’ HD camera cost+ remote sensing camera cost+
+                                                                                                  (6)
+
+
+
+                            ：
+  drone cost, Cost(radio repeater drone) = repeater cost+ Radio Repeater drones’ cost.
+  So we want
+                                 min{Cost(SSA drone).}                             (7)
+
+
+  3.2.3
+                    号
+          Number and mix of drones
+
+
+    微 The m, n are the number of SSA drones and radio-repeater drones, respectively.
+
+
+     信
+  We determine the number of SSA drones from the demand of the fire scene and the
+  round system, then determine the number of radio repeater drones by the combination
+  relationship between SSA drones and radio repeater drones, and finally prepare some
+  drones to prevent dangerous area.
+     1. Number of SSA drones
+      For SSA drones, because SSA drones monitor the fire scene directly, the mixed re-
+  lationship with the radio-repeater drones does not change their utilization rate in the 关注数学模型
+微信号：MATHmodels                                                                                2
+
+                                                                                     MATHmodels
+
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 10 ===
+  Team # 2105363                                         微信公众号：数学模型                   Page 10 of 25
+
+
+  fire now, so it is sufficient to calculate the number of SSA drones directly according to
+  the fire demand.
+     (1) For high-risk areas
+     Let the longitude and latitude of the jth high-risk area be (x0j , yj0 ), and find the num-
+  ber of SSA drones needed to scan the j th high-risk area.
+
+
+                                                                                      型
+      Fires that need to maintain a timely response are very active, large and mostly in
+  terrain that is prone to further expansion.
+
+
+
+                                                                      学
+                                                                      Side view
+
+
+
+
+                                                                       模
+                               Top view
+
+                                𝑣   ×𝑡
+
+
+
+
+                                                             数
+                       𝑟                          𝑟                    𝜃    𝜃 = 40°
+
+
+                       𝑟                          𝑟
+                                                                           ℎ = 300𝑚
+
+
+
+
+                                     号
+                            Scanning acreage
+                                                                  𝑟
+
+
+                                                                       m          𝑟
+
+
+
+
+                                      ：
+                           Figure 5: SSA drones surveillance schematic
+                                                                        od
+                                                                          els
+                           众
+     To ensure firefighting efficiency, SSA drones on scene should assure that they can
+  complete scanning surveillance of the entire scene area within half a minute. The scan
+
+
+                   公
+  radius can be obtained from Figure 5.
+
+                                                      AT
+                                                       0
+                                                      Scircle,j
+
+
+  微
+                             m1,j =                                    .                               (8)
+
+                                                         H
+                                          πr2 + 2r · vmax × 30 seconds
+     SSA drones have constant round trips and recharges, and there are handoffs. So
+
+   信
+  the number of SSA required for the j th high-risk area is the product of the number of
+                                          M
+  handoffs and the number of SSA drones required at the same time.
+
+
+
+                             ： m2,j = m1,j ·
+                                                      2x̄i
+                                                       v
+                                                           + recharge time
+                                                           V oyage(v)
+                                                               v
+                                                                      −
+                                                                        xj
+                                                                        v
+                                                                           ,                           (9)
+
+
+
+                    号
+  where the biggest fractional equation in Formula (9) represents the rounds of the drone,
+  which is obtained by the quotient of the time returning from the disaster area to recharge
+  and arriving at the disaster area again and the time spent in the disaster area.
+
+    微(2) For dangerous areas
+
+
+     信For the ith dangerous area, the number of SSA drones should reach a certain thresh-
+  old in order to check for fires in these areas, such that even in the worst case scenario
+  (i.e., when all dangerous areas are on fire), the number of SSA drones in reserve is suf-
+  ficient to dispatch one SSA drone for each hazard area for temporary surveillance and
+  situational awareness. Thus there is a total number of SSAs:
+                                           M
+                                           X
+                                    m=            m2,j + N × (1 + ϕ),                                 (10)
+微信号：MATHmodels                              i=1                                                   2
+
+                                                                                         MATHmodels
+                                                                                                             关注数学模型
+
+                                                                                                             获取更多资讯
+
+
+=== PHYSICAL PAGE 11 ===
+  Team # 2105363                               微信公众号：数学模型                       Page 11 of 25
+
+
+  where ϕ is loss rate. Considering the attrition of reserve drones, we prepare some
+  additional drones to cope with this attrition. ϕ is the number of extra prepared drones
+  divided by the number of dangerous area drones.
+     2. Mix of Radio Repeater drones
+     For the radio-repeater drones, consider its combination with the SSA drones, so that
+  each radio-repeater drone can receive as many signals as possible and forward more
+  signals to determine the best number , optimize utilization.
+     (1) Greedy and multiplexing based solution algorithms
+                                                                           型
+                                                          学
+     Using a greedy algorithm, the solution that allows each radio repeater drone to
+  reuse the maximum number of SSA drones is planned, and the minimum number of
+  radio repeater drones, n, is output.
+                                                           模
+     The idea of the algorithm is to find candidate locations of radio repeater drones
+  that can be multiplexed. Starting from the candidate location with the most multiplex-
+
+                                                  数
+  ing, a radio repeater drone is determined to be placed at that location, while removing
+  the SSA drones in high-risk areas that can use that repeater drone to send and receive
+
+
+                                  号
+  signals. Then candidate locations with the second highest reuse rate is identified. Con-
+  tinue this process until all high-risk areas are taken care of by the repeater.
+
+
+
+                                   ：
+     Given the meaning of some symbols:
+                                                           mod
+     • n1 , n2 are the number of prepared radio-repeater drones and the number of radio-
+       repeater drones responding to the high-risk area, respectively. When calculating
+
+
+                          众
+       n1 , the input n is n1 , so does n2 .
+     • mi is the number of SSA drones in ith .
+                                                              els
+                   公
+     • U is the number of corresponding areas when considering high-risk or dangerous
+       areas.
+                                           AT
+     • Rradio = 2km and Rrepeater = 20km are the ranges of the handheld two-way radios
+
+  微    and repeaters, respectively.
+                                              H
+     • SCi is the candidate range of radio repeater drone for the ith high-risk area, SC =
+
+   信   {SC1 , SC2 , · · · , SCM }.
+                                     M
+     • SRi is the number of radio repeater drones multiplexed corresponding to the ith
+       high-risk area (other high-risk areas use this repeater at the same time), equal to 1
+
+                            ：
+       means that this radio repeater drone is only responsible for the signal transceiver
+       in this high-risk area. SR = {SR1 , SR2 , · · · , SRM }.
+
+
+                    号
+     • SNj is the reuse number of the radio repeater drones corresponding to the j th
+       high-risk region. If another high-risk area multiplexes this repeater, the serial
+       number of this high-risk area is an element of the set SN . SN = {SN1 , SN2 , · · · , SNM }
+
+
+    微
+     信
+微信号：MATHmodels                                                                              2
+
+                                                                                   MATHmodels
+                                                                                                关注数学模型
+
+                                                                                                获取更多资讯
+
+
+=== PHYSICAL PAGE 12 ===
+  Team # 2105363                               微信公众号：数学模型                        Page 12 of 25
+
+
+         Algorithm: Radio Repeater drones number solving algorithm
+           Input: xi , Rradio , Rrepeater , n = 0
+           Output: n
+         1 for i = 1; i ⩽ U ; i + + do
+         2     if xi > Rradio then
+         3         take the ith high-risk area as the center and Rradio as the radius to
+
+         4
+                     make a circle O1 ;
+                                                                           型
+                   take the ith EOC as the center and Rrepeater as the radius to make
+                     a circle O2 ;
+         5
+         6
+                   SCi = O1 ∩ O2 ;
+                   SRi = 1;
+                                                           学
+         7
+         8
+         9
+           for i = 1; i ⩽ U ; i + + do
+               for j = 1; j ⩽ U ; j + + do
+                   if SCi ∩ SCj 6= ∅ and i 6= j then
+                                                            模
+        10
+        11
+                       SRi = SRi + mj ;
+                       SCi = SCi ∩ SCj ;
+                       SNi = SNi ∪ {j};
+                                                   数
+                                   号
+        12
+
+
+        13
+        14
+        15
+           while SR1 + SR2 + · · · + SRU = 0 do
+
+
+                                    ：                       mod
+             SRk = max{SR}, k is the maximum value’s serial number in SR;
+             n = n + 1;
+        16
+        17
+        18
+        19
+             for i = 1; i ⩽ U ; i + + do
+
+                          众
+                 if k ∈ SNi then
+                     SNi = ∅;
+                     SRi = 0;
+                                                               els
+                   公
+      (2) Maximize the reuse rate m         AT
+                                     Using the reuse rate: m   indicates the mix relationship
+
+
+  微
+                                   n                         n
+
+
+
+                                               H
+  of drone configuration, the larger this indicator is the better the mix relationship of two
+  drones. Then we have:
+                                                m
+
+
+   信
+                                           max{ }.                                        (11)
+                                                 n
+                                     M
+     (3) Continuous supply to high-risk areas
+
+
+                            ：
+      Considering the process of repeater drone round trip and charging, there is hand-
+  offs, so it is necessary to get the number of repeater drones that respond to high risk
+  areas:
+
+                    号                      2x̄i
+                                                + recharge time
+                                n01 = n1 × v V oyage(v) x̄
+                                                   v
+                                                        −  v
+                                                            i
+                                                                ,
+
+
+
+
+    微ditto,
+                                         3.3 ⩽ v ⩽ 10,
+
+
+     信                            V oyage(v) > 2 × max(xj ).
+
+     So the total number of repeater drones:
+
+                                         n = n01 + n2 ,                                          (12)
+
+  where n2 is radio repeater drones that dangerous areas need.
+
+微信号：MATHmodels                                                                               2
+
+                                                                                    MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 13 ===
+  Team # 2105363                                          微信公众号：数学模型                                      Page 13 of 25
+
+
+  3.3     Optimization model with maximum mix rate and minimum cost
+      Combining all the above, λ is introduced to reflect the priority of the drone capabil-
+  ity indicators. The larger λ is, the higher the priority of the capability indicators in the
+  drone configuration scheme obtained from the planning. The final model is:
+                                                n λ
+                                                   ) × Cost(drone)(1−λ) },
+                                         min{(
+                                                m
+                                                   
+                                                    n = n01 + n2                                         型
+                                                                                学
+                                                   
+                                                   
+                                                   0 ⩽ ϕ ⩽ 1
+                                              s.t.                                                    .
+                                                    0 ⩽ λ ⩽ 13.3 ⩽ v ⩽ 10
+
+
+                                                                                 模
+                                                   
+                                                   
+                                                     V oyage(v) > 2 × max{xj }
+                                                   
+
+
+  3.3.1    Result Analysis
+
+                                                                数
+    The result of the optimization model with maximum drone capability and mini-
+
+
+                                             号
+  mum cost are shown in Figure 6.
+
+
+
+
+                                              ：
+                                                        Pareto front
+                                                                                  mod
+                                                         Choose the relatively optimal solution for
+
+
+
+
+                                    众                                                els
+                                                         the two objective functions in this area.
+
+
+
+
+                     Cost(drone)
+                   公                                  AT
+  微                                                      H
+   信                                             M       n
+                                                         m
+
+                                      ：
+                                   Figure 6: The results of the optimization model
+
+
+
+                    号
+      As shown in the Figure 6, the inverse of m  n
+                                                    shows an inverse relationship with the
+  cost of the drone, which indicates that our bi-objective optimization is effective. We
+
+
+      微
+  intercept the middle section of the interval as the solution space, and we can choose
+  a non-inferior solution in the left half of the interval when we prefer the combination
+
+
+       信
+  rate to be optimal, and in the right half of the interval when we prefer the cost to be
+  minimal.
+
+
+  4       Task 2: Adaptation of Model and Cost Increases for
+          Equipment
+
+微信号：MATHmodels
+      For simplicity, we make the following two assumptions:                                                          2
+
+                                                                                                             MATHmodels
+                                                                                                                          关注数学模型
+
+                                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 14 ===
+  Team # 2105363                                         微信公众号：数学模型                             Page 14 of 25
+
+
+     • The topography of Australia will not change dramatically in the next ten years
+       (not considering changes in topography caused by unavoidable factors such as
+       earthquakes).
+     • The probability of fire occurrence in different hazard areas is independent of each
+       other.
+
+
+  4.1     Ternary commensurable fire prediction model
+                                                                                                型
+                                                                         学
+  4.1.1   Model building process
+
+      Since the terrain does not change dramatically over the course of a decade, the main
+
+                                                                          模
+  task of predicting fire is when extreme fire conditions will occur, what the probability
+  of occurrence is, and what the amount of equipment prepared to respond to fires of
+  different sizes is. We obtained data on extreme fire conditions in Victoria over the last
+
+                                                               数  [5]
+  few decades by referring to List of major bushfires in Australia , and used this as the
+  basis for our predictions.
+
+
+
+                                          号
+     The commensurable prediction model is a method of forecasting special events
+  based on special events, and he bases his forecasting on the universal existence of com-
+
+                                                                            m
+  mensurability of events, which is a generalized periodicity. Commensurability is a law
+
+                                           ：                                 od
+  that is common to all elements of a system and reflects the occurrence of special events
+                                      [6]
+  (small probability events) in nature .
+
+
+                                众
+      1. The general commensurable prediction model is:
+                                                         l
+                                                         X
+                                                                               els
+                      公                        Xi+1 =
+
+                                                     AT  j=1
+                                                               Ij Xj ,
+
+
+  where X is entered in chronological order for the past years in which extreme fire
+
+  微                                                     H
+  events occurred to obtain X = {X1 , X2 , ..., X17 } in the sequence.. {j} ∈ {i}, that is, j is
+  an element of the set i. Ij is an integer.
+
+
+   信 2. In order to get the optimal results, the ternary commensurable prediction model
+                                             M[7]
+  with the best results in general is selected . And the formula is:
+
+
+                                  ：       Xa + Xb − Xc = Xu(a,b,c) ,
+
+  where a, b, c, d, e, f, g = 1, 2, · · · , n, u, v, w = 1, 2, · · · , m.
+
+                        号
+     3. Enumerate the equations that match the above relationship by enumeration, and
+  process the sequence numbers to obtain a vector
+
+
+    微                                V = (b − a, c − b, u − c,0 +0 ,0 −0 ),
+
+
+
+     信
+  which means the difference between the serial numbers of the first two years, the differ-
+  ence between the serial numbers of the second and third years, the difference between
+  the serial numbers of the third and fourth years, the sign before the second year, and
+  the sign before the third year.
+      Find among all vectors the vectors that exist identical to itself and obtain the multi-
+  set ternary commensurable forecast formula:
+
+
+微信号：MATHmodels           Xi V4 Xi+V 1 V5 Xi+V1 +V2 = Xi+V1 +V2 +V3          i = 1, 2, · · · ,               2
+
+                                                                                                   MATHmodels
+                                                                                                                关注数学模型
+
+                                                                                                                获取更多资讯
+
+
+=== PHYSICAL PAGE 15 ===
+  Team # 2105363                                                     微信公众号：数学模型                                        Page 15 of 25
+
+
+  let the term with the largest ordinal number in the forecast equation be X18 , and the
+  forecast value for multiple years corresponding to X18 can be calculated.
+      4. We sort the past year series and the forecasted year series from left to right by
+  serial number, enumerate four years from all of them, find the ternary commensurable
+  forecast formula they match, and connect them two by two with their differences to
+  get the butterfly diagram.
+
+                                                                                                               型
+                              Δ = 17                 Δ = 17(18)          Δ =17(18)
+                                                                                       学
+                                                                                     Δ = 17 Δ = 17 Δ = 17 Δ = 17(18)
+
+
+
+
+                                                                                        模
+             1851 1898 1926 1939 1944 1951 1965 1977 1983 1985 1997 2003 2006 2007 2009 2014 2020 2023
+
+
+                   Years not used in the forecast
+                   Two Years with difference of 17
+                                                          𝚫 = 9(8)
+
+                                                              Δ = 3(2)
+                                                                          数   𝚫=9             𝚫 = 9(8)
+
+                                                                                Δ = 3 Δ = 3(4) Δ = 3
+                                                                                                             𝚫=9
+
+                                                                                                                 Δ=3
+
+
+
+
+                                                号
+                   Two Years with difference of 9
+                   Two Years with difference of 3
+
+
+
+
+                                                 ：
+                                        Figure 7: Butterfly structure diagram
+                                                                                         mod
+                                   众
+     According to the K. Pearson-Fisher theorem, Figure 7 satisfies the butterfly struc-
+  ture probability reference criterion. It reflects the most important quasi-cycles since
+                                                                                            els
+                     公
+  1851 as 3, 9, 17a, with 17a being the most typical, occurring seven times.
+
+                                                             AT
+      5. Count statistically the total number of extreme fires used to predict the ith extreme
+  fire situation as ni , and the number of extreme fires participating in the prediction of
+
+  微                                                             H
+  the ith extreme fire case is mi , then the probability of the ith extreme fire event is
+
+
+
+   信
+                                                                                         mi
+                                          P (ith extreme fire occur) =                      ,
+
+                                                     M
+  and mi can be seen by butterfly structure diagram clearly.
+                                                                                         ni
+
+
+
+                                       ：
+      For example, our predicted year for the next extreme fire is 2023, which is involved
+  in all three cycles, and the number of years involved in the prediction is 16. The prob-
+
+
+                        号
+  ability of the event prediction is P = m/n = 16/17 = 94.12%, which is the probability
+  of an extreme severe fire in 2023.
+      6. We use the fire acreage in the data to indicate the severity of extreme fire condi-
+
+
+    微
+  tions Sdanger , and similarly the fire scale can be predicted by the ternary commensurable
+  prediction model.
+
+
+     信
+     7. Test the predicted values and calculate the relative residuals:
+
+                                  ε(k) =
+                                               x(0) (k) − x̂(0) (k)
+                                                     x(0) (k)
+                                                                             , k = 1, 2, . . . , n.
+
+
+      If for all ε|(k)| < 0.1, the higher requirement is considered to be reached; otherwise,
+  if for all |ε(k)| < 0.2, the general requirement is considered to be reached.
+微信号：MATHmodels                                                                                                                     2
+
+                                                                                                                          MATHmodels
+                                                                                                                                       关注数学模型
+
+                                                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 16 ===
+  Team # 2105363                                微信公众号：数学模型                        Page 16 of 25
+
+
+  4.1.2   Result of ternary commensurable fire prediction model
+
+     1. Table of predicted years and residual test
+
+                                Table 4: Table of predicted years
+
+              Years         Probability        Residual             Residual change
+              2022
+              2023
+                               64.71%
+                               94.12%
+                                                   53
+                                                   54
+                                                                             型
+                                                                          2.62%
+                                                                          2.67%
+              2024
+              2027  zhi
+                    0-50
+                               52.94%
+                             lv41.18%
+                                40.60%
+                                                   55
+                                                   58
+                                                            学             2.72%
+                                                                          2.86%
+                    50-100
+                    100-150
+     Table 4 shows our
+                                12.52%
+                                22.09%
+                         predictions
+                    150-200
+                    200-300
+  and the corresponding
+                                                             模
+                                14.81% for the four possible years of extreme severity fires
+                                 2.20%
+                           probabilities  of it. The fourth column shows that the residual
+                    400-500
+  change in the occurrence
+                    500+     of
+                                 2.73%
+                                 extreme
+                                 0.46%   fires
+                                                   数
+                                                for all four years is around 2%, which is less
+  than 5%. This indicates that our predictions have a strong accuracy.
+
+
+                                   号
+     2. Pie map of predicted relative index
+
+                                                             m
+                                    ：                         od
+                                                                els
+                          众
+                   公                        AT
+  微                                            H
+   信                      Figure 8: Pie map of predicted relative index
+
+                                     M
+      Based on the commensurable model, we predict the relative index of severity that
+
+                            ：
+  would result from the next extreme severity fire when it occurred. As shown in Figure
+  8, the next extreme severity fire is most likely to produce a fire with a severity index
+
+
+                      号
+  of 0-50. Also, fires with larger severity indices have a high likelihood, accounting for
+  more than half of the likelihood. Therefore, in order to meet future emergency response
+  needs for large fires, we may need to increase the number of drones or "Boots-on-the-
+
+
+    微
+  ground" Forward Teams.
+
+
+  4.2
+     信    Increased Equipment Costs
+     After predicting the fire, to accommodate changes in the likelihood of extreme fire
+  events over the next decade, we increase the equipment configuration of the EOC and
+  "boots-on-the-ground" firefighters for extreme fire events only, getting the increased
+  equipment costs.
+     Equipment includes handheld radios for the "boots-on-the-ground" teams, wear-
+微信号：MATHmodels
+  able devices, and two-way radios for the EOC. From a safety perspective, we assume
+                                                                                     关注数学模型    2
+
+                                                                                      MATHmodels
+
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 17 ===
+  Team # 2105363                                   微信公众号：数学模型                           Page 17 of 25
+
+
+  that each "boots on the ground" squad firefighter has one handheld radio and one set
+  of wearables, and that each EOC has one two-way radio for surveillance and commu-
+  nications and one two-way radio for backup.
+
+
+  4.2.1   Additional equipment costs for EOCs Cost(EOC)
+
+
+                                                                                  型
+      When extreme fires occur, the drone needs the appropriate EOC to support commu-
+  nication and surveillance. Find the expected value E(number, extreme) of the number
+  of extreme fires that have a probability of occurring in the next ten years, which is equal
+
+                                                                学
+  to the sum of the probabilities of occurrence in the fire prediction model.
+
+
+
+                                                                 模
+                                  N
+                                  X
+          E(number, extreme) =          P (fires in i areas) · P (no fires in N − i areas) · i,
+                                  i=1
+
+  where P denotes the probability.
+                                                       数
+     From Task 1, we know that the number of EOCs responsible for extreme fires is
+
+
+                                   号
+  equal to the number of extreme fires. So the cost of the additional equipment for the
+  EOC is calculated as
+
+
+
+                                    ：                            mod
+                    Cost(EOC) = 2 × E(number, extreme) · Cost(radio).                                   (13)
+
+
+  4.2.2
+                                                                    els
+          Additional equipment costs for firefighters Cost(firefighter)
+
+                          众
+     The number of "boots on the ground" teams on each attendance is determined by
+
+
+                   公
+  the EOC after considering the severity of the fire. The probability model for the fire
+
+                                                AT
+  department to handle an extreme fire event is established, and the probability of suc-
+  cessful response to the fire is estimated based on the number of team members N umi
+
+
+  微
+  and the severity Sdanger,i in ith extreme fire event.
+
+                                                   H
+      Combined with the actual situation, the more serious the fire, the smaller the pos-
+
+
+   信
+  sibility of "boots-on-the-ground" squad to put out the fire, while the more the number
+
+                                        M
+  of squad, the greater the ability to deal with the fire. This change in the relationship
+  should be the first slow then fast and finally slow trend, so the sigmoid function is
+  selected to fit.
+
+                            ：
+                           P (success, i) =
+                                                      1
+                                                       N umi
+                                            1 + exp(− Sdanger,i + C)
+                                                                     ,                 (14)
+
+
+
+                    号
+  where i ∈ [1, E(number, extreme)] and C is a constant, from the article Brief introduction
+                                  [3]
+  of Polish volunteer fire brigade , it is known that the average number of Polish fire de-
+  partment is 24, we can use Fnumber,i = 24, Sdanger,i = average of Sdanger when the success
+
+    微
+  rate is 0.8 to estimate C.
+
+
+
+     信
+      The EOC should ensure that the success rate of each team’s rescue is above 80%
+  when making decisions. Substitute Sdanger,i, calculate the number of team members
+  Pnumber,i for the ith extreme fire with a success rate of exactly 0.8. And utilize the
+  expected value of the increase in the number of "boots-on-the-ground" firefighters to
+  estimate the number of increases needed.
+                                  M
+                                  X
+                    E(N umi ) =         P (N umi ) · P (ith extreme fire occur).
+
+微信号：MATHmodels                                                                                                 关注数学模型
+                                  i=1
+                                                                                                    2
+
+                                                                                           MATHmodels
+
+
+                                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 18 ===
+  Team # 2105363                                         微信公众号：数学模型                         Page 18 of 25
+
+
+      The cost of additional equipment for firefighters of "boots on the ground" is:
+
+            Cost(firefighter) = E(N umi ) · (Cost(radio) + Cost(wearable device)).                             (15)
+
+
+  4.2.3    Results of additional equipment
+
+
+                        Equipment                      Number           Single price   型
+                                                                                       Total price
+
+
+
+                                                                       学
+                        EOC radios                        5                92.725       463.625
+           “Boots-on-the-ground” handheld radios          19               94.741        1,800
+
+
+
+                                                                        模
+           “Boots-on-the-ground” team wearable
+                                                          19              141.507      2,688.625
+                        equipment
+                                Figure 9: Number of additional equipment
+
+
+
+  5       Task 3: Location Optimization                        数
+                                         号                              m
+      In the greedy and multiplexing based solution algorithms of Task 1, we have ob-
+
+
+                                          ：                              od
+  tained the ideal distribution range of each repeater drone. Based on this, we consider
+  the signal loss and safety of the repeater drone to optimize its optimal position in the
+  ideal distribution range.
+                                                                           els
+  5.1     Signal loss model    众
+                      公                             AT
+     SPM model is suitable for propagation loss prediction for distances from 1 to 20
+  km and frequencies from 150 to 3500 MHz, running GSM and other communication
+
+
+  微                                                    H
+  systems. This model takes the feature classification map and effective antenna height
+                                                                                    [4]
+  into account to calculate the path loss. Its basic equation is shown in Formula 16 .
+
+
+   信                   L1 = K1 + K2 lg d + K3 lg HT xef f + K4 Dif f _loss
+                                            M
+                          + K5 lg HT xef f lg d + K6 HRxef f + Kchitter f (clutter),
+                                                                                                               (16)
+
+
+
+                                 ：
+  where K4 is the multiplicative factor of the bypassing amount; Dif f _loss(unit: dB)
+  is the loss caused by bypassing the obstacle; K6 is the multiplicative factor of HRxef f ,
+  Rxef f is the mobile station receiving antenna height. K1 , K2 and other variables are
+
+                        号
+  related to the height and distance of the signal base station as well as environment of
+  drones.
+
+
+
+      微
+      For the repeater drone, when the siting is varied within the ideal distribution, K1 ,
+  K2 , K3 , HT xef f , K4 , K5 , K6 , and Kchitter are unchanged, and the small change of d is
+  negligible, only HRxef f and Dif f _loss will change. Therefore, the signal loss model of
+
+       信
+  the repeater drone is established as follows.
+
+                              L2 = K4 · Dif f _loss + K6 · HRxef f + L0 ,
+                                                                          [8]
+                                                                                                               (17)
+
+                                      K4 = 44.9 − 6.55 log HRxef f ,
+                                                                         [8]
+                                      K6 = 1.1 log frepeater − 0.7,
+                                                            4π
+微信号：MATHmodels
+                                                                          [8]
+                                     L0 = 20 log10 (                   ),                                  2
+                                                                                                                      关注数学模型
+                                                     λtransmitted wave                            MATHmodels
+
+
+                                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 19 ===
+  Team # 2105363                               微信公众号：数学模型                       Page 19 of 25
+
+
+  where fradio is frequency of repeater. λtransmitted wave is wavelength of transmitted wave
+  in meters.
+     For Rxef f , drone altitude = altitude of location + height above ground.
+      For Dif f _loss, we assume that the height of the obstacle is linearly related to the
+  loss of the repeater range, with the most severe loss for obstacle heights greater than
+  1.5·Rxef f and considered almost no loss effect for obstacle heights less than 0.5·Rxef f .
+
+                                                                            型
+  In the ideal case the loss ratio δ is 1.0, the worst case is 0.8. The loss ratio of the ith
+  obstacle :
+
+
+                                                               学
+                        δi = (Hi /Rxef f ) · (1 − 0.7)/(1.5 − 0.5) + 0.7.
+  where Hi is the height of the ith obstacle Counting K obstacles on the linear path be-
+
+
+                                                                模
+  tween the repeater drone and the fire area in 1000m. Calculate Dif f _loss:
+                                                  Y
+                                  Dif f _loss =        δi .                         (18)
+
+
+                        [9]
+                                                   数
+                                                 i=1,2,...,K
+
+
+      From the website we can see that we should ensure that the signal-to-noise ratio
+  is not less than 20dB, that is,
+
+                                  号  L2 ⩾ 20dB.
+                                                               m                  (19)
+
+
+                                   ：                            od
+     We use this formula to filter out the areas that do not meet the requirements.
+
+
+
+                                                                  els
+  5.2   Drone safety
+                              众
+      Depending on the scale of the fire, repeater drones need to avoid nearby fires to
+
+                   公
+  ensure safe operations. Because of the limited signal range of handheld radio, repeater
+
+                                           AT
+  drones are often located 2 to 5 km from the center of the fire, and when the fire is
+  large and the terrain is flammable, it is easy to spread to the repeater drone is located,
+
+
+  微                                           H
+  causing damage to the drone in serious cases. We perform a quantitative analysis of
+  safety based on information related to fires.
+
+
+   信 Kinetics-based fire spread model:
+                                     M
+                              ：                    𝑣_𝑤𝑖𝑛𝑑
+
+
+
+
+                    号
+    微
+     信               Figure 10: Kinetic-based fire spread model schematic
+
+
+      As shown in the Figure 10, the fire spread into eight directions, of which the direc-
+  tion of the angle with the wind speed less than 45 degrees will spread outside (such as
+  the direction of the yellow arrow), the other directions remain unchanged (such as the
+微信号：MATHmodels
+  direction of the blue arrow).
+                                                                                            关注数学模型
+                                                                                            2
+
+                                                                                   MATHmodels
+
+
+                                                                                                获取更多资讯
+
+
+=== PHYSICAL PAGE 20 ===
+  Team # 2105363                                  微信公众号：数学模型                           Page 20 of 25
+
+
+
+
+               V~spread = V~wind × exp((D + topography scoring) · fire size + E),
+  where S~r denotes the rate of spread in the vector direction, and D and E both denote
+  constants.
+     In the fire spread range, the amount of change in the length of the fire ~k direction is
+                            (
+                                       ~                        ~
+                       ~ k = Vspread × k × unit time, Vspread × k > 0
+                      ∆L
+                             0, others
+                                                                               ,   型
+  and length of fire ~k direction is
+                                                               学
+                                   ~k = L
+                                   L    ~ k (last time) + ∆L
+                                                           ~ k.
+                                                                模
+                                                      数
+     Wind speeds were obtained from SSA drones collecting data from “boots-on-the-
+  ground” teams, and terrain was scored to create a scoring table as follows.
+
+
+
+                                       号
+                                   Table 5: Terrain scoring table
+
+                                   Terrains
+                                                                m     Scores
+
+                                        ：
+                      Forests, grassy hills, grasslands
+                           Plains, other terrain                 od
+                                                                   els
+                                                                         3
+                                                                         2
+
+
+                            众
+                          Not happened recently                          1
+
+
+
+
+                   公
+      To ensure safety, the distance between the ith repeater drone position (xdrone,i , ydrone,i ),
+
+                                               AT
+  which is in a certain direction of the fire, and the edge of the fire should be made no
+  less than the safety threshold, which is set here to 50 m. Therefore,
+
+
+  微                                               H
+           |(xdrone,i , ydrone,i ) − (x, y) of center| ⩾ 50 + the range length of the fire.            (20)
+
+
+   信
+  where "(x, y) of the center" denotes the latitude and longitude of the fire center. "The
+                                       M
+  range length of the fire" means the range length in a certain direction of the fire at a
+  certain moment.
+     Location optimization:
+                             ：
+     The signal-to-noise ratio and distance from the edge of the fire are calculated for
+
+                     号
+  each location in the ideal distribution range, and reasonable locations are selected:
+
+                                           L2 ⩾ 20dB.
+                                                        [9]
+
+
+
+
+    微We use this constraint to optimize to get the drone range from the point of view of
+
+
+     信
+  preventing fire spread hazards by drones.
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                              关注数学模型
+
+                                                                                                              获取更多资讯
+
+
+=== PHYSICAL PAGE 21 ===
+  Team # 2105363                                                                                          微信公众号：数学模型                                                             Page 21 of 25
+
+
+  5.3        Result analysis
+
+        𝐹𝑖𝑟𝑒 𝑑𝑖𝑟𝑒𝑐𝑡𝑖𝑜𝑛 𝐿𝑎𝑡𝑖𝑡𝑢𝑑𝑒 𝑎𝑛𝑑 𝑙𝑜𝑛𝑔𝑖𝑡𝑢𝑑𝑒: −36.7322, 147.3058 𝐻𝑒𝑖𝑔ℎ𝑡: 1986m                𝐹𝑖𝑟𝑒 𝑑𝑖𝑟𝑒𝑐𝑡𝑖𝑜𝑛 𝐿𝑎𝑡𝑖𝑡𝑢𝑑𝑒 𝑎𝑛𝑑 𝑙𝑜𝑛𝑔𝑖𝑡𝑢𝑑𝑒: −37.4935, 147.3724 𝐻𝑒𝑖𝑔ℎ𝑡: 14m
+
+
+
+
+                                                                                                                                                                   型        𝐼𝑑𝑒𝑎𝑙 𝑐𝑎𝑛𝑑𝑖𝑑𝑎𝑡𝑒 𝑟𝑎𝑛𝑔𝑒
+
+
+
+
+                                                                                                                                  学                                         𝑂𝑝𝑡𝑖𝑚𝑖𝑧𝑒𝑑 𝑜𝑝𝑡𝑖𝑜𝑛𝑎𝑙 𝑟𝑎𝑛𝑔𝑒
+
+                                                                                                                                                                            𝑁𝑜𝑛 𝑠𝑎𝑓𝑒𝑟 𝑎𝑟𝑒𝑎𝑠
+
+
+                                  (a) The highest altitude
+
+           Figure 11: Optimization of the location of the highest and lowest points of altitude
+                                                                                                            (b) The lowest altitude
+
+                                                                                                                                   模
+      Obviously, the wind direction directly affects the distribution of the optimized re-
+  peater drones, which is concentrated at the edge of the ideal range perpendicular to the
+                                                                                                                 数
+                                                                                     号
+  wind direction. High altitude areas are more likely to be affected by the altitude of dif-
+  ferent locations, which manifests itself in the form of a discontinuous and interrupted
+                                                                                                                                    m
+  range of the optimized distribution.
+
+                                                                                      ：                                              od
+                                                                                                                                       els
+  6       Sensitivity analysis
+                                                                       众
+  6.1        Sensitivity Analysis of safety factor S(x, y)
+                                                              公
+      In Task 1, we classify the areas of Victoria as different danger levels by calculating       AT
+  微
+  the safety factor. Therefore, the safety factor S(x, y) is a crucial parameter, which is cal-
+  culated by fire frequency f (x, y), fize size size(x, y), recent fire situation situation(x, y)
+                                                                                                      H
+   信
+  (see Formula 4). As a result, we do sensitivity analysis on the coefficients a1 , a2 and a3
+  of these three parameters and the results are shown in Figure 12.
+
+                                                         1
+                                                                                           M
+                                                                           ：
+                   Comprehensive safety factor S(x,y)
+                                                        0.9
+
+                                                        0.8
+
+                                                        0.7
+
+                                                        0.6
+                                                              号
+      微
+                                                        0.5
+
+                                                        0.4
+
+
+
+
+       信
+                                                        0.3
+
+                                                        0.2
+
+                                                        0.1
+
+                                                         0
+                                                              -10%   -5%   0    5%   10%       -10%     -5%     0      5%    10%           -10%      -5%     0         5%    10%
+                                                                           a1                                 a2                                             a3
+                                                                                           The weight change of parameter a
+                                                                           Figure 12: Sensitivity Analysis of S(x, y)
+微信号：MATHmodels                                                                                                                                                                                   2
+
+                                                                                                                                                                                        MATHmodels
+                                                                                                                                                                                                       关注数学模型
+
+                                                                                                                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 22 ===
+  Team # 2105363                                                                 微信公众号：数学模型                                Page 22 of 25
+
+
+     In Figure 12, we select a high-risk area as a place to test sensitivity, and the coordi-
+  nate is (x, y) = (−36.0634, 148.2911)
+      From the figure we can conclude that When the variation of a1 , a2 and a3 change
+  from -10% to 10%, the changes in the values of S(x, y) corresponding to a1 and a3 are
+  small and the overall trend is flat. Therefore, we believe that the frequency and size
+  of fires are more robust and do not affect S too much. Meanwhile, a2 corresponds to a
+  relatively large amount of change in S(x, y), so we think the sensitivity of the recent
+  fire situation to be strong. This result verifies the reasonableness of our consideration
+  of situation(x, y) in Section 3.1.1.
+                                                                                                                           型
+                                                                                                 学
+                                                                                                  模
+  6.2   Sensitivity analysis of fire frequency in different regions per year
+     The annual frequency of fires in different regions has a significant impact on the
+  number of SSA drones. Therefore, we divid Victoria into central, eastern, western, and
+
+                                                                                    数
+  southern regions, and do sensitivity analysis on the fire frequency in each of these four
+  geographic regions.
+
+
+                                                           号                                     m
+                                                            ：
+                                          400
+
+
+
+
+                                                                                                  od
+                   Number of SSA drones
+                                          320
+
+
+
+                                          240
+
+
+
+                                          180       众                                               els
+                   公                      120
+
+
+                                                                          AT
+                                                                                                         Central region
+                                                                                                         Eastern region
+                                                                                                         Western region
+                                                                                                         Southern region
+
+
+
+
+  微
+                                          60
+
+                                                0   400   800   1200
+
+                                                                             H
+                                                                          1600    2000    2400   2800
+                                                                       Frequency of fire(times/year)
+                                                                                                        3200     3600
+
+
+
+
+   信       Figure 13: Sensitivity analysis of fire frequency in different regions per year
+
+                                                                M
+                                                    ：
+      We can analyze Figure 13 in two ways. For fire frequency, the number of SSA
+  drones vary the most when the number of fires in Victoria is in the range of 1600∼2000
+  per year. That is, the fire frequency is sensitive in the interval [1600,2000]. Therefore,
+
+                                          号
+  when CFA uses our model, if the measured number of fires in the year is within this
+  interval, they should calculate the number of SSA drones very carefully.
+
+
+
+    微
+      For different regions, the number of SSA drones in the four regions change sig-
+  nificantly when the fire frequency is greater than 1600. The central region of Victoria
+  has the highest number, while the southern region has the lowest. Therefore, regions
+
+     信
+  are also sensitive to the number of SSA drones, and CFA’s drone dispatch should be
+  different in different regions.
+
+
+
+
+微信号：MATHmodels                                                                                                                         2
+
+                                                                                                                              MATHmodels
+                                                                                                                                           关注数学模型
+
+                                                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 23 ===
+  Team # 2105363                               微信公众号：数学模型                        Page 23 of 25
+
+
+
+  7     Strengths and Weaknesses
+
+  7.1    Strengths
+      • We innovatively use safety factors to classify classes for areas with different fire
+        conditions, which improves the efficiency of drone response for emergency situ-
+
+                                                                          型
+        ations and provides a clear idea for drone dispatching and distribution.
+      • The combination and reuse relationship between drones is used to optimize the
+
+
+                                                          学
+        utilization rate of repeater drones, which both fits the actual situation and has a
+        universal solution to other configuration problems.
+      • The ternary commensurable prediction model is a model that predicts the prob-
+
+                                                           模
+        ability of future special situations for data of special situations, and the commen-
+        surabiliby it considers is very accurate in the face of special situations with the
+        superiority that other forecasting models do not have.
+
+                                                     数
+      • We have reviewed a large amount of literature, not only with sufficient data, but
+        also with estimation and calculation methods for the parameters of each model
+        from specialized literature, and the results are scientific and rigorous.
+
+                                        号                  m
+  7.2    Weaknesses
+                                         ：                  od
+      • In the problem of optimizing the position of the repeater drone, we are limited by
+
+                                                              els
+        the data for the simulation solution, and the results may be somewhat different
+
+                             众
+        from the real situation.
+      • The index estimated by using AHP model has some subjective influence, and
+
+
+                   公
+        sensitivity analysis is needed to calculate the reliability of the model.
+
+                                           AT
+  微
+  8     Annotated Budget Request
+                                              H
+   信
+                      Budget Justification for Cost Proposal (Unit: A$)
+
+                                        M
+     We are a numerical modeling competition team from MCM and will be responsi-
+  ble for the overall management and direction of the Victorian National Fire Service’s
+
+
+                                ：
+  drone acquisition program for the Rapid Bushfire Response Division and equipment
+  acquisition program for extreme fires over the next decade, based on the soundness of
+  our models through testing and analysis of results.
+
+                     号
+      1. "Rapid Jungle Response" Project
+      Direct costs: 2,401,030
+
+
+      微                Drones                Number       Single price     Total price
+
+
+
+       信            SSA drones
+                Radio repeater drones
+                                               200
+                                                32
+                                                            10,390
+                                                           10,094.741
+                                                                           2,077,200
+                                                                            323,030
+
+
+
+      The number of SSA drones procured to respond to emergency fire situations in Vic-
+  toria includes 134 shift SSA drones for emergency response to high-risk areas, 62 SSA
+  drones for fire preparedness in prepared areas, and 4 standby drones for considera-
+
+微信号：MATHmodels
+  tion of wear and tear. The cost of each SSA drone includes the cost of a bare drone at 关注数学模型2
+
+                                                                                      MATHmodels
+
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 24 ===
+  Team # 2105363                                  微信公众号：数学模型                   Page 24 of 25
+
+
+  A$10,000, an HD camera at A$47.370, and a thermal imaging camera at A$338.648; the
+  repeater drones include 21 repeater drones in combination with SSA drones in high-
+  risk areas and 21 repeater drones in combination with SSA drones in preparedness
+  areas 11, the cost of each repeater drone includes a bare drone of A$10,000, the cost of
+  a repeater of A$94.741.
+     With this drone configuration, the drones can detect all 373 locations (including 154
+
+                                                                         型
+  high-risk areas and 219 precautionary areas) throughout the state with high frequency
+  and large fire sizes, and have an average response time to emergency fires of only 5
+  minutes and 17 seconds. In addition, each repeater drone achieved a combined rate of
+
+
+                                                          学
+  6.25 with SSA drones. the overall system had excellent responsiveness and excellent
+  combined relationships.
+     Other costs: None.
+     Electricity cost for drone charging: A$0.             模
+                                                        数
+      Our analysis of the infrastructure within the Victorian State Fire Service concluded
+  that the infrastructure within the Fire Service can accommodate the normal conduct of
+  activities for other costs and therefore the cost is 0.
+
+
+                                        号
+     2. Equipment procurement items to respond to extreme fires over the next ten
+  years
+                                                          m
+     Direct Costs: 148,950
+                                         ：
+     Additional equipment (abbreviated): $A 4952.25        od
+                                                             els
+                      Equipment
+                     EOC radios
+                                 众               Number
+                                                   5
+                                                          Single price
+                                                            92.725
+                                                                         Total price
+                                                                          463.625
+
+                    公
+        “Boots-on-the-ground” handheld radios
+         “Boots-on-the-ground” team wearable     AT19
+
+                                                   19
+                                                            94.741
+
+                                                            141.507
+                                                                            1,800
+
+                                                                          2,688.625
+
+
+  微
+                      equipment
+
+
+                                                    H
+   信  From a safety perspective, we consider a one-to-one EOC for extreme fires and
+
+                                           M
+  adjust the number of firefighters in the Ground Boots team based on the predicted
+  size of the extreme fire. We provide a handheld radio and a set of wearables for each
+
+
+                                 ：
+  firefighter in the "boots on the ground" team, with one two-way radio and a backup
+  two-way radio per EOC. The unit cost of the wearables included a fire axe for $11.288,
+  a heat suit for $120.442, and a fire extinguisher for $9.877. According to our modeling,
+
+
+                      号
+  this scenario has a success rate of more than 80% for "boots on the ground" teams for
+  extreme fires.
+     Staff cost: 144,000
+
+    微                    Staff                   Number   Single price   Total price
+
+
+     信       Command staff within EOC
+         Firefighters in “Boots-on-the-ground”
+                                                   5
+                                                   19
+                                                             6,000
+                                                             6,000
+                                                                           30,000
+                                                                          114,000
+
+
+
+      We consider subsidizing a bonus for firefighters to encourage their performance in
+  fire rescue, and similarly, for each EOC, the hard work of the command staff is worth a
+  bonus. We refer to the federal government’s subsidy for volunteer firefighters in New
+微信号：MATHmodels
+  South Wales for the bonus assessment.
+                                                                                          关注数学模型
+                                                                                             2
+
+                                                                                    MATHmodels
+
+
+                                                                                                 获取更多资讯
+
+
+=== PHYSICAL PAGE 25 ===
+  Team # 2105363                                 微信公众号：数学模型                        Page 25 of 25
+
+
+     Other costs: None
+     Cost of apparatus consumption: None
+     Wear and tear of firefighting equipment: A$0 Loss of drones: $0
+      The primary job of the "boots on the ground" team is to detect first-hand informa-
+  tion about the fire, make judgments about the rapidly changing situation, and pass
+
+
+                                                                              型
+  additional information to the EOC. Therefore, fire fighting is not their main job, the
+  consumption of firefighting equipment is negligible. The wear and tear of drones is
+  already considered in the cost of drones.
+
+
+                                                             学
+  References
+                                                              模
+   [1] Active Fire Data. [online] Available at: https://firms.modaps.eosdis.na
+
+                                                    数
+       sa.gov/active_fire/#firms-shapefile [Accessed 6 Feb. 2021]
+
+   [2] When exactly will the fire in Australia be put out?. [online] Available at:            http:
+
+
+                                   号
+       //www.ctoutiao.com/2585517.html [Accessed 6 Feb. 2021]
+
+
+                                                              m
+   [3] Zhao Zeming. Brief introduction of Polish volunteer fire brigade[J].Fire
+
+                                    ：                          od
+       technology and product information,2014,(6):116,47. DOI:10.3969/j.issn.1002-
+       784X.2014.06.044.
+
+                                                                 els
+                           众
+   [4] Chu Peisi. Research and system measurement of wireless signal propagation loss
+       prediction algorithm in mobile communication system[D]. Sichuan:University of
+       Electronic Science and Technology, 2013. DOI:10.7666/d.D762613.
+
+                   公                         AT
+   [5] List of major bushfires in Australia. [online] Available at: https://en.wikip
+       edia.org/wiki/List_of_major_bushfires_in_Australia [Accessed 8
+
+
+  微    Feb. 2021]
+
+                                                H
+   [6] Huang Jinfeng, Xia Jun, Du Hong, et al. Medium- and long-term flood fore-
+
+
+   信   casting at Lutaizi and Bengbu stations based on metrizability and gray corre-
+                                      M
+       lation pattern recognition method[J]. Journal of Wuhan University (Engineering
+       Edition),2015,48(5):622-626. DOI:10.14188/j.1671-8844.2015-05-005.
+
+
+                             ：
+   [7] Yellow River Survey, Planning and Design Co. Feasibility study report of the
+       downstream Yellow River flood control project [R]. Zhengzhou: Yellow River Sur-
+
+
+                    号
+       vey, Planning and Design Co., Ltd, 2015: 4-192.
+
+   [8] B. Sridhar and M. Z. Ali Khan, "RMSE comparison of path loss models for UH-
+
+
+    微
+       F/VHF bands in India," 2014 IEEE REGION 10 SYMPOSIUM, Kuala Lumpur,
+       2014, pp. 330-335, doi: 10.1109/TENCONSpring.2014.6863052.
+
+
+
+     信
+   [9] What is the general signal-to-noise ratio, the useful signal will not be drowned. [online]
+       Available at:     zhidao.baidu.com/question/624747251070347044.ht
+       ml [Accessed 8 Feb. 2021]
+
+
+
+
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯

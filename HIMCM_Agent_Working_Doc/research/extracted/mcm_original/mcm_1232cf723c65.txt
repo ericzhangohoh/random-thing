@@ -1,0 +1,2106 @@
+=== PHYSICAL PAGE 1 ===
+                                               Team Control Number
+
+
+
+                                             34317
+         For office use only                                                        For office use only
+         T1 ________________                                                        F1 ________________
+         T2 ________________                                                        F2 ________________
+         T3 ________________                                                        F3 ________________
+                                                  Problem Chosen
+         T4 ________________                                                        F4 ________________
+                                                         A
+
+                                                     Summary
+
+“Ebola is a major global crisis that demands a massive and immediate global response. No country or
+organization can defeat Ebola alone.”
+                                                              —— H.E. Ban Ki-moon, the UN Secretary-General.
+   As a number of Global Village, we do our best to help eradicate Ebola.
+   First, we develop a stage-structured model of Ebola Propagation. In the model, we consider the susceptible,
+the exposed, the infected whose disease is not advanced, the infected whose disease is serious, the removed and
+the dead. The model is good at predicting near future cases’ number but fails in predicting far future cases’
+number. Then we take hospital into consideration and add 7 more parameters, then we do simulation once again.
+Finally, we get a better result that the model well predicts the future cases. For example, the model predicts there
+are 4000 total cases and 2500 death cases in Guinea, 9509 total cases and 4166 death cases in Liberia, 12556
+total cases and 3933 death cases in Sierra Leone up to April,1st, 2015.
+   Second, we determine the locations of delivery. We invoke clustering method to divide the most serious
+region, namely, West Africa into three parts, Guinea, Liberia and Sierra Leone. According to locations of
+provincial capital, we use clustering method once again to divide a country into several clusters. Then we adopt
+P-Center Method to determine a location of delivery in each cluster. We find there are two kinds of ways to
+choose. One is one-way route and the other is circular route. As for one-way route, we think it is
+time-consuming and energy-consuming. So we decide to use circular route. The circular route, in some ways, is
+a little bit similar to TSP problem, we use mix integer programming to find an optimal circular route by Lingo
+Software and each location of delivery has two optimal circular routes. The result is that there are 3 locations of
+delivery in Guinea, 1 location of delivery in Liberia and 1 location of delivery in Sierra Leone.
+   Third, we know from the stage-structured model that Ebola cannot stop spreading by itself. Since we are
+going to eradicate Ebola, we must use medicine and vaccine to stop Ebola. Medicine mainly influences the
+number of the susceptible while vaccine mainly influences the number of the infected whose disease is not
+advanced, in this way, we can eradicate Ebola. As for speed of manufacturing, we consider there is a linear
+equation between the speed and time because the amount of medicine is too rare to meet the requirement of
+patients. And this situation continues until the requirement is met. We can calculate the speed by the parameter
+in the linear equation. And we allocate medicine to different places by ratio of the infected number in that place
+to the number in three West African countries. Thus, we successfully stop Ebola from spreading.
+Keywords: SEIIRF Model           TSP Model       Clustering Method        Ebola Evaluating
+
+
+=== PHYSICAL PAGE 2 ===
+A BATTLE WITHOUT GUN AND SMOKE
+                     ———— THE CONFRONTATION WITH EBOLA
+
+
+                                                     Content
+Ⅰ Introduction .............................................................................................................1
+
+       1.1 Aims are Changing now ..................................................................................1
+
+       1.2 Our Understanding of the Words ....................................................................1
+
+       1.3 Decompose the Problem and Our Tasks .........................................................2
+
+Ⅱ Background – Behavior Change is Key to the Eradication of Ebola ......................3
+
+Ⅲ Assumptions And Justifications ..............................................................................4
+
+Ⅳ SEIIRF Model for Ebola propagation .....................................................................4
+
+       4.1 Introduction .....................................................................................................4
+
+       4.2 Symbols and Definitions .................................................................................5
+
+       4.3 Construction of the Model ..............................................................................6
+
+       4.4 Results are Not So Reasonable .......................................................................8
+
+       4.5 Refresh the Values of Parameters....................................................................8
+
+       4.6 Advanced Model ...........................................................................................10
+
+       4.7 Results are Reasonable .................................................................................13
+
+       4.8 Prediction of the Future ................................................................................14
+
+Ⅴ Model of Locations of Delivery............................................................................18
+
+       5.1 What is Emergency Supplies ........................................................................18
+
+       5.2 Assumptions and Justifications .....................................................................19
+
+       5.3 Clustering Method, A Way to Determine Regions for Medicine Delivery ...20
+
+       5.4 Results of Clustering Method .......................................................................21
+
+       5.5 Principle of Fairness .....................................................................................22
+
+       5.6 Principle of Efficiency ..................................................................................22
+
+       5.7 Determine Delivery Locations in the Three West African Countries ...........23
+
+Ⅵ Model of Delivery System ....................................................................................23
+
+
+=== PHYSICAL PAGE 3 ===
+       6.1 Introduction ...................................................................................................23
+
+       6.2 Symbols and Definitions ...............................................................................24
+
+       6.3 TSP Model – Well-Planned Routes ...............................................................24
+
+       6.4 Daily Demand for Medicine .........................................................................25
+
+Ⅶ Model Implementation of three Countries ............................................................26
+
+       7.1General algorithm ..........................................................................................26
+
+       7.2 Application of Algorithm ..............................................................................27
+
+              7.2.1 Application in Guinea ........................................................................27
+
+              7.2.2 Application in Liberia ........................................................................29
+
+              7.2.3 Sierra Leone .......................................................................................30
+
+Ⅷ Model of the Quantity of the Medicine Needed and Manufacturing Speed .........31
+
+       8.1 Introduction ...................................................................................................31
+
+       8.2 Assumptions and Justifications .....................................................................32
+
+       8.3 symbols and definitions ................................................................................32
+
+       8.4 How Fast Need We Produce Medicine and Vaccine .....................................32
+
+       8.5 The Quantity of the Medicine Needed ..........................................................35
+
+Ⅸ Other Factors We Think Are Important ................................................................35
+
+Ⅹ Extension of Models .............................................................................................36
+
+       10.1 Optimization of Coverage to Determine Delivery Locations .....................36
+
+       10.2 A No-boundary Scheme ..............................................................................37
+
+Ⅺ Sensitivity analysis................................................................................................38
+
+       11.1 Sensitivity Analysis of SEIIRF Model ........................................................38
+
+       11.2 Sensitivity Analysis of Model of the Speed to Produce Medicine ..............39
+
+Ⅻ Conclusion ............................................................................................................40
+
+       11.1 Strengths and Weaknesses ...........................................................................40
+
+       11.2 Overall Results ............................................................................................41
+
+
+=== PHYSICAL PAGE 4 ===
+  Team # 34317                                                              Page 1 of 44
+
+
+
+Ⅰ Introduction
+
+   Ebola, a familiar but strange word to us. When the Ebola virus out broke in West
+Africa and caused plenty of deaths, no one would imagine the disastrous scene
+without mercy. And, of course, no one believes the word ‘Ebola’ just originated from
+a peaceful and beautiful river – Ebola River in Congo. Contrary to its attracting
+meaning, it is true that the Ebola virus do take lots of victims’ lives away. Countries
+all over the world, thus, have taken strategies, more specifically, distribute health
+works to disease-torn countries, speed up the development of medicine and establish
+feasible delivery systems to contain Ebola propagation.
+
+1.1 Aims are changing now
+
+   The battle against Ebola will cost us heavily for sure, but human beings are not
+easily defeated. Although Ebola virus is fatal, we have methods. The WMA (World
+Medical Association) has announced that they have developed medicine to cure Ebola.
+At one level, the medicine is a milestone for us human beings in fighting Ebola, but at
+another it is the result of human nature. We know calling the command center to take
+away the sick is equally hard. It is our duty, in the interests of our own and the public
+good, to pick up the phone, but the reality is that, if we do, we may never hug our
+sister again. We can visit her in the treatment center and talk across two fences. The
+fortunate will be reunited. For the rest, the future is the body bag.[1] Ebola will not end
+without the medicine. Thanks to appearance of the medicine, we are gradually going
+out of confusion and turning to fight back in this smokeless battle. Many previous
+articles that mainly focus on how Ebola propagation or how difficult to contain Ebola
+are now may less important than those on how to effectively delivery medicine to
+most-need regions like West Africa. Accurate location with effective medicine –
+Ebola’s doomsday and we do our job to make it come true – considering propagation
+process, medicine needed, delivery systems, locations of delivery and manufacturing
+speed of vaccine or drug and so on.
+
+1.2 Our understanding of the words
+
+  The problem requires us to de several jobs to evaluate Ebola. We think it is
+necessary for us to come to an understanding of some words in the problem.
+
+   Spread of the Disease: We consider this sub-problem as a requirement to analyze
+Ebola propagation process and predict future cases, including total cases and death
+cases in the three West African countries and what influence that new medicine will
+bring to us. As for Ebola cases in other countries, such as in the United States or in
+The United Kingdom, good health condition and developed facilities can contain the
+cases well, so in this paper, we mainly discuss Ebola cases in West Africa.
+
+
+=== PHYSICAL PAGE 5 ===
+  Team # 34317                                                            Page 2 of 44
+
+
+   Locations of Delivery: How to understand the word ‘locations’ is the key to this
+sub-problem. We also have some criteria to choose ‘locations’ – easy to deliver
+medicine, cover most people or environment-friendly to build? Here, we regard
+‘locations’ as places that have features of easy and time-saving in medicine delivering,
+being equal to all people in a region.
+
+   Possible Feasible Delivery Systems: We think this sub-problem needs us to design
+a route that can not only cover all places which are in need of medicine but also
+provide vehicles a fastest way to send medicine. Besides, delivery systems can
+allocate medicine to different places properly.
+
+   The Quantity of the Medicine Needed: There are several understandings of the
+word ‘quantity’, like amount of medicine to cure all Ebola patients or amount of
+medicine needed every day to keep serious patients from dying. Our understanding of
+this word is the total amount of medicine needed to cure patients whose disease is not
+advanced until there is no more patients appear. So it is a dynamic and time-varying
+number until cases stops increasing.
+
+  Speed of manufacturing of the vaccine or medicine: In our opinion, this
+sub-problem needs us to decide how fast a factory have to produce medicine when
+amount of medicine is too rare to cure patients and what changes a factory should
+obey when there is enough medicine for patients. As for vaccine, we consider it is
+similar to medicine.
+
+   Other factors: Something we forget to consider in our model but also important
+for Ebola evaluating. We will find them during the process of establishing models
+
+1.3 Decompose the Problem and Our Tasks
+
+  To totally understand the problem better and know what we should to deal with
+Ebola, decompose it is needed to us. According to the steps needed in process of
+achieving our goal that accurate location with effective medicine, we deem the
+problem ‘Eradicating Ebola’ can be divided into five parts:
+
+    Propagation mechanism of Ebola virus.
+
+    Accurate locations for medicine to be delivered like disease-torn countries in
+    West Africa.
+
+    Effective transportation including amount of medicine needed in a place.
+
+    Total amount of medicine needed to cure Ebola patients until cases stops
+    increasing.
+
+
+=== PHYSICAL PAGE 6 ===
+  Team # 34317                                                            Page 3 of 44
+
+
+    Vaccine or drug manufacturing speed
+
+  When the problem is unequivocal, we start to make it clear that what we need to do
+and how to do it. Since we have separated the problem into parts, we can deal with
+these parts one by one. Here the problem requires us do and our tasks are:
+
+ Build a model to reflect the condition we face now and make prediction of the
+  future if medicine or hospital or other factors play roles in Ebola propagation
+  process.
+
+ Find some best delivery places according to our own understanding of word
+  ‘locations’
+
+ Design a delivery system both good in medicine transportation and medicine
+  allocation.
+
+ Speed to produce medicine and total quantity needed to eradicate Ebola
+
+ Other critical factors we consider important to optimize the eradication of Ebola
+
+
+Ⅱ Background – Behavior Change is Key to the
+Eradication of Ebola
+
+  As the number of Ebola cases and deaths grows in West Africa, many remain
+unaware of its deadly impact, causes and treatment options, or lack thereof. Let
+people know the harm of the diseases is of great importance both in the developing
+world and, more specifically, on the African continent.
+
+   Unfortunately, in remote districts of these three African countries – Guinea, Liberia
+and Sierra Leone few of the local have heard Google or ABC News or other TV
+media and say nothing of getting access of the newest Ebola news. Once the people
+who are seeing their family members get sick and die tend to believe an invisible
+killer who are from hell. Getting correct information about Ebola prevention and
+treatment to local communities throughout West Africa must become a higher priority,
+and we must begin to address it in culturally appropriate and innovative ways.[2]
+
+   Besides, human nature is another factor of Ebola spreading unimpededly, though
+great efforts have been made to find and quarantine Ebola patients. Like we
+introduced in Instruction, although talk of changing behavior is easy, when we think
+about the sort of behavior that needs to change, we realize it’s very hard. How many
+
+
+=== PHYSICAL PAGE 7 ===
+  Team # 34317                                                             Page 4 of 44
+
+
+of us could bear to watch our mother die without holding her hand, and then allow her
+body to be sprayed with chlorine, removed in a double body bag from the house, be
+loaded on to the back of a pick-up truck with several others, and taken to the cemetery
+for rapid interment with little more than a cursory prayer?[1]
+
+  We must have to realize that change awareness and human nature is quite hard. The
+most effective way is to find medicine if we want to win the battle against Ebola.
+Here is the time for medicine cure – the WMA have announced that they could.
+
+
+Ⅲ Assumptions And Justifications
+
+①Overlook the changing of population caused by natural birth rate and death
+
+rate.
+
+
+Compared to the influence of Ebola to the population, natural birth rate and death rate
+
+have little impact. Also, the total natural growth of number of population is not large
+
+in the period of the spread.
+
+
+②There is no population flow among areas.
+
+
+Since the outbreak of Ebola, the immigration among different districts and countries
+
+play a role can be ignored in terms of the change of the population. In addition, the
+
+flow rate of people may decrease in case of the infection of disease.
+
+
+We list more and detailed assumptions in the following section when using them.
+
+
+Ⅳ SEIIRF model for Ebola propagation
+
+4.1 Introduction
+
+  The ongoing Ebola outbreak surprises us both in size and complexity. At the very
+beginning of 2015, many scientists and other people, like us students, are still fighting
+against Ebola in different ways, such as developing medicine, propagating health care
+and predicting the spread of Ebola. In this section, we apply SEIIRF Model to
+evaluate the spread of Ebola. Thanks to a previous article [5], we can use this model
+appropriately, however, as time goes by, values of parameters stated in that article
+
+
+=== PHYSICAL PAGE 8 ===
+  Team # 34317                                                                Page 5 of 44
+
+
+may not convinced enough anymore for that article just used data from October,2014
+to November, 2014 to calculate values of parameters and then tested the model with
+data in December, 2014. If we still use the values of parameters in that article, we find
+it is far from accuracy of data in January, 2015. So we find a method – Genetic
+Algorithm to refresh the value of parameters by using data from October, 2014 to
+December, 2014 and the renewed SEIIRF Model well fits the data of January 1st, 2015
+to February 3rd, 2015.
+
+4.2 Symbols and Definitions
+
+There are some symbols appear in the model. We show them below:
+
+                                  table4.1: symbols in the model
+
+
+ SYMBOL                            DEFINITION                              UNITS
+
+
+             Transmission Parameter For First Stage Of Illness (Not
+     1                                                                people-1 days-1
+                                     In Hospital)
+
+
+     2      Ratio Of Infectiveness In First Vs. Second Of Stage Of
+                                                                          Unitless
+     1                       Illness (Not In Hospital)
+
+
+     F                    Ratio Of Infectiveness In First
+                                                                          Unitless
+     1           Stage Vs. Funeral Transmission (Not In Hospital)
+
+
+
+     1                     Average Incubation Period                      Days
+
+
+
+     11         Length Of First Stage Of Illness (Not In Hospital)        Days
+
+
+
+     2 1       Length Of Second Stage Of Illness (Not In Hospital)        Days
+
+
+
+     F 1                 Time From Death Until Burial                     Days
+
+
+
+    1 2        Overall Mortality Rate (Fraction) (Not In Hospital)      Unitless
+
+
+                 Mortality Rate (Fraction) Among Those In Second
+     2                                                                   Unitless
+                          Stage Of Illness (Not In Hospital)
+
+
+=== PHYSICAL PAGE 9 ===
+  Team # 34317                                                                 Page 6 of 44
+
+
+4.3 Construction of the Model
+
+  To adequately reflect the propagation of Ebola and transmission of Ebola, we
+should take real conditions in life into consideration.
+
+  To begin with, we show our model as a form of figure.
+
+
+                 S             E           I1           I2           F
+
+
+
+                                                  R
+
+                     figure 4.1: Stage-Structured Model of Ebola propagation
+
+
+  We can get information from the figure 4.1. There are six stages in the whole
+propagation of Ebola. We also call this model as Stage-Structured Model,
+
+    S represents the fraction of the population which is susceptible.
+
+    E represents the fraction of the population which is exposed.
+
+
+    I1 represents the fraction of the population which is infected and remain in first
+
+    stage (such as fever, headache, sore throat, muscle aches and other milder
+    symptoms which often progress to diarrhea and vomiting).
+
+
+    I 2 represents the fraction of the population which is infected and deteriorate to
+
+    second stage (such as hemorrhaging and multi-organ failure).
+
+    R represents the fraction of the population which is recovered. And
+
+    F represents the fraction of the population who have died and are in the process
+    of being buried.
+
+
+=== PHYSICAL PAGE 10 ===
+   Team # 34317                                                                  Page 7 of 44
+
+
+  The corresponding equations of Figure 4.1 are
+                              dS
+                              dt  (  I I1   2 I 2   F F ) S
+                             
+                              dE  (  I   I   F ) S   E
+                              dt        I 1       2 2      F
+
+                             
+                              dI1   E   1 I1
+                              dt
+                             
+                              dI 2    I   I
+                              dt       1 1 1       2 2
+
+                              dF
+                                     2 2 I 2   F F
+                              dt
+                              dR
+                                    (1  1 ) 1 I1  (1   2 ) 2 I 2
+                              dt
+
+
+  In the equations we consider the infected ( I1 and I 2 ) and the dead ( F ) all have
+
+ability to infect the susceptible. In fact, when our relatives get sick, we still contact
+with the in daily life, and it is not surprise for us to think that human nature play an
+important role in Ebola propagation – just as we have talked in introduction. How
+many of us could bear to watch our mother die without holding her hand, and then
+allow her body to be sprayed with chlorine, removed in a double body bag from the
+house, be loaded on to the back of a pick-up truck with several others, and taken to
+the cemetery for rapid interment with little more than a cursory prayer? Moreover, the
+exposed E are mainly form the susceptible ( I I1  2 I 2   F F )S and then have
+
+chances to turn to first stage if they show symptoms (  E ). And number of people in
+first stage I1 are mainly from the exposed (  E ) and then part of them ( 1 1 I1 ) turn
+
+to second stage and the rest of them (1  1 ) 1I1 get recovered. Thus number of
+
+people in second stage are mainly from first stage ( 1 1 I1 ) and some of them die. So
+
+the dead is the result of people (  2 2 I 2 ) in second stage and their bodies (  F F ) exist
+
+until being buried.
+
+  Then, to measure the total cases and death cases of Ebola, We invoke
+                                               t
+                                       yC    E (t)dt
+                                               0
+                                               t
+                                       yD    2 2 I 2 (t)dt
+                                               0
+
+
+=== PHYSICAL PAGE 11 ===
+  Team # 34317                                                           Page 8 of 44
+
+
+
+  In these equations, yC means total cases (or cumulate cases) and yD means
+
+death cases. And  E (t) means number of people begin to get sick and have
+
+symptoms so yC is the time integral of  E (t) . While  2 I 2 (t) is number of people
+
+who no longer in second stage anymore,  2 2 I 2 (t) means number of dead people. So
+
+yD is the time integral of  2 2 I 2 (t) .
+
+
+4.4 Results are Not So Reasonable
+
+   The article[5] adopts Least Square Method to figure out values of parameters.
+Unfortunately, under the values of parameters, although the calculated curve fits quite
+well to real data in Guinea from October 1st, 2014 to December 31st, 2014, we fail to
+fit the calculated curve well to real data in Guinea when time reaches on January 1st,
+2015, namely, the values of parameters in that article may ‘outdated’. So we do not
+show them here because they are not worthy enough.
+
+  So, we adopt genetic algorithm combined with least square method to calculate our
+new values of parameters.
+
+4.5 Refresh the Values of Parameters
+
+  Genetic algorithm combined with least square method is used by us to find out new
+parameters values. Here flow diagram of Genetic algorithm is
+
+
+=== PHYSICAL PAGE 12 ===
+  Team # 34317                                                                          Page 9 of 44
+
+
+
+
+                                             START
+
+
+
+                      PARAMETER INITIALIZATION X  X 0
+
+
+
+
+                               CALCULATE FITNESS f  F (X)
+
+
+
+                                         GENETIC
+                                        OPERATION
+
+
+
+                                               N>N
+                                                  f
+
+
+                                   OUTPUT OPTIMAL
+                                       VALUE
+
+                                                END
+
+       figure4.2: flow chart of Genetic Algorithm combined with least square method
+
+
+
+  In the flow diagram, de define X   1 , 2 / 1 ,  F / 1 ,  ,  1 ,  2 ,  F , 1 2 ,  2  and
+
+
+fitness f  F (X)   [ yC (t )  C0 (t )]  [ yD (t )  D0 (t )] . Where tc is length of
+                        ttc                    ttc
+
+
+
+time from October 1st, 2014 to December 31st, 2014. And C0 (t ) denotes real total
+
+cases in a country updated every day within time length tc while D0 (t ) denotes real
+
+death cases in a country updated every day within time length tc .
+
+
+  By now, we have method to find each parameter’s value by using data from
+
+
+=== PHYSICAL PAGE 13 ===
+  Team # 34317                                                              Page 10 of 44
+
+
+October, 2014 to December, 2014. Then we use these new values to calculate a curve
+to fit real data in Guinea.
+
+  Here the results are:
+
+
+
+
+                          figure4.3: test of the calculated curves
+
+
+
+  We can see from the figures 4.3 that in about first 90 days, namely, date from
+Oct.1st, 2014 to Dec.31st, 2014, the model fits well to the real data of Guinea from
+WHO website. Both yC and yD reflect accurate number of cases, respectively.
+
+
+   However, as New Year begins, real data has tendency of becoming less rapidly
+increasing while our prediction is out of accuracy although our curve is much better
+than that calculated in the article we refer to. We do not use this curve to predict cases
+in Liberia and Sierra Leone.
+
+
+4.6 Advanced Model
+
+  After refreshing the values of parameters, we are still not satisfied with the curve
+we calculate. Data talks, we should try our best to make our model considerable. To
+improve the model we discussed in former section, we not only use more data from
+WHO website to calculate our parameters, but also consider other factors impact on
+Ebola spreading, like additional parameters and changing of parameters’ values if
+people receive treatment or get infected in hospital. There is a pie chart showing the
+proportion of getting infected in different ways (data of Sierra Leone).
+
+
+=== PHYSICAL PAGE 14 ===
+  Team # 34317                                                                  Page 11 of 44
+
+
+
+
+              figure4.4: pie chart proportion of getting infected in different ways
+
+
+   There are 17.6% of healthy people in Sierra Leone get Ebola because of hospital. it
+is a factor important enough for us to take it into consideration when we evaluate
+Ebola propagation.
+
+   First, let us get an accessible way to additional parameters and their meanings in
+this advanced model.
+             table4.2: additional parameters and meanings in this advanced model
+
+SYMBOL                                 DEFINITION                                     UNITS
+
+
+                    Transmission Parameter For First Stage Of Illness (In
+  1 H                                                                          people-1 days-1
+                                         Hospital)
+
+                  Transmission Parameter For Second Stage Of Illness (In
+  2  H                                                                         people-1 days-1
+                                         Hospital)
+
+                     Length Of First Stage Of Illness (From Moment Of
+   h11                                                                                Days
+                         Symptoms Appearing To Go To Hospital)
+
+                   Length Of Second Stage Of Illness (From Moment Of
+   h2 1                                                                               Days
+                         Symptoms Appearing To Go To Hospital)
+
+
+   y31                Length Of First Stage Of Illness (In Hospital)                  Days
+
+
+
+   y4 1              Length Of Second Stage Of Illness (In Hospital)                  Days
+
+
+
+ 1H  2 H             Overall Mortality Rate (Fraction) (In Hospital)                Unitless
+
+
+                 Mortality Rate (Fraction) Among Those In Second Stage Of
+    2H                                                                               Unitless
+                                    Illness (In Hospital)
+
+
+=== PHYSICAL PAGE 15 ===
+  Team # 34317                                                                                Page 12 of 44
+
+
+  The reason why we add these parameters is that if hospital plays a role in people’s
+daily life, people will have another access to cure Ebola. When people feel
+uncomfortable, they may choose to go to hospital for doctors’ help. Thus, h11 , h2 1 ,
+
+y31 and y4 1 are generated to denote different length of time in or not in hospital.
+
+By the way, 1 H ,  2  H , 1H  2 H and  2H are introduced to explain the model
+
+more considerably.
+
+  We show our advanced model as a form of figure
+
+                   S                E                I1               I2
+
+
+                                                             R                F
+
+
+                                                    H1               H2
+
+               figure4.5: advanced stage-structured model of ebola propagation
+
+
+  The advanced equations of this model are
+            dS
+            dt  [  I ( I1   H H1 )   2 ( I 2   H H 2 )   F F ]S
+           
+            dE  [  ( I   H )   ( I   H )   F ]S   E
+            dt       I    1     H     1       2   2      H   2      F
+
+           
+            dI1   E   1 I1  h1 I1
+            dt
+            dI
+            2  1 1 I1   2 I 2  h2 I 2
+            dt
+           
+            dH1  h I   H
+            dt       1 1      3 1
+
+            dH
+            2  h2 I 2  1H  3 H1   4 H 2
+            dt
+            dF
+                  2 2 I 2   2 H  4 H 2   F F
+            dt
+            dR
+                 (1  1 ) 1 I1  (1   2 ) 2 I 2  (1  1H ) 3 H1  (1   2 H ) 4 H 2
+            dt
+
+
+  Where H1 and H 2 mean number of people in hospital who are in first stage and
+
+
+=== PHYSICAL PAGE 16 ===
+   Team # 34317                                                                                                      Page 13 of 44
+
+
+
+in second stage, respectively. While I1 , I 2 mean the number of people not in
+
+hospital who are in first stage and in second stage, respectively. And S , E , F and
+R have the same meanings as we talked before.
+
+   In this group of equations, the susceptible are not only vulnerable to the sick
+outside (  I I1 S or  2 I 2 S ), but also to the patients in hospital ( 1  H H1 S or
+
+2  H H 2 S ). Different from what we explained in 3.4, the infected who are in first
+
+stage have another way to go – hospital ( h1 I1 ). And the infected who are in second
+
+stage do ( h2 I 2 ), too. For the infected in hospital, they may die or recover.
+
+
+4.7 Results are Reasonable
+
+  First, we should better to find additional parameters’ values. Similarly, we use
+genetic algorithm combined with least square method that we have introduced above
+to calculate values. But there is a little difference at this moment is that
+X   1 , 2 / 1 ,  F / 1 ,  ,  1 ,  2 ,  F , 1 2 ,  2 ,  H , h1 , h2 ,  3 ,  4 , 1H ,  2 H  .
+
+   We calculate all parameters in Guinea are:
+                                            table4.3: all parameters in Guinea
+           PARAMETER                           VALUE                    PARAMETER                           VALUE
+
+
+
+                    1                            0.04                           1                               0.26
+
+
+                  2 / 1                         2.37                           H                               0.48
+
+
+                  F / 1                         1.27                            h1                              0.43
+
+
+                                                 0.42                           h2                               0.55
+
+
+                   1 2                          0.19                           3                               0.20
+
+
+                    2                            0.58                           4                               0.11
+
+
+                    F                            0.46                          1H                               0.49
+
+
+                    2                            0.70                           2H                              0.81
+
+
+=== PHYSICAL PAGE 17 ===
+  Team # 34317                                                             Page 14 of 44
+
+
+  And curves in Guinea are :
+
+
+
+
+                    figure 4.6: Test of Calculated Curves (Guinea)
+   We can see from the figure 4.6, our curves fit much better if we take hospital into
+consideration and add more parameters than the article we refer to. The curves can fit
+real data from January 1st, 2015 to February 3rd, 2015 in Guinea both in total cases
+and death cases. So we trust these two curves.
+
+
+4.8 Prediction of the Future
+
+   Since we have found curves to fit real data well, our next job is to use the curves to
+predict number of total cases and death cases in Guinea in the near future. We draw a
+figure based on the figures that we have showed above. We lengthen the time axis to
+predict future cases until end of April, 2015.
+
+
+=== PHYSICAL PAGE 18 ===
+  Team # 34317                                                               Page 15 of 44
+
+
+
+
+                      figure 4.7: prediction of future cases in Guinea
+
+
+   From the figure 4.7, the curves deliver us information about Guinea that number of
+total cases and death cases is still growing, and total cases grow a little bit faster than
+death cases grow. Number of total cases will reach to nearly 4000 after 180 days and
+death cases will reach to about 2500 after 180 days. However, number of cases is
+much less than a condition without hospital and medicine (see figure 4.7). After all,
+we just have medicine to cure Ebola patients whose disease is not advanced. As for
+serious patients, the only endeavor we can do is supportive treatment and pray.
+
+  Besides, we calculate parameters and curves of Liberia and Sierra Leone, we see
+curves also fit well to real data.
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 34317                                                              Page 16 of 44
+
+
+  The parameters of Liberia:
+                             table4.4: parameters of Liberia
+    PARAMETER                VALUE             PARAMETER             VALUE
+
+
+           1                  0.19                  1                0.28
+
+
+         2 / 1               2.06                  H                0.23
+
+
+         F / 1               1.97                  h1                0.44
+
+
+                              0.45                  h2                0.73
+
+
+          1 2                0.18                  3                0.12
+
+
+           2                  0.63                  4                0.84
+
+
+          F                   0.46                  1H               0.31
+
+
+           2                  0.92                  2H               0.79
+
+The curves of Liberia:
+
+
+
+
+                   figure4.8: Test of Calculated Curves (Liberia)
+
+
+We can see from the figure 4.8 that curves also fit well to real data of Liberia.
+
+
+=== PHYSICAL PAGE 20 ===
+  Team # 34317                                                                 Page 17 of 44
+
+
+  The parameters Sierra Leone:
+                                table4.5: parameters Sierra Leone:
+      PARAMETER                   VALUE             PARAMETER              VALUE
+
+
+             1                     0.29                  1                0.26
+
+
+           2 / 1                  2.43                  H                0.11
+
+
+           F / 1                  2.25                  h1                0.48
+
+
+                                   0.46                  h2                0.79
+
+
+            1 2                   0.14                  3                0.71
+
+
+             2                     0.54                  4                0.84
+
+
+            F                      0.49                 1H                0.49
+
+
+             2                     0.81                  2H               0.76
+
+  The curves of Sierra Leone:
+
+
+
+
+                     figure4.9: test of calculated curves (Sierra Leone)
+  We can see from the figure that curves also fit well to real data of Sierra
+Leone.Because of limited time, we cannot do prediction job for Liberia and Sierra
+Leone. But we strongly believe if we have enough time, we can predict future data
+precisely by using these 16 parameters with consideration of hospital. Here we must
+say sorry to people who live in Liberia and Sierra Leone.
+
+
+=== PHYSICAL PAGE 21 ===
+     Team # 34317                                                                  Page 18 of 44
+
+
+
+
+  Ⅴ Model of Locations of Delivery
+
+     Locations of delivery, by definition, it is the place to give out medicine to
+  somewhere is in emergency. Ebola outbreak in West Africa covers a terrified curtain
+  to people live there. People who enveloped in the curtain, in some ways, really need
+  effective medicine delivered to accurate region, otherwise, sadly, there are only body
+  bags waiting for them. So determine delivery locations are quite necessary.
+  Considering total cases and current condition at the moment when medicine is
+  successfully manufactured in these three diseases-torn countries, we use several
+  methods and criteria to judge where are the relatively good places both have minimal
+  cost and best treatment.
+
+  5.1 What is Emergency Supplies
+
+     At first, it is needed for us to have a clear understand of what are emergency
+  supplies, like the medicine to cure Ebola. Different from normal supplies, emergency
+  supplies are used to control bombshells when an emergency happens or used for
+  evacuation, rescue and repair after an emergency happened while normal supplies are
+  just used in daily life. More specifically, differences between them are shown as the
+  table below:
+                            table5.1: differences between two supplies[3]
+          ASPECTS                 NORMAL SUPPLIES              EMERGENCY SUPPLIES
+                                      Maximize Profile And           Consider Both Fair And
+               Aims
+                                          Minimize Cost                      Efficiency
+                                                                    Supplies Collection Point,
+                                    Factory, Distribution Center
+             Formation                                             Delivery Place And Supplies
+                                          And Customer
+                                                                            Demand Point
+              Property                      Permanent                        Temporary
+                                      Divide Into Long-Term,
+                                                                    Urgency, Make Tread-Off
+              Scheme                    Medium-Term And
+                                                                        Decision At Once
+                                            Short-Term
+     Balance Between Efficiency
+                                   Think A Lot Of Optimization      Think A Lot Of Efficiency
+         And Optimization
+           Delivery Mode                 Return And Tour                       Return
+
+
+   Besides, there are some other characteristics of emergency supplies. Take the
+  medicine developed by the WMA for example:
+
+i.     Uncertainty: because we cannot predict when next Ebola outbreak happens and
+       how terrible death it may bring to victims, so emergency supplies have
+
+
+=== PHYSICAL PAGE 22 ===
+        Team # 34317                                                            Page 19 of 44
+
+
+          uncertainties of amount of need and region of giving out.
+
+ii.       Irreplaceability: emergency supplies are special in special conditions and are
+          irreplaceable. Like the medicine to cure Ebola, if we do not have the medicine,
+          nothing can effectively cure Ebola patient.
+
+iii.      Timeliness: emergency supplies play their role at a certain period and if we miss
+          the very moment, emergency supplies will lose their value. Like the medicine
+          cannot revive already-dead Ebola patients
+
+iv.       Hysteresis: emergency supplies (or medicine) always delivered later than a
+          disaster happened.
+
+         Thus, our goal is to filtrate several most-needed delivery locations in a country. In
+      detail, we filtrate the delivery locations accord to clustering method and some
+      principles.
+
+      5.2 Assumptions and Justifications
+
+  i.      All delivery location lies in the provincial capitals of the prefectures.
+
+          It is evident that the capitals is easy to receive medicine that from developed
+      countries. Namely, the delivery locations are supposed to have quick access to harbors
+      or airports. Meanwhile, they have good public facilities status, road conditions and
+      communication and they are plenty of power, water, heat and gas supply.
+
+ii.       Drug-need areas are concentrated on capitals of the prefectures, namely, we
+      send the drug to capitals and do not consider the lower level of administrative
+      areas.
+
+          From the size of prefectures, we know they are not large and it is easy for capitals
+      to deliver drug to its lower level of administrative areas. Also, capitals are
+      representative places to an Ebola-hit region. Because of its advanced development and
+      high population density, the more infected people lived in the capitals.
+
+iii.     We overlook the cost when constructing delivery locations and the spending
+    in storage of drugs.
+
+          Ebola outbreak in these countries and we should pay more attention to people’s
+      health and lives and we should construct delivery locations as soon as it is needed.
+      Actually, the speed of producing drugs is hard to satisfy the intense situation and we
+      need to deliver the drug to the need as soon as possible.
+
+
+=== PHYSICAL PAGE 23 ===
+  Team # 34317                                                                                                    Page 20 of 44
+
+
+5.3 Clustering Method, A Way to Determine Regions for Medicine
+Delivery
+
+   We have a relatively clear understanding why the delivery locations have to be
+places in the prefecture where the provincial capital is located. However, we still have
+too many delivery locations to build just because of limited foundation in African
+countries. Thus, to maximal effect of delivery locations with consideration of limited
+money and other factors that we talked above, we have to make choice among
+different delivery locations and filtrate some of the delivery locations as ‘last
+winners’.
+
+   We deem two or more major cities in a same country as a ‘city group’ if they are
+close in distance. It is of little meaning to build delivery locations in each of these
+cities because we can transmit emergency supplies to each cities conveniently in a
+short time. It is too dense to build delivery locations in a ‘city group’. So we adopt
+clustering method to find out ‘city groups’ to divide a country into several regions.
+
+According to the reticular distance (The reticular distance is the distance following
+the road network using main roads (primary, secondary, tertiary and few track/Trail)),
+we classify cities as different groups. Here our steps are:
+
+ First we consider all cities in a certain country are independent to each other,
+  namely, no groups contain two or more cities. Find reticular distance between
+    every two cities and construct a distance matrix D(0) , D(0) is a symmetric
+
+    matrix.
+
+
+ Second, find the minimum element in D(0) and we call it DKL , then gather Gk
+
+    and GL into a new group, GM , that is, GM  Gk , GL  . ( DKL is the distance
+
+    between Gk and GL , Gk and GL are two groups.)
+
+
+
+ Third, calculate the distance between new group GM that generated in second
+
+    step and other group G j . Here recurrence formula is
+
+
+
+              DMJ        min
+                      xi GM , x j GJ
+                                         dij  min      min
+                                                     xi GK , x j GJ
+                                                                        dij ,       min
+                                                                                xi GL , x j GJ     
+                                                                                                   dij  min DKJ , DLJ 
+
+
+=== PHYSICAL PAGE 24 ===
+  Team # 34317                                                               Page 21 of 44
+
+
+
+    Refresh distance matrix D(0) by gathering the row where Gk lies in and the
+
+    column where GL lies in into a new row and new column, so we get a new
+
+    distance matrix D(1) .
+
+
+ Last, repeat the second step until all cities are gathered into a group.
+
+  When all steps are done, we will successfully find how many ‘city groups’ in a
+country.
+
+5.4 Results of Clustering Method
+
+   When finish all the steps we described above, we get three clustering pictures of
+Guinea, Liberia and Sierra Leone and we can use them to accomplish the following
+task. Here we give Liberia’ clustering results one picture. The other two countries’
+district-dividing situation present in the Appendix.
+
+
+
+
+                         figure5.1: Clustering Picture of Liberia
+   Once we have found ‘city groups’, we have another job to determine how many
+‘city groups’ we need and which city in a ‘city group’ should be a delivery location.
+There are two principles we may need to comply with, one is principle of fairness,
+and the other is principle of efficiency.
+
+
+=== PHYSICAL PAGE 25 ===
+  Team # 34317                                                           Page 22 of 44
+
+
+5.5 Principle of Fairness
+
+   When a disaster occurs, it not only causes significant property damage but causes a
+lot of casualties with time going by. We hold an opinion that every life is equal. We
+cannot ignore the trapped or the patient of Ebola just because they are small in
+number or the cost of rescue. Providing our hands to everyone who needs help is a
+symbol of respect life and humanitarianism. Moreover, it enhances the country's sense
+of trust and identity.
+
+  For this kind of principle, we invoke P-Center model to illustrate our delivery
+locations choosing. Often cities are made up by many communities and other
+compositions, and there always have people live there. Thus, when we determine a
+delivery place in a region, life equality is our priority. We use equations to
+demonstrate the principal.
+
+                                   P  min Z 
+                                   Z   Dij yij
+                                       iI jJ
+
+
+
+  Where i denotes a destination of medicine transportation, j denotes a delivery
+
+place in a region. And Dij means distance between destination i and a delivery
+
+place j . And yij  1 denotes we have to send medicine to destination i while
+
+yij  0 denotes there is no need to do this. So Z   Dij yij means total distance
+                                                      iI jJ
+
+we have to cover if there are places need medicine. If a region has even need of
+medicine, the delivery place often in geographical center of the region.
+
+5.6 Principle of Efficiency
+
+   According to population, risks and importance of different regions, we deem these
+regions of different ‘value’. Then different amount of emergency supplies are
+allocated to different delivery locations. Only in this way can we utilize the
+emergency supplies well and response as soon as possible if happens an emergency.
+
+For this kind of principle, we invoke P-median model to illustrate our delivery
+locations choosing. When we determine a delivery place in a region, efficiency of
+delivering is our priority. We use equations to demonstrate the principal.
+
+                                  Q  min Y 
+                                  Y   wi Dij yij
+                                      iI jJ
+
+
+=== PHYSICAL PAGE 26 ===
+  Team # 34317                                                          Page 23 of 44
+
+
+
+  Where i , j , Dij and yij have same meanings as those in principle of fairness.
+
+And wi denotes the number of Ebola patients in a place, that is, the more people get
+
+infected by Ebola, the larger wi is. Thus, Y   wi Dij yij means total ‘distance’
+                                                iI jJ
+
+we have to cover if there are places needing medicine. The reason why we use
+‘distance’ is that we take wi into consideration, so ‘distance’ is not the proper
+
+distance that we comprehend in daily life. Usually the delivery place is nearer to a
+more serious place in a region.
+
+5.7 Determine Delivery Locations in the Three West African
+Countries
+
+   Considering emergency of Ebola outbreak in a region, we find ‘city groups’ in
+Guinea, Liberia and Sierra Leone with criteria of delivering medicine within one
+day by trucks following the certain route (we will talk it in later part). If
+delivering time is more than one day, we use clustering method to find other ‘city
+groups’ to meet the criteria. Then we add the principals we showed above and
+finally determine delivery place(s) in Guinea, Liberia and Sierra Leone. During
+estimating process, we give different weight to the principle of fairness and the
+principle of efficiency. We endow more weight to the principle of fairness than the
+principle of efficiency because considering we can send medicine within one day, so
+advantages in time in different places may not play a main role in delivery locations
+choosing. Primarily, we consider fairness.
+
+
+Ⅵ Model of Delivery System
+
+6.1 Introduction
+
+  In the model of locations of delivery, we have determined some best delivery
+locations in a country to fit all the need that we put forward. However, only having
+delivery locations is far from a perfect project to distribute medicine to people who
+need it most, an effective and considerable delivery strategy is required, or a
+well-organized delivery system is required.
+
+  We define delivery system is made up by well-planned routes to allocate medicine
+and scientific amount of medicine to distribute to every needed places in every day.
+
+
+=== PHYSICAL PAGE 27 ===
+  Team # 34317                                                                       Page 24 of 44
+
+
+6.2 Symbols and Definitions
+
+                  SYMBOL                                             DEFINITION
+
+                    cij                                     The Distance Between Two Points
+
+                     j                                                 End Point
+                     i                                                 Start Point
+                                                           A Route From A Delivery Place To A
+                    xij
+                                                                      Destination
+                                                      Number Of Patients In Hospital Who Are In
+                    H1
+                                                                       First Stage
+
+
+
+
+6.3 TSP Model – Well-Planned Routes
+
+  Once happens certain scales of Ebola outbreaks, medicine have to be sent to cities
+or villages as soon as possible. Thanks to TSP (traveling salesman problem) Model,
+we structure an optimized route for trucks to transport medicine quickly.
+
+
+  We introduce a 0-1 integer variable xij (i  j ) : xij  1 denotes there is a route
+
+from point i to point j while xij  0 denotes there is no route from point i to
+
+point j . The TSP Model can be expressed a group of equations.
+                                                n    n
+                                           min  cij xij
+                                               i 1 j 1
+
+
+                                  n
+                                  xij  1 , i  1, 2, , n, j  i,
+                                  j 1
+                                  n
+                            s.t.  xij  1 , j  1, 2, , n, i  j ,
+                                   i 1
+                                   xij  0,1 , i, j  1, 2, , n,
+                                  
+                                   no subcycle
+
+
+           n
+  Where  xij  1 means there must have a start point i if we want to consider i
+           j 1
+
+
+                                n
+as a point in route while      x  1 means there must have an end point j if we
+                               i 1
+                                      ij
+
+
+=== PHYSICAL PAGE 28 ===
+  Team # 34317                                                                           Page 25 of 44
+
+
+want to consider j as a point in route. And ‘no subcycle’ means we must cover all
+points in a certain region, namely, all trucks will cover a route that contains all cities
+which are in emergency of Ebola outbreak. Moreover, to well describe ‘no subcycle’,
+we add another variable ui (i  1, 2,        , n) and additional constraint condition:
+
+
+
+           ui  u j  nxij  n  1, for ui , u j  0, i  1, 2,   , n, j  2,3,   , n, i  j
+
+
+  By now, we have established a model for us to construct a best route for trucks.
+
+6.4 Daily Demand for Medicine
+
+  A good delivery system requires precise amount of medicine needed by places
+every day. We should develop a method to evaluate quantity of medicine we need a
+day by exploring number of patient in different places.
+We introduce an assessment standard called urgency index prob(i) to depict how
+much medicine a place need in one day. The expression of prob(i) is
+
+                                      H1 in a certain place in one day
+                          prob(i) 
+                                      H1 in three countries in one day
+
+
+
+  Where H1 has same meaning as that we have talked in Ebola propagation model,
+
+namely, H1 means number of patients in hospital who are in first stage (such as fever,
+
+headache, sore throat, muscle aches and other milder symptoms which often progress
+to diarrhea and vomiting). There two reasons why we use H1 to describe the urgency
+
+index, one is the WMA has announced their medicine can cure patients whose disease
+is not advanced, the other is that patients in first stage have great possibility to
+become more serious and step into second stage (such as hemorrhaging and
+multi-organ failure), we need to stop them from worsening.
+
+  If we have a certain amount of medicine (we will discuss the amount needed later),
+we can distribute different amount of medicine to different places to meet patients’
+requirement.
+
+
+=== PHYSICAL PAGE 29 ===
+  Team # 34317                                                               Page 26 of 44
+
+
+
+Ⅶ Model Implementation of three Countries
+
+7.1General algorithm
+
+   In the last part, we have discussed the models and, in fact, we are supposed to
+combine these models to use in specific situations. Here we give the general algorithm
+to determine the delivery locations and the transport route.
+
+
+                                        START
+
+
+                            USING CLATER METHOD
+
+
+
+
+                           DETERMING THE DELIVER
+                                 LOCATION
+
+                         TSP MODEL TO GET THE
+                               ROUTES
+
+                                                                  INCREASE THE
+                                                                   NUMBER OF
+                                                                    CLUSTERS
+                                    CARS FINISH
+                                   EVERY ROUTE
+                                    IN ONE DAY?
+
+
+
+
+                        GET LOCATIONS AND TRANSPORT
+                                   ROUTE
+
+                                         END
+
+
+        figure7.1: general algorithm to determine the delivery locations and route
+
+
+=== PHYSICAL PAGE 30 ===
+  Team # 34317                                                           Page 27 of 44
+
+
+7.2 Application of Algorithm
+
+  By exploring maps from WHO website of different Ebola cases in different places,
+then adopting TSP Model, we find some routes not only can cover all places that we
+have to send medicine to, but also consider places with more Ebola cases as more
+dangerous places and send medicine to the places within less time.
+
+7.2.1 Application in Guinea
+
+  Since the area is approximately 245857 square kilometers and we must assure the
+route solved by the TSP model is not too long, in specific, we considered that one car
+can cover the distance in one day.
+
+Step 1: only one delivery location
+
+  Use the principles which are needed to determine the location, we calculate the
+delivery location lies in DABOLA. The maximum distance among DABOLA and
+other prefectures is 585km.
+
+   Then use the results of the cluster method, we divided other prefectures into two
+parts and DABOLA is in respond for the distribution of drugs to them. Thus, we need
+to solve tow TSP problems.
+
+Step 2: solve the distance route
+  Use the TSP model, we solve the route and use the picture shows the results:
+
+
+
+
+                                             location
+                           A
+                                                              B
+
+
+                                Confirmed Cases
+
+
+
+
+                        figure7.2: one delivery location in guinea
+
+
+=== PHYSICAL PAGE 31 ===
+   Team # 34317                                                               Page 28 of 44
+
+
+  In the map, A and B represent the two route and the distances of them are 1213.8km
+and 1548.2km. Considering the velocity of vehicles is 80km/h, and it will cost more
+than 12 hours to finish one route and it is not reasonable for the relief of the disease.
+Therefore, only one location is not appropriate.
+
+Step3: adjust the number of delivery locations
+   According to the result of cluster results, it is better to divide the prefectures into 3
+clusters. Then calculate the 3 different locations, cut every cluster into 2 smaller parts
+and repeat step2. We get the map:
+
+
+
+
+                                                 location
+                          B                     C                D                             1
+
+
+
+                  A location
+                                                             E
+                                                        locationF
+                             Confirmed Cases
+
+
+
+                        figure7.3: three delivery locations in guinea
+  In the map, A, B, C, D, E and represent the two route and the distances of them
+show in the table:
+             A           B              C           D            E           F
+
+           752.2       686.6          578.0       546.5        640.4       701.2
+
+
+  Vehicles can pass through the distance in one day. We conclude that 3 cluster is
+enough for Guinea.
+
+  And the delivery locations are: DUBREKA, KOUROUSSA, and MACENTA.
+
+
+=== PHYSICAL PAGE 32 ===
+    Team # 34317                                                        Page 29 of 44
+
+
+
+    The route is listed:
+
+                                 table7.1: the six routes
+
+         DUBREKAFRIABOKEBOFFACONAKRYFORECARIAH
+A
+                               COYAHDUBREKA
+
+
+B         DUBREKATELIMELEPITADALABAKINDIADUBREKA
+
+
+
+C                  KOUROUSSAFARANAHDABOLAKOUROUSSA
+
+
+
+D                  KOUROUSSASIGUIRIKANKANKOUROUSSA
+
+
+                      MACENTAGUECKEDOUKISSIDOUGOU
+E
+                             KEROUANEMACENTA
+
+
+F       MACENTABEYLALOLANZEREKOREYOMOUMACENTA
+
+
+
+
+7.2.2 Application in Liberia
+
+   In terms of area, Liberia is smaller than Guinea and its area is 111370 square
+kilometers. Following the algorithm, like the steps in the analysis of Guinea, and we
+find only one deliver center is proper for the area.
+
+
+=== PHYSICAL PAGE 33 ===
+  Team # 34317                                                            Page 30 of 44
+
+
+  Here the results are:
+
+
+
+
+                                                          Confirmed
+                                                          Cases
+
+                              A
+                                 location
+                                                B
+
+
+                          figure7.4: one location in Liberia
+   In the map, A, and B represent the two route and the distances of them show in the
+table:
+                                     A          B
+
+                                   869.0      715.6
+  Therefore, the deliver location is Grand Bassa.
+
+7.2.3 Sierra Leone
+
+   In terms of area, Sierra Leone is the smallest among the three countries and its area
+is 71740 square kilometers.
+   Just like what we have done before, we apply the algorithm.
+
+
+=== PHYSICAL PAGE 34 ===
+  Team # 34317                                                          Page 31 of 44
+
+
+  Here present the result:
+
+
+
+
+                                    A             location
+
+                                                      B
+
+         Confirmed
+         Cases
+
+
+
+                               figure7.5: Sierra Leone
+   In the map, A, and B represent the two route and the distances of them show in the
+table:
+                                     A            B
+
+                                   411.4      616.9
+
+  Therefore, the deliver location is Tonkolili.
+
+
+Ⅷ Model of the Quantity of the Medicine Needed and
+Manufacturing Speed
+
+8.1 Introduction
+
+   In this section, we consider the quantity of the medicine needed and speed of
+manufacturing of the vaccine or drug together because the manufacturing speed will
+impact the number of the susceptible, the infected who are in first stage and the
+recovered. The reason is that if the susceptible are vaccinated, they will hardly get
+infected by Ebola, and the infected once receive drug they can recover day by day. So
+the recovered is more than before as we regard the vaccinated people and cured
+people as the recovered.
+
+
+=== PHYSICAL PAGE 35 ===
+  Team # 34317                                                           Page 32 of 44
+
+
+8.2 Assumptions and Justifications
+
+ Amount of medicine and vaccine that are produced everyday increase
+  linearly with time when the medicine or vaccine is rare. Because the medicine
+  or vaccine is newly developed by scientists and still in testing stage, so
+  manufactures will not produce a large-scale of this kind of medicine or vaccine at
+  first. So we consider amount of medicine and vaccine that are produced everyday
+  increase linearly with time rather than exponentially with time.
+
+ The infected do not have ability of allopathic medicines. The Ebola virus are
+  relatively stable, namely, variation is not common in Ebola virus. So we consider
+  Ebola virus do not have ability of allopathic medicines.
+
+8.3 symbols and definitions
+
+                 SYMBOL                          DEFINITION
+
+                   V1                    Speed Of Producing Medicine
+
+                   V2                    Speed Of Producing Vaccine
+
+                   b1                    Initial Inventory Of Medicine
+
+                   b2                     Initial Inventory Of Vaccine
+
+                                      ‘Manufacturing Acceleration’ Of
+                   k1
+                                             Medicine Per Day
+                                   ‘Manufacturing Acceleration’ Of Vaccine
+                   k2
+                                                  Per Day
+
+                   i                           Urgency Index
+
+                  h 1             Course Of Treatment Of The Medicine
+
+
+
+
+8.4 How Fast Need We Produce Medicine and Vaccine
+
+   We have talked that Amount of medicine and vaccine produced everyday increase
+linearly with time in assumption, so we have equations to express the amount that
+produced per day.
+
+
+=== PHYSICAL PAGE 36 ===
+  Team # 34317                                                                              Page 33 of 44
+
+
+
+                                       Medicine V1  k1t  b1
+                                      Vaccine V2  k2t  b2
+
+  Where b1 and b2 denote initial inventory of medicine and vaccine, respectively.
+
+And k1 , k 2 mean ‘manufacturing acceleration’ of medicine and vaccine per day.
+
+We show the relationship between V1 and time t .
+
+
+
+
+                             figure8.1: speed of producing medicine
+   From the figure 8.1, we get information that when medicine is rare, the amount of
+medicine produced everyday increases linearly with time until all the patients who are
+in first stage can get the medicine, and this condition happens nearly 25 days after the
+medicine is used in the public. Then the amount of medicine that is produced
+everyday will drop with the number of patients who are in first stage. Namely, we
+have more specific equations to explain V1 .
+
+                                             k t  b1 , V1  H1
+                               medicine V1   1
+                                              H1      , V1  H1
+
+   When medicine and vaccine are used in the public, equations of the susceptible, the
+infected in first stage and the recover we have shown in the advanced model in
+sectionⅣ may change (marked in red).
+
+         dS
+         dt  [  I ( I1   H H1 )   2 ( I 2   H H 2 )   F F ]S  iV2
+        
+         dH1
+              h1 I1   3 H1  iV1h
+          dt
+         dR
+         dt  (1  1 ) 1 I1  (1   2 ) 2 I 2  (1  1H ) 3 H1  (1   2 H ) 4 H 2  iV2
+        
+
+
+=== PHYSICAL PAGE 37 ===
+  Team # 34317                                                              Page 34 of 44
+
+
+
+  Where i is the urgency index that we have described in section 6.4, namely,
+
+                 H1 in a certain place in one day
+i  prob(i)                                     . We distribute medicine with criteria
+                 H1 in three countries in one day
+
+that we have described in section 6.4, so iV2 means number of the susceptible who
+
+are vaccinated and have antibody to against Ebola, thus, can hardly get infected. And
+iV1h means number of the infected who are in first stage get recovered because of
+
+the medicine, h 1 means course of treatment of the medicine. And iV2 means the
+
+number of the susceptible who will hardly get infected because of the vaccine.
+Then we draw a figure to express changing of total cases growing with time in the
+condition of using medicine.
+
+
+
+
+      figure 8.2: Changing of Total Cases Growing with Time When Using Medicine
+
+
+   As for vaccine, it generates its effect mainly among the susceptible. Since number
+of the susceptible is much much larger than amount of vaccine, we ignore the effect
+generated by the vaccine. From the figure, we can see the medicine is used after 90
+days form initial time, that is, we can figure out that the medicine is used from Feb.1st,
+2015. And 50 days after using the medicine, number of total cases will not increase,
+which means the medicine has its positive impact on Ebola containing.
+
+
+  The parameters in our calculating process are b1  5 (we produce 5 units of
+
+medicine per day at the beginning of producing) and k1  5 (we produce 5 more
+
+
+=== PHYSICAL PAGE 38 ===
+  Team # 34317                                                           Page 35 of 44
+
+
+units of medicine per day).
+
+  As for vaccine, we ignore it in our calculating process for it is much much less in
+number compared to number of the susceptible.
+
+8.5 The Quantity of the Medicine Needed
+
+  We use integral computation to find the quantity of the medicine we need.
+So total needed amount is
+                                          t
+                                    w   V1 (t )dt
+                                          0
+
+  Use parameters we have calculated in last section, we draw a figure to show the
+quantity of the medicine.
+
+
+
+
+                    figure8.3: Changing of Quantity of The Medicine
+   So we need about 3400 units of medicine to cure the patient who are in first stage
+in the three west African countries.
+   If we develop better medicine that can cure patients in second stage in the future,
+we believe the quantity of medicine can decrease.
+
+
+Ⅸ Other Factors We Think Are Important
+
+   In our first model –SEIIRF model and its advanced model, we didn’t consider other
+two factors that we think are necessary to discuss. One is control of Ebola spreading
+in hospitals, and the other is control of Ebola spreading in funerals.
+   If we control of Ebola spreading in hospital, there will be less healthy people get
+infected. We regard a hospital as a ‘huge’ patient with strong ability of infection. We
+must take measures to reduce the ability of infection. The figure shown below delivers
+us information that hoe the total cases in Guinea will be like if we reduce 50% and
+90% of the ability down.
+
+
+=== PHYSICAL PAGE 39 ===
+   Team # 34317                                                                 Page 36 of 44
+
+
+
+
+    figure9.1: changing of total cases in guinea if we control Ebola spreading in hospitals
+  We can see from the figure, if we take strategies to control Ebola spreading in
+hospitals, total cases will reduce greatly and significantly.
+  Then if we control Ebola spreading in funerals, what will happen? There is a figure
+will tell us.
+
+
+
+
+figure9.2: changing of total cases in guinea if we control Ebola spreading in funerals
+   Controlling Ebola spreading in funerals maybe are not as good as in hospitals. But
+at least, it does its positive effect on reducing total cases in the future.
+
+
+Ⅹ Future Improvement
+
+10.1 Optimization of Coverage to Determine Delivery Locations
+
+  Since we are introduced one method and two principles in delivery places choosing,
+
+
+=== PHYSICAL PAGE 40 ===
+  Team # 34317                                                              Page 37 of 44
+
+
+now we can easily make a decision on where to build a delivery place in a certain
+region. However, as a designer, we must be more considerable if we have more time
+to do our design. Unfortunately, time is limited, here we just introduce you another
+principle that is worthwhile to consider – principle of optimization of coverage. When
+a disaster occurs, we will generally distribute emergency supplies which are relatively
+near to the place that happens the disaster as fast as possible. Considering the disaster,
+like Ebola, is usually of great impact on the local and of tremendous harm, we
+sometimes need to allocate and transport more emergency supplies to this area. Thus,
+when we choose to delivery places we must take it into consideration that the delivery
+places can cover as many emergency-supplies-need regions as possible
+simultaneously. So when an emergency happens in an area that covered by a delivery
+place, emergency supplies, like the medicine, can be sent in time.
+Here the equations of the principle are
+                                    X  max  A
+                                    A   wi cij yij
+                                          iI jJ
+
+
+  Where i , j , wi and yij have same meanings as those in principle of fairness.
+
+And we call cij degree of coverage.
+
+                                      1        , t  tm
+                                      
+                                       t  t1
+                                cij           , t1  t  tm
+                                       tm  t1
+                                      0        , t  tm
+
+  Where t1 is minimum time of a truck to arrive at a destination while tm is
+
+maximum time of a truck to arrive at a destination. In our model of delivery places
+choosing, tm is no longer than one day. From expression of cij , we can see the
+
+degree of coverage increases with time going by, which is consistent with reality.
+
+10.2 A No-boundary Scheme
+
+   In our paper, the models of locations and TSP apply in three countries (Sierra
+Leone, Liberia and Guinea) respectively. We consider there is no contact among these
+Ebola-hit countries and the delivery locations distributed in three countries and every
+countries delivery locations only send needed drug to itself.
+However, we human beings should unit to eradicate the Ebola in the face of such
+serious situation. Therefore, we are better to combine the three countries tightly and
+arrange the delivery locations and transportation system without considering the
+boundary and political problems.
+   So a no-boundary scheme can be developed to quickly get rid of the trouble of
+
+
+=== PHYSICAL PAGE 41 ===
+  Team # 34317                                                           Page 38 of 44
+
+
+Ebola.
+
+
+Ⅺ Sensitivity analysis
+
+11.1 Sensitivity Analysis of SEIIRF Model
+
+  We get some parameters through the method of least squares fitting in the model to
+predict the spread of Ebola,. To test the effect of changing parameters, we will
+produce a sensitivity analysis that shows whether our model is properly sensitive to
+these variations.
+  In the following section, we will analyze the sensitivity of total cases of patients,
+according to Average Incubation Period  1 , Length Of First Stage Of Illness (Not In
+Hospital)  11 , Transmission Parameter For First Stage Of Illness (Not In Hospital)
+
+1 respectively. In specific, we modified parameter ( 1 ,  ,  1 ) by 10%
+
+respectively and observe the change of total cases.
+
+
+
+
+                      figure11.1: the impact of 1 to the total cases
+
+  From the picture above we can get the result that the total cases of patients change
+little with the change of 1 . So this proves the slight fluctuations of 1 can be
+
+ignored and the results we conclude in the above models are reliable.
+
+
+=== PHYSICAL PAGE 42 ===
+  Team # 34317                                                             Page 39 of 44
+
+
+
+
+                       figure11.2: the impact of  1 to the total cases
+
+  As the figure shows, the total cases stay relatively stable in different result
+generated from different  1 . Therefore, the total cases we use is exact enough.
+
+
+11.2 Sensitivity Analysis of Model of the Speed to Produce Medicine
+
+  We change initial speed of the production of medicine b1 and total cases of
+
+patients are shown in the following the figure:
+
+
+
+
+                       figure11.3: the impact of b1 to the total cases
+
+
+=== PHYSICAL PAGE 43 ===
+  Team # 34317                                                             Page 40 of 44
+
+
+
+  From the picture above, we find that if the speed b1 is relatively small, the
+
+influence of the change of b1 is larger compared to bigger b1 . In addition, we find
+
+that cases increase with the increase of initial speed and the trend is expected. In all,
+the results are stable.
+
+
+Ⅻ Conclusion
+
+11.1 Strengths and Weaknesses
+
+  Now we will analyze the strengths and weaknesses of models in our paper:
+
+SEIIRF Model
+Strengths
+1. The results of model conform to the reality well, such as the prediction of the
+number of patient cases.
+2. We considered three ways of the spread of Ebola which are relatively
+comprehensive and more groups of people which are representative to the disease
+search.
+
+Weaknesses
+1. There are more parameters in the model and it may bring negative influence to the
+sensitivity.
+2. Due to lack of data, we do not study spatial distribution of Ebola.
+
+Model of Locations of Delivery and Delivery System
+Strengths
+1. We use TSP model which is relatively simple but effective to solve the delivery
+system.
+2. We develop a general algorithm to determine the transportation locations and
+system.
+Weaknesses
+1. Because the limit of time, we do not solve the the no-boundary scheme which is
+presented in the part of future improvement.
+
+Model of the Speed to Produce Medicine
+Strengths
+1. We calculated the model on quantitative analysis.
+
+Weaknesses
+1. The speed to producing drug grow linearly and this process maybe too ideally
+
+
+=== PHYSICAL PAGE 44 ===
+  Team # 34317                                                            Page 41 of 44
+
+
+11.2 Overall Results
+
+   Up to now, we have accomplished all our tasks. And here we give the overall
+results of all our models.
+
+   Above all, we develop basic SEIIRF model and then improve this model to predict
+the spread of Ebola, and finally the model confirms to the reality which we test it
+using collected data. Then, we establish a general algorithm to solve the delivery
+locations and design delivery system. In specific, we get the locations of delivery and
+the certain route of transportation system through cluster analysis and TSP model.
+Also, the length of all routes is suitable for the delivery of drug. With the route, we
+can distribute drug according to urgency index which is relevant to the proportionality
+of the patients. Considering the specific speed of producing the drug, we simulate the
+situation and get the conclusion that in 50 days, we can eradicate Ebola. After that, we
+consider other factors, such as control of Ebola spreading in hospitals and in funerals,
+and the situation can be relieved greatly. At last, we test the sensitivity of our model
+and it shows that they are stable.
+
+
+=== PHYSICAL PAGE 45 ===
+  Team # 34317                                    Page 42 of 44
+
+
+
+LETTER
+To: Professors of the World Medical Association
+
+From: Team # 34317
+
+Date: February 9, 2015
+
+Subject: A Battle against Ebola
+
+
+
+
+Ebola, a familiar but strange word to us. No one can
+imagine the name ‘Ebola’ just originates from a little
+river - Ebola River in Congo. Contrary to its attracting
+meaning, it is true that the Ebola virus do take lots of
+victims’ lives away. Fighting against Ebola is now a
+worldwide battle. We human beings need to unit together
+and offer helps to each other. Besides, we are really
+appreciate those doctors in the MSF who fight against
+Ebola day and night in West Africa.
+We also do our best to evaluate Ebola spreading in West
+Africa. We use models to predict future cases in Guinea,
+Liberia and Sierra Leone. First, we use real data to
+calculate a curve for usage of prediction. Then we use
+newest data in the WHO website to test the curve. We
+find the curve can predict well and be trusted. Then, we
+
+
+=== PHYSICAL PAGE 46 ===
+  Team # 34317                                       Page 43 of 44
+
+
+
+use this curve to predict future cases including total cases
+and death cases. And we find that if we use medicine,
+total cases and death cases will decrease a lot.
+Then we design a method to find some best delivery
+places in Guinea, Liberia and Sierra Leone that can
+allocate medicine quickly to places where Ebola
+outbreaks. Moreover, we offer you schemed routes both
+are time-saving and able to caver most places for
+vehicles to transport emergency supplies.
+At last, we calculate out the quantity of the medicine
+needed and the speed of manufacturing medicine and
+vaccine. We take two conditions into consideration. One
+is the condition that if medicine is too rare to help most
+people, the medicine factories should gradually increase
+their output, and the other condition is that if medicine is
+enough for the infected, the amount of medicine should
+decrease with time. The total amount of medicine is 3400
+units.
+Besides, we have done other jobs to evaluate Ebola, you
+can see our paper for details.
+                                               Yours sincerely
+                                                   Team # 34317
+
+
+=== PHYSICAL PAGE 47 ===
+  Team # 34317                                                           Page 44 of 44
+
+
+
+ⅩⅢ Reference
+
+[1]http://www.theguardian.com/commentisfree/2014/dec/29/2015-ebola-eradicated-ep
+
+idemic-west-africa
+
+[2]http://www.huffingtonpost.com/darius-mans/behavior-change-is-key-to_b_575270
+
+4.html
+
+[3] Tzeng, G H.,Cheng, H. J., and Huang, T. D. Multi-objective optimal planning for
+
+designing relief delivery systems. Transportation Research Part E: Logistics and
+
+Transportation Review, 2007,43(6),673-686.
+
+[4] http://www.diva-gis.org/datadown
+
+[5] Marisa C. Eisenberg, Joseph N.S. Eisenberg, Jeremy P. D'Silva, Eden V. Wells.”
+
+Modeling surveillance and interventions in the 2014 Ebola epidemic” The Lancet
+
+Infectious Diseases(2015).
+
+[6] Chen zhi-zong, “Major events multi-objective decision model of facility location
+
+of emergency rescue”, MANAGEMENT SCIENCES IN CHINA(2006).
+
+[7] PANG Hai-yun, LIU Nan, WU Qiao, “Decision-making model for transportation
+
+and distribution of emergency materials and its modified particle swarm optimization
+
+algorithm” Control and Decision(2012).
+
+[8] ZHU Jian-ming, HUANG Jun,” Randomized Algorithm for Vehicle Routing
+
+Model for Medical Supplies          in Large-Scale Emergencies”, OPERATIONS
+
+RESEARCH AND MANAGEMENT SCIENCE(2010).
+
+[9] Liu Fang, “A brief introduction to the U.S. Strategic National Stockpile”, Mil Med
+
+Sci. Vol 38, No.11, 2014.
+
+[10] http://maps.who.int/MapJournal/?appid=5b29178821dd4584b78dcb18d280326a
+
+[11] Gu Yong, ”Based on the mechanism of the prevention and control infectious
+
+disease emergency supplies demand analysis”, Journal of Wuhan University of
+
+Technology, 2010.

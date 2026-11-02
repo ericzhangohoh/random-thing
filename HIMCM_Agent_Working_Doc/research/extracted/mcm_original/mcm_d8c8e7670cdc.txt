@@ -1,0 +1,2687 @@
+=== PHYSICAL PAGE 1 ===
+         Problem Chosen                       2021
+                                                   微信公众号：数学模型
+                                                      Team Control Number
+                                             MCM
+                A                         Summary Sheet                     2122025
+      Fungal Decomposition Modeling via Stochastic Gradient
+                 Descent and Cellular Automata
+      Fungus plays an important role as decomposers in the ecosystem. However, the efficiency of
+
+                                                                                 型
+  fungal growth and decomposition is influenced by the environment and the interaction among
+  different species of fungi. Therefore, the study of factors affecting fungal activity is important.
+
+
+
+                                                               学
+     In this paper, we establish relation models among the factors that affect the extension rate
+  and decomposition rate of the fungi. Based on the relation models, we introduce the cellular
+  automata model to simulate the growth and decomposition of multiple species of fungi.
+
+                                                                模
+      Specifically, we first establish the extension rate model. The extension rate is modeled as
+  Arrhenius relation to the temperature and the humidity. Based on the extension rate model, we
+
+
+                                                       数
+  establish the decomposition rate model. The decomposition rate is determined by extension
+  rate and moisture trade-off, where the relation is nonlinear. To estimate the parameters in the
+  nonlinear decomposition rate model, we establish an optimization model that fits the collected
+
+
+                                     号
+  decomposition rate data. The stochastic gradient descent (SGD) algorithm is utilized to solve
+
+
+                                                                m
+  the nonlinear optimization problem. The stable convergence behavior shows the effectiveness
+  of the algorithm.
+
+                                      ：                          od
+      Based on the decomposition rate model, we establish the cellular automata model to simu-
+  late the growth and decomposition of the fungi. The extension rate and decomposition rate are
+
+
+                            众                                      els
+  utilized to determine the rules of cellular automata. The simulation results show that under the
+  same environment, the number of different species of fungi increased significantly at the first
+  5 − 10 days. Then, after about 10 days of extension, the number of fungi decreases to a certain
+
+
+                    公
+  extent and then stabilized after about 40 days. The decomposition rate after 122 days is 0.68.
+
+                                               AT
+      Next, we describe the interactions among different species of fungi by competitive relation-
+  ship. To describe the competitive relationship, we propose a definition to measure the reduction
+
+  微                                               H
+  of the extension rate. Based on this definition, we establish the cellular automata model under
+  fungal interactions to simulate the fungal activity under interactions. The results show that after
+
+
+   信
+  considering the interaction, the number of different types of fungi is considerably decreased by
+
+                                        M
+  an average percentage of 33.65%. And the decomposition rate after 122 days is 0.39, which is
+  42.69% lower than that of the situation without competition.
+
+
+                              ：
+      Afterward, we analyze the influence of fungal interactions. In the short term, the interaction
+  between different types of fungi is not obvious. In the long-term, the influence is significant
+  due to the shortage of nutrients. Afterward, the sensitivity of our models is studied. We show
+
+                     号
+  that our models are sensitive to 8% change of temperature and humidity. Then, the analysis
+  of combinations of fungi and different environments are included. The dominant and disad-
+
+
+    微
+  vantaged species in different situations are obtained, e.g., Trichoderma becomes the dominant
+  species in the tropical rain forest after 122 days with the decomposition rate of 68.29%. At last,
+  we analyze the importance of biodiversity. The results show that biodiversity is important to the
+
+
+     信
+  efficiency of fungal decomposition, where the decomposition rate of fungi under multi-species
+  is 2.89 times higher than that of single species.
+  Keywords: Fungal decomposition, Stochastic gradient descent, Nonlinear, Cellular automata
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 2 ===
+                                                  微信公众号：数学模型
+                                           Contents
+  1   Introduction                                                                                   2
+      1.1 Problem Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           2
+      1.2 Restatement of Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         2
+      1.3 Literature Review . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        3
+
+
+  2                                                                            型
+      1.4 Our Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+      Assumptions and Notations
+                                                                                                     3
+
+                                                                                                     4
+
+
+                                                              学
+      2.1 Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      2.2 Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                     4
+                                                                                                     5
+
+  3   Models and Results
+                                                               模
+      3.1 Decomposition Rate Model and Parameters Estimation . . . . . . . . . . . . .
+          3.1.1 Decomposition Rate Based on Extension Rate and Moisture Trade-off .
+                                                                                                      5
+                                                                                                      5
+                                                                                                      6
+
+                                                     数
+          3.1.2 Extension Rate Based on Temperature and Humidity . . . . . . . . . .
+          3.1.3 Moisture Trade-off Based on Lower Limit of Humidity . . . . . . . . .
+          3.1.4 Fungal Decomposition Rate Model . . . . . . . . . . . . . . . . . . .
+                                                                                                      7
+                                                                                                      7
+                                                                                                      8
+
+                                    号
+          3.1.5 Parameters Estimation Using SGD . . . . . . . . . . . . . . . . . . . .
+
+                                                               m
+      3.2 Cellular Automata Model for Breakdown Process . . . . . . . . . . . . . . . .
+                                                                                                      8
+                                                                                                     10
+
+
+                                     ：                          od
+          3.2.1 Relation Between Cellular and Fungal Extension . . . . . . . . . . . .
+          3.2.2 Relation Between Cellular and Fungal Decomposition . . . . . . . . .
+
+
+                                                                  els
+          3.2.3 Cellular Automata Model . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                     10
+                                                                                                     11
+                                                                                                     12
+
+
+                            众
+          3.2.4 Model Solution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      3.3 Cellular Automata Model Under Interactions Among Fungi . . . . . . . . . . .
+          3.3.1 Model Establishment . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                     12
+                                                                                                     12
+                                                                                                     13
+
+                   公
+          3.3.2 Model Solution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+                                              AT
+      3.4 Analysis and Experimental Results . . . . . . . . . . . . . . . . . . . . . . . .
+          3.4.1 Overall Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                     14
+                                                                                                     14
+                                                                                                     15
+
+
+  微                                              H
+          3.4.2 Interactions Among Different fungi . . . . . . . . . . . . . . . . . . .
+          3.4.3 Sensitive Analysis of Environment . . . . . . . . . . . . . . . . . . . .
+                                                                                                     15
+                                                                                                     16
+
+
+
+  4
+   信      3.4.4 Simulations Under Different Combinations and Regions . . . . . . . .
+
+                                       M
+      3.5 Influence of Species Diversity . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+      Strengths and Weaknesses
+                                                                                                     17
+                                                                                                     19
+
+                                                                                                     20
+
+                              ：
+      4.1 Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+      4.2 Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                     20
+                                                                                                     20
+
+  5   Article
+
+  References
+                     号                                                                               21
+
+                                                                                                     23
+
+      微
+       信
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 3 ===
+  Team # 2122025                                   微信公众号：数学模型                            Page 2 of 24
+
+
+
+  1     Introduction
+  1.1    Problem Background
+      The material cycle in a forest ecosystem includes two relative processes: biosynthesis and
+  biodegradation [1]. The former is the organic process of inorganic matter, which is mainly com-
+
+
+                                                                                  型
+  pleted by green plants and some inorganic nutrient microorganisms. The latter is the inorganic
+  process of organic matter, which is mainly completed by forest microorganisms, which is the
+  decomposition process of forest litter.
+
+
+                                                                学
+      Forest litter is not only an important part of the ecosystem but also the main source of energy
+  required by plants and microorganisms. Forest litter contains different chemical substances:
+
+
+                                                                 模
+  cellulose, hemicellulose, lignin, water-soluble, ether soluble and alcohol soluble parts, protein,
+  and minerals [2]. Fungi are one of the main members involved in the decomposition of various
+  organic substances in soil. Many fungi can decompose cellulose, hemicellulose, and other
+
+
+                                                       数
+  similar compounds. At the same time, fungi can also decompose nitrogen-containing protein
+  compounds and have a strong ability to decompose some refractory substances (such as lignin).
+  Therefore, fungi play an important role in material transformation [3].
+
+  1.2    Restatement of Problem      号                           m
+                                      ：                           od
+      Fungi play a key role in the decomposition of woody fibers and ground litter. Fungi is unique
+  amongst the soil biota in their ability to translocate nutrients, a trait enabling them to establish
+
+                                                                    els
+                             众
+  extensive hyphal networks in a heterogeneous environment and to utilize spatially separated
+  nutrient resources that may differ significantly in nutrient quality [4].
+      Hyphae are the branch cells of fungi, which constitute the filaments and structures of fungi.
+
+                    公                           AT
+  Different kinds of hyphae play different roles in the life cycle of fungi. Mycelial elongation is
+  essentially the growth rate of fungi [5]. We need to focus on several characteristics of fungi: the
+  growth rate of the fungi, the fungi’ tolerance to moisture, and hyphal extension rate. Based on
+
+  微                                                H
+  the above understanding, we need to solve the following problems:
+
+
+
+   信
+      • A mathematical model for the decomposition of litter and woody fibers by fungi needs to
+
+                                        M
+        be established in the presence of a variety of fungi.
+      • In the model, we need to combine the interaction among different kinds of fungi, which
+
+
+                              ：
+        have different growth rates and different moisture tolerance.
+      • Analyze the model and describe the interaction among different types of fungi. The dy-
+
+
+                      号
+        namic characteristics and description of interactions should include short-term and long-
+        term trends. Model analysis needs to account for sensitivity to rapid fluctuations in the
+        environment. Meanwhile, we need to determine the overall impact of changes in atmo-
+
+
+      微
+        spheric trends to assess the impact of changes in local weather patterns.
+      • Forecast the relative strengths and weaknesses of each species and possible persistent
+
+
+       信species combination, as well as their status in different environments, including arid,
+        semi-arid, temperate, arboreal, and tropical rainforests.
+      • Describe how the diversity of fungal communities in the system affects the overall effi-
+        ciency of the system in decomposing ground litters. Predict the importance and role of
+        biodiversity.
+      • Write a two-page article. This article needs to be suitable as an introductory textbook for
+        university biology to discuss the latest progress in our understanding of the role of fungi 关注数学模型
+微信号：MATHmodels
+        in ecosystems.
+                                                                                                    2
+
+                                                                                           MATHmodels
+
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 4 ===
+  Team # 2122025                                   微信公众号：数学模型                            Page 3 of 24
+
+
+  1.3    Literature Review
+      The most obvious identity of fungi is decomposer. According to Chen M R [6], litter de-
+  composition generally includes three stages: leaching stage, crushing stage, and organic matter
+  catabolism stage. Among them, the leaching stage refers to that the soluble matter in the litter
+  is washed away by water. Physical comminution, for instance, animal chewing, alternation of
+
+
+                                                                                 型
+  soil drying and wetting, freezing and thawing, precipitation, and other factors can crush the tree
+  residues in varying degrees [6, 7]. Metabolism refers to the transformation of more complex
+  organic compounds to simple salt and water molecules.
+
+
+                                                               学
+      The catabolism of organic matter is generally accomplished by microorganisms. Yu shuling
+  [8] proposed that fungi, especially filamentous fungi, play an important role in litter decompo-
+
+
+                                                                模
+  sition. Findlay et al. [1] pointed out the hyphae of fungi can penetrate into plant debris and
+  secrete extracellular enzymes to degrade recalcitrant substances (such as lignin) contained in
+  the litter, so as to soften plant debris, change the structure and chemical composition of litter,
+
+
+                                                       数
+  which is conducive to the further colonization of bacteria and other microorganisms and the
+  feeding of soil animals [9, 10].
+      The complete decomposition of litter is completed under the action of various litter decom-
+
+
+                                     号
+  posing enzymes [11]. Dick [12] showed that the activities of litter decomposing enzymes were
+
+                                                                m
+  significantly positively correlated with the microbial biomass. Zhang Ruiqing et al. [13] mea-
+
+
+                                      ：
+  sured a variety of enzymes related to the carbon cycle in the process of litter decomposition in
+
+                                                                 od
+  the tropical rain forest, and pointed out that enzymes related to the carbon cycle can be used as
+  an important indicator of organic matter decomposition.
+
+                                                                   els
+                            众
+       Wang Qibing et al. [14] claimed that the decomposition rate of litter will increase with the
+  increasing temperature [15]. The research results of Liu Qiang and Vitousek [14, 15] showed
+  that the temperature will begin to decrease with the increasing altitude, and the decomposition
+
+                    公                          AT
+  rate will be significantly reduced. Moore et al. [16] believed that on a large spatial scale, the
+  annual average temperature was considered to be the dominant climate factor affecting forest
+
+
+  微
+  litter decomposition. The decomposition rate of litter in each climate zone was tropical >
+
+                                                  H
+  subtropical > temperate > cold temperate [17, 18]. Under the action of high temperature and
+  high humidity, the soil microbial activity in low latitude and low altitude areas is generally
+
+
+   信
+  higher, the decomposition rate of litter is faster, and the accumulation rate of forest surface
+                                        M
+  organic matter is slow. On the contrary, limited by low temperature, microbial activity in high
+  latitude and high altitude areas is generally low, litter decomposition rate is slow, and forest
+
+
+                              ：
+  surface organic matter accumulation is large [1, 16, 17].
+
+
+  1.4    Our Work
+                     号
+      In this paper, we first study the relationship among fungal extension rate, moisture trade-off,
+
+
+    微
+  and decomposition rate. According to [5], the relationship among diffusion rate and decomposi-
+  tion rate is determined as 1/2 order. In addition, the relationship among moisture trade-off and
+
+
+     信
+  log decomposition rate is linear. Then we unify these three factors into a single nonlinear equa-
+  tion. A multivariate nonlinear optimization model is established and is solved by SGD. In that
+  case, the quantitative relationship among extension rate, moisture trade-off, and decomposition
+  rate is established.
+     Then, we introduce cellular automata to simulate the growth and decomposition of fungi.
+  We introduce three definitions to quantify decomposition rate and extension rate into cellular
+  automata. Meanwhile, we consider the interaction among different species of fungi and the
+
+微信号：MATHmodels
+  impact of different environments. Numerous simulation experiments are conducted to test the 关注数学模型
+                                                                                                   2
+
+                                                                                          MATHmodels
+
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 5 ===
+  Team # 2122025                                    微信公众号：数学模型                             Page 4 of 24
+
+
+  robustness, sensitivity, and effectiveness of our models.
+      In summarize, our models are as follows:
+
+      • The relationship among extension rate, moisture trade-off, and decomposition rate (7).
+      • The nonlinear optimization model to fix the undetermined factors of the relationship (8).
+      • The cellular automata model under multiple species of fungi (20).
+      • The cellular automata model under interactions among different fungi (22). 型
+                                                                 学
+      It is worth pointing out that the answers to the five questions are respcetively listed in Sec.
+  3.2 (the first question), Sec. 3.3 (the second question), Sec. 3.4 (the third and fourth question),
+  and Sec. 3.5 (the fifth question).
+
+
+  2     Assumptions and Notations                                 模
+  2.1    Assumptions                                    数
+                                      号
+      Through the full analysis of the problem, in order to simplify our model, we make the
+  following reasonable assumptions.
+                                                                  m
+                                       ：                           od
+  Assumption 1 Assuming that the effects of forest soil fertility, tree species, and forest age on
+  litter decomposition are negligible.
+
+                                                                     els
+                             众
+       The effect and influence on fungal decomposition are mainly limited to the environment and
+  its own characteristic [10].
+
+
+
+                    公
+  Assumption 2 Ignoring the impacts of external factors such as forest pests and animal activi-
+
+                                                 AT
+  ties on the matrix quality and decomposition rate of forest litter.
+
+
+
+  微
+  Assumption 3 The effect of light intensity on fungal decomposition was not considered.
+
+                                                    H
+      The intensity of light can lead to the difference of leaf structure and material composition
+
+
+   信
+  [19]. Specifically, the intensity of light will affect the content of nutrients, cellulose, and lignin
+
+                                         M
+  in leaves. This paper focuses on the influence of temperature and humidity, so the influence of
+  light intensity is ignored in this paper.
+
+
+                               ：
+  Assumption 4 The phenomenon of alternation of drying and wetting, freezing and thawing
+  caused by light and rainfall is not considered.
+
+
+
+                      号
+  Assumption 5 Assuming that the decomposition of litter and woody fiber has gone through the
+  leaching stage and comminution stage, the model is aimed at the catabolism stage of organic
+  matter.
+
+
+      微
+      The nature of leaching and comminution stages requires additional analysis [6].
+
+
+
+       信
+  Assumption 6 It is assumed that due to the limitation of the actual situation, the fungi would
+  never surpass its theoretical extension rate.
+      The theoretical maximum growth rate of the microorganism is based on ideal condition
+  [5, 20]. Thus, it is not likely for the fungi to surpass the theoretical maximum growth rate.
+  Assumption 7 In reality, the growth of fungi has a lower limit of humidity. In order to simplify
+  the model, we assume that the higher the humidity, the higher the extension rate.
+     There are lower limits of the humidity for the growth of the fungi [21]. However, as far as 关注数学模型
+微信号：MATHmodels
+  we know, there are no upper limits. Thus, it is reasonable to make this assumption.
+                                                                                                      2
+
+                                                                                             MATHmodels
+
+
+                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 6 ===
+  Team # 2122025                                  微信公众号：数学模型                            Page 5 of 24
+
+
+  2.2   Notations
+       The primary notations used in this paper are listed in Table 1. In addition, a set containing
+  element · is expressed as {·}. Different types of fungi are distinguished by subscripts i, e.g.,
+  Fi ,VEi . Generally, symbols with the same capital letter but different subscripts represent the
+  variables with similar properties, e.g., VE and VD both represent the rate, while VE denotes the
+  extension rate and VD denotes the decomposition rate.
+
+                                          Table 1: Notations                    型
+         Symbol
+             T
+                                                Definition
+                         temperature (The unit is ◦C)
+                                                               学
+           Tmax
+             Hl
+          λ , a, K                                              模
+                         The most suitable temperature of a type of fungi
+                         The lower limit of the humidity of a type of fungi
+                         The undetermined parameters in optimization model (3.3)
+
+            VE
+              L
+
+          VEmax                                       数
+                         The square loss of the groud-truth data and the predict data
+                         Extension rate (The scope is [0, 10] according to [5])
+                         The theoretical maximum extension rate
+            VD
+             M
+                                     号
+                         Decomposition rate (The scope is [0, 1])
+
+
+                                                                m
+                         The moisture trade-off (The scope is [−1, 1] [5])
+
+
+                                      ：
+             H           Humidity (The scope is [0, 1])
+             G
+             Fi                                                  od
+                         The map in cellular automata (∈ N500×500 )
+                         The set containing multiple cells, representing a type of fungi (⊂ N2 )
+             Ni
+            PEi
+            PCi
+                                                                   els
+                         The number of cells infected by a type of fungi (Ni = |Fi |)
+
+                            众
+                         The extension probability defined in Definition 1
+                         The competitive-extension probability defined in Definition 3
+            TDi
+
+                     公   The decomposition time defined in Definition 2
+
+                                               AT
+  微
+  3     Models and Results
+                                                  H
+      This section describes the main models and results of our work. Specifically, Sec. 3.1 es-
+
+
+   信
+  tablishes the relationship among extension rate, moisture trade-off, and the decomposition rate,
+
+                                       M
+  where the SGD algorithm is utilized to determine the model parameters. Sec. 3.2 establishes
+  the cellular automata model to describe the growth and decomposition process of the fungi.
+
+
+                              ：
+  In Sec. 3.3, we add the interactions of different fungi and re-formulate the cellular automata
+  model. In Sec. 3.4, we analyze the proposed models from the perspective of the connections of
+  different factors, and the sensitivity to environmental change. Finally in Sec. 3.5, we analyze
+
+                     号
+  the importance of biodiversity to fungal growth and decomposition.
+      In order to better carry out our work, it is expected to collect multiple species of fungi and
+
+
+      微
+  their parameters. Generally, the main components of ground litter and lignocellulose include
+  lignin, cellulose, and hemicellulose. Thus, the types of fungi we select should be able to favor-
+  ably decompose these elements. Based on the information on common types of fungi [5, 26],
+
+       信
+  we collected 6 types of fungi, as listed in Table 2.
+
+
+  3.1   Decomposition Rate Model and Parameters Estimation
+      This section establishes the fungal decomposition rate model, which is considered via two
+  aspects: the extension rate and the moisture trade-off. Our model is a general framework and
+  could be applied to all types of fungi. Specifically, we first qualitatively establish the relation-
+微信号：MATHmodels
+  ship among decomposition rate and extension rate and moisture trade-off. Then, we establish     2
+
+                                                                                         MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 7 ===
+  Team # 2122025                                  微信公众号：数学模型                            Page 6 of 24
+
+
+  Table 2: The type of fungi selected and the corresponding parameters (Some parameters are selected
+  from the appendix of [5]).
+
+                     Fungal types        Tmax         VEmax    Hl          M
+                     Trichoderma        28◦C          8.23    80%       −0.60
+                     Penicillium        18◦C          6.46    90%       −0.80
+                     Aspergillus
+                      Rust fungi
+                      Gibberella
+                                        32◦C
+                                        25◦C
+                                        27◦C
+                                                      5.17
+                                                      1.56
+                                                      7.26
+                                                              92%
+                                                              80%
+                                                              90%
+                                                                        −0.84
+                                                                        −0.60
+                                                                        −0.80   型
+                      Fusarium          28◦C          4.68
+
+                                                               学
+                                                              70%       −0.40
+
+
+
+
+                                                                模
+  the relationship among extension rate and humidity and temperature. For the uncertain param-
+  eters in the model, we use the data in the relevant literature [5] to determine these parameters
+  by SGD, and finally we can determine the decomposition rate model.
+
+  3.1.1
+                                                           数
+          Decomposition Rate Based on Extension Rate and Moisture Trade-off
+
+
+
+                                     号
+      The decomposition rate, which is defined as the mass loss of the wood over 122 days [5],
+  has high relations with the extension rate and the moisture trade-off. For the extension rate, we
+
+                                                                m
+  can observe that the decomposition rate increased with the increase of the extension rate. The
+
+
+                                      ：                          od
+  magnitude of this increase is approximated by the power of 1/2, and the temperature T affects
+  the decomposition rate with a constant ratio. Thus, the univariate function of decomposition
+  rate with respect to the extension rate can be formulated as
+
+                            众                          1
+                                        VD = T ×VE2 +VD10 ,
+                                                                   els                                (1)
+
+
+                   公
+  where VD denotes the decomposition rate, T denotes the temperature, VE denotes the extension
+
+                                                AT
+  rate, and VD10 is a constant, which is undetermined.
+
+
+
+  微
+      The moisture trade-off M is defined as the difference of each isolate’s competitive ranking
+
+                                                   H
+  and their moisture niche width [5]. It is believed that the fungi with a bigger moisture trade-off
+  are likely to have a higher decomposition rate [5]. In fact, the linear correlation can be found
+
+
+   信
+  among the moisture trade-off and logVD , i.e.,
+
+                                       M
+                                       logVD = α × M +VD20 ,                                          (2)
+
+
+                              ：
+  where α is the linear coefficient and VD20 is a constant. Taking exponential function on both
+  sides and let λ = 10VD0 and a = 10α , we have
+
+
+                     号                       VD = λ aM .
+
+  Here, λ , a become two undetermined parameters of the model.
+                                                                                                      (3)
+
+
+
+    微 Note that (1) and (3) are two independent functions that consider the influence of the exten-
+  sion rate and the moisture trade-off, respectively. In fact, these two factors consistently affect
+
+     信
+  the decomposition rate with a synchronous manner. Thus, it is expected to unify these two
+  factors into a single model, which derives
+                                                  1
+                                     VD = T ×VE2 + λ aM + K,                                          (4)
+
+  where K is an undetermined constant.
+     In the fungi decomposition rate model (4), the independent variables are the extension rate
+微信号：MATHmodels
+  VE and the moisture trade-off M. For M, the lower limit of the humidity of a specific specie of
+                                                                                                  关注数学模型
+                                                                                                  2
+
+                                                                                         MATHmodels
+
+
+                                                                                                            获取更多资讯
+
+
+=== PHYSICAL PAGE 8 ===
+  Team # 2122025                                       微信公众号：数学模型                         Page 7 of 24
+
+
+  fungi can be used to determine M [21]. However, for VE , it is depends on both the temperature
+  and the humidity. Thus, it is of needs to establish a particular model to describe the relations
+  among temperature, humidity, and the extension rate VE .
+
+
+  3.1.2   Extension Rate Based on Temperature and Humidity
+
+
+                                                                                  型
+     Fungi provide energy for themselves by decomposing organic matter. Since the decom-
+  position mainly depends on the function of the enzyme, the activity of the decomposing en-
+  zyme greatly affects the decomposing efficiency, thus affecting the growth rate of fungi [22].
+
+
+                                                                 学
+  Generally speaking, the activity of decomposing enzymes is highly related to temperature and
+  humidity. Therefore, the growth rate of fungi depends on temperature and humidity.
+
+
+                                                                  模
+      According to [22], the temperature rise can be linearized by the Arrhenius diagram. The
+  slope of the Arrhenius diagram gives the activation energy, which determines VE . Generally, the
+  effect of humidity on the growth of fungi is positively correlated. However, for the temperature,
+
+
+                                                        数
+  too high temperature will inactivate the enzyme in the fungi. Therefore, we employ Tmax to
+  express the temperature which causes inactivation. Beyond this temperature, the extension rate
+  would go down as the temperature still increase.
+
+
+                                      号
+     Based on the above analysis, we formulate the extension rate of the fungi with respect to the
+
+                                                                  m
+  temperature T and the humidity H as the following Arrhenius diagram [23]:
+                         
+                         
+                         
+                         
+                          VE =  V Emax
+                                       ：e
+                                          V max
+                                         − TE×H
+
+                                           −
+                                                , 0 ≤ T ≤ Tmax
+                                               VEmax
+                                                                   od
+                                                                     els                                 (5)
+                            
+                            
+                            
+                             众
+                             VE = VEmax e (2Tmax −T )×H , Tmax ≤ T ≤ 2Tmax
+                            V = 0, other.
+                              E
+
+
+
+                    公
+  where VEmax denotes the theoretical maximum extension rate (According to Assumption 6, due
+
+                                                AT
+  to the limitation of the actual situation, the fungi would never surpass its theoretical extension
+  rate). For different species of fungi, the VEmax and Tmax are different. They are depend on the
+
+
+  微
+  essential characteristics of the fungi.
+                                                   H
+      In order to illustrate the rationality of the above model (5), we display the value of VE with
+
+   信
+  respect to different T and H in Fig. 1. We can see that when the maximum extension rate
+                                         M
+  VEmax of the fungi is large, the fungi are sensitive to the change of environment (temperature and
+  humidity). For example, the yellow line in the Fig. 1 represents a maximum extension rate of
+
+                               ：
+  10. When the temperature or humidity changes a lot, the extension rate of these fungi is even
+  lower than that of the fungi with a maximum extension rate of 2.5, which is represented by the
+  blue line. That is to say, the fungi with a higher extension rate are not robust to the change of
+
+                      号
+  environment. This phenomenon is consistent with the analysis in the literature [5].
+
+
+
+
+    微
+  3.1.3   Moisture Trade-off Based on Lower Limit of Humidity
+
+
+
+
+     信
+      For the moisture trade-off M (whose scope is [−1, 1] [5]), we directly use the lower limit
+  data of the humidity to induce M. Specifically, according to [21], the lower limit of humidity Hl
+  of a species of fungi is definite (The scope is [0, 1]). Besides, the lower this limit is, the higher
+  the moisture trade-off of the fungi species would be, as expounded in Assumption 7. Thus, we
+  directly formulate M with linear correlation to Hl , i.e.,
+
+                                            M = −2Hl + 1.                                                (6)
+
+
+微信号：MATHmodels                                                                                       2
+
+                                                                                            MATHmodels
+                                                                                                               关注数学模型
+
+                                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 9 ===
+  Team # 2122025                                         微信公众号：数学模型                          Page 8 of 24
+
+
+
+
+                                                                                     型
+                                                                    学
+                                                                     模
+  Figure 1: The test of the extension rate model (5). Left: the value of VE with respect to different
+  temperature T with fixed H = 0.8. Right: the value of VE with respect to different humidity H with fixed
+  T = 38. The optimum temperature Tmax is set as 38.
+
+
+  3.1.4   Fungal Decomposition Rate Model
+                                                          数
+      Based on the above analysis, the final model of the fungal decomposition rate is
+                          
+                            V    =  T  号
+                                      ×V
+                                          1
+                                          2    M
+                                         E +λa +K
+                                                                    m
+                                        ：
+                          
+                            D
+
+
+                                                                     od
+                          
+                          
+                            λ , a, K ∈ R
+                          
+                          
+                          
+                          
+                          
+                          M = −2Hl + 1
+                          
+
+                                                                       els
+                          
+                                                                                                            (7)
+
+                              众
+                                              VE
+                                             max
+                            
+                            
+                            VE = VEmax e− T ×H , 0 ≤ T ≤ Tmax
+                                              V
+                                         − (2T Emax
+                            
+                            
+                             V  = V     e     max −T )×H , T
+                                                            max ≤ T ≤ 2Tmax
+                            
+                              E    E
+                            
+
+                    公
+                            
+                                   max
+
+
+
+
+                                                   AT
+                            
+                             VE = 0, other.
+                            
+
+
+
+
+  微
+  3.1.5   Parameters Estimation Using SGD
+                                                      H
+      In order to establish a definite relationship of extension rate, moisture trade-odd, and the
+
+   信
+  decomposition rate, we need to estimate the undetermined parameters λ , a, K in model (7).
+                                          M
+  Specifically, these parameters should be determined according to the data. Our data come from
+  the appendix of [5]. The equation (4) is a multi-parameters undetermined nonlinear equation.
+
+                                ：
+  Therefore, it is expected to determine these parameters via minimizing the error among the
+  decomposition rate data at hand and the predicted decomposition rate, which could be described
+  as the following optimization model:
+
+                      号       {λ ∗ , a∗ , K ∗ } = arg min ∑(VDi −VDi data )2 ,
+                                                   {λ ,a,K} i
+
+
+
+    微                           VDi = Tdata
+                                       i
+                                                     1          i
+                                            ×VEi data 2 + λ aMdata + K.
+                                                                                                            (8)
+
+
+
+     信     i ,V i
+  Here, {Tdata           i      i
+                Edata , Mdata ,VDdata } are the set of data obtained from [5]. The above optimization
+  model aims at minimizing the square error of the ground-truth data VDdata and the predicted data
+  VD using (4).
+      It is hard to find the closed-form solution of model (8) . Hence, it is of necessity to use it-
+  erative methods. In solving unconstrained optimization problems, the iterative gradient descent
+
+微信号：MATHmodels
+  is one of the most commonly used methods. Since there is multiple data, we introduce the SGD 关注数学模型   2
+
+                                                                                               MATHmodels
+
+
+                                                                                                                  获取更多资讯
+
+
+=== PHYSICAL PAGE 10 ===
+  Team # 2122025                                        微信公众号：数学模型                            Page 9 of 24
+
+
+  algorithm [24], which is highly efficient under multiple data, to tackle model (8). Specifically,
+  we update θ = {λ , a, K} via
+                                         θ t+1 = θ t − r∇θ L,                                  (9)
+  where L = (VDi − VDi data )2 is the energy function, r is the updating rate [24], and t = 1, 2, · · · , I
+  denotes the iteration step. Concretely, we have the following updating rules:
+      λ -updating:
+                          λ t+1 = λ t − r
+                                            ∂L
+                                            ∂λ
+                                                                              Mi
+                                               = λ t − 2r(VDi −VDi data ) × at data .
+                                                                                         型                   (10)
+
+      a-updating:
+                                     ∂L                              学
+                                                                      模
+                                                                              (M i −1)
+                     at+1 = at − r      = at − 2r(VDi −VDi data ) × λ Mdata
+                                                                       i
+                                                                            at data .                        (11)
+                                     ∂a
+
+      K-updating:
+                                           ∂L
+                               K t+1 = K t − r
+                                           ∂K               数
+                                              = K t − 2r(VDi −VDi data ).
+  The optimization process is described in Table 3.
+                                                                                                             (12)
+
+
+
+
+                                        号                              m
+                              Table 3: The solution of the proposed model (8).
+
+
+                                         ：
+                         Algorithm 1: Parameters estimation using SGD
+                                                      i ,V i
+                         1: input: r, I, dataset {Tdata              i  od  i      N
+                                                            Edata , Mdata ,VDdata }i=1
+
+                                                                          els
+                              众
+                         2: Initialize λ 0 = 1, a0 = 1, K 0 = 1;
+                         3: for k = 1 : I
+                         4: t=mod(k,N);
+
+                     公   5: Update λ via (10);
+                         6: Update a via (11);
+                         7: Update K via (12);      AT
+  微                      8: end for
+                         9: output: λ I , aI , K I
+                                                       H
+   信                                        M
+      The loss value (L) and λ with respect to the iteration is shown in Fig. 2. We can see
+  that during the SGD iteration, the loss gradually converges to a relatively small value, and the
+
+                                ：
+  λ converges to 31.9 stably. Although we use SGD, where the loss value is locally unstable.
+  However, the SGD algorithm can accelerate the iteration and convergence speed [24].
+
+
+                       号
+      Finally, we have λ = 31.90, a = 1.26, K = −64.80, which deduces
+                                                1
+                                VD = T ×VE2 + 31.90 × 1.26M − 64.80.                                         (13)
+
+
+    微 Based on th above solution, the calculation model of decomposition rate and extension rate
+
+
+     信
+  are simultaneously described as follows:
+                                          1
+                          
+                          
+                           V D =  T ×V   E
+                                           2
+                                             + 31.90 × 1.26M − 64.80
+                          
+                            M = −2Hl + 1
+                          
+                          
+                          
+                          
+                                            VEmax
+                            VE = VEmax e− T ×H , 0 ≤ T ≤ Tmax                              (14)
+                          
+                                               V
+                                          − (2T Emax
+                          
+                          
+                            V   =  V     e     max −T )×H , T
+                                                             max ≤ T ≤ 2Tmax
+                          
+                              E     Emax
+
+微信号：MATHmodels
+                          
+                                                                                                 关注数学模型
+                          
+                          
+                                                                                                        2
+                            VE = 0, other.                                                      MATHmodels
+
+
+                                                                                                                    获取更多资讯
+
+
+=== PHYSICAL PAGE 11 ===
+  Team # 2122025                                       微信公众号：数学模型                              Page 10 of 24
+
+
+
+
+                                                     Iteration                         型
+                                                                     学
+          Figure 2: The loss value (L) and λ with respect to the iteration using algorithm in Table 3.
+
+
+
+
+                                                                      模
+  Specifically, given the temperature T and humidity H, we can compute the extension rate VE
+  of different species of fungi with different VEmax , Tmax . Next, the decomposition rate VD is com-
+  puted by combining the extension rate VE and the moisture trade-off M (determined by the
+  tolerance of different fungi to water). This model provides the basis for our cellular automata
+
+                                                           数
+  model to simulate the decomposition of organic matter by fungi.
+
+  3.2
+                                         号
+          Cellular Automata Model for Breakdown Process
+
+                                                                      m
+                                          ：
+      The first question is to model the breakdown process by the fungi. In practice, the rate of
+
+                                                                       od
+  decomposition by fungi is not constant due to various conditions, so the decomposition time
+  is dynamic. In order to better simulate the decomposition process, we suggest the cellular
+  automata to address this problem.
+
+                               众                                         els
+     Specifically, the set (containing multiple cells) that represents the fungi is denoted by Fi ⊂
+  N . The whole map grid (represents the woody fibers) is G ∈ N500×500 . At the beginning stage,
+   2
+
+
+
+                      公
+  every grid is set to 1, i.e., G(p, q) = 1, ∀s,t. Then, for each grid, there is a initial possibility
+
+                                                   AT
+  to be infected by the fungi Fi (if (p, q) is infected by Fi , then we update G(p, q) = i + 1).
+  After the initialization, Fi begins to extend to other grids. Once Fi extends to a new grid, it
+
+
+  微                                                   H
+  begins to decompose this grid, which takes some time. After the decomposition, the wood
+  disappears, and the fungi on the grid die for lack of hosts. The whole simulation process of
+
+
+   信
+  cellular automata describes the dynamic process of fungi growth and decomposition on wood.
+
+                                           M
+  However, some parameters in cellular automata, such as the rules of invading adjacent cells and
+  the decomposition time, need to be further determined.
+
+
+                                 ：
+      Here, we use the extension rate VE and decomposition rate VD that we calculated before to
+  determine the parameters in the cellular automata.
+
+
+  3.2.1
+                        号
+           Relation Between Cellular and Fungal Extension
+      For the extension process of fungi, we use the infection of adjacent cells in cellular automata
+
+
+    微
+  as the simulation of growth. Naturally, this process is parameterized by the extension rate VE .
+  However, we can not directly use VE in the cellular automata since the simulation process is
+
+
+     信
+  a discrete process. In such a condition, not only the number but also the position of the cells
+  should be studied. Thus, we propose to transform VE into a probability factor to determine
+  whether an uninfected grid would be infected by the fungi in the adjacent grid.
+      According to [25], the sigmoid function can commendably describe the process of biological
+  growth. For fungi, it is also a kind of organism, so some of its behaviors and characteristics can
+  be simulated by sigmoid function. Given the extension rate VE , we propose to use sigmoid
+  function to transform VE into a controllable probability factor. The probability (determined via
+微信号：MATHmodels
+  the extension rate VE ) of a fungus is used to determine whether the fungi cell Fi could extend 关注数学模型   2
+
+                                                                                                  MATHmodels
+
+
+                                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 12 ===
+  Team # 2122025                                     微信公众号：数学模型                        Page 11 of 24
+
+
+  into adjacent lattices. Specifically, we induce the following definition.
+
+  Definition 1 (Extension probability) Given the fungi cell Fi with extension rate VEi , the exten-
+  sion probability of Fi is defined as
+                                                  1        1
+                                   PEi = sigmoid( ) =             .                            (15)
+                                                 VEi        − V1
+                                                       1+e     Ei
+
+
+
+                                                                                 型
+      This probability is used to determine the extent of the growth of the fungi cell. Specifically,
+  for each uninfected cell, if it is adjacent to an infected fungi Fi , then the grid may be infected
+
+
+                                                                  学
+  with probability PEi , which is determined by the extension rate VE . When the extension rate
+  increases, PEi increases (with upper limit 1). Then the probability of cell infection increases,
+
+
+                                                                   模
+  which on the other hand describes the rate of the fungal extension. Thus, the validity of Defini-
+  tion 1 is justified.
+     Based on the above analysis, for each grid (p, q) that is not being infected, we do the fol-
+  lowing operation in the time t:
+                                  (
+                                                        数
+                                   Fit+1 = Fit ∪ {(p, q)}, ξ ≤ PEi
+                                                                                            (16)
+
+
+                                     号
+                                   Fit+1 = Fit , ξ > PEi ,
+
+                                                                       m
+  where ξ ∼ U(0, 1). The above formula is the growth simulation process of fungi. Note that
+
+
+                                      ：                                 od
+  there are grids {ptD , qtD } that being fully decomposed by the fungi Fi , thus we do
+                                      Fit+1 = Fit+1 \{(ptD , qtD )}.
+
+                                                                          els                          (17)
+
+
+                             众
+  For the total number of fungi Ni (the number of grids infected by Fi ), we have Ni = |Fi |, where
+  | · | denotes the number of elements in the set. For the variation of the number of cells infected
+  by fungi, we have the following differential form:
+
+                    公                dNi
+                                      dt        AT
+                                          = (Nit+1 − Nit ) − NDt i ,                            (18)
+
+
+
+  微
+  where NDt i denotes the number of cells that fully decomposed by the fungi Fi at time t. The
+
+                                                   H
+  equation (18) is crucial since we can use it to observe the variation of the number of fungi in
+
+
+   信
+  the simulation process.
+
+  3.2.2                                 M
+          Relation Between Cellular and Fungal Decomposition
+
+
+                              ：
+     Similar to the extension rate, the decomposition rate can not be directly used in the cellular
+  automata model. Therefore, it is of necessity to convert the decomposition rate calculated pre-
+
+
+                     号
+  viously into the decomposition time of a fungus to fully decompose a cell that being infected.
+  Naturally, when the decomposition rate is high, the decomposition time is relatively low [26].
+  Therefore, we propose the following definition of decomposition time.
+
+
+    微
+  Definition 2 (Decomposition time) The decomposition time of fungi Fi with decomposition rate
+  VDi , which is the time of a fungus in a cell to fully decompose the woody fiber, is defined as
+
+     信                                   TDi = c
+                                                       122
+                                                   VDi × 5002
+  where c is a correction factor. The unit of TDi is day.
+                                                              ,                                        (19)
+
+
+
+      122 is the number of days in the expeirments in [5], and 500 is the size of G. In our work, c
+  is set as 5 × 106 . Given the decomposition time TDi , we can simulate the decomposition process
+  of the fungi in a cell. Consequently, according to Eq. (17), the decomposition time is a factor 关注数学模型
+微信号：MATHmodels
+  that influences the cellular automata model.
+                                                                                                   2
+
+                                                                                          MATHmodels
+
+
+                                                                                                              获取更多资讯
+
+
+=== PHYSICAL PAGE 13 ===
+  Team # 2122025                                    微信公众号：数学模型                            Page 12 of 24
+
+
+  3.2.3   Cellular Automata Model
+     Based on the above analysis, let n denots the number of fungal species, the proposed cellular
+  automata model to simulate the decomposition process is formulated as:
+                         
+                         
+                         Fit+1 = (Fit ∪ {(p, q)})\{(ptD , qtD )}, ξ ≤ PEi
+                         
+                          Fit+1 = Fit \{(ptD , qtD )}, ξ > PEi
+                         
+                         
+
+
+                                                                                   型
+                         
+                         
+                         
+                         
+                         ξ ∼ U(0, 1), i = 1, · · · , n
+                         
+                         
+                                             1           1                                    (20)
+                          PEi = sigmoid( ) =
+
+                                                                 学
+                                                           1
+                         
+                                           VEi           −V
+                                                     1 + e  Ei
+                         
+                         
+                         
+                         
+                                       122
+
+
+                                                                  模
+                         
+                         TDi = c
+                         
+                                               .
+                                   VDi × 5002
+
+
+  3.2.4   Model Solution
+                                                        数
+       The model (20) is a simulation framework based on the cellular automata. Thus, the solution
+
+
+                                      号
+  can be obtained by stimulating the decomposition process via time iteration. The algorithm of
+
+
+                                                                  m
+  the simulation process is described in Table 4. Note that during the simulation, we consider the
+
+
+                                       ：
+  falling leaves which provide uninfected cells (We change the cells that are fully decomposed
+
+                                                                   od
+  into uninfected cells, i.e., G(p, q) = 1 to simulate the falling leaves). In this section, we select 3
+  types of fungi to conduct the experiments, i.e., Trichoderma, Penicillium, and Aspergillus (see
+
+                                                                     els
+  details in Table 2). Also, we choose the environment in tropical rain forest for question 1, 2,
+
+                             众
+  and 3 (The details of different areas can be seen in Table 5). The simulation results are shown
+  in Fig. 3.
+
+
+                    公
+      From the left figure of Fig. 3, we can see that the wood fiber is infected and decomposed
+
+                                                 AT
+  by different fungi. This kind of infection and decomposition happen all over woody fiber, i.e.,
+  fungi can use all the nutrients in woody fiber when they grow without restriction. From the
+
+
+  微                                                 H
+  middle figure of Fig. 3, we can see that in the initial stage, which is about 5 − 10 days, fungi
+  infect the woody fiber at an approximately exponential rate. After 10 days, however, the number
+
+
+   信
+  of fungi began to decline. This is because the nutrient content of wood (that is, the number of
+
+                                         M
+  uninfected wood in the cell map) is decreasing, while the decomposed wood is increasing. In
+  addition, the existence of several fungi led to the rapid consumption of nutrients. Therefore, the
+  growth environment of fungi became worse, and the number of fungi began to decrease due to
+
+                               ：
+  the lack of nutrients. After about 40 days, the number of fungi tends to be more stable around
+  6 × 104 . The decomposition rate after 122 days is 0.68.
+
+
+                      号
+      From the right figure of Fig. 3, the change rate of the number of fungi is very high at first
+  and then tends to be stable. This is consistent with the results in most laboratories [26, 10, 16].
+  Because in the beginning, the nutrients are sufficient and the growth rate is high. After that,
+
+
+    微
+  the nutrients decreased and most of the wood was decomposed, and at the same time there are
+  fallen leaves that provide extra nutrients (not enough for the fungi for further extension), so the
+
+
+     信
+  rate of change of the number of fungi tends to be 0.
+
+
+  3.3     Cellular Automata Model Under Interactions Among Fungi
+      In this section, we address the second problem. In order to describe the interaction among
+  different species of fungi, we mainly consider the changes of the extension rate, where the
+  interaction among organisms mainly comes from the perspective of growth [25]. Specifically,
+微信号：MATHmodels
+  we should consider whether there are mutually beneficial and mutually exclusive effects among
+                                                                                                 关注数学模型
+                                                                                                      2
+
+                                                                                             MATHmodels
+
+
+                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 14 ===
+  Team # 2122025                                       微信公众号：数学模型                             Page 13 of 24
+
+
+
+
+                                                                                       型
+                                                                    学
+  Figure 3: The simulation results of question 1. Left: The illustration of woody fiber infected by different
+
+
+
+                                                                     模
+  species of fungi and decomposed by the fungi. Middle: The number of different fungi Ni with respect to
+  the time. Right: The difference of the number of different fungi dN  i
+                                                                     dt with respect to the time.
+
+                            Table 4: The algorithm corresponding to model (20).
+
+
+                                                           数
+           Algorithm 1: The fungal extension and decomposition simulation process
+           1: input: G ∈ N500×500 , tmax , {Tmaxi }, {VEmaxi }, {Mi }
+
+
+                                        号
+           2: Initialize Fi ∈ N2 , i = 1, · · · , n;
+           3: for t = 1 : tmax
+                                                                      m
+                                         ：
+           4: for (p, q) = (1, 1) : (500, 500)
+           5:
+           6:
+                      Find adjacent points {(p j , q j )};
+                      if G(p j , q j ) 6= 1                            od
+                                                                         els
+           7:
+           7:
+           7:
+                              众
+                         Compute PEi via (15);
+                         Compute TDi via (19);
+                         Update Fi via (16) and (17);
+           7:
+           6:
+           6:
+                     公   G(p j , q j ) = i + 1;
+                      end if
+                  end for                          AT
+  微        6:     Nit = |Fit |; Compute dN
+           8: end for
+                                               i
+
+
+                                                      H
+                                             dt via (18);
+
+
+
+
+   信       9: output: {Ni }, { dN     dt }
+                                        i
+
+
+
+                                           M
+  fungi. This effect should be quantified as the effect on extension rate. Then, cellular automata
+
+                                ：
+  was used to re simulate the activity of fungi under intrinsic interactions.
+
+
+  3.3.1
+                       号
+          Model Establishment
+
+      When modeling the relationship among fungi of different species, we should have consid-
+
+    微
+  ered two aspects: mutual benefit and mutual exclusion. However, as far as we konw, the mutual
+  benefit exists only among fungi and other organisms [27, 28]. Therefore, when we consider the
+
+
+     信
+  relationship among fungi, we mainly consider the competitive relationship. That is to say, the
+  extension rate VE would decrease under interactions of different fungi. Following our previous
+  work (Definition 1), the extension probability would change. We induce the following definition
+  of the extension probability under fungal interactions.
+
+  Definition 3 (Competitive-extension probability) Given the fungi cell Fi with extension rate VEi
+  and the competitive fungi {Fj } with quantity {N j }, the competitive-extension probability of Fi
+
+微信号：MATHmodels                                                                                            2
+
+                                                                                                 MATHmodels
+                                                                                                                关注数学模型
+
+                                                                                                                获取更多资讯
+
+
+=== PHYSICAL PAGE 15 ===
+  Team # 2122025                                      微信公众号：数学模型                                    Page 14 of 24
+
+
+  is defined as
+                                                1                           1
+                      PCi = sigmoid(                          )=                                .                  (21)
+                                                 ∑ j |N j |          −            1
+                                       VEi × (1 − 500  2 )               VE ×(1−
+                                                                                 ∑ j |N j |
+                                                                                            )
+                                                                   1+e     i      5002
+
+
+                                                                              j  j    ∑ |N |
+      Evidently, PCi is lower than PEi due to the percentage factor (1 − 500    2 ). This factor con-
+
+
+
+
+                                                                                                    型
+  siders that the extent of the impact of the competing fungi on the fungi Fi is related to the total
+  number ∑ j |N j |. When the number of the competing fungi is large, the impact is considerable.
+  This is consistent with the analysis in [27]. Thus, the validity of Definition 3 is justified.
+
+
+                                                                    学
+     Based on the above analysis, the cellular automata model with fungi interactions can be
+  formulated by re-written model (20) as
+                    
+                    
+                    
+                    
+                    
+                    
+                                                                    模
+                      Fit+1 = (Fit ∪ {(p, q)})\{(ptD , qtD )}, ξ ≤ PCi
+                      Fit+1 = Fit \{(ptD , qtD )}, ξ > PCi
+
+                                                         数
+                    
+                    
+                    
+                    ξ ∼ U(0, 1), i = 1, · · · , n
+                    
+                    
+                    
+                                                  1                       1                  (22)
+                      PCi = sigmoid(                           )=
+
+
+                                      号
+                                                   ∑ j |N j |       −        1
+                                       VEi × (1 − 500     2 )
+                                                                                ∑ j |N j |
+                    
+                    
+                                                                      VE ×(1−             )
+                                                                  1+e
+
+                                                                     m   i       5002
+                    
+                    
+                    
+                    
+                                   122
+
+                                       ：
+                    
+                    
+                    TDi = c                .
+
+                                                                      od
+                    
+                    
+                              VDi × 5002
+
+
+
+  3.3.2   Model Solution
+                             众                                          els
+                    公
+      The algorithm to solve model (22) is similar to that of model (20). Thus, the algorithm can
+
+                                                    AT
+  be also described as Table 4. The only difference is the computation of the probability. In Table
+  4, the probability is computed via (15). Here, the probability is computed via (21).
+
+
+  微                                                    H
+       The results are shown in Fig. 4. According to the left figure of Fig. 4, the infection and
+  decomposition of wood are overall and random. Among them, the number of decomposed wood
+
+
+   信
+  is significantly reduced compared with the result of the first question. Specifically, the number
+
+                                         M
+  of fungi after stabilization is around 4.5 × 104 , which is concretely 33.65% lower than that of
+  the situation without fungal competition. According to the middle figure of Fig. 4, similar to the
+
+
+                               ：
+  result of the first question, the number of fungi first increased and then decreased. According to
+  the right figure of Fig. 4, the rate of change in the number of fungi is very large at first and then
+  tends to 0. The decomposition rate after 122 days is 0.39, which is 42.69% lower than that of
+
+
+                      号
+  the situation without fungal competition.
+      Unlike the first question, we consider the competition among different types of fungi in this
+  section. Under such consideration, our experimental results are quite different from the first
+
+    微
+  question. Specifically, according to the middle figure of Fig. 4, although the overall growth
+  trend of fungi increased and then decreased, the overall number of fungi decreased significantly
+
+
+     信
+  compared with the result of the first question. This is because we consider the competition
+  among fungi. Based on Definition 3, fungi are less likely to infect wood. Therefore, the general
+  number of fungi has decreased significantly.
+
+  3.4     Analysis and Experimental Results
+      We answer the third and fourth questions in this section. First, we conduct an overall anal-
+微信号：MATHmodels
+  ysis of the previous models. Then, we analyze the competitive relationship among different 关注数学模型            2
+
+                                                                                                      MATHmodels
+
+
+                                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 16 ===
+  Team # 2122025                                     微信公众号：数学模型                             Page 15 of 24
+
+
+
+
+                                                                                     型
+                                                                  学
+  Figure 4: The simulation results of question 2 (Fungal decomposition and growth simulation under
+
+
+
+                                                                   模
+  interactions of different species of fungi). Left: The illustration of woody fiber infected by different
+  species of fungi and decomposed by the fungi. Middle: The number of different fungi Ni with respect to
+  the time. Right: The difference of the number of different fungi dN i
+                                                                    dt with respect to the time.
+
+
+
+
+                                                         数
+  species. Then, we analyze the sensitivity of environmental changes (mainly the changes of
+  temperature and humidity). Finally, we simulate the extension and decomposition of differ-
+
+
+                                       号
+  ent fungal species in different environments and analyze the advantages and disadvantages of
+  different fungal species in different environments.
+
+  3.4.1   Overall Analysis
+                                        ：                           mod
+      The models we established are intrinsically linked. This connection is quantified by various
+
+
+                              众                                        els
+  parameters. The specific connection can be described as Fig. 5. Started with the fungal type, the
+  lower limit of the humidity and the maximum extension rate of this type of fungi are determined.
+  Then, the extension rate and the moisture trade-off are computed. Using model (7) and (8), the
+
+                    公
+  decomposition rate is determined. Next, we induce three definitions which respectively consider
+
+                                                 AT
+  the extension probability, the decomposition time, and the competitive extension probability.
+  Finally, the cellular automata models (20) and (22) are established according to these factors.
+
+
+  微                                                 H
+      Based on the above analysis, our model has good flexibility and a robust relationship struc-
+  ture. In addition, our consideration is based on the actual situation of fungal decomposition, so
+
+
+   信
+  it has good credibility. We formulate the decomposition rate according to the moisture trade-off
+                                          M
+  and the extension rate, which is inspired by [5]. Our experimental results demonstrate that our
+  motivations are correct, where the growth process of fungi and the decomposition process of
+
+
+                                ：
+  woody fibers depend on the types and parameters of fungi, as well as the changes of environ-
+  ment (to be discussed in the next part).
+
+
+  3.4.2
+                      号
+          Interactions Among Different fungi
+      In model (22), we summarize the internal interaction among different types of fungi as the
+
+    微
+  competition among different types of fungi. We put forward a definition (Definition 3). This
+  definition considers the effect of another species on a type of fungi mainly based on the exten-
+
+
+     信
+  sion rate. A percentage factor is used to reduce the original extension rate. This competitive
+  relationship is relative, so it will affect the whole process of decomposition and growth.
+      From the perspective of the short run, according to Fig 3 and Fig. 4, the additional consider-
+  ation of fungal competition does not have much impact. This is because in the initial stage, the
+  remaining amount of wood, that is, nutrients, is sufficient. Even if the growth rate of fungi is
+  limited, their growth process takes place in a similar exponential form. Therefore, in the short
+  term, the impact of competition is not obvious.
+微信号：MATHmodels                                                                                          2
+
+                                                                                               MATHmodels
+                                                                                                             关注数学模型
+
+                                                                                                             获取更多资讯
+
+
+=== PHYSICAL PAGE 17 ===
+  Team # 2122025                                                           微信公众号：数学模型                                              Page 16 of 24
+
+
+
+          Starts here
+                                                             Eq. (21)       Comp. exten. proba.                 Model (22)
+           Fungal type          Max. extension rate
+
+                                                             Eq. (15)        Exten. probability                 Model (20)
+          Temperature
+                                  Eq. (5)         Extension rate
+            Humidity
+
+
+          Humidity limit        Eq. (6)         Moisture trade-off
+                                                                             Model (7)
+
+
+
+
+                                                                     Determine the parameters
+                                                                                                   Decomposition rate
+
+
+
+                                                                                                                             型
+                                                                                                                        Eq. (19)   Decomposition time
+
+
+
+
+                                                           Data in [18]
+
+                                                                                                  学
+                                                                                                  Model (8)
+
+
+
+
+                                                                                                   模
+    Figure 5: The overall analysis of the relationship of different parameters and models of this paper.
+
+
+
+
+                                                                                 数
+                                                       号                                          m
+                                                        ：                                          od
+                                                                                                     els
+                                            众
+                              公                                           AT
+  微                                                                          H
+   信                                                        M
+                                            ：
+                           Figure 6: The sensitivity analysis of different temperature and humidity.
+
+
+
+                               号
+       However, from the perspective of the long run, the impact of considering the fungal compe-
+  tition is huge. From the middle figures of Fig. 3 and 4, we can find that when we do not consider
+  the interaction, every species of fungi grows at an independent pace, where the intensity of the
+
+
+    微
+  number Ni is much higher than that of Fig. 4. After considering the interaction, the general
+  number Ni decreased a lot. This is because when the woody fiber being decomposed, the nutri-
+
+
+     信
+  ents are becoming more and more limited. In such conditions, competition among fungi makes
+  their growth extremely slow. Thus, their quantities Ni are very low.
+
+
+  3.4.3      Sensitive Analysis of Environment
+     In order to prove that our model has a good internal relationship, especially can make a
+  good response to environmental changes, we carry out the sensitivity analysis of environmental
+
+微信号：MATHmodels
+  changes (temperature and humidity). Specifically, we use three fungal types, i.e., Trichoderma, 关注数学模型                                       2
+
+                                                                                                                                      MATHmodels
+
+
+                                                                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 18 ===
+  Team # 2122025                                                              微信公众号：数学模型
+                                                                                     Day                                         Page
+                                                                                                                                   Day
+                                                                                                                                       17 of 24
+
+
+                             Trichoderma                               Penicillium                                 Aspergillus
+      Arid area                                 Arid area                                   Arid area
+      Semi arid area                            Semi arid area                              Semi arid area
+      Temperate area                            Temperate area                              Temperate area
+      Arboreal area                             Arboreal area                               Arboreal area
+      Tropical rain forest                      Tropical rain forest                        Tropical rain forest
+
+
+
+
+                                 Day                                        Day                                    型      Day
+
+
+
+
+                                                                                           学
+                               Rust fungi                               Gibberella                                    Fusarium
+      Arid area                                 Arid area                                   Arid area
+      Semi arid area                            Semi arid area                              Semi arid area
+      Temperate area                            Temperate area                              Temperate area
+      Arboreal area                             Arboreal area                               Arboreal area
+      Tropical rain forest                                                                  Tropical rain forest
+
+
+
+
+                                                                                            模
+                                                Tropical rain forest
+
+
+
+
+                                                                                     数
+                                                号
+                                                                            Day                                           Day
+                                 Day
+
+
+  Figure 7: The number of fungi Ni with respect to the time under different environments of different types
+  of fungi.
+
+
+                                                 ：                                         mod
+  Penicillium, Aspergillus to simulate the decomposition process under different environments
+
+                                                                                              els
+  with slightly different temperatures and humidities. The results of the sensitivity analysis are
+  shown in Fig. 6.
+                                            众
+      In Fig. 6, we can observe that the proposed models are sensitive to considerable changes in
+
+
+                                            公
+  the environments. Specifically, an 8% change of the temperature would lead to an impact on
+
+                                                                       AT
+  the final determination of the dominant species. Meanwhile, there is an impact of the change
+  of the humidity on the final dominant species. The sensitivity of our models is mainly because
+
+
+  微                                                                       H
+  of the connection of the environmental factors and the extension rate as well as the competitive
+  interactions. Also, different species of fungi have different Tmax and Hl , which leads to the
+
+
+   信
+  sensitiveness of the proposed model with different temperatures and humidity.
+
+                                                M
+      From our sensitivity test results, we can see that the temperature change near the optimal
+  temperature will have a greater impact on the activity of fungi. If the local atmosphere changes
+
+
+                                            ：
+  abnormally, the temperature or humidity will change greatly and may deviate from the optimal
+  temperature or humidity limit of fungi, so the growth of fungi and the decomposition efficiency
+                                             Iteration
+  of woody fiber will be reduced. Specifically,      for the local tropical rain forest area, if the tem-
+
+                                            号
+  perature decreases or increases in the future (deviates from the optimal temperature of fungi),
+  the extension and decomposition rate of fungi will decrease. In terms of humidity, the activity
+  of fungi will be greatly limited when the humidity drops and becomes relatively dry in autumn
+
+
+    微
+  and winter.
+
+
+
+     信
+  3.4.4         Simulations Under Different Combinations and Regions
+     Next, we conduct more experiments to verify the effectiveness of our models. Specifically,
+  we conduct the simulation on different conditions, i.e., the arid area, the semi-arid area, the tem-
+  perate area, and the tropical rain forest area. Specific temperature and humidity data is shown in
+  Table 5 (refered from https://gis.ncdc.noaa.gov/maps/ncei/summaries/daily). Meanwhile, we
+  employ different species of fungi in these areas to see the corresponding results.
+
+微信号：MATHmodels
+      First, we simulate each selected species of fungi (they have different model parameters) in 关注数学模型                                     2
+
+                                                                                                                                    MATHmodels
+
+
+                                                                                                                                                  获取更多资讯
+
+
+=== PHYSICAL PAGE 19 ===
+  Team # 2122025                                                               微信公众号：数学模型                                                         Page 18 of 24
+
+
+                          Arid area                                  Semi arid area                                                  Temperate area
+
+
+
+
+                                Day
+                                               Arboreal area
+                                                                             Day
+                                                                                                              Tropical rain forest
+                                                                                                                                      型    Day
+
+
+
+
+                                                                                                               学
+                                                                                                                模
+                                                    Day                                 数                            Day
+
+
+
+
+                                                           号
+  Figure 8: The number of fungi Ni with respect to the time under different environments with the com-
+  petitive combination of different fungi.
+                                 Penicillium                                                    Aspergillus
+
+
+                                                                                                                 m
+                                                            ：
+         Arid area                                                       Arid area
+
+  Table 5: The types of environments and the corresponding parameters (We use the temperature and
+         Semi arid area
+         Temperate area
+                                                                         Semi arid area
+                                                                         Temperate area
+
+  humidity data from a specific observation point whose longitude and latitude are displayed).
+         Arboreal area
+         Tropical rain forest
+                                                                         Arboreal area
+                                                                         Tropical rain forest
+                                                                                                                  od
+  Ni
+                          Arid area
+                        Semi arid area
+                                       Areas
+
+                                               众                 T
+                                                                Ni
+                                                               20.4◦C
+                                                               22.12◦C
+                                                                                          H
+                                                                                       0.16
+                                                                                       0.39
+                                                                                                                    els
+                                                                                                                longitude
+                                                                                                                  87.7◦ E
+                                                                                                                 118.8◦ E
+                                                                                                                                     latitude
+                                                                                                                                     40.6◦ N
+                                                                                                                                     42.3◦ N
+                        Temperate area
+                         Arboreal area公
+                      Tropical rain forest
+                                                               27.63◦C
+
+                                                                     AT
+                                                               26.07◦C
+                                                               28.72◦C
+                                                                                       0.56
+                                                                                       0.69
+                                                                                       0.88
+                                                                                                                 102.2◦W
+                                                                                                                 82.2◦W
+                                                                                                                 61.2◦W
+                                                                                                                                     39.2◦ N
+                                                                                                                                     29.2◦ N
+                                                                                                                                      5.8◦ S
+
+  微      Arid area
+                                      Day
+
+                                  Gibberella
+
+                                                                        HArid area
+                                                                                                       Day
+                                                                                                   Fusarium
+
+
+
+
+   信
+  five different environments. The results are shown in Fig. 7. We can see that the growth of each
+         Semi arid area
+         Temperate area
+                                                                         Semi arid area
+                                                                         Temperate area
+
+
+
+
+                                                               M
+  fungus in different environments is similar, but their number Ni is not consistent, which is due
+         Arboreal area
+         Tropical rain forest
+                                                                         Arboreal area
+                                                                         Tropical rain forest
+
+  to their maximum extension rate VEmax is not the same. The tropical rain forest occupied the
+  highest number of growth in all simulation results. This is because in the tropical rain forest,
+  Ni
+
+                                               ：                Ni
+  the humidity is very sufficient, and the temperature is more appropriate. In such conditions,
+  all types of fungi can favorably grow and decompose the woody fiber. However, some types
+  of fungi are difficult to grow in arid environments. Especially for Rust fungi, Gibberella, and
+
+                                        号
+  Fusarium, the number decreased to 0 in an arid area, which reflected that these three kinds of
+  fungi were not suitable for living in this environment.
+
+
+       微
+                                      Day                                                              Day
+
+      Then, we simulate the growing and decomposition process of fungal species combinations
+  (under their competitive interactions) in different areas. The results are shown in Fig. 8. The
+
+
+        信
+  simulation results show that in arid areas, the studied species are Trichoderma, Aspergillus,
+  and Penicillium, in which the dominant species is Trichoderma and the inferior species is As-
+  pergillus. In the semi-arid area, the studied species are Rust fungi, Aspergillus and Fusarium,
+  in which the dominant species is Aspergillus and the inferior species is Rust. In the temperate
+  zone, Fusarium, Aspergillus, and Gibberella are the studied species, in which Aspergillus is the
+  dominant species and Gibberella is the inferior species. In arboreal areas, the studied species
+  are Trichoderma, Hyphomycetes, and Gibberella, in which the dominant species is Trichoderma
+  and the inferior species is Gibberella. In the tropical rain forest area, the studied species are Tri- 关注数学模型
+微信号：MATHmodels                                                                                                                                                 2
+
+                                                                                                                                                      MATHmodels
+
+
+                                                                                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 20 ===
+  Team # 2122025                                        微信公众号：数学模型                           Page 19 of 24
+
+
+
+
+  Decomposition rate
+                                                        Proportion
+
+
+
+
+                                                                                     型
+                                                                     学
+                                                                      模
+                                   Day                                     Number of tests
+  Figure 9: Left: The decomposition rate with respect to the time under different combinations of the
+  species of fungi. Right: The proportion between the decomposition rate of “All three” and the decompo-
+  sition rate of a single species of fungi with respect to the number of tests.
+
+                                                              数
+  choderma, Penicillium, and Aspergillus, in which the dominant species is Aspergillus and the
+
+
+                                            号
+  inferior species is Penicillium. In these simulation results, the decomposition rate is different,
+  e.g., the decomposition rate of fungi in the tropical rain forest area is 68.29% after 122 days.
+
+                                                                     m
+  Here, we do not elaborate on all the decomposition rates due to the page limit.
+
+
+                                             ：                        od
+      It is notable that the growth process of different fungi combinations in the five types of
+  environments is very different. This is due to two reasons. First, the temperature and humid-
+
+                                                                        els
+  ity in different environments are very different, which changes the growth process of fungi.
+
+                                      众
+  Secondly, different combinations of fungi have different optimal temperatures and moisture
+  trade-off, which also change the growth process. Specifically, we can find that in two areas, the
+
+
+                               公
+  Trichoderma obtains the highest number Ni . This is due to high VEmax value (VEmax = 8.23) of
+
+                                                    AT
+  Trichoderma, and the value of the most suitable temperature Tmax (Tmax = 28◦C) is also around
+  the most common temperature at earth. Thus, Trichoderma could gain superiority against other
+
+
+     微
+  species of fungi under competitive interactions.
+
+                                                       H
+  3.5
+      信                Influence of Species Diversity
+                                              M
+      This section responds to the fifth question, i.e., we study the importance of biodiversity on
+  the decomposition of the woody fibers. Specifically, we simulate the decomposition process
+
+                                         ：
+  with three single types of fungi and their combinations, respectively. The results are shown in
+  Fig. 9. Here, we plot the decomposition rate with respect to the time in the left figure. Then, we
+  re-conduct the experiments 1000 times and compute the proportion between the decomposition
+
+                                号
+  rate of “All three” and the decomposition rate of a single species, where the proportion with
+  respect to the number of the experiment is shown in the right figure of Fig. 9.
+
+
+                       微
+      From the left figure of Fig. 9, we can clearly observe that when the three fungal species
+  are combined (that is, the biodiversity increases), the decomposition rate is much higher than
+
+
+                        信
+  that of a single species. Also in the right figure of Fig. 9, we can find that at the most time
+  the decomposition rate of “All three” combination is considerably larger than that of a single
+  species of fungi. Specifically, the average proportion is 2.89. Therefore, in this environment,
+  the impact of species diversity is huge. This is basically because multiple species not only bring
+  the high quantity of the fungi but also increase the robustness of multiple species, i.e., if the
+  environment (temperature and humidity) is not adapted to one of the fungal species, there may
+  be another fungal species adapted to this environment. Therefore, the decomposition rate under
+  biodiversity can be guaranteed. That is to say, biodiversity is very important to the effectiveness
+微信号：MATHmodels
+  of fungal decomposition in the ecosystem.
+                                                                                                      关注数学模型
+                                                                                                        2
+
+                                                                                               MATHmodels
+
+
+                                                                                                             获取更多资讯
+
+
+=== PHYSICAL PAGE 21 ===
+  Team # 2122025                                    微信公众号：数学模型                          Page 20 of 24
+
+
+
+  4     Strengths and Weaknesses
+      In this paper, we propose to model the relation of the extension rate, moisture trade-off, and
+  the decomposition rate via SGD. The final relationship is described as (14). Then, we employ
+  the cellular automata to simulate the decomposition process. Three definitions are subsequently
+  induced to guide the simulation process. Extensive experiments on multiple types of fungi and
+
+
+                                                                                  型
+  different environments forcefully demonstrate the effectiveness and robustness of the proposed
+  models. The strengths of the proposed model are as follows.
+
+  4.1    Strengths
+                                                                学
+                                                                 模
+      • Robust relation description Our relational model (7) is nonlinear and can describe re-
+        lationships among extension rate, moisture trade-off, and decomposition rate robustly.
+        Meanwhile, the parameters of this model are adaptively fitted according to the literature
+        [5] data, which is accurate.
+
+                                                       数
+      • Efficient algorithm We employ the SGD algorithm to tackle the non-convex and non-
+        linear optimization problem (8). According to the good generalization property of SGD
+
+
+                                     号
+        [24], the iterative process can commendably converge to some critical points.
+
+                                                                 m
+      • Accurate simulation We employ the discrete cellular automata to adaptively and pre-
+
+
+                                      ：                           od
+        cisely simulate the decomposition and extension process of the fungi, with a concise and
+        efficient implementation. The cellular automata model (20) can be addressed via simple
+
+                                                                    els
+        time iteration, which is computationally efficient and has high consistency with the real
+        situation.
+                             众
+      • Intrinsic connections Three definitions (Definition 1, 2, and 3) are introduced to ro-
+
+
+                    公
+        bustly characterize the extension process in the cellular automata, the decomposition pro-
+
+                                                AT
+        cess of the fungi, and the extension rate under interactions of different fungi, respectively.
+        Thus, the influence of all factors is connected and reflected simultaneously in cellular
+
+
+  微                                                H
+        automata, which leads to precise modeling of the activity of fungi.
+      • High flexibility and portability Our model has multiple parameters, e.g., VEmax , M, T,
+
+
+   信    et al. These parameters represent the essential characteristics of fungi and environmental
+
+                                        M
+        parameters. Therefore, our model is considerably flexible and sensitive to different fungal
+        types and environments (basically temperature and humidity). Hence, it is easy to apply
+
+
+                              ：
+        our model under different conditions.
+
+      However, there are weaknesses of the proposed models:
+
+  4.2    Weaknesses   号
+      微
+      • Difficulty in parameter adjustment Although the multiple parameters in our model
+        ensure the flexibility of the model, the adjustment and setting of parameters require addi-
+
+
+       信
+        tional data collection, which would be time-consuming and difficult if the studied objects
+        have no open access data.
+      • Lack of theoretical explanation Our model gives the empirical relationship among var-
+        ious factors and stimulates the growth and decomposition of fungi in different situations.
+        However, the theoretical biological mechanism of these phenomena has not been identi-
+        fied and needs further study.
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 22 ===
+  Team # 2122025                                  微信公众号：数学模型                          Page 21 of 24
+
+
+
+  5    Article
+
+         Recent Advances in the Role of Fungi in Ecosystems
+      Any ecosystem has the basic functions of energy flow, material circulation, and information
+  transmission.
+
+                                                                               型
+      The material cycle in the ecosystem includes two relative processes: biosynthesis and biodegra-
+  dation. The former is the organic process of inorganic matter, which is mainly completed by
+
+                                                              学
+  green plants and some inorganic nutrient microorganisms. The latter is the inorganic process of
+  organic matter, which is mainly completed by forest microorganisms, that is, the decomposition
+
+
+                                                               模
+  process of forest litter. Litter decomposition generally includes three stages: leaching stage,
+  crushing stage, and organic matter catabolism stage.
+      There are two groups of soil organisms related to material decomposition, namely soil an-
+
+                                                      数
+  imals and soil microorganisms. They are not only different in morphology and structure, but
+  also play different roles in the process of material decomposition. From the process of litter
+  decomposition, the decomposition of animals is mainly mechanical fragmentation, while mi-
+
+                                    号
+  croorganisms participate in the biochemical process of litter decomposition.
+
+                                                               m
+      Soil microorganism is the general term of microorganisms living in the soil. As decom-
+
+                                     ：                          od
+  posers, they are an indispensable part of the forest ecosystem. The diversity of nutrient sub-
+  strates in the litter layer determines the diversity of decomposers. Bacteria, actinomycetes,
+
+                                                                  els
+  fungi (including yeasts), algae, and protozoa are all involved in the decomposition of organic
+
+                            众
+  matter. Fungi, especially filamentous fungi, are thought to play a major role in litter decompo-
+  sition.
+
+
+                   公
+      The decomposition of litter by fungi is an enzymatic process based on the level of decom-
+
+                                              AT
+  poser cells. The hyphae of fungi can penetrate into the plant debris and secrete extracellular
+  enzymes to degrade the recalcitrant substances (such as lignin) contained in the litter, so as to
+
+
+  微                                              H
+  soften the plant debris and change the structure and chemical composition of the litter. Based
+  on this, fungi play the following important roles in the ecosystem.
+
+
+   信                                   M
+      • Participate in the carbon cycle and maintain ecosystem balance. The CO2 produced by
+        microbial respiration accounts for about 80% of the total CO2 required by plant photo-
+        synthesis, and fungi account for about 13%. Therefore, fungi are closely related to main-
+
+                              ：
+        taining the balance of forest ecosystems and play a crucial role in the global terrestrial
+        carbon cycle.
+
+
+                     号
+      • Participate in soil nutrient cycle and enhance forest productivity. Nitrogen and phospho-
+        rus are essential nutrients for life activities. Fungi participate in the decomposition of
+        organic nitrogen in litter and transform it into mineral ions NH4+ and NO−    3 , which can
+
+
+      微 be absorbed and utilized by forest plants. Phosphorus is temporarily enriched and then
+        released by microorganisms, which increases the availability of phosphorus and improves
+
+
+       信the utilization efficiency of phosphorus by forest plants.
+
+      • Participate in phytoremediation to improve plant stress resistance. In soils contaminated
+        by metals or organic compounds, mycorrhiza may reduce the bioabsorbable concentra-
+        tion of pollutants in the soil by increasing the degradation of organic pollutants in the
+        mycorrhizal zone, thus contributing to plant resistance.
+
+      • Decomposition of plant litter, promote the formation of humic acid. Soil fungi can pro-
+微信号：MATHmodels
+        mote the formation of humic acid from the organic matter around roots. Humic acid salt
+                                                                                                关注数学模型
+                                                                                                  2
+
+                                                                                         MATHmodels
+
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 23 ===
+  Team # 2122025                                    微信公众号：数学模型                           Page 22 of 24
+
+
+        contains a large number of functional groups, which can not only improve the soil but
+        also stimulate crop growth. The increase of humic acid in the soil directly promotes the
+        growth and development of plants.
+
+     • Provide a barrier to reduce pathogen invasion. In order to protect the root growth of
+       plants from pathogens and insects, soil microorganisms such as fungi in the rhizosphere
+       will parasitize and colonize around the roots of soil plants, forming a physical protective
+       layer.
+                                                                                  型
+                                                                 学
+      However, the efficiency of fungal growth and decomposition is influenced by the environ-
+  ment and the interaction among different species of fungi. In our study, we come to the follow-
+  ing conclusion.
+
+     • The influence of fungal species interaction                模
+                                                        数
+       From the perspective of the short run, there was no obvious effect on the interaction between
+  different kinds of fungi. This is because in the initial stage, the remaining amount of wood, that
+
+
+                                      号
+  is, nutrients, is sufficient. Even if the growth rate of fungi is limited, their growth process takes
+
+
+                                                                  m
+  place in a similar exponential form. Therefore, in the short term, the impact of competition
+
+
+                                       ：
+  is not obvious. However, from the perspective of the long run, the impact of considering the
+
+                                                                   od
+  fungal competition is huge. When we do not consider the interaction, every species of fungi
+  grows at an independent pace, where the intensity of the number Ni is much higher. After
+
+                                                                     els
+  considering the interaction, the general number Ni decreased a lot. This is because when the
+
+                             众
+  woody fiber being decomposed, the nutrients are becoming more and more limited. In such
+  conditions, competition among fungi makes their growth extremely slow. Thus, their quantities
+  Ni are very low.
+
+                    公
+     • The influence of environment on fungi    AT
+  微                                                H
+      From our sensitivity experimental results, the temperature change near the optimal temper-
+
+
+   信
+  ature will have a greater impact on the fungal activity. If the local weather changes abnormally,
+
+                                         M
+  the growth of fungi and the decomposition of woody fiber will have lower efficiency and more
+  unpredictable changes. For humidity, if it is too dry, the activity of fungi would be greatly
+  limited as well.
+
+                               ：
+      In a word, fungi, as decomposers, play an important role in the ecosystem. In abstract
+  terms, the vital significance of fungi decomposition is to release these chemical substances
+
+                      号
+  combined with organisms into nature again. There are limited chemical substances that can be
+  used by living organisms. If these chemical substances are always bound to the dead organisms
+  indefinitely and cannot be utilized by living organisms, then the life of organisms will end
+
+    微
+  ultimately.
+
+
+
+     信
+微信号：MATHmodels                                                                                       2
+
+                                                                                            MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 24 ===
+  Team # 2122025                                 微信公众号：数学模型                          Page 23 of 24
+
+
+
+  References
+   [1] Yan Haiyuan, Gu Xirong, and Shen Hong. Microbial decomposition of forest litter. Jour-
+       nal of ecology, 029(009):1827–1835, 2010.
+
+   [2] Wang xiang’e, Xue Li, and Xie Tengfang. Review on litter decomposition. Soil bulletin,
+       (06):1473–1478, 2009.
+                                                                              型
+   [3] Zhang Shuxian. Characteristics of fungi during decomposition of forest dead leaves. Jour-
+
+
+                                                             学
+       nal of ecology, (06):30–32, 1988.
+
+   [4] S. D. Frey, J. Six, and E. T. Elliott. Reciprocal transfer of carbon and nitrogen by de-
+
+
+                                                              模
+       composer fungi at the soil-litter interface. Soil Biology & Biochemistry, 35(7):1001–1004,
+       2003.
+
+
+
+                                                     数
+   [5] Nicky Lustenhouwer, Daniel S. Maynard, Mark A. Bradford, Daniel L. Lindner, Brad
+       Oberle, Amy E. Zanne, and Thomas W. Crowther. A trait-based understanding of wood de-
+       composition by fungi. Proceedings of the National Academy of Sciences, 117(21):11551–
+       11558, 2020.
+
+                                    号                          m
+   [6] Chen m R. Diversity of endophytic fungi in Chinese fir leaves and their effects on litter
+
+
+                                     ：
+       decomposition. PhD thesis, 2020.
+                                                                od
+   [7] Pei Bei and Gao Guorong. Research progress on effects of litter decomposition on forest
+
+                                                                  els
+                           众
+       soil carbon pool. Chinese agricultural bulletin, 34(26):64–70, 2018.
+
+   [8] Yu Shuling. Research progress of saprophytic fungi in the process of organic matter de-
+
+
+                   公
+       composition. Journal of Hebei Normal University, 27(5):519–522, 7 2003.
+
+                                              AT
+   [9] S. Findlay, J. Tank, S. Dye, H. M. Valett, P. J. Mulholland, W. H. Mcdowell, S. L. Johnson,
+
+
+  微
+       S. K. Hamilton, J. Edmonds, and W. K. Doddsw. B. Bowden. A cross-system comparison
+
+                                                 H
+       of bacterial and fungal biomass in detritus pools of headwater streams. Microbial Ecology,
+       43(1):55–66, 2002.
+
+
+   信                                   M
+  [10] Hua Chen, Mark E Harmon, Robert P Griffiths, and William Hicks. Effects of tempera-
+       ture and moisture on carbon respired from decomposing woody roots. Forest Ecology &
+
+
+                             ：
+       Management, 138(1-3):51–64, 2000.
+
+  [11] Oliver Dilly and Jean Charles Munch. Microbial biomass content, basal respiration and
+       enzyme activities during the course of decomposition of leaf litter in a black alder (alnus
+
+                     号
+       glutinosa (l.) gaertn.) forest. Soil Biology & Biochemistry, 28(8):1073–1081, 1996.
+
+  [12] Anna K. Bandick and Richard P. Dick. Field management effects on soil enzyme activities.
+
+    微  Soil Biology & Biochemistry, 31(11):1471–1479, 1999.
+
+
+
+     信
+  [13] Ruiqing Zhang, Zhenjun Sun, Chong Wang, and Tangyu Yuan. Ecological process of leaf
+       litter decomposition in tropical rainforest in xishuangbanna, southwest china. iii. enzyme
+       dynamics. Frontiers of Forestry in China, 4:28–37, 03 2009.
+
+  [14] Peter M. Vitousek, Douglas R. Turner, William J. Parton, and Robert L. Sanford. Litter
+       decomposition on the mauna loa environmental matrix, hawai’i: Patterns, mechanisms,
+       and models. Ecology, 75(2), 1994.
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 25 ===
+  Team # 2122025                                   微信公众号：数学模型                           Page 24 of 24
+
+
+  [15] Bai Yongfei, Li Linghao, Li Xin, and Wang Qibing. Effects of simulated climate change
+       on decomposition of mixed litter in three grassland plant communities. Journal of plant
+       ecology, 24(6):674–679, 2000.
+  [16] T. R. Moore, J. A. Trofymow, B. Taylor, C. Prescott, C. Camiré, L. Duschene, J. Fyles,
+       L. Kozak, M. Kranabetter, and I. and Morrison. Litter decomposition rates in canadian
+       forests. Global Change Biology, 5(1):75–82, 2010.
+
+                                                                                  型
+  [17] Klaus Lorenz, Caroline M Preston, Stephan Raspe, Ian K Morrison, and Karl Heinz Feger.
+       Litter decomposition and humus characteristics in canadian and german spruce ecosys-
+
+
+                                                                学
+       tems: information from tannin analysis and 13c cpmas nmr. Soil Biology and Biochem-
+       istry, 32(6), 2000.
+
+
+                                                                 模
+  [18] Gladys Loranger, Jean-Franois Ponge, Daniel Imbert, and Patrick Lavelle. Leaf decompo-
+       sition in two semi-evergreen tropical forests: influence of litter quality. Biology & Fertility
+       of Soils, 35(4):247–252, 2002.
+
+                                                       数
+  [19] Li Xiuyun and Li Runxiang. Factors affecting forest litter decomposition. Friends of
+       farmers’ wealth, (20), 6 2012.
+
+
+                                     号
+  [20] Lindgren D. The temperature influence on the spontaneous mutation rate. i. literature
+       review. Hereditas, 70(27):165–78, 1972.
+                                                                 m
+                                      ：                           od
+  [21] M.-N. Leclercq-Perlat, M. Sicard, I.C. Trelea, D. Picque, and G. Corrieu. Tempera-
+       ture and relative humidity influence the microbial and physicochemical characteristics of
+
+                                                                    els
+       camembert-type cheese ripening. Journal of Dairy Science, 95(8):4666–4682, 2012.
+
+                             众
+  [22] Hans Bisswanger. pH and Temperature Dependence of Enzymes, chapter 6, pages 145–
+       152. John Wiley & Sons, Ltd, 2017.
+
+                    公                           AT
+  [23] F. Li, D. Fu, R. Zhang, H. Ma, and Q. Lu. Correlation simulation study of 71◦C method
+       formula and arrhenius formula. In 2020 Asia-Pacific Conference on Image Processing,
+
+
+  微    Electronics and Computers (IPEC), pages 330–333, 2020.
+
+                                                   H
+  [24] J. Konečný, J. Liu, P. Richtárik, and M. Takáč. Mini-batch semi-stochastic gradient de-
+
+
+   信   scent in the proximal setting. IEEE Journal of Selected Topics in Signal Processing,
+       10(2):242–255, 2016.
+                                        M
+  [25] Colin P.D. Birch. A new generalized logistic sigmoid growth equation compared with the
+
+                              ：
+       richards growth equation. Annals of Botany, 83(6):713–723, 1999.
+  [26] Fang Miao, Minxia Liang, Xubing Liu, Wenbin Li, Erhan Huang, and Shixiao Yu. Abun-
+
+                      号
+       dance of saprotrophic fungi determines decomposition rates of leaf litter from arbuscular
+       mycorrhizal and ectomycorrhizal trees in a subtropical forest. Soil Biology and Biochem-
+       istry, 149:107966, 08 2020.
+
+    微
+  [27] A. Pedro Goncalves, Jens Heller, Adriana M. Rico-Ramírez, Asen Daskalov, Gabriel
+
+
+     信
+       Rosenfield, and N. Louise Glass. Conflict, competition, and cooperation regulate social
+       interactions in filamentous fungi. Annual Review of Microbiology, 74(1):693–712, 2020.
+  [28] Aurélie Deveau, Gregory Bonito, Jessie Uehling, Mathieu Paoletti, Matthias Becker,
+       Saskia Bindschedler, Stéphane Hacquard, Vincent Hervé, Jessy Labbé, Olga A Lastovet-
+       sky, Sophie Mieszkin, Larry J Millet, Balázs Vajna, Pilar Junier, Paola Bonfante, Basti-
+       aan P Krom, Stefan Olsson, Jan Dirk van Elsas, and Lukas Y Wick. Bacterial–fungal inter-
+       actions: ecology, mechanisms and challenges. FEMS Microbiology Reviews, 42(3):335–
+
+微信号：MATHmodels
+       352, 02 2018.                                                                            关注数学模型
+                                                                                                    2
+
+                                                                                           MATHmodels
+
+
+                                                                                                         获取更多资讯

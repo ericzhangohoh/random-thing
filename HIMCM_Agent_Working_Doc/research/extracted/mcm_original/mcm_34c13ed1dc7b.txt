@@ -1,0 +1,1324 @@
+=== PHYSICAL PAGE 1 ===
+       Problem Chosen                      2022                    Team Control Number
+                                         MCM/ICM
+              C                        Summary Sheet                  2204883
+
+           Gold Strategy for Gold & Bitcoin traders
+                                          Summary
+
+    In today’s society, with the continuous development of the economy, more and more people
+try to increase their income by means of asset investment. However, in the face of a large
+number of financial products in the market, how to accurately predict their price movements,
+maximize returns and minimize risks through the right way of buying and selling is what
+every market trader wants to know.
+    A trader who only focus on two financial products, gold and bitcoin, comes to us for help.
+In order to achieve the ambitious goal, we need to come up with a buying and selling plan that
+maximizes returns and minimize risks by analyzing the previous price data of gold and bitcoin
+respectively.
+    For task 1, after data preprocessing, we build price prediction models for gold and bitcoin
+respectively by using LSTM(Long Short-Term Memory), and investment strategy model by
+using MLP(Multi-objective Linear Programming) to maximize returns and minimize risks
+simultaneously. The price prediction result of gold reaches an MAPE(Mean Absolute Percentage
+Error) value of 0.007261 while the price prediction result of bitcoin reaches an MAPE value of
+0.041630. Based on the investment strategy model, we develop the best daily trading strategy
+which finally makes the initial $1,000 investment worth $14,325.13 on September 10, 2021.
+The net profit exceeds 13 times of the initial asset.
+    For task 2, we provide evidence that our model gives the best strategy by setting up 10
+evaluation metrics and comparing the values of those metrics under 2 simple investment
+strategies, 1 idealized investment strategy and 1 commonly used investment strategy on the
+market, and the investment strategy obtained by our model. The result shows that our model
+develops a strategy with not only a high profit but also a good balance between risk and return.
+    For task 3, We analyze the sensitivity of our strategy to the transaction costs of gold and
+bitcoin by changing the commission of one asset and keeping the commission of the other asset
+unchanged alternately. We set 5 metrics to measure the effect on strategies and 2 metrics
+to measure the effect on results. We find that when the commission of gold increases, the
+net profit remains the same and the win rate shows an upward trend; when the commission
+of bitcoin increases, the net profit decreases significantly and the win rate shows a decreasing
+trend. Therefore, we conclude that investment strategies are more sensitive to changes in
+the transaction costs of bitcoin.
+   Finally, we write a memorandum including our strategy, model, and results for the trader.
+We hope this memorandum will become a valuable reference for him or her further investment.
+Keywords: gold, bitcoin, trading strategy, Long Short-Term Memory, Multi-objective Linear
+Programming, risk and return, sensitivity analysis
+
+
+=== PHYSICAL PAGE 2 ===
+                                         Contents
+
+
+1   Introduction                                                                                 1
+
+2   Model Assumptions and Notations                                                              2
+    2.1   Assumptions and justification . . . . . . . . . . . . . . . . . . . . . . . . . . .   2
+    2.2   Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   2
+
+3   Data Preprocessing                                                                           3
+
+4   Task 1: Price Predictions & The Best Trading Strategy                                        3
+    4.1   Problem Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    3
+    4.2   The Price Prediction Model Based on LSTM . . . . . . . . . . . . . . . . . . .        4
+    4.3   Investment Strategy Model Based on MLP . . . . . . . . . . . . . . . . . . . .        7
+          4.3.1    The MLP Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      8
+          4.3.2    Investment Strategy Based on The MLP Model . . . . . . . . . . . . .         8
+          4.3.3    The Result of Our Investment Strategy . . . . . . . . . . . . . . . . . . 14
+
+5   Task 2: Proof of The Best Strategy                                                          15
+    5.1   Metrics for Evaluating Investment Strategies . . . . . . . . . . . . . . . . . . . 15
+    5.2   Evidence for A Good Investment Strategy . . . . . . . . . . . . . . . . . . . . 17
+
+6   Task 3: Sensitivity of Transaction Costs for The Strategy                                   19
+    6.1   Sensitivity of The Commissions of Gold . . . . . . . . . . . . . . . . . . . . . 19
+    6.2   Sensitivity of The Commissions of Bitcoin . . . . . . . . . . . . . . . . . . . . 20
+    6.3   Analysis of The Result . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+
+7   Task 4: Memorandum for The Trader                                                           22
+
+8   Strengths and Weaknesses of Our Strategy                                                    23
+    8.1   The Price Prediction model . . . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+    8.2   The Investment Strategy model . . . . . . . . . . . . . . . . . . . . . . . . . . 23
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 2204883                                                                      Page 1 of 23
+
+
+
+1    Introduction
+   In today’s society, with the continuous development of the economy, more and more people
+want to increase their income by means of asset investment. However, in the face of a large
+number of financial products in the market, how to accurately predict their price movements
+and maximize returns through the right way of buying and selling is what every market trader
+wants to know.
+    A trader who only focus on two financial products, gold and bitcoin, comes to us for help.
+In order to achieve the ambitious goal, we need to come up with a buying and selling plan that
+maximizes returns by analyzing the previous price data of gold and bitcoin respectively.
+    To achieve our goal, we need to:
+
+    • Pre-process the data provided by COMAP official.
+
+    • Build price prediction models for gold and bitcoin respectively.
+
+    • Build investment strategy model considering the predicted price of gold and bitcoin and
+      their commissions for each transaction.
+
+    • Prove that our investment strategy is good enough by calculating strategy evaluation
+      metrics and comparing the value to several other strategies.
+
+    • Analyze the sensitivity of our strategy to transaction costs by changing the commission
+      value of gold and bitcoin.
+
+    • Write a memorandum including our strategy, model and results for the trader as a reference
+      for his or her investment.
+
+    Our modeling framework can be illustrated as shown in Figure 1.
+
+
+
+
+                                Figure 1: Modeling framework
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 2204883                                                                           Page 2 of 23
+
+
+
+2      Model Assumptions and Notations
+2.1     Assumptions and justification
+      • The data provided in this problem is valid and reliable.
+
+      • There is no minimum purchase limit for both gold and bitcoin.
+        By visiting the official website of London Bullion Market, we learned that the minimum
+        purchase limit of gold on the trading market is one lot, i.e. 100 troy ounces, yet the initial
+        capital of the trader in this problem cannot even buy 1 troy ounce of gold, so we made
+        the assumption above.
+
+      • The inflation of the U.S. dollar can be ignored.
+        Although the inflation rate of the U.S. dollar is objectively existed, the inflation rate of
+        the U.S. dollar over the past 5 years is not provided in this problem, so we default that the
+        value of the U.S. dollar has not changed over the 5 years when calculating the final return
+        of the investment.
+
+      • We do not make any investments in the first several days from September 11, 2016.
+        Although our model can give a prediction value, we do not make any investment because
+        we can only refer to the price data up to that day and the training set data is too small in
+        the first few days, which can easily lead to a poor prediction result.
+
+      • The change of the commission costs does not influence the daily value of gold and bitcoin.
+        Since we need to determine the sensitivity of our strategy to transaction costs, we have to
+        change the value of the commission of gold and bitcoin and see if the strategy changes or
+        not. Therefore we need to assume that the daily values of gold and bitcoin do not change
+        when the commission costs are changed.
+
+      • The daily value of gold and bitcoin is the value we buy or sell gold and bitcoin on that
+        day.
+        Although in real life the prices of both gold and bitcoin fluctuate over the course of a day,
+        since the problem does not provide more detailed data, we have to make this assumption.
+
+      • In the price prediction model, both prediction of gold price and bitcoin reach the best
+        result under a same parameter combination.
+
+      • The prices of gold and bitcoin do not affect each other.
+        We believe that gold prices and bitcoin prices are independent of each other.
+
+
+2.2     Notations
+    In this work, we use the nomenclature in Table 1 in the model construction. Other none-
+frequent-used symbols will be introduced once they are used.
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 2204883                                                                       Page 3 of 23
+
+
+
+ Symbols    Definitions                    Symbols          Definitions
+ 𝑏          bias vector of LSTM            𝑃                profit of one single trade
+ 𝐶          memory cell value of LSTM      𝑟                price of an asset
+ 𝐶˜         candidate value of memory cell 𝑆                risk of purchasing
+ 𝑑          sliding window size            𝑡                data of trading
+    0
+ 𝑑          training sliding window size   𝑉                number of investment
+  𝑓         output function of forget gate 𝑣                average percentage of assets invested
+ ℎ          hidden state of LSTM           𝑊                weight matrix of LSTM
+ 𝑖          input function of forget gate  𝑤                total worth of assets
+ 𝐿          loss of one single trade       𝛼                commission for each transaction
+ 𝑙          hidden layer size of RNN       𝜖                epoch of RNN
+ 𝑀          total number of trades         𝜆                learning rate of RNN
+ 𝑚          number of profitable trades    𝜎                Sigmoid function
+ 𝑜          output function of forget gate 𝜔                optimal value of objective function
+
+                                     Table 1: Symbol list
+
+
+3     Data Preprocessing
+    Since we are only allowed to use the datasets ’LBMA-GOLD.csv’ and ’BCHAIN-MKPRU.csv’
+provided by COMAP official, we need to pre-process the data for both datasets before solving
+the problem.
+   Notice that there is no missing value in the bitcoin price dataset ’BCHAIN-MKPRU.csv’,
+however in the gold price dataset ’LBMA-GOLD.csv’, there are 10 trading days with missing
+price data, except for the non-trading days which do not appear in the dataset.
+    To facilitate the follow-up process, and to ensure the reliability and reasonableness of the
+data, we take the average of the prices of the two trading days before and after each trading day
+with missing gold price as the gold price of that day. The trading days with missing gold price
+and their corrected gold prices are shown in the table below.
+
+              Date   Gold Price(Corrected)         Date   Gold Price(Corrected)
+            12/23/16       1132.975              12/31/18        1280.95
+            12/30/16        1148.45              12/24/19         1496.8
+            12/22/17       1271.975              12/31/19       1520.925
+            12/29/17       1301.525              12/24/20        1874.65
+            12/24/18       1263.075              12/31/20         1915.4
+
+           Table 2: Trading days with missing gold price and corrected gold price
+
+
+4     Task 1: Price Predictions & The Best Trading Strategy
+4.1   Problem Analysis
+    In this task, our goal is to develop a daily trading strategy based on the price data from
+previous days. However, the real investment behavior is implemented based on the expectations
+for the following days. That is, before we can develop a daily trading strategy, we need to make
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 2204883                                                                         Page 4 of 23
+
+
+
+price predictions for gold and bitcoin for the following days respectively. Therefore, the answer
+to this task needs to consist of the following two steps:
+
+      • Step 1: Predict the price changes of gold and bitcoin in the following days based on the
+        price data from the previous days.
+        Since the price fluctuations of gold and bitcoin are time-series in nature, we decide to use
+        a time-series based model to predict the prices of gold and bitcoin respectively.
+
+      • Step 2: Develop a strategy based on the predicted price using an investment strategy
+        model.
+
+
+4.2     The Price Prediction Model Based on LSTM
+    LSTM(Long Short-Term Memory) is a special type of RNN(Recurrent Neural Net-
+work), which solves the problem of gradient explosion and gradient disappearance during the
+training of RNNs in long sequences, i.e., when the number of layers of the network increases,
+the subsequent nodes become less perceptive of the previous nodes, and the phenomenon of
+forgetting the previous information over time occurs[1][2].
+    Based on RNN, LSTM adds a memory unit to each neural unit in the hidden layer: an
+information transmission belt called "cell state", and uses structures such as forget gates, input
+gates, and output gates to control the memory information on the time series[3][4]. In this way,
+LSTM can dig deeper into the potential patterns between data and make the prediction more
+accurate and reliable. We are now going to introduce the function of each gate.
+
+
+
+
+                                   Figure 2: Workflow of LSTM
+
+
+   i. Forget Gate
+   The function of the forget gate is to selectively forget certain information from the past.
+LSTM uses the Sigmoid function to achieve the goal. The Sigmoid function is shown below:
+
+                                                      1
+                                          𝜎(𝑥) =                                                (1)
+                                                   1 + 𝑒 −𝑥
+    In the forget gate, the information of the hidden state of the previous moment (t-1 moment)
+ℎ𝑡−1 is input into the Sigmoid function together with the data of this moment (t moment) 𝑥𝑡 , and
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 2204883                                                                           Page 5 of 23
+
+
+
+the output value is between 0 and 1, which indicates whether we should forget this information.
+The closer the output value is to 0, the more the probability we should forget this information
+and vice versa. The output function of the forget gate is shown below:
+
+
+                                    𝑓𝑡 = 𝜎(𝑊 𝑓 · [ℎ𝑡−1 , 𝑥𝑡 ] + 𝑏 𝑓 )                             (2)
+
+    in which [ℎ𝑡−1 , 𝑥𝑡 ] is the concatenated vector of ℎ𝑡−1 and 𝑥𝑡 , 𝑊 𝑓 is the weight matrix for the
+forget gate in RNN which adjust the dimension of the concatenated vector, and 𝑏 𝑓 is the bias
+vector for the forget gate in RNN. The output value 𝑓𝑡 will destine whether we should forget the
+previous memory cell value 𝐶𝑡−1 in the input gate.
+   ii. Input Gate
+   The function of the input gate is to selectively memorize certain information from the past
+and to decide the value of the current memory cell 𝐶𝑡 .
+   In the input gate, two intermediate variables are generated: the output value of input gate 𝑖𝑡 ,
+shown in equation (3):
+
+
+                                    𝑖𝑡 = 𝜎(𝑊𝑖 · [ℎ𝑡−1 , 𝑥𝑡 ] + 𝑏𝑖 )                               (3)
+
+   and the candidate memory cell value 𝐶˜𝑡 , show in equation (4):
+
+
+                                 𝐶˜𝑡 = 𝑡𝑎𝑛ℎ(𝑊𝐶 · [ℎ𝑡−1 , 𝑥𝑡 ] + 𝑏𝐶 )                              (4)
+
+     Same as the output of forget gate, the output value of input gate is between 0 1, which
+indicates whether we should forget the information of the candidate memory cell value. The
+closer the output value is to 0, the more the probability we should forget this information and
+vice versa. Moreover, LSTM model need us to use 𝑡𝑎𝑛ℎ() function to normalize the value of
+𝐶˜𝑡 to (-1, 1).
+    After calculating the intermediate variables, LSTM model need us to combine the output
+of both forget gate and input gate to generate the final value of the current memory cell 𝐶𝑡 , and
+the equation is shown below:
+
+
+                                         𝐶𝑡 = 𝑓𝑡 𝐶𝑡−1 + 𝑖𝑡 𝐶˜𝑡                                    (5)
+
+   iii. Output Gate
+     The function of the output gate is to selectively generate the value of the current hidden state
+ℎ𝑡 . The output value of the output gate 𝑜𝑡 plays the role as an intermediate variable, and we use
+equation (6) to calculate this value.
+
+
+                                   𝑜𝑡 = 𝜎(𝑊𝑜 · [ℎ𝑡−1 , 𝑥𝑡 ] + 𝑏 𝑜 )                               (6)
+
+    in which 𝑊𝑜 is the weight matrix for the output gate in RNN which adjust the dimension of
+the concatenated vector, and 𝑏 𝑜 is the bias vector for the output gate in RNN. The output value
+𝑜𝑡 destines the value of the current hidden state ℎ𝑡 in the equation below:
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 2204883                                                                          Page 6 of 23
+
+
+
+
+                                         ℎ𝑡 = 𝑜𝑡 𝑡𝑎𝑛ℎ(𝐶𝑡 )                                       (7)
+
+    With the value of ℎ𝑡 and 𝐶𝑡 generated at time 𝑡, we can iteratively calculate the values at time
+𝑡 + 1 using the functions of the three gates until the time limit is reached and the final prediction
+result is generated.
+    When applying LSTM model to our task, the first thing we need to is to determine the
+input and output of the model. Here we use the Sliding Window Algorithm, that is, when
+predicting the price of gold and bitcoin for each day, we use only the price data of the previous
+𝑑 days before that day as the input to the LSTM model. In the model, each day and its previous
+  0 0
+𝑑 (𝑑 < 𝑑) days are used for the training process.
+   After the calculation of the model, we finally get the predicted value of gold 𝑟ˆ𝑔,𝑡 and the
+predicted value of bitcoin 𝑟ˆ𝑏,𝑡 for each date 𝑡 respectively as the output of the model.
+   The process of executing Sliding Window Algorithm is shown in the figure below.
+
+
+
+
+                      Figure 3: The process of Sliding Window Algorithm
+
+
+    Since in the LSTM model, changes in the hidden layer size 𝑙, sliding window size 𝑑, training
+                        0
+sliding window size 𝑑 , learning rate 𝜆 and the value of epoch 𝜖 will have an impact on the
+prediction results, to easily obtain the best prediction result, we adjust the values of these 5
+parameters separately to obtain the MAPE(Mean Absolute Percentage Error) values of gold
+prediction results under different parameter values(since we believe that both prediction of
+gold price and bitcoin price reach the best result under the same parameter combination). The
+equation to calculate MAPE value is shown below:
+
+                                              𝑛
+                                           1 Õ k𝑟 𝑔,𝑡 − 𝑟ˆ𝑔,𝑡 k
+                                   𝑀 𝐴𝑃𝐸 =                                                       (8)
+                                           𝑛 𝑡=1     𝑟 𝑔,𝑡
+
+   Initially, we set the value of each parameter as
+
+                                               0
+                           [𝑙 = 100, 𝑑 = 10, 𝑑 = 5, 𝜆 = 0.001, 𝜖 = 50].
+
+   When tuning the parameter, each time we only change the value of one parameter and keep
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 2204883                                                                          Page 7 of 23
+
+
+
+the values of other parameters unchanged. The MAPE values of the price prediction of gold
+are shown in the following table:
+                                        0
+                 𝑑     𝑀 𝐴𝑃𝐸          𝑑        𝑀 𝐴𝑃𝐸          𝜆      𝑀 𝐴𝑃𝐸
+                 7 0.007320101        1     0.010315979    0.0005 0.008678837
+                 10 0.007261552       3     0.012500496    0.0007 0.008465359
+                 13 0.011110205       5     0.007261552    0.001 0.007261552
+                 15 0.010985684       7     0.008998699    0.0015 0.009933032
+                 20 0.010590555       9     0.007450314    0.002 0.010285589
+
+                     Table 3: 𝑀 𝐴𝑃𝐸 values of the price prediction of gold
+
+
+    We found that our prediction model is sensitive to the value of sliding window size
+                                  0
+𝑑, training sliding window size 𝑑 and learning rate 𝜆. The 𝑀 𝐴𝑃𝐸 of gold prediction
+result reaches the minimum value of 0.007261552 when the values of the parameters reach a
+combination of
+
+                                              0
+                           [𝑙 = 100, 𝑑 = 10, 𝑑 = 5, 𝜆 = 0.001, 𝜖 = 50],
+
+   so we choose the prediction results under this combination of parameters as the final gold
+and bitcoin price prediction result, which shown in the figures below.
+
+
+
+
+                 (a) Price of gold                               (b) Price of bitcoin
+
+                              Figure 4: Predicted price vs real prices
+
+
+   The price predictions for both gold and bitcoin are proven to be good by comparing the
+predicted curve and the real curve of the price of both gold and bitcoin.
+
+4.3    Investment Strategy Model Based on MLP
+    We now have the daily price prediction for gold and bitcoin. Next we will develop our
+investment strategy from September 11, 2016 based on these prediction results.
+    Since in the price prediction model we need to forecast the price for each trading day based
+on the price data of the previous 10 trading days from that trading day, we do not make any
+investments during the first 10 trading days of gold(that is, the first 14 trading days of bitcoin)
+of this 5-year period of investment, i.e. September 11, 2016 - September 24, 2016.
+    Noting that we have already obtained daily price prediction for gold and bitcoin, an intuitive
+investment strategy would be to make the most profitable investment each day based on the
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 2204883                                                                           Page 8 of 23
+
+
+
+forecast. For example, if we predict that the growth rate of bitcoin on the next day is greater
+than the growth rate of gold and also greater than the commission required when purchasing
+bitcoin, we would turn all of our assets into bitcoins. However, the fact is that the predicted
+price values are different from the true values, especially when the predicted and real values
+are moving in opposite trends, making investment based on such strategy will be more risky.
+   Therefore, in order to get the best investment strategy, we need to consider both the
+possible profits and the potential risks associated with the investment strategy. Here we use
+an MLP(Multi-objective Linear Programming) model to solve the problem.
+4.3.1   The MLP Model
+    MLP(Multi-objective Linear Programming) is one of the most important elements of
+multi-objective decision making[5]. In multi-objective decision making, a multi-objective
+linear programming problem is formed when it is desired that each objective is as large (or as
+small) as possible. A general form of an m-objective linear programming problem should be:
+
+
+                             𝑚𝑖𝑛    𝑓 (𝑥) = [ 𝑓1 (𝑥), 𝑓2 (𝑥), ..., 𝑓𝑚 (𝑥)] 𝑇 ,
+
+                                        (
+                                            𝑔𝑖 (𝑥) ≤ 0, 𝑖 = 1, 2, ..., 𝑝,
+                                 𝑠.𝑡.
+                                            ℎ 𝑗 (𝑥) = 0, 𝑗 = 1, 2, ..., 𝑞.
+
+   in which 𝑓1 (𝑥), 𝑓2 (𝑥), ..., 𝑓𝑚 (𝑥) stand for 𝑚 objective functions, 𝑔𝑖 (𝑥), ℎ 𝑗 (𝑥) stand for the
+constraints of the objective functions.
+    In order to solve this problem, we apply the ideal point method. This method requires us
+to split the multi-objective linear programming problem into multiple single-objective linear
+programming problems and separately obtain the optimal values of each objective function:
+                                               𝜔1 , 𝜔2 , ..., 𝜔𝑚 .
+
+    After that, we construct the sum of squares of the difference between each objective func-
+tion and the optimal value as a new objective function. By solving the following quadratic
+programming problem:
+
+                                                      𝑚
+                                                      Õ
+                                    𝑚𝑖𝑛         𝑓 =         ( 𝑓𝑖 (𝑥) − 𝜔𝑖 ) 2                     (9)
+                                                      𝑖=1
+                                        (
+                                            𝑔𝑖 (𝑥) ≤ 0, 𝑖 = 1, 2, ..., 𝑝,
+                                 𝑠.𝑡.
+                                            ℎ 𝑗 (𝑥) = 0, 𝑗 = 1, 2, ..., 𝑞.
+
+   Finally we could obtain the optimal solution 𝑥 𝑜 𝑝𝑡 for the original multi-objective linear
+programming problem by this mean.
+4.3.2   Investment Strategy Based on The MLP Model
+   We synthesize the methods of multi-objective linear programming and optimal portfolio
+formulation, determine the decision variables, objective function, and constraints of the plan-
+ning problem respectively, and obtain a model that helps us develop a daily investment strategy.
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 2204883                                                                                       Page 9 of 23
+
+
+
+Since the model integrates the predicted prices of gold and bitcoin for the next trading day and
+the respective investment risks, the model can be well applied to develop an investment strategy
+for each trading day.
+   To begin with, we simplify the development of an investment strategy as follows:
+   The worth values of cash, gold and bitcoin at the end of date 𝑡 are noted as
+
+
+                                                  [𝑥 𝑐 , 𝑥 𝑔 , 𝑥 𝑏 ]
+
+     all in U.S. dollar, in which 𝑥 𝑔 equals to the product of the amount of gold(in troy ounce) and
+the price of gold per troy ounce, 𝑥 𝑏 equals to the product of the amount of bitcoin(in number)
+and the price of bitcoin per single bitcoin. According to the predicted price of gold(noted
+as 𝑟ˆ𝑔,𝑡+1 ) and the predicted price of bitcoin(noted as 𝑟ˆ𝑏,𝑡+1 ) on the coming day, the assets are
+purchased and sold to get a new portfolio noted as
+
+                                                     0     0    0
+                                                  [𝑥 𝑐 , 𝑥 𝑔 , 𝑥 𝑏 ]
+
+    in U.S. Dollar, which maximizes the return(noted as 𝑃) while minimizing the investment
+risk(noted as 𝑅).
+   After that, we define the investment risk 𝑅 for the coming day(date 𝑡 + 1) as
+
+                                             0                         0
+                                   𝑅 = (𝑥 𝑔 − 𝑥 𝑔 )𝑆 𝑔 + (𝑥 𝑏 − 𝑥 𝑏 )𝑆 𝑏                                    (10)
+
+   in which
+
+                                   s
+                          
+                                        10                                             10
+                                       1 Í                                         1
+                                             (𝑟 𝑔 𝑗 − 𝑟¯𝑔 𝑗 ) 2 ,
+                                                                                        Í
+                            𝑆 =                                            𝑟¯𝑔 𝑗 = 10
+                          
+                                                                                             𝑟𝑔 𝑗
+                           𝑔          9
+                          
+                          
+                                        𝑗=1                                            𝑗=1
+                                   s
+                                        10                                             10
+                                       1 Í                                         1
+                                             (𝑟 𝑏 𝑗 − 𝑟¯𝑏 𝑗 ) 2 ,
+                                                                                       Í
+                           𝑆 =                                            𝑟¯𝑏 𝑗 = 10         𝑟𝑏 𝑗
+                           𝑏          9
+                          
+                          
+                                        𝑗=1                                            𝑗=1
+
+
+      where 𝑆 𝑔 and 𝑆 𝑏 stand for the risk of purchasing gold and bitcoin on date 𝑡 + 1 respectively,
+𝑟 𝑔 𝑗 and 𝑟 𝑏 𝑗 stand for the price value the gold and bitcoin 𝑗 days before date 𝑡 + 1 respectively.
+   On the other hand, the predicted return 𝑃 for the coming day(date 𝑡 + 1) is calculated as
+
+                          𝑟ˆ𝑔,𝑡+1 − 𝑟 𝑔,𝑡        0             𝑟ˆ𝑏,𝑡+1 − 𝑟 𝑏,𝑡        0
+                    𝑃=(                   ) · (𝑥 𝑔 − 𝑥 𝑔 ) + (                 ) · (𝑥 𝑏 − 𝑥 𝑏 )             (11)
+                                𝑟 𝑔,𝑡                                𝑟 𝑏,𝑡
+
+  in which 𝑟 𝑔,𝑡 and 𝑟 𝑏,𝑡 stand for the true value of gold and bitcoin at the end of date 𝑡.
+Combining the predicted returns and risks, we now obtain the objective function as the form of
+
+
+                                          𝑚𝑎𝑥        𝑃,        𝑚𝑖𝑛           𝑅
+
+   and can be also written as
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 2204883                                                                                  Page 10 of 23
+
+
+
+
+                                                  𝑚𝑖𝑛   − 𝑃, 𝑅
+
+    Now we turn our attention to the trading behavior, for both gold and bitcoin, there are six
+trading behaviors: purchasing both gold and bitcoin, purchasing gold and selling bitcoin, selling
+gold and purchasing bitcoin, selling both gold and bitcoin, purchasing bitcoin on non-trading
+days for gold, and selling bitcoin on non-trading days for gold. Noting that the constraints of
+the multi-objective linear programming model is different among trading behaviors, we build
+MLP models for each trading behavior separately.
+   For further processing, we note the amount of U.S. dollar spent/received when trading gold
+and bitcoin as Δ𝑥 𝑔 and Δ𝑥 𝑏 respectively, an obvious constraint for each model is:
+
+                                              0
+                                             𝑥 𝑐 = 𝑥 𝑐 − Δ𝑥 𝑔 − Δ𝑥 𝑏                                    (12)
+
+    Also, we note the commission for trading gold and bitcoin as 𝛼𝑔 = 1% and 𝛼𝑏 = 2%
+respectively instead of using their lengthy form 𝛼𝑔𝑜𝑙𝑑 and 𝛼𝑏𝑖𝑡𝑐𝑜𝑖𝑛 .
+   i. Purchasing both gold and bitcoin
+   This trading behavior can be noted as
+
+
+                                              Δ𝑥 𝑔 > 0, Δ𝑥 𝑏 > 0
+                        0                0
+   Since the value of 𝑥 𝑔 − 𝑥 𝑔 and 𝑥 𝑏 − 𝑥 𝑏 can be substituted as
+                                      ( 0
+                                       𝑥 𝑔 − 𝑥 𝑔 = (1 − 𝛼𝑔 )Δ𝑥 𝑔
+                                         0
+                                       𝑥 𝑏 − 𝑥 𝑏 = (1 − 𝛼𝑏 )Δ𝑥 𝑏
+
+    According to equation (10), (11) and (12), the MLP model for this trading behavior can be
+built as:
+
+                            𝑟ˆ𝑔,𝑡+1 − 𝑟 𝑔,𝑡                   𝑟ˆ𝑏,𝑡+1 − 𝑟 𝑏,𝑡
+                 𝑚𝑖𝑛   −                    · (1 − 𝛼𝑔 )Δ𝑥 𝑔 −                 · (1 − 𝛼𝑏 )Δ𝑥 𝑏
+                                  𝑟 𝑔,𝑡                             𝑟 𝑏,𝑡
+
+                               𝑚𝑖𝑛     (1 − 𝛼𝑔 )Δ𝑥 𝑔 𝑆 𝑔 + (1 − 𝛼𝑏 )Δ𝑥 𝑏 𝑆 𝑏
+
+
+                                             Δ𝑥 + Δ𝑥 𝑏 < 𝑥 𝑐
+                                             𝑔
+                                            
+                                            
+                                            
+                                        𝑠.𝑡. Δ𝑥 𝑔 > 0
+                                            
+                                             Δ𝑥 𝑏 > 0
+                                            
+                                            
+   ii. Purchasing gold and selling bitcoin
+   This trading behavior can be noted as
+
+
+                                              Δ𝑥 𝑔 > 0, Δ𝑥 𝑏 ≤ 0
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 2204883                                                                                Page 11 of 23
+
+
+                        0                 0
+   Since the value of 𝑥 𝑔 − 𝑥 𝑔 and 𝑥 𝑏 − 𝑥 𝑏 can be substituted as
+                                   ( 0
+                                    𝑥 𝑔 − 𝑥 𝑔 = (1 − 𝛼𝑔 )Δ𝑥 𝑔
+                                      0           1                0
+                                    𝑥 𝑏 − 𝑥 𝑏 = 1−𝛼 𝑏
+                                                      Δ𝑥 𝑏 , 0 ≤ 𝑥 𝑏
+
+    According to equation (10), (11) and (12), the MLP model for this trading behavior can be
+built as:
+
+                            𝑟ˆ𝑔,𝑡+1 − 𝑟 𝑔,𝑡                   𝑟ˆ𝑏,𝑡+1 − 𝑟 𝑏,𝑡      1
+                 𝑚𝑖𝑛    −                   · (1 − 𝛼𝑔 )Δ𝑥 𝑔 −                 ·        Δ𝑥 𝑏
+                                  𝑟 𝑔,𝑡                             𝑟 𝑏,𝑡       1 − 𝛼𝑏
+
+                                                                   1
+                               𝑚𝑖𝑛        (1 − 𝛼𝑔 )Δ𝑥 𝑔 𝑆 𝑔 +          Δ𝑥 𝑏 𝑆 𝑏
+                                                                1 − 𝛼𝑏
+
+                                              
+                                              
+                                               Δ𝑥 𝑔 + Δ𝑥 𝑏 < 𝑥 𝑐
+                                              
+                                               Δ𝑥 𝑔 > 0
+                                              
+                                              
+                                     𝑠.𝑡.
+                                              
+                                              
+                                               Δ𝑥 𝑏 ≤ 0
+                                              
+                                               −Δ𝑥 < (1 − 𝛼 )𝑥
+                                                    𝑏      𝑏 𝑏
+
+   iii. Selling gold and purchasing bitcoin
+   This trading behavior can be noted as
+
+
+                                               Δ𝑥 𝑔 ≤ 0, Δ𝑥 𝑏 > 0
+                        0                 0
+   Since the value of 𝑥 𝑔 − 𝑥 𝑔 and 𝑥 𝑏 − 𝑥 𝑏 can be substituted as
+                                   ( 0                             0
+                                                  1
+                                    𝑥 𝑔 − 𝑥 𝑔 = 1−𝛼 𝑔
+                                                      Δ𝑥 𝑔 , 0 ≤ 𝑥 𝑔
+                                      0
+                                     𝑥 𝑏 − 𝑥 𝑏 = (1 − 𝛼𝑏 )Δ𝑥 𝑏
+
+    According to equation (10), (11) and (12), the MLP model for this trading behavior can be
+built as:
+
+                            𝑟ˆ𝑔,𝑡+1 − 𝑟 𝑔,𝑡      1          𝑟ˆ𝑏,𝑡+1 − 𝑟 𝑏,𝑡
+                 𝑚𝑖𝑛    −                   ·        Δ𝑥 𝑔 −                 · (1 − 𝛼𝑏 )Δ𝑥 𝑏
+                                  𝑟 𝑔,𝑡       1 − 𝛼𝑔              𝑟 𝑏,𝑡
+
+                                             1
+                               𝑚𝑖𝑛               Δ𝑥 𝑔 𝑆 𝑔 + (1 − 𝛼𝑏 )Δ𝑥 𝑏 𝑆 𝑏
+                                          1 − 𝛼𝑔
+
+                                              
+                                              
+                                               Δ𝑥 𝑔 + Δ𝑥 𝑏 < 𝑥 𝑐
+                                              
+                                               Δ𝑥 𝑔 ≤ 0
+                                              
+                                              
+                                     𝑠.𝑡.
+                                              
+                                              
+                                               Δ𝑥 𝑏 > 0
+                                              
+                                               −Δ𝑥 < (1 − 𝛼 )𝑥
+                                                    𝑔      𝑔 𝑔
+
+   iv. Selling both gold and bitcoin
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 2204883                                                                              Page 12 of 23
+
+
+
+   This trading behavior can be noted as
+
+
+                                                  Δ𝑥 𝑔 ≤ 0, Δ𝑥 𝑏 ≤ 0
+                        0                 0
+   Since the value of 𝑥 𝑔 − 𝑥 𝑔 and 𝑥 𝑏 − 𝑥 𝑏 can be substituted as
+
+                                                                  0
+                                  ( 0
+                                                 1
+                                   𝑥 𝑔 − 𝑥 𝑔 = 1−𝛼 𝑔
+                                                     Δ𝑥 𝑔 , 0 ≤ 𝑥 𝑔
+                                      0           1                       0
+                                    𝑥 𝑏 − 𝑥 𝑏 = 1−𝛼 𝑏
+                                                      Δ𝑥 𝑏 , 0 ≤ 𝑥 𝑏
+
+    According to equation (10), (11) and (12), the MLP model for this trading behavior can be
+built as:
+
+                            𝑟ˆ𝑔,𝑡+1 − 𝑟 𝑔,𝑡      1          𝑟ˆ𝑏,𝑡+1 − 𝑟 𝑏,𝑡      1
+                 𝑚𝑖𝑛    −                   ·        Δ𝑥 𝑔 −                 ·        Δ𝑥 𝑏
+                                  𝑟 𝑔,𝑡       1 − 𝛼𝑔              𝑟 𝑏,𝑡       1 − 𝛼𝑏
+
+                                             1                 1
+                               𝑚𝑖𝑛               Δ𝑥 𝑔 𝑆 𝑔 +        Δ𝑥 𝑏 𝑆 𝑏
+                                          1 − 𝛼𝑔            1 − 𝛼𝑏
+
+                                         
+                                         
+                                         
+                                          Δ𝑥 𝑔 + Δ𝑥 𝑏 < 𝑥 𝑐
+                                         
+                                          Δ𝑥 ≤ 0
+                                          𝑔
+                                         
+                                         
+                                         
+                                     𝑠.𝑡. Δ𝑥 𝑏 ≤ 0
+                                         
+                                           −Δ𝑥 𝑔 < (1 − 𝛼𝑔 )𝑥 𝑔
+                                         
+                                         
+                                         
+                                         
+                                         
+                                          −Δ𝑥 𝑏 < (1 − 𝛼𝑏 )𝑥 𝑏
+                                         
+                                         
+   v. Purchasing bitcoin on non-trading days for gold
+   This trading behavior can be noted as
+
+
+                                                  Δ𝑥 𝑔 = 0, Δ𝑥 𝑏 > 0
+                        0                 0
+   Since the value of 𝑥 𝑔 − 𝑥 𝑔 and 𝑥 𝑏 − 𝑥 𝑏 can be substituted as
+                                      ( 0
+                                       𝑥𝑔 − 𝑥𝑔 = 0
+                                         0
+                                       𝑥 𝑏 − 𝑥 𝑏 = (1 − 𝛼𝑏 )Δ𝑥 𝑏
+
+    According to equation (10), (11) and (12), the MLP model for this trading behavior can be
+built as:
+
+                                                  𝑟ˆ𝑏,𝑡+1 − 𝑟 𝑏,𝑡
+                                𝑚𝑖𝑛           −                   · (1 − 𝛼𝑏 )Δ𝑥 𝑏
+                                                        𝑟 𝑏,𝑡
+
+                                              𝑚𝑖𝑛     (1 − 𝛼𝑏 )Δ𝑥 𝑏 𝑆 𝑏
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 2204883                                                                       Page 13 of 23
+
+
+
+                                                   (
+                                                       Δ𝑥 𝑏 < 𝑥 𝑐
+                                            𝑠.𝑡.
+                                                       Δ𝑥 𝑏 > 0
+
+   vi. Selling bitcoin on non-trading days for gold
+   This trading behavior can be noted as
+
+
+                                           Δ𝑥 𝑔 = 0, Δ𝑥 𝑏 ≤ 0
+                        0              0
+   Since the value of 𝑥 𝑔 − 𝑥 𝑔 and 𝑥 𝑏 − 𝑥 𝑏 can be substituted as
+                                       ( 0
+                                        𝑥𝑔 − 𝑥𝑔 = 0
+                                          0           1
+                                        𝑥 𝑏 − 𝑥 𝑏 = 1−𝛼 𝑏
+                                                          Δ𝑥 𝑏
+
+    According to equation (10), (11) and (12), the MLP model for this trading behavior can be
+built as:
+
+                                               𝑟ˆ𝑏,𝑡+1 − 𝑟 𝑏,𝑡      1
+                                 𝑚𝑖𝑛       −                   ·        Δ𝑥 𝑏
+                                                     𝑟 𝑏,𝑡       1 − 𝛼𝑏
+
+                                                          1
+                                           𝑚𝑖𝑛                Δ𝑥 𝑏 𝑆 𝑏
+                                                       1 − 𝛼𝑏
+
+                                          Δ𝑥 < 𝑥 𝑐
+                                          𝑏
+                                         
+                                         
+                                         
+                                     𝑠.𝑡. Δ𝑥 𝑏 ≤ 0
+                                         
+                                          −Δ𝑥 𝑏 < (1 − 𝛼𝑏 )𝑥 𝑏
+                                         
+                                         
+    Based on the six models above, we bring the price prediction results of gold and bitcoin into
+model i-iv for calculation on trading days of gold respectively, and bring the price prediction
+results of bitcoin into model v-iv for calculation on non-trading days of gold respectively, and
+choose the most optimal trading behavior as the portfolio for the coming day.
+    It is worth noting that since each trading behavior involves high commissions, even the
+most optimal trading behavior may cause losses after paying commissions, so we compare the
+return value when executing the most optimal trading behavior with the return when keeping
+the portfolio unchanged, if
+
+                        0     𝑟ˆ𝑔,𝑡+1 0 𝑟ˆ𝑏,𝑡+1 0          𝑟ˆ𝑔,𝑡+1      𝑟ˆ𝑏,𝑡+1
+                       𝑥𝑐 +           𝑥𝑔 +       𝑥𝑏 < 𝑥𝑐 +         𝑥𝑔 +         𝑥𝑏           (13)
+                                𝑟 𝑔,𝑡      𝑟 𝑏,𝑡             𝑟 𝑔,𝑡        𝑟 𝑏,𝑡
+
+   holds, the portfolio will keep unchanged; otherwise the portfolio will be changed into the
+most optimal trading behavior given by the model.
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 2204883                                                                        Page 14 of 23
+
+
+
+4.3.3   The Result of Our Investment Strategy
+We take the initial worth values of cash, gold and bitcoin at September 25, 2016 , since we do
+not make any investment in the very beginning 14 days’ period, as
+
+
+                                   [𝑥 𝑐 , 𝑥 𝑔 , 𝑥 𝑏 ] = [1000, 0, 0],
+
+    and the predicted value of gold and bitcoin on that day as the input of our investment strategy
+model. We calculate the optimal portfolio for each day with a combination of the predicted
+price of gold and bitcoin and the investment strategy model. The date we buy or sell bitcoin
+from January 1, 2017 to January 1, 2018, as an example under our investment strategy, is shown
+in the figure below.
+
+
+
+
+             Figure 5: Date to buy or sell bitcoin, from Jan.1, 2017 to Jan.1, 2018
+
+
+    Finally we discount the total asset value of each day by the closing price of gold and bitcoin
+for each day and obtain a line graph of daily assets.
+
+
+
+
+                              Figure 6: Curve of daily asset value
+
+
+    The result is: by using our model and strategy, finally the initial $1,000 investment worth
+$14,325.13 on September 10, 2021, which makes a profit more than 13 times of the initial
+investment.
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 2204883                                                                      Page 15 of 23
+
+
+
+5     Task 2: Proof of The Best Strategy
+   In Task 1, we have already built the price prediction model as well as the investment strategy
+model and have obtained the most optimal investment strategy for each day of the 5-year period
+from September 11, 2016 to September 10, 2021.
+    Now we set up some evaluation metrics and proved that the investment strategy obtained
+by our model is the best by comparing the values of these metrics under 2 simple investment
+strategies (a 5-year long-term investment in gold, a 5-year long-term investment in bitcoin) , 1
+idealized investment strategy and 1 commonly used investment strategy on the market, as
+well as under the investment strategy obtained by our model.
+
+5.1    Metrics for Evaluating Investment Strategies
+    We set up 10 metrics for investment strategy evaluation.
+    i. ARR(Annualized Rate of Return)
+    ARR is a theoretical rate of return calculated by converting the current daily rate of return
+into an annualized rate of return. It is calculated from the equation
+
+                                        𝑤 𝑡 − 𝑤 0 365
+                                𝐴𝑅𝑅 =            ×    × 100%
+                                           𝑤0      𝑡
+
+    in which 𝑤 𝑡 means the worth of your assets on day 𝑡 and 𝑤 0 means the worth of your initial
+investment.
+    ii. PLR(Profit/Loss Ratio)
+    PLR is the ratio of profit to loss for each trade in a period of investment. Suppose that 𝑚
+trades make profit(𝑃𝑖 for each) and 𝑛 trades loss(𝐿 𝑗 for each) in a period of investment, the PLR
+is calculated from the equation below.
+
+                                                  𝑚
+                                                  Í
+                                                        𝑃𝑖
+                                                  𝑖=1
+                                         𝑃𝐿𝑅 =     𝑛
+                                                  Í
+                                                        𝐿𝑗
+                                                  𝑗=1
+
+    iii. NT(Number of Trade))
+   NT stands for the total amount of trades in a period of investment. We define the process
+from opening a position to closing a position as a single trade.
+    iv. WR(Win Rate)
+    WR measures the number of profitable trades as a percentage of the total number of trades.
+Suppose that there are 𝑀 trades in a period of investment and in which 𝑚 trades make profit,
+the WR is calculated from the equation below.
+
+                                              𝑚
+                                       𝑊𝑅 =     × 100%
+                                              𝑀
+    v. MPA(Maximum Profit Amount)
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 2204883                                                                      Page 16 of 23
+
+
+
+    MPA measures the maximum profit value of a single trade in a period of investment. Suppose
+that 𝑚 trades make profit(𝑃𝑖 for each) in a period of investment, MPA can be calculated as follow.
+
+
+                                       𝑀 𝑃 𝐴 = 𝑚𝑎𝑥{𝑃𝑖 }
+
+   vi. MLA(Maximum Loss Amount)
+    MLA measures the maximum loss value of a single trade in a period of investment. Suppose
+that 𝑛 trades loss(𝐿 𝑗 for each, 𝐿 𝑗 < 0) in a period of investment, MLA can be calculated as
+follow.
+
+
+                                       𝑀 𝐿 𝐴 = 𝑚𝑖𝑛{𝐿 𝑗 }
+
+   vii. MCP(Maximum umber of Consecutive Profits)
+   MCP is the maximum number of consecutive profitable trades in a period of investment.
+   viii. MCL(Maximum umber of Consecutive Losses)
+   MCL is the maximum number of consecutive lossing trades in a period of investment.
+   ix. MDD(Maximum Drawdown)
+    MDD is the maximum observed loss from a peak to a trough of a portfolio during the period
+of investment. It is an indicator of downside risk over the period of investment.
+   x. SR(Sharpe Ratio)
+    SR is one of the most commonly used metrics in strategy evaluation, and it is one of the
+most valuable performance metrics considering both return and risk. For a good strategy, the
+larger the value of SR, the better. SR can be calculated as follow:
+
+   1. Based on the curve of the asset, we calculate the value of DRR(Daily Rate of Return) for
+      each day and obtain a DRR series
+                                                          𝑤𝑖
+                               𝐷 𝑅𝑅 = {𝐷 𝑅𝑅𝑖 |𝐷 𝑅𝑅𝑖 =          × 100%}
+                                                         𝑤 𝑖−1
+      which is subject to normal distribution;
+
+   2. Calculate the average 𝐸 (𝐷 𝑅𝑅) and the variance 𝐷 (𝐷 𝑅𝑅) of the DRR series;
+
+   3. Since in this problem, we ignore the cash interest, we finally obtain SR under the equation
+
+                                                𝐸 (𝐷 𝑅𝑅)
+                                          𝑆𝑅 = p
+                                                 𝐷 (𝐷 𝑅𝑅)
+
+   A strategy has a negative average return when 𝑆𝑅 < 0, and the strategy has a positive
+average return when 𝑆𝑅 > 0.
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 2204883                                                                       Page 17 of 23
+
+
+
+5.2   Evidence for A Good Investment Strategy
+    With the 10 metrics defined above, we now compare the values of those metrics under 2
+simple investment strategies, 1 ideal investment strategy, 1 commonly used investment strategy
+on the market and our investment strategy. Brief introductions of these 4 strategies are shown
+below.
+
+   1. A 5-year long-term investment in gold(Gold Asset)
+      In brief, this strategy requires us to use all of our initial $1,000 to purchase gold on the
+      first trading day and to not make any gold and bitcoin related trades for the next 5 years.
+      For the purpose of representing the trades and calculating metrics such as MPA, MLA,
+      etc., we equate this strategy as follows: in the absence of commissions, we sell all of our
+      gold first and then purchase an equal amount of gold at the same price on each trading
+      day, except for the first trading day.
+   2. A 5-year long-term investment in bitcoin(Bitcoin Asset)
+      This strategy shares the same idea with the strategy above. The only difference is that in
+      this strategy, we use all of our initial $1,000 to purchase bitcoin on the first trading day.
+   3. An ideal strategy in the circumstance that we know the exact value of daily price of gold
+      and bitcoin(Ideal Asset)
+      This strategy shares the same investment strategy model with our strategy. The difference
+      is that our strategy is developed by bringing the predicted price values of gold and
+      bitcoin into the model, while this ideal strategy is developed by bringing the true price
+      values of gold and bitcoin into the model.
+   4. A commonly used investment strategy on the market(Rule Asset)
+      This strategy is developed based on the eight rules created by Joseph Granville[6]. When
+      the moving average is below the stock price and in an uptrend, it is time to buy, and vice
+      versa, it is time to sell.
+
+    The comparison of the curve of daily asset value among those 4 strategies and our strategy
+is shown in the figure below.
+
+
+
+
+           Figure 7: Comparison of the curve of daily asset value among strategies
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 2204883                                                                            Page 18 of 23
+
+
+
+   To make sure that the 𝑆𝑅 value is valid for these strategies, we plot the distribution of
+𝐷 𝑅𝑅(or, the yield rate) of these strategies, shown in the figures below.
+
+
+
+
+   (a) Distribution of our asset     (b) Distribution of gold asset   (c) Distribution of bitcoin asset
+
+
+
+
+                   (d) Distribution of ideal asset    (e) Distribution of rule asset
+
+                        Figure 8: Distribution of 𝐷 𝑅𝑅 in the 5 strategies
+
+
+   From the distribution we can see that the 𝐷 𝑅𝑅 values of all these 5 strategies are subject to
+normal distribution. Thus, we can calculate 𝑆𝑅 value for each strategy.
+    Finally the metric values of all strategies considered in this task is calculated and shown in
+the table below.
+
+             Strategies \ Metrics        ARR   PLR            NT        WR    MPA
+                  Our Asset           266.36% 1.41           848      53.54% 1044.51
+                 Gold Asset            15.88%  1.08            1      52.38% 80.35
+                Bitcoin Asset         906.88% 1.15             1      54.28% 7436.2
+                 Ideal Asset          1406.66% 7.55          1401     73.59% 5171.07
+                 Rule Asset             8.53%  1.47           41      21.95% 475.6
+             Strategies \ Metrics       MLA    MCP           MCL       MDD     SR
+                  Our Asset            -867.44   8             7      42.92% 0.0791
+                 Gold Asset            -104.85  10            11      18.54% 0.0268
+                Bitcoin Asset         -7742.91  10             9      83.37% 0.078
+                 Ideal Asset           -868.93  20             3       1.89% 0.2955
+                 Rule Asset            -194.45   1             6      30.06% 0.0247
+
+                              Table 4: Metric values of all strategies
+
+
+    Without considering full transparency of future market direction, we can see from the table
+that the value of 𝑀 𝐷𝐷 and 𝑀 𝐿 𝐴 of our model is significantly smaller comparing to Bitcoin
+Asset strategy, proving that our model is more resilient to risks. Besides, our model has a high
+value of 𝐴𝑅𝑅 compared to Gold Asset strategy and Rule Asset strategy. From the perspective
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 2204883                                                                        Page 19 of 23
+
+
+
+of the value of 𝑆𝑅, our model win the second place only behind the ideal model, indicating that
+our model achieve higher returns for the same risk.
+
+6      Task 3: Sensitivity of Transaction Costs for The Strategy
+    We analyze the sensitivity of our strategy to the commission of gold transaction and the
+commission of bitcoin transaction by varying the commission of one asset and keeping the
+commission of the other asset unchanged alternately. After that, we obtain an investment
+strategy for each value of commission.
+    When analyzing the sensitivity, we measure the trading behavior by calculating
+
+      • the average investment percentage when traders invest cash to gold 𝑣 𝑔 ,
+
+      • the average investment percentage when traders invest cash to bitcoin 𝑣 𝑏 ,
+
+      • the number of gold investment 𝑉𝑔 ,
+
+      • the number of bitcoin investment 𝑉𝑏 ,
+
+      • the total number of investment 𝑉𝑎 ,
+
+    under each investment strategy, and evaluate the performance of each investment strategy
+using two metrics: net profit Δ𝑤 and win rate 𝑊 𝑅.
+
+6.1     Sensitivity of The Commissions of Gold
+    We keep the commission of bitcoin to 2% and set the commission value of gold to 0%, 1%,
+2%, 3% and 4% separately and take them into our investment strategy model respectively, and
+different investment strategies are obtained. The trading behaviors are shown in the table below.
+
+                      Commission of Gold          𝑣𝑔     𝑣𝑏   𝑉𝑔 𝑉𝑏 𝑉𝑎
+                            0%                  0.7622 0.8286 6 52 58
+                            1%                  0.6333 0.8391 10 40 50
+                            2%                  0.9497 0.8307 2 38 40
+                            3%                     -   0.8223 0 40 40
+                            4%                     -   0.8255 0 40 40
+
+                 Table 5: Trading behaviors under different commissions of gold
+
+
+    We find that when the commission of gold increases, the average investment percentage
+when traders invest cash to gold goes up significantly and the average investment percentage
+when traders invest cash to bitcoin stays the same overall. Meanwhile, with the increment of
+the commission of gold, the number of gold investment drops significantly to 0, and the number
+of bitcoin investment remains unchanged.
+    It can be seen that the increment of the commission of gold has a great impact on trading
+strategies, as reflected in:
+
+      • The average investment percentage when traders invest cash to gold has increased and the
+        single investment in gold has increased. The reason may be that growth rate of gold is
+
+
+=== PHYSICAL PAGE 22 ===
+Team # 2204883                                                                       Page 20 of 23
+
+
+
+        low, and the rise in the commission of gold has increased the threshold for investing in
+        gold, so that a large amount of money will be spent on investing in gold only when the
+        current risk of investing in gold is low enough.
+      • Both the number of gold investment and bitcoin investment declined. The reason may
+        be that the rise in the commission of gold makes the model more cautious on investing.
+        Eventually the number of investment in gold drops to 0, which indicates that the prediction
+        of the increase in gold is less than the commission of gold, so the model will not make
+        investment in gold.
+
+   The corresponding performances of each strategy are shown in the table below.
+
+                            Commission of Gold        Δ𝑤           𝑊𝑅
+                                  0%                10874.24     0.2745
+                                  1%                14325.13      0.381
+                                  2%                13069.35     0.4474
+                                  3%                14587.49     0.4103
+                                  4%                10865.78     0.4615
+
+               Table 6: Strategy performances under different commissions of gold
+
+
+    We find that when the commission of gold increases, the net profit remains the same and
+the win rate shows an upward trend.
+    It can be seen that the increment of the commission of gold has little effect on the results of
+investment[7].
+
+6.2     Sensitivity of The Commissions of Bitcoin
+    We keep the commission of gold to 1% and set the commission value of bitcoin to 1%, 2%,
+3%, 4% and 5% separately and take them into our investment strategy model respectively, and
+different investment strategies are obtained. The trading behaviors are shown in the table below.
+
+                     Commission of Bitcoin       𝑣𝑔     𝑣𝑏   𝑉𝑔 𝑉𝑏 𝑉𝑎
+                             1%                0.5829 0.7921 12 48 60
+                             2%                0.6333 0.8391 10 40 50
+                             3%                0.7622 0.8286 12 42 54
+                             4%                0.785 0.8255 8 44 52
+                             5%                0.7906 0.8245 8 32 40
+
+                Table 7: Trading behaviors under different commissions of bitcoin
+
+
+    We find that when the commission of bitcoin increases, the average investment percentage
+when traders invest cash to gold rises significantly and the average investment percentage when
+traders invest cash to bitcoin remains unchanged overall. Meanwhile, with the increment of the
+commission of bitcoin, both the number of gold investment and the total number of investment
+decrease.
+    It can be seen that the increment of the commission of bitcoin has a great impact on trading
+strategies, as reflected in:
+
+
+=== PHYSICAL PAGE 23 ===
+Team # 2204883                                                                          Page 21 of 23
+
+
+
+      • The average investment percentage when traders invest cash to gold increased and the
+        single investment in gold increased. The reason may be that the rise in the commission of
+        bitcoin makes our model more inclined to invest large amounts in gold for the long term.
+      • Both the number of gold investment and bitcoin investment declined. The reason may
+        be that the rise in the commission of bitcoin has made the model more cautious when
+        investing.
+
+   The corresponding performances of each strategy are shown in the table below.
+
+                            Commission of Bitcoin        Δ𝑤      𝑊𝑅
+                                    1%                 11632.52 0.4583
+                                    2%                 14325.13 0.381
+                                    3%                 2774.01 0.2745
+                                    4%                 1641.35 0.2954
+                                    5%                 1583.01 0.303
+
+              Table 8: Strategy performances under different commissions of bitcoin
+
+
+   We find that when the commission of bitcoin increases, the net profit decreases significantly
+and the win rate shows a decreasing trend.
+   It can be seen that when the commission of bitcoin increases, the win rate and the final net
+profit of the whole trading process decreases, and the trading results become worse.
+
+6.3     Analysis of The Result
+    As for the difference between changing the transaction costs of gold and bitcoin, considering
+the impact of trading results when the transaction costs change, we believe that:
+
+      • Gold is a less risky asset, and most investments in gold are long-term investments, so the
+        increase in transaction costs of gold do not have much impact on trading results.
+      • Bitcoin is a risky asset, and the increment in transaction costs of bitcoin makes our strategy
+        more prudent to sell bitcoin and instead, makes predicting of the decline in bitcoin more
+        difficult.
+
+   As for the similarity of changing the transaction costs of gold and bitcoin, we believe that:
+
+      • The average percentage of total asset value invested in bitcoin and the number of bitcoin
+        investment have all remained generally unchanged, probably because the short-term
+        growth rate of bitcoin is often extremely high, making it difficult to affect the preference
+        for short-term investments in bitcoin when changing the transaction costs.
+      • Both the number of gold investment and bitcoin investment decline as the transaction costs
+        increase, because the increment of transaction costs makes the strategy more cautious
+        when investing.
+
+   Therefore, we conclude that investment strategies are more sensitive to changes in bitcoin
+commissions.
+
+
+=== PHYSICAL PAGE 24 ===
+Team # 2204883                                                                      Page 22 of 23
+
+
+
+7     Task 4: Memorandum for The Trader
+To: Trader in investment markets
+From: Team # 2204883 of 2022 MCM
+Date: February 21, 2022
+Subject: find the best investment strategy that maximize total return
+
+
+Dear Sir or Madam:
+    The investment market is volatile, and we believe that all investors, including you, expect to
+maximize returns while minimizing risk. For this purpose, we analyze the daily price of gold
+and bitcoin from November 9, 2016 to October 9, 2021. We build two models i.e. Long Short-
+Term Memory market capitalization forecasting model(LSTM) and multi-objective portfolio
+investment programming model(MLP). Based on these two models, we are able to maintain a
+low investment risk while achieving higher returns.
+    First, we build LSTM model to help you accurately predict the future performance of your
+investment market. Our LSTM model use recurrent neural network to analyze the previous
+14 days of market data and predict the market trend of the day, not only to predict the ups
+and downs, but also to get the exact value. The measurement indicator is the Mean Absolute
+Percentage Error (MAPE). The results show that our model is very accurate, with a MAPE
+value of 0.007261 for gold and 0.041630 for bitcoin. With price forecasting, investors can plan
+their short-term investment strategies in more detail.
+    Moreover, based on the predicted values of the market trend, we develop the MLP model
+to solve for the investment numbers of gold and bitcoin that satisfy the maximum return and
+minimum risk by using ideal point method. Considering that there are trading commissions,
+our results are compared with the future returns of maintaining the existing investments and
+the optimal solution is selected. After 5 years of trading, we end up with an annualized rate of
+return of 266.36%, in other words, an increase in assets of about 13 times.
+    According to our analysis of the results, the following are our recommended investment
+strategies:
+
+    1. Trust the data from the prediction is accurate and incorporate the programming model’s
+       result into your investment strategy.
+    2. When the market has experienced a big rise and predicted trend is to be plunging, withdraw
+       in time, since our model has predicted most of plunge.
+    3. Too frequent trading is not recommended due to trading commissions.
+
+    Of course, our data, models and strategies operate only on a daily basis and include only
+forecasts and asset portfolios based on two asset classes. For daily financial transactions, our
+model can be further extended in the time dimension and portfolio dimension. Thank you for
+reading our memorandum in your busy schedule, hoping our suggestions are useful to you.
+Yours Sincerely,
+Team # 2204883
+
+
+=== PHYSICAL PAGE 25 ===
+Team # 2204883                                                                       Page 23 of 23
+
+
+
+8      Strengths and Weaknesses of Our Strategy
+8.1     The Price Prediction model
+      • Strengths: The model is based on LSTM model with strong mathematical theory support.
+        Sliding window algorithm is used to reduce errors caused by data redundancy. The optimal
+        combination of parameters is obtained by calculating the 𝑀 𝐴𝑃𝐸 of the prediction results,
+        which further optimizes the performance of the model.
+
+      • Weakness: Due to the stochastic nature of the predicting process of LSTM model, we
+        cannot guarantee the optimality of the predicting process.
+
+
+8.2     The Investment Strategy model
+      • Strength: By quantifying return and risk and using the MLP model, an investment strategy
+        that balances return and risk is obtained. Different models are built for different trading
+        behaviors with a strong focus.
+
+      • Weakness: When quantifying risk, no adjustment is made to the value of the parameter
+        risk statistical period. This may affect the merit of the model in developing investment
+        strategies.
+
+
+References
+ [1] Schabacker, Richard. Technical analysis and stock market profits. Harriman House Lim-
+     ited, 2005.
+
+ [2] Bao, Wei, Jun Yue, and Yulei Rao. "A deep learning framework for financial time se-
+     ries using stacked autoencoders and long-short term memory." PloS one 12.7 (2017):
+     e0180944.
+
+ [3] Donckels, Brecht MR, et al. "An ideal point method for the design of compromise experi-
+     ments to simultaneously estimate the parameters of rival mathematical models." Chemical
+     Engineering Science 65.5 (2010): 1705-1719.
+
+ [4] Zou, Zhichao, and Zihao Qu. "Using LSTM in Stock prediction and Quantitative Trad-
+     ing." CS230: Deep Learning, Winter (2020).
+
+ [5] Zopounidis, Constantin, D. K. Despotis, and I. Kamaratou. "Profilio Selection Using the
+     Adelais Multiobjective Linear Programming System." Computational Economics 11.3
+     (1998): 189-204.
+
+ [6] Granville. New Key to Stock Market Profits. Martino Fine Books, 1963.
+
+ [7] Lv, Dongdong, et al. "An empirical study of machine learning algorithms for stock daily
+     trading strategy." Mathematical problems in engineering 2019 (2019).

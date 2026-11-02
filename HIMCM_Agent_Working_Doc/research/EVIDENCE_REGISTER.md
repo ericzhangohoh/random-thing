@@ -1,0 +1,43 @@
+# Evidence-to-Workflow Register
+
+This is a living synthesis of **reviewed cases**, not a completed statistical account of the full corpus. A source paper's use of a method is not a proof that the method is appropriate everywhere. The coverage denominator is reported in [STATUS.md](STATUS.md).
+
+## Evidence classes
+
+- **Official requirement:** current contest instructions or policy, with version/date.
+- **Official commentary:** historical judging discussion, informative but not a universal scoring formula.
+- **Observed practice:** a documented modeling or communication move in an inspected paper.
+- **Reviewer inference:** an interpretation or critique derived from the source, clearly distinguished from the author's claim.
+- **Project design:** our chosen ownership, handoff, checkpoint or recordkeeping convention.
+
+## Initial source-grounded rules
+
+| Rule / lesson | Inspected support | What it supports | Scope limit | Operational destination |
+|---|---|---|---|---|
+| Build a connected architecture and revisit early choices using downstream feasibility | [2019 MCM B, 1924588](cases/mcm2019_b_1924588.md), especially physical pp.7–24 | Fleet, packing, deployment, routes and final range checks form a dependent chain; later location feasibility can reject an earlier fleet candidate | This is a useful architecture, not a certificate that every implementation detail is correct | Stages 1, 3, 7; model specification and change request |
+| Separate environment assumptions from a policy/controller and test changes incrementally | [2004 MCM B, 381](reviews/mcm_2004/mcm_3f54f69363bd.md), pp.4–14, 15–32 | The environment, customer behavior and control policy can be examined separately; repeated simulated days expose variation | Simulation supports implications within the assumed environment, not independent empirical truth | Stages 3, 5, 6; experiment template |
+| Do not reward complexity when its added value is unestablished | [2004 MCM B, 381](reviews/mcm_2004/mcm_3f54f69363bd.md), pp.29–33 | Candidly reporting similar aggregate outcomes is more informative than declaring the most complicated controller best | The source's significance wording was not independently statistically reproduced | Baseline comparison and retain/simplify decision |
+| Track information flowing across spatial, temporal and policy models | [2018 ICM D, 78826](reviews/mcm_2018/mcm_ed3ee7b716f1.md) | Network design, construction sequence, adoption timeline and country transfer have distinct roles and interfaces | Sequential presentation can conceal weak feedback or calibration; inspect actual coupling | Stage 3 architecture and Stage 7 integration |
+| Distinguish observed, mapped and simulated quantities | [2017 HiMCM B, 8121](reviews/himcm/HIMCM_2017_B_8121.md), pp.9–11 | Simulated trail attributes do not by themselves prove a geographically feasible trail design | Case-specific terrain issue; general rule concerns provenance and claim strength | Data template, feasibility checks and claim register |
+| Justify the meaning of weights and transformations, and test ranking stability | [2017 HiMCM B, 8121](reviews/himcm/HIMCM_2017_B_8121.md), pp.6–9, 13–19, 23–25 | Interpretable factor directions are helpful, but preferences and calibration choices still need support | External ranking agreement is comparative evidence, not objective ground truth | Approach chapter: evaluation and ranking |
+| Choose an appropriate primary model and explain why; connect assumptions to actual use | Official [HiMCM commentary](../../HIMCM_备赛资料/03_论文与评审/官方评审/Cons_HiMCM.pdf), physical pp.6–11 | Clear choices, purposeful assumptions, model development and explanation matter | Historical commentary, not a requirement to reproduce a highlighted method | Stages 2–4 and argument writing |
+| Human checkpoints, sole-writer files and versioned handoffs | Project design; [coordination protocol](../COORDINATION.md) and [product sources](../setup/SOURCES.md) | A practical way to coordinate separate contexts and prevent conflicting edits | Written conventions are not technical enforcement or proof of correctness | Roles, task/state/handoff records |
+
+## Required synthesis after each research batch
+
+1. Compare approaches to the same problem using common task definitions.
+2. Record which findings recur and which depend on one problem's structure.
+3. Preserve counterexamples and alternative successful architectures.
+4. Add or revise a specific workflow rule, template field or example only when the evidence warrants it.
+5. Keep the source distinction between explicit author rationale and reviewer reconstruction.
+6. Update coverage and the status of unresolved hypotheses.
+
+## Open synthesis questions
+
+- When does a sequential architecture adequately represent feedback, and when does it require a joint formulation?
+- Which baseline and validation choices recur across mechanism, forecast, ranking and optimization tasks?
+- How do stronger papers explain consequential simplifications and data gaps?
+- Which claims repeatedly outrun the evidence, even in otherwise strong papers?
+- What modeling depth transfers well to HiMCM without imposing unnecessary computational or exposition burden?
+
+These questions guide the remaining full reading. They are not findings about unread papers.

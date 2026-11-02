@@ -1,0 +1,1156 @@
+=== PHYSICAL PAGE 1 ===
+                                         Team Control Number
+
+
+                                       35780
+For office use only                                                           For office use only
+T1 ________________                                                           F1 ________________
+T2 ________________                                                           F2 ________________
+T3 ________________                                                           F3 ________________
+T4 ________________                         Problem Chosen                    F4 ________________
+                                                  D
+                      2015 Mathematical Contest in Modeling (ICM) Summary
+                        Sheet (Attach a copy of this page to your solution paper.)
+
+
+                               Sustainability? Responsibility!
+   Sustainability is a comprehensive concept to describe a pattern of development without
+   losing coordination or over consuming resources. Our research is divided into three steps:
+   assessing and forecasting sustainability, formulating development plan, and involving ex-
+   ternal factors.
+
+   Firstly, an Entropy-GE Matrix is adopted to create a measurement of sustainability and a
+   state equation constructed from Lanchester’s Equation is employed to forecast trends of
+   sustainability. We set up a Sustainable Development Indicator system and normalize data
+   of indicators. Aiming at assessing comprehensive performances, we adopt an Entropy-GE
+   Matrix to establish concepts of Development Index (DI), Cooperation Index (CI) and a
+   final score. Based on Lanchester’s Equation, we furthermore construct a state equation to
+   forecast sustainability. In our result of 10 countries’ rankings on sustainability in 2013,
+   America occupies the first place with a score 0.161 while Congo is the last with a score
+   1.142. As for another result, we obtain a 20-year forecast for three sample countries
+   (America, China, Congo).
+
+   Secondly, we study on effectiveness of control elements ci , bi in control matrices and
+   utilize a dynamic programming method to design a 20-year plan for Congo. Using the
+   concept of state space from control engineering, we convert effects of a plan on sustain-
+   able development into effects of control matrices on the state equation. In a case study on
+   Congo, the control variate method is adopted to analyze effectiveness of ci , bi , and
+   dynamic programming is applied to obtain a 20-year optimal plan. With the plan, DI and
+   CI of Congo will dramatically increase in following 20 years. In order to specify our plan,
+   development activities and their effectiveness scores are studied. In the plan for Congo,
+   an economic activity of technical support is strongly recommended.
+
+   Thirdly, effects from external factors are considered in our model. By adding an external
+   control matrix consists of Gaussian random numbers to the state equation, we can simulate
+   effects of external factors on sustainable development of Congo. In the result, although
+   external perturbation can cause fluctuation on performances, our plan can still guarantee a
+   rising trend of sustainable development.
+
+   Finally, we analyze the stability of our model with a OAT/OFAT method and its result
+   demonstrates that our model can undergo disturbance in a certain extent. Besides, we
+   conclude the strength and weakness of our model.
+
+
+=== PHYSICAL PAGE 2 ===
+                                      Contents
+
+1 Introduction                                                                            1
+
+2 Assumption                                                                              2
+
+3 A Model for Sustainability                                                              2
+  3.1 Sustainable Development Indicators (SDI) . . . . . . . . . . . . . . .              3
+  3.2 A Measurement of Sustainability . . . . . . . . . . . . . . . . . . . . .           3
+      3.2.1 Data Normalization . . . . . . . . . . . . . . . . . . . . . . . .            4
+      3.2.2 The Comprehensive Performance . . . . . . . . . . . . . . .                   5
+      3.2.3 Development Index and Coordination Index . . . . . . . . .                    6
+      3.2.4 A GE-Matrix to Score Sustainability . . . . . . . . . . . . . . .             7
+  3.3 A Forecast on Sustainability . . . . . . . . . . . . . . . . . . . . . . . .        8
+      3.3.1 Mechanism of Lanchester’s Equation . . . . . . . . . . . . . .                8
+      3.3.2 Our State Equation . . . . . . . . . . . . . . . . . . . . . . . . .          8
+  3.4 Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+      3.4.1 Country Rankings . . . . . . . . . . . . . . . . . . . . . . . . . .          9
+      3.4.2 A 20-Year Forecast . . . . . . . . . . . . . . . . . . . . . . . . .          9
+
+4 A Sustainable Development Plan                                                          10
+  4.1 Adding Control into the State Equation . . . . . . . . . . . . . . . .              11
+      4.1.1 Direct and Indirect Control Matrices . . . . . . . . . . . . . .              11
+      4.1.2 Effectiveness of Control Elements . . . . . . . . . . . . . . . .             12
+  4.2 A Dynamic Programming Solution . . . . . . . . . . . . . . . . . . . .              13
+  4.3 Development Activities in Practice . . . . . . . . . . . . . . . . . . .            13
+  4.4 A Case Study on Congo . . . . . . . . . . . . . . . . . . . . . . . . . .           14
+      4.4.1 Adjusting Control Elements . . . . . . . . . . . . . . . . . . . .            14
+      4.4.2 20-year Forecasts with(out) Plan-controlling . . . . . . . . . .              15
+      4.4.3 The Plan in Practice . . . . . . . . . . . . . . . . . . . . . . . .          16
+
+5 External Effects                                                                        17
+  5.1 Adding a Perturbation Matrix to State Equation . . . . . . . . . . .                17
+  5.2 A Revised Forecast on Congo . . . . . . . . . . . . . . . . . . . . . .             17
+
+6 Stability Analysis                                                                      18
+
+7 Strength and Weakness                                                                   19
+  7.1 Strength . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      19
+       7.1.1 Hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      19
+       7.1.2 Quantification . . . . . . . . . . . . . . . . . . . . . . . . . . . .       19
+       7.1.3 Intersectionality . . . . . . . . . . . . . . . . . . . . . . . . . . .      19
+  7.2 Weakness . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        20
+
+References                                                                                21
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 35780                                                                       Page 1 of 22
+
+
+
+
+                                                             Introduction                 1
+ The concept of Sustainable Development (SD) was derived from forest management in early
+                         [1]
+12th to 16th centuries . In recent decades, with the continuous development of modern so-
+ciety, the concept of SD evolved and was broadened. It was not until 1987 had this concept
+been defined by the United Nations World Commission on Environment and Development in
+its report Our Common Future defines sustainable development. The report defines:" Sustain-
+able development is development that meets the needs of the present without compromising the
+                                                        [2]
+ability of future generations to meet their own needs" . While this is the most commonly used
+definition, it is not the only one. A pragmatic version with economic nuances was formulated
+by the OECD Environment Committee which considers that sustainable development means
+"maximizing the net benefit of the economic development, while maintaining the dimensions of
+                                                                  [3]
+quality and production at the level of the resources over time" . To measure the progress of
+sustainability, sets of Sustainable Development Indicators (SDI) have been created by many
+                                                                                          [4]
+organizations include World Bank, World Resource Institute, Worldwatch Institute etc . At
+present, problems like over increased population, poverty, shortage of energy resources, and
+environmental pollution remain to be crucial global issues. Without effective ways to solve
+these problems, they will finally cause disasters to earth environment and lead to human society
+collapse. Hence, SD has its unprecedented significance in today’s world.
+
+To create a more sustainable world, the International Conglomerate of Money (ICM) is in-
+terested in investing developing countries. Therefore, following tasks are to be accomplished:
+   • A measurement to characterize sustainability of a country is needed. By considering
+     various factors like environmental quality and social status, the model should clearly
+     extinguish sustainable countries from unsustainable ones.
+   • A 20 year sustainable development plan should be created to help a Least Developed
+     Country (LDC) to gain a more sustainable future.
+   • The effect our 20-year plan has on the sustainability measure of the selected country
+     should be evaluated.
+ According to existent materials, various sets of SDIs have been created by different countries,
+organizations, as well as researchers. Among them, the most well-known one is the standard
+published by Eurostat aims at monitoring the progress towards sustainable development strategy
+in EU countries. Over 100 Indicators used are divided into three categories: social, environmen-
+                     [5]
+tal and economic , as shown in Figure 1. Other studies also consider wider perspectives, for
+                                                                                     [6]
+example, cultural diversity and cultural well-being by Jelena Zlatar etc. in 2014 . However,
+there is still not a global consensus of indicators used to measure SD. In line with various SDIs,
+studies use models and measurements to comment on sustainability of a country or a region.
+For instance, Liu Dan constructs an evaluation index system of resource-based city sustainable
+                                                                         [7]
+development using a BP neural network model and a genetic algorithm . Jiali Huang uses eco-
+                                                                                           [8]
+logical network analysis (ENA) to quantify the growth and development of Beijing city .
+
+ To give advises for future policies and investments to improve sustainability, researchers have
+done many qualitative analysis. Anthony Crabbe concludes three strategies: charitable strate-
+                                                                                    [9]
+gy, network strategy and social business strategy to enhance regional sustainability . Vatroslav
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 35780                                                                      Page 2 of 22
+
+
+
+
+                           Figure 1: Three aspects in SDI system
+
+                                                                                 [10]
+Zovko elaborate impacts GNI index and education have on future development . However,
+most of the previous work lack quantitative analysis; therefore the advises they provide could
+not give decision makers strong and clear instructions on policy making and plan designing. On
+this stage, a better model for development planning is valueable.
+
+Considering the existent research, our research focus on sustainability measurement, sustain-
+ability forecast, as well as sustainability control and adjustment. Detail work is as follow:
+
+1) We create our own system of Sustainable Development Indicators and provide with a mea-
+   surement of sustainability based on the entropy theory and the GE-Matrix.
+2) We also conduct a way to forecast sustainability using Lanchester’s Equation and theory of
+   the state equation.
+3) We study the control and adjustment a plan can have on the sustainability by doing further
+   deduction on the state equation and acase study on Congo.
+4) Further work in our research focuses on effects from external influence of the system.
+
+
+
+
+                                                            Assumption                  2
+We assume that effects of external factors on our model obey the Gaussian
+Distribution.
+We made this assumption based on reality, because the kinds of external effects considered in
+our study (e.g. climate change, international aids) seldom have abnormal strong impacts on the
+original model. Under this assumption, we can easily quantify the external effects in our study.
+
+
+
+
+                                    A Model for Sustainability                          3
+In this section, we first set up a system of Sustainable Development Indicators (SDI). Subse-
+quently, we provide a complete measurement to score a country’s sustainability. Next, we pro-
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 35780                                                                      Page 3 of 22
+
+vide a method to forecast sustainability. Finally, the results of country rankings and a 20-year
+forecast are demonstrated.
+
+3.1 Sustainable Development Indicators (SDI)
+ In order to give a well-rounded description of Sustainable development, a series of indicators
+is used, which are called Sustainable Development Indicators (SDI). Since there is no glob-
+al consensus of how SDI should be selected, we therefore choose the indicators based on 3
+principles:
+
+   • The indicators should be as comprehensive as possible to include most parts which are
+     effective to sustainability.
+
+   • The indicators had better be easy to be controlled and regulated through government
+     policies and feasible plans.
+
+   • The indicators which have already been tested reasonable in existent researches have a
+     priority.
+
+ Based on these three principles, we construct a group of indicators in 3 levels, shown in Ta-
+ble1. The first level contains three widely acknowledged aspects, namely environmental, social
+and economic. The second level contains 9 sub-aspects, three for each layer. On choosing
+sub-aspects, we considered three most stressed global problems in nowadays under each as-
+pects(Since the economic aspect only have two levels, the way to choose its sub-aspects is
+combined with the way of choosing third layer indicators).For example, ... Finally, to choose
+the third level indicators, we identified them from following 3 resources:
+                                                        [11]
+(a) More than 100 indicators are identified by Eurostat with a focus on 12 headline indica-
+    tors. These indicators have been used to monitor the EU Sustainable Development Strategy
+    for over 10 years.
+
+(b) 52 international indicators constructed by Liyin Shen to evaluate sustainable urbanization.
+                                                                             [12]
+    The realiability has been tested through the author’s case study of China
+
+(c) 37 indicators concluded by Jelena Zlatar from studies on SDI from 2001 to 2012 in aspects
+                                                [6]
+    include environmental social and economic .
+
+ Among these resources, we pick indicators that appear twice which meanwhile belong to one
+sub-aspect. Importantly, in order to provide convenience for decision makers, we also consider
+indicators which do not appear twice but can be easily controlled by policy, for example, edu-
+cation expense percentage in GDP. After all, we construct a SDI system which will be used as
+the foundation of our model.
+
+3.2 A Measurement of Sustainability
+ We provide a complete way to measure sustainability. To start with, data normalization ways
+are introduced. Then the Entropy Method is adopted to determine weight of indicators and
+calculate comprehensive performances on environmental, social, and economic aspects . Con-
+sequently, we defined Development Index and Coordination Index to describe sustainable de-
+velopment of a country. Finally, a GE-Matrix is used to score sustainability.
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 35780                                                                       Page 4 of 22
+
+               Table 1: Indicator system for sustainable development
+        Level1          Level2                     Level3
+                                                   Population growth
+                        Population                 Population density
+                                                   The aging rate
+       Environment
+                                                   Forest rents in GDP
+                        Resources
+                                                   Energy use per capita
+                        Pullotion                  CO2 emission per capita
+                                                   Life expectancy
+                        Health                     Mortality rate
+                                                   Health expenditure per capita
+                                                   Tertiary school enrollment rate
+           Social       Education
+                                                   Education spend in GDP
+                                                   Depth of the food deficit
+                        Livelihood                 Improved water source with access
+                                                   Household expenditure per capita
+                        Per Capita GDP
+         Economic       Inflation
+                        Tertiary industry rate
+
+
+3.2.1 Data Normalization
+ Considering that data of SDI measured on different scales, it is necessary to a standardize them
+into a notionally common scale. Therefore all data in our research need to be adjusted before
+used in models.
+
+All the 17 indicators we study on can be divided into three categories while normalizing: posi-
+tive indicators which exert positive effect on sustainability, negative indicators which do nega-
+tive effect on sustainability, and special indicators. In our model, assume that n (n=17) indica-
+tors and m samples of countries are considered. In following equations, xij (xij >0) represents
+the original value of indicator i for sample country j, where (i=1,2,...,n) and (j=1,2,...,m). rij
+is the proximity of xij towards the relatively best value of indicator i among all samples. For
+values of positive indicators, bigger is better. Thus, following equation is obtained:
+                                                  xij
+                                        rij =
+                                                maxj (xij )
+ where maxj (xij ) is the best value of positive indicator i, which means the maximum value
+of indicator i among all m sample countries. Oppositely, as for absolute value of negative
+indicators, smaller is better. Hence, we have:
+                                                minj (xij )
+                                        rij =
+                                                  xij
+where minj (xij ) is the best value of negative indicator i, which means the minimum value of
+indicator i among all m sample countries. Based on Equation (3.2.1)-(3.2.1), we get the nor-
+malized value fij of positive or negative indicator i for sample j:
+                                                rij
+                                         fij = Pm
+                                                   j=1 rij
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 35780                                                                        Page 5 of 22
+
+ However, there are special indicators which can not be categorized into positive or negative
+indicators. One condition is that the best value of the indicator is a fixed one or original values
+of the indicator are negative or 0. When the value is 0, we replace it with 0.0001, which has
+little impact on the final result. The other condition is that the normalized value of one indica-
+tor is effected by other indicators. There are 3 special indicators in our SDI system and their
+normalization processes are as follows:
+
+
+1) Inflation (annual %)
+   Because the value of inflation can be negative (equivalent to deflation in a positive value)
+   and the best value of inflation is 0, its normalization equation can be expressed as:
+
+                                                       |IN F |
+                                      fIN F = 1 −
+                                                     |IN F |max
+
+    where fIN F is the normalized value of inflation; IN F is the original value of inflation;
+   |IN F |max is the maximum absolute value among all samples.
+
+2) Population Density (per/km2 )
+                                              [13]
+   According to research by Alberto Martilli , both overhigh and overlow population densi-
+   ty harm social development, and are negative to environment and energy efficiency. The
+   proper population density should be 60-100 per/ km2 . Another study from Hao Hu, Kari-
+                   [14]
+   ma Nigmatulina also suggests that when population density is under 100 per/ km2 , the
+   diseases transmission can be cut into a lower speed. The normalization equation is:
+
+                                                    DP − DPAP
+                                     fDP = 1 −
+                                                     |∆DP |max
+
+    where fDP characterizes the normalized value of population density; DP is the original
+   value of population density; DPAP is the best value of population density; |∆DP |max rep-
+   resents the maximum absolute difference between DP and DPAP .
+
+3) Population Growth (%)
+                                       [15]
+   On referring to J.V. Ross’s research , population growth is related to population density
+   and its normalized way is:
+                                              1
+                                  P G− DP −DPAP +1 DP ≤ DPAP
+                                               DP
+                         fP G =                1
+                                           DP −DPAP   DP > DPAP
+                                       P G+    DP
+                                                       +1
+
+
+    where fP G is the normalized value of population growth and P G is its original value.
+
+3.2.2 The Comprehensive Performance
+The Entropy Method is derived from thermodynamics and is later introduced to telecommu-
+                                               [12]
+nication, energy, finance and other disciplines . Previous studies have successfully used this
+                                                                                     [16]
+method to determine the weight of a group of indicators which are used for evaluation .
+
+The Entropy Method suits for our study because our original data of indicators are trivial there-
+fore hard to analyze. By adopting a Entropy Method, we can process the data (after normal-
+ization) into three main variables, representing environmental, social, and economic aspects;
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 35780                                                                         Page 6 of 22
+
+hence the analysis on data can be easier to approach and clearer to understand.
+
+To start with, the entropy value Hi of indicator i is obtained by Equation (3.2.2)
+                                                    m
+                                                    X
+                                      Hi = −k             fij · ln fij
+                                                    j=1
+                                                              1
+                              where i = 1, 2, 3, ..., n;           k=
+                                                            ln m
+Accordingly, we determine the weight wi of indicator i by Equation (3.2.2)
+                                                     1 − Hi
+                                          wi = Pn
+                                                    i=1 (1 − Hi )
+
+ Hence, the comprehensive performance of sample j by considering indicators 1 to n can be
+defined as                                n
+                                         X
+                                   Fj =     wi · fij
+                                                   i=1
+
+ Since our SDI system set up in Section 2.1 has three main aspects, we accordingly get three
+F s to describe the comprehensive performance of a country (j omitted in the equation) on
+environmental (en), social (so), and economic (ec) aspects. Descriptions are shown in Equation
+(1)
+                                  Xnen
+                           Fen =       wi(en) · fij(en) i = 1, 2, ..., nen
+                                    i=1
+                                    nso
+                                    X
+                            Fso =         wi(so) · fij(so)    i = 1, 2, ..., nso                (1)
+                                    i=1
+                                    nec
+                                    X
+                            Fec =         wi(ec) · fij(ec)    i = 1, 2, ..., nec
+                                    i=1
+
+
+3.2.3 Development Index and Coordination Index
+ Sustainable development is a concept which requires both development and coordination. To
+be coordinated requires a country to improve itself not only in one aspect but in all aspects at the
+same time. In our model, we use a Development Index (DI) to depict a overall development
+status and a Coordination Index (CI) to depict the consistency and coordination of develop-
+ment among environmental (en), social (so), and economic (ec) aspects. Both index are based
+on comprehensive performance on aspects (en, so, ec). It is only when DI and CI are both
+high can we consider a country to be a sustainable one.
+Here we define Development Index (DI) to be
+
+                                 DI = CF
+                                          T                            
+                                                                         
+                                        γ1                           Fen                        (2)
+                            where C =  γ2  ;                 F =  Fso 
+                                        γ3                           Fec
+The parameters γ1 , γ2 , and γ3 in C show weight of Fen , Fso , Fec when composing DI.
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 35780                                                                      Page 7 of 22
+                                         [17]
+The Coodination Index (CI) is defined as :
+                                 S
+                       CI = 1 −
+                            r F̄
+                              1                                                             (3)
+                  where S =     [(Fen − F̄ )2 + (Fso − F̄ )2 + (Fec − F̄ )2 ]
+                              3
+                            1
+                        F̄ = (Fen + Fso + Fec )
+                            3
+S is the standard deviation of the three performance values, and F̄ is the arithmetic mean value
+of the three.
+
+3.2.4 A GE-Matrix to Score Sustainability
+ The GE-Matrix (McKinsey Matrix) is originally used in evaluating competitiveness and at-
+tractiveness of a company in a two-dimensional frame. The matrix can provide company with
+management and development strategies. Here we consider to use GE-Matrix to depict sustain-
+ability of countries.
+
+Although there are difference between companies and countries in operation, management, and
+profit perspectives, a fairly reasonable analogy can still be made. On the one hand, company
+attractiveness describes the strength of a company to make profit; correspondingly, country De-
+velopment Index describes strength of a country on development. On the other hand, both com-
+pany competitiveness and country Coordination Index reflect a well-rounded capacity. Hence, a
+                                  [12]
+GE-Matrix is adopted. Figure 2 shows the matrix we adopt. Both DI and CI can be classified
+                                                                [18]
+in to three levels according to research by Li, Zhang, and Song as shown in Table 2.
+
+                                                       Table 2: Classification of DI and CI
+                                                            DI       Development level
+                                                          0-0.5   Weak development
+                                                         0.5-0.8 Medium development
+                                                          0.8-1   Strong development
+
+
+                                                           CI         Coordination level
+                                                          0-0.5      Weak coordination
+                                                         0.5-0.8    Medium coordination
+                                                          0.8-1      Strong coordination
+
+
+
+
+   Figure 2: A GE-Matrix to evaluate Develop-
+   ment Index and Coordination Index
+
+With DI value y and CI value x of a country in any given year, we can determine a position
+(x, y) in our GE-Matrix. The distance between (x, y) and the best position (1, 1) is regarded as
+our sustainability score of a country in one year. The lower the score is, the more sustainable
+a country is.
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 35780                                                                             Page 8 of 22
+
+3.3 A Forecast on Sustainability
+ We provide a method to forecast sustainability of a country by using Lanchester’s Equation.
+Initially, the mechanism of Lanchester’s Equation is introduced. Later, we develop this equation
+into our own use and provide with a state equation.
+
+3.3.1 Mechanism of Lanchester’s Equation
+                                                                                                   [19]
+ Lanchester’s Equation is originally used in combat to assess loss of soldiers from both sides .
+It is a nonlinear first order differential equation which can obtain dynamic changes of the system
+under different war strategies. The equation is described as
+                                       dx
+                                          dt
+                                             = −ay − αx + u(t)
+                                          dy
+                                          dt
+                                             = −bx − βy + v(t)
+ where a and b are attack strength from one side to the other; α and β are loss of soldiers due to
+reasons other than attacks; u(t) and v(t) represent supplement of soldiers.
+
+
+3.3.2 Our State Equation
+ We know that Lanchester’s Equation provides a model for war, but we "buy" it a new coat
+of peace in our model. We use it to obtain the dynamic process of sustainability and forecast
+sustainability changes. This new coat fits well since Lanchester’s Equation can provide an e-
+quation to characterize not only effect on self aspect,but also effects of interaction among all
+aspects and effects from outside of the system.
+
+Take the social aspect from our SDI system as an example, it contains 3 second level aspects
+(health, education, livelihood) and 8 third level indicators (life expectancy, education spend,
+health expenditure etc.). All the third level indicators reflect citizen’s living quality in a country.
+However, the living quality will also be effected by environment (forest coverage, co2 emission
+etc.) and country economics (inflation, GDP per capita etc.). Lanchester’s Equation embodies
+the interaction among environmental, social ,and economic aspects clearly.
+
+Moreover, there are effects from outside of a country like ICM provided programs and aids.
+Therefore, we compare outsider effects on country sustainability Ûi (t) to soldier supplement in
+original Lanchester’s Equation. We use fitting method to get coefficient βi . We therefore get
+our Lanchester’s Equation equation
+                
+                   dFen (t)
+                 dt = α11 Fen (t) + α12 Fs o (t) + α13 Fec (t) + β1 Û1 (t)
+                    dFs o(t)
+                             = α21 Fen (t) + α22 Fs o (t) + α23 Fec (t) + β2 Û2 (t)
+                     dt
+                 dFec (t) = α F (t) + α F o (t) + α F (t) + β Û (t)
+                      dt        31 en         32 s           33 ec         3 3
+
+Using denotation ways from state space theory, we get the state equation
+                         dF
+                            = AF + BÛ
+                         dt
+                                                                                    T
+                   Fen          α11 α12 α13                         β1                 Û1         (4)
+   where     F =  Fso  A =  α21 α22 α32                   B =  β2         Û =  Û2 
+                   Fec          α31 α32 α33                         β3                 Û3
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 35780                                                                       Page 9 of 22
+
+
+In Equation (3.3.2)-(4), Fx (x = en, so, ec) denotes the comprehensive performance of a coun-
+try on aspect x. F is comprehensive performance to measure sustainability of a country; A is
+a system matrix which describes interaction among the three aspects; elements in Û describe
+effects from outside of a country; B is an input matrix to control a country’s capacity on adjust-
+ing to outside effects. In our first stage study, BÛ is ignored.
+
+On adopting Equation (4), we convert discrete time T to continuous time t.
+
+                                  t = kT       k = 1, 2, 3, ...n
+That is to say, we can obtain continuous data from original inputting discrete data. Hence, the
+dynamic change of sustainability and possible future value of comprehensive performance F
+on environmental, social, and economic aspects can be got.
+
+3.4 Results
+3.4.1 Country Rankings
+                                                         [20]
+ We acquired original data from World Bank Database . The data cover all 17 indicators in
+our SDI system. Ten sample countries are selected from 5 different continents and covers both
+developed countries and developing countries. Based on our model in Section 2.2, sustainability
+scores of sample countries in year 2013 are calculated. The rankings are shown in Table 3. The
+lower the score is, the more sustainable a country is; hence the United States ranks the highest
+among all the countries, and Congo ranks the lowest.
+
+
+                 Table 3: 2013 Sustainability rankings of 10 countries
+        Rank        Country           Fen      Fso      Fec         DI      CI     Score
+           1          U.S.           0.378    0.343    0.439       0.876   0.897   0.161
+           2          U.K.           0.164    0.277    0.386       0.625   0.672   0.499
+           3         Brazil          0.085    0.050    0.056       0.144   0.761   0.889
+           4         China           0.122    0.213    0.035       0.279   0.408   0.932
+           5      South Africa       0.147    0.053    0.057       0.195   0.494   0.951
+           6      Bangladesh         0.015    0.012    0.006       0.025   0.635   1.041
+           7     Central Africa      0.020    0.015    0.005       0.030   0.521   1.082
+           8       Cambodia          0.022    0.010    0.007       0.030   0.517   1.084
+           9         Nepal           0.023    0.016    0.004       0.032   0.478   1.100
+          10        Congo            0.023    0.014    0.003       0.031   0.396   1.142
+
+
+
+3.4.2 A 20-Year Forecast
+ We use data from 2009-2013 to forecast the comprehensive performances on environmental,
+social, and economic aspects for different countries based on the model introduced in section
+2.3. An analytical-least square method and function ODE45 are used to determine the coef-
+ficients in our forecast model. We therefore picked three countries (the US, China, Congo)
+as representatives of countries from three classes: countries already have good performances,
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 35780                                                                     Page 10 of 22
+
+countries which have a low performance but is improving, and countries which maintain a low
+performance now and in future. A 20-year prediction of three sample countries are shown in
+Figures 3-4.
+
+
+
+
+Figure 3: Forecast on comprehensive              Figure 4: The GE-Matrix for sustainability of
+performances of three countries                  three countries
+
+
+In Figure 3, comprehensive performances on environmental, social and economic aspects of the
+US, China and Congo are embodied. We can discover that the economic performance of China
+will rise largely in 20 years comparing to others.
+
+A comprehensive view of our 20-year prediction is shown in Figure 4 under the frame of a
+GE-Matrix. On referring to classification ways in Table 2, we notice that the United States has
+a strong performance in coordination and a medium performance in development at present; in
+20 years, its development will be strengthen while its coordination will remain a high standard.
+Moreover, we noticed that China is developing towards an imbalanced direction. Its coordina-
+tion remains weak in 2029. As for Congo, situation worse in 2029 since both index will go
+towards zero.
+
+Therefore, countries like China should adjust its policies towards a better direction rather than
+focusing on economic development; countries like Congo needs more aids on all aspects.
+
+
+
+
+                                                                                         4
+                                                     A Sustainable
+                                                 Development Plan
+In this section, we create a model to describe a sustainable development plan on a country by
+adding control elements into the state equation. The optimal result of the model is obtained by
+using dynamic programming. At last, we do a case study on Congo.
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 35780                                                                      Page 11 of 22
+
+4.1 Adding Control into the State Equation
+We add control from the plan to our original state equation by direct and indirect control matri-
+ces. The mechanism of this control is explained in details by effectiveness of control elements
+in matrices.
+
+4.1.1 Direct and Indirect Control Matrices
+This control measure is developed on the base of our original state equation (Equation (4)). In
+order to add effects of control from the plan to the system matrix A, we discrete original state
+equation as below
+                                        dF    Fk+1 − Fk
+                                            =
+                                         dt        T
+Therefore the state equation (Equation (4)) is converted into
+                                                                      
+      Fen             1 + α11 T      α12 T      α13 T         Fen        β1 h            i
+    Fso        =  α21 T         1 + α22 T    α32 T   Fso  +  β2  Û1 Û2 Û3
+                                                                                           k
+      Fec k+1            α31 T       α32 T    1 + α33 T       Fec k      β3
+
+which equals to
+                                     Fk+1 = ĀFk + BÛk                                      (5)
+The discrete equation above clearly indicates that system matrix Ā and input matrix B both
+have effects of control on comprehensive performances Fi s. In addition, Fi values are bigger
+than zero; meanwhile, the bigger the values are, the more favorable the result is. Overall, we
+can control a country’s sustainable development trend by controlling Ā and control a country’s
+capacity on adjusting to outside effects by controlling B .
+
+A sustainable development plan is used to change a country’s sustainable development trend,
+so the mathematical description of state equation after adding the plan is created as
+
+                                F0 = (GcA AF + UbA ) + BÛ                                   (6)
+Figures 5-6 are flowcharts of change of F0 before and after executing the plan.
+
+
+
+
+Figure 5: Flowchart of F ’s change before        Figure 6: Flowcharts of F ’s change after
+executing the plan                               executing the plan
+
+
+GcA is an indirect control matrix, since the plan can indirectly exerts control by using GcA to
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 35780                                                                       Page 12 of 22
+
+influent system matrix A. Here we ignore elements in GcA which have coupled effects on A.
+Therefore                                                 
+                                                c1 0 0
+                                     GcA =  0 c2 0                                           (7)
+                                                0 0 c3
+where ci s are indirect control elements from the plan. Properties of ci are shown in Table 4.
+
+                 Table 4: Effects of the plan according to ci and αij
+                             ci < 1                                       ci > 1
+ αij < 1   Plan reduces original negative effect       Plan enhances original negative effect
+ αij > 1    Plan reduces original positive effect       Plan enhances original positive effect
+
+
+
+UbA represents direct control from the plan. With direct control, plans or policies focusing
+on one aspect only exert influence on that aspect. Hence, UbA equals to a proportion of the
+original comprehensive performance F. The proportion is characterized by a direct control ma-
+trix GbA as follow
+                                                                   
+                                                b1 0 0           Fen
+                           UbA = GbA F =  0 b2 0   Fso                                (8)
+                                                 0 0 b3           Fec
+ Eventually, the state equation after adding a control plan is expressed as
+                        F0 = (GcA A + GbA )F + BÛ = GA F + BÛ                                  (9)
+
+4.1.2 Effectiveness of Control Elements
+The 6 control elements bi s and ci s are interacted with each other when exerting effects on sus-
+tainable performance F, and therefore the effect caused by single element is hard to observe.
+We use the control variate method to discuss effects on comprehensive performances (Fen ,
+Fso , Fec ) and Sustainability Score when each control elements change in a certain degree. This
+discussion provides a foundation for plan-solving.
+
+Under a special condition when ICM do not offer any aids, the indirect control matrix GcA
+becomes an identity matrix and the direct control matrix UbA becomes a null matrix. There-
+fore, the two matrices do not effect system matrix A, and the state equation (Equation (6))
+becomes identical with the one without plan (Equation (5)).
+
+Under a normal condition with aids, we discuss ci by setting
+                                     
+                                      ci = 1 ± k · p
+                                     
+                                        cj = 1, i 6= j
+                                     
+                                     b =0
+                                         i
+
+where k represents interval quantities; p represents interval length. We discuss bi by setting
+                                       
+                                        bi = k · p · αjj
+                                       
+                                          bj = 0, i 6= j
+                                       
+                                       c =1
+                                            i
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 35780                                                                        Page 13 of 22
+
+where k represents interval quantities and p represents interval length.
+
+4.2 A Dynamic Programming Solution
+In order to give the result of an optimal 20-year plan, we have to choose a suitable method to
+solve our model. Our plan making problem is indeed a multistage decision making problem;
+therefore, a dynamic programming algorithm is adopted.
+
+
+1) Stage and stage variables n
+   We divide the 20-year plan into 4 stages; every 5 years is a stage n. k represents the time
+   unit of year
+
+2) State variables S
+   The state variables are Fen , Fso , Fec . Index DI and CI can be calculated via them.
+
+3) Decision variables X
+   Decision variables are expressed as GA = GcA A + GbA , which includes control elements
+   ci and bi (i=1,2,3). Value range of control elements are determined by effectiveness
+   analysis on them.
+
+4) Strategy
+   A strategy is a set of decisions. Expressed as {GA (1), GA (2), GA (3), GA (4), }
+
+5) State transition function
+   The state transition function in stage i is F 0 = GA (i)F + B Û . In addition, initial values of
+   state variables in stage n equals to final values of state variables in stage n − 1.
+
+6) Value function V
+   A value function is a quantitative indicator of how good the process is. Here value function
+   Vn represents a sum of every year sustainability scores in stage n.
+                                        4
+                                        X            4 X
+                                                     X 5
+                                  V =         Vn =             Scorenk (sn , xn )
+                                        n=1          n=1 k=1
+
+   represents the value function of the entire process.
+
+4.3 Development Activities in Practice
+Concrete policies and aids are crucial for an effective sustainable development plan, while all
+of them should consider both development and coordination at the same time. So when creat-
+ing a 20-year sustainable development plan, the effectiveness of specific development activities
+should be evaluated first. Only in this way can we clarify how the plan acts in matrix GA and B,
+and whether it performs well or badly. There are many development activities bringing direct
+or indirect benefits through programs, policies, and aids which can be provided by ICM.
+                           [22]
+Sharifzadegan and Gollar used the method of Strategic Environmental Assessment (SEA)
+to assess a strategic plan and different development activities. With the help of this research
+we can obtain Table 5 which reveals development activities and their score of effectiveness in
+detail.
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 35780                                                                              Page 14 of 22
+
+         Table 5: Development activities and their scores of effectiveness
+                                         development activities                                      score
+                 The reduction of air pollution in the civic and residential areas                   0.20
+                 Protecting the agricultural lands and forests                                       0.23
+                 The reduction of air pollution                                                      0.13
+ environmental
+                 Transferring the obtrusive industries to the industrial towns                       0.13
+                 Preventing from contamination of the water resources                                0.17
+                 No damaging to the protected areas                                                  0.13
+                 Strengthening the infrastructure                                                    0.04
+                 Improve the sewage disposal                                                         0.12
+                 Create sustainable communities and recognize urban growth                           0.18
+                 Renewal of informal settlements                                                     0.26
+     social
+                 Accessibility to public transportation systems                                      0.12
+                 Control housing and offer residential use                                           0.07
+                 Improve road infrastructures and built new roads                                    0.14
+                 Guarantee water supply by new water supply company and pipes                        0.07
+                 Transferring the obtrusive industries to the industrial towns                       0.19
+                 Using the huge social and accumulated capital for the expansion of the employment   0.13
+                 Investment in local companies                                                       0.16
+   economic
+                 Technical support                                                                   0.23
+                 Provide measures to amend by the home occupation and cottage industry regulations   0.10
+                 Finances this organization                                                          0.19
+
+
+
+
+In order to give concrete form of a plan using the development activities in the table, a series of
+work should be done:
+
+
+Step 1 We can analyze the effects each one of control elements bi , ci have on the comprehen-
+       sive performance F using method in section 3.1.2.
+
+Step 2 Subsequently we use dynamic programming as indicated in section 3.2 to determine
+       the optimal value of control elements bi , ci
+
+Step 3 The importance rankings of environmental, social and economic aspects and the score
+       of activities under each aspect can collectively determine the activities’ strength in the
+       plan.
+
+4.4 A Case Study on Congo
+In this part, we will do a case study on Congo (Democratic Republic of the Congo), one of
+the Least Developed Countries (LDC). According to our previous result in Figure 4, Congo’sp
+Development Index and the Coordination Index are nearly going to be zero by 2029. (Congo is
+in a deep crisis!) Thus, receiving aids from ICM will be like clutching at straws for Congo.
+
+To start with, we give quantitative analysis on effects control elements have in a Congo case.
+Subsequently we obtain a new 20-year forecast with a plan-controlling for Congo and compare
+it with the forecast without plan. Finally, some practical development activities are provided
+within the plan.
+
+4.4.1 Adjusting Control Elements
+                                                                   [20]
+By using data collected from the World Bank Database and adopting a control variate method
+introduced in section 3.1.2, we can get effects each control element has on comprehensive
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 35780                                                                    Page 15 of 22
+
+performances as well as DI and CI of Congo. Partial results are shown in Figures 7-10.
+
+
+
+
+Figure 7: Effects on Congo’s DI when            Figure 8: Effects on Congo’s DI when
+c1 changes                                      b1 changes
+
+
+
+
+Figure 9: Effects on Congo’s DI when            Figure 10: Effects on Congo’s DI when
+ci changes ±5%                                  bi changes ±2%
+
+
+Figures 7-8 indicates effects c1 and b1 have on the Development Index when c1 changes ±5%
+and ±10% and when b1 changes ±2% and ±4%. We can observe that b1 has lager impact on
+DI than c1 has. Moreover, both c1 and b1 do positive effects on DI, that is to say, DI increases
+when either c1 or b1 increases.
+
+From Figures 9-10, clear comparisons among indirect control elements ci s as well as among
+direct control elements bi s are embodied. Among three ci s, c2 has the largest impact on DI;
+among three bi s, b1 has the largest impact. While among all 6 elements, only c2 does negative
+effects on DI.
+
+4.4.2 20-year Forecasts with(out) Plan-controlling
+ Using the dynamic programming method introduced in Section 3.2 and based on our model
+added control elements, we therefore get a brand new forecast on Congo’s sustainability in 20
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 35780                                                                   Page 16 of 22
+
+years, comparing to the original forecast made in section 2.4.2. The detailed comparisons of
+forecasts with and without a plan are shown in Figures 11-12.
+
+In Figure 11, full lines are predictions of performances with a plan; dotted lines are those
+without a plan. All performances increases impressively after 20 years of plan controlling. Ac-
+cording to Figure 12, the development direction is a complete changeover after adding a plan.
+Without a plan, Congo is predicted to have index approximate to zero in 2029; however, with
+a plan, Congo is expected to reach a medium level on both development and coordination in
+2033.
+
+
+
+
+Figure 11: Forecasts of Congo on perfor-        Figure 12: Forecasts of Congo with(out) a
+mance with(out) a plan                          plan shown in the GE-Matrix
+
+
+
+4.4.3 The Plan in Practice
+On adopting steps mentioned in Section 3.3 on the Congo case, we find out that economic has
+the greatest importance on Congo’s sustainable development, social places a second. Hence
+following development activities (selected from Table 5)are recommended in our plan (Shown
+in Table 6):
+
+
+        Table 6: Activities for plan on Congo’s sustainable development
+ Recommended level           Development activities
+             1               Technical support (ec)
+                             Finances this organization (ec)
+             2               Renewal of informal settlements (so)
+                             Create sustainable communities and urban growth (so)
+             3               Protecting the agricultural lands and forests (en)
+                             Preventing from contamination of the water resources (en)
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 35780                                                                       Page 17 of 22
+
+
+
+
+                                                          External Effects                 5
+5.1 Adding a Perturbation Matrix to State Equation
+While a country can accept aid from ICM to improve its sustainability, the country may also be
+influenced by external uncertain factors. Some external factors (e.g. foreign investment, glob-
+alization)exert positive effects on sustainability; others (e.g. climate change, natural disasters)
+exert negative effects.
+
+In Equation (6), the external effects are described by the external effect matrix BÛ. BÛ is
+commonly respected as a random matrix; its elements obey a normal distribution where µ = 0
+and σ is determined by effect degree. Since elements in row i of BÛ are in proportion to Fi ,
+here we let
+
+                                           BÛ = ÂF
+where Â is a perturbation matrix of F; elements α̂ij in Â are perturbation increments and
+α̂ij ∼ N (0, σ). Therefore, the final expression of the state equation is obtained as
+
+                                  F0 = (GcA A + GbA + Â)F                                    (10)
+
+5.2 A Revised Forecast on Congo
+By setting σ = 0.4, we can obtain a revised forecast on Congo. The revised control elements
+are shown in Table 7. And a new forecast result of Congo after adding external perturbation
+influences are shown in Figure 13.
+
+              Table 7: 20 years’ optimal control scheme for Congo
+      Control Elements 2014∼2018 2019∼2023 2024∼2028 2029∼2033
+                c1                0.05             0.05            0.05            0.05
+                c2                -0.1              0              0.05            0.1
+                c3                0.5              0.4             0.4            0.35
+                b1                -0.1            -0.08           -0.04           -0.02
+                b2                0.05             0.02              0            -0.03
+                b3                0.5              0.5             0.5            0.45
+
+
+In Figure 13, performances vary drastically in some years, which indicates that external factors
+increase the difficulty of forecasting. When σ = 0.4, the overall increasing tendency of perfor-
+mances is still good, which proves that our development plan on Congo is still a favorable one.
+However, when σ ≥ 0.5, some performances will decrease to a negative value and have drastic
+fluctuation. In conclusion, our development plan for Congo can only undergo external effects
+on a certain extent.
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 35780                                                                      Page 18 of 22
+
+
+
+
+      Figure 13: Forecasts of Congo on performances with external perturbation
+
+
+
+
+                                                     Stability Analysis                   6
+It is obvious that the development pattern of a country always changes, and the Linear Time-
+invariant Systems can never completely describe the change of SDI though it is capable of
+revealing the tendency. Thus, we do stability analysis on our model.
+
+In section 3, sensitivity analysis is used to analyze the effectiveness of control elements bi and
+ci . With a similar processing mode,we can use sensitivity analysis to assess the stabilityof our
+model. We add disturbance to system parameter αij , and observe how the outputs deviate from
+                                             [?]
+expectations. Here, a OAT/OFAT method is used. Uncertainty Dij is derived from αij with
+following equation:
+
+                          1 X Fm (αij , k) − Fm (α0ij , k)
+                 Dmij =                                          m = en, so, ec              (11)
+                          k k        Fm (αij , k)
+
+Taking α12 as an example, we set αij = (1 + η)α0ij , (η = −0.3, −0.25, ..., 0.03) and k =
+2014, 2015, ..., 2018, and get a sensitivity analysis result shown in Figure 14.
+Obviously, although variation of α12 causes deviation of outputs, the deviation becomes sta-
+ble while variation of α12 becomes greater. When change rate of α12 belows 30%, the outputs
+change less than 11%. This shows that our model has stability to endure disturbance or calcu-
+lating error to a certain extent.
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 35780                                                                      Page 19 of 22
+
+
+
+
+     Figure 14: Two dimensional concentration distribution under Gaussian model
+
+
+
+
+                                        Strength and Weakness                             7
+7.1 Strength
+7.1.1 Hierarchy
+We embody the concept, sustainability of a country, in three specific indexes. They are environ-
+mental, social and economic, which can be regarded as the second level. Far more, every index
+in the second level consist of several indexes with statistical significance like life expectancy,
+inflation and forest coverage rate from World Bank Data. These data serves as the third level.
+More statistical data we collect, more correctly will we estimate a country.
+
+
+7.1.2 Quantification
+Our model standardizes statistical data with different dimension. Then, two scientific index
+called DI and CI are made to illustrate a country’s development and coordination degree. They
+can provide information which suggests organizations what they should pay attention to and
+how to deal with it. Meanwhile, countries can also be ranked by them and countries in crisis
+will come into notice.
+
+
+7.1.3 Intersectionality
+To describe the process of adjusting a country in poor into good condition is a difficult task. We
+creatively use the Principle of Control to represent adjustment measures. The input of system
+can be regarded as a country’s initial situation while the output as situation after adjustment.
+The changes in controlling matrix are equivalent to assistance and policies. Environmental fac-
+tors play a role as nonhomogeneous item.
+
+
+=== PHYSICAL PAGE 22 ===
+Team # 35780                                                                     Page 20 of 22
+
+7.2 Weakness
+We’d better conduct more sufficient quantitative analysis on how specific strategies are con-
+nected with the direct changes on the abstract performance of sustainability. This requires us to
+collect more research data on a wider range.
+
+
+=== PHYSICAL PAGE 23 ===
+Team # 35780                                                                     Page 21 of 22
+
+
+
+
+                                                            References
+  [1] Ina Ehnert: Sustainable Human Resource Management: A Conceptual and Exploratory
+      Analysis from a Paradox Perspective; Springer, 2009; pp. 35-36
+
+  [2] Brundtland Commission (1987). "Report of the World Commission on Environment and
+      Development". United Nations.
+
+  [3] Danut Mosteanu,Elisabeta-Emilia HALMAGHI.TheSustainable Development-Human
+      Development.Management and Economics, 2014, 73(1):106-113.
+
+  [4] Paula Bocarova,Stanislav Kolosta.Assessment of sustainable development in the EU 27
+      using aggregated SD index.Ecological Indicators, 2015, 73(48):699-705.
+
+  [5] Viorel Cornescu,Roxana Adam.Considerations regarding the role of indicators used in
+      the analysis and assessment of sustainable development in the E.U.Procedia Economics
+      and Finance, 2014(8):10-16.
+
+  [6] Zeljka Tonkovic, Jelena Zlatar.Sustainable Development in Island Communities: The
+      Case Study of Postira.European Countryside, 2014(3):254-269.
+
+  [7] Liu Dan.Resource-based city sustainable development ability evaluation method uti-
+      lizing BP neural network.Journal of Chemical and Pharmaceutical Research, 2014,
+      8(6):488-494.
+
+  [8] Jiali Huang, Bobert Ulanowicz.Ecological Network Analysis for Economic Sys-
+      tems:Growth and Development and Implications for Sustainable Developmen-
+      t.PLOSa˛ ˛
+              aONE, 2014, 9(6):1-9.
+
+  [9] Anthony Crabbe.Three Strategies for Sustainable Design in the Developing
+      World.Design Issue, 2012, 28(2):6-12.
+
+ [10] Vatroslav Zovko.EXPLORATION OF THE FUTURE - A KEY TO SUSTAINABLE
+      DEVELOPMENT.Interdisciplinary Description of Complex Systems, 2013, 11(1):98-
+      107.
+
+ [11] E.U.       Eurostat     Sustainable       Development        Indicators.      [2015-2-6].
+      http://ec.europa.eu/eurostat/web/sdi/indicators.
+
+ [12] Liyin Shen ,Jingyang Zhou,Martin Skitmore,Bo Xia.Application of a hybrid Entropy-
+      ĺCMcKinsey Matrix method in evaluating sustainable urbanization: A China case s-
+      tudy.Cities, 2015(42):186-194.
+
+ [13] Alberto Martilli .An idealized study of city structure, urban climate,energy consumption,
+      and air quality.Urban Climate, 2014(10):430-466.
+
+ [14] Hao Hu, Karima Nigmatulina, Philip Eckhoff.The scaling of contact rates with
+      population density for the infectious disease models.Mathematical Biosciences,
+      2014(244):125-134.
+
+
+=== PHYSICAL PAGE 24 ===
+Team # 35780                                                                  Page 22 of 22
+
+ [15] J.V.Ross.A note on density dependence in population models.Ecological Modelling,
+      2009(20):3274-3474.
+
+ [16] Zhihong Zhou,Yi Yun,Jingnan Sun.Entropy method for determination of weight of eval-
+      uating indicators in fuzzy synthetic evaluation for water quality assessment.Journal of
+      Environment Sciences, 2006, 18(5):1020-1023.
+
+ [17] CI Zhang, W. . Evaluation of urban sustainable development based on entropy. Journal
+      of Xiamen University: Arts & Social Sciences, 2004 162(2), 105ĺC119.
+
+ [18] Li, Y., Zhang, K. S., Song, N., Chen, L. Comparison of Two Analytical Approach-
+      es in the Assessment of Urban Sustainable Development. Huanjing Kexue yu Jishu,
+      2012,35(8), 199ĺC205.
+
+ [19] Yan Cheng,Jin Zhou,Zhenwei Wang. Variational Lteration Solution for a Class of Lanch-
+      ester Equation.Mathematics in Practice and Theory, 2013.1, 43(1):233-237.
+
+ [20] World Bank.World Bank Open Data: free and open access to data about development in
+      countries around the globe.[2015-2-6].http://data.worldbank.org/.
+
+ [21] M.H.Sharigzadegan, P.J.Gollar, H.Azizi.Assessing the strategic plan of tehran by sus-
+      tainable development approach, using the method of "Strategic Environmental Assess-
+      ment (SEA)".Procedia Engineering, 2011(21):186-195.
+
+ [22] J. Campbell, et al. (2008), Photosynthetic Control of Atmospheric Carbonyl Sulfide Dur-
+      ing the Growing Season, Science 322: 1085-1088

@@ -1,0 +1,1457 @@
+=== PHYSICAL PAGE 1 ===
+                                   Team Control Number
+ For office use only                                                For office use only
+ T1
+ T2                               33900                             F1
+                                                                    F2
+ T3                                                                 F3
+                                      Problem Chosen
+ T4                                                                 F4
+                                             C
+
+       2015 Mathematical Contest in Modeling (MCM) Summary Sheet
+
+       Analyzing Employee Turnover Using Dynamic Network
+                                        Summary
+   In this paper, we build a dynamic network model and perform various simulations to
+study the behavior of Human Capital Network (HCN) under disturbance such as churns.
+    We detail the structure of HCN factors and continuing effects of turnover and dy-
+namics of HCN utilizing given information and run simulations to examine the contagion
+of turnover and analyze the sustainability of HCN. We interpret and present our results
+along with robustness analysis and strengths and weaknesses of our model.
+    For Task 1, we build two networks (Personnel Relationship Network and Organiza-
+tional Network), which together form our Human Capital Network. We extract important
+information from problem material and make assumptions when necessary to deduce the
+detailed structure and assign employees with the offices. We propose an evaluation function
+of assignments and use Genetic Algorithm to find the optimal assignment. The assign-
+ment provides us with new information about employee relationship(co-office relationship
+etc.), together with the supervisory relationship form the edges in HCN and complete our
+network building.
+    For Task 2, we first detail the turnover in terms of factors and impacts and evaluate the
+cost and productivity of HCN. We then dig into the dynamics in terms of turnover process,
+promotion process and recruitment process using probabilistic method and discrete time
+system simulation. The results show that organizational churn has both direct and indirect
+effects on the organization’s productivity. The direct effect is because it causes loss of
+employee and the indirect is because it will make other employee more likely to turnover.
+    For Task 3, we utilize our dynamic network model with our discrete time simulating
+system to calculate the budget. Our result is a budget requirement of 19.14σ for recruiting
+and 10.87σ for training in the next 2 years, adding up to 30.01σ.
+    For Task 4, we also run simulations and results show that ICM can’t sustain its 80%
+full status.
+    For Task 5, our results show that promotion increases the number of high-level em-
+ployee and improve the quality of staff because only those qualified can be promoted.
+Thus promotion increases the productivity.
+    We also make further discussions on Multi-layer Networks and HR issues which com-
+plete Task 6, 7 and other requirements that the problem material brought forth.
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 33900                                                                                             i
+
+
+                                             Contents
+
+1   Introduction                                                                                         1
+    1.1 Problem Statement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          1
+    1.2 Related Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         1
+
+2   Assumptions and Notations                                                                           1
+    2.1   Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      1
+    2.2   Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    2
+
+3   The Human Capital Network Model                                                                      2
+    3.1   Assigning Employees to Offices . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       2
+          3.1.1   Principles of Employee Assignment . . . . . . . . . . . . . . . . . . . . . .          2
+          3.1.2   Evaluation of Employee Assignment . . . . . . . . . . . . . . . . . . . . .            3
+          3.1.3   Optimization Using Genetic Algorithm . . . . . . . . . . . . . . . . . . . .           3
+    3.2   Building The Human Capital Network . . . . . . . . . . . . . . . . . . . . . . . . .           4
+          3.2.1   Building The Network of Personnel Relationship . . . . . . . . . . . . . .             4
+          3.2.2   Building the Organizational Network . . . . . . . . . . . . . . . . . . . . .          5
+    3.3   Evaluating Turnover Intention of Employee . . . . . . . . . . . . . . . . . . . . . .          6
+          3.3.1   Factor of Turnover Contagion . . . . . . . . . . . . . . . . . . . . . . . . .         6
+          3.3.2   Factor of Employee Centrality . . . . . . . . . . . . . . . . . . . . . . . . .        7
+          3.3.3   Factors of Salary and Promotion Prospect . . . . . . . . . . . . . . . . . .           7
+          3.3.4   Evaluation using AHP] . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        8
+    3.4   Productivity and Costs of HCM . . . . . . . . . . . . . . . . . . . . . . . . . . . .          9
+
+4   Dynamics of Human Capital Network                                                                    9
+    4.1   Process of Turnover . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     10
+    4.2   Process of Promotion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      10
+    4.3   Process of Recruitment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      10
+
+5   Simulation Results and Analysis                                                                     11
+
+6   Sensitivity Analysis                                                                                14
+
+7   Improvements using Multi-layered Networks                                                           15
+
+8   Further Discussions on HR                                                                           16
+
+9   Strengths and Weaknesses                                                                            16
+    9.1   Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   16
+    9.2   Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    16
+
+References                                                                                              17
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 33900                                                                    Page 1 of 18
+
+
+1     Introduction
+
+1.1   Problem Statement
+
+Among various factors that influence a teamąŕs performance, the members of the team
+and the chemistry between them, i.e. teamwork, is an important one. The approach to
+this is to maintain a team of talented and well-trained people and keep them in proper
+positions. However, in modern companies employee turnover [5] often takes place and
+disturb the environments. This paper offers a model of employee turnover and its impact
+based on the Human Capital Network. The HCN is extracted as a hierarchy structure of
+staff offices and divisions as nodes and a list of 370 employees as nodes, then the turnover
+intention is analyzed by the AHP method, and divided as salary, promotion, importance
+and impacts from others. The importance of the nodes is given by the closeness centrality
+and the LeaderRank value of nodesąŕ departments. Salary and promotion are impacts
+indicators in consideration for different levels. The impact is conducted through links and
+damps as time elapse. The promotion process and recruit process are also predicted by
+stochastic process methods, which make a part in the total dynamic process.
+
+
+1.2   Related Work
+
+In recent years, there has been tremendous interest in studying Team Science and de-
+veloping appropriate model of team and team performance. Salas et al. reviewed key
+discoveries and developments in the field of team performance over the past 50 years [2].
+They concluded that ‘team performance can be modeled’ and which are our motivation
+to model the productivity.Stokols et al. argued about [3] and Kivelä et al. studied the
+Multilayer Networks. which are incorporated into our paper for improvement of our model.
+    Many works have inspected the nature of rumor propagation etc. which is similar
+to[NOT good...] turnover propagation. However, the methods they used are mainly
+mean-field equations for homogeneous networks and ... for heterogenous networks. the
+underlying mechanism of how network structure influences the rumor spreading is still an
+open question.
+   There have been extensive study But limited work has been done in analyzing the
+turnover process using a mathematical model and quantifying (??) its impact on the
+overall team performance. We are concerned in this paper with the...
+
+
+2     Assumptions and Notations
+
+2.1   Assumptions
+
+We make the following basic assumptions in order to simplify the problem. Each of our
+assumptions is justified and is consistent with the information given in [1].
+
+    • Turnover behavior of an employee is contagious. So the worker connected to
+      other employees who have churned is more likely to churn [1].
+
+    • Similar individuals are more likely to affect each other’s behavior. This is
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 33900                                                                     Page 2 of 18
+
+
+        an adopted assumption from previous work of Feeley et al. [15].
+
+
+2.2     Notations
+
+We use a list of symbols (cf. Table 1) for simplification of expression.
+
+                          Table 1. Notations (in the order of model)
+
+ Symbol      Definition                                         Notes
+                                  Human Capital Network Model
+ G           graph of Personnel Relationship Network of ICM cf. Figure 2
+ g           graph of Organizational Network of ICM         cf. Figure 3
+ N           number of nodes
+ dij         topological distance between node i and j
+                                                                             N ELDY 1
+ Rt          employee turnover rate                             Rt =                          × 100% [5]
+                                                                        (N EBY 2 +N EEY 3 )/2
+ T           turnover intention
+ CC          Closeness Centrality                               CCi = d1i = PNN
+                                                                                 j=1 dij
+ Pi          average annual salary(payment) of employee i   represents employee’s ability
+ Li          level of hierarchy of the office of employee i LCEO = 5 and LBranch = 1
+                                           The Second Model
+ Emu         stuffed
+ C           frozen
+
+
+
+
+3       The Human Capital Network Model
+
+In this model, the HCN is extracted as a hierarchy structure of staff offices and divisions
+as nodes and a list of 370 employees as nodes, then the turnover intention is analyzed by
+the AHP method, and divided as salary, promotion, importance and impacts from others.
+The importance of the nodes is given by the closeness centrality and the LeaderRank value
+of nodesąŕ departments.
+
+
+3.1     Assigning Employees to Offices
+
+Due to limited given information on the personnel relationship of ICM in detail, we assume
+some basic rules of allocating offices to complete our model. We apply these rules and
+form an AHP-based evaluation model, then we use Genetic Algorithm to find the solution.
+
+
+3.1.1     Principles of Employee Assignment
+
+Our principles for allocating offices is listed as follows:
+    1
+      NELDY:Number of Employees who Left During the Year.
+    2
+      NEBY:Number of Employees at the Beginning of the Year.
+    3
+      NEEY:Number of Employees at the End of the Year.
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 33900                                                                    Page 3 of 18
+
+
+   • Employees with higher level of position should occupy offices of higher centrality
+     and higher hierarchy in the structure diagram given in [1].
+
+   • Supervisors and executives should distribute as broadly as possible to ensure widespread
+     supervisory and to maximally utilize the manager resource.
+
+   • Offices of same level should have similar constitute for equality.
+
+   • Each executive should be matched with an administrative clerk as his/her secretary.
+
+
+3.1.2   Evaluation of Employee Assignment
+
+We first quantify these principles as follows:
+
+                                     P
+  1. Principle of centrality: E1 =       Pi · CCi
+                                  P
+  2. Principle of hierarchy: E2 = Pi · Li
+                                 P
+  3. Principle of equality: E3 = Dj
+                                   P
+  4. Principle of uniformity: E4 =   Sj
+
+    Pi is the annual salary of an employee, which is a representative of his ability. Dj is
+differences between office j and other offices of the same level. Sj is the number of same
+type of employees in office j . We hereby give the evaluation function:
+
+
+                           Eval = α1 E1 + α2 E2 + α3 E3 + α4 E4                         (1)
+
+   Because that E3 and E4 are too large, we choose α1 = 0.5, α2 = 0.5, α3 = −0.05,
+α4 = −0.05 after some experiments with random assignments. We plug these parameters
+back into Equation 1 to obtain the evaluation function.
+
+
+3.1.3   Optimization Using Genetic Algorithm
+
+We got an evaluation function in Section 3.1.2. Next we are going to find its optimum,
+which in correspondence is the best assignment solution. It is easy to show that this
+problem is a Combinatorial Optimization problem, for which search heuristics such as
+Genetic Algorithm and Tabu Search are proven to be more efficient. We notice that the
+assignment itself is naturally a representation of the gene code, so we choose Genetic
+Algorithm to find the maximum of the evaluation function (cf. Equation 1). Thus
+the evolution process such as gene crossover can be easily achieved by swap employees
+in different offices. We implement the algorithm using MATLAB, initialize 500 random
+solutions and begin iteration. The algorithm produce a satisfactory result (cf. Figure 1).
+    We can see from Figure 1 that the algorithm not only assigned offices according to
+staff hierarchy (i.e. superior offices for staff of higher position like senior manager) but
+also incorporated uniformity and equality.
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 33900                                                                                                   Page 4 of 18
+
+
+                                                           CEO
+                                                        SM JM AC*2
+
+
+                  CFO*      RESEARCH     FACILITIES         VP              HR         SALES         CIO*
+               SM AC EE*5   SM AC EE*2   SM AC EE*2     SM JM AC*2      SM AC EE*2   SM AC EE*2   SM AC EE*5
+
+
+                                                          PRODUCT*
+                                                        JM AC ES EE*4
+
+
+
+                     DIRECTOR       DIRECTOR            DIRECTOR          DIRECTOR     DIRECTOR    DIRECTOR
+                      IS*3 IE       ES IS*2 IE           IS*3 IE           IS*3 IE      IS*3 IE     IS*3 IE
+
+
+
+                                                        BRANCH*
+                                                        IS  IE*6
+
+
+
+                                     Manager Offices*                    Branch Offices*
+                                     JM AC IS EE*4                       ES     IE*6
+
+
+
+Figure 1. Organizational structure of ICM with all the employees assigned. Each block
+represents an office (without *) or two divisions (with * and thicker border). Bold text
+is abbreviation of positions(SM for Senior Manager etc.). Blocks with the same color
+and style share same constitute. Some blocks (Manager Offices and Branch Offices) are
+replaced by legend symbols for simplification.
+
+
+3.2     Building The Human Capital Network
+
+We assigned the staff with proper offices in the above mentioned. Next we are going to
+build the network using this newly deducted information.
+
+
+3.2.1    Building The Network of Personnel Relationship
+
+Now that there are a grant total of N (N ⩽ 370) employees in ICM, which is corresponding
+to the N node in graph G, and we use vi (1 ⩽ i ⩽ N ) to denote the ith node in G. In order
+to simplify the problem,we make a natural assumption that any pair of nodes vi and in G
+is connected if and only if the three following conditions are satisfied:
+
+   • vi and vj are in the same Branch or division;
+
+   • vi and vj are in the same level;
+
+   • vi and vj are respectively leaders of two office whose superior department are the
+     same.
+
+    It’s worth noting that the relationship between any two persons in ICM varies, thus G
+is a weighted graph,the weight of edge eij reveals the level of relationship between node vi
+and node vj .Let N dimensional matrix A = (wij )N ×N be the adjacency matrix of graph
+G ,we can conclude from previous discussion that:
+                          
+                             σ      if vi and vj satisf y condition 2
+                   wij =
+                             1 if vi and vj satisf y condition 1 or 3
+
+   The graph G is illustrated in Figure 2.
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 33900                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Page 5 of 18
+
+
+
+  Links within an office/division                                                                                                                                                                                                                                                                                                                 IE38
+                                                                                                                                                                                                                                                                                                                                                                                 IE37
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      top-level                                                                                                                            mid-top
+                                                                                                                                                                                                                      IE28
+                                                                                                                                                                                                                                                  IE24                                                                                                                                                     IE39
+                                                                                                                                                                                                                                                                                                                                      IE41
+
+
+
+
+                                                                                                                                                                                                                                    IE25
+                                                                                                                                                                                                                                                                                                                                                                                    IE40                                                                                                                                                                                              mid-level                                                                                                                            mid-bottom
+ Links between office heads
+                                                                                                                                                                                                    IE29
+                                                                                                                                                                                                                                                                                                                                                      IE36
+
+                                                                                                                                                                                                                                                         IE26
+
+
+
+
+                                                                                                                                                                                                                              IE27
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      bottom-level
+                                                                                                                                                                                                                                                                                                                                                                                                                                                  IE32
+
+                                                                                                                          IE72
+
+                                                                                                                                                                                                                                                                                                                                                                                                                       IE31
+                                                                                                                                                                                                                                                                                                                                                      ES6
+                                                                                                                                                   IE76
+
+                                                                                                                                                                                                                                                                            ES4
+                                                                                                     IE73                                                                                                                                                                                                                                                                                                                                                 IE34                                                                                                                                                                     EE59
+                                                                                                                                                                                                                                                                                                                                                                                                  IE33
+
+                                                                                                                                                                                                                                                                                                    IE47
+                                                                                                                                                          IE77                                                                                                                                                                                                                                                                                                                                                                                                                                                 EE61                                 EE58
+
+
+
+
+ Inter-hierarchy
+                                                                                                                      IE74                                                                                                                                       IE43
+                                                                                                                                                                                                                                                                                                                                                                                                                                            IE30
+                                                                                                                                                                                                                                                                                                                                                                                                                  IE35
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   EE60
+                                                                                                                                            IE75
+                                                                                                                                                                                                                                                                                         IE42                                                                                                                                                                                                                                                                              EE62
+                                                                                                                                                                                                                                                                                                                          IE46                                                      ES5
+
+
+
+
+ links
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    EE71
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           EE64
+                                                                                                                                                                                                                                                                 IE45
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    EE63                                       AC12
+                                                                                                                                                                                                                                                                                                                   ES7                                                                                                                                                                                                                                                                                                                                                                        EE70
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    EE72
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                          Director 2
+                                                      IE54                                                                                                                                                                                                                                  IE44
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 EE65
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     IS19                                                            EE73
+                                                                               IE58                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         JM12
+
+                                                                                                                                                                                                       IE62
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               AC13
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              IS20 JM13                                                                                                                                             EE99
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      IS22                          AC15
+                                        IE56                                                                                                                                    IE61                                                                                                                                                                                                                                                                                                                                                                                                                                                         JM15                                                                                                                       EE95
+                                                                                              IE55                                                                                                                                                                                                                                                                                         IE99
+                                                                                                                                                                 ES12                                                                                                                                                                                        IE101
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           EE2
+                                                                                                                                                                                                                                                                                                                                                                                                                                                 IE145
+                                                                                                                                                                                                                             IE65
+                                                             IE57                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 EE96
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               IS21                                                                                                                                                             EE97
+                                                                                                                                                                                            IE64
+                                                                                                                                                                                                                                                                                                                                                                                                   IE97                                                                                                                                                                                                            JM14                           SM5
+                                                                                      IE59
+                                                                                                                                                                                                                                                                                                                                                    IE98                                                                                                                                                                                                                                                                                                                                      EE89
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   EE67
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  EE69
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   EE3                                                          EE81                                                                                                                                                                                                             EE98
+                                                                                                                                                                         IE63                                                                                                                                                                                                                                                                                                                                                 EE79                                                                                                                                                                                                         AC27
+                                                                                                                                                                                                               IE60                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                SM7
+                                                                                                                                            ES9                                                                                                                                                       IE111                                                           IE100
+                                                                                                                                                                                                                                                                          IE109                                                                                                                   IE96
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         EE68                         EE66
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                EE88
+                                                                                                                                                                                             ES10                                                                                                                                                                                                                                                                                                                                                  EE78                                                                AC14
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              EE80
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            AC25
+                                                                                                                                                                                                                                                                                                                                                                   ES16
+                                                                                                                                                                                                                                                                                            IE113                                                                                                                                                                                                                                    IS24   JM17
+                                                                                                                                                                                                                                                                                                                     IE112                                                                                                                                                                                                                         AC17
+                                                                                                                                                                                                                                                                                                                                                                                                                       IS1                                                  EE8
+                                                                                                                                                                                                                                                                    IE108
+                IE68
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                             EE9
+                                                                                                                                                                                                                                                                                                                          ES18                           IE104                        IE103
+                                                                                                                      ES11
+                                              IE67                                                                                                                                                                                                                                            IE110
+
+
+                                                                                                                                                                                                      ES8                                                                                                                                                            ES17                                                                                                                                                                                                                                                                                                                                                                                                                 EE91
+                                                                                                                                                                                                                                                                                                                                                                                                                         IS2
+  IE71
+                                                                                                                                                             ES13                                                            IE51                                                                                                                                                                                                                        IE148
+                       IE66                                                                                                                                                                                                                                                                                                                                                                       IE107
+                                                                                                                                                                                                                                                                                                                                                                             IE102                                                                                                                                  EE32             EE30                                                                      EE12
+                                                                                                                                     IE81                                                                                                                                                                                                          IE105                                                                                                            EE41            EE40                                                                                                                                                                                                                                                                                 EE90
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       EE19                                                                                                         EE94
+
+                                                                                                            IE83                                                                           IE48
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            EE13
+                                                                                                                                                                                                                                                                                                                                                                                                                               IS4                                                                                                                                                                                                                                    EE20
+                                                                                                                                                                                                                                                                                                                                                                                       IE106                IE6
+                                                                                                                                                                                                                                                                                                                                                             ES19                                                                                           EE39
+                                                                                                                                                                                                                                           IE49                                                                                                                                                                                                                                                                                             EE33                                                                            EE10                                                                                                                                 AC26
+                                                                                                                                                                                                                                                                                                                   IE13                                                                                                                    EE5                                                                                                                                                                                                                                                  EE21                                                                     SM6
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   VP
+                                      IE70                                                                                                                                                                                                                                                                                                                                                                                                                                               AC7                           EE31
+                                                                                                                                                                                                               IE53                                                                                                                                                         IE114                                                                                           EE38
+         IE69                                                                                                                                                                                                                                                                     IE14                                                                                                                    IE8                                                                                                                                                                                                                                                                                                                                                                      EE92           EE93
+                                                                                                                                            IE78                                                                                                                                                                                                 IE118                                       IE116                       IE146                                                                                                       AC5
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            EE11               AC0                                                   AC2
+                                                                                               IE82                                                                                                                                                                                                                                                                    IE115
+                                                                                                                                                                                                                                                                                                                                                                                                                                                           IS14JM7                               IS12 JM5
+                                                                                                                                                                                                                                                                                                                                                                                                                                     EE4                                                                                                                                                                                                                                              EE18
+                                                                                                                                                                                                                                                                                                      IE17                                         IE117
+                                                                                                                                                                                                                                                                                                                                                                                    IE10                  IE7
+                                                                                                                                                                                                                                                                                                                                  IE12                                                                                                                                                                                                                    AC20
+                                                                                                                                                                                                                                                                                                                                                                                                                          IS6
+                                                                                                                                                                                               IE52                                                                                                                                                                                                                                                                                                                                                                                                                                              IS9 JM2
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  CEO
+                                                                                                                                                                                                                               IE50                                                                                                                          IE119                                 IE9                                                   IS13JM6                                                                                                                                                     IS7 JM0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             JM19
+                                                                                                                                                                                                                                                                               IE16                                      ES2                                                                                                                                                                                                         SM1
+                                                                                                                   IE80                     IE79                                                                                                                                                                                                                                     IE11                       ES24                 IS0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               IS11 JM4                                                                                                                                              AC18
+                                                                                                                                                                                                                                                                                                           IE15                                              ES1                                                                                 EE35               EE36                                                                                                                                                                                                                                                EE82
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  AC6                                                                  AC21                                                                           JM18
+                                                                                                                                                                                                                                                                                                                                                                                                  IE149                                                                                                                                                                                                                                                            SM0
+                                                                                                                                                                                                                                                                                                                                                                                                                         IS5
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    AC19                                      SM2
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               IS8                                                                                        AC22
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    EE26                                                                                              JM1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               AC4                                                                                                                                                                                                                                              EE85
+                                                                                                                                                                                                                                                                                                                                                ES3                IE19                                                                              EE34
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                         EE37                                                                                                        EE17                                                 IS10 JM3                                                                                                   SM3
+
+                                                                                                                                                                                                                                                                                                                                      IE22                                                                                                                                                                                                                                                                                                                                                                         EE83
+                                                                                                                                                                                                                                                                                                                                                                                                                           IS3                                                                                                                                                                      AC1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      EE29                         EE28
+                                                                                                                                                                                                                                                                                                    ES0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          EE84
+                                                                                                                                                                                                                                                                                                                                                                          IE18                                                                                                                                                                                                                                                                                                                                                                                          AC23
+
+                                                                                                                                                                                                                                                                         IE4                                                                                                                                                                 EE1                                                                                                                             EE15
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           EE16                                              AC3             EE23
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    EE27
+
+                                                                                                                                                                                                                                                   IE5                                                                                   IE23
+
+
+                                                                                                                                                                                                                                                                                                                                                                      IE21                                  IE144                                                                                                                                                                           EE14
+
+                                                                                                                                                                                                                                                                                      IE0                                                                                                                                                                                                                                                                                                                                                                  EE24                        EE25
+                                              IE139
+                                                                       IE141                                                                                                                                                                                                                                                                                                                                                                                       EE0
+                                                                                                                                                                                       IE126
+                                                                                                                                                                                                                                                                                                                                                  IE20
+                                                                                                                                                                                                                                                           IE3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         EE22
+                                                                                                                                                                 IE128
+
+                                                                                                                                  ES23
+                              IE143
+                                                                                                                                                                                                     ES21                                                                                   IE1                                                                                                                                                                                                              IS23
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     JM16     AC16
+                                                                                 IE142                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      AC29                 EE105
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    EE7                                                                                                                                                                                                                                                                                                  SM9
+                                                                                                                                                                                   IE131                                                                           IE2
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  EE77                                                                                                                                                                                                                                                                             EE107
+                                                                                                                                                                                                                                                                                                                                                                                                   IE147
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            EE76
+                                                                                                                                                           IE130
+                                      IE138                    IE140                                                                                                                                        IE127                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 EE108
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             EE52          AC10
+                                                                                                                                                                                                                                                                                                                                                                                                                                                   EE6
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               EE74                                                                                                                                                                                                                                                                              EE109
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                EE75
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  AC24
+                                                                                                                                                                                   IE129                                                                                                                                                                                                                                                                                                                                                                                                                 EE53                                                                                                                                                  EE106
+                                                                                                                                                                                                                                                                                                                                         ES15
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   EE50
+
+
+
+
+   Branch L                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          EE87
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                      Internet
+                                                                                                                                                            ES22                                                                                                                                                                                                                                                                                                                                                                                                                             EE51
+                                                                                                                                                                                                                                                                                                           IE90
+                                                                                                                                                                                                                                                                                                                                        IE95                                                                                                                                                                                                                             IS17 JM10
+
+                                                                                                                                                                                                                                                                                                                                                                IE93                                                                                                                                                                                                                                     SM4
+
+                                                                                                                                                                                                                    ES20
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             EE86
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          AC8      IS15 JM8
+
+
+                                                                                                                                                                                                                                                                                                    IE91                                                                                                                                                                                                                                                                             IS18 JM11                                                                                                                    SM8
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         AC28
+                                                                                                 IE136                       IE134                                                                                                                                                                                                                                                                                                                                                                                    EE42
+                                                                                                                                                                                                                                                                                                                                 IE94                         IE92
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     AC11
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  IS16 JM9                                                                                                                                                 EE102
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       EE44
+                                                                                      IE137                                                                                                                                                                                                                                                                                                                                                                                                                                          EE43                                                                                                                                                                 EE103
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   EE55
+                                                                                                                                   IE135                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           EE104
+                                                                                                                                                                                                            IE123                                                                                                                        ES14
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     AC9
+                                                                                                                                                                                                                                       IE120                                                                                                                                                                                                                                                                         EE45                                                                                 EE57
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       EE101
+                                                                                               IE132                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    EE100
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          EE54
+
+                                                                                                                          IE133                                                              IE125
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  EE46                                                EE56
+
+                                                                                                                                                                                                                                      IE121
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                EE49
+
+
+                                                                                                                                                                                                                                                                                                                               IE86                                                                                                                                                                                                                                          EE47
+                                                                                                                                                                                                                                                                                                                                                              IE88
+                                                                                                                                                                                           IE124
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          EE48
+                                                                                                                                                                                                                       IE122
+                                                                                                                                                                                                                                                                                                      IE85
+
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                   IE87
+
+
+
+
+                                                                                                                                                                                                                                                                                                            IE89                          IE84
+
+
+
+
+Figure 2. Personnel Relationship Network of ICM. The color denotes office hierarchy.
+Small clusters of offices and three types of edges are labeled. Some edges are omitted for
+conciseness.
+
+
+3.2.2                                           Building the Organizational Network
+
+Also we can get the Organizational Network. The procedures of forming g can be imple-
+mented as follows:
+
+     1. add all staff offices and divisions to g as nodes.
+
+     2. add hierarchy chains as directed edges, from lower hierarchy to higher.
+
+     3. for all nodes pairs, if the two nodes have the same hierarchical father, add a bi-
+        directed edge between them.
+
+     4. add a sink node to graph, then connect all nodes except the sink node to the sink
+        node with a bi-directed edge, which is in convenience for leader rank.
+
+    Graph g is a directed graph (cf. Figure 3). The calculated LeaderRank Value is
+illustrated by the node size. Note that LeaderRank Value is not always consistent with
+hierarchy.
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 33900                                                                                                Page 6 of 18
+
+
+
+                                        Branch J
+                                                                             top-level        mid-top
+
+                                Branch I               Branch B              mid-level        mid-bottom
+                  Branch L                                 Branch A          bottom-level
+                                       Director 5
+               Branch K
+                                                    Director 1
+                          Director 6
+
+                                                                 CFO      CIO               Plant Blue
+           Branch C
+                      Director 2        Production Manager                       Facilities
+           Branch D                                                                           Plant Green
+                                                                       CEO
+                                                          VP                     Research
+                                          Director 4                                             Networks
+                                                                   HR
+                          Director 3                                                          Information
+                                                    Program Manager
+               Branch G
+                                                                       Sales Marketing
+                 Branch E                 Branch H
+                          Branch F                                 World Wide Regional
+                                                                             Internet
+
+Figure 3. Organizational Network of ICM. The color denotes office level. The size of
+the node denotes the LeaderRank Value. Note that the LeaderRank Value of Production
+Manager is higher than that of VP despite of their hierarchical relations.
+
+
+3.3     Evaluating Turnover Intention of Employee
+
+Cotton et al. found that factors such as pay and employment perception are the most
+highly reliable correlates of turnover [6]. The factors can be divided into External Factors
+and Internal Factors. We adopt his conclusion and further specify them into three basic
+elements: salary, level of position, promotion prospect. We also introduce the influence of
+other people’s turnover behavior, summing up to four elements denoted by C1 , C2 , C3 ,
+C4 for quantification.
+    In order to find the employee with the highest turnover probability, we use AHP to
+evaluate the contribution of each factor to turnover intention.
+
+
+3.3.1    Factor of Turnover Contagion
+
+Hereinbefore we assumed that if one employee left, other employees close to him are
+influenced and are more likely to ‘churn’ (cf. Section 2.1). We quantify the level of
+influence by introducing Structural Equivalence [15] as closeness. We assume that the
+level of influence of one’s turnover to another’s intention is positively correlated with
+Structural Equivalence (in other words, similarity).
+   We adopt the RA Index [16] in weighted graph to measure the similarity between
+nodes. Consider a pair of nodes, x and y which are not directly connected. If node x can
+send some information to y with their common neighbors playing the role of transmitters,
+then they would share some similarity. We revise the original RA Index and define the
+similarity between x and y as the amount of resource y received from x :
+                                                      X          wxz + wyz
+                                       sxy =
+                                                                   k(z)
+                                               z∈Γ(x)∩Γ(y)
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 33900                                                                   Page 7 of 18
+
+
+    where Γ(i) is the set of neighbors of x and k(i) the degree of x , and we can develop
+the expression of C1i :
+
+                                       X      e−β(t−tj )
+                               C1i =                       sij
+                                       a ∈S
+                                            1 + e−β(t−tj )
+                                        j
+
+   where S denotes the set of former employees who have churned at moment ti . We use
+Logistic Curve to describe former employee’s impact due to the attenuation effect.
+
+
+3.3.2   Factor of Employee Centrality
+
+Individuals with greater centrality in a communication network are less likely to turnover
+due to the information and social support benefits provided by peers in the workplace [15].
+     In our model the overall importance of an employee is determined by his centrality in
+graph G (cf. Figure 2) and the importance of his department in graph g (cf. Figure
+3). Because Closeness Centrality can be regarded as a measure of how long it will take
+to spread information from certain node to all other nodes and is widely used in Social
+Network Analysis [17], we choose Closeness Centrality as the measurement. And the
+importance of his department in graph g is determined by the LeaderRank Value of the
+office.
+     For each node in graph G , we calculate its Closeness Centrality as follows: For node
+i , calculate mean distance between it and every other node as di :
+                                                N
+                                            1X
+                                       di =    dij
+                                            n
+                                               j=1
+
+   where dij is the topological distance between i and j . The reciprocal of di is defined
+as Closeness Centrality:
+                                           1      N
+                                   CCi =     = N
+                                          di    P
+                                                   dij
+                                                    j=1
+
+
+   For each office in directed graph g , we calculate the LeaderRank Value LR as follows:
+   To conclude we give the expression of C2i :
+                                               1
+                                    C2i =
+                                            LR × CCi
+
+3.3.3   Factors of Salary and Promotion Prospect
+
+We assume that the salary is the same among same hierarchy, so we quantify the factor
+of salary as follows:
+                          
+                           ξ1 node i belongs to top hierarchy
+                    C3i =   ξ2 node i belongs to mid hierarchy
+                            ξ3 node i belongs to bottom hierarchy
+                          
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 33900                                                                                    Page 8 of 18
+
+
+   Similarly, assuming that the promotion prospect is the same, we give:
+                        
+                         ψ1 node i belongs to top hierarchy
+                  C4i =    ψ2 node i belongs to mid hierarchy
+                           ψ3 node i belongs to bottom hierarchy
+                        
+
+
+    We choose ξ1 = 1 , ξ2 = 0 , ξ3 = 0 on account of the relatively low CEO-to-worker
+salary ratio. And because that employees in the middle ‘feel stuck in their jobs with little
+opportunity to advance’ [1], we choose ψ1 = 0 , ψ2 = 1 , ψ3 = 0 .
+
+
+3.3.4    Evaluation using AHP]
+
+We gave the quantification of factors in the above text. Our AHP hierarchy for this
+evaluation is illustrated in Figure 4.
+
+
+                                      Turnover Intention (T)
+
+
+
+        Impact from Others (C1)    Employee Centrality (C2)    Salary (C3)   Promotion Prospect (C4)
+
+
+
+
+             Employee1            Employee2          Employee3         ………              ...
+
+
+
+
+        Figure 4. The AHP hierarchy for determine employee’s turnover intention.
+
+
+   Combining those four factors using AHP, we give the following pairwise comparison
+matrix:
+                                     C1 C2 C3 C4
+                                                   
+                              C1      1 2 3 1/2
+                              C2   1/3 1 1 1/2 
+                                                    
+                              C3  1/2 1 1 1/3 
+                              C4      3 2 2 1
+
+   Thus we have the evaluation function expressed as Equation (4), in which the pa-
+rameters α1 , α2 , α3 , α4 are to be determined.
+
+                                   T = α1 C1 + α2 C2 + α3 C3 + α4 C4                                    (2)
+
+   We calculate the parameters using MATLAB, and get α1 = 0.3084, α2 = 0.1482,
+α3 = 0.1445, α4 = 0.3989. We test the consistency of our AHP in the following two
+aspects:
+
+  1. The Consistency Index CI = (λmax − n)/(n − 1) should be close to zero. With n = 4
+     we get CI = 0.0045, which is very close to zero.
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 33900                                                                       Page 9 of 18
+
+
+    2. The Consistency Ratio CR = CI/RI should be less than 0.1. With n = 4 we get
+       RI = 0.9 and CR = 0.05 < 0.1.
+
+    The test result displays perfectly acceptable consistency.
+
+
+3.4    Productivity and Costs of HCM
+
+The contribution of employee to the company is intuitively relevant to the following three
+factors:
+
+    1. The ability of the employee, represented by his wage.
+
+    2. The efficiency of the employee (denoted by ei ). It is trivial to see that efficiency is
+       inversely proportional to turnover intention.
+
+    3. The importance of the office in which the employee works. This factor is introduced
+       by modifying coefficient λi and is equal to LeaderRank Value of graph g .
+
+    Thus we have productivity expression as follows:
+                                            X
+                            P roductivity =      λ i × Pi × e i                            (3)
+                                                   i
+
+
+    The overall recruiting costs of ICM is given by the summation of new workers’ median
+recruit costs:                            X X
+                                  RCall =             M Rj
+                                             j   Nj ∈N W
+
+    where RCall is for overall recruiting costs, Nj represents a node of level j, N W indicates
+the new worker set, and M Rj is the median recruiting costs of level j. The training costs
+is related to the current number of workers in different levels, which are given by:
+                                           X X
+                                  T Call =               M Tj
+                                            j    Nj ∈N odes
+
+    where T Call is for overall recruiting costs, Nj represents a node of level j, Nodes
+indicates the set of all nodes, and M Tj is the median training costs of level j .
+
+
+4     Dynamics of Human Capital Network
+
+We further analyze the dynamic characteristics of HCN. The dynamic process imcludes
+churns, promotions and recruits. The churn exhibits impacts on linked nodes as parts
+of the turnover intention. With stochastic process the recruits and promotions can be
+regarded as random variables following to specific distributions. Using the model
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 33900                                                                     Page 10 of 18
+
+
+4.1   Process of Turnover
+
+The process of turnover is based on the turnover intention analysis in Section 3. The
+nodes to churn is chosen randomly with their turnover intention as weight. By approxi-
+mating the poisson distribution can best describe churns distribution as follows:
+                                                 e−λ λk
+                                  P (nch = k) =                                     (4)
+                                                   k!
+   where represents the number of churns. If the time unit is month, we have Eventually,
+A churned worker loses his links and is deleted from the G graph.
+
+
+4.2   Process of Promotion
+
+We aim to distinguish qualified workers in the company, hence we choose the service time
+and the work experience as two diciplines in promoting. The service time of a worker is
+the duration he stays in this company. The service time requirments with respect to levels
+of positions are shown as Table 2.
+
+          Table 2. Service Time Requirements for different Level of Positions.
+
+                    Level of Position        SM    JM      ES     IS   EE   IE
+               Service Time Requirements      8     5       3     2    1    0
+
+    Note that the promotion of Administrative Clerk is ignored in the promotion process
+because of the differences in jobs especially in a production-oriented company. We assume
+that worker with service-time beyond comparison in Table 2 be cropped to the maximum
+requirements initially. Therefore, we choose a truncated gaussian distribution with a mean
+value of µj and a variance of σj to describe the distribution of service time of workers in
+level j as the approximation of initial distribution:
+                                                        (x−µ )2
+                                                          j
+                                                1    −    2
+                             G(x|µj , σj ) = √      e 2σj
+                                               2πσj
+    where G(x|µj , σj ) represents the gaussian distribution function, and µj is the minum
+service time requirement in level j, σj is chosen as twice of the length of intervals. The
+truncate range is the ranges in Table 2. Because that Senior Manager has no where to
+promote, we don’t care about his promotion.
+    The work experience can be determined by the similarity of the nodes and the vacancy,
+where we create a virtual node as well as several virtual edges to connect real nodes. By
+replacing the vacancy with the virtual node, the similarity between the vacancy and other
+nodes is calculated. Similarity is a proper indicator of the related work experience for
+there are strong edges inside the staff office and hierarchy. A worker is promoted to a
+higher level means he should get used to new circumstances, loses old links and forms new
+links.
+
+
+4.3   Process of Recruitment
+
+Since the median time to recruit(M Tj with respect to level j in months) is a constant
+value, the number of workers ICM recruit during a unit time interval can be formulated
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 33900                                                                                         Page 11 of 18
+
+
+as Poisson Random Distribution. The probability is given by Equation 4. where nj
+represents the recruit number of level j. When the time unit is month, we have . A new
+worker forms the links deleted when he is recruited. When the time unit is month, we
+have:
+                                             1
+                                        λ=
+                                            M Tj
+
+
+5        Simulation Results and Analysis
+
+For Task 2(1), our simulation result indicate that a churn in network induces impacts
+according to the similarity of nodes (cf. Figure 5, 6). Nodes having strong connection
+with the churn node gain large external factors in their turnover intentions while the others
+suffer less impact, thus those heavily affected nodes are more likely to turnover. As the
+impact declines with time, the turnover intention of nodes reduce to the unaffected level.
+The impacts spread further when the affected nodes turnover, and stops at a non-churn
+node.
+
+                 relatively high turnover rate in mid-level positions
+ 1.2                                                                       1.2
+
+
+
+ 1.0                                                                       1.0
+
+
+
+ 0.8                                                                       0.8
+
+
+
+ 0.6                                                                       0.6
+
+
+
+ 0.4                                                                       0.4
+
+                              turnover propagation
+ 0.2                                                                       0.2
+
+
+                                      low                        high                                        low                        high
+ 0.0                                                                       0.0
+
+                                            turnover intention                                                     turnover intention
+−0.2                                                                      −0.2
+  −0.2     0.0    0.2   0.4     0.6          0.8          1.0       1.2     −0.2   0.0   0.2   0.4     0.6           0.8         1.0           1.2
+
+                        month = 6                                                              month = 8
+                          (a)                                                                    (b)
+
+
+Figure 5. Propagation of turnover intention over the Personnel Relationship Network.
+Observation of Turnover Intention of (a) a certain time and (b) two months later. Turnover
+propagation is clearly illustrated. It can also be observed that the turnover rate is higher
+in mid-level positions.
+
+
+    For Task 2(2), our simulation shows that churn will both directly and indirectly affect
+the productivity. As is shown in Equation 4, when an organizational churn takes place,
+a direct effect is decreases in the number of workers. In the simulation of two years, the
+number of workers keeps reducing due to the high turn over rate and limited recruiting
+rate. The average turn over intention of different levels of positions are shown in Figure
+7, which is a main factor of productivity. The turn over intention of middle managers
+is relatively higher than the other levels, and the rises shown in these curves represent
+the continuous impacts of churns. The productivity mainly fluctuate with the number
+of workers, but with the average productivity shown with the right y-axis, we can see a
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 33900                                                                                                                                                       Page 12 of 18
+
+
+reduction of 9.8% at the end of simulation. Churns impacts conducts to linked employee
+and have a negative effects on their productivity. Considering the declining rate, it is easy
+to know that the continuous churns will keeps a steady impacts on the productivity, thus
+causes the decreases in the average productivity comparing to the start point.
+
+                                     160
+                                                                                                                           Senior Mangers
+                                     140                                                                                   Middle Managers
+                                                                                                                           Employees
+                                     120
+
+                                     100
+
+
+
+               Productivity
+                                           80
+
+                                           60
+
+                                           40
+
+                                           20
+
+                                            0
+                                                 1   2   3   4       5   6   7    8   9    10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
+                                                                                                Month
+
+                                                                                 Figure 6. Task 2.1
+
+
+                                           0.8                                                                                         0.6
+                                                                                                                Employees
+                                           0.7                                                                  Middle Managers
+                                                                                                                                       0.5
+                                                                                                                Senior Managers
+                                           0.6                                                                  Average Productivity
+
+
+
+
+                      Turnover Intention                                                                                                     Productivity (avg.)
+                                                                                                                                       0.4
+                                           0.5
+
+
+                                           0.4                                                                                         0.3
+
+
+                                           0.3
+                                                                                                                                       0.2
+
+                                           0.2
+                                                                                                                                       0.1
+                                           0.1
+
+
+                                           0.0                                                                                         0.0
+                                                                 5                    10                15            20
+                                                                                              Month
+
+                                                                                 Figure 7. Task 2.2
+
+
+    For Task 3, Our model yields a budget requirement of 19.14σ for recruiting and 10.87σ
+for training in the next 2 years, adding up to 30.01σ. The recruiting costs of ICM in terms
+of σ shown in Figure 8 varies randomly, which is caused by the poisson distribution of
+recruit numbers. The training costs is a function of the number of workers and their levels
+resulting in the smooth decrease of the curve.
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 33900                                                                                                                                                             Page 13 of 18
+
+
+                                        2.0                                                                                                 8
+                                                                                           Relative Recruiting Cost
+                                                                                                                                            7
+                                                                                           Relative Training Cost
+
+
+
+
+             Relative Recruiting Cost                                                                                                           Relative Training Cost
+                                        1.5                                                                                                 6
+
+                                                                                                                                            5
+
+                                        1.0                                                                                                 4
+
+                                                                                                                                            3
+
+                                        0.5                                                                                                 2
+
+                                                                                                                                            1
+
+                                        0.0                                                                                                 0
+                                                                            5         10                    15               20
+                                                                                                   Month
+
+                                                                                    Figure 8. Task 3
+
+
+    For Task 4, our result shows that ICM can’t sustain a 80% full status for positions
+when the annual churn rate is 25% or 35%. In the recruiting model the coming number
+in an average time distribution is set to follows poisson distribution, thus a higher churn
+rate makes a faster loss in worker number. As a consequence of high churn rate, the
+productivity of the company decreases a lot; the workers suffer from the impacts of churns
+and their turn over intentions are higher. The total number of workers are shown in
+Figure 9 and the numbers at 18% churn rate is also shown for comparison.
+
+                                                                  320
+                                                                                                                      35% Churn Rate
+                                                                  300
+                                                                                                                      25% Churn Rate
+                                                                  280                                                 18% Churn Rate
+
+
+
+
+                                              Number of Workers
+                                                                  260
+
+                                                                  240
+
+                                                                  220
+
+                                                                  200
+
+                                                                  180
+
+                                                                  160
+                                                                        0       5             10            15          20             25
+                                                                                                    Month
+
+                                                                                    Figure 9. Task 4
+
+
+    For Task 5, our results show that promotion increases the number of high-level em-
+ployee and improve the quality of staff because only those qualified can be promoted.
+Thus promotion increases the productivity.
+    The promotion is implemented by choosing a qualified node and replace a vacancy in
+a higher levels. As an assumption, we spare no effects on promoting qualified employees,
+which means that all qualified nodes will be promoted at once. Figure 10 shows the
+overall productivity of different levels of positions. The promotion method keeps the
+productivity of higher levels and middle levels while introduces a shortage in low levels
+employees.
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 33900                                                                                                                                  Page 14 of 18
+
+
+                         160
+                                                                                                                          Senior Mangers
+                         140                                                                                              Middle Managers
+                                                                                                                          Employees
+                         120
+
+
+                         100
+
+
+
+          Productivity
+                         80
+
+
+                         60
+
+
+                         40
+
+
+                         20
+
+
+                          0
+                                1   2   3   4   5    6   7   8   9   10   11   12   13   14   15    16   17   18    19   20   21   22   23   24
+                                                                               Month
+
+                                                             Figure 10. Task 5
+
+
+    Our further discoveries and results for Task 6 and 7 is in Section 7 and 8.
+
+
+6    Sensitivity Analysis
+
+The initial distribution of service time is a specific gaussian distribution with chosen mean
+value and variation. Since service time is a substantial factor in judging the qualified work-
+ers, the distribution can affect the number of qualified workers. Changing the distribution
+coefficient the results may change a lot.
+    We choose the σ as the variable to be checked. The σ is originally set to be twice of
+the length of level interval ( lj with respect to level j ). Thus the new σs are the same
+as the length of level interval and three times of the length of level interval. We run the
+simulation in Task 5 and the results are shown as follows:
+                                                    Table 3. Sensitivity Analysis of σ
+
+                                                         σ                                           1              2l             3l
+                                average promoted number(month)                                     2.314           2.083       2.250
+                                       average productivity                                        0.378           0.353       0.374
+                               average Senior Manager productivity                                 3.378           3.372       3.741
+                                     middle manager number                                         35.16           38.33       37.00
+
+   These four indicators are related to the high level and the middle level numbers or
+productivity, which may show same changes. Although we can hardly eliminate the fluc-
+tuation due to randomness, this indicates that the value of sigma doesn’t cause great
+changes in our results. Then we choose the mean value µ as the variable to be checked.
+The µ is originally set as the lower boundary of level interval. Thus the new µ are the
+median value of level interval and the higher boundary of level interval. We run the
+simulation in Task 5 and the results are shown as follows:
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 33900                                                                                         Page 15 of 18
+
+
+                           Table 4. Sensitivity Analysis of µ
+
+                                 µ                                            1       2l      3l
+                average promoted number(month)                              2.314    2.083   2.250
+                       average productivity                                 0.378    0.353   0.374
+               average Senior Manager productivity                          3.378    3.372   3.741
+                     middle manager number                                  35.16    38.33   37.00
+
+
+7    Improvements using Multi-layered Networks
+
+In this section, we outline the potential use of multi-layered networks.
+    Our model so far has only considered the relationship and links within the ICM. In
+fact, ICM’s employees in the Human Captial network are connected by a wide range of
+personal and public relationships. These relational ties are highly diverse in nature and
+can represent e.g. the influence or trust a person has for another. Every type of relation
+spans a social network of its own. The relationship between Human Capital network and
+other network models of the organization is therefore characterized by the superposition of
+its networks, all defined on the same set of nodes. This superposition is called multiplex
+network. We consider Network H and Network C (cf. Figure 11), which respectively
+represent part of the Human Capital Network and another network linking individuals
+with the same hometown. Comparing Network C and Network H we can see that both
+contain information that the other does not contain, e.g. SM1 and EE3 are connected in
+Network C but not in Network H.
+
+
+                                                EE3
+                                                             ES5
+                                                                         Network H
+                              EE3
+                                                                   ES7
+                                                    IS1
+
+                                        JM6
+
+                                                          EE34
+
+                                              SM1
+
+
+
+
+                              SM1               EE3
+                                                             ES5
+                                                                         Network C
+                                                                   ES7
+                                                    IS1
+
+                                        JM6
+
+                                                          EE34
+
+                                              SM1
+
+
+
+
+                                     Figure 11. Task 6
+
+
+    We could benefit a lot from the potential use of Multiplex Network [4]. With Multiplex
+network we could predict and better understand individual’s behavior. In the previous
+example, It’s consistent with our expectation if both SM1 and EE3 leave ICM for other
+jobs since thy are adjacent in Network C. Multiplex network can also be used in dynamic
+analysis at group level. We could measure the similarity based on the Jaccard Coefficient
+which quantifies the interaction between two networks by measuring the tendency that
+links simultaneously are present in both networks . Jαβ is a similarity score between two
+sets of elements and is defined between two sets of elements and is defined as the size ot
+intersection of the sets divided by the size of their union Jαβ = |α∩β|
+                                                                  |α∪β| .
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 33900                                                                       Page 16 of 18
+
+
+8     Further Discussions on HR
+
+We inspect further into this problem on the HR issues pointed out in the problem material.
+    First we incorporate annual evaluation with current HR management. We use a n
+dimensional vector −  →e = (e1 , e2 , e3 , ..., en ) to represent the annual evaluation judged by
+the supervisor , where ei ∈ [0, 1] denotes the ith component of evaluation. Assume that
+there are m optimal positions for the employee and our purpose is to find the best position
+for him/her. The requirement of k t h position can be expressed by another similar vector
+→
+−
+Φ k = (Φk1 , Φk2 , Φk3 , ..., Φkn ). Hence we denote the Euclidean distance from the employee
+                                →
+                                −
+to position k by Dk = || Φ k − −       →
+                                       e || and greater distance indicates lower possibility of
+position k being suitable for the employee. Therefore the index of the best position for
+the employee is:                                             
+                                      k = arg min Dj
+                                                  j
+
+
+    Then we analyze the HR elements of ICM by using properties of Human Capital
+Network. Note that the network average clustering coefficient can be used to analyze the
+HR functions of the Human Capital network because the coefficient of a single node can
+indicate the closeness of the cluster centered at this node. Thus the average clustering
+coefficient represents the unity of ICM by taking all nodes into account.
+
+
+9     Strengths and Weaknesses
+
+9.1    Strengths
+
+    • Comprehensiveness
+      We take careful consideration of factors related to turn-over intention.
+      Our models are capable of simulating the situation in real life. The results also agree
+      with common sense and life experience.
+      Our model is strongly related to network science whose strength in modeling is in
+      its ability to embrace the complexity of the real world.
+      The diffusion process of churn impacts is established and analyzed with dynamic
+      process involved which is a bright spot of our model.
+
+    • Robustness
+      Our models are fairly robust to the changes in parameters based on sensitivity anal-
+      ysis. It means a slight change in parameters will not cause a significant change in
+      the result.
+
+    • Justifiability
+      The result of our model is well consistent with our experience, which proves the
+      rationality and correctness of our model.
+
+
+9.2    Weaknesses
+
+    • We don’t have a full view of the components of the middle managers or the low
+      level employees, we treats them as different, but we regard them as a group when
+      analyzing results.
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 33900                                                                Page 17 of 18
+
+
+   • Some of the parameters are based on common sense because few data are available.
+     However, based on our sensitivity analysis, they will not make a great difference if
+     slightly changed.
+
+
+References
+
+ [1] COMAP. (2015). ICM Problem C. http://www.comap.com/undergraduate/
+     contests/mcm/contests/2015/problems/2015_ICM_Problem_C.pdf.
+
+ [2] Salas, E., Cooke, N. J., & Rosen, M. A. (2008). On teams, teamwork, and team
+     performance: Discoveries and developments. Human Factors: The Journal of the
+     Human Factors and Ergonomics Society, 50(3), 540-547.
+
+ [3] Stokols, D., Hall, K. L., Taylor, B. K., & Moser, R. P. (2008). The science of team
+     science: overview of the field and introduction to the supplement. American journal
+     of preventive medicine, 35(2), S77-S89.
+
+ [4] Kivelä, M., Arenas, A., Barthelemy, M., Gleeson, J. P., Moreno, Y., & Porter, M. A.
+     (2014). Multilayer networks. Journal of Complex Networks, 2(3), 203-271.
+
+ [5] Wikipedia(2015). Turnover      (employment).     http://en.wikipedia.org/wiki/
+     Turnover_(employment).
+
+ [6] Cotton, J. L., & Tuttle, J. M. (1986). Employee turnover: A meta-analysis and review
+     with implications for research. Academy of management Review, 11(1), 55-70.
+
+ [7] LinkedIn Inc,. (2014). LinkedIn Big Data: The First Report on Promotion to HOD.
+     http://www.gs.xinhuanet.com/news/2015-01/30/c_1114195205.htm
+
+ [8] Zhao, X., Liu, L., & Zhang, C. (2003). A Multi-variable Analysis on Factors Influ-
+     encing Employee’s Turnover Intention. China Soft Science, (3), 71-74.
+
+ [9] Felps, W., Mitchell, T. R., Hekman, D. R., Lee, T. W., Holtom, B. C., & Harman,
+     W. S. (2009). Turnover contagion: How coworkers’ job embeddedness and job search
+     behaviors influence quitting. Academy of Management Journal, 52(3), 545-561.
+
+[10] Bartunek, J. M., Huang, Z., & Walsh, I. J. (2008). The development of a process
+     model of collective turnover. Human Relations, 61(1), 5-38.
+
+[11] Whitmore, G. A. (1979). An inverse Gaussian model for labour turnover. Journal of
+     the Royal Statistical Society. Series A (General), 468-478.
+
+[12] Jovanovic, B. (1979). Job matching and the theory of turnover. The Journal of Po-
+     litical Economy, 972-990.
+
+[13] Tett, R. P., & Meyer, J. P. (1993). Job satisfaction, organizational commitment,
+     turnover intention, and turnover: path analyses based on meta-analytic findings.
+     Personnel Psychology, 46(2), 259-293.
+
+[14] Mobley, W. H., Griffeth, R. W., Hand, H. H., & Meglino, B. M. (1979). Review and
+     conceptual analysis of the employee turnover process. Psychological Bulletin, 86(3),
+     493.
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 33900                                                                 Page 18 of 18
+
+
+[15] Feeley, T. H., Moon, S. I., Kozey, R. S., & Slowe, A. S. (2010). An erosion model of
+     employee turnover based on network centrality. Journal of Applied Communication
+     Research, 38(2), 167-188.
+
+[16] Zhou, T., Lü, L., & Zhang, Y. C. (2009). Predicting missing links via local infor-
+     mation. The European Physical Journal B-Condensed Matter and Complex Systems,
+     71(4), 623-630.
+
+[17] Okamoto, K., Chen, W., & Li, X. Y. (2008). Ranking of closeness centrality for large-
+     scale social networks. In Frontiers in Algorithmics (pp. 186-195). Springer Berlin
+     Heidelberg.

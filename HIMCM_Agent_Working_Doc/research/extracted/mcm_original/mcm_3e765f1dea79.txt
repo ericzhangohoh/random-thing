@@ -1,0 +1,1295 @@
+=== PHYSICAL PAGE 1 ===
+          Water, Water, Everywhere
+
+
+
+
+                  Summary
+
+     A feasible and cost-efficient water strategy need determining for
+Chinese projected water needs in 2025.
+     Firstly ， China was divided into seven zones to focus on the water-
+scarce regions. Prediction model was built after adding up the statistical
+data, namely performing multivariate regression on regional water
+consumption and GDP, water demand, irrigation, then the function about
+the three and time was fitted by MATLAB. After obtaining the function of
+water consumption and time, the supply-demand balance was
+analyzed. It was found that the water-scarce zones are zone B,C,F and G，
+and the water
+shortage in 2025 ，
+316.42× 10 m ，229.65× 10 m ，281.85× 10 m .
+      To solve the water crisis ， four models--storage 、 mobilization 、
+desalination、and sewage treatment were established. In desalination and
+sewage treatment model, processing costs and environmental effects were
+calculated quantitatively. In the storage model, storage capacity of
+underground reservoirs was acquired by idealizing the aquifer. While in
+mobilization model, the various diversion routes were linear programmed
+by means of LINGO, four routes were found to have the lowest cost-- AB、
+CD、FD、CE. And sensitivity analysis was done.
+      The priority of the above measures is assessed by AHP, which showed
+the mobilization is optimal, followed by desalination. Then in that order
+the measures are combined to make up water. For the Internal water
+allocation, freshwater optimal allocation model is built to maximum the
+economic benefits. Then The final best water strategy is as follows: For C
+zone, CD、CE two routes need building with the total costs 72.78 billion
+yuan. For F zone, FD with the costs 5.43 billion yuan and 100 desalinators
+
+
+=== PHYSICAL PAGE 2 ===
+Team #22362                                Page 1of 29
+
+in Shandong, Tianjin need building. For B,F zones, those measures can’t
+completely work out, extras such as agricultural drip irrigation technology
+which can reduce the water demands should be adopted.
+
+
+
+
+                                            Contents
+
+
+
+
+     1.Introduction..................................................................................2
+     2. Analysis of This Freshwater Problem in China..........................2
+     3. General Assumptions..................................................................3
+     4. Symbols and Definitions............................................................4
+     5. Mathematical Models.................................................................4
+        5.1 Prediction model.................................................................4
+        5.2 Water storage model ..........................................................10
+        5.3 Mobilization model............................................................12
+        5.4 Seawater desalination model…………………………......14
+        5.5 Sewage treatment model……………………………....…19
+        5.6 AHP model…………………………………………….....22
+        5.7 Model for intra-regional optimal allocation of water……24
+     6 The non-technical position paper...............................................25
+     7. Examination………………………………………………......27
+     8. Evaluation.................................................................................27
+           8.1 Strengths…………..……………………………………27
+          8.2 Weaknesses…………………………………………...…28
+     9. Improvement……………………………………………….....28
+     10.References................................................................................29
+
+
+=== PHYSICAL PAGE 3 ===
+Team #22362                      Page 2of 29
+
+
+
+
+     1. Introduction
+
+
+      China is a seriously droughty and water-scarce country. The total
+freshwater resources of China is 2.8 trillion cubic meters, accounting for 6%
+of the world's freshwater resources, second only to Brazil, Russia and
+Canada, ranked fourth in the world. However, water resource per capita in
+China is only 2,300 cubic meters, which is only 1/4 of the world average,
+and China is one of the countries with the poorest water resources per capita
+in the global. What's more, China has the most water consumption in the
+world. In 2002, it’s national freshwater usage amount has already reached
+549.7 billion cubic meters, accounting for about 13% of the world's annual
+usage amount, and it is about 1.2 times of freshwater supply---470 billion
+cubic meters the United States used in 1995.
+     Since the 1970s, China has begun drying out, which is not an alarmist,
+but an objective fact. Since the 1980s, China's water shortage has already
+begun to spread from the local gradually to the whole country, and the
+situation is more and more serious, which has a serious impact on
+agriculture and the national economy. So it is necessary to build a
+mathematical model for determining an effective, feasible, and cost-
+efficient water strategy for 2013 to meet the projected water needs of
+China in 2025, and the best water strategy should be identified as soon as
+possible.
+
+
+
+     2. Analysis of This Freshwater Problem in China
+
+
+    The requirements of the subject are to determine a feasible and effective,
+and cost-effective water strategy to meet the water demand in 2025, when
+it is 2013.
+       First of all, it is necessary to predict how large the water demand in
+China would be in 2015.Water demand is determined by the regional
+freshwater supply-demand balance, and therefore it needs to predict the
+amount of water consumption and water supply. Water resources data in
+
+
+=== PHYSICAL PAGE 4 ===
+Team #22362                     Page 3of 29
+
+recent years of each area in China can be found by the National Bureau of
+Statistics .With these data, the function about the both two and time can be
+fitted, and water consumption、water supply of various parts of China in
+2025 could be obtained. Thus the dry zones and water shortage could be
+determined. With too many provinces and cities, and too much data, it is
+better to we split China into a few zones to study.
+      As to the problem of water shortage, it needs to raise solutions. In
+general, storage、mobilization、 desalination, sewage treatment and other
+measures are the common replenishment measures used by the government.
+In order to quantitatively study these programs, it needs to understand the
+specific process of each program, as well as each cost it produced. Among
+them, the diversion measures have been identified. To determine the water
+diversion route, taking the water mobilization costs into account, in view of
+the extremely uneven distribution of water resources in China, the best
+diversion route needs to be determined through the method of linear
+programming. In addition to water supply, reducing the demand for
+freshwater is also one of the ways, such as increasing the water prices, using
+agricultural irrigation drip technology, etc. They are all effective measures.
+On the other hand, the government should also improve the national water-
+saving awareness.
+      Each of these measures has its own costs, economic benefits and the
+environmental impact. When determine the water strategy, it is necessary
+to using priorities to make decisions. So it needs to use the analytic
+hierarchy model to assess and rank the various schemes. When determine
+the best solution combination, it also needs to considerate its local
+conditions and its feasibility.
+      Finally, it needs to fully compensate for the water shortage, and
+determine the best water strategy in 2025.
+
+
+
+     3. General Assumptions
+
+
+     In order to have a better study on this paper, we simplify our model by
+the following assumptions:
+1. There is no additional artificial water supply except our determined water
+   strategy from 2013 to 2025.
+2. There are no droughts、floods and strong geological disasters from 2013
+   to 2025.
+3. Water transfer line is straight, and water diversion costs per kilometer
+   ignore the impact of the terrain and the environment.
+
+
+=== PHYSICAL PAGE 5 ===
+Team #22362                     Page 4of 29
+
+4. Desalination plants are all offshore, without considering the seawater
+   transportation costs.
+5. Do not consider increased freshwater for greenhouse effect.
+6. Do not consider the effect of price changes.
+
+     4. Symbols and Definitions
+
+
+     In this section, we will give some basic symbols and definitions in the
+following for convenience.
+
+                         Table 1.Variable Definition
+
+   Variable Symbols                       Definition                    Unit
+           P                             population
+           M                                 GDP                   × 108yuan
+                                    Water demand of
+           N                                                       × 104m3
+                               agricultural irrigation
+            t                                time                       year
+                                Total water mobilization
+           W                                                           yuan
+                                       costs
+           C                       Desalination costs                  yuan
+           N                     Pollution Equivalent
+
+
+  5. Mathematical Models
+
+
+5.1. Prediction model
+   Water demand is determined by the regional freshwater supply –
+demand balance, before discussing the water demand in 2025, the water
+demand and water supply need to be predicted firstly.
+
+5.1.1. China partition according to the water resources situations
+Partition principles：
+  I. Try to take care of the integrity of the administrative divisions,
+which is convenient for collection and statistics of the data.
+  II. Each partition has the same one level of annual precipitation, and each
+partition has a relatively consistent water shortage situation.
+
+
+=== PHYSICAL PAGE 6 ===
+Team #22362                     Page 5of 29
+
+   III. Try to ensure that the coastal areas could be divided together as
+much as possible, to be convenient for subsequent desalination processing.
+     China has 32 provinces and municipalities, which can be divided into
+the North China, East China, northeast of China, southern part of China
+and Northwest according to the geographical location. And the annual
+precipitation also showed a decreasing grading from southeast to
+northwest. With comprehensive considerations of location 、 climate 、
+annual precipitation and other factors, China was divided into seven areas -
+-A zone、B zone、C zone、D zone、E zone、F zone、G zone, for the
+convenience of our study. And we have studied respectively the water
+shortage situations of the seven regions： Specific
+dividing circumstances are as follows:
+
+
+
+
+                           Figure 1：China partition
+
+
+     A   zone： Tibet、 Qinghai、 Xinjiang
+     B   zone： Gansu、Inner Mongolia, Shaanxi, Shanxi and Ningxia
+     C   zone： Sichuan、 Yunnan、Guizhou and Chongqing
+     D   zone：Hunan、 Hubei and Jiangxi、 Anhui、Henan
+     E   zone: Fujian, Zhejiang, Shanghai and Jiangsu, Guangxi,
+         Guangdong and Hainan
+     F   zone: Beijing and Hebei, Shandong, Tianjin
+
+
+=== PHYSICAL PAGE 7 ===
+Team #22362                      Page 6of 29
+
+      G zone: Jilin, Liaoning and Heilongjiang
+
+5.1.2.Analysis of water demand：
+     The demand of fresh water is constrained by the following several
+factors：
+
+
+
+
+                  Figure 2: Influencing factors on water demand
+
+      Among them, population, GDP and agricultural irrigation have greater
+impacts. In view of those too much factors, it is hard to inquiry all the
+regional annual data of all those factors, so three important factors –
+population, GDP, the agricultural irrigation, have been chosen to research
+on the usage quantity of freshwater. Namely freshwater usage quantity is a
+function of such three factors – population 、 GDP and agricultural
+irrigation. Then their relationship can be explored using multiple regression
+analysis.
+
+1. Multivariate regression analysis
+
+
+=== PHYSICAL PAGE 8 ===
+Team #22362                       Page 7of 29
+
+     Take A zone for example. Water resources data of each province and
+city can be found from National Bureau of Statistics. Integrating the data
+of all the provinces and cities in A zone by Excel（Tibet、 Qinghai、
+Xinjiang） ，the statistics results can be gotten as the following table:
+                         Table 2: Multivariate regression
+            G zone/        Population/            GDP/      Agriculture/
+  Year                                            108yuan
+             10 8m3            104                             108m3
+ 2003      554.9358          2738.00       2465.64           499.3
+ 2004       555.21           2776.00       2895.53           504.5
+ 2005       572.32           2830.00       3397.72           515.7
+ 2006      580.6569          2881.00       3977.85           523.5
+ 2007      585.5491          2934.00       4661.94           530.7
+ 2008       600.11           2977.00       5596.68           542.5
+ 2009       602.22           3012.93       5799.68           538.4
+ 2010 608.04554             3049.30        7295.36           539.6
+     Assume that the freshwater demand of G zone is A，its population is
+P，GDP is M，the amount of water used by agricultural irrigation is N.
+    It can be obtained from doing multiple linear regression analysis on A
+about P, M and N by EXCEL：
+             Regression
+     Multiple R 0.993634569
+     R Square 0.987309657
+     Adjusted R Square 0.9777919 standard error
+       3.070814168 observed value 8
+
+     Variance analysis
+                                                 df SS MS F     Significance F
+     regression 3 2934.587673 978.1959 103.7334 0.000300679
+     residual 4 37.71959863 9.4299 total 7
+     2972.307272
+
+                  Coefficientsstandard error t Stat P-value Lower 95%Upper 95%
+      Intercept 98.35615954 136.8054362 0.718949 0.041193 -281.477 478.1889
+      population 0.060931248 0.098613295 0.617881 0.00301 -0.21286 0.334726 GDP
+      0.00282513 0.004147123 0.681227 0.021244 -0.00869 0.014339 agriculture
+      0.561914512 0.361802245 1.553098 0.009838 -0.44261 1.566439
+It can be
+                G = 0.061P + 0.0028M + 0.56N                （1）
+Significance testing：
+
+
+=== PHYSICAL PAGE 9 ===
+Team #22362                       Page 8of 29
+
+     I.Combined effects testing （ F testing ）：
+
+
+     So the Original assumption can be rejected. It indicates that the r2
+（Goodness-of-fit coefficient）is significant, thus it can be deduced that
+the established binary linear regression model is effective. II. Single
+variable inspection（T testing）
+                             P:
+                            M：
+                            N：
+     All the three reject the original assumption. The three regression
+coefficients are statistically significant.
+                      So G = 0.061P + 0.0028M + 0.56N
+
+II.Curve fitting of P、M、N
+      To explore the relationship between water demand and time, it is
+necessary to find the time function of population, GDP, the agricultural
+irrigation respectively. Now the regional annual data, about population、
+GDP and the water quantity used by agricultural irrigation, have been
+gotten. Then their function relationship about time t can be fitted by
+Matlab.
+      As zone A，the fitted curve of population and x(x=t-2000)can be shown
+as figure 3:
+
+
+
+
+                 Figure 3 relationship between population and time Its
+     function relationship:
+                                                            ; （2） In a similar
+way, the fitted curve of zone GDP and x(x = t − 2000)、the fitted curve of
+the water quantity used by agricultural irrigation and
+
+
+=== PHYSICAL PAGE 10 ===
+Team #22362                         Page 9of 29
+
+x(x=t-2000)are respectively shown as Figure 4、5:
+
+
+
+
+        Figure 4 GDP and time                Figure 5 irrigation and time
+
+
+       Its function relationship：
+                         M = 755.0x − 288.1             （3）
+                                                        （4）
+      Take（2）（3）（4）into type（1），then it could be gotten that the
+relational expression about the water demand of zone A and time:
+  A = −0.0156(t − 2000)3 + 0. (t − 2000)2 + 6.9 2(t − 2000) + 428.75（5）
+       When t=2025，it could be calculated that the water demand of A
+zone is A=537.535<601.05. That is to say, water supply in 2025 is more
+than water demand, and A zone will have water about 601.05-
+537.535=63.52           in 2025 for mobilization.
+      In a similar way, using ternary regression analysis, the relationship
+curve, about annual water consumption of the other zones and time t, can
+be fitted by Matlab. (x = t− 2000 ），and the fitting results are shown as the
+following table:
+                        Table 3: Data collection and statistics
+Zone       Consumption                       P
+  A    A = 0.061P + 0.0028M + 0.56N
+ B
+ C
+ D
+ E
+ F
+ G     G = 0.02P + 0.00085M + 0.96N
+Zone       M                                 N
+  A
+ B
+
+
+=== PHYSICAL PAGE 11 ===
+Team #22362                    Page 10of 29
+
+ C
+ D
+ E
+ F
+ G
+
+
+5.1.3.Analysis of freshwater supply：
+      Water supply contains two aspects, one is the natural water supply,
+and the other is artificial water supply. Natural water supply depends on
+some uncontrollable natural factors like climate、rainfall and so on, While
+artificial water supply can provide more freshwater by improving or
+increasing the water-supply measures.
+      In order to determine water strategy of 2025 in 2013, assume that
+except the water strategy we developed, there is no additional artificial
+water supply. So it is necessary to analyze the water supply of 2025 by
+freshwater supply in 2013.
+
+
+=== PHYSICAL PAGE 12 ===
+Team #22362                         Page 11of 29
+
+     Statistical data indicate that the water supplies of each zone in 2013 are
+respectively shown as the following table:
+                     Table 4: the water supplies of each zone in 2013
+Zone    A      B                 C        D           E       F      G
+Output 601.05 523.27            565.58 1370.64       1898.92 473.83 588.71
+
+5.1.4Analysis of supply-demand balances:
+     According to the calculation method of water demand in A zone,
+water demands of other zones can be calculated, and the results are: Table 5
+Analysis of freshwater supply
+       Zone           Output         Consumption           D-value
+       A          601.0455391        537.534695          63.52
+       B          523.2719044        876.1035            -352.83
+       C          565.5787098        882.00135           -316.42
+       D          1570.63796         1168.985791         401.65
+       E          2602.916324        2494.9068           108.00
+       F          473.8310362        703.47595           -229.65
+       G          588.7133           870.56585           -281.85
+
+    The above table indicates that, among the seven zones, only zone A、
+D、and E would have enough water supply in 2025，and their redundant
+water quantity are respectively 63.52× 108m3，401.65× 108m3，108
+108m3.
+    While zone B、C、F、G would be in water shortage in 2025, and the
+quantity of their water shortage are respectively352.83 × 108m3 ，
+316.42× 108m3，229.65× 108m3，281.85× 108m3.
+
+   The water supply indicates that the water shortage situation of some
+zones is serious. In order to solve the water crisis, national water strategy
+need to be determined to face the challenge.
+
+5.2. Water storage model
+     In the flood season of rainy year, a large quantity of water supply
+exceeds demand. Excess rainwater would be stored in the intake area, in
+order to be taken advantage of in the dry season. The excess water is
+usually stored in two ways: groundwater storage that makes the most of
+the hydrogeological conditions and the pre-existing groundwater
+extraction wells of the water-starved city to replenish groundwater;
+surface water storage that makes full use of the pre-existing reservoirs of
+
+
+=== PHYSICAL PAGE 13 ===
+Team #22362                        Page 12of 29
+
+water-starved city, the best of which supplements the surface water from
+the source region of the city's water supply (which can take advantage of
+the pre-existing water supply system).
+     The underground reservoir is a special reservoir, built with the natural
+underground water storage space, playing the roles of impoundment、
+regulation and utilizing groundwater flow. As shown in the following
+figure:
+
+
+
+
+            Figure 6: underground reservoir
+     According to the thickness of the aquifer, the distribution area and
+rock storage coefficient, it can be calculated that the maximum regulation
+and storage capacity of underground reservoir as:
+                              𝑉 𝑚𝑎𝑥 = 𝑆𝐴∆𝐻        (6)
+     Where: 𝑉 𝑚𝑎𝑥 refers to the regulation and storage capacity of
+underground reservoirs(m3); is storage coefficient of the underground
+water-bearing medium in reservoir storage layer, for the no pressure
+water-bearing body𝑆 = 𝜇 + 𝜇∗, for the pressure water-bearing body𝑆 =
+𝜇∗,where is gravity specific yield(dimensionless),𝜇∗ is elastic storage
+coefficient(dimensionless); is reservoir area (km2);∆𝐻 is the maximum
+thickness the regulation and storage layer, that is, the water level
+difference value between the extreme high water level and the planning
+regulation and storage layer bottom interface( )(Zheng et al. 2004).
+Superiorities：
+      ① Underground reservoir taking natural aquifer as water storage
+         spaces, so it has relatively simple construction conditions and
+         lower construction costs;
+      ② Underground reservoirs has little effect on other ground buildings,
+         relatively safe, low environmental impact;
+      ③ Groundwater in reservoir regions has smaller evaporation loss,
+         easy to conserve;
+      ④ It provides the basis and conditions for the joint scheduling of
+         surface water and groundwater, and it slows down the flood
+         pressure.
+
+
+=== PHYSICAL PAGE 14 ===
+Team #22362                      Page 13of 29
+
+     Problems ： It has relative larger errors to calculate the amount of
+resources of underground reservoirs; and it has a larger workload to survey,
+with higher costs and longer periods （Zhao 2002）.
+     Considering that the underground reservoir just saves the local region's
+water supply, rather than additional water source, it can be used to solve water
+supply-demand imbalance issues in the short term, so that in the dry season of
+the year, the residents can use the water of the flood season. However, it is not
+suitable as a long-term water strategy to resolve the regional water supply-
+demand imbalance situation.
+
+5.3.Mobilization model
+     By the first prediction model, it can be found that the distribution of
+water resources in China is extremely imbalanced, with more Water in
+Southern, less Water in Northern. And the water resources are
+concentrated in the Yangtze River basin.
+     In order to solve the water shortage problem, it is feasible to transfer
+the water from the wet area to the water-poor areas, by the redistribution
+of water resources through a canal or aqueduct.
+     Statistics show that the water transfer costs in the south-to-north
+water diversion project center line is 2.6 yuan/m3 (Qiu 2000). The water
+transfer costs in western route of water diversion from South to North is
+1yuan/m3( Tu 2001),and it is 3.4yuan/m3in the east route.
+     Here the diversion costs take the average value(2.6 + 1 + .4) ÷ =
+2. yuan/m3
+     Abide by the principle of cost minimization, the determination of the
+water transfer schemes need linear programming to solve.
+
+Linear programming
+     As the figure shows, in order to simplify the transfer process, take one
+big city in each zone as a centralized point to study their water mobilization.
+Those centralized point turn to be respectively:
+A:Xining(+63.52)
+B: Hohhot(-352.83)
+C: Chengdu(-316.42)
+D: Wuhan(+401.65)
+E: Guangzhou(+108)
+F: Beijing(-229.65)
+G: Harbin(-281.85)
+
+
+=== PHYSICAL PAGE 15 ===
+Team #22362                      Page 14of 29
+
+
+
+
+            Figure 7: Mobilization model
+      ①Point A、D、E are water supply points, B、C、F、G are water-poor
+points.
+                                 A+D+E=573.17
+                              B+C+F=898.9>573.17
+      So A、D、E don’t have enough water to meet the quantity B、C、F
+demand. While the distance between G and water supply points is the
+farthest， and the costs is the largest, so it can be ignored to transfer the
+freshwater to G zone.
+     ②.It can be seen that D zone must supply water to B or F（D>C），in
+order to avoid the costs caused by route repeat, when E provides water to B、
+F, it can provide water to D firstly，then to B、F.
+     ③.Because A zone had less water supply， and the distance between
+A and F is father than DF, and the distance between A and C is closer than
+CD and CE, so the routine AF can be excluded.
+     So the feasible water supply line includes AC、AB、DB、DF、DC、
+EC、ED、（ED+DB）           、（ED+DF）
+       It can be sought by measuring tape through Baidu map that ED=838
+km，EC=1233km，DF=1056km，DB=1061km，AC=703km，AB=984 km，
+CD=992km.
+      It has been assumed that the water supply amount from A to B、C is
+respectively: 𝑥 12 、𝑥 13 ，the water supply amount from D to B、 C、F is
+respectively:𝑥 42 、𝑥 43 、𝑥 46 ，from E to B、C、F is respectively𝑥 52 、𝑥 53 、
+
+
+=== PHYSICAL PAGE 16 ===
+Team #22362                    Page 15of 29
+
+𝑥 56 . Transportation costs of the unit volume of water are a ， the
+transportation costs are W.
+      So the Decision objective:
+      minW=(703𝑥 12 +984𝑥 13 +992𝑥 43 +1061𝑥 42 +1056𝑥 46 +1233 53 +189
+  9𝑥 52 +1894                                    )                     (7)
+
+
+
+
+   Constraints                                           (8)
+
+
+
+   After solving it by LINGO， the optimal solution has been obtained：
+
+
+
+
+            Namely the water supply A to B is 63.52× 108m3 . D to C is
+208.42× 108m3. D to F is 193.23 × 108m3.E to C all is 108× 108m3.
+
+Sensitivity analysis
+     Obtaining the minimum value of the total cost of the diversion by the
+lingo software: 588622.1a.And the data obtained by the sensitivity
+analysis are as follows:
+
+
+=== PHYSICAL PAGE 17 ===
+Team #22362                     Page 16of 29
+
+      It can be drawn from the above data that the reduction of the third
+and fourth rows of data would make the total cost reduce more. 100
+million m3 water reduction of Zone D and Zone E would make the total
+cost reduce to 1056 a and 1297a respectively. In addition, 100 million
+m3 water reduction of zone C would make the increase of 64 a in the total
+cost.
+      To sum up, just considering the economic cost of water diversion,
+water diversion can be changed as the follows: minimizing water
+diversion of D、 E zone or reducing its water transfer distance; as to zone
+C (Beijing, Tianjin, Shandong) ,the more the water demand proportion of
+the C zone (Beijing, Tianjin, Shandong), in the case of constant water
+demand of all zones, the less the total costs, which is in line with the
+actual situation, in which the costs of the south-to-north water diversion
+project center line are respectively low.
+
+5.4.Seawater desalination model
+     Seawater desalination technology, that is using seawater desalination to
+produce fresh water, is the open source incremental technology, which
+realized the utilization of water resources, regardless of the impacts of time、
+space and climate. It can protect the drinking water needs of coastal residents.
+     The desalination methods used nowadays include seawater freezing
+method、 electrodialysis、 distillation and reverse osmosis. Thanks to its
+advantages of simple devices, easy maintenance and equipment modular,
+reverse osmosis, with the application of reverse osmosis membrane,
+occupied the market quickly and gradually replace distillation method to
+become the most widely used method. Then taking reverse osmosis as an
+example to calculate the external costs of desalination.
+
+Cost analysis of desalination：
+     The costs of desalinated water are produced in various stages,
+including the economic and environmental costs, mainly the costs of the
+energy consumption, the costs of the effluent discharge to the environment
+and the value conversion of using seawater. Its cost analysis is shown as
+figure 8:
+
+
+=== PHYSICAL PAGE 18 ===
+Team #22362                         Page 17of 29
+
+
+
+
+                Seawater
+
+
+    Desalinat                       Energy costs
+       ion
+     process
+
+                               Concentrated brine               The cost of
+           tap-wate              missionscosts                  desalination
+               r
+      users
+
+                                   Sewage cost
+                Sewage
+
+     Sewage
+    treatmen
+      Figure 8External cost analysis of seawater desalination
+5.4.1.Analysis of energy consumption costs：
+     Energy consumption cost is calculated in accordance with the
+quantity of the resources consumed by unit electricity, which is generated
+by general coal-fired power generation (Chen 2009). The formula is：
+                       𝐶1 = 𝑅 × ∑ 𝑃𝑖𝑄𝑖             (9)
+     Where R is electricity consumption Per ton of desalination water
+(kW*h);P i is the prices of resource (yuan); Q i indicates that the resources
+quantity consumed by unit of electricity is i (g/kWh).
+
+5.4.2. Analysis of environmental costs：
+     When the sewage charges is calculated by pollution equivalent,
+according to the type and quantity of the emission pollutants, charged
+standard of each pollution equivalent is 0.7 Yuan. For each outfall, the
+type number of pollutants which are charged of sewage fees, in decreasing
+order of pollution equivalent amount, up to not more than 3.
+         Pollution equivalent amount of some certain pollutant N is：
+
+
+=== PHYSICAL PAGE 19 ===
+Team #22362                       Page 18of 29
+
+
+     Environmental costs of unit                        utilization:
+                                                               (11)
+     Where 𝜔 𝑖 is the concentration of pollutant i, which is produced after
+the usage of desalinated water,(mg/L) ； 𝑄 𝑎 is the amount of sewage
+converted by unit freshwater； is the concentration of pollutant i in the
+freshwater,(mg/L)；𝐷 𝑖 is the pollution equivalent value of pollutant i, (kg).
+       Among              is the total amount of sewage emitted；𝑄 2 is the
+  total water consumption.
+     In the similar way ， the external impact of concentrated brine
+emissions on the marine environment, can also be calculated by method of
+estimating sewage charges , of which the formula is:
+                                                               (12)
+     Therefore， the costs of desalination can be calculated as:
+                           𝐶 = 𝐶1 + 𝐶2 + 𝐶3           (13)
+                         where 𝐶 i is the cost of factor i.
+
+     Example :solving of the desalination external costs：（taking desalination
+of Qingdao Baifa project as an example）
+1.Calculation on the energy external costs：
+     The daily production of this plant is 100,000 m3 desalinated water,
+and energy consumption per ton of water is 3.8kWh/m3. Resources
+consumed by unitelectricity, which is generated by general coal-fired
+power, are shown in Table 2.
+     Table 2：Resources consumed by unit of combustion power generated
+electricity （g/kWh）
+
+     resource         iron ore   raw coal   chalk     copper      crude oil
+                                                        ore
+   Price/(Yuan/t)       400       672       30        600             5500
+  Coal acquisition      0.31      12.36     0.163      0.027          0.017
+        stage
+coal transportation    0.06          2.28   0.044      0.007           0.58
+ production stages     2.491     491.295    0.142      2.125              0
+        total          2.861     505.935    0.349      2.159          0.597
+
+
+=== PHYSICAL PAGE 20 ===
+Team #22362                       Page 19of 29
+
+      Notation: Take standard coal consumption of coal-fired power as
+ 350g/kWh, and the resource consumption of coal mining and
+ transportation stages is calculated by the National 122departments input-
+ output table in 2002.
+       External costs of its resources can be calculated according to the
+ formula： 𝐶 1 = 𝑅 × ∑ 𝑃 𝑖 𝑄 𝑖 = .8 × (2.861 × 400 + 505.9 5 × 672 + 0.
+ 49 × 0 + 2.159 × 600 + 0.597 × 5500) ÷ 106 = 1. 1 (yuan) .Calculation
+ on the Environmental external costs, the data are shown as the fllows:
+      Table 3 pollutantcontentsand their pollution equivalent value(2011)
+pollutant       Contents in the       Contents after         pollution
+                reverse osmosis       usage/(mg/L)          equivalent
+                  brine/(mg/L)                               value/kg
+                      1                  280                   4
+                      3                  250                   1
+NH 4 − N            0.02                  30                 0.8
+  Tp                0.97                 0.97                0.25
+
+     The total water amount Qingdao used in 2010 is 943 million m3，and
+its wastewater emissions amount is 381.56 million tons， then(2011):
+                                                     8156
+
+
+
+    Then it can be estimated that the environmental costs of used desalinated
+water ：
+
+
+
+
+    Environmental costs of concentrated brine emission can be calculated
+according to table 4 :
+     Table 4：The chemical components’ nature of pollutants
+                       Original   Concentrated          Pollution
+Measuring Items        seawater brine （ μmol/          equivalent
+                    （μmol/L）     ）                     value(kg)
+      Mn                   4.35           8.04               0.2
+        u                  0.74           2.14               0.1
+
+
+=== PHYSICAL PAGE 21 ===
+Team #22362                     Page 20of 29
+
+   NH 4 − N               4.48              29.53              0.8
+     Taking the current technology level into account, the efficiency of the
+desalination processing is approximately among 40% to 50%. Daily
+seawater requirement of BaiFa project is 260000t. It produces 100000 t
+freshwater every day, with the emission concentrated brine160000t every
+day, so the quantity of emissions concentrated brine for producing unit
+desalinated water Q is 1.6.Therefore the environmental costs of brine
+emissions are:
+
+
+
+
+         𝐶 = 𝐶 1 + 𝐶 2 + 𝐶 3 + 𝐶 4 = 1. 1 + 0.101 + 0.072 = 1.49yuan
+
+5.5.Sewage treatment model
+     Another idea to increase the available freshwater is recycle. After
+treatment of the sewage treatment plant, reuse the wastewater that meets
+the national emission standards.
+Cost Analysis：
+1. The cost of processing and its components
+     For municipal wastewater treatment plant, domestic wastewater is the
+main sewage source. And nowadays, its processing has been relatively
+mature, of which the core technology is biological activated sludge
+process.
+                𝑋 = 𝑋1 + 𝑋2 + 𝑋3 + 𝑋4 + 𝑋5 + 𝑋6       (14)
+     Where is the month processing cost of the sewage treatment plant;
+𝑋 1 is depreciation cost; 2 is personnel cost; 𝑋 3 is power cost ; 𝑋 4 is
+maintenance cost; 𝑋 5 is agent cost; 𝑋 6 is other costs, which can be
+estimated as 5% of the previous five costs.
+2. Analysis of Processing cost
+     Take sewage treatment plant with the handling capacity of 30,000 t / d
+of North China as an example for analysis.
+
+a. Depreciation charges 𝐗 𝟏
+     Depreciation is a measure to recover the investment, which means
+extracting a certain amount of funds as a recovery of investment at the end
+of the year. According to the calculation method of the annuity, without
+
+
+=== PHYSICAL PAGE 22 ===
+Team #22362                     Page 21of 29
+
+extra consideration offinancial expense, the depreciation extracted every
+year is(Jin 2003)
+                    𝑋 1 = 𝑍 × (1 − 𝑖)/(12 × 𝑛)        (15)
+   Where Z is total investment amount(× 10 yuan); i is the discount rate
+                                               4
+
+（%）, which is calculated generally based on the loan interest rate; n is
+depreciation life （year）.
+       Assume that the total investment amount is 3000× 104yuan, the
+loan interest rate is5%, depreciation life is 20years, then the depreciation
+every mouth is:X 1 = Z(1-i)/(12n)=118750 (Yuan)
+
+               Depreciati
+                                       X1 =118750 (yuan)
+               on cost X1
+
+              personnel       25 employees with monthly wage1600，
+              cost 𝑋2         X2 = 25 × 1600 = 40000
+
+  Mo                           Station electricity X7 = 720KμP=85680
+  nth         Power cost
+  pro         𝑋3
+                               Tank electricity X8 =0.5 × η × P × 24 ×
+  ces
+                               0 =135 000
+  sin
+  g          Maintenance
+  cos        cost 𝑋4                       X4 = 70 000 yuan
+  t
+
+              Agent cost 𝑋5                X5 = 27 000yuan
+
+
+
+              Other cost 𝑋6       X 6 = 5 %( X 1 + X 2 + X 3 + X 4 +
+                                  X5 ) =23821 yuan
+
+
+
+       Month processing cost X = 500251yuan，cost per ton X ÷
+     ( 0 × 0000) = 0.56yuan
+
+              Figure 9: sewage treatment cost
+
+b. Power costs 𝐗 𝟑
+
+
+=== PHYSICAL PAGE 23 ===
+Team #22362                    Page 22of 29
+
+    i. Pumping station electricity billsX 7 ：
+                     𝑋 7 = 720 × 𝐾 × 𝜇 × 𝑃           (16)
+    Where:X 7 is pumping station electricity bill, Yuan; is electricity bills
+per kilowatt per hour, Yuan/(kWh) ; is the utilization efficiency of the
+pump, kW; is the power of the pump, kW;720 is the runtime of pump per
+month.
+     For the 30000 t/d sewage treatment plant, the power of 4 lift pumps is
+4 × 60kW = 240kW, the power of 5 sludge and reflux pumps is5 × 20
+kW = 100 kW, and electric charges 0.5 Yuan/(kWh), the utilization
+efficiency of the pump is 0.7, then the pumping station electricity bills one
+mouth is: X 7 =85680( yuan).
+      ii.aeration tankelectric fees 𝑋 8 ：
+      The power of aeration equipment is among 450~ 550 kW, taking the
+middle value500 kW. The utilization efficiency of the pump is about
+75% .Monthly electricity bills is : 𝑋 8 = 500 × 0.5 × 0.75 × 720 =
+1 5000(Yuan) 。 power cost is : 𝑋 6 = 𝑋 7 + 𝑋 8 = 220680(Yuan)
+      (17)
+c.Maintenance cost 𝐗 𝟒
+         Maintenance fees and instrument calibration fees are generally
+accrued annual 5% of the amount of investment in equipment. Equipment
+overhaul costs and pipeline maintenance fees are generally only one time
+among a few years, with the annual provision for 2% of the amount of
+investment in equipment.
+      The investment in equipment is generally about 1 200× 104yuan. In
+accordance with the situation that one equipment overhaul every five years,
+the monthly maintenance fee is:
+                                 𝑋 4 = 70 000( yuan)
+d. Pharmacy fees 𝑿 𝟓
+      Pharmacy fees included various chemical reagents, flocculants and
+disinfection fees.
+      The operating costs of sewage disinfection is 0.025 yuan/t.
+      The dosage of chemical reagents and flocculant is relatively small,
+and the pharmaceutical fees for processing sewage is 0.03 yuan/t, so the
+pharmacy fees every month is: 𝑋 5 = 27 000 Yuan.
+
+     So processing cost every mouth:
+     𝑋 = 𝑋 1 + 𝑋 2 + 𝑋 3 + 𝑋 4 + 𝑋 5 + 𝑋 6 = 500251(yuan)
+     Processing cost per ton is: 𝑋 ÷ ( 0 × 0000) = 0.56(yuan).
+Water Strategy
+     The predictionmodel has confirmed the water shortage areas and wet
+areas in 2025. In order to solve the water shortage problem, four water
+
+
+=== PHYSICAL PAGE 24 ===
+Team #22362                      Page 23of 29
+
+supply schemes were introduced: storage, movement, seawater
+desalination and sewage treatment
+       To determine the best water strategy, it is necessary to evaluate the
+strengths and weaknesses of those four schemes, before the permutation
+and combination of them.
+    Because underground reservoirs just save the regional water, rather
+than provide additional water, it can just solve water demand-supply
+imbalances in the short term, so that in the dry season of the year can also
+use the water of the flood season, but is not suitable as a long-term water
+strategy.
+       Therefore, it is feasible to evaluate the mobilization、 desalination and
+sewage treatment by analytic hierarchy process models firstly.
+
+5.6. AHP model
+
+       The aim       The Proportion of each method to Water Strategy
+       layer                                        （A）
+
+
+
+       Principal      Economi         Environment        Physical      Society
+       Layer          c (B1)             (B2)               (B 3 )       (B 4 )
+
+
+
+      Project            Transfer      Sewage                  Desalination
+      Layer               (C1)         treatment (C2)          (C 3 )
+
+                    Figure 10: analytic hierarchy process modes The
+     weighing result is as follow:
+      A    B1 B2 B3 B4 B1 C1 C2 C3
+      B1   1 3/2 9/8 5/4 C1 1   3 2
+      B2   2/3 1 2 7/5 C2 1/3 1     3/2
+      B3   8/9 1/2 1 3 C3 1/2 2/3 1
+      B4   4/5 5/7 1/3 1
+
+      B2 C1 C2 C3 B3 C1         C2 C3 B4 C1 C2 C3
+      C1 1 3/2 7/5 C1 1     3   7/4 C1 1     3 2
+      C2 2/3 1 1/2 C2 1/3 1     1/2 C2 1/3 1   3/2
+      C3 5/7 2 1 C3 4/7 2       1 C3 1/2 2/3 1
+
+
+=== PHYSICAL PAGE 25 ===
+Team #22362                                Page 24of 29
+
+      After the standardization of eigenvector, the vector of weighing can be
+acquired by:
+                          
+                    Wi 1     n   n   a n a
+                                           ij   j1   kl k 1
+
+(18) Coherence Check:
+
+
+
+
+     Firstly， calculate the C.I. （consistency index）
+                                                  1
+                       CI  maxn n          (19)
+     Secondly, calculate R.I. （random index）: n=3, R.I.=
+     0.90 n=4, R.I.=0.58
+
+
+
+
+     Thirdly， calculate C.R. （consistency ratio）
+                          CI.
+                      CR 
+
+                                       .
+                                  RI   (20)
+     When CR < 0.1, the consistency of judgment matrix is acceptable,
+otherwise, it should be corrected.
+
+     Using Matlab, the weight vector and test results can be gotten as follows:
+ B2      weight B 3 weight B4 weight
+ C1      0.3752 C 1 0.3726 C 1 0.4215
+ C2      0.2531 C 2 0.2768 C 2 0.2917
+ C 3 0.3717 C 3 0.3506 C 3 0.2868 λ 3.07 λ 3.04 λ 3.02 CR 0.06 CR 0.05 CR 0.05
+
+    According to above tables, the results can be obtained as follow:
+Method            Weight        Importance sequence (High to Low)
+Mobilization      0.4683                           1
+Desalination      0.3284                           2
+Sewagetreatment 0.2033                             3
+
+      When determine the best water strategy, it should mobilize the water
+firstly, namely the redistribution of water resources.
+
+
+=== PHYSICAL PAGE 26 ===
+Team #22362                     Page 25of 29
+
+      It can be found from the mobilization model : C zone solved its
+water shortage; B zone need more water 52.8 − 63.52=289.31 108m3，
+F zone need more water229.65 − 193.23=36.42× 108m3 ，G zone need
+more water 281.85× 108m3.
+      Implementation of desalination needs offshore environment. Based
+on the principle of local conditions, F zone should adopt desalination
+strategy.
+      B zone belongs to inland，so it should adopt sewagetreatment strategy.
+      G zone has some parts offshore, so it would be better to adopt joint
+strategies of desalination and sewagetreatment.
+
+ Costs Analysis
+       Nowadays, the daily average processing capacity of desalinator is
+ 1.0 × 105m3, while the sewage treatment plant is 8.0 × 104m3,as the
+ following table shows：
+              Water
+                                                 Amount of
+Poor-wat shortage           Amount of                            costs/
+                                              sewagetreatment
+er zones        ×       desalination plants                      108yuan
+                                                   plants
+             108m3
+     B      289.31         0                      990            147.5
+     F      36.42          100                    0              54.3
+     G      281.85         50                     903            161.6
+
+      The water strategy costs of each zone：
+             Mobilization Desalination             Sewage
+                                                                 Total/
+ Zone           costs/           costs/        treatment costs
+                                                                10 8yuan
+               108yuan          108yuan          /× 108yuan
+     B             146.1          0                 147.5      293.6
+     C             727.8          0                 0          727.8
+     F             444.4           54.3             0          498.7
+    G               0              27.2             134.4      161.6
+ Total/       1318.3               54.3             147.5      1520.1
+10 yuan
+   8
+
+     The results show that, in order to solve the water shortage, F zone
+needs to build at least 100 desalinators in Shandong、 Tianjin before2025,
+with the costs 54.3× 108yuan;
+     B zone needs to build at least 990 desalinators before 2025, with the costs
+147.5× 108yuan。
+
+
+=== PHYSICAL PAGE 27 ===
+Team #22362                     Page 26of 29
+
+     G zone needs to build at least 50 desalinators in Liaoning before 2025,
+and 903 sewage treatment plants before 2025, with the respective costs
+27.2× 108yuan、134.4× 108yuan.
+
+5.7.Model for intra-regional optimal allocation of water
+      In addition to replenishing the water shortage, the optimal water
+strategy also needs to ensure that the increased freshwater resources
+within the zone could bring the maximum economic benefits.
+      The families within the zone are seen as minimum units. Along with
+the increase in the amount of freshwater allocated, other means of
+production would be fully utilized, and the economic efficiency would
+increase. However, when the allocation amount is increased to a certain
+degree, the economic efficiency would decrease because the increased
+water costs and the decreased productivity growth. To simplify the model,
+assume that the economic benefits, J and water consumption, q satisfy the
+quadratic function. As the figure shown.
+      Set 𝐽 = 𝑎𝑞2 + 𝑏𝑞, a 0, q is the water consumption amount, J is actual
+benefits.
+
+ When water consumptionq = 0 ， the economic benefitsJ = 0 ；
+ When water consumption q = Q，the maximum economic benefitsJ = J‘.
+
+     Solving equations                ,
+
+
+     then it can be gotten:
+
+
+
+      Then the increased economic
+benefits with the water allocation of ∆q
+are:
+      ∆𝐽 = (𝑞 + ∆𝑞)2 + 𝑏(𝑞 + ∆𝑞) −                 Figure 11: J and q
+(𝑎𝑞2 + 𝑏𝑞)
+         = 𝑎∆𝑞2 + (2𝑎𝑞 + 𝑏)∆𝑞                 (21)
+      Assume that there are units (families) within the zone, then the increased
+total benefits after introducing water Q are:
+                                                       (22)
+                         𝑄 = ∑ 𝑖 ∆𝑞 𝑖            (23) The maximum
+      economic benefits, namely the largest .
+      So this question can be converted into another, namely, when
+𝑄 = ∑ 𝑖 ∆𝑞 𝑖 ， seek the maximum value H max on the basis of 𝐻 =
+
+
+=== PHYSICAL PAGE 28 ===
+Team #22362                    Page 27of 29
+
+∑[𝑎∆𝑞 𝑖 2 + (2𝑎𝑞 + 𝑏)∆𝑞 𝑖 ]
+     This problem can be solved by using the Lagrange multiplier method to
+obtain its extreme value：
+     Make 𝐾 = ∑[𝑎∆𝑞 𝑖 2 + (2𝑎𝑞 + 𝑏)∆𝑞 𝑖 ] + 𝛾 ∑ 𝑖 ∆𝑞 𝑖 (24)
+𝐾′ = 0 , then ∆q i is optimum solution
+    In actual situation, water consumption units, which refer to families,
+are often not able to grasp the optimal water consumption Q. Then it is
+necessary to add up the past water usage situations to determine the best
+range of water consumption.
+
+
+6.The non-technical position paper
+
+
+      Among the seven zones ,only zone A,D,E would have enough water
+supply in 2025,their redundant water quantity is respectively 63.52，401.65，
+108× 108m3.while zone B,C,F,G would be in water shortage in 2025, their
+water shortage is respectively 352.83，316.42，229.65，281.85 × 108m3.
+The solutions are：
+      For C zone， it is necessary to build CD、 CE two routes， and
+transfer water from D zone 208.42 in 2025，from E zone 108，with the
+total costs 72.78 billion yuan.
+For F zone， it is necessary to build route FD， and transfer water from
+  D zone 193.23 in 2025 with the costs 444.4. And it is necessary to build
+  at least 100 desalinators in Shandong、 Tianjin before 2025, with the
+  costs 5.43 billion yuan.
+      For B zone，it is necessary to build route AB， and transfer water
+from A zone 63.52 in 2025 with the costs 146.1.And it is necessary to
+build at least 990 desalinators before 2025, with the costs 14.75 billion
+yuan.
+      For G zone, it is necessary to build at least 50 desalinators in
+Liaoning before 2025, and 903 sewage treatment plants before 2025, with
+the respective costs 2.72 billion yuan、13.44 billion yuan.
+      For the whole country, it is necessary to replenish water resources of
+the underground reservoirs. In order to protect the underground storage
+space, apart from land subsidence, good storage work must be done.
+       For the regional freshwater allocation, a lot of statistical work needs
+to be done. And it is necessary to determine the optimum water
+consumption to achieve maximum production efficiency.
+
+
+=== PHYSICAL PAGE 29 ===
+Team #22362                    Page 28of 29
+
+Feasibility analysis:
+     From reality, the routes of the water diversion schemes determined by
+models in this article are some routes of the South-to-north project. And
+the solutions of C、F zone are cost-effective and practical.
+     It is impractical to build 990 desalinators in B and 903 sewage
+treatment plants in G. Because of the low price of treated water, sewage
+treatment plants can only gain profits after forming a certain scale.
+Nowadays, most of the domestic sewage treatment plants operate under
+the state support and grants. So according to the current sewage treatment
+level, it is unwise to build more than 900 sewage treatment plants.
+     So the water shortage problem in zone B、 F D is very serious, and it
+is very difficult to solve the water shortage problem in accordance with
+the current level of technology.
+     Therefore， for B、F zone， the problems can’t be solved by the
+above measures. The government should increase investment in
+desalination and sewage treatment, and reduce operating costs, improve
+production efficiency.
+     In addition to increasing the available freshwater, the government
+also should try to reduce the demand for fresh water、 increase water
+prices、 popularize agricultural irrigation drip technology and develop
+new energy to reduce dependence on water resources and so on. On the
+other hand, the government should improve the national water-saving
+awareness.
+
+The reasons for the best water strategy：
+     1.Replenishment measures taken by the article is the mainstream
+replenishment strategy nowadays, which has passed through the experts'
+research.
+     2. In the water mobilization model, the water diversion route was
+determined using Lingo program, for solving the optimal solution to
+minimize the cost.
+     3.The other replenishment strategies were obtained by reference to the
+actual production data, which is true and reliable.
+     4. In all the permutations and combinations of the various
+replenishment measures, the priority of various strategies is determined by
+the analytic hierarchy process models. To take optimal measures first, and
+then take the second-best measures supplement, to ensure that the
+combined effect of the best. Taking the best measures firstly, taking
+suboptimal measures added to ensure that the combined effect is the best.
+     5. The establishment of the regional freshwater allocation model
+provided possibility for the optimization of water resources allocation
+
+
+=== PHYSICAL PAGE 30 ===
+Team #22362                       Page 29of 29
+
+within the zone, which ensured that the region could maximize the
+economic benefits.
+
+
+7.Examination
+
+
+     By the first prediction model, it can be found that the determined
+water-poor zones and wet zones in China meets the current distribution of
+regional water resources, with more Water in southern, less water in
+northern.
+     Mobilization model determined the best water transfer lines, based on
+linear programming, and some lines such as AB, DF, ED + DF are part of
+the south-to-north water diversion project routes in China.
+     In the process of sensitivity analysis of the mobilization model, it can
+be found that the more the water demand proportion of the C zone
+(Beijing, Tianjin, Shandong), in the case of constant water demand of all
+zones, the less the total costs, which is in line with the actual situation, in
+which the costs of the south-to-north water diversion project center line
+are respectively low.
+
+
+8.Evaluation
+
+
+8.1Strengths
+      The study of water resources in China took the pattern of partition
+first and then studying within each region, which determined the
+significant water-scarce regions and seized the key points of the problem.
+      Replenishment measures are not only qualitative but also quantitative,
+along with the quantitative modeling and costs calculation.
+      Integrated to determine the water strategy in 2025, after the
+permutations and combinations of various replenishment measures, the
+priority of each measure is assessed to determine a complete and feasible
+water strategy.
+      Various replenishment measures have followed principles of the lowest
+cost and the best combined effect, to ensure the best strategy.
+
+8.2Weaknesses
+     When build the prediction models, only eight years of data are
+collected. Because the data is respectively little, the fitting results existed
+certain errors.
+
+
+=== PHYSICAL PAGE 31 ===
+Team #22362                      Page 30of 29
+
+    Partition number is not enough, 2 more can be added to increase the
+accuracy of the model.
+    Optimal allocation of regional freshwater lacked for experimental data,
+without quantitative calculations.
+
+
+9.Improvement
+
+
+      Because the water data collected is less, in order to improve the
+accuracy of prediction model, related data of the 2014,2015,2016,2017
+can be predicted firstly, then setting these data as the known data to re-
+establish the prediction model. Then the new function of water amount
+and time can be obtained. And what’ more, water demand in 2015 can be
+calculated by the new function - iterative method.
+     The cost of water diversion has taken the average value of the south-
+to-north water diversion project center line、western line and eastern line,
+with big errors. In fact, the average value should be calculated by some
+more collected water diversion project data. Or it is also feasible to collect
+the cost sources, establish a function of its distance and water transfer
+volume respectively, and finally get a function about the total costs .
+
+
+
+
+10.References
+
+
+     [1]Defeng Zheng & Bende Wang. 2004. Survey on the
+comprehensive evalution of the regulation and storage capacity of the
+ground reservoirs, SHUILIXUEBAO.0559-9350(2004)10-0056-07(郑德凤,
+王本德,2004, 地下水库调蓄能力综合评价方法探讨,水利学报,
+0559-9350(2004)10-0056-07)
+     [2]Tianshi Zhao. 2002. Discussion on some problems of ground
+reservoirs, Hydrogeology and Engineering Geology. 1000-3665(2002)05-
+0065-03 （赵天石，2002 年，关于地下水库几个问 题 的 探 讨 ， 水
+文地质工程地质，文章编
+号:1000-3665(2002)05-0065-03）
+
+
+=== PHYSICAL PAGE 32 ===
+Team #22362                   Page 31of 29
+
+     [3]Jianhua Chen. 2009. Alternative to coal-fired electricity
+stakeholder win-win path based on the external straw, Xian: xian jiaotong
+university press)
+     (陈建华.2009.基于外部性的秸秆替代煤发电利益主体共赢路径研究.
+西安：西安交通大学.)
+     [4]Zhongnan Qiu. 2000. Price analysis on the water supply of south-to-
+north water diversion project center line south-to-north, Yangtze
+River, 31 -07(南水北调中线过程供水价格分析，july，2000，邱忠恩，)
+                  [5]Xiaofeng Tu & Haizheng Wang & Dafa Ding& Meiying
+Tang,2001. Preliminary estimates of the economic benefit analysis and water
+cost of the first phase of the Western Route, YELoW
+RIVER.23-10(南水北调西线第一期工程经济效益分析和调水成本初
+步测算，屠晓峰，王海政。丁大发，唐梅英， VoI_23，no10，0ct．)
+      [6]Xin Jing& Huacheng Wang. 2003. Financial Management. Beijing:
+Renmin university of China press(荆新，王化成.财务管理学.北京：中国人
+民大学出版社，2003)
+     [7]Haichuan Zhou&Diyu Lin&Yulin Ma. 2002. Cost-benefit analysis of
+municipal sewage treatment plant effluent disinfection. Environmental
+Sciences(周海川，林玉娣，马玉林.城市综合污水处理厂出水消毒成本
+效益分析.环境科学研究，2002)
+     [8] 1th Feb,2013. 中 华 人 民 共 和 国 统 计 局
+          http://www.stats.gov.cn/tjsj/ndsj/

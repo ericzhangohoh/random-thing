@@ -1,0 +1,2374 @@
+=== PHYSICAL PAGE 1 ===
+         Problem Chosen                          微信公众号：数学模型
+                                              2021
+                                            MCM/ICM
+                                                     Team Control Number
+
+                 E                        Summary Sheet                     2122175
+
+              A comprehensive evaluation model of food system
+                                           Summary
+       The current food system is unstable. Many food insecurity problems occur because of
+
+
+
+
+                                                    ：
+  neglecting of equity, sustainability and resilience. In order to obtain a robust food system, we
+
+
+
+
+                                            AT
+  conduct a comprehensive examination of the current system and optimize it.
+       We develop an activities-outcomes-goals food system to make the system more robust
+  and comprehensive. The new food system is divided into food system activities (FSA), food
+
+
+
+
+                                                       数
+  system outcome index (FOI), and food system goals index (FGI). Goals are used to optimize
+  food system outcomes. Through the entropy weight method (EWM) and the coefficient of
+
+
+
+
+                                               Hm
+  variation method (CVM), specific indicators are incorporated into FOI and FGI. We first im-
+  prove the resilience of the food system, and on this basis solve the following problems.
+
+
+
+
+                                                         学
+       ⚫ We determine the optimization of specific indicators in FOI by adjusting the level of
+           equity and sustainability in FGI. Compared with the current system, the optimized
+           system reduces the environmental footprint and makes food distribution more equi-
+
+
+
+
+                                                 od
+           table. According to the estimates of the intervention plans, the new food system will
+
+
+                           众                              模
+           take a long time to implement.
+       ⚫ We made environment security in the food system a priority. The direct and indirect
+           effects of reduced arable land are counted as costs, while the improvement in ecosys-
+
+                            号
+                                                   els      型
+           tem services is counted as benefits. Cost-benefit models are used in developed and
+           developing countries to analyze their food systems. We find that the two curves of
+
+
+                   公
+           cost and benefit over time intersect earlier in developed countries than in developing
+           ones. In other words, developed countries can benefit more quickly from making eco-
+           logical security a priority in their food systems.
+
+          信
+       ⚫ We apply the model to Japan and India. We apply the model to Japan and India to
+           analyze the costs and benefits needed to improve equity and sustainability in ecolog-
+
+
+  微        ical services. The original ecosystem services scores for Japan and India are 68.5384
+                                      M
+           and 23.8331, respectively. After investing the same cost, scores are 75.392 and 26.213,
+           respectively. The grey prediction model optimized by particle swarm optimization
+
+
+                     号
+           algorithm predicts that the time for Japan and India to reach the optimization goal is
+           2036 and 2040 respectively.
+
+
+                      ：
+       ⚫ We discuss the different situations of larger and smaller food systems, and then apply
+           our model to Yemen, a country with extreme food insecurity. By appropriately mod-
+           ifying our indicators and weights, our model has good scalability and adaptability.
+
+            信
+       The optimization of the food system needs to be driven by specific interventions, thus we
+  propose intervention plans in terms of equity, sustainability and resilience.
+
+
+    微
+  Keywords: food system; food security; resilience; EWM
+
+
+
+
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                    关注数学模型
+
+                                                                                                    获取更多资讯
+
+
+=== PHYSICAL PAGE 2 ===
+  Team # 2122175
+                                                                        微信公众号：数学模型                                        Page 2 of 25
+
+
+                                                              Contents
+  1 Introduction ...................................................................................................... 3
+     1.1 Problem Background ....................................................................................................... 3
+     1.2 Our Work .......................................................................................................................... 3
+
+
+
+
+                                                                 AT      ：
+  2 Assumptions and Justifications ....................................................................... 4
+  3 Notations ........................................................................................................... 5
+
+
+
+
+                                                                            数
+  4 Food System Model .......................................................................................... 5
+
+
+
+                                                                    Hm
+     4.1 Food System Activities .................................................................................................... 5
+
+
+
+
+                                                                              学
+     4.2 Food System Outcomes Index ......................................................................................... 6
+     4.3 Weights of indicators........................................................................................................ 9
+     4.4 Model verification .......................................................................................................... 11
+
+
+
+
+                                                                      od       模
+     4.5 Food system goals index ................................................................................................ 12
+
+                                       众
+  5 Answers to Questions ..................................................................................... 14
+
+                                        号
+                                                                        els
+     5.1 Food systems optimized for equity and Sustainability .................................................. 14
+
+
+
+
+                                                                                 型
+     5.2 Benefits and costs Analysis ............................................................................................ 16
+
+
+                           公
+     5.3 Applied to Japan and India ............................................................................................. 18
+     5.4 Scalability and Adaptability ........................................................................................... 20
+
+              信
+  6 Intervention plans .......................................................................................... 22
+
+
+  微  6.1 Resilience ....................................................................................................................... 22
+                                                        M
+     6.2 Equity ............................................................................................................................. 22
+
+
+                             号
+     6.3 Sustainability.................................................................................................................. 22
+
+
+
+                              ：
+  7 Sensitivity Analysis......................................................................................... 23
+  8 Model Evaluation ........................................................................................... 23
+
+
+                信
+     8.1 Strengths ........................................................................................................................ 23
+     8.2 Weaknesses .................................................................................................................... 24
+
+
+    微
+  References .......................................................................................................... 25
+
+
+
+
+微信号：MATHmodels                                                                                                                            2
+
+                                                                                                                                 MATHmodels
+                                                                                                                                                   关注数学模型
+
+                                                                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 3 ===
+  Team # 2122175
+                                                  微信公众号：数学模型                        Page 3 of 25
+
+
+  1 Introduction
+  1.1 Problem Background
+        There are many definitions of the food system in previous studies. The World Food Pro-
+  gramme defines the food system as the networks that are needed to produce and transform food
+
+
+
+
+                                                     ：
+  and ensures it reaches consumers[1]. If you simply define the food system in this way, thus it is
+
+
+
+
+                                             AT
+  not comprehensive because it ignores the impact of environmental, social, economic and other
+  factors. We redefine the food system as: the interaction between biogeophysics and the human
+  environment and within it determines a series of activities in the food system from production
+
+
+
+
+                                                        数
+  to consumption, and the results of these activities[2].
+
+
+
+
+                                                Hm
+        Food security is the main result of the food system. The 2007 International Conference on
+  Organic Agriculture and Food Security proposed that the multi-dimensional nature of food se-
+  curity includes food availability, access, stability and utilization. [3].
+
+
+
+
+                                                          学
+        There are many loopholes in the current food system, because it mainly considers effi-
+  ciency and profit. Food scarcity and abuse of the environment are problems that need to be
+  solved urgently in the current system. Therefore, we need to think more about equity, sustain-
+
+
+
+
+                                                  od       模
+  ability and resilience in the food system.
+
+  1.2 Our Work
+                            众
+                             号
+                                                    els
+       We develop a new food system model, which optimizing the current model by re-imagin-
+
+
+
+
+                                                             型
+  ing and re-prioritizing. Then, we apply the established model to various countries so as to verify
+  the accuracy of the model and propose amendments to improve it.
+
+                   公
+       We need the following work to solve the problem:
+       ⚫ State assumptions and make notations. In order to better establish models and analysis,
+
+          信 we simplified some of the secondary factors and narrowed the core of our food system
+            and optimization direction. Then, we will list some symbols, which are very important
+            for us to clarify the model and determine its definition.
+
+  微                                    M
+       ⚫ Develop a new food system. Food system is optimized in the direction of equity and
+            sustainability. Compare it with the previous food system. We estimate the time that
+
+
+                     号
+            the new food system implements.
+       ⚫ Calculate the costs and benefits required to optimize the food system. Differences are
+
+
+                      ：
+            analyzed in costs and benefits between developed and developing countries. We apply
+            it to specific countries to predict when the net benefit will occur.
+       ⚫ Verify the scalability and adaptability of the model. Models are used in countries of
+
+            信
+            different sizes and states to validate and analyze food systems.
+       ⚫ Sensitivity analysis and model evaluation. We evaluate the reliability of the model
+            through sensitivity analysis. Then, we will discuss the strengths and weaknesses of
+
+    微       the model.
+       The entire modeling process is as follows:
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 4 ===
+  Team # 2122175
+                                                                微信公众号：数学模型                                     Page 4 of 25
+
+
+                                                                              Analysis
+                                                                              problem
+                 Basic
+                 model                            Method                                              Model/Methed
+                                       EWM                   VCM
+                      Social                                                                        EWM    T=max{Ti}
+                     economy
+
+
+
+
+                                                               ：
+                Food system        Five                                                  Specific           Calculate the
+
+
+
+
+                                                       AT
+                                                                FOI
+                 activities    indicators(Ⅱ)                                              target                time
+
+                                                                                                                     TASK
+                     Environ
+                                                                                                                       1
+                      ment      Sustainability     Optimal    Profitability
+                                                    target
+
+
+
+
+                                                                  数
+     Get
+   Problem                      Efficiency       Resilience        Equity
+                                                                                             PSO-                                    Solve
+
+
+
+
+                                                          Hm
+                                                                                            GM(1,1)                                 problem
+                     TASK                                    TASK                                                TASK
+                       4                                       3                                                   2
+
+
+
+
+                                                                    学
+                  Model             Finding                   Jpan&India                                  Costs&Benefits
+                                                                                         Finding
+                adjustment       is supported                 are selected                                   Analysis
+
+     The model for
+      food system                                                                 Problem
+
+
+
+
+                                                            od
+                                                                                   solved
+
+
+
+
+                               众                                     模
+                                Figure.1 The flow chart of our work
+
+
+
+                                号
+  2 Assumptions and Justifications
+
+
+                                                              els      型
+        In order to simplify the given problem and modify it to be more suitable for simulating
+
+
+                         公
+  real life conditions, we make the following basic assumptions.
+  ⚫ Assumption: The data we collect from the online database are accurate, broad and con-
+       sistent.
+
+             信
+       Justification: Since our data sources are all websites of international organizations, we
+       can reasonably assume the high quality of their data. For some indicators of missing data,
+
+
+  微    other available data can be used instead. Because all aspects of the food system are not
+                                               M
+       only reflected by a certain indicator. It can be the result of many factors working together.
+  ⚫ Assumption: Environmental and socio-economic driving factors can be analyzed from the
+
+
+                            号
+       perspective of considering the results of food system activities.
+       Justification: Although the model is simplified, environmental and socio-economic fac-
+
+
+                             ：
+       tors are still taken into consideration when evaluating the food system. At the same time,
+       the influence of environmental and socio-economic factors as driving factors will be re-
+       flected in other results.
+
+              信
+  ⚫ Assumption: When analyzing the world, the country is balanced. In the analysis of spe-
+       cific countries, it is not balanced internally.
+
+
+    微  Justification: If we think of the world as a large food system, thus we can assume that
+       countries are balanced, which simplifies the calculation. And, on a global scale, different
+       countries are uneven, and equity still needs to be considered.
+  ⚫ Assumption: The costs and benefits of analyzing the optimization of the food system can
+       be partially obtained by calculating ecosystem services.
+
+
+微信号：MATHmodels                                                                                                                  2
+
+                                                                                                                       MATHmodels
+                                                                                                                                      关注数学模型
+
+                                                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 5 ===
+  Team # 2122175
+                                                 微信公众号：数学模型                       Page 5 of 25
+
+  ⚫   Justification: The ecological damage caused by the food system is mainly concentrated in
+      the link of production. Therefore, the cost consumption and benefit acquisition generated
+      by optimizing the food system are mainly reflected in production.
+
+
+
+  3 Notations
+
+
+
+                                            AT      ：
+       The key mathematical notations used in this paper are listed in Table 1.
+
+                        Table 1: Notations used in this paper
+
+
+
+
+                                                       数
+        Symbol                            Description
+          FSA                     Food system activities model
+
+
+
+
+                                               Hm
+          FOI                     Food system outcomes index
+          FGI                        Food system goals index
+         PoMS   Prevalence of moderate or severe food insecurity in the population
+
+
+
+
+                                                         学
+          IDA                    IDA resource allocation index
+          CPI                     Corruption perception index
+         IDEA                       Freedom of religion Index
+          PoU                   Prevalence of undernourishment
+
+
+
+
+                                                 od       模
+         PoPD Percentage of population using safely managed drinking water sources
+         PoPS
+
+                           众
+                Percentage of population using safely managed sanitation services
+
+
+
+                            号
+                                                   els      型
+  4 Food System Model
+
+
+                   公
+       We have re-established a new food system model, based on a comprehensive examination
+  of the current food system model. The new food system model includes the interactions be-
+  tween biogeophysics and the human environment, activities and the outcomes of activities.
+
+          信
+  4.1 Food System Activities
+       The activities of the food system include the production, processing, distribution, con-
+
+  微                                   M
+  sumption and waste of food. The following picture shows the flow chart of the activities of the
+  food system.
+
+
+                    号
+                     ：
+            信
+      微
+  4.1.1 Production
+                                Figure.2 Food system activities
+
+       The production of food includes all activities involving the production of food raw mate-
+
+
+
+
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                    关注数学模型
+
+                                                                                                    获取更多资讯
+
+
+=== PHYSICAL PAGE 6 ===
+  Team # 2122175
+                                                    微信公众号：数学模型                         Page 6 of 25
+
+  rials. This process includes access to land and labor, raising animals, growing crops or acquir-
+  ing populations of young animals, caring for growing food materials, and then harvesting or
+  slaughtering. These activities are determined by a variety of factors, from climatic conditions
+  to land tenure, input prices, agricultural technologies and government subsidy provisions aimed
+  at protecting or promoting production.
+  4.1.2 Processing
+
+
+
+
+                                              AT      ：
+        Processing food includes the various transformations that raw materials undergo before
+  being sent to retail markets for sale. All these activities add value to raw materials in an eco-
+  nomic sense, but these activities may also significantly change the appearance, storage period,
+  nutritional value and content of raw materials. The determinants of these activities are quite
+
+
+
+
+                                                         数
+  different from the determinants of food production.
+
+
+
+
+                                                 Hm
+  4.1.3 Distribution and Retail
+        The distribution and retail of food includes all the activities involved in moving food from
+
+
+
+
+                                                           学
+  one place to another and conducting marketing. Distribution is largely affected by transporta-
+  tion infrastructure, trade regulations, government transfer plans and storage requirements. Re-
+  tailing is influenced by how markets are organized and where they are located, advertising, and
+  any niche or premium category the product may fit in to.
+
+
+
+
+                                                   od       模
+  4.1.4 Consumption
+
+
+                             众
+        Consuming food involves everything from deciding what to choose to preparing, eating,
+  and digesting food. Prices are influential, as are income levels, cultural traditions or preferences,
+
+
+                              号
+  social values, education, and health. With the globalization of the diet and the globalization of
+
+
+
+
+                                                     els      型
+  the food system, the structure of advertising and the food supply chain also has a great impact
+  on people's dietary choices.
+  4.1.5 Waste
+                    公
+        Wasting food refers to food that is not digested except inedible, existing in all parts of the
+  food system activity. Such as deterioration due to poor transportation and harvesting methods
+
+           信
+  or rot in the trash bins of consumers and retailers. About one-third of food is wasted every year.
+
+
+
+  微
+  4.2 Food System Outcomes Index
+                                        M
+       The evaluation of food system results is an important part of the overall inspection and re-
+
+
+                     号
+  establishment of the food system. Food system results mainly consider food security, which
+  includes three aspects: food availability, food access and food utilization.
+
+
+                      ：
+       At the same time, the results of the food system also include environmental and socio-
+  economic drivers, and in the whole food system, it will have environmental and socio-eco-
+  nomic results. Therefore, when we analyze the environmental and socio-economic factors of
+
+             信
+  the food system, we consider the results of the food system, and then re-determine the propor-
+  tion of each part by determining the optimization direction, so as to consider the interaction
+
+
+    微
+  between the various parts of the food system.
+       Thus, an evaluation system consisting of food availability, food access, food utilization,
+  environmental security and socio-economic welfare is established. Figure.3 shows the specific
+  components of the evaluation system.
+
+
+
+
+微信号：MATHmodels                                                                                       2
+
+                                                                                            MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 7 ===
+  Team # 2122175
+                                                   微信公众号：数学模型                        Page 7 of 25
+
+
+
+
+                                              AT      ：
+                                                 Hm      数
+                                                           学
+                                                   od       模
+                                 Figure.3 Food system outcomes
+  4.2.1 Food Availability
+
+                            众
+        Food availability refers to the quantity, type and quality of food available for consumption
+
+
+                             号
+  per unit. It mainly includes three parts, the production, distribution and exchange of food.
+
+
+
+
+                                                     els      型
+        (1) Production
+        Production refers to how much and what type of food is available through local production.
+
+                   公
+  We determine food production by considering the area of land in agriculture and the number
+  of agricultural workers in a region, combined with the food production index[5].
+        (2) Distribution
+
+           信
+        Food distribution refers to how food for consumption is physically transferred to available,
+  in what form, when and to whom. We consider food distribution by considering the proportion
+
+  微
+  of transport services in the national import and export services[6][7].
+        (3) Exchange                    M
+        Food exchange means that the amount of food available to a unit is obtained through ex-
+
+                     号
+  change mechanisms such as barter, trade, purchase, or loan, rather than through local produc-
+  tion. We determine the food exchange by considering the share of food imports and exports
+
+                      ：
+  in the country’s commodities[8].
+
+  4.2.2 Food Access
+
+            信
+       Access to food refers to the ability and channel of a unit to obtain the type, quality and
+  quantity of the food it needs. It mainly includes food affordability, distribution, and preference.
+
+    微  (1) Affordability
+       Food burden refers to the purchasing power of a family or community relative to food
+  prices. Different from other indicators, we can determine the prevalence of moderate or se-
+  vere food insecurity in the population[9]. Many people are food insecure because they cannot
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 8 ===
+  Team # 2122175
+                                                   微信公众号：数学模型                        Page 8 of 25
+
+  afford food.
+        (2) Allocation
+        Food allocation refers to the mechanisms governing when, where, and how food can be
+  accessed by consumers. The difference from distribution is that it is often related to policy and
+  society. We determine it through the IDA resource allocation index and corruption percep-
+  tion Index[10].
+
+
+
+
+                                              AT      ：
+        (3) Preference
+        Food preferences affect the social or cultural norms and values that consumers demand
+  for specific types of food. It can be partially considered through the Freedom of religion Index
+  (IDEA).
+
+
+
+
+                                                 Hm      数
+  4.2.3 Food Utilization
+        Food utilization is mainly considered from two aspects, one is nutritional index and the
+
+
+
+
+                                                           学
+  other is food safety.
+        (1) Nutritional value
+        Nutritional value refers to how much of the daily requirements of calories, vitamins, pro-
+  tein, and micronutrients are provided by the food consumed. It can be determined by the prev-
+
+
+
+
+                                                   od       模
+  alence of undernourishment in the population.
+        (2) Food safety
+
+                            众
+        Food safety includes the dangers of adding chemicals during production, processing and
+
+
+                             号
+  packaging, as well as food-borne diseases such as Salmonella and CJD. It can be determined
+
+
+
+
+                                                     els      型
+  by the percentage of the population using a safely managed drinking water source and the
+  percentage of the population using a safely managed sanitation service.
+
+                   公
+  4.2.4 Environmental security
+        The food system leaves a huge environmental footprint. Although the environment will
+
+           信
+  act as a driving factor to influence the food system, it is more convenient to analyze as a result.
+  We select the following three factors as indicators of environmental security.
+
+  微     (1) Fresh water
+                                        M
+        The growth of crops is inseparable from water resources, and most of the crops are rela-
+  tively high in water-rich areas. Although some crops can grow well in arid environments, water
+
+                     号
+  resources can still play a role in promoting growth.
+        (2) Forest area
+
+                      ：
+        No crops grow independently, they can grow better in a diversified environment. Forest
+  is the best diversified growth environment, so forest area can also reflect the quality of the food
+  system to some extent.
+
+            信
+        (3) Carbon dioxide emissions
+        Carbon dioxide is the main raw material for photosynthesis of plants. In an environment
+
+    微
+  with high carbon dioxide concentration, it is helpful for photosynthesis of plants, so carbon
+  dioxide emissions can also be used to evaluate food systems.
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 9 ===
+  Team # 2122175
+                                                    微信公众号：数学模型                          Page 9 of 25
+
+  4.2.5 Socioeconomic welfare
+       In a country or region with good social welfare, people have enough wealth to obtain food.
+  Therefore, social welfare can also be used as an important indicator to evaluate the food system.
+  We select the following two factors as indicators for evaluating socioeconomic welfare.
+       (1) Gross Domestic Production(GDP)
+       The GDP of a country can reflect the overall economic status of the country, and the eco-
+
+
+
+
+                                               AT      ：
+  nomic status of a country will affect its social welfare. So GDP can be used to analyze the
+  country’s Socioeconomic welfare.
+       (2) Employment to population ratio
+       This indicator can reflect the per capita working status. If the social welfare in a region is
+
+
+
+
+                                                          数
+  better, then the per capita working status will also be better. Therefore, Employment to popu-
+
+
+
+
+                                                  Hm
+  lation ratio can reversely reflect the socioeconomic welfare status of a region.
+
+  4.3 Weights of indicators
+
+
+
+                                                            学
+  4.3.1 Entropy weight method
+       Entropy weight method is an objective weighting method, which is based on the principle
+
+
+
+
+                                                    od
+  that the smaller the variation degree of the index is, the less information it reflects, so the weight
+
+
+
+
+                                                             模
+  value of the index should be lower. Thus, we use it to determine the weight of the indicators.
+
+                             众
+  The calculation process is as follows：
+
+
+
+                              号
+                                                      els
+  Step1 Data normalization:
+
+
+
+
+                    公
+  Step2 Calculate the proportion of the          sample of the
+                                                               型      index:
+
+
+           信
+  微                                      M
+  Step3 Get the entropy weight of each index according to the following formula：
+
+
+
+                      号
+  Step4 Calculate the  ：    sample’s score:
+
+
+             信
+    微  Subsequently, the weights of five comprehensive evaluation indicators can be calculated
+  by the entropy weight method: food availability, access, utilization, environmental safety and
+  social economic welfare. Based on these calculated weights, we have:
+
+
+
+
+微信号：MATHmodels                                                                                        2
+
+                                                                                             MATHmodels
+                                                                                                           关注数学模型
+
+                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 10 ===
+  Team # 2122175
+                                                   微信公众号：数学模型                        Page 10 of 25
+
+
+
+
+                                                                                                       (1)
+
+
+
+
+                                              AT      ：
+  4.3.2 coefficient of variation method
+         The basic idea of CVM is: in the multi-indicator comprehensive evaluation, if an indicator
+  has a large degree of variation in the observed values of all the evaluated objects, indicates that
+
+
+
+
+                                                         数
+  it is difficult for the indicator to reach the average level when executed by the evaluation com-
+
+
+
+
+                                                 Hm
+  pany, which would make it possible to clearly distinguish the competence of each evaluation
+  object in the specific area, then the weights of indicators should be given greater. On the con-
+  trary, a smaller weight should be given.
+
+
+
+
+                                                           学
+  Step1 Cost-type index is transformed into benefit-type index:
+
+  Step2 Data standardization：
+
+
+
+                            众
+                             号                     od       模
+  Step3 Calculate the mean and standard deviation of each indicator：
+
+
+
+
+                   公                                 els      型
+           信
+  Step4 The variation coefficient and weight of each indicator are calculated:
+
+  微                                     M
+                     号
+  Step5 Calculate the total score of each evaluation object:
+
+                      ：
+            信
+       Subsequently, the food system outcomes index can be calculated by the coefficient of
+  variation method as follows:
+
+    微  The calculated weight index results are as follows:
+                                                                                        (2)
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                             关注数学模型
+
+                                                                                                             获取更多资讯
+
+
+=== PHYSICAL PAGE 11 ===
+  Team # 2122175
+                                            微信公众号：数学模型                    Page 11 of 25
+
+                    Table.2 Index weights for food system outcomes
+    Indicator(Ⅰ)     Indicators(Ⅱ)        Weights       Indicators(Ⅲ)      Weights
+                                                       Agriculture land    0.2916
+                                                          Agriculture
+                      Availability                                          0.2706
+                                           0.1549           workers
+                         (Ava)
+                                                       Food production
+
+
+
+
+                                               ：
+                                                                            0.4378
+
+
+
+
+                                       AT
+                                                             Index
+                                                             PoMS           0.0987
+                        Access                                CPI           0.3621
+                                           0.2316
+
+
+
+
+                                                  数
+                         (Acc)                               IDEA           0.2398
+                                                              IDA           0.2994
+
+
+
+
+                                          Hm
+                                                             PoPD           0.3461
+    Food system        Utilization
+                                           0.1134             PoU           0.4783
+     Outcome              (Uti)
+
+
+
+
+                                                    学
+                                                              PPU           0.1756
+                                                         Biodiversity       0.2189
+                     Environmental
+                                                          Fresh water       0.1932
+                        Security           0.2467
+
+
+
+
+                                            od
+                                                        Forest coverage     0.3097
+
+
+
+
+                                                     模
+                         (Ens)
+                                                        CO2 emissions       0.2782
+
+                       众
+                   Soc-economic wel-
+                                                            Income
+                                                         Employment
+                                                                            0.2341
+                                                                            0.5213
+
+                        号
+                                              els      型
+                           fare            0.2534           Wealth          0.1123
+                          (Sef)                         Human capital
+                                                                            0.1323
+
+                   公
+  4.4 Model verification
+                                                             Index
+
+
+
+
+         信
+  微                              M
+                   号
+                    ：
+          信
+   微
+                           Figure.4 2019 Global hungry index
+
+
+
+微信号：MATHmodels                                                                         2
+
+                                                                              MATHmodels
+                                                                                           关注数学模型
+
+                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 12 ===
+  Team # 2122175
+                                                   微信公众号：数学模型                         Page 12 of 25
+
+       Figure 4 shows the hunger index of each country in 2019, reflecting to some extent the
+  strength and weakness of each country's food system.
+       We used the weights and data from the World Bank to calculate the combined index score
+  for each country. We also visualized the FOI, which was obtained in Figure 5. We converted
+  the FOI into a value between 1 and 100, and the higher the value, the better the food system.
+
+
+
+
+                                              AT      ：
+                                                 Hm      数
+                                                           学
+                            众
+                             号                     od       模
+                                                     els      型
+                                  Figure.5 FOI of each country
+
+                    公
+       By comparing the two maps, we can see that although there are differences, they are within
+  acceptable limits. In the FIO visualization, for example, Brazil scores at a higher level than it
+  does in the Hunger Index visualization. This is because our model takes the index of ecological
+
+           信
+  security into consideration and occupies a relatively large proportion. Brazil, on the other hand,
+  has had a poor environmental performance in recent years and therefore scores badly in our
+
+  微
+  model.To sum up, our model can reflect the real situation and has good practicability.
+
+  4.5 Food system goals index
+                                        M
+                     号
+        To ensure the stability of the model we built，we plan to propose optimization objectives
+
+
+                      ：
+  for our model from the aspects of resilience, efficiency, profitability , sustainability and equity.
+  4.5.1 Resilience
+        Sudden disturbances are common in the food systems, thus we find resilience to measure
+
+            信
+  the food system's ability to resist disturbances. According to D.M. Tendall et al, food system
+  resilience can be defined as follows: capacity over time of a food system and its units at mul-
+
+
+    微
+  tiple levels, to provide sufficient, appropriate and accessible food to all, in the face of various
+  and even unforeseen disturbances[11].
+        A food system’s resilience can be broken down into various components:
+        (1) robustness, or the capacity to withstand the disturbance in the first place before any
+  food security lost;
+
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 13 ===
+  Team # 2122175
+                                                  微信公众号：数学模型                         Page 13 of 25
+
+        (2) redundancy, or the extent to which elements of the system are replaceable, affecting
+  the capacity to absorb the perturbing effect of the disturbance and avoid as much food insecu-
+  rity as possible;
+        (3) the flexibility and thus rapidity with which the food system is able to recover any lost
+  food security;
+        (4) resourcefulness and adaptability, which determines just how much of the lost food
+  security is recovered. Together, these capacities form the basis of the food system resilience
+
+
+
+
+                                                     ：
+  action cycle.
+
+
+
+
+                                             AT
+        Applying the concept of resilience to our model, we select four indicators from our pri-
+  mary model to measure the four parts of the resilience respectively. The four indicators are
+  Frequency of extreme events(FE), Food diversity(FD), Wealth level(WL), Governmental effi-
+
+
+
+
+                                                        数
+  ciency(GE). The Figure.6 below shows the impact of varying resilience on the food system
+  over time.
+
+
+
+
+                                                Hm
+                                                          学
+                            众
+                             号                    od       模
+                   公                                els      型
+                               Figure.6 Resilience of food system
+       Also, We construct a formula to measure the resilience of a food system based on the four
+  indicators selected above:
+                                                                                              (3)
+
+          信
+       Where,                 are the coefficients of the variables. They represent the extent to
+  which the four components contribute to resilience.
+
+  微
+  4.5.2 Profitability                  M
+       To make it more convenient to calculate the profitability of the food system, we narrowly
+
+                     号
+  understand the food system as only including production, processing&packaging, distribu-
+  tion&retail and consumption. Then we select several economy-related indicators from the
+
+                      ：
+  model established in Task 1 to construct the profitability formula. The indicators we selected
+  include: Local prices(LP), Labor costs(LC), Transportation facilities(TF), Advertising(AD),
+  agriculture land(AL). The profitability of sell food per unit is given by the following formula:
+
+            信                                                                                          (4)
+
+
+    微   Where,             represent transportation costs per mile, production per unit of agricul-
+  tural land, profit changes caused by emergencies respectively.
+
+  4.5.3 Efficiency
+       Similar to the above, when considering the efficiency of the food system, we ignore the
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                             关注数学模型
+
+                                                                                                             获取更多资讯
+
+
+=== PHYSICAL PAGE 14 ===
+  Team # 2122175
+                                                   微信公众号：数学模型                         Page 14 of 25
+
+  influence of environmental factors and only pay attention to the process of the food system in
+  a narrow sense. So the indicators that we pick for calculating efficiency are: Transportation
+  facilities(TF) and Pattern of payment(PP), in which distribution process and consumption are
+  considered respectively. Thus, the formula of calculating efficiency is obtained:
+                                                                                             (5)
+        Where,       represents efficiency caused by emergencies. PP=0.5 when the pattern of
+
+
+
+
+                                              AT      ：
+  payment is cash payment , PP=1 when the pattern of payment is e-payment.
+
+  4.5.4 Equity
+        In some areas where the food system is well developed, there are still many food insecure
+
+
+
+
+                                                         数
+  people. Therefore, it is one-sided to evaluate a food system only from profit and efficiency. In
+
+
+
+
+                                                 Hm
+  order to optimize the model we built in Task 1, we used equity as the optimization objective.
+  More specifically, we selected several indicators related to improving equity from the model
+
+
+
+
+                                                           学
+  established by Task 1 to construct the equity index of the food system. In terms of food distri-
+  bution, transportation is an important factor in ensuring equity. Areas with better transport fa-
+  cilities tend to take better care of the poor because food is easier to get to. Government policies
+  often are designed to correct market failures by allocating food to remote areas or at lower
+
+
+
+
+                                                   od       模
+  prices, so the role of government cannot be ignored. In addition, Gender equity(GE) and In-
+
+
+                            众
+  come equity(IE) should be also considered. Therefore, we construct the following formula to
+  evaluate the Equity index(EI) of the food system:
+
+
+                             号                                                                     (6)
+
+
+
+
+                                                     els      型
+        Where,                   are the coefficients of the variables. CPI represents the Corruption
+  Perception Index, which can reflect the possibility that the government will make the right
+
+                    公
+  decision. And the smaller CPI is , the more likely the government is to make the right decision.
+
+  4.5.5 Sustainability
+
+           信
+       According to Maleksaedi and Karami, sustainability is defined as the capacity to achieve
+  today's goals without compromising the future capacity to achieve them. Therefore, evaluating
+
+  微
+  the sustainability of the food system needs to consider comprehensively, rather than looking at
+                                        M
+  only one aspect of the food system。Based on this, we choose these four indicators to measure
+  the food system from the four aspects of safety, stability and ecology. Then, the Sustainability
+
+                     号
+  index of food system(SI) can be calculated by the formula below:
+                                                                                               (7)
+
+       Where,
+                      ：     are the coefficients of the variables.
+
+
+
+            信
+  5 Answers to Questions
+
+
+    微
+  5.1 Food systems optimized for equity and Sustainability
+  5.1.1 Optimize food systems
+       In the previous paper, a comprehensive evaluation model of the food system is established
+  and four optimization targets of food system are put forward. In today's world, despite the high
+
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 15 ===
+  Team # 2122175
+                                                  微信公众号：数学模型                        Page 15 of 25
+
+  economic level of many countries, food insecure people are common. This shows that the cur-
+  rent food system has problems in the distribution link, and the equity of the food system needs
+  to be improved urgently. In addition, the current food system leaves a massive environmental
+  footprint accounting for “29% of green-house gas emissions, up to 80% of biodiversity loss,
+  80% of deforestation, and 70% of all freshwater use.” So future food systems should focus
+  more on sustainability.
+
+
+
+
+                                             AT      ：
+       To start, the optimization target value of the current food system is set. Specifically, we
+  intend to increase the value of equity by 50 percent, and the value of sustainability by 50 per-
+  cent.
+       Then, the entropy weight method is used to calculate the coefficients in the formula(6) and
+
+
+
+
+                                                        数
+  (7) ,the results are:0.5643, 0.1314, 0.1491, 0.1552, 0.2491, 0.4214, 0.3295.
+
+
+
+
+                                                Hm
+       Next, this 50% increase is allocated to each index according to the weight, and the distri-
+  bution is shown in the following table3.
+
+
+
+
+                                                          学
+                                 Table.3 The weight of each indicator
+               Optimizations              targets            indicators           targets
+                                                            TF (0.5643)           +28.2%
+                                                           CPI (0.1314)            -6.6%
+
+
+
+
+                                                  od
+                Equity Index                50%
+
+
+
+
+                                                           模
+                                                            GE (0.1491)           +7.5%
+
+
+                            众                               IE (0.1552)
+                                                           FW (0.2491)
+                                                                                  +7.8%
+                                                                                  +12.5%
+
+
+                             号
+            Sustainability Index            50%
+
+
+
+
+                                                    els
+                                                            CE (0.4214)           +21.1%
+
+
+
+
+                                                             型
+        From the above table, we can see the difference between the improved food system and
+  the current one:
+        (1)
+                   公
+               ( Transportation facility)：transport facilities improved by 28%, the largest im-
+  provement among all indicators. It is easy to understand that the better the road network, the
+
+          信
+  less difficult the distribution of food, and the more equitable.
+        (2)      ( Corruption Perception Index): Its value decreased by 6%, indicating that the im-
+  provement of fairness does not require high government efficiency. Often a country's govern-
+
+  微                                    M
+  ment is so complex that it is difficult to make big changes.
+        (3)          (Gender equity and Income equity): As can be seen from the index names,
+  these two indicators are closely related to equity.
+        (4)
+                     号      (Fresh water, CO2 emission and Forest coverage): There are many indi-
+  cators we can find to measure the sustainability, we choose these three representative ones
+
+                      ：
+  finally. And when sustainability is increased by 50%, their improvement goals are 12.5%, 21.1%
+  and 16.5%.
+
+
+            信
+  5.1.2 Calculate the implement time
+       Because the above indicators cover different fields, and each indicator has a different goal
+  for improvement. Therefore, we use the maximum amount of time it takes to achieve each goal
+
+    微
+  individually as the total amount of time. The formula of calculating the time cost is :
+                                                                                                (8)
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 16 ===
+  Team # 2122175
+                                                   微信公众号：数学模型                        Page 16 of 25
+
+  5.2 Benefits and costs Analysis
+        The cost-benefit analysis of changing food system priorities is complex. It involves mul-
+  tiple aspects of food system outcomes. We need to consider many aspects, such as availability,
+  access and utilization etc. The specific realization of the cost benefit is through the driver, and
+  we will specify later which intervention plans are required. In order to simplify the calculation,
+
+
+
+
+                                                      ：
+  we mainly consider the cost and benefit of food system in the ecosystem. From the first ques-
+
+
+
+
+                                              AT
+  tion to optimize the food system and improve the specific changes in indicators. Environment
+  is often more important.
+
+
+
+
+                                                         数
+  5.2.1 Costs Analysis
+       If the ecological security of the food system is given priority, we plan to reduce the agri-
+
+
+
+
+                                                 Hm
+  culture land in the food system and turn it into forest or grassland to improve the ecological
+  environment. For the convenience of analysis we consider only terrestrial food production and
+
+
+
+
+                                                           学
+  not aquatic food. Therefore, in Task 3, we selected countries that mainly rely on terrestrial food
+  as their main food source.
+       Based on the above analysis, the cost of prioritizing ecological factors can be broken down
+
+
+
+
+                                                   od
+  into the following aspects[4].
+
+
+
+
+                                                            模
+       (1) The cost of grain production reduction caused by the reduction of cultivated land area
+     ；
+                            众
+       (2) Due to the reduction of arable land area, some farmers are unemployed. Thus the cost
+
+
+                             号
+                                                     els
+  of resettling these farmers for employment        should be considered；
+
+
+
+
+                                                              型
+       (3) The cost of additional food imports resulting from reduced production        ；
+       (4) The cost of ecological restoration of abandoned land       。
+
+                   公
+       Therefore, the total cost can be calculated using the following formula：
+                                                                                                       (9)
+
+           信
+       Where,        is the expense caused by uncertainty.
+
+
+
+  微
+  5.2.2 Benefit Analysis
+                                        M
+       Because of the priority given to ecology, our benefit analysis starts with ecosystem. In
+  order to quantify ecosystem services, we look up relevant materials and obtain the classification
+
+
+                     号
+  of ecosystem services[12]. The results are shown in the table below：
+                               Table.4 Ecological system services
+      Provisioning
+         services
+                      ：        Regulating
+                                Services
+
+                                                    ⚫
+                                                            Culture
+                                                            Services
+
+                                                         Spiritual religious
+                                                                                  Supporting
+                                                                                   Services
+
+   ⚫
+   ⚫
+   ⚫
+        Food
+            信
+        Fresh water
+        Fuelwood
+                        ⚫
+                        ⚫
+                             Climate regulation
+                             Disease regulation
+                                                    ⚫    Recreation ecotour- ⚫
+                                                         ism
+                                                                                     Soil
+                                                                                     mation
+                                                                                              for-
+
+   ⚫
+   ⚫
+   ⚫
+    微   Fiber
+        Biochemicals
+        Genetic re-
+        sources
+                        ⚫
+                        ⚫
+                        ⚫
+                             Water regulation
+                             Water purification
+                             Pollination
+                                                    ⚫
+                                                    ⚫
+                                                    ⚫
+                                                    ⚫
+                                                         Aesthetic
+                                                         Inspirational
+                                                         Educational
+                                                         Sense of place
+                                                                             ⚫
+
+                                                                             ⚫
+                                                                                     Nutrient cy-
+                                                                                     cling
+                                                                                     Primary pro-
+                                                                                     duction
+                                                    ⚫    Cultural heritage
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                             关注数学模型
+
+                                                                                                             获取更多资讯
+
+
+=== PHYSICAL PAGE 17 ===
+  Team # 2122175
+                                                  微信公众号：数学模型                         Page 17 of 25
+
+      In consideration of the availability of data and the representativeness of indicators, ac-
+  cording to the contents in the above table4 , fresh water(provisioning services), forest cover-
+  age(provisioning services), air pollution(regulating services) and water pollution(regulating
+  services) are selected to represent the country's ecosystem services. So the benefits can be cal-
+  culated by the following formula:
+                                                                                               (10)
+
+
+
+
+                                             AT      ：
+  Where,                 are the coefficients of each variable.
+
+  5.2.3 profitability analysis（Benefits-Costs）
+       Adapt specific food systems based on our analysis above. At the beginning, because of
+
+
+
+
+                                                        数
+  various unstable factors, the cost will continue to climb. But as time go on, the abandoned
+
+
+
+
+                                                Hm
+  farmers are resettled, and the country gradually adapt to the economic structure of importing
+  cereals, and the maintenance of the ecosystem enter into a phase of low consumption. As a
+
+
+
+
+                                                          学
+  result, costs tend to be stable.
+       As for the benefit, thanks to the gradual restoration of the ecosystem, all parts of the eco-
+  system services are slowly improved, so the benefit is also in a state of slow improvement.
+       Figure5 is used to show the change of benefits and costs.
+
+
+
+                            众
+                             号                    od       模
+                   公                                els      型
+          信          Figure.7 Costs and Benefits analysis of food system
+
+  微                                    M
+       From the Figure.7,we can obtain that when T0 the food system become profitable and after
+  T0, it become more and more profitable.
+
+
+                     号
+  5.2.4 Difference between developed and developing countries
+       In developed countries, given the high level of urbanization, less agriculture land, food
+
+                      ：
+  production is low and food imports account for a large proportion. In addition, because the
+  developed countries achieve economic development earlier, they are in a state of conservation
+  rather than exploitation of the ecosystem.
+
+            信
+       Based on the above analysis, we can conclude that in developed countries, because the
+  area of arable land is already small, the amount of food lost due to abandoned arable land is
+
+    微
+  small. Losses from increased imports to supplement food are also relatively small. In addition,
+  due to the high level of ecosystem services in developed countries before the food system im-
+  proved, the time and economic costs required to restore abandoned farmland were relatively
+  low.
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 18 ===
+  Team # 2122175
+                                                 微信公众号：数学模型                        Page 18 of 25
+
+      As a result, Figure.7 is no longer a good description of costs-benefits change in developed
+  countries.
+
+
+
+
+                                            AT      ：
+                                               Hm      数
+                             Figure.8 Analysis in developed countries
+       From the Figure.8, we find that in contrast to the previous graph, the starting point of
+
+
+
+
+                                                         学
+  benefits is higher and the point of profit is earlier.
+       While in developing countries, the main source of food is cultivation rather than importa-
+  tion because of the relatively backward economic development. Because the area of agricul-
+
+
+
+
+                                                 od
+  tural land is so large, developing countries lose more food when the same proportion of agri-
+
+
+
+
+                                                          模
+  cultural land is turned over for restoration. In addition, due to the relatively weak awareness
+
+                           众
+  and capacity of ecological protection in developing countries, the time cost and economic cost
+  of ecological restoration will be greater. The following figure shows the results.
+
+                            号
+                   公                               els      型
+          信
+  微                                    M
+                           Figure.9 Analysis in developing countries
+
+                     号
+  5.3 Applied to Japan and India
+
+                      ：
+       We select India and Japan, respectively, to verify our conclusions in Task 2.
+       In order to find the weight of each variable in formula (14), we have data from the World
+
+
+            信
+  Bank for 190 countries. The Matlab2019b software is used to process the data and calculate
+  the weights. The results are:0.4612, 0.2156, 0.1876, 0.1347. Then, data from Japan and India
+  are substituted into the formula to obtain a score (Japan: 68.5384 , India : 23.8331) to measure
+
+    微
+  the ecosystem services of the two countries. To obtain the year of balance of payments for both
+  countries, we use the GM (1,1) -PSO prediction model to predict optimized ecosystem service
+  scores for India and Japan.
+
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 19 ===
+  Team # 2122175
+                                                    微信公众号：数学模型                         Page 19 of 25
+
+  5.3.1 GM(1,1) prediction model
+        Grey system theory[14] is a relatively important method of studying discrete data series
+  with small numbers of samples and incomplete information. By fully developing and utilizing
+  the explicit and implicit information in the existing data, the randomness that is present in the
+  series is cumulatively weakened. The laws governing the changes in the system are thus gen-
+  erated and can be used to research the future time distributions for specific time intervals. The
+  core formula of GM(1,1) model is                                                       . Where,    is
+
+
+
+
+                                               AT      ：
+  a parameter of the model and its value determines the accuracy of the model.
+  5.3.2 The PSO Algorithm
+        The PSO algorithm[13] is aimed at stimulating the foraging behavior of birds. That is, we
+
+
+
+
+                                                          数
+  imagine a flock of birds randomly searching for food in a fixed field and mimic their behavior
+  by randomly changing flight velocity. Each bird's position represents a solution, and the closer
+
+
+
+
+                                                  Hm
+  it is to the optimal value, the more likely it is to become the direction of the flock. The formulae
+  for calculating the change in velocity and position of the         particle are given by:
+
+
+
+
+                                                            学
+                                                                                              (11)
+                                                                                              (12)
+                                [14]
+         According to Niu et al. , the PSO algorithm can be used to find the best value of param-
+
+
+
+                             众                      od       模
+  eter      to improve the accuracy of the prediction model.
+
+  5.3.3 Model application
+
+
+                              号
+                                                      els
+       Because the costs of optimizing food systems is not easy to measure and cannot be directly
+
+
+
+
+                                                               型
+  compared with ecosystem service scores. So we assume that when the incremental value of the
+  ecosystem service score reaches 5% of the base score, the costs and benefits are equal. Thus,
+
+                     公
+  the target values for Japan's and India's ecosystem services scores are 75.392 and 26.213 re-
+  spectively. The predicted results are shown in the figure below:
+
+
+             信
+  微                                     M
+                       号
+                        ：
+              信
+    微                Figure.10 Prediction of ecosystem service scores in India
+
+
+
+
+微信号：MATHmodels                                                                                         2
+
+                                                                                              MATHmodels
+                                                                                                           关注数学模型
+
+                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 20 ===
+  Team # 2122175
+                                                   微信公众号：数学模型                        Page 20 of 25
+
+
+
+
+                                              AT      ：
+                                                 Hm      数
+                                                           学
+                   Figure.11 Prediction of ecosystem service scores in Japan
+
+       As can be seen from the above two graphs, Japan will reach its balance of payments in
+  2036, while India will reach its balance of payments even later in 2040. Thus, Japan, as a de-
+
+
+
+
+                                                   od       模
+  veloped country, achieve cost and benefit parity much earlier than India, as a developing coun-
+
+
+                            众
+  try, which is a good proof of the conclusion we made in Task 2.
+
+
+
+                             号
+  5.4 Scalability and Adaptability
+
+
+
+                                                     els      型
+  5.4.1 Scalability
+
+
+                   公
+        When analyzing large and small food systems, our model uses the variation of coefficients
+  to make more accurate predictions. Note that this is not just an expansion of activity in the food
+  system itself, but also in relation to environmental, socio-economic and other indicators.
+
+           信
+        For larger food systems, we do a global analysis. When we analyze continents, we look
+  more at trade between countries, such as trade and food exchange between rich and developing
+
+
+  微
+  countries. If a country has a low food self-sufficiency rate due to ecosystem services, it is more
+                                        M
+  important for these countries to consider food imports. Large countries have more human and
+  energy resources that can be fully deployed in an emergency. As a combination of nations,
+
+
+                     号
+  continents have an inherent advantage in making flexible decisions. In the face of extreme
+  situations, the degree of policy coordination in all regions in the context of social resilience is
+
+
+                      ：
+  essential to rearrange the evaluation system.
+       When we think about smaller food systems, like cities, we need to think about urban
+  and rural populations, and urban infrastructure tends to be more manageable in terms of re-
+
+            信
+  source concentration. Moreover, national policies can easily affect cities, and the level of po-
+  litical corruption often needs to be considered。
+
+
+    微   The concept of urban regional food system (CRF) includes a complex network of actors,
+  processes and relationships that exist in a specific geographic region, including a more or less
+  concentrated urban center and its surrounding suburban and rural hinterland. A regional land-
+  scape that manages the flow of people, goods, and ecosystem services. Thus, the national re-
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 21 ===
+  Team # 2122175
+                                                  微信公众号：数学模型                         Page 21 of 25
+
+  porting framework approach is able to look at this complex problem from a practical perspec-
+  tive and provide concrete solutions through the strengthening of rural-urban linkages.
+        The Food for Cities Initiative has been promoting dialogue and partnership with institu-
+  tions at international and national levels, in particular with municipalities.
+
+  5.4.2 Adaptability
+
+
+
+
+                                             AT      ：
+       In order to better verify the applicability of our model, we selected a country with a low
+  ranking from the global hunger index for analysis. The results of our analysis are compared
+  with the real situation and the corresponding intervention measures are proposed.
+       Yemen ranks 116th out of 117 participating countries in the 2020 Global Hunger Index.
+
+
+
+
+                                                        数
+  So we chose Yemen for our analysis. We obtained the data for Yemen from the World Bank and
+
+
+
+
+                                                Hm
+  calculated Yemen's scores for each tier based on the FIO model we developed above and com-
+  pared them to the world average, resulting in the radar chart below.
+
+
+
+
+                                                          学
+                            众
+                             号                    od       模
+                   公                                els      型
+          信            Figure.11 Yemen's scores compare with the world average
+
+  微     As you can see from the chart above, Yemen's food system scores below the world average
+                                       M
+  in all aspects. This is in line with Yemen's overall poverty, weak industry and constant conflict.
+  Thus, it is necessary to take some measures to optimize the food system in Yemen,
+
+                     号
+        The following measures need to be taken:
+        ⚫ United Nations agency says, to avoid the worst case, must immediately to ensure sus-
+
+                      ：
+            tained and unhindered food aid, to save life, at the same time protect the food security
+            and the livelihood of the displaced population.:
+        ⚫ At the same time, must be immediately restore the water supply facilities damaged
+
+            信
+            by the flood , and take measures to resist in and mitigate the effects of the flood of
+            irrigation and water supply system in the future.
+
+    微   ⚫ Farmers who have lost crops and pastures to pests and climate shocks urgently need
+            support, the three agencies said, along with increased dietary nutrition, such as
+            through home gardens, and education at the household level about food and water
+            safety. Humanitarian agencies should further consolidate early warning and food
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 22 ===
+  Team # 2122175
+                                                  微信公众号：数学模型                        Page 22 of 25
+
+           safety monitoring systems and promote rapid and coordinated crisis response.
+
+
+  6 Intervention plans
+  6.1 Resilience
+
+
+
+
+                                             AT      ：
+       Resilience are extremely cost-effective: they not only can reduce the cost of dealing with
+  periodic crises, but also help overcome long-standing development gaps. Therefore, combining
+  the search results, we make some suggestions as follows.
+
+
+
+
+                                                        数
+       ⚫ Establishing warning and preparedness systems early
+       ⚫ Reducing the cost of periodic crises
+
+
+
+
+                                                Hm
+       ⚫ Strengthening the national capacity of control disaster risk
+       ⚫ Making the system of supporting social security
+
+
+
+
+                                                          学
+  6.2 Equity
+       Equity distribution is an inevitable requirement for achieving fairness and harmonious, a
+
+
+
+
+                                                  od
+  necessary condition for making society be full of vitality, and a basic prerequisite for building
+
+
+
+
+                                                           模
+  a harmonious society. Therefore, fairness is also an indispensable feature for making a good
+
+                            众
+  food system. We also made a few suggestions to the government as follows.
+
+       ⚫
+
+                             号
+         Ensuring that members of society enjoy equal rights to education and employment,
+
+
+
+
+                                                    els      型
+         and achieve the starting point of incoming distribution fairly
+       ⚫ Improving system of distribution according to work and distribution according to fac-
+
+                   公
+         tors, and realizing income distribution fairly
+       ⚫ Adjusting the income gap and achieving income distribution result fairly
+
+
+           信
+  6.3 Sustainability
+       Sustainability refers to development that not only satisfies the needs of the present gener-
+
+  微                                    M
+  ation, but does not harm the resources of future generations. While satisfying our food needs,
+  we should not waste the resources of future generations. Therefore, Sustainability is an indis-
+  pensable feature for making a good food system, too. We also made a few suggestions to the
+
+                     号
+  government as follows.
+
+       ⚫
+       ⚫
+                      ：
+           Family planning to limit the current population
+           Formulating a plan for the coordinated development of economy, population, re-
+           sources and environment
+       ⚫
+            信
+           Choosing an industrial structure and consumption mode that is conducive to resource
+           conservation
+
+
+    微  ⚫   Establishing a conservation-oriented national economic system
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 23 ===
+  Team # 2122175
+                                                  微信公众号：数学模型                        Page 23 of 25
+
+
+  7 Sensitivity Analysis
+
+
+
+
+                                             AT      ：
+                                                Hm      数
+                                                          学
+                         (a)                                            (b)
+                      Figure.11 Sensitivity Analysis about the parameter e
+      In this section, we make the sensitivity analysis about the parameter , which is based on
+  GM(1,1)-PSO prediction model. The sensitivity analysis of the model is shown as fellows in
+
+
+
+                                                  od       模
+  Figure.11.(a) and Figure.11.(b).
+
+
+                            众
+                           Table.5 the mean absolute percentage error
+                        MAPE(%)                    Forecasting ability
+
+
+                             号
+                                                    els
+                           <10                         High ability
+
+
+
+
+                                                             型
+                          10-20                       Good ability
+                          20-50                    Reasonable ability
+
+                   公       >50                        Weak ability
+
+
+
+           信
+       There, MAPE denotes the mean absolute percentage error, which reflects the accuracy of
+  the prediction model. And the MAPE criterion used to assess accuracy is showed in Table.5.
+  Figure.11.(a) reveals the process of PSO algorithm to find the global optimal solution , global
+
+  微
+  optimal which is obtained when
+                                       M           (where                          ). Figure.11.(b)
+  shows that the MAPE value decreases as the number of iterations increases. Finally, after 18
+  iterations, the optimal solution is found ,namely the model has the best prediction accuracy.
+
+                     号
+  8 Model Evaluation
+  8.1 Strengths
+                      ：
+       ⚫
+            信
+           Our model not only optimizes the sustainability and equity of food systems, but also
+           considers the resilience of the system to deal with the extremely situations, for exam-
+
+    微  ⚫
+           ple the new crown epidemic
+           Our model evaluating the food system is not only production and consumption, but
+           also considering the results produced by these activities and driving factors of these
+           activities, which is comprehensive and objective
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 24 ===
+  Team # 2122175
+                                                微信公众号：数学模型                       Page 24 of 25
+
+      ⚫   We have established a multi-level indicator system, the first level indicators cover a
+          wide range, and the second level indicators are more detail, so the model we built is
+          comprehensive and detailed
+      ⚫   The final score result of our model is very consistent with the global hunger index
+          ranking, which shows that our model is reasonable and effective.
+  8.2 Weaknesses
+
+
+
+
+                                           AT      ：
+      ⚫ Even though our food system evaluation model considers the problem indicators
+        extremely comprehensive, but due to some indicator data missing and some indicators
+        that we have not found, we can only choose the indicators that can be considered and
+
+
+
+
+                                                      数
+        the data is true and complete to analysis
+      ⚫ When analyzing the benefit and cost, we mainly analyzes the benefit and cost of the
+
+
+
+
+                                              Hm
+        food system in the environment, which is fault
+
+
+
+
+                                                        学
+                          众
+                           号                    od       模
+                   公                              els      型
+          信
+  微                                  M
+                   号
+                    ：
+           信
+   微
+微信号：MATHmodels                                                                                 2
+
+                                                                                      MATHmodels
+                                                                                                   关注数学模型
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 25 ===
+  Team # 2122175
+                                                 微信公众号：数学模型                      Page 25 of 25
+
+
+  References
+  [1] Food systems, World Food Programme, 2021.Retrieved from:https://www.wfp.org/food-
+      systems?_ga=2.49949478.1623942864.1612623374-1654518739.1612491131
+
+  [2] Ericksen, P. J. . (2008). Conceptualizing food systems for global environmental change
+
+
+
+
+                                            AT      ：
+      research. Global Environmental Change, 18(1), 234-245.
+
+  [3] International Conference on Organic Agriculture and Food Security, Food and Agriculture
+      Organization of the United Nations. Retrieved from: http://www.fao.org/organicag/oa-spe-
+
+
+
+
+                                                       数
+      cialfeatures/oa-foodsecurity/en/
+
+
+
+
+                                               Hm
+  [4] Sandhu, Muller, Sukhdev, Merrigan, Tenkouano, & Kumar, et al. (2019). The future of
+      agriculture and food: evaluating the holistic costs and benefits. ANTHROPOCENE RE-
+
+
+
+
+                                                         学
+      VIEW, 6(3).
+
+  [5] World Bank. (2021). Food production Index. Retrived from: https://data.worldbank.org/in-
+      dicator/AG.PRD.FOOD.XD?view=chart
+
+
+
+
+                                                 od       模
+  [6] World Bank. (2021). Transport services (% of service imports, BoP). Retrived from:
+
+
+                           众
+      https://data.worldbank.org/indicator/BM.GSR.TRAN.ZS
+
+  [7] World Bank. (2021). Transport services (% of service exports, BoP). Retrived from:
+
+                            号
+                                                   els
+      https://data.worldbank.org/indicator/BX.GSR.TRAN.ZS?view=chart
+
+
+
+
+                                                            型
+  [8] World Bank. (2021). Food imports (% of merchandise imports). Retrived from:
+
+                   公
+      https://data.worldbank.org/indicator/TM.VAL.FOOD.ZS.UN
+
+  [9] World Bank. (2021). Prevalence of moderate or severe food insecurity in the population
+
+          信
+      (%). Retrived from: https://data.worldbank.org/indicator/SN.ITK.MSFI.ZS?view=chart
+
+  [10] World Bank. (2021). IDA resource allocation index (1=low to 6=high). Retrived from:
+
+  微    https://data.worldbank.org/indicator/IQ.CPA.IRAI.XQ
+                                      M
+  [11] Maleksaedi, H., Karami, E., (2013). Social–ecological resilience and sustainable agricul-
+
+
+                    号
+       ture under water scarcity. Agroecol. Sustain. Food Syst. 37 (3), 262–290.
+
+  [12] Millennium Ecosystem, A., (2003). Ecosystems and Human Well Being:A Framework for
+
+                     ：
+       Assessment. Island Press, Washington.
+
+  [13] Zheng-Xin Wang, Qin Li, Ling-Ling Pei,A seasonal GM(1,1) model for forecasting the
+
+            信
+       electricity consumption of the primary economic sectors, Energy,Volume 154,2018, Pages
+       522-534, ISSN 0360-5442.
+
+
+   微
+  [14] Niu DX, Zhao L, Zhang B, Wang HF. The application of particle swarm optimization based
+       grey model to power load forecasting. Chin J Manag Sci 2007;15(1):69e73
+
+
+
+
+微信号：MATHmodels                                                                                 2
+
+                                                                                      MATHmodels
+                                                                                                   关注数学模型
+
+                                                                                                   获取更多资讯

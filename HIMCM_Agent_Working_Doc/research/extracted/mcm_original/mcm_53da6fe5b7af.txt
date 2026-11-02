@@ -1,0 +1,845 @@
+=== PHYSICAL PAGE 1 ===
+Control #38721
+
+
+    In our paper, we seek to remedy the problem of ineffective search for lost
+aircraft. We detail a model that utilizes a powerful statistical algorithm known
+as the Bayesian Search Method, and offer several improvements on the classical
+version of this procedure. We quantify these improvements by giving data about
+how they reduce the time it takes to locate a downed plane. Finally, we run our
+model given data from the recent Indonesia AirAsia Flight 8501 event where a
+plane was lost, and demonstrate that we find the plane in the same amount of
+time that it took the real search team.
+    We conclude that our model is performant, and can be used in real-world sce-
+narios to recover the wreckage of lost planes in a timely manner. Furthermore, our
+model implements improvements to the classic Bayesian Search Method, which
+allows searches to succeed faster in practice. Since the classic Bayesian Search
+Method is currently used in real search systems, we believe these improvements
+make our model superior.
+
+
+
+
+An initial probability distribution for the location of a downed plane used by
+our model.
+
+
+=== PHYSICAL PAGE 2 ===
+Application and Advancement in Bayesian Search
+         Theory on Finding Lost Planes
+                 Control #38721
+                 February 9, 2015
+
+
+=== PHYSICAL PAGE 3 ===
+Control #38721                                                       Page 1 of 21
+
+
+Contents
+1 Introduction                                                                   2
+
+2 Statement of Problem                                                           2
+  2.1 Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      2
+      2.1.1 Location of Crash . . . . . . . . . . . . . . . . . . . . . .        2
+      2.1.2 Ocean Currents . . . . . . . . . . . . . . . . . . . . . . . .       3
+      2.1.3 Crash Site vs. The Plane Itself . . . . . . . . . . . . . . .        3
+      2.1.4 No Additional Contact . . . . . . . . . . . . . . . . . . . .        3
+
+3 Bayesian Search Method                                                        3
+  3.1 Optimal Methods of Search . . . . . . . . . . . . . . . . . . . . .       3
+  3.2 Overview of the Algorithm . . . . . . . . . . . . . . . . . . . . .       5
+  3.3 Bayes’ Formulas . . . . . . . . . . . . . . . . . . . . . . . . . . .     5
+
+4 Initial Distribution                                                           5
+  4.1 Forming Hypotheses About Lost Planes . . . . . . . . . . . . . .           6
+       4.1.1 Hypothesis 1: Optimistic Distribution . . . . . . . . . . .         6
+       4.1.2 Hypothesis 2: Pessimistic Distribution . . . . . . . . . . .        7
+  4.2 Combining for a Final Distribution . . . . . . . . . . . . . . . . .       8
+       4.2.1 Selecting Appropriate Weights . . . . . . . . . . . . . . .         8
+
+5 Basic Model                                                                    9
+  5.1 Inside a Search Square . . . . . . . . . . . . . . . . . . . . . . . .     9
+  5.2 Search effort across all of the squares . . . . . . . . . . . . . . . .   12
+
+6 Extending the Basic Model                                                  12
+  6.1 Multiple Search Planes . . . . . . . . . . . . . . . . . . . . . . . . 12
+  6.2 Realistic Travel and Search Patterns . . . . . . . . . . . . . . . . 13
+
+7 Analysis                                                                      14
+
+8 AirAsia Flight 8501                                                           16
+  8.1 Initial Hypotheses About the Plane’s Location . . . . . . . . . . 16
+  8.2 Running the Model . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+  8.3 Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+
+9 Conclusion                                                                    18
+
+10 References                                                                   20
+
+
+=== PHYSICAL PAGE 4 ===
+Control #38721                                                       Page 2 of 21
+
+
+1       Introduction
+On March 8, 2014, Malaysia Airlines Flight 370 departed from Malaysia on
+course for Beijing. It would never make it to its destination, and less than two
+hours after takeoff, the radar made the last known detection of the aircraft,
+indicating that it was over 200 miles northwest of Malaysia – far off its charted
+course. The ensuing search for the aircraft became a massive multinational
+effort, the largest and most expensive in history. At the time of this writing, the
+location of Malaysia Airlines Flight 370 has remained elusive, and the search is
+still ongoing.
+     Airplane crashes are rare, and cases like Malaysia Airlines where the wreckage
+is never found are rarer. Despite this, we ought to be able to find the location
+of a crashed plane, if only so that we can learn how to avoid in the future the
+circumstances in which the crash occurred.
+     In this paper, we provide a model that tells rescue operations a procedure
+for how to search for downed planes. We use Bayesian Search Theory to inform
+our model, which uses initial hypotheses about the downed plane, and statistical
+methods to provide an accurate and continuously updating guess for where
+to search next. We give an explanation of the details of the Bayesian Search
+Method. This is followed by a discussion on how to choose initial hypotheses,
+and the resulting model. Then we provide several extensions to this basic model,
+which make the search even more accurate. Finally, we will apply our model to
+the Indonesia AirAsia Flight 8501 passenger flight which crashed in December
+2014, and was recovered days later. We apply our model to this and successfully
+find the flight in the same amount of time.
+
+
+2       Statement of Problem
+Our effort here is to aid the search and rescue operation by providing a concrete
+method of searching the crash area. To this end, we must make several simplifying
+assumptions about the conditions of our search operation. This model focuses
+on plane crashes in the middle of large ocean bodies. We also focus on searching
+the surface of the sea for floating wreckage with search planes, and ignore the
+long-term search effort for planes underwater. Additionally, we assume there is
+no signal or contact from the downed plane. These factors, when combined with
+an imperfect search plane, lead to the use of an adaptive search method based
+on Bayesian statistics.
+
+2.1     Assumptions
+2.1.1    Location of Crash
+We assume the crash search area is located complete within the boundary of
+a large ocean. Most of the surface of the Earth which is covered by land is
+populated to some degree, finding a plane that crashed over land is often much
+simpler than finding one lost at sea. The oceans cover a large percentage of the
+
+
+=== PHYSICAL PAGE 5 ===
+Control #38721                                                       Page 3 of 21
+
+
+surface area of the Earth and have the added challenge of being a constantly
+moving surface with large swells and other effects.
+
+2.1.2    Ocean Currents
+According to charts released by NOAA [6], the ocean currents are for the most
+part very slow, about 15 cm per second. Our model is dealing with distances
+orders of magnitude higher, when we separate the search area into grids it would
+take over 8 days of searching for the current to move something from one grid
+into the next, our searches were terminated anywhere from a couple of days to
+several weeks, but even in the worst case the elements in a 40 by 40 grid would
+have only shifted 3 squares, a negligible amount overall.
+
+2.1.3    Crash Site vs. The Plane Itself
+We assume that it is good enough to find the floating debris from the crash site.
+Once these are found the amount of information available greatly increases and
+search efforts can be localized. We solve the problem of using search planes to
+find any sign of the initial wreck over a vast area rather than the easier problem
+of finding the wreckage once the crash site is known. In most cases where debris
+is found, the plane itself is found not long after, while when nothing is found,
+searches last orders of magnitude longer.
+
+2.1.4    No Additional Contact
+We assume that the only contact we had with the plane was when prior to it
+being lost, we have no black box signal and no additional way to remotely gain
+information from the downed plane. In cases where the black box is giving off a
+ping it is much easier to locate the wreckage, we want to solve the problem of a
+complete disappearance. We want the best chance to find a downed plane with
+as little information as is reasonable.
+
+
+3       Bayesian Search Method
+At the heart of our model lies Bayesian Search Theory, an application of statistics
+that is used to search for lost items. This method has been used to successfully
+recover lost vehicles since its introduction in the mid 20th century. Notable
+examples of this include finding the USS Scorpion, a nuclear submarine lost by
+the United States navy in 1968; locating the wreckage of Air France Flight 447,
+an airplane that went down in 2009; and even discovering the resting place of
+the S.S. Central America, an American passenger ship that sank in 1857 [5].
+
+3.1     Optimal Methods of Search
+There are many ways to search for lost objects. Suppose that a child loses his
+ball in a field with tall grass. How should he structure a search to find it? One
+
+
+=== PHYSICAL PAGE 6 ===
+Control #38721                                                           Page 4 of 21
+
+
+way someone might suggest is to start at a corner of the field, walk all the way
+up one side, and when the opposite edge is reached, move slightly inward, and
+walk back down to the bottom of the field. Repeating this procedure until the
+ball is found or the entire field has been walked. If the child is diligent enough
+and the ball is truly in the field, then this method cannot fail. The downside of
+this method is that it is very slow, sometimes requiring that all or almost all of
+the field be searched before we find the ball. So we might wonder if we can do
+better.
+
+
+
+
+                  Figure 1: Simple method of searching an area
+
+    Now consider the same problem, but imagine that the field being searched
+has many hills. We know balls will roll down hills, so we conclude that the
+location of the child’s lost ball is much more likely to be at the lower-elevation
+places in the field. So if lower-elevation areas of the field are searched first, it is
+likely that the ball will be found more quickly than in the first method.
+
+
+
+
+                      Figure 2: Heatmap showing elevations
+
+    This is the idea behind Bayesian Search Theory. Prioritize searching in places
+where the lost object is likely to be, and use the information gained from previous
+failed searches to update where these most likely places are.
+
+
+=== PHYSICAL PAGE 7 ===
+Control #38721                                                        Page 5 of 21
+
+
+3.2     Overview of the Algorithm
+The general description of the algorithm is as follows.
+    1. Think of reasonable guesses for what happened to the lost object, and
+       construct a probability distribution for each one. These will be functions
+       that, given a position, gives an indication of how likely we are to find the
+       object at that position.
+    2. Create a function that takes in a position, and returns the probability
+       that we find the object if we look at that position, given that the object is
+       actually there. For example, things are easier to find in clear weather as
+       opposed to stormy weather, so if the lost object is currently in a location
+       undergoing a storm, we may still fail to find it with high probability even
+       though it really is there.
+    3. Combine these probability distributions to get an overall map of the area,
+       where we can identify which areas have the highest probability of our
+       object being found if we search there. Then begin searching the highest
+       probability areas first.
+    4. Revise these probabilities after every search using the well known Bayes’
+       Theorem. Abstractly, if we search in a location and don’t find our object,
+       then the probability that our object is around that location is reduced,
+       and the probability that it is in other locations is increased.
+
+3.3     Bayes’ Formulas
+Suppose a location has a probability p of containing our lost object, and that
+the probability of successfully detecting the lost object if it is in that location
+is q. If we search the square and do not find the lost object, then using Bayes’
+Theorem we can update p to p0 where
+
+                                  p(1 − q)          1−q
+                      p0 =                      =p        < p.
+                             (1 − p) + p(1 − q)    1 − pq
+
+And for each other location, if its probability before the search was r, then its
+probability after the search is given by r0 where
+                                             1
+                                  r0 = r          > r.
+                                           1 − pq
+
+4     Initial Distribution
+Before we begin applying the Bayes’ Search Method, we must first come up
+with reasonable hypotheses about what could have happened to the downed
+plane. For each one of these hypotheses, we can form a probability density
+function, that given a location, returns an indication of the probability that the
+
+
+=== PHYSICAL PAGE 8 ===
+Control #38721                                                        Page 6 of 21
+
+
+lost plane is at that location. Once we have all of these, we can combine them to
+form our final density function. We will use this final combination as our initial
+distribution when we begin to apply the Bayes’ Search Method.
+
+4.1     Forming Hypotheses About Lost Planes
+Given our assumptions, the downed airplane we are searching for cannot transmit
+signals. Because of this, we are only able to rely on the last contact an external
+entity had with the aircraft. This is typically a radar detection. In the case
+of Malaysia Airlines Flight 370, the last contact was when the plane left the
+range of Malaysian Military radar while over the Andaman Sea [2]. This last
+radar detection gives us important information about the lost plane, such as its
+position, altitude, speed, and direction at last contact. From this information
+we can form two generally reasonable guesses for how the plane behaved in the
+time immediately following. We detail these guesses in the next sections.
+
+4.1.1   Hypothesis 1: Optimistic Distribution
+The first hypothesis we consider is what we will refer to as the “optimistic”
+distribution. The intuition for this distribution is that after the point when the
+plane is no longer detected by radio and we lose it, it continues to fly until it
+runs out of fuel, at which point it crashes into the ocean. So the plane flies as
+far as possible. Using the plane’s altitude, speed, direction, and flight duration
+information that we get from the final radar detection, as well as knowledge
+about the model of the plane, we can compute how long and far the plane can
+fly from that point before running out of fuel. Call this maximum distance
+M . Then the optimistic distribution will assign the highest probabilities to the
+location a distance M away in the direction that the plane was travelling as
+determined from data gotten from our last radar detection.
+    Because it is enlightening and will aid explanation, we provide the explicit
+probability distribution formula along with explanation. Let ρo be the un-
+normalized formula for the optimistic distribution. Then
+
+            ρo (r, θ) = r cos2 (θ/2),   r ∈ [0, M ],   θ ∈ [−π/2, π/2].
+
+    So when r is 0, we are at the point where we lost contact with the plane, and
+ρo (0, θ) = 0. When we are at ρo (M, 0), we are at the point distance M away
+from where we lost contact, having traveled at the same angle as the plane was
+when it lost contact, and ρo gives us the largest probability here. As the angle
+θ deviates from the angle at which the plane was travelling, ρo decreases the
+probability that the plane has landed at these locations, because our hypothesis
+is that it is more unlikely that the plane drastically changed the direction it was
+flying.
+    Another property that we have gleaned from this distribution is an upper
+bound for how far the missing airplane can have traveled. Notice that ρo assigns
+no probability to the region outside the circle of radius M . That is because the
+
+
+=== PHYSICAL PAGE 9 ===
+Control #38721                                                       Page 7 of 21
+
+
+
+
+Figure 3: Optimistic distribution. Bright colors are high probability, dark are
+low.
+
+
+plane absolutely would have run out of fuel before reaching that far, and so we
+have obtained a bounding circle within which to contain our search.
+
+4.1.2   Hypothesis 2: Pessimistic Distribution
+The next hypothesis we detail is what we have dubbed the “pessimistic” dis-
+tribution. The idea for this scenario is that the plane crashed into the ocean
+very soon after our last radar ping. Eastern Airlines Flight 401 encountered
+this scenario in 1972 when their autopilot became accidentally switched off, and
+because it was too dark to see, and the plane descended so gradually, nobody
+noticed the problem until the plane hit the ground [4].
+    The pessimistic distribution is constructed by looking at the direction that
+the plane is traveling at the time of the last radar contact, as well as its speed,
+and altitude, and imagining that the plane is turned off immediately after the
+last radar contact. So the plane glides for a little while until it hits the ocean.
+This is effectively what happened to Eastern Airlines Flight 401.
+    Let m be the distance the plane travels once it stops working immediately
+after the last radar detection. So after this last radar ping, the plane glides
+a distance of m, before hitting the water. As before, we provide the explicit
+formula for the un-normalized pessimistic probability distribution, ρp . Let
+
+          ρp = (M − r) cos2 (θ/2),      r ∈ [m, M ],   θ ∈ [−π/2, π/2].
+
+    When r = m we see that the probability is highest of finding the plane with
+this distribution. When r = M the probability is lowest, since ρp (M, θ) = 0.
+And as the angle θ deviates from the original course of the plane, θ = 0, the
+probability becomes worse and worse that the plane has landed there, since we
+consider it unlikely that lost planes change course drastically.
+
+
+=== PHYSICAL PAGE 10 ===
+Control #38721                                                         Page 8 of 21
+
+
+
+
+Figure 4: Pessimistic distribution. Bright colors are high probability, dark are
+low.
+
+
+4.2     Combining for a Final Distribution
+We have constructed two distributions, our optimistic distribution ρo , and our
+pessimistic distribution ρp . In order to use these with our model, we need
+to combine them in some coherent way. We obtain a final distribution by
+multiplying both of these distributions with some weight scalar, and summing
+the resulting products. So our final distribution is given by D where
+
+                                 D = wo ρo + wp ρp
+
+for some weights 0 ≤ wo , wp ≤ 1, such that wo + wp = 1. So the only question
+that remains is how to select what the values of these weights should be.
+
+4.2.1   Selecting Appropriate Weights
+If we do not have any extra information we propose the following scheme for
+choosing weights. At the last radar detection of the lost plane, we learn its
+altitude. Call this value A. We also know the model of the plane, and so we can
+look up the typical cruising altitude of these types of planes. Call this A0 .
+     The intuition for choosing weights is that if A is close to zero, then the plane
+is close to the ocean, and we expect that it will crash soon. Alternatively, if A is
+close to A0 , then we expect that it will continue for much longer, possibly until
+it runs out of fuel. So recall that wo is the weight for the optimistic distribution
+ρo . Then let
+                                             A
+                                      wo = 0
+                                            A
+and thus wp = 1 − wo . The reasoning is that as A is close to A0 , the plane was
+last seen as being very close to normal cruising altitude, so we would expect it
+
+
+=== PHYSICAL PAGE 11 ===
+Control #38721                                                       Page 9 of 21
+
+
+
+
+                        Figure 5: D with wo = wp = 0.5.
+
+
+to go farther, so we would want wo to be close to 1 and wp close to 0, because
+the optimistic distribution gives a better distribution for this scenario. If A is
+close to 0, then wp becomes the higher weight, and the pessimistic distribution
+becomes favored.
+
+
+5     Basic Model
+Our model divides the search into a grid of squares spanning the area of ocean
+where the probability distribution of the crash is nonzero. We split the search
+behavior into two different length scales: the search effort inside any one square
+of ocean, and the search effort over all of the squares. This is reflective of how
+current search and rescue missions operate, with different vessels being sent to
+”look into” different areas on a map and to report back.
+
+5.1    Inside a Search Square
+The discretization of the search area in our model is done at a high cell-count
+and the probability distribution of the position of the plane is broad. This means
+that the probability of the plane being in any one of our squares is roughly
+constant across the square, which will be important later.
+Each search vessel has an associated probability of detecting the downed plane.
+This probability should reflect how the detection is done and depend on the
+distance of the downed plane from our searcher at any given time. One commonly
+used model for this is an inverse-cube law which characterizes the ability of
+human sight to see objects in the distance. It is possible to consider even more
+elaborate detection probability functions incorporating sonar, radar, and other
+equipment as well. However, the effort in creating such a sophisticated model is
+
+
+=== PHYSICAL PAGE 12 ===
+Control #38721                                                   Page 10 of 21
+
+
+
+
+                    Figure 6: D with wo = 0.9, wp = 0.1.
+
+
+
+
+                    Figure 7: D with wo = 0.1, wp = 0.9.
+
+
+
+
+        Figure 8: We subdivide the search area into a grid of squares
+
+
+washed out by the physical random motions of the plane inside a given cell. In
+addition, the relative motion between search planes and a downed plane inside a
+
+
+=== PHYSICAL PAGE 13 ===
+Control #38721                                                      Page 11 of 21
+
+
+given unit cell makes an analytic approach intractable. Instead, we consider the
+lower-bound worst-case scenario of randomly searching inside a given cell for the
+downed plane.
+Let p(x) be the probability of detecting a lost plane a distance
+                                                           R∞     x away from our
+search vessel. Let W be the search width, defined to be −∞ p(x)dx. Physically,
+our goal is to shift from the detailed description of p(x) to a much simpler “box”
+of certain detection with width W .
+
+
+
+
+               Figure 9: Simplifying the probability of detection
+
+    Suppose our search plane travels along a path of length L divided into n
+equal segments of length L/n. Assuming the probability of the downed plane
+is evenly distributed in any of the pieces, then our probability of detection
+distribution p(x) will sweep an area of detection with the path of the plane. We
+can convert this hard problem into a simpler one by noting that the total area
+under the detection curve p(x) is equal to a box of certain detection (probability
+of detection 1) of width W . So the probability of detecting the downed plane
+for a complex detection distribution p(x) is the area swept out by our box of
+certain probability: W ∗ (L/n)[8]. The probability of detecting the downed plane
+is then the same in the case of a uniformly distribution across the square, which
+we have. So, probability of the downed plane being in this area is the fraction of
+the area swept over the total area: W L/nA. The probability of an observer not
+detecting the downed plane is 1 − W L/nA. This is for each individual step, of
+n total steps in the path of length L. So, the probability of not detecting the
+downed plane in any of the n patches of covered area is
+                                 (1 − W L/nA)n .
+Thus, the probability of detecting the downed plane after sweeping over the n
+patches of covered area is
+                     1 − (1 − W L/nA)n = 1 − e−W L/A = q
+for large n. So, all of the complexity of a plane’s search capabilities are wrapped
+up in the size of W . To assist real searchers, data should be collected on the
+actual probability of detection for the combination of devices included in each
+type of search vessel. For demonstration purposes, we have three different types
+of search planes. The most basic plane has W = 20 miles, corresponding to a
+searcher using sight with complete detection of a downed plane within 10 miles
+of either side of the plane. The two more advanced planes in our model have
+W = 40, 80.
+
+
+=== PHYSICAL PAGE 14 ===
+Control #38721                                                       Page 12 of 21
+
+
+5.2     Search effort across all of the squares
+Now that we have a handle on the search plane behavior inside each discrete
+search cell, we need a method for instructing search planes which squares to
+search. This is done by using the Bayesian search method described in section
+three. The first model considers the probability distribution of the position of
+our downed plane and sends a search plane to the square with highest probability.
+Upon searching that square, the entire distribution lattice is updated with new
+probability values. The plane is then sent to the new highest-probability square
+to search. This process is repeated until the lost plane is found.
+
+
+
+
+                         Figure 10: simple model scheme
+
+
+
+6     Extending the Basic Model
+There are several points on which the model above can be improved.
+    • There is only a single search plane, and only one type of plane
+    • The plane teleports between probability maxima
+To increase the realism of our search algorithm, we consider three different types
+ of planes with absolute detection W = 20, 40, 80. We also consider a scheme in
+which each plane only chooses to move between neighboring cells in our discrete
+ probability distribution, unless the global maxima probability is four times higher
+ than the one being searched. This decision reflects the real world scenario of
+“knowing” that the downed plane is probably somewhere you are not looking, so
+ the search effort is refocused to a different location.
+
+6.1     Multiple Search Planes
+When we look at real searches, there are many search planes involved and they
+can have a wide variety of effectiveness at searching. In order to extend our
+model we first make a simple change to incorporate a selection of search planes.
+Instead of the highest probability square being searched each time we take a step
+
+
+=== PHYSICAL PAGE 15 ===
+Control #38721                                                      Page 13 of 21
+
+
+in the algorithm we have a group of search planes which each take a variable
+number of steps to finish a search of the square they occupy. As time steps,
+each plane will search for a number of time steps dependent on their absolute
+detection, then they will update the probability distribution with the results of
+their search and find the highest probability square which is unoccupied. This
+will be the next square searched by this plane. In practice this method looks
+very similar to having just one plane, except the squares are searched faster.
+The squares are still searched in the same order, as the relative probabilities are
+still ordered the same and each plane chooses the highest probability square it
+can. As we can see in Fig. 11, as we add more planes to the search, the time to
+find the crash site goes down. We also see that the variance decreases with more
+planes as well, meaning that we are less likely to take an unusually long time to
+find the site.
+
+
+
+
+Figure 11: As the number of search planes increases, the spread and time to find
+the crash site decreases.
+
+
+6.2    Realistic Travel and Search Patterns
+Another improvement we can make to our model is to more realistically model
+plane movement. In the basic model planes search the highest probability square
+they can, regardless of how far away that square is from their current square.
+In a realistic search, planes would have to travel from square to square and it
+would be more efficient to search a local area until the area near you has a low
+probability. This means that sometimes we will search squares which are not
+the highest probability squares, but since planes travel in continuous lines this
+will more accurately represent a real search.
+
+
+=== PHYSICAL PAGE 16 ===
+Control #38721                                                        Page 14 of 21
+
+
+
+
+Figure 12: When we apply realistic travel to multiple planes we see that our
+search performance improves.
+
+
+    When we apply this new search behavior we notice that our performance
+improves slightly (Fig. 12). In the case of only one plane, the method of
+searching the highest probability squares first performs better, as we would
+expect. However, when we use multiple planes a different behavior emerges.
+Because all of the probabilities are fairly low and distributed over a large area,
+the planes picked from our distribution made from combining the optimistic
+and pessimistic distributions turns out to put planes in the medium probability
+areas quite frequently, as the area under the distribution in the medium areas
+is larger than the area under the distribution at the maximal points. When
+we search the highest probability areas first it takes a long time to reach the
+medium probability areas because you search in order from high to low. When
+we use more realistic behavior, we end up searching medium probability areas
+sooner, before moving to higher probability areas. With a distribution that has
+more peaks and a greater difference between high and low probabilities, this
+behavior will change. However, in most cases where planes are lost, there is only
+a small amount of information available, and the distributions we pick as an
+initial guess look closer to the one we have presented.
+
+
+7     Analysis
+As we explored in the last section different behaviors of planes can have significant
+effects on the mean time to find a crash site. Another big piece of the model is
+in building the initial guess as to the probabilities of each section of the search
+
+
+=== PHYSICAL PAGE 17 ===
+Control #38721                                                     Page 15 of 21
+
+
+zone. The more accurate we are with our initial guess, the faster we will find the
+crash site. Figure 13 shows two scenarios, one where we use our combination of
+optimistic and pessimistic distributions to start our search and the crash site
+itself is sampled from that distribution. The other, we use our distribution, but
+the crash site is chosen uniformly at random over the search area.
+
+
+
+
+Figure 13: We see a significant difference when our initial distribution matches
+the actual distribution of the crash site.
+
+    This indicates that one of the best ways to improve search efforts is to be as
+accurate as possible when coming up with the initial distribution. If we put too
+much weight in the wrong area, the searcher can end up searching a large area
+with very little actual chance of locating the crash site. Many factors can be
+used to great effect in creating the distribution. In real world cases information
+from last contact and last radar pings will be used to determine speed, direction,
+altitude, possible problems, and many more factors. With this searchers can
+create reasonable constraints on the search area and by identifying probable
+causes for the cause of loss of contact they can create probability distributions
+for each. The distributions we discussed earlier are just two simple cases. These
+distributions can be very specific to possible catastrophes and then weighted
+according to the likely hood of the catastrophe. For example, the loss of an
+engine or wing would have a very specific behavior, but is not very likely. So we
+can model the behavior and combine it with the initial distribution, but weight
+it much lower since it is not very likely that such a disaster occurred. The more
+situations we can quantify, the better our distribution will match the actual
+distribution for a crashed plane.
+
+
+=== PHYSICAL PAGE 18 ===
+Control #38721                                                      Page 16 of 21
+
+
+8     AirAsia Flight 8501
+The most recent notable example of a plane becoming lost is AirAsia Flight 8501.
+The international passenger flight was traveling from Indonesia to Singapore
+on December 28, 2014, when it crashed in bad weather [3]. Two days after the
+crash, debris from the aircraft were found in the Java Sea.
+
+
+
+
+          Figure 14: Flight path of Indonesia AirAsia Flight 8501 [1].
+
+    In this section, we apply our extended model to the AirAsia Flight 8501
+situation in order to verify its effectiveness.
+
+8.1    Initial Hypotheses About the Plane’s Location
+Before disappearing from radar, the AirAsia plane descended 1000 feet in six
+seconds, and turned sharply to the left, rotating in at least one complete circle
+[9]. This behavior is consistent with the plane stalling, which is what happens
+when a plane tries to gain altitude too quickly and its engines turn off. This
+kind of information is critical for forming useful hypotheses for our model.
+    Given that the plane seems to be rapidly descending at last contact, we
+might suspect that the pessimistic distribution is appropriate for modeling this
+behavior. However, the pessimistic distribution relies on knowing that the plane
+is going in a specific single direction, and that is not the case here. The AirAsia
+plane rotated very quickly during our last radar detection, so it’s not clear in
+which direction to accurately point the pessimistic distribution. By definition,
+the pessimistic distribution will point in the last known direction of the plane,
+but it appears that this is not a very trustworthy way to model the situation.
+
+
+=== PHYSICAL PAGE 19 ===
+Control #38721                                                         Page 17 of 21
+
+
+    Our approach is to add another distribution to model the situation. From
+last radar contact with the flight we knew that the plane was losing altitude
+quickly and had changed heading by over 360 degrees, the start of a spin. In
+order to obtain a better distribution suited to the information available in this
+case we look at the minimum speed required to not stall in the Airbus A320,
+this speed is often known as vmin . From this we estimated the airspeed of the
+plane to be around 170 knots. This would give the plane about a 7 mile radius
+area to fall into from its cruising altitude. However, it is likely the pilot tried to
+fly out of the stall by point the nose down to gain speed and then pulling up
+to regain control, to account for this we widened the radius by about another 7
+miles to create a gaussian distribution centered around the point of lost contact
+with a standard deviation of about 14 miles. A gaussian was the best choice
+because we had little idea which direction the plane was facing, last information
+told us it was probably in a spin, so any direction is equally likely.
+
+
+
+
+Figure 15: Initial distribution for AirAsia search. The blue circle is the downed
+plane.
+
+
+8.2    Running the Model
+We have our initial distribution, so we can run our simulation. The AirAsia
+flight was found about 100 miles from the point where radar contact was lost.
+Our optimistic and pessimistic distribution take into account the plane’s heading
+at time of lost contact, so in order to account for the unknown direction of the
+plane we chose a random point approximately 100 miles from the point where
+contact was lost. The following figures show the distribution at 60 steps into the
+simulation, which is six hours, then at 120 steps which is 12 hours, then at the
+finishing state of 327 steps, which is 32 hours.
+
+
+=== PHYSICAL PAGE 20 ===
+Control #38721                                                      Page 18 of 21
+
+
+
+
+Figure 16: Distribution     Figure 17: Distribution      Figure 18: Distribution
+at 60 steps, 6 hours.       at 120 steps, 12 hours.      at 327 steps, 32 hours.
+
+
+8.3    Results
+The simulation ran for 327 steps, where each step is 6 minutes. So in all, we
+searched for 32 hours until we found debris from the AirAsia flight. If we assume
+that search parties take breaks at night because it’s dark, then one eight hour
+break per day means that the search lasts for 2 days. This is the same amount
+of time that it took the actual AirAsia search to find debris from the plane. So
+our model has performed just as well as the real search method used.
+
+
+9     Conclusion
+Our approach to modeling this problem was to break it into two major parts:
+the initial distribution and how information is shared during the search process.
+We apply our model to the real world example of AirAsia Flight 8150 and also
+compare the effectiveness of different types of search patterns within the model.
+In any modeling problem, a solution is limited by the available information. It
+is very important to assess everything that is known when working with as little
+information as possible.
+    We found that one of the most important features of the model was creating
+an accurate initial distribution for the search area. Searches conclude much
+quicker and more consistently when the initial distribution matches the actual
+distribution of the crash. Because we get no information after the plane goes
+down, we must use our knowledge of airplane mechanics and previous crashes
+to construct a probability distribution of where the plane is likely to be. Using
+this distribution, we can constantly reevaluate our probabilities as we search
+different areas. Each area searched provides us with more information to help
+us shape the most effective search area. We constantly update because we start
+with only a minimal amount of information, and even knowing how likely we are
+to successfully find a plane is useful when combined with results from the field.
+These can make a large impact on how accurate our distribution becomes over
+time.
+    This feature is also one of the weaknesses of the model. If the initial distri-
+bution is not close to the actual distribution, then time and other resources will
+be wasted searching in non-optimal parts of the search area. Our model is at its
+
+
+=== PHYSICAL PAGE 21 ===
+Control #38721                                                        Page 19 of 21
+
+
+best when we effectively use our previous knowledge to inform our search. The
+biggest strength of using Bayes’ method is that information is sparse and we use
+it effectively. The key to a successful search is being efficient. As time passes, it
+only becomes more difficult to find a downed plane’s wreckage, since currents
+begin to have a significant effect and the search party’s resources dwindle.
+    Our model was able to closely recreate the scenario of AirAsia Flight 8150
+and find the missing plane in a comparable time to the real search. By tweaking
+the parameters and formulating a good initial distribution we could even improve
+on that time. This demonstrates its potential and our analysis shows that it even
+performs better than expected when compared to Bayes’ Method over multiple
+search planes on some likely distributions.
+
+
+=== PHYSICAL PAGE 22 ===
+Control #38721                                                    Page 20 of 21
+
+
+10     References
+[1] Andrew Heneen, Flight Path of Indonesia AirAsia Flight 8501 2014.
+[2] Australian Transport Safety Bureau, MH 370 - Definition of Underwater
+    Search Areas 26 June 2014.
+[3] BBC News, AirAsia QZ8501: More bad weather hits AirAsia search 1 January
+    2015.
+
+[4] Finlo Rohrer and Tom de Castella, Mechanical v human: Why do planes
+    crash? 14 March 2014.
+[5] Lawrence D. Stone, In Search of Air France Flight 447 2012.
+[6] Lumpkin, R. and G. C. Johnson, Global Ocean Surface Velocities from
+    Drifters: Mean, Variance, ENSO Response, and Seasonal Cycle. 2013.
+[7] Matt Zagoren, Airbus A320-232 Limitations.
+[8] Sosa and Company Ltd. and Office of Search and Rescue U.S. Coast Guard,
+    The Theory of Search October 1996.
+
+[9] Tempo, AirAsia Plane Often Experiences Trouble, Former Pilot Says 25
+    January 2015.
+
+
+=== PHYSICAL PAGE 23 ===
+Control #38721                                                      Page 21 of 21
+
+
+For Use in Press Release
+There are two major parts to keeping an effective crash search going: making a
+good guess about where the crash site is and keeping searchers updated to the
+overall progress.
+    The initial guess is key to an effective search. If a good guess is made, then
+search times can be cut dramatically, if a bad guess is made, then a lot of time
+and resources will be spent looking in the wrong place. A key step airlines and
+governments can make is to keep detailed records of any type of problem that
+flights have faced. Quantifying how often mechanical problems, pilot errors, or
+other anomalies occur can, in the event of a crash or otherwise lost plane, help
+searchers create a good guess for the initial search area. Even if the problems,
+errors, or anomalies do not have major effects, knowing how often they occur
+and how pilots react can provide a rich data source from which to pull from
+when something bad does happen.
+    The importance of the initial guess can be illustrated by looking at two
+recent crashes. AirAsia Flight 8501 was lost in bad weather on December 28,
+2014. When the flight lost contact with radar officials knew how high the planes
+was, how fast it was going, and they even were able to determine that the
+plane’s heading had started to spin, over one full rotation. From this information
+coordinators were able to determine where the plane was likely to be found, and
+it was found two days later. On March 8th, 2014 Malaysia Airlines Flight 370
+was traveling from Malaysia to Beijing, but only two hours after take off, the
+plane made last radar contact. Using the available information search efforts
+began. After the search was underway it was revealed that military radar had
+made contact after air traffic control had lost contact. This information revealed
+that the flight had been spotted in a completely different location. The search
+efforts so far have uncovered nothing due to this lack of knowledge. Keeping
+detailed data and sharing information about radar contact is crucial to being
+able to efficiently coordinate a search.
+    The initial choices on where to spend search effort is made with this starting
+guess, but information is accumulated about the lost plane’s location as a search
+is conducted. If an area is searched and there is no sign of the crash, then the
+area just searched is less likely to have the crash site. However, that search area
+shouldn’t be discounted entirely, since search planes are not guaranteed to find
+the crash even if it is where they are looking. Weather, time of day, and a variety
+of other factors can make identifying the crash site very difficult. Every time an
+area is searched, more information about where the downed plane is likely to be
+and where it is not likely to be is received. This information will feed back into
+the decisions on where to spend resources, and demonstrably leads to a faster
+successful search.
+    Combined, these strategies give us the most crucial improvement we can
+have for search and rescue operations: decreasing the time to find the lost plane.
+At the very least, we save more resources of the searching organizations with
+this method. In the best case scenario, we might even save lives that otherwise
+would be lost with a different search method.

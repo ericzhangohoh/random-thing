@@ -1,0 +1,1364 @@
+=== PHYSICAL PAGE 1 ===
+ For office use only                         Team Control Number                   For office use only
+
+ T1
+
+ T2
+                                            65448                                  F1
+
+                                                                                   F2
+
+ T3                                             Problem Chosen                     F3
+
+ T4                                                     A                          F4
+
+
+               2017 Mathematical Contest in Modeling (MCM) Summary Sheet
+                  (Attach a copy of this page to each copy of your solution paper.)
+
+
+
+                                                   Abstract
+     The Kariba Dam on the Zambezi River is confronted with foundation errosion and control limitation cur-
+rently, so a strategy to maintain water management on the Zambezi River is of great value for the whole
+Zambezi basin. Based on the detailed data provided by World Bank, we conduct the assessment of three op-
+tions (repairing the dam, rebuilding the dam or replacing the dam with several smaller dams along the river)
+and provide a reasonable and detailed model to construct a new dam system with some emergency strategies.
+     To begin with, a brief assessment report with potential costs and benefits is offered according to abundant
+references and reliable data. The evaluation of repairing the Kariba Dam is completed refering to the Kariba
+Dam Rehabilitation Project in the charge of World Bank, while the assessment of rebuilding the dam is realized
+following the actual capital investment expenditure of the Stage 1 of the Kariba Project. And the assessment of
+replacing the dam is carefully estimated according to the model to construct the new dam system.
+     Then, we concentrate on the establishment of the model for new dam system.
+     Firstly, a Hydrodynamic Model (HM) of the Zambezi River is established in order to estimate the flowing
+and depth situation of the river. The model is constructed based on flow conservation and energy conservation,
+which separately producing continuity equation and energy conservation equation, taking the normal water
+cycles and on-way resistance into account. Moreover, we obtain the numerical solution of the Hydrodynamic
+Model with Mathematica, and get the approximate current velocity curve and river depth curve along the
+river.
+     Secondly, the site selection and number confirmation of the new dams is realized according to the flowing
+and depth situation estimated by HM, geological data and hydrological data. The indexes for evaluation
+are determined after consulting professional literatures, and Grey Relation Grade Analysis is utilized in the
+selection among candidate sites so that all the indexes can be considered comprehensively and objectively.
+     Thirdly, a Difference Model (DM) of the Zambezi River with a dam system is established to provide suf-
+ficient details for the confirmation of dam construction and modulating strategies. We separate the river into
+several segments by the dams. A difference approximation of HM is applied to describe each segment of the
+river. A hydraulic emprical formula is utilized to determine the discharges of the dam. In this way, the re-
+currence formulas can be obtained to easily determine the runoff and river depth along the river with given
+environmental and initial conditions.
+     Fourthly, the type of each dam is confirmed with corrected DM, with the overall water management capa-
+bilities, protection and water management options for Lake Kariba evaluated and special topograph consid-
+ered. Considering the loss of energy in collision, tributaries and the runoff variation with rainfall at headstram
+and tributaries, DM is corrected to adapt to the reality. With the results calculated by corrected DM, the type of
+each dam is confirmed balancing the safety and costs. Each type of dam has three gears of discharges, which
+increases the water management options.
+     Finally, the strategies to handle such emergency water flow situations as flooding and drought are designed
+with the new dam system established above. When solving a known catastrophe, the exhaustive method is
+utilized to rule out the best strategies which realized by the gear variation of the dam. It is validated that the
+new dam system can handle most extreme conditions and the method we adopted to establish the strategy is
+of low sensibility considering reasonable errors.
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 65448                                                                                       Page 1 of 25
+
+
+
+
+               A Multi-Dam System Design for Zambezi River
+                                              January 24, 2017
+
+
+                                                 Contents
+
+1   Assessment Report of Three Options                                                                       1
+    1.1 Repairing the Existing Kariba Dam . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        1
+        1.1.1 Institutional Project Support (estimated cost US$69.6 million) . . . . . . . . . .             1
+        1.1.2 Plunge Pool Reshaping (estimated cost US$100.0 million) . . . . . . . . . . . . .              1
+        1.1.3 Spillway Refurbishment (estimated cost US$124.6 million) . . . . . . . . . . . .               1
+        1.1.4 Benefits . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     1
+    1.2 Rebuilding the Existing Kariba Dam . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         1
+    1.3 Removing the Kariba Dam & Replacing It with A Series of Ten to Twenty Smaller Dams
+        Along the Zambezi River . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      2
+
+2   Introduction                                                                                             2
+    2.1 Restatement of the problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       2
+    2.2 Our Approach . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     3
+
+3   General Assumption                                                                                       4
+
+4   Notations                                                                                                 4
+
+5   The Model                                                                                                 5
+    5.1 Hydrodynamic Model of the Zambezi River . . . . . . . . . . . . . . . . . . . . . . . . .             5
+        5.1.1 Continuity Equation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         5
+        5.1.2 Energy Conservation Equation . . . . . . . . . . . . . . . . . . . . . . . . . . . .            6
+        5.1.3 Boundary Condition and Initial Condition . . . . . . . . . . . . . . . . . . . . .              6
+        5.1.4 Calculation of the Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        7
+    5.2 Selection System of the Dam Site . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        8
+        5.2.1 Evaluation indexes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        9
+        5.2.2 Candidate Site . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      9
+        5.2.3 Grey Relation Grade Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         10
+    5.3 Difference Model of the Dam System . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         11
+        5.3.1 Equations in the River (Without the Dam) . . . . . . . . . . . . . . . . . . . . . .           12
+        5.3.2 Equations in the Dam Region . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          13
+        5.3.3 Recurrence Formulas . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        13
+    5.4 Dam Construction & Manipulating System . . . . . . . . . . . . . . . . . . . . . . . . .             14
+        5.4.1 Confirm the Parameters of Different Dam Types . . . . . . . . . . . . . . . . . .              14
+        5.4.2 Confirm the Type Selection of Each Dam . . . . . . . . . . . . . . . . . . . . . .             14
+        5.4.3 Evaluate the Protection & Water Management Options for Lake Kariba . . . . .                   17
+        5.4.4 Strategies to Handle Emergency Water Flow Situations . . . . . . . . . . . . . .               17
+
+6   Testing the model                                                                                        19
+    6.1 Error analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   19
+    6.2 Sensitivity Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   20
+         6.2.1 Sensitivity Analysis for Hi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     20
+         6.2.2 Sensitivity Analysis for hi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     20
+
+
+=== PHYSICAL PAGE 3 ===
+        6.2.3 Sensitivity Analysis for Qi . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      21
+  6.3   Conclusion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   21
+        6.3.1 Strengths and weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         21
+        6.3.2 Future Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      22
+
+Appendices                                                                                                   23
+
+
+
+
+                                                      0
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 65448                                                                                   Page 1 of 25
+
+
+1      Assessment Report of Three Options
+1.1     Repairing the Existing Kariba Dam
+      1 At present, the foundation of the Kariba Dam is gradually undermined by scouring and erosion
+
+of water, so that operations are limited to only three of the six, non-adjacent gates. The Kariba Dam is
+also suffering frequent maintenance operations and potential limitations on the operational control
+of the reservoir. Therefore, plunge pool reshaping and spillway refurbishment are necessities. What
+is more, institutional project support are also significant to ensure the project running smoothly.
+
+1.1.1    Institutional Project Support (estimated cost US$69.6 million)
+      1 Institutional project support mainly provides overall management, supervision, professional
+
+consultant, comprehensive assessment and risk evaluation for the project.
+
+1.1.2    Plunge Pool Reshaping (estimated cost US$100.0 million)
+      1 Financing in the component is primarily utilized for goods, works and consultants services,
+
+which is constituted with four parts: a. Plunge Pool Reshaping Civil Works Contract: The measures
+are required to reshape the plunge pool through excavation of the downstream face and north and
+south bank sides of the pool; b. Additional Engineering Studies; c. Monitoring Services Contract; d.
+Visibility & Communications.
+
+1.1.3    Spillway Refurbishment (estimated cost US$124.6 million)
+      1 Financing in the component is mainly used for goods, works and non-consulting services as-
+
+sociated with the refurbishment of the spillway, which is composed of two parts: a. Spillway Re-
+furbishment Contract: The works will be conducted at one gate at a time, in a sequenced manner
+starting with the gates that today show the largest need for rehabilitation; b. Additional Engineering
+Studies.
+
+1.1.4    Benefits
+      1 Besides the elimination of potential danger and operational limitation which is mentioned
+
+above, the repairing of the dam also reinforce the integrated infrastructure platform within the
+Zambezi River basin. The benefits through avoided disaster and continued power production are
+substantial, considering the estimated 3 million people living in the potential impact area and the
+economic value in excess of US$8 billion.
+
+1.2     Rebuilding the Existing Kariba Dam
+      2 After 50 years of operation serving the southern African region, the geological conditions under
+
+the Kariba dam have been changed with the scouring and erosion of the water, so that the initial
+design of the dam is not appropriate for the new conditions. In this way, rebuilding the dam is a
+reasonable alternative to replace and even reinforce the function of the old one, and Lake Kariba is
+also utilized as a reservior. The financing of the project will be primarily utilized for civil engineering
+works and electrical and mechanical works.
+
+      • Civil Engineering Works (estimated cost US$729.1 million): The component will include the
+        costs of access roads, township, dam wall, south bank power station and engineering fees.
+
+      • Electrical and Mechanical Works (estimated cost US$380.6 million): The component will in-
+        clude the costs of generation plant and equipment, transmission system and engineering fees.
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 65448                                                                                  Page 2 of 25
+
+
+   The rebuilt dam can be designed to suit the new geological conditions and eliminate the over-
+whelming erosion confronted in the previous design. The benefits through avoided frequent main-
+tenance of the dam and improved manipulating capability are substantial, given the lifespan and
+significance of the dam for the approximately 3 million local residents.
+
+1.3     Removing the Kariba Dam & Replacing It with A Series of Ten to Twenty Smaller
+        Dams Along the Zambezi River
+    During the construction of the Kariba Dam, the dam suffered from three huge floodings exceeding
+the design flood. And the dam became broken quickly in fifty years, which was quite shorter than the
+designed lifespan.1 All these facts figure out that more dams should be constructed on the Zambezi
+River in order to prevent the unexpected floodings. In this way, replacing the Kariba Dam with a
+series of ten to twenty smaller dams is an alternative which are more likely to balance the costs and
+safety.
+    As a series of so many dams is quite rare in the world, the costs can only be estimated approx-
+imately by the number and size of the dams. Financing of the project is mainly utilized for dam
+construction and relevant institutional project support.
+
+      • Dam Construction (estimated cost US$860 million): The costs of the dam construction are as-
+        sumed to increase exponentially with the dam size increasing. Therefore, the costs of different
+        dam types (which are introduced in the following model) are listed in Table 1. According to the
+        following model, eight III dams and two IV dams are constructed, which cost US$860 million.
+
+      • Institutional Project Support (estimated cost US$69.6 million).
+
+
+      Types of dam    The area of Reservior/m2    Warning water levelHmi /m     Costs/million US$
+            I                  1 × 108                         60                       10
+           II                  1 × 107                         50                        1
+           III                 1 × 106                         40                       0.8
+           IV                  1 × 105                         30                       0.6
+
+                                  Table 1: Costs of different dam types
+
+     The construction of the dam system can balance between the safety and costs and have excellent
+functions to prevent unexpected floodings, whose benefits through avoided catastrophe is substan-
+tial, considering the powerful water management capabilities and more abundant hydropower.
+
+
+2      Introduction
+2.1     Restatement of the problem
+   Kariba Dam, constructed in 1955-59, with a storage capacity of 180km3 , is one of the largest dams
+in Africa. Now it is in dire need of maintenance. The Zambezi River Authority (ZRA) faces three
+available options to address this situation:
+
+      • (Option 1) Repairing the existing Kariba Dam;
+
+      • (Option 2) Rebuilding the existing Kariba Dam;
+
+      • (Option 3) Removing the Kariba Dam and replacing it with a series of ten to twenty smaller
+        dams along the Zambezi River.
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 65448                                                                                Page 3 of 25
+
+
+    On the one hand, we need to briefly assess all the three options above and provide an overview
+of potential costs and benefits associated with each option.
+    On the other hand, the problem needs us to conduct a detailed analysis on option 3. We need
+to give a recommendation on how to design a new system of dam. The new system must meet
+following requirements:
+
+      • Having the same overall water management capabilities as the existing Kariba Dam, In our
+        report, we use the total live storage of reservoirs in front of dams which marks the ability of
+        a dam system to dynamically regulate the water flows within the basin to describe the overall
+        water management capabilities.
+
+      • Providing the same or greater levels of protection and water management options for Lake
+        Kariba. For Lake Kariba, the more stable the inflow is with the variation of seasons, the better
+        conditions like fishing conditions Lake Kariba can provide for local people. So our new dam
+        system is expected to make the inflow of Lake Kariba more stable than the original Kariba Dam.
+
+      • Properly addressing known or predicted normal water cycles.
+
+      • Having the ability to handle emergency water flow situations including flooding and prolonged
+        low water conditions. Extreme conditions derive from abnormal rainfall. When rainfall of some
+        region increases sharply, our dam system is expected to be adjusted to make sure that no region
+        is flooded as possible and when some regions experience prolonged drought our system should
+        be adjusted to provide more runoff for that region as possible.
+
+      In our main report, we are required to provide:
+
+      • The number and placement of the new dams along the Zambezi River.
+
+      • A guidance to the ZRA managers that explains and justifies the actions that should be taken to
+        properly handle emergency water flow situations.
+
+      • Information about the location and last time for a specific extreme condition in our guidance.
+
+2.2     Our Approach
+    Based on the detailed data provided by World Bank, we conduct the assessment of three options,
+and provide a reasonable and detailed model to construct a new dam system with some emergency
+strategies.
+    To begin with, we offer a brief assessment report with potential costs and benefits according to
+abundant references and reliable data. We complete the evaluation of repairing the Kariba Dam
+refering to the Kariba Dam Rehabilitation Project in the charge of World Bank, while we realize the
+assessment of rebuilding the dam following the actual capital investment expenditure of the Stage 1
+of the Kariba Project. And the assessment of replacing the dam is carefully estimated according to
+the model to construct the new dam system.
+    Then, we concentrate on the establishment of the model for new dam system.
+    Firstly, we establish a Hydrodynamic Model (HM) of the Zambezi River in order to estimate
+the flowing and depth situation of the river. The model is constructed based on flow conservation
+and energy conservation, which separately producing continuity equation and energy conservation
+equation, taking the normal water cycles and on-way resistance into account. Moreover, we obtain
+the numerical solution of the Hydrodynamic Model with Mathematica, and get the approximate
+current velocity curve and river depth curve along the river.
+    Secondly, we realize the site selection and number confirmation of the new dams according to the
+flowing and depth situation estimated by HM, geological data and hydrological data. We determine
+the evaluation indexes after consulting professional literatures, and Grey Relation Grade Analysis is
+utilized in the selection among candidate sites so that all the indexes can be considered comprehen-
+sively and objectively.
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 65448                                                                                 Page 4 of 25
+
+
+    Thirdly, we establish a Difference Model (DM) of the Zambezi River with a dam system to provide
+sufficient details for the confirmation of dam construction and modulating strategies. We separate
+the river into several segments by the dams. A difference approximation of HM is applied to describe
+each segment of the river. We utilize a hydraulic emprical formula to determine the discharges of the
+dam. In this way, the recurrence formulas can be obtained to easily determine the runoff and river
+depth along the river with given environmental and initial conditions.
+    Fourthly, the type of each dam is confirmed with corrected DM, with the overall water manage-
+ment capabilities, protection and water management options for Lake Kariba evaluated and special
+topograph considered. Considering the loss of energy in collision, tributaries and the runoff varia-
+tion with rainfall at headstram and tributaries, we correct DM to adapt to the reality. With the results
+calculated by corrected DM, we confirm the type of each dam balancing the safety and costs. Each
+type of dam has three gears of discharges, which increases the water management options.
+    Finally, the strategies to handle such emergency water flow situations as flooding and drought
+are designed with the new dam system established above. When solving a known catastrophe, we
+utilize the exhaustive method to rule out the best strategies which realized by the gear variation of the
+dam. It is validated that the new dam system can handle most extreme conditions and the method
+we adopted to establish the strategy is of low sensibility considering reasonable errors.
+
+
+3    General Assumption
+    • All dams are double curvature concrete arch dams and each dam is built with a hydropower
+      station and a reservoir, in consistence with the original Kariba Dam.
+    • The costs of the dams have positive correlation with the size of the dams.
+    • The water is forced by on-way resistance, which is proportial to current velocity and the coeffi-
+      cient is a constant.
+    • The evaporation exists anytime and is approximately a constant.
+
+
+4    Notations
+
+                       Notations                     Definitions
+                            x         The distance away from the headstream
+                           L                   The width of the river
+                            h                     The river depth
+                            v                     Current velocity
+                            ρ                 The density of the water
+                            q                         Rainfall
+                            δ                       Evaporation
+                            k              on-way resistance coefficient
+                           Q                           Runoff
+                           H        The depth of the reservoir attached to dam
+                            θ              The gate opening of the dam
+                            b                The width of the gate hole
+                           A            The outflow coefficient of the dam
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 65448                                                                             Page 5 of 25
+
+
+5      The Model
+5.1     Hydrodynamic Model of the Zambezi River
+   In this section, we establish a hydrodynamic model of the current velocity and river depth which
+vary with the space and time, which is based on flow conservation and energy conservation. When
+the current velocity and river depth at the headstream is given, the whole Zamberi River can be
+depicted with the current velocity and river depth anywhere and anytime.
+
+5.1.1    Continuity Equation
+  Considering a short segment of the river from x to x + ∆x (x and x + ∆x are all the distances
+away from the headstream), the flow conservation is given by
+
+                                     Qin + qrain − qevaporation − Qout = ρ∆V                      (1)
+
+where
+
+      • Qin is the quantity of water flowing into the segment,
+
+      • qrain is the rainfall quantity of the segment,
+
+      • qevaporation is the evaporation quantity of the segment,
+
+      • Qout is the quantity of water flowing out of the segment,
+
+      • ρ is the density of water,
+
+      • V is the volume of water in this segment.
+
+Qin , qrain , qevaporation , Qout and ∆V in the time period of ∆t can be written as
+
+                                          Qin = ρL(x)h(x, t)v(x, t)∆t                             (2)
+
+                                            qrain = ρq(x)L(x)∆x∆t                                 (3)
+                                         qevaporation = ρδ(x)L(x)∆x∆t                             (4)
+                                Qout = ρL(x + ∆x)h(x + ∆x, t)v(x + ∆x, t)∆t                       (5)
+                                      ∆V = L(x)∆x[h(x, t + ∆t) − h(x, t)]                         (6)
+The flow conservation equation turns into
+
+         ρ[q(x) − δ(x)]L(x)∆x∆t + ρ[L(x)h(x, t)v(x, t) − L(x + ∆x)h(x + ∆x, t)v(x + ∆x, t)]∆t
+                                                                                                  (7)
+                                      = ρL(x)∆x[h(x, t + ∆t) − h(x, t)]
+
+After simplification, the equation is given by
+
+                             ∂[L(x)h(x, t)v(x, t)]                            ∂h(x, t)
+                         −                         + [q(x) − δ(x)]L(x) = L(x)                     (8)
+                                     ∂x                                         ∂t
+which is the continuity equation of the river.
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 65448                                                                                     Page 6 of 25
+
+
+5.1.2   Energy Conservation Equation
+   Also considering a short segment of the river from x to x + ∆x (x and x + ∆x are all the dis-
+tances away from the headstream), and neglecting the variation of the pressure with x, the energy
+conservation is written as
+                       Wgravity + Wresistance = ∆Twater + ∆Train + ∆Tevaporation                          (9)
+where
+   • Wgravity is the work done by the gravity of water,
+   • Wresistance is the work done by the on-way resistance,
+   • ∆Twater is the change of kinetic energy of the water in the segment,
+   • ∆Train is the change of kinetic energy of rain in the segment,
+   • ∆Tevaporation is the change of kinetic energy of water evaporated from the segment.
+Wgravity and ∆Twater in the time period of ∆t is given by
+                                  Wgravity = −ρgL(x)h(x, t)v(x, t)∆t∆y                                  (10)
+                                  1
+                       ∆Twater = ρL(x)h(x, t)v(x, t)∆(v 2 )∆t
+                                  2                                                             (11)
+                                  1                        ∂v      ∂v
+                                = ρL(x)h(x, t)v 2 (x, t)∆t( ∆t +      ∆x)
+                                  2                        ∂t      ∂x
+Assuming that the on-way resistance per volume is proportional to the current velocity, which is
+                                                Fr = kv(x, t)                                           (12)
+Wresistance is expressed as
+                                 Wresistance = −kL(x)h(x, t)v(x, t)∆x∆t                                 (13)
+Supposing that the initial velocity of rain in the river is approximately zero, ∆Train is given by
+                                            1
+                                   ∆Train = ρq(x)v 2 (x, t)∆x∆t                                         (14)
+                                            2
+Neglecting the velocity of vapour evaporated from the river, ∆Tevaporation is given by
+                                                1
+                               ∆Tevaporation = − ρδ(x)v 2 (x, t)∆x∆t                                    (15)
+                                                2
+Thus, the energy conservation equation after simplification is
+                                                            ∂v           ∂v 1
+            − gh(x, t)y 0 (x) − kh(x, t) = h(x, t)v(x, t)      + h(x, t)    + [q(x) − δ(x)]v(x, t)      (16)
+                                                            ∂x           ∂t  2
+
+5.1.3   Boundary Condition and Initial Condition
+    In order to solve the above two equations, the boundary condition and initial condition of the
+river should be given. Boundary conditions refer to the current velocity and river depth at the head-
+stream, which can be measured in reality. Initial condition refer to the current velocity and river
+depth anywhere along the river when t = 0, which can also be provided by hydrological stations.
+    In our model, the current velocity and river depth at the headstream are assumed to be constant,
+which is                                   
+                                            v(0, t) = v0
+                                                                                                  (17)
+                                            h(0, t) = h
+                                                                0
+
+    The initial depth is also supposed to be consistent along the river, while the inital current velocity
+is set to have the distribution of free falling movement, which can be written as
+                                                p
+                                    v(x, 0) = v 2 + 2g[y(0) − y(x)]
+                                                   0
+                                                                                                      (18)
+                                    h(x, 0) = h
+                                                   0
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 65448                                                                                  Page 7 of 25
+
+
+5.1.4   Calculation of the Model
+    The hydrodynamic equations of the river are all partial different equations and approximately
+impossible to get the analytical solution, so we should obtain all the values of the known parameters
+in the equations so that we can get the numerical solution of the equations.
+    We observe the Zambezi River in Google Earth and acquire the altitude variations along the river,
+which gives y(x) with interpolation. The curve of y(x) (altitude variation) is shown in Figure 1.
+
+
+
+
+                                       Figure 1: Altitude variation
+
+     The width of the Zambezi River is almost constant along the river, which means L(x) = L.
+     The runoff, rainfall and evaporation along the river are obtained from the data provided by World
+Bank,3 which determines v0 , h0 , q(x), δ(x).In order to simplify the calculation, δ(x) is taken as a con-
+stant δ, which is the annual average evaporation. The rainfall data is provided by some hydrological
+stations, so the data is discrete, which is shown in Figure 1. In order to acquire the rough data of rain-
+fall anywhere along the river, we try to fit the data points of rainfall and obtain the analysis formula,
+which is shown in Figure 2-6.
+
+
+
+
+           Figure 2: Spring rainfall                      Figure 3: Summer rainfall
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 65448                                                                                  Page 8 of 25
+
+
+
+
+              Figure 4: Fall rainfall                      Figure 5: Winter rainfall
+
+
+
+
+                    Figure 6: The annual rainfall along the river and the fitting curve
+
+   Considering the data all above and some scientific constants (such as g and k), all the known
+parameters can be given:
+      • g = 9.8m/s, k = 1.0 × 10−6 kg · m−3 · s−1
+      • v0 = 10m/s, h0 = 20m, L = 1km, δ = 3.2 × 10−9 m/s
+    After a few approximation and estimation, the trend of the current velocity and depth along the
+river from the initial time to the ending time can be obtained, which is shown in Figure 7-8. According
+to the results, the trend of the current velocity and depth will approach a stable state as the time goes.
+
+
+
+
+              Figure 7: Current Velocity                            Figure 8: River Depth
+
+
+5.2     Selection System of the Dam Site
+    The site selection of the dams is significant in dam construction, which directly decides the func-
+tion and lifespan of the dams. As many parameters of river have been obtained in previous calcu-
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 65448                                                                               Page 9 of 25
+
+
+lation, we can evaluate the location from many aspects, so that a scientific and objective selection
+system of the dam site can be established based on Grey Relation Grade Analysis.4
+
+5.2.1   Evaluation indexes
+    In order to smooth the channel and acquire the maximum hydropower resources, the dams
+should be established in the regions with steep terrain gap, large river depth and much rainfall,
+where the huge quantity of water and rapid current may make the channel so turbulent as to threaten
+the safety of transportation and residents nearby, yet ensuring the abundant hydropower resources
+at the same time. The situation is similar when the current acceleration is enormous.5
+    In addition to this, some special topographies are appropriate for dam construction. Lakes can be
+utilized as a natural reservior for the dam, pocket-like lowlands can contribute to water management
+and valleys can eliminate the construction amount.5
+    What is more, the smaller width the channel has, the lower the construction cost is.5
+    In this way, the following indexes are considered for the site selection:
+   • Terrain gap: y 0 (x), the derivative of y(x);
+   • River depth h(x) in stable state;
+   • Rainfall q(x);
+
+   • Current acceleration ∂v(x,t)
+                            ∂t
+
+   • Lakes;
+   • Pocket-like lowlands;
+   • Valleys;
+   • River width L(x) (which can be obtained from the map).
+The topographic indexes are evaluated by checking whether the suitable topography exists. If the
+appropriate topography exists, the relevant index is 1; if not, zero.
+
+5.2.2   Candidate Site
+   Several candidate sites should be determined to optimize the site selection. According to the relief
+map, rainfall, river depth calculated by the hydrodynamic model, considering the distances between
+adjacent dams, 26 advantageous sites are selected as candidate sites, which is shown in Figure 9.
+
+
+
+
+                                         Figure 9: Candidate sites
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 65448                                                                            Page 10 of 25
+
+
+5.2.3   Grey Relation Grade Analysis
+   Because of the complex interaction between these parameters, we finally choose Grey Relation
+Grade Analysis to confirm the selection system.
+   Firstly, index weight should be obtained. The concrete steps are:
+
+Step 1: Determine the reference data series as an ideal comparison standard. In our system, the
+largest value of each metric (river width is taken minus) constitutes the reference sequence.
+
+                                    X0 = (x0 (1), x0 (2), · · · , x0 (m))                        (19)
+
+Step 2: Calculate the absolute difference value of each parameter sequence and the reference se-
+quence of the corresponding elements,as ∆i (j) = |xi (j) − x0 (j)|. In the formula, i represents the
+number of candidate sites; j is the number of metrics; x0 (j) means the reference data in the metric.
+Step 3: Confirm a = min min {∆i (j)} and b = max max {∆i (j)}.
+                      1⩽i⩽n1⩽i⩽m                       1⩽i⩽n1⩽i⩽m
+Step 4: Calculate the correlation coefficient as:
+                                                        a + bλ
+                                            fi (j) =                                             (20)
+                                                       ∆i (j) + bλ
+where resolution coefficient λ ∈ (0, 1), commonly using 0.5.
+Step 5: Calculate the correlation degree.
+                                                         n
+                                                   1X
+                                              rj =    fi (j)                                     (21)
+                                                   n
+                                                        i=1
+
+Step 6: Calculate the weight of each measure standard.
+                                                         rj
+                                         rj0 =                                                   (22)
+                                                 r1 + r2 + · · · + rm
+Step 7: Build the evaluation model.
+
+                                Zi = r10 xi (1) + r20 xi (2) + · · · + rm
+                                                                        0
+                                                                          xi (m)                 (23)
+
+    Based on the data we got above, we can solve the model and obtain the following results (Figure
+10).
+
+
+
+
+                          Figure 10: Results of Grey Relation Grade Analysis
+
+   As shown in Figure 11-12, the following 11 sites are selected to constructed dams, considering the
+costs and the distances clustering between adjacent dams.
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 65448                                                                                Page 11 of 25
+
+
+
+
+                                    Figure 11: Dam sites in terrain map
+
+
+
+
+                                    Figure 12: Dam sites in altitude map
+
+
+5.3     Difference Model of the Dam System
+    When the dam system is considered in the Zambezi River, the Hydrodynamic Model with partial
+differential equations is too complex to describe the influences of the dam system, making it impos-
+sible to obtain the changes of the river in a bearable time. Therefore, the simplification of the model
+should be introduced, which is difference model of the dam system, providing recurrence formulas
+to calculate the runoff of the river with dam system.
+    The dams are numbered from 1 to 11, and the time is seperated into j time periods of T . For the
+ith dam in the jth time period,
+
+      • Q(i+1)j is the river flux flowing out of the dam. Specially, Q1j represents the flux at the head-
+        stream;
+
+      • Q0ij is the river flux flowing into the dam;
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 65448                                                                                Page 12 of 25
+
+
+   • qij is the rainfall flux density in the dam region and the region between the dam and previous
+     one;
+
+   • δij is the evaporation flux density in the dam region and the region between the dam and
+     previous one;
+
+   • ∆yi is the altitude changes between the dam and previous one;
+
+   • li is the distance between the dam and the previous one;
+
+   • hij is the river depth in the region between the dam and the previous one;
+
+   • Hij is the water depth of the reservior attached to the dam;
+
+   • Si is the area of the reservior attached to the dam;
+
+   • H0i is the dead water level of the reservior attached to the dam (dead water level is the mini-
+     mum water level which the reservoir is allowed to drawdown).
+
+
+
+
+               Figure 13: Diagram describing the situation of the river with dam system
+
+
+5.3.1   Equations in the River (Without the Dam)
+    As is written in the Hydrodynamic Model, the continuity equation (based on the flow conserva-
+tion) can be written as
+                                                                     ∆hi
+                                (qij − δij )li L + Qij − Q0ij = li L                         (24)
+                                                                     ∆t
+                                h     −h
+In the time period of T , ∆h
+                          ∆t =
+                            i    i(j+1)
+                                     T
+                                        ij
+                                           .
+    Neglecting the variation of v in time period of T , the energy conservation equation is given by
+                                               1                        1
+                 ρLhij vT g∆yi − ρkhij LvT li = ρ(qij − δij )Lli T v 2 + ρLhij vT ∆(v 2 )           (25)
+                                               2                        2
+where v and ∆(v 2 ) can be expressed by Qij and Q0ij .
+
+                                                Qij + Q0ij
+                                             v=                                                     (26)
+                                                 2hij L
+
+                                              2
+                                                     Q0ij 2 − Q2ij
+                                           ∆(v ) =                                                  (27)
+                                                        h2ij L2
+   After simplification, the equations in the river without the dam are
+               
+                                                     h       −hij
+                   (q − δij )li L + Qij − Q0ij = li L i(j+1)
+                ij
+               
+               
+                                                         T
+                                                                                                    (28)
+                 
+                 
+                  2h2 L2 g∆y − 2kh2 L2 l = Q0 2 − Q2 + 1 (q − δ )L(Q + Q0 )l
+                 
+                     ij      i     ij    i   ij     ij  2 ij    ij   ij  ij i
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 65448                                                                                    Page 13 of 25
+
+
+5.3.2   Equations in the Dam Region
+    As is written in the Hydrodynamic Model, the continuity equation (based on the flow conserva-
+tion) can be written as
+                                                                    ∆Hi
+                               (qij − δij )Si + Q0ij − Q(i+1)j = Si                          (29)
+                                                                    ∆t
+                                  H        −H
+In the time period of T , ∆H
+                           ∆t =
+                             i  i(j+1)
+                                    T
+                                       ij
+                                          .
+    According to Hydraulics textbook, Q(i+1)j has the following relation with Hij :6
+                                                                     3
+                                           Q(i+1)j = Ai (Hij − H0i ) 2                                   (30)
+where the Ai is the outflow coefficient determined by the width bi of the gate hole and the relative
+gate opening θ of the dam. According to the emprical formula, Ai can be given by
+                                                Ai = 2.7674θbi                                           (31)
+
+5.3.3   Recurrence Formulas
+   Concluding the equations above, the recurrence formulas of the river with dam systems can be
+obtained.                              q
+                           − 21 gLli + 14 g 2 L2 li2 −4( 21 gLQij li −Q2ij +2kh2ij L2 li −2h2ij L2 g∆yi )
+                  
+                     0
+                    Qij =
+                  
+                  
+                                                                 2
+                  
+                  
+                  
+                  
+                  
+                  
+                                                       3
+                    Q(i+1)j = Ai (Hij − H0i ) 2
+                  
+                  
+                  
+                  
+                  
+                                                                                                          (32)
+                                                          0
+                                 (q   −δ   )l  L+Q     −Q
+                  
+                                  ij    ij i       ij     ij
+                  
+                  
+                  
+                   hi(j+1) =                 li L            T + hij
+                  
+                  
+                  
+                  
+                  
+                  
+                                                                       3
+                                  (qij −δij )Si +Q0ij −Ai (Hij −H0i ) 2
+                  
+                  
+                    Hi(j+1) =                                              T + Hij
+                  
+                                                     Si
+    In this way, when the known parameters are confirmed, the river with dam system can be de-
+picted with Qij , Q0ij , hij , Hij . All the known parameters are listed below.
+   • Q1j : the river flux at the headstream;
+   • Q(i+1)0 : the initial river flux flowing out of the dam;
+   • hi0 : the initial river depth in the region between the dam and the previous one;
+   • Hi0 : the initial water depth of the reservior attached to the dam;
+   • qij : the rainfall along the river;
+   • δij : the evaporation along the river;
+   • ∆yi is the altitude changes between the dam and previous one;
+   • li is the distance between the dam and the previous one;
+   • Si : the area of the reservior attached to the dam;
+   • Ai : the outflow coefficient of the dam;
+   • H0i : the dead water level of the reservior attached to the dam;
+   • L: the width of the river;
+   • g: the acceleration of gravity;
+   • k: the on-way resistance coefficient;
+   • T : the time scale.
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 65448                                                                              Page 14 of 25
+
+
+5.4     Dam Construction & Manipulating System
+    As the number and placement of the new dams have been confirmed, the size of dams and manip-
+ulating strategy should be assigned so that the dam systems can have good performance and handle
+emergency water flow situations. The concrete steps to design the size of dams and manipulating
+strategy are listed below:
+
+Step 1: Confirm the parameters of different dam types.
+Step 2: Confirm the type selection of each dam.
+Step 3: Evaluate the protection and water management options for Lake Kariba.
+Step 4: Strategies to handle emergency water flow situations.
+
+5.4.1   Confirm the Parameters of Different Dam Types
+   According to the standard of Water Conservancy Engineering, the dams can be categoried into
+several types according to the capacity of the reservior attached.7 As shown in Table 2, four ap-
+propriate types of dam are selected considering the reality of the Zambezi River and the relevant
+parameters have been confirmed.
+
+            Types of dam   The area of Reservior/m2      A    Warning water levelHmi /m
+
+                 I                   1 × 108            33θ                60
+                 II                  1 × 107            27θ                50
+                III                  1 × 106            16θ                40
+                IV                   1 × 105            11θ                30
+
+                             Table 2: Parameters of different dam types
+
+     Where θ is the relative gate opening of the dam. In order to simplify the manipulation of the dam,
+it is assumed that there are three gears of the gate opening, which means θ can be taken as 0.25, 0.5,
+1.0. In normal situation, θ is taken as 0.5.
+
+
+
+
+                                   Figure 14: Diagram of the dam
+
+
+5.4.2   Confirm the Type Selection of Each Dam
+    The new dams should be established to protect the river’s basin from the floods and drought, so
+it seems that the dam with largest reservior is the best choice. However, the cost of one large dam
+is equal to that of many small dams. Therefore, we should take a reasonable balance between safety
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 65448                                                                                        Page 15 of 25
+
+
+and costs, which can be completed with the Difference Model of the Dam System. When each dam
+size has been confirmed, Hij , hij , Qij , Q0ij can be determined, which means a certain series of dam
+size will correspond to a certain river situation.
+    However, the main tributaries are neglected in the Difference Model of the Dam System, which
+play an important role in the river system. Therefore, we correct the model by detecting the main
+tributaries and adding them into the model. According to the terrain map of the basin, which is
+shown in Figure 15, the main tributaries distribute at the region between the dam A and B, B and
+C, F and G, H and I, J and K. Their runoff are marked as q2j     0 , q 0 , q 0 , q 0 , q 0 . The runoff will be
+                                                                      3j 7j 9j 11j
+added into the flux flowing into the relevant dam. For example, the flux flowing into the 2nd dam
+will be Q02j + q2j
+                0 .
+
+
+
+
+                                            Figure 15: Tributaries
+
+   In addition to this, the loss of mechanical energy when the flow collides with the banks and
+bottom of the river, so a loss coefficient β should be included in the energy conservation equation,
+which is
+                               q
+                    − 12 gLli + 14 g 2 L2 li2 − 4( 12 gLQij li − Q2ij + 2kh2ij L2 li − 2h2ij L2 gβ∆yi )
+             Q0ij =                                                                                     (33)
+                                                              2
+   Before calculating the best type selection with the Difference Model of the Dam System, all the
+known parameters should be confirmed. It is assumed that the rainfall and evaporation in a certain
+region is constant in the time period we have concerned, which means qij = qi , δij = δi . The dead
+water level of each dam is supposed to be constant, which means H0j = H0 . Apparently, the rainfall
+will influence the runoff at the headstream and tributaries, so it is reasonable to suppose that
+                                         
+                                         
+                                         
+                                          Q1j = Q1 + α(q1 − δ1 )
+                                         
+                                         
+                                            0 = q 0 + α(q − δ )
+                                           q2j            2    2
+                                         
+                                         
+                                         
+                                                 2
+                                         
+                                          q 0 = q 0 + α(q3 − δ3 )
+                                         
+                                            3j    3
+                                                                                                             (34)
+                                         
+                                         
+                                         
+                                          q7j = q70 + α(q7 − δ7 )
+                                             0
+                                         
+                                             0 = q 0 + α(q − δ )
+                                         
+                                         
+                                         
+                                         
+                                          q9j    9       9    9
+                                         
+                                          0
+                                                   0 + α(q − δ )
+                                           q11j = q11       11     11
+
+
+    where Q1 , q20 , q30 , q70 , q90 , q11
+                                        0 are separately the runoff at the headstream and each tributary, α is the
+
+constant coefficient.
+    ∆yi and li can be easily determined by the geographical data mentioned above, which is included
+in the Appendix. Q1 , hi0 , Hi0 , qi and δi can be decided by the above hydrologcial data,3 where it is
+assumed that hi0 = h0 , Hi0 = H0 , δi = δ0 , qi is supposed to obey the distribution concluded from the
+rainfall data.Li is presented in the appendices. Other known parameters are listed below:
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 65448                                                                               Page 16 of 25
+
+
+   • Q1 = 500m3 /s, h0 = 20m, H0 = 20m, T = 60s
+
+   • q20 = 150m3 /s, q30 = 100m3 /s, q70 = 50m3 /s, q90 = 120m3 /s, q11
+                                                                     0 = 80m3 /s
+
+
+   • g = 9.8m/s2 , k = 1 × 10−6 kg · m3 · s−1 , α = 3 × 109 , β = 10−3
+
+    With all the known parameters confirmed, we can calculate the best type selection with the cor-
+rected Difference Model of the Dam System. It is obvious that the smallest dam is cheapest, so we
+choose IV type for each dam at first except the 11th one and the 7th one. At the site of the 11th dam,
+the Cahora Bassa Dam8 has been constructed, which is a I-type dam, so the 11 th dam is selected as
+I type. The 7th dam is located at the previous Kariba Dam, but the new geological condition after
+errosion is not suitable for a I-type dam, so II type is selected considering the huge capacity of Lake
+Kariba. Then we calculate the situation of the river (with 90000 iterations, which means 3 months for
+the model). According to the calculation, the situation of the river will approach a stable state with
+time goes. If Hij at the stable state is higher than the warning water level at one dam, the dam type
+will be upgraded for one grade. The procedure will be repeated until all Hij at the stable state are
+lower than the corresponding warning water level. However, another restriction should be satisfied
+by the final type selection:
+      P11
+    •    i=1 Si Hmi ⩾ VLake , which means the total capacity of the reserviors attached to new dams
+      should be larger than the capacity of previous Lake Kariba (VLake ). The total capacity represents
+      the overall water management capabilities of the dam system. The restriction means the new
+      dam system has the same and even higher overall water management capabilities than the
+      Kariba Dam.
+
+   The detailed procedure is shown in the Figure 16.
+
+
+
+
+                       Figure 16: Diagram of the Type Selection of Each Dam
+
+   The selection result is presented in Table 3.
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 65448                                                                                       Page 17 of 25
+
+
+
+                       Dam           A      B    C     D     E     F     G     H    I   J    K
+                  Types of Dam      III    III   III   III   III   III   III   IV   I   IV   III
+
+                                          Table 3: Types of each dam
+
+
+5.4.3   Evaluate the Protection & Water Management Options for Lake Kariba
+    The protection for Lake Kariba can be evaluated with the water level fluctuation of Lake Kariba
+between rainy season and dry season. The smaller the fluctuation is, the better protection is offered
+for the lake. The water level in rainy season and dry season can be easily calculated with the corrected
+Difference Model of the Dam System. hi0 and Hi0 are set as the stable value with normal rainfall
+and qi has been determined by the corresponding rainfall data of rainy season and dry season. The
+calculation result is taken as the final result after 90000 iterations, because it is observed that for large
+reservoirs like Kariba, the instantaneous and daily peak flows are not important, as these can be
+stored in the reservoir.
+    As shown in Fig , we can find that the fluctuation decreases with the new dam system, proving
+that the new dam system provides the better production for Lake Kariba.
+    In addition to this, the discharge of the dam is provided with 3 gears, so that elaborate water
+management can be realized with the new dam system. Therefore, the new dam system has more
+water management options.
+
+5.4.4   Strategies to Handle Emergency Water Flow Situations
+    The emergency water flow situations include the flooding and drought, which are both common
+in the Zambezi River’s basin, so different strategies should be designed to handle the two emergency
+water flow situations.
+
+Flooding
+   The flooding caused by extreme large rainfall is assumed to occur at the region between the 2nd
+dam and the 4th one for three months, which is typical for the river’s basin according to the data
+provided by World Bank.3 qi in the flooding region is set as the rainfall of approximately 24mm per
+twelve hours, which can be categoried as heavy rain. The runoff distribution without modulating
+along the river is shown in Figure 17. The exhaustive method is utilized to test all combinations
+of Ai (which means the changes of the dam gear) for the combination which obtains the minimum
+variance of all Hi − Hi0 . The minimum variance of all Hi − Hi0 means that the reserviors attached to
+dams have minimum fluctuation during the flooding, which will protect the residents from danger
+and economic loss. The concrete procedure is shown in Figure 18.
+
+
+
+
+                           Figure 17: Runoff distribution without regulating
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 65448                                                                            Page 18 of 25
+
+
+
+
+                     Figure 18: Diagram of the strategy selection for flooding
+
+   The best combination of the dam gears is presented in Table 4.
+
+                    Dam     1   2    3    4   5    6     7     8       9     10   11
+                    A       4   8   16   16   16   16   16.5   5.5    16.5   8    8
+
+                                    Table 4: Best combination of Ai
+
+   The regulated reservior depth is shown in the Figure 19, compared with the unregulated reservior
+depth.
+
+
+
+
+       Figure 19: Regulated reservior depth comparing with the unregulated reservior depth
+
+
+Drought
+    The drought caused by extreme small rainfall is assumed to occur along the whole river for three
+months. δi in the drought region is set as the rainfall of approximately 1100mm per year, which can
+be categoried as heavy rain. The runoff distribution without modulating along the river is shown in
+Figure 20. The exhaustive method is utilized to test all combinations of Ai (which means the changes
+of the dam gear) for the combination which obtains the maximum increased runoff. The increased
+runoff is more signicant in drought, which will protect the residents from danger and economic loss.
+The concrete procedure is shown in Figure 21.
+
+
+=== PHYSICAL PAGE 22 ===
+Team # 65448                                                                                Page 19 of 25
+
+
+
+
+                            Figure 20: Runoff distribution without regulating
+
+
+
+
+                         Figure 21: Diagram of the strategy selection for drought
+
+   The best combination of the dam gears is that each dam is set as the maximum Ai . The regulated
+runoff is shown in the Figure 22, compared with the unregulated runoff.
+
+
+
+
+         Figure 22: Regulated reservior depth comparing with the unregulated reservior depth
+
+
+6     Testing the model
+6.1     Error analysis
+      In this part, we will analyze relevant factors that might cause error in our model.
+
+
+=== PHYSICAL PAGE 23 ===
+Team # 65448                                                                                    Page 20 of 25
+
+
+      • The mechanical energy loss of water: In fact, the mechanical energy loss water in each segment
+        is very complex, which is relevant to the topographic feature in the segment. However, we
+        have neglected the complexity.
+
+      • ResistenceïijŽIn fact, the on-way resistance coefficient k in each segment is closely related with
+        the curve of the channel in the segment, which is neglected by us.
+
+      • Evaporation along the river and the runoff of tributaries and headstream: Accurate data is not
+        available so that we roughly estimate it.
+
+6.2     Sensitivity Analysis
+   In our model, some inputs are not precise enough for the lack of actual data about Zambezi basin
+and some parameters are difficult to obtain directly. Those inputs or parameters may influence the
+result of our calculation, so we implement a sensitive analysis to test the robustness of our model.
+   In fact, we cannot obtain the real value of the inputs Q1 , Hi0 , hi0 and parameter α with the data
+we have. Sensitivity Analysis is primarily conducted on these inputs and parameters.
+
+6.2.1    Sensitivity Analysis for Hi
+
+
+                        -5%        -3%        -1%      0%      1%            3%        5%
+               hi0     2.9281%   2.9767%    3.0253%    0%    3.0738%       3.1223%   3.1706%
+               Hi0     7.5529%   3.7451%    1.8459%    0%    4.2614%       7.6778%   11.4852%
+               Q00     3.0475%   3.0483%    3.0492%    0%    3.0500%       3.0508%   3.0517%
+               α       2.9252%   2.9749%    3.0247%    0%    3.0745%       3.1242%   3.1739%
+
+                                    Table 5: Sensitivity Analysis for Hi
+
+    All the percentage presented on the table represents the maximum fluctuation among Hi . There-
+fore, Hi is not sensitive to the value of Q1 , Hi0 , hi0 and α.
+
+6.2.2    Sensitivity Analysis for hi
+
+
+                         -5%        -3%        -1%      0%      1%           3%        5%
+                hi0    5.0000%    3.0000%    1.0000%    0%   1.0000%       3.0000%   5.0000%
+                Hi0    0.2140%    0.1309%    0.0445%    0%   0.0453%       0.1382%   0.2341%
+                Q0 0   0.0432%    0.0259%    0.0086%    0%   0.0086%       0.0259%   0.0432%
+                α      0.0169%    0.0102%    0.0034%    0%   0.0034%       0.0102%   0.0170%
+
+                                    Table 6: Sensitivity Analysis for hi
+
+    All the percentage presented on the table represents the maximum fluctuation among hi . There-
+fore, hi is not sensitive to the value of Q1 , Hi0 , hi0 and α.
+
+
+=== PHYSICAL PAGE 24 ===
+Team # 65448                                                                                  Page 21 of 25
+
+
+6.2.3    Sensitivity Analysis for Qi
+
+
+                       -5%         -3%         -1%      0%      1%           3%         5%
+             hi 0    0.5677%     0.4539%     0.3403%    0%   0.2267%       0.1133%    0.0000%
+             Hi 0   26.3961%     16.2663%    5.7108%    0%   5.2538%       16.6129%   28.3529%
+             Q0 0    5.0000%     3.0000%     1.0000%    0%   1.0000%       3.0000%    5.0000%
+             α       5.5439%     3.3332%     1.1134%    0%   1.1156%       3.3538%    5.6011%
+
+                                    Table 7: Sensitivity Analysis for Qi
+
+    All the percentage presented on the table represents the maximum fluctuation among Qi . It can
+be seen that Qi is sensitive to Hi0 , namely the faint error of the initial depth of the reservior attached
+to the dam may lead to the great changes of Qi , so the initial value of Hi0 should be taken as the
+stable value calculated in normal condition to control the potential error of Qi
+
+6.3     Conclusion
+6.3.1    Strengths and weaknesses
+      Strengths:
+
+      • We have got the sufficient topographic data of the river and build hydrodynamic model model
+        to calculate the velocity and depth distribution of the river. So we have a detailed and compre-
+        hensive description of the Zambezi River.
+
+      • We consult many professional literatures to determine the evaluation indexes of site selection of
+        dams. And we use grey relation analysis and k-means clustering combined with these multiple
+        indexes to pick out optimal sites from candidates. So our selection is reasonable.
+
+      • We use difference model to simplify the calculation of the river and considered the influence
+        both tributaries and evaporation. As long as we have enough data to set precise inputs we can
+        predict the dynamical process of the river. It is of great importance and convenience for us to
+        do further discussion about dams.
+
+      • After consulting relevant literature, we have relative knowledge of dams including types, rel-
+        evant parameters, function and building cost in practical situation. Based on this we set four
+        types of dams to be selected for each site and finally confirm them by balancing safety and
+        costs. Through this our dam system owns more water management options.
+
+
+Weaknesses:
+
+      • On the one hand, insufficient data of the runoff of Zambezi River’s tributaries and headstream
+        and the evaporation of its basin trigger the indeterminacy of the inputs of our equation. On the
+        other hand, some parameters in our equation like the coefficient of on-way resistance is hard
+        to get directly. So actually the solution of our equation may be not fully consistent with actual
+        data numerically.
+
+      • We do not have enough consideration of geological conditions of Zambezi basin when con-
+        firming the sites of dams and the analysis for social and ecological impact of the project is also
+        insufficient.
+
+
+=== PHYSICAL PAGE 25 ===
+Team # 65448                                                                            Page 22 of 25
+
+
+6.3.2   Future Work
+    Since we still have some weaknesses in our current work, future efforts are needed to better work
+out this problem.
+    Firstly, more sufficient data of runoff of Zambezi RiverâĂŹs tributaries and headstream and the
+evaporation of its basin will be needed in order to do more accurate calculation of the river.
+    Secondly, more geological knowledge will be needed and more civilian and ecological factors will
+be considered in order to make more scientific and reasonable site selection of dams.
+    Thirdly, more rainfall and evaporation data of Zambezi basin are needed to better predict the
+extreme conditions and provide more detailed and comprehensive guidance for the new dam system.
+    Finally, we will try to generalize our model and approach in this problem to more multi-dam
+systems after more polishment.
+
+
+References
+ [1] World Bank: International Development Association Project Appraisal Document on A Pro-
+     posed Credit in the Amount of SDR 5.6 Million and A Proposed Swedish Grant in the Amount
+     of US$25 Million to the Republic of Zambia for A Kariba Dam Rehabilitation Project, 2014.11.
+
+ [2] World Bank: Kariba Dam, Zambia and Zimbabwe, 2000.11.
+
+ [3] World Bank: The Zambezi River Basin: A Multi-Sector Investment Opportunities Analysis
+
+ [4] Zhang YaGuan, Xue ShiMing, Kuang ChongYi, Chen Gong: Relation grade analysis of grey
+     theory and comprehensive evaluation of introduced forage of winter-free farmland in the north
+     of Yunnan subtropics. ISSN 1004-5759
+
+ [5] Wang Liwen: The function and site selection of reservior dams
+
+ [6] Zhou Zhihao: Water Resources and Hydropower Planning, China High Education Press.
+
+ [7] E.M. Welson: Engineering Hydrology, Palgrave Macmillan, 1990.
+
+ [8] Wikipedia: Cahora Bassa Dam.
+
+
+=== PHYSICAL PAGE 26 ===
+Team # 65448                                                                                              Page 23 of 25
+
+
+
+Appendices
+
+    District   Oct   Nov    Dec       Jan   Feb   Mar   Apr    May          Jun     Jul     Aug    Sep      Year
+       1       20    71     164       243   180   173    71        45       37         28    27     15      1074
+       2       12    78     174       197   180   108    26        7          5        3      3     3        796
+       4       17    84     172       179   159   90     18        3          1        0      0     1        724
+       6       18    68     156       164   139   76     24        5          1        0      0     2        653
+       9       26    90     191       195   187   113    28        2          1        0      0     2        835
+       13      46    178    259       254   216   195    50        3          1        0      1     6       1209
+
+                                  Table 8: Rainfalls along the River
+
+
+
+
+                                       Figure 23: Distrcts in Table 8
+
+
+                           District                     1      2        4          6         9     13
+            Mean Distance From the Headstream           417   786       557       1029      1888   2261
+
+                                  Table 9: Locations of Distance in 8
+
+
+=== PHYSICAL PAGE 27 ===
+Team # 65448                                                              Page 24 of 25
+
+
+
+
+                         Potential   Distance from
+                                                      Lat/Long
+                         Locations   the Headstream
+                                 1              120   13◦ 80 S 23◦ 20 E
+                                 2              150   13◦ 90 S 23◦ 30 E
+                                 3              420   16◦ 10 S 23◦ 60 E
+                                 4              738   17◦ 00 S 25◦ 90 E
+                                 5              806   17◦ 80 S 26◦ 10 E
+                                 6              818   17◦ 80 S 26◦ 50 E
+                                 7              820   17◦ 70 S 26◦ 60 E
+                                 8              825   17◦ 50 S 26◦ 70 E
+                                 9              828   17◦ 40 S 26◦ 90 E
+                                10              860   17◦ 60 S 26◦ 50 E
+                                11              880   18◦ 00 S 26◦ 40 E
+                                12              882   18◦ 20 S 26◦ 60 E
+                                13              885   18◦ 30 S 26◦ 60 E
+                                14              886   18◦ 30 S 26◦ 60 E
+                                15              940   17◦ 60 S 27◦ 20 E
+                                16              946   17◦ 30 S 27◦ 50 E
+                                17             1208   16◦ 70 S 28◦ 90 E
+                                18             1215   16◦ 80 S 28◦ 10 E
+                                19             1217   16◦ 10 S 28◦ 00 E
+                                20             1408   15◦ 80 S 30◦ 60 E
+                                21             1420   15◦ 80 S 30◦ 30 E
+                                22             1683   15◦ 40 S 32◦ 90 E
+                                23             1695   15◦ 50 S 32◦ 50 E
+                                24             1715   15◦ 00 S 33◦ 30 E
+                                25             1720   15◦ 20 S 33◦ 50 E
+                                26             1885   16◦ 20 S 34◦ 40 E
+
+
+               Table 10: Potiential locations for New Dam system
+
+
+=== PHYSICAL PAGE 28 ===
+Team # 65448                                                                                                                 Page 25 of 25
+
+
+
+
+ Locations   Terrain gap   River Flow Acceleration       Rainfall   Depth       Valley      Lake      Pocket-like lowlands   Width of river
+        1      -0.758387              0.068707535        0.494863   27.9938            0          0                     0      0.228625733
+        2      -0.188707              0.008492897        0.482928   28.1081            0          0                     0      0.269829219
+        3      -0.131455              0.005840917        0.390808   36.9643            0          0                     0      0.255940496
+        4      -0.371262              0.020843327        0.317614   34.1216            0          0                     0       0.89091976
+        5       -5.36119                    0.2854       0.306918   27.3157            1          0                     0      0.105767626
+        6       -6.34961              0.310580549        0.305212   25.2888            1          0                     0      0.231204181
+        7       -7.41301              0.353306423        0.304933   24.5147            1          0                     0      0.153765839
+        8        -11.478              0.446515611        0.304242   22.6366            1          0                     0      0.089243799
+        9       -9.88432                    0.4206       0.303832   21.0487            1          0                     1      0.247277304
+       10       0.47558               0.028870209        0.299668   21.4808            1          0                     0      0.108070299
+       11       -7.05964              0.251578098        0.297263   19.8484            1          0                     0      0.160722158
+       12       -6.57593                    0.2306        0.29703   19.5294            0          0                     1      0.207333801
+       13       -11.3948              0.400920723        0.296685   18.8262            0          0                     1      0.209334368
+       14       -5.43244              0.178947925        0.294446   18.6609            0          0                     1      0.137633864
+       15       -0.47327               0.00114481        0.290952   18.5564            0          0                     1      0.359885441
+       16       -3.90212                    0.1113       0.290395   18.4459            0          1                     0      2.133441296
+       17        -2.5892              0.075096648        0.279359   20.4907            0          1                     1      0.425886964
+       18       -3.36631              0.099757025        0.279419   20.1174            0          0                     0      0.553183045
+       19        -3.4093                       0.1        0.27944   20.0102            0          0                     0      0.392962291
+       20       -1.23203               0.03221616        0.288379   22.0094            0          0                     1      0.193799965
+       21       -3.68041              0.108738542          0.2894   21.7235            0          0                     0      0.502505624
+       22       -1.40594              0.038844327        0.325444   25.1723            1          1                     1      0.140411027
+       23       -3.64917                    0.1039       0.327711   24.7095            1          0                     0      0.178182111
+       24       -3.88742              0.108105599        0.331611   23.4029            0          0                     1      0.126866802
+       25       -4.08962                    0.1137        0.33261   23.0711            0          0                     0      0.106678572
+       26       -1.69058              0.032759026        0.370861   23.4115            0          0                     1      0.715017666
+
+
+                              Table 11: Metric for determine the Dams’ Locations
+
+
+
+                                                          Distance from
+                                          Locations                           Lat/Long
+                                                         the Headstream
+                                                 A                   120      13◦ 80 S 23◦ 20 E
+                                                 B                   420      16◦ 10 S 23◦ 60 E
+                                                 C                   738      17◦ 00 S 25◦ 90 E
+                                                 D                   806      17◦ 80 S 26◦ 10 E
+                                                 E                   825      17◦ 50 S 26◦ 70 E
+                                                 F                   885      18◦ 30 S 26◦ 60 E
+                                                 G                  1208      16◦ 70 S 28◦ 90 E
+                                                 H                  1408      15◦ 80 S 30◦ 60 E
+                                                     I              1683      15◦ 40 S 32◦ 90 E
+                                                     J              1715      15◦ 00 S 33◦ 30 E
+                                                 K                  1885      16◦ 20 S 34◦ 40 E
+
+
+                             Table 12: Locations of Dams in the New Dam System

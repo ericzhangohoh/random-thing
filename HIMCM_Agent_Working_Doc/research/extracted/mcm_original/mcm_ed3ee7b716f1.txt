@@ -1,0 +1,716 @@
+=== PHYSICAL PAGE 1 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+
+
+
+           For office use only                 Team Control Number                For office use only
+
+           T1
+
+           T2
+                                                   78826                          F1
+
+                                                                                  F2
+                                                Problem Chosen
+           T3                                                                     F3
+
+           T4                                           D                         F4
+
+
+
+
+                                                    2018
+                                                  MCM/ICM
+                                                Summary Sheet
+                                           A Design of Elecomb
+                                               Summary
+     This article mainly analyzes the problem of charging station network construction.
+        In the first question, we first predict the development mode of Tesla's charging station with the
+     help of the control system model and find that Tesla will push the United States to all-electrification.
+     Considering the coverage of charging stations and other factors, the nonlinear programming model is
+     established according to the idea of shortest path and minimum cost to get the network of charging
+     stations in the United States. In total, 6.55 million charging stations need to be established, of which
+     1.28 million in rural, 3 million in suburban, 2.23 million in urban, 1.99 million fast charging stations,
+     and 5.56 million destination charging stations.
+        In the second question, we chose Ireland. First, based on the model of the first question, a total of
+     87700 charging stations need to be established in the case of full coverage of electric vehicles. Then
+     establish a degree of urgency index according to the distribution of population density and so on,
+     which characterizes the establishment of the charging station of the degree of urgency mentioned
+     above and it varies with the charging stations. With the index we find that the dynamic development
+     mode of Irish charging station network is a mix of both rural and urban. Finally, based on the logistic
+     growth model, we find that it takes Ireland about 18.1 years to realize all-electric.
+        In the third question, we first optimize the index of urgency in the light of the different cost of
+     building charging stations in urban and rural areas and the level of science and technology. And then
+     the indexes that affect the urgency level are described by the macroeconomic indicators of the country
+     such as the Gini coefficient, the urban house price, using a similar way to establish an urgent degree
+     of urban and rural areas within the country's priority AI. If AI< 0.2, built all rural chargers first, if
+     AI >0.65, built all urban chargers first, while in other cases built both of them at the same time.
+                  In the fourth question, we analyzed the impact of sharing cars, self-driving cars etc. on the
+        popularization of electric vehicles and discovered that their influences are focus on different parts.
+        Besides, we found that with the increase in the coverage rates of rapid battery-swap stations in the
+      cities, it’s effect on the reduction of the overall number of urban charging stations tends to decrease.
+        Finally, we wrote a handout for the leaders who are attending an international energy summit. And
+     point out the key factors they should consider to realize all-electric cars and set a date to ban gas.
+     Key Words：Classification System Logistic Growth Urgency Index Elecomb                        Nonlinear
+     Programming Model
+
+
+=== PHYSICAL PAGE 2 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                            page 1 of 22
+
+
+     1. Introduction
+     1.1 Problem Background
+     With aggravation of the greenhouse effect and the air pollution problem, all countries are looking for
+     new energy sources to replace conventional fuel, such as original oil or diesel oil, to ease our
+     increasingly serious air problems. Since the launch of hybrid cars and gas-fueled vehicles, the
+     exploration of new clean cars is still going on continuously. At present, the electric vehicles led by
+     Tesla will break through the limitation of energy and economy to a greater extent and will balance
+     the relationship between rapidly growing automotive demand and the environment better. The
+     appropriate number of charging stations with the proper distance is of utmost importance for the
+     popularization of electric vehicles. Compared with petrol stations, electric vehicle charging stations
+     occupy less space, have higher safety factor and can be better distributed in the streets and
+     communities, allowing people to use it more conveniently and efficiently. However, the promotion
+     of electric vehicles is not accomplished in a single step. It is necessary to expand the coverage of
+     electric vehicles gradually, improve the network of electric vehicle charging stations continuously,
+     and finally finish the operation of ending gasoline and diesel vehicles. In addition, different countries
+     have different economic and cultural conditions, therefore, it need to determine the promotion time
+     and promotion scope according to their specific conditions in order to achieve better results.
+
+
+     1.2 Restatement of the Problem
+     According to the requirements of the problem, the final network we need to solve for the charging
+     station includes the number of charging stations, the location, and the number of chargers for each
+     station and the different needs of cities, suburbs, rural areas. At the same time, taking into account
+     the development and evolution of charging station network, we consider the changes of charging
+     station network under the conditions of 10%, 30%, 50% and 90% respectively.
+         For task 1, we are supposed to explore Tesla's network of charging stations and discuss whether
+     Tesla is on the track of the switch to all-electric vehicle in the United States. In the light of different
+     charging stations are charged differently, we need to figure out the demands of charging stations how
+     many charging stations are required, and if everyone in the United States uses , whether would electric
+     vehicles be Completely popularized and how will they be distributed in urban, suburban, and rural
+     areas.
+         For task 2, firstly, we are supposed to choose a country, and then to determine the optimal number
+      of its charging station layout, distribution and the main factors for a certain country which restrict
+      it from turning fuel cars into electric vehicles instantaneously. Secondly, we need to plan the entire
+      process of building its charging network start from scratch, including the first locations to build
+      charging stations and the factors that influence the design of charging station. Last, we will set a
+      development schedule of electric cars for that country, and taking into account its key impact factors.
+         For task 3, considering the difference between population densities and wealth distributions and
+      things like that among different countries, we are going to talk over whether our original network
+      plan is feasible and what the key factors are which trigger different modes of network growth. Then
+
+
+=== PHYSICAL PAGE 3 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                        page 2 of 22
+
+     discussing the feasibility of establishing a classification system and the different growth models they
+     should follow among countries.
+        For Task 4, analyze the impact of technological advances on the popularity of electric vehicles,
+     such as the emergence of vehicle sharing, flying cars and autonomous vehicles.
+        For Task 5, write a handout that covers the key elements needed to consider for different types of
+     countries, making it easy for the leaders to make a national plan and set a date to ban the use of
+     gasoline.
+
+
+     1.3 Overview of Our Work
+     The construction of electric vehicle charging station network is a key point for the popularization of
+     electric vehicles. The construction of charging station network will be affected by many factors, such
+     as population density, science and technology level, economic conditions and costs. At the same time,
+     different countries have their own unique geographical features and national characteristics which
+     make the problem more complicated. In order to solve the problem of the construction of charging
+     station network, we build and optimize the entire model step by step through the following steps.
+
+     ● First explore the Tesla charging station network using a high-order control system model.
+     Combined with the idea of cell and pixel, a nonlinear programming model is set up to minimize the
+     cost and find out the shortest path so as to explore the distribution of different types of charging
+     stations in the US cities, suburbs and rural areas.
+     ● First, determine the distribution of charging stations in Ireland if it’s under the full coverage of
+     electric vehicles according to the charging station service capabilities and charging station costs. An
+     urgency coefficient is defined for each charging station to indicate the urgency of building the
+     charging station. The index of urgency is mainly determined by the factors such as population density,
+     wealth distribution and service capability. According to the index of urgency, we set out the process
+     of building an Irish charging station network from scratch and draw the model it established. Finally,
+     we use Logistic growth model to determine the development schedule of electric vehicles inIreland.
+     ● Optimize the index of urgency based on the land cost, construction cost and the technological
+     factors. In order to characterize the network growth model of charging stations in different countries,
+     we use the macroeconomic indicators of each country to describe the above-mentioned indicators of
+     urgency, for example, use the Gini coefficient to represent the distribution of wealth, use education
+     years to represent the level of science and technology and so on. These indicators are used to indicate
+     the priority of cities and rural areas in the country so as to determine the charging station network
+     development model that different countries should follow.
+     ● Different kinds of new technology vehicles affect different aspects, and we separately analyze them
+     and combine the model we established to judge their impact. We also studied the impact of rapid
+     battery-swap with different coverage ratios in the city on the number of urban charging stations.
+
+
+     2. General Assumption
+     ●Assumption I: The distance between any vehicle gathering point and charging station is the straight
+     line distance between two points.
+     ● Assumption II: Electric vehicles in class j are evenly distributed, but different classes of areas
+
+
+=== PHYSICAL PAGE 4 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                        page 3 of 22
+
+     have different densities of distribution.
+     Reason: From the national level, even though the density distribution of vehicles in urban, suburban
+     and rural areas is different, they can be regarded as uniform compared to the entire land area
+     ●Assumption III: No matter how many electric piles are set up in a charging station, it will not affect
+     the charging of electric vehicle and the electricity consumption of the surrounding residents
+
+
+     3. Symbols and Definitions
+     In the section, we use some symbols for constructing the model as follows:
+
+
+
+
+     P.S. Other symbols instructions will be given in the text.
+
+
+     4. Model Design
+     4.1 Model I：Estimated the Charging Station Network of US
+     When considering the establishment of the charging station, Tesla has two charging methods:
+     supercharging and destination charging. The supercharging station is suitable for vehicles that do not
+     want to stay while the destination charging station is suitable for vehicles that can stay for a longer
+     period of time. We think destination charging stations are more distributed among cities in the state
+     to meet people's daily traffic needs, and supercharging stations are more to meet the needs of long-
+     distance travelers.
+        When considering Tesla's growing network of charging stations, we first fit Tesla’s charging station
+     data from 2012 to 2017 and found that it is basically in line with the linear growth model, which
+     reminds us of the control Engineering high order system time-domain response (the specific process
+     shown in Figure 4.1).
+
+
+=== PHYSICAL PAGE 5 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                            page 4 of 22
+
+
+
+
+                 Figure 4.1 The control Engineering high order system time-domain response
+
+       It is clear that after we extend the time, Tesla's model fits the first case, so Tesla intends to push the
+     US to fully electrified. In the process of being fully electrified, as long as it continuously increases
+     the number of charging stations to meet the demand of charging, it must be fully electrified in the end.
+
+
+     4.1.1 ‘ Elecomb ’, The Model of Charging Station Network within State
+     The construction of charging stations in the states is mainly to meet people's daily charging
+     demands among all cities. We designed a pixel-honeycomb model which we call ‘Elecomb’ to
+     represent the specific situation of each city in the state. Among each city, the density of vehicles in
+     urban, suburban and rural areas is different and we use the density of pixels to represent it. Then we
+     use different sizes of honeycomb to cover the entire city in order to reach the best coverage. Different
+     sized honeycomb represents different sizes of charging station coverage area for the same service
+     capability. The reason why choosing the honeycomb is that it can make the overlapping area reach
+     the minimum, so that a single charging station can play its maximum utility and it has strong economy,
+     besides it is self-adaptive[1]. What’s more, the charging station in the state includes two type:
+     supercharging stations and destination stations.
+
+
+=== PHYSICAL PAGE 6 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                          page 5 of 22
+
+
+
+
+                                      Figure 4.2 The pixel and honeycomb
+
+      Vehicle density in different cities in the state
+     We found the population density of urban, suburbs and rural areas in different cities in different states
+     in the United States Census Bureau [2]. We calculated the vehicle density #$ based on the
+     population density and average U.S. vehicle ownership which is 0.77, and the vehicle density heat
+     map is shown in Figure 4.3.
+
+
+
+
+                             Figure 4.3 The vehicle density heat map
+        The minimum number of different types of charging stations
+
+
+=== PHYSICAL PAGE 7 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                              page 6 of 22
+
+
+=== PHYSICAL PAGE 8 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                         page 7 of 22
+                          Table 4.1 The number of different charging stations in state
+             Charging station Destination stations Supercharging stations           Total stations
+                 Urban           1.86 million          0.37 million                 2.23 million
+               Suburban          2.50million           0.50 million                 3.00 million
+                Rural areas          1.20 million            0.04 million           1.20 million
+               Total stations        5.56 million            0.91 million           6.47 million
+
+
+
+
+                           Figure 4.4 The location of charging stations within state
+
+
+     4.1.2 The Model of Charging Station Network between States
+     We follow the U.S. road map to arrange charging stations between states, and arrange fast charging
+     stations along important U.S. roads so that long-distance travelers can charge their Tesla. Because
+     there are few people living around the interstate roads and the long-distance travelers are in a hurry
+     to charge their Tesla, so we do not set destination charging stations between states.
+        According to this problem we can refer to the setting of the roadside service area in the United
+     States. The distance between every service area is about 50 miles, which covers a gas station within
+     their courage, so we can arrange Tesla's fast charging station in the service area which does not exceed
+     Tesla's maximum mileage if it filled with fully oil. What’s more, the setting of the service area is the
+     result of research and investigation by most experts and it might be a good choice for Tesla to set up
+     a supercharging station.
+        At the Federal Highway Administration we found that the entire main roads cover 3951098 miles
+     [3]. If we set a gas station for every 50 miles, we can get the approximate number of charging stations
+     needed, and the number is shown in the Table 4.2, we also show the location of the stations in the
+     Figure 4.5.
+
+                      Table 4.2 The number of different charging stations between states
+             Charging station Destination stations Supercharging stations           Total stations
+               Rural areas         0 million            0.08million                 0.08 million
+              Total stations       0 million           0.08 million                 0.08 million
+
+
+=== PHYSICAL PAGE 9 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                        page 8 of 22
+
+
+
+
+                          Figure 4.5 The location of charging station between states
+
+     Note that a point on the picture represents a charging station, in order to make it more obvious we
+     enlarge some points, the rest of the points remain their original size and therefore it is too small to
+     show in the figure.
+       Taking all this into account, we can conclude that the number of charging stations in the cities,
+     suburbs and rural areas required by the United States to achieve full coverage of electric vehicles is
+     shown in the Table 4.3 and the location in the Figure 4.6.
+
+                        Table 4.3 The number of different charging stations in the US
+             Charging station Destination stations Supercharging stations          Total stations
+                 Urban           1.86 million          0.37 million                2.23 million
+               Suburban          2.50million           0.50 million                3.00 million
+                Rural areas         1.20 million             0.12 million           1.28 million
+               Total stations       5.56 million             0.99 million           6.55 million
+
+
+
+
+                            Figure 4.6 The location of charging stations in the US
+
+
+=== PHYSICAL PAGE 10 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                        page 9 of 22
+
+     4.2 Model II：The Charging Station Network of Ireland
+
+     4.2.1 The Model of Charging Station Network of Ireland
+     Based on the original US model, we can calculate the number of charging stations, distribution and
+     other information in Ireland with the same method [4]. In this model, we only divide Ireland into two
+     types, urban and rural. At the same time, because the Ireland is a country with a small land area, the
+     miles traveled inside the country are basically within 100 miles. Therefore, unlike the United States,
+     we do not consider separately the distribution of charging stations among the counties. Instead, we
+     build the map based on the design of the charging station in the country, and the results are shown in
+     the following Table 4.4 and Figure 4.7.
+
+                        Table 4.4 The number of different charging stations in Ireland
+             Charging station Destination stations Supercharging stations          Total stations
+                 Urban         42.18 thousand          8.44 thousand              50.62 thousand
+               Rural areas     30.90 thousand          6.18 thousand              37.08 thousand
+              Total stations   73.08 thousand         14.62 thousand              87.70 thousand
+
+
+
+
+                            Figure 4.7 The location of charging stations in Ireland
+
+        According to our designed charging station network model, we can see that the main factors that
+     affect us are population density, economic conditions, the service capabilities of charging station and
+     other geographical conditions.
+
+
+     4.2.2 Charging Station Dynamic Programming Model
+     In the previous question, we calculated the number of charging stations in Ireland under full coverage,
+     which is the final state we are going to reach. We can also calculate the location of each charging
+     station so that the entire dynamic programming process can be viewed as a sequential problem of
+     selecting each specific charging station across the network of charging stations. In order to solve the
+     sequential problem better, we combine the three indicators of service capability, population density
+     and wealth distribution into a new one: the urgency of setting up a charging station, the more urgent
+
+
+=== PHYSICAL PAGE 11 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                          page 10 of 22
+
+     the faster we set up a charging station here. All the data comes from the Irish Central Bureau of
+     Statistics and Wikipedia.
+      Service capacity indicators
+     In the first question, we set up a model of the shortest path and the minimum number of charging
+     stations, which is an indicator of maximum service capability. Using the number of vehicles that can
+     be serviced by the charging station per unit area as the indicators of maximum service capability, in
+     order to unify the units of the three indicators, we normalize it as
+
+
+
+
+     All the factors are just as important to us. We sort all of the charging stations in ascending order
+     according to the urgency of setting up a charging station. In the process of construction, first of all,
+     it’s essential to build a more urgent charging station. After satisfying the need of more urgent charging
+     stations, we are going to build a less urgent one until the charging stations completely cover Ireland.
+     Based on the weight we calculate, we can find out that the charging stations in Ireland are built at the
+     same time in the urban and rural and the specific order of the construction of urban and rural charging
+     stations in each county is shown in Appendix 3. We calculate the case when the charging station
+     coverage is 30%, 50%, 100%, and get the following results.
+
+                             Table 4.5 The number of charging stations in Ireland
+              Charging station coverage           30%                  50%              100%
+                       Urban                 25.77 thousand      41.58 thousand     50.62 thousand
+                     Rural areas              0.54 thousand       2.27 thousand     37.08 thousand
+                   Total stations            26.31 thousand      43.85 thousand     87.70 thousand
+
+
+=== PHYSICAL PAGE 12 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                           page 11 of 22
+
+
+
+
+                       Figure 4.8 The location of charging stations of different coverage
+
+       We discussed Tesla's case in the United States in the first question. Tesla hopes to attract more
+     customers through the establishment of charging stations, not in response to their existing customers.
+     Also, the problem is focus on attracting more users. As a rational enterprise, Tesla will find ways to
+     make more money and all countries will support the development and promote the use of
+     environment-friendly products. What’s more, building more charging stations is also a way to keep
+     up with trend and make more profit.
+
+
+     4.2.3 The model of Irish electric vehicle development timeline
+     Ireland is already a developed country, so we think its vehicle ownership will remain basically
+     unchanged. With the introduction of electric vehicles, it will replace the original fuel vehicles until it
+     is fully electrified. From the above analysis we can see that the main factor affecting the popularity
+     of electric vehicles is the charging station, which is related to economic conditions, population density
+     and other factors, so the wealth distribution and population density indirectly affect the popularity of
+     electric vehicles. We can view this as a model of finite growth whose final situation is known, which
+     is a logistic growth model [5]. The condition of economy, population density and other factors will
+     affect its growth, so we set up the following model
+
+
+
+
+        Then, we fit the growth of electric vehicles in the United States based on the 2005-2016 data. The
+     difference between Ireland and the United States lies in the coefficients . We searched for the date
+     on Wikipedia and found that the population density in the United States is 0.5 for Ireland and the per
+     capita GDP for the United States is 0.93 for Ireland so that we can draw the Irish model of growth
+     from the United States model and plot its specific growth in Matla2016, just as shown in Figure 4.9.
+
+
+=== PHYSICAL PAGE 13 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                              page 12 of 22
+
+
+
+
+                            Figure 4.9 The Irish electric vehicle development timeline
+
+       In the figure, we can see the time needed to develop to different stages, and it takes about 18.1
+     years for Ireland to reach the full coverage of electric vehicles.
+
+
+     4.3 Model III：The Model of Classification System
+     First of all, in the above model, population density distribution and wealth distribution have been
+     taken into account. Therefore, population density distribution and wealth distribution have no effect
+     on the construction model of our charging station network. However, considering different
+     geographical issues, we think this indicator is used to determine qualitatively whether this country is
+     suitable for establishing a charging station in the first place. If appropriate, we can still use our original
+     model, if not, there is no need to establish a charging station in this place, such as Venice where is no
+     need to build a car charging station there. Therefore, Australia, China, Indonesia, Saudi Arabia and
+     Singapore given in the problem are all apply to the above model except that the growth pattern of the
+     charging station network in each country is different.
+
+
+     4.3.1 The Optimization Model of the Indicator of Urgency
+     We consider the key factor triggering different growth networks to be the urgency of setting up
+     charging stations in different parts of the country. In the above model, we did not distinguish the cost
+     of establishing charging stations in rural and urban areas. However, in fact, the construction costs of
+     rural and urban areas are different and it have a great influence on the construction of charging station
+     network, so we optimize the indicator in terms of cost.
+        Total costs include construction costs, land costs. The cost of land is mainly related to the land
+     price in urban and rural areas, and the cost of construction is related to the country's technological
+     level. Therefore, we establish the following cost factor formula:
+                                               u = ∗ u+ ∗ + + i ∗ i
+
+
+=== PHYSICAL PAGE 14 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                          page 13 of 22
+
+
+
+
+        Then according to the indicator of urgency after optimization, we can see that the main factors that
+     lead to the different growth networks are population density distribution, wealth distribution, service
+     capacity and cost. In order to better explain the influence of these factors on different growth networks,
+     we take Ireland as an example to see how the changes in population density distribution and wealth
+     distribution affect the overall growth network, the result is shown below:
+
+
+
+
+                     Figure 4.10 The change of the charging station network construction
+
+     4.3.2 The model of classification system
+     Different countries have different growth modes, but we can classify their growth models into three
+     categories according to the macroeconomic indicators provided by each country. The specific steps
+     of the model are as follows:
+
+
+
+
+        According to the main influencing factors of the index of urgency, we describe these factors to
+     different macroscopic indexes, the reason why we choose macroeconomic indexes is that they are
+     easier to obtain and each country is calculated in the same way, and indexes have greater
+
+
+=== PHYSICAL PAGE 15 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                       page 14 of 22
+
+     representation and economy.
+
+
+
+
+        Finding the corresponding index data in the global economic database and considering that there
+     is no gap between urban and rural areas, we can get an equilibrium point of AI = 0.4. Both sides are
+     of normal distribution, so we get the range of AI under different growth network, just as Figure 4.11
+     shows
+
+
+
+
+                         Figure 4. 11 The range of AI under different growth network
+
+       Therefore, we establish a classification system, each country inputs its own urban population, rural
+     population, urban area, rural area, Gini coefficient, average years of education to get the relative
+     superiority index, and thus come to their own charging station growth network.
+
+
+=== PHYSICAL PAGE 16 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                           page 15 of 22
+
+
+     5. The Impact of Different Technologies on the Popularization
+     of Electric Vehicles
+      With the development of technology, the emergence of new types of vehicles and the charging and
+      discharging methods will have different effects on the popularity of electric vehicles. In this question,
+      we mainly consider the impact of sharing cars, self-driving cars, car quick-changers and flying cars.
+         First we consider the impact of shared cars. With the emergence of shared cars, the demand for
+      electric vehicles, fuel vehicles will decline, which to some extent hurts the popularity of electric
+      vehicles. However, as the number of cars decreases, the service capacity of individual charging
+      stations will increase, so it will be possible to accelerate the popularization of electric vehicles by
+      setting up fewer charging stations to reduce the time for building the entire charging station network.
+     Therefore, the emergence of shared cars for the popularity of electric vehicles have pros and cons
+     such it should not be generalized as a whole.
+        Second, we consider the impact of autonomous vehicles. We originally designed the charging
+     station network without considering the impact of human factors, and we think the vehicles are all
+     following the preset shortest path, but in reality it is not the case. Therefore, the model in the first
+     question can be improved by adding human factors. At the same time, autonomous vehicles are a
+     totally system-operated vehicle that makes cars smarter and alleviates many traffic problems, thereby
+     accelerating the popularity of electric vehicles.
+        Third, consider the impact of rapid battery-swap stations. Rapid battery-swap stations are mainly
+     to greatly reduce the charging time of electric vehicles, and the service capability of the whole city
+     has been improved. What’s more, we think that the rapid battery-swap stations can be regarded as a
+     collection of charging stations with a certain service capability and generally appears in urban areas
+     where the vehicle density is relatively high. Therefore, we consider the change in the number of
+     charging stations as a whole when the penetration of the rapid battery-swap stations are improved.
+     Then we study the case of the US and Ireland and plot the Figure 5.1.
+
+
+
+
+                               Figure 5.1 The changes in total number of stations
+
+       It can be seen from the figure that the emergence of rapid battery-swap stations will reduce the
+     number of the stations as a whole, and its rate of descent will be slower and slower as the degree of
+     coverage increases. The emergence of the substation makes the environmental benefits of electric
+     vehicles and the rapid benefits of rapid charging mutually reinforcing, improving the overall
+
+
+=== PHYSICAL PAGE 17 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                         page 16 of 22
+
+     effectiveness.
+        Finally, we consider issues such as flying cars and Hyperloop. They certainly will have an impact
+     on the popularity of electric vehicles, but the way they affect it is different.
+
+
+     6. Strengths and Weaknesses
+     6.1 Strengths
+     ● Data has high security and reliability
+     ●. The model takes full account of the differences between urban and rural areas in all aspects.
+     ● Predicting the Tesla development model with control engineering content.
+     ● The density of vehicles in different regions is represented by pixels, and the cell is used as the
+     charging station coverage model, thereby ensuring the coverage area while ensuring the minimum
+     overlap area.
+
+
+     6.2 Weaknesses
+     ● Due to time and data constraints, the model fails to considerate the differences within urban or rural
+     areas.
+     ● In the process of calculation, the data that can not be found in some areas are replaced with the
+     previous data.
+     ● Rather than strictly considering the difference in the number of charging piles in charging stations
+     in different regions, the number of charging piles in the same type of charging station is considered
+     to be the same.
+
+
+     7. Future Improvements
+     ● If we have more time, we will first consider the differences in the number of charging piles in the
+     same type of charging stations. Different charging piles represent different service capabilities, so
+     that the area that they can cover will change. Our model will be more realistic.
+     ● When designing model 1, taking into account the possible waiting time for the electric vehicles to
+     charge in the charging station. At the same time consider the impact of some human factors on the
+     model.
+     ● Find more reliable data to fit the future growth model of electric vehicles and reduce errors.
+
+
+     8. Conclusion
+     ●In the future, it is very likely that among the majority of countries, electric vehicles will be
+     completely popularized. Besides, the stagnation of the rest countries could be attributed to their own
+     geographical reasons, such as Indonesia, Venice and other countries or regions.
+     ●The main influencing factors which trigger different modes of network growth contain the density
+     of population, the distribution of wealth, the strength of science and technology and cost. Besides,
+     different factors may cause different effects.
+
+
+=== PHYSICAL PAGE 18 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                      page 17 of 22
+
+     ● The Gini coefficient has a great influence on the development of the charging station network,
+     while the population density has only a slight impact.
+
+
+=== PHYSICAL PAGE 19 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                          page 18 of 22
+
+
+                                                 Handout
+     Distinguished leaders:
+        With the increasing prominence of resources and environmental issues, the new type of electric
+     vehicles can largely alleviate various problems caused by automobile exhaust emissions. Meanwhile,
+     with the advancement of science and technology, all kinds of technologies of electric vehicles have
+     become increasingly sophisticated, which laid a good foundation for its popularity.
+        Through our research, we can know that the most important factor influencing the popularization
+     of electric vehicles is the perfection of charging station network and the dynamic process of its
+     construction. Different countries have different economic and technological levels as well as their
+     unique national characteristics. In view of this situation, we have developed a system to determine its
+     mode of development based on such notable features like the Gini index, urban population, and rural
+     population. All you need to do is to input Gini coefficient, rural population, urban population, urban
+     area, rural area, urban land price, rural land price and the average schooling years of your country
+     into our system. Our system will give you an indicator of in your country's relative priority between
+     urban and rural areas. And you can find the right growth pattern for your country based on the value
+     of the indicator.
+
+
+
+
+        Regarding the date of the ban on gas, the total coverage of electric vehicles based on the world
+     average is about 163 years, but the degree varies with countries. All you need to do is to input the
+     population density, urbanization rate and GDP per capita into our Logistic Growth Model based on
+     your own situation to find the time it takes for the country to reach full coverage of electric vehicles,
+     which is the time that gasoline should be banned.
+        Since each country has its specific situation, there will be some inevitable errors and uncertainties
+     in our model, but it can provide a general development forecast for different countries to better
+     achieve the full coverage of electric vehicles, I hope our model can benefit your country to some
+     extend, thank you for coming to this meeting.
+
+
+=== PHYSICAL PAGE 20 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                      page 19 of 22
+
+
+     References
+     [1] Marzetta, T. L. (2010). Noncooperative cellular wireless with unlimited numbers of base station
+     antennas. IEEE Transactions on Wireless Communications, 9(11), 3590-3600.
+     [2]’the United States Census Bureau’ https://www.census.gov/
+     [3] https://en.wikipedia.org/wiki/List_of_United_States_Numbered_Highways
+     [4]’Central Statistics Office’ http://census.cso.ie/sapmap/
+     [5] Giordano, F. R., Weir, M. D., & Fox, W. P. (2009). A first course in mathematical modeling
+     =. , 15(4), 155-166.
+     [6] Brownley, C. W. (2016). Foundations for Analytics with Python: From Non-Programmer to
+     Hacker. O'Reilly Media, Inc.
+
+
+=== PHYSICAL PAGE 21 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                              page 20 of 22
+
+
+     Appendix 1
+     The scatter plot of Tesla's sales data.
+
+
+=== PHYSICAL PAGE 22 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                        page 21 of 22
+
+
+     Appendix 2
+     The location of charging stations in Lubbock, US.
+
+
+=== PHYSICAL PAGE 23 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+     Team # 78826                                                                    page 22 of 22
+
+
+     Appendix 3
+     The specific order of the construction of urban and rural charging stations in each county.
+        1 Dublin City urban_area                         32 Roscommon urban_area'
+        2 Limerick City and County urban_area'           33 Waterford City and County rural_area'
+        3 Kildare urban_area'                            34 Wicklow rural_area'
+        4 Cork County urban_area'                        35 Monaghan urban_area'
+        5 Cork City urban_area'                          36 Sligo urban_area'
+        6 Dublin City rural_area'                        37 Carlow rural_area'
+        7 Waterford City and County urban_area' 38 Meath rural_area'
+        8 Wicklow urban_area'                            39 Fingal urban_area'
+        9 'Carlow urban_area'                            40 Offaly rural_area'
+        10 Meath urban_area'                             41 Wexford rural_area'
+        11 Offaly urban_area'                            42 Kilkenny rural_area'
+        12 Wexford urban_area'                           43 Tipperary rural_area'
+        13 Kilkenny urban_area'                          44 Dun Laoghaire-Rathdown rural_area'
+        14 Dun Laoghaire-Rathdown urban_area'            45 Galway City rural_area'
+        15 Tipperary urban_area'                         46 Galway County rural_area'
+        16 Galway City urban_area'                       47 South Dublin rural_area'
+        17 South Dublin urban_area'                      48 Louth rural_area'
+        18   Galway County urban_area'                49   Leitrim rural_area'
+        19   Limerick City and County rural_area'     50   Westmeath rural_area'
+        20   Louth urban_area'                        51   Laois rural_area'
+        21   Leitrim urban_area'                      52   Donegal urban_area'
+        22   Westmeath urban_area'                    53   Kerry rural_area'
+        23   Laois urban_area'                        54   Clare rural_area'
+        24   Kerry urban_area'                        55   Mayo rural_area'
+        25   Clare urban_area'                        56   Cavan rural_area'
+        26   Mayo urban_area'                         57   Longford rural_area'
+        27   Cavan urban_area'                        58   Roscommon rural_area'
+        28   Kildare rural_area'                      59   Monaghan rural_area'
+        29   Cork County rural_area'                  60   Sligo rural_area'
+        30   Cork City rural_area'                    61   Fingal rural_area'
+        31   Longford urban_area'                     62   Donegal rural_area'

@@ -1,0 +1,1652 @@
+=== PHYSICAL PAGE 1 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+
+
+                                      Team Control Number
+      For office use only                                        For office use only
+      T1
+                                            82150                F1
+      T2                                                         F2
+                                         Problem Chosen
+      T3                                                         F3
+      T4                                      C                  F4
+
+
+                                             2018
+                                           MCM/ICM
+                                         Summary Sheet
+
+
+       In order to set realistic and proper goals for the new four-state energy compact,
+       our team makes an analysis and prediction on the energy profiles. Then, we
+       propose three practical actions for the governors to meet these goals.
+       Specifically,
+
+         For part I, we first explore the energy profiles from four aspects – Total
+       Energy Production, Total Energy Consumption, Energy Price and Energy
+       Structure. Secondly, regarding population, economy, modernization and
+       geography as influential factors, we study the similarities and differences in the
+       usage of cleaner, renewable energy quantitatively. Next, the EM-TOPSIS-
+       PROMETHEE Evaluation Model is developed to determine the “best” profile in
+       2009. Following the 3E principle, we conclude that California excels in four
+       aspects – Renewable Energy Potential, Energy Structure, Renewable Energy
+       Proportion and Economic Conversion Rate. Finally, Vector Autoregression
+       Model is utilized to predict each state’s energy profile.
+
+          For part II, combining Game Theory, we obtain the optimal energy allocation
+       among four states through Genetic Algorithm. For one thing, the compact will
+       reduce their import energy price, and thus improving their energy structure in
+       New Mexico and Texas, the energy import-oriented states. For another, the
+       energy efficiency will be boosted due to the growth of energy exports in
+       Arizona, the energy export-oriented state. Hence, we set the promotion in
+       Renewable Energy Proportion and Economic Conversion Rate as their energy
+       compact goals. Afterwards, three actions, including cutting the export taxes,
+       imposing subsides and strengthening interstate communication, are put forward
+       to realize above-mentioned goals.
+         Finally, for the governors, we prepare a memo to introduce the energy
+       profiles in 2009, the prediction on energy usage without any policy changes and
+       our recommended goals for energy compact.
+
+
+
+       Keywords: Energy profile; VAR Model; Genetic Algorithm; Energy compact
+
+
+=== PHYSICAL PAGE 2 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150
+
+
+
+
+                                                                    Context
+         1 Introduction............................................................................................................................ 1
+             1.1 Restatement of the Problem.......................................................................................... 1
+         2 Assumptions and Nomenclature.......................................................................................... 1
+             2.1 Assumptions.................................................................................................................... 1
+             2.2 Nomenclature..................................................................................................................2
+         3 Date Processing......................................................................................................................2
+             3.1 Delete the redundant data.............................................................................................2
+             3.2 Delete the invalid data....................................................................................................3
+         4 Part I Analysis, evaluation and prediction of energy profiles.............................................3
+             4.1 The energy profiles......................................................................................................... 3
+             4.2 The evolution of the energy profile...............................................................................4
+             4.3 The best profile for use of cleaner, renewable energy................................................ 8
+             4.4 The prediction based on VAR Model..........................................................................12
+         5      Part II New energy compact...........................................................................................14
+             5.1 Goals for the new four-state energy compact...........................................................14
+             5.2 Three actions to meet their energy compact goals...................................................17
+         6 Strengths and Weaknesses................................................................................................. 18
+             6.1 Strengths........................................................................................................................18
+             6.2 Weaknesses................................................................................................................... 19
+         7 Conclusion............................................................................................................................ 19
+         References............................................................................................................................... 20
+         Appendix..................................................................................................................................21
+
+
+=== PHYSICAL PAGE 3 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150
+
+         From: MCM 2018 Team 82150
+         To: The group of Governors
+         Date: 12, February 2018
+         Subject: Goals for the energy compact
+         For your information, here we introduce our analysis of states’ profile, our prediction
+         of energy usage and our recommended goals for compact. The details are as below:
+            The analysis of states’ profile
+              Arizona, California, New Mexico and Texas are energy oversupplied state,
+                 energy oversupplied state, energy short-supplied state and energy supply &
+                 demand balance state respectively.
+              The states whose energy prices are sorted from high to low are Arizona,
+                 California, New Mexico and Texas respectively.
+              Among these four states, the proportion of petroleum products is the greatest,
+                 while that of renewable energy is the lowest.
+                  The maximum proportions of total energy consumption in different sectors
+                 vary from the states.
+            The prediction of energy usage
+              Total energy usage will continue to rise, but growth rate will decline.
+              Total renewable energy usage and its growth will continue to rise.
+              Arizona will be renewable energy export-oriented, for the growth rate of
+                 energy production will exceed the rate of energy usage.
+              Texas and New Mexico are likely to become renewable energy import-
+                 oriented.
+            The recommended goals for compact
+              The first goal: Promotion in Renewable Energy Proportion.
+              The second goal: Promotion in Economic Conversion Rate.
+              These goals can be realize by strengthening interstate communication, cutting
+                 the export taxes and imposing renewable energy subsidies.
+         Please contact me if you have any problems.
+
+
+=== PHYSICAL PAGE 4 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                            Page 1 of 24
+
+
+
+         1 Introduction
+         1.1 Restatement of the Problem
+
+           Nowadays, energy production and usage are a major portion of any economy. In
+         the United States, many aspects of energy policy are decentralized to the state level.
+         Additionally, the varying geographies and industries of different states affect energy
+         usage and production.
+            Firstly, we make a comprehensive and obvious analysis of energy profile for each
+         of the four states according to the data selected in attachments.
+           Then, we analyze the evolution of energy profile and make an understandable
+         comparison about the usage of cleaner, renewable energy sources among four states.
+           Thirdly, we select proper criteria to evaluate and predict profiles of each state in
+         2009, 2025 and 2050. Then, under a four-state energy compact, we determine
+         renewable energy usage targets according to the “best” profile criteria and prediction.
+         At last, based on the models we build, we try to put forward the effective
+         improvement in compacts and offer our models to the group of governors.
+
+         2 Assumptions and Nomenclature
+         2.1 Assumptions
+
+            In order to simplify our model, we make some assumption in our paper. The details
+         are as below:
+            There's no difference in the statistic caliber of four states, and thus the data is
+             completely reliable.
+            Only electricity is taken into account when we analyze the renewable energy,
+             because we make an assumption that renewable energy is finally transformed into
+             electricity.
+            Standard energy structure is the structure that each energy has the same proportion.
+            We assume that renewable energy consumption and petroleum consumption add
+             up to the total energy consumption.
+            In the case of the new energy contact, no cooperation cost is accounted.
+            We assume that the contact exerts no effect on the total energy consumption in four
+             states and only affects the renewable energy consumption.
+
+
+=== PHYSICAL PAGE 5 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 2 of 36
+
+
+         2.2 Nomenclature
+
+
+
+
+         3 Date Processing
+            First, we classify the data in the worksheet into three categories: redundant data,
+         invalid data, and normal data. Then, as for redundant data, we remove them to make it
+         more convenient for us to search the required data. As for invalid data, we delete them
+         from the worksheet. As for normal data, we sort them and learn the meaning of their
+         “msn”. The works we have done in data processing are as follows.
+         3.1 Delete the redundant data
+           There is data redundancy in the worksheet “seseds”. As we can see in Table 3-1,
+         NGACB and NNACB have the same content except their msn. So we delete the
+         redundant data “MMACB”.
+
+
+=== PHYSICAL PAGE 6 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 3 of 36
+
+
+                                      Table 3-1 :     Examples of redundant data
+            NGACB            Natural gas consumed by the transportation sector.             Billion Btu
+            NNACB            Natural …… sector. (Code used in SEDS 2006.)                   Billion Btu
+          3.2 Delete the invalid data
+
+            In the worksheet “seseds”, there is no data labeled with “PACCK”. So we define the
+          data without content in the worksheet as invalid data. After screening all data, we
+          remove the invalid data.
+                                        Table 3-2 :    Examples of invalid data
+            PACCK           Factor for converting ……        United States only.         Million …barrel
+
+
+          4 Part I Analysis, evaluation and prediction of energy profiles
+          4.1 The energy profiles
+
+             In order to explain the energy profiles, we subdivide the energy profiles into four
+          aspects: Total Energy Production        , Total Energy Consumption      , Energy Price
+              and Energy Structure . As the latest data can reflects the current energy profile
+          in each state better, we select the data of each state in 2009.
+           Total Energy Production ul and Total Energy Consumption u
+                               Table 4-1: the table of TEP and TEC in four states
+                                                                                        Units：Billion Btu
+                            TEP               TEC                                 TEP         TEC
+          Arizona       570994.0459       1454313.457        California   2605311.838       8005515.051
+        New Mexico      2412219.049       670094.5064         Texas       11914996.72       11297410.59
+
+             Total Energy Production and Total Energy Consumption are important indicators for
+          energy profile of each state. In order to describe the production and consumption better,
+          we divide the states into three types: oversupplied, supply-and-demand balanced and
+          short supplied. When Total Energy Production is obviously larger than Total Energy
+          Consumption, the states are regarded as oversupplied, such as Arizona and California.
+          When Total Energy Production is lower than Total Energy Consumption obviously, the
+          states are regarded as short supply, such as New Mexico. When the states don’t satisfy
+          two situations above, they are regarded as supply-and-demand balanced, such as Texas.
+           Energy Price ul
+             The price of commodity fluctuates with its supply and demand. To some extent,
+          energy price can reflect the costs of source exploitation, transportation and distribution.
+          At the same time, it can also reflect the economic benefits of energy use. In our opinion,
+          when one state acquires similar resources, the lower the price is, the better the economic
+          benefits it will get. As can be seen from the table in appendix, states’ unit price of energy
+          from high to low are 19.664, 18.405, 17.179 and 15.380. The corresponding states are
+          Arizona, California, New Mexico and Texas respectively.
+           Energy Structure u
+
+            In the worksheet “seseds”, we can get total energy consumption in five sectors. The
+
+
+=== PHYSICAL PAGE 7 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 4 of 36
+
+         five sectors are transportation, commercial, electric power, industrial and residential
+         sector. After processing the data, we can get the proportion of total energy consumption
+         in these five sector. The proportion are as below and the table of the proportion are in
+         appendix.
+           100                                                  120
+            90
+                                                                100
+            80
+            70
+                                           Residential           80
+            60
+            50                                                   60
+            40                             Industrial                                          Other
+                                                                 40
+            30                             Electric power                                      Renewable
+            20                                                   20
+            10                             Commercial                                          Pretroleum
+             0                                                    0
+                                           Transportation
+
+
+
+
+                     Figure 4-1 : the proportion of total energy consumption in five sectors
+                  Figure 4-2 : the proportion of Petroleum, Renewable energy and other energy
+            In Arizona and New Mexico, proportions of total energy consumption in the Electric
+         power sector are the greatest respectively. In California, the proportion in the
+         transportation sector is the greatest, while in Texas, the proportion in the industrial
+         sector is the greatest. So we can conclude that the focus of development in four states
+         and energy structure are different. As can be seen from the figure 4-2, the proportion of
+         petroleum products consumption is the greatest among four state although they differ
+         greatly in Total Energy Consumption, while the proportion of renewable energy is the
+         lowest.
+         4.2 The evolution of the energy profile
+
+         4.2.1 The growth of energy consumption
+                   800
+                                 Arizona           California          New Mexico           Texas
+                   600
+
+
+                   400
+
+
+                   200
+
+
+                     0
+                         1960   1965   1970    1975      1980   1985   1990   1995   2000    2005
+                                Figure 4-3 : The figure of energy consumption per capita
+
+
+=== PHYSICAL PAGE 8 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 5 of 36
+
+                  25
+                                  Arizona        California          New Mexico          Texas
+                   20
+
+                   15
+
+                   10
+
+                    5
+
+                    0
+                        1970   1975     1980     1985         1990     1995       2000    2005
+                               Figure 4-4 : The figure of economic conversion efficiency
+
+            Figure 4-3 reveals the evolution of the energy consumption per capita in each state,
+         we can conclude that the energy consumption per capita is relatively stable, which
+         fluctuates over a long time. Unchanged as the consumption per capita remains, the
+         economic conversion efficiency in four states, shown in figure 4-4, shares the similar
+         tendency. The index calculates the output created by per unit of energy, which indicates
+         the production capacity of a state. As is shown in the figure 4-4, there is a boost in the
+         conversion efficiency in all states during 1990s and a slight decline after 2000 with their
+         rank unchanged.
+         4.2.2 The evolution of energy structure
+            Similarities in the energy structure
+
+
+
+
+                                   Figure 4-5 : The evolution of energy structure
+
+            In general, the energy consumption structure of the four states is not balanced.
+         Energy consumption mainly concentrates on petroleum products, and the consumption
+         of coal is the second. In the world energy consumption structure, petroleum, natural gas
+         and coal are the three most important types of consumer resources with roughly equal
+         proportions[1].
+            Nevertheless, there is a drop in the consumption of petroleum and coal in Arizona,
+         California and New Mexico, along with an increase in the proportion of renewable and
+         natural gas. The first explanation is that economic development promotes the
+         development of technology. Secondly, attaching importance to energy saving and
+         environmental protection are also important reasons for their improvement in energy
+         structure.
+
+
+=== PHYSICAL PAGE 9 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 6 of 36
+
+            Differences in the energy structure
+
+            Taking the continuity of the policy into account, we set a 10-year cycle to analyze
+         the energy profiles of the four states at various time points, and then get the evolution
+         of the energy structure. As is shown in this figure 4-6, the energy growth rate rose
+         slightly in the commercial sector in each state from 1979 to 1989. In the next 20 years,
+         however, there has been no significant changes in the proportion in this area, for the
+         business is relatively mature.
+                  7000000
+                                                                               1979 Transportation
+                  6000000
+                                                                               1989 Transportation
+                  5000000
+                                                                               1999 Transportation
+                  4000000
+                                                                               2009 Transportation
+                  3000000
+                  2000000                                                      1979 Commercial
+                  1000000                                                   1989 Commercial
+                        0                                        1999 Commercial Arizona
+                                       California      New       Texas      2009 Commercial
+                                                      Mexico
+
+                   Figure 4-6: The evolution of TEC in five sector from 1979 to 2009
+            In transportation and industrial sector, the proportion of energy consumption
+         declined year by year. The reason is that with the development of science and
+         technology, people are seeking a high-quality development in economy. In Electric
+         power and residential sector, the proportion of energy consumption has a steady
+         increase, while the growth rate also increase year by year and can be up to 1-2% yearly.
+         In recent years, people have paid growing attention to the efficient and clean utilization
+         of resources, and the electronic products represented by computers have been
+         increasingly enriched. As a result, more energy flows to electricityindustry.
+
+         4.2.3 The evolution of Renewable energy
+            Similarities in the trend of renewable energy usage
+                  0.25
+                                 Arizona          California      New Mexico           Texas
+
+                   0.2
+
+
+                  0.15
+
+
+                   0.1
+
+
+                  0.05
+
+
+                    0
+                         1978   1983       1988      1993      1998    2003        2008
+
+                                  Figure 4-7: the proportion of renewable energy
+
+            The share of renewable energy consumption peaked in 1997 or 1998 and then
+         declined in different states. We reckon that Kyoto Protocol in 1997 serves as an
+         effective incentive for state governments to use renewable energy. In the meantime, due
+
+
+=== PHYSICAL PAGE 10 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 7 of 36
+
+         to government’s continuously increasing awareness of environmental protection, the
+         gap between high-renewable energy use states and low-weight states narrows gradually.
+          Differences in the application of renewable resource
+                The usage of renewable resource
+         In the analysis of their differences in the usage of renewable energy sources, we take
+         factors of economy, geography, population and grid modernization into consideration.
+         To be specific, there’s nothing ambiguous that economic growth has boosted energy
+         demand and promoted the technological level in energy utilization at the same time[2].
+         Besides, transformation in industrial structure affects the energy demand directly and
+         changes the energy consumption structure, the second industry, the largest energy
+         consumption intensity[3]. To some extent, the technology level of a state is revealed by
+         the Grid Modernization Index (released by GridWise Alliance in Nov. 2017. Website
+         of          https://www.metering.com/news/2017-grid-modernisation-index-rankings/).
+         Moreover, the characteristics of their population and geography also play a prominent
+         role in the development of their energy consumption.
+
+
+
+
+                       CA
+
+
+                                 AZ NM
+
+                                             TX
+
+
+
+
+                            Figure 4-8: the Grid Modernization Index in four states
+
+            Based on the useful information provided, we make regression with panel data that
+         takes the time-fixed effects into account:.
+
+
+
+
+            The consumption of renewable energy could increase by 2.3% or 2.6% with a 1%
+         increase in population or a 1% increase in the Grid Modernization Index respectively.
+
+
+=== PHYSICAL PAGE 11 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 8 of 36
+
+         Because California is taking the lead in the modernization, cleaner, renewable energy
+         is easier to utilize by means of modern technology. Besides, the large number of its
+         population requires the wide application of renewable energy in view of the pollution.
+            Undoubtedly, California has ranked the highest by the Grid Modernization Index in
+         recent years. Arizona ranks next owning to its large population and advanced level of
+         modernization. The use rate of renewable resource in New Mexico is relatively low as
+         the consequence of its small population and low level of modernization. As to Texas,
+         the total use of renewable energy is considerable owning to its well-developed
+         industrialization but the use rate is the lowest, indicating its unhealthy development
+         pattern.
+               The structure of renewable resource
+                              Geothermal        Nuclear      Photovoltaic and solar    Wind
+              100
+               90
+               80
+               70
+               60
+               50
+               40
+               30
+               20
+               10
+                0
+                         Arizona                California             New Mexico             Texas
+                                   Figure 4-9: the proportion of electricity origins
+
+           Since the geographical variables are not significant enough in the regression model
+         above, we now analyze the effect of geography on the structure of renewable energy
+         use specifically.
+            The clean energy structure of Arizona and New Mexico is single and the California
+         and Texas’s are slightly more abundant. The electricity is nuclear-energy-dominated in
+         Arizona. The reason is that the possibility of earthquake is low and the reserve of
+         Uranium is large. All of these factors facilitate the development of nuclear electricity.
+         The electricity is wind-energy-dominated in New Mexico. This is because much of the
+         territory is covered by alpine plateau and deserts, which is suitable to develop wind
+         power. In Texas, electricity is produced from nuclear energy and wind energy. Because
+         of the Pacific Rim, California is rich in geothermal energy, which is used to generate
+         electricity. The first Geothermal Power Station was built here.
+         4.3 The best profile for use of cleaner, renewable energy
+
+         4.3.1. Index Selection
+           Nowadays, since an increasingly number of people pay attention to sustainable
+         development, the use of clean renewable energy becomes the focus of the
+         government[4]. Both ecological benefit and economic benefit should be taken into
+         account when government carries out the energy policies[5]. Thus, following the 3E
+
+
+=== PHYSICAL PAGE 12 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 9 of 36
+
+         principle - energy, environment and economy, we select four indexes: Renewable
+         Energy Potential, Energy Structure, Proportion of Renewable Energy and Economic
+         Conversion Rate.
+          Renewable Energy Potential
+           In 1994, World Energy Council put forward the concept of renewable energy
+         potential. Later in 2008, Hoogwijk and Graus perfected it[6]. The potential of renewable
+         energy reflects the speed and potential of utilizing renewable energy during a period.
+         In this paper, the increase rate of renewable energy production is used to reflect the
+         potential of renewable energy:
+                                                     −       −
+                                          A1 =                 ,
+                                                         −
+
+           where       is the renewable energy production in year            and       −   is the
+         renewable energy production in year − .
+          Energy Structure
+            Energy structure optimization refers to under certain technical and economic
+         conditions, the proportion of various energy tends to be reasonable, so as to achieve the
+         purpose of improving energy utilization and further improving the overall benefits. In
+         this paper, electricity mainly consists of four origins - Geothermal, Nuclear,
+         Photovoltaic and solar, Wind. Hamming value[7] is used to calculate the closeness
+         degree between the real electricity structure and the standard structure.
+
+
+
+
+         4.3.2. The EM-TOPSIS-PROMETHEE evaluation model
+           Due to the dynamic and complexity of clean renewable energy, a comprehensive
+
+         evaluation model is developed for evaluating the usage of cleaner, renewable energy in
+         combination of entropy method, TOPSIS method and PROMETHEE method [5].
+
+
+=== PHYSICAL PAGE 13 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 10 of 36
+
+
+            The model mainly includes two parts. One is to define index weight and the other is
+         to score each state. In the index weight definition part, we use the entropy method and
+         in the scoring part, we combine the TOPSIS method and the PROMETHEE method,
+         which can not only reflect the difference among clean renewable energy use in different
+         states, but can also instruct what states can do to approach the ideal condition. Thus, we
+         can evaluate and sort each states’ usage of renewable energy comprehensively.
+
+
+                                               ×
+
+
+=== PHYSICAL PAGE 14 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 11 of 36
+
+
+
+
+         4.3.2. The Final Ranks
+           Firstly, we calculate the index of each state according to our definitions.
+                                Table 4-2: the values of all indicators in all states
+                                   A1                    A2                    A3              A4
+               AZ                -0.088                0.626                 0.071           0.145
+               CA                0.055                 0.806                 0.089           0.180
+               NM                -0.036                0.625                 0.053           0.115
+               TX                0.018                 0.750                 0.032           0.099
+           After standardization, we obtain:
+                            Table 4-3: the standard values of all indicators in all states
+                                   A1                    A2                    A3              A4
+               AZ                0.000                 0.004                 0.689           0.566
+               CA                1.000                 1.000                 1.000           1.000
+               NM                0.368                 0.000                 0.376           0.200
+               TX                0.748                 0.690                 0.000           0.000
+
+
+=== PHYSICAL PAGE 15 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 12 of 36
+
+
+
+
+              Then, we use entropy method and get the weight of each index:
+                                 W= [0.2209 0.3256 0.2136 0.2399].
+              Afterwards, TOPSIS and PROMETHEE method are utilized and we calculate
+          +
+              =[0.4109 1.0000 0.2248 0.3643], −=[0.3944 1.0000 0.2440 0.5490].
+          t
+
+            The final scores of four states (Arizona, California, New Mexico, Texas) are:
+         St t=[0.4026 1.0000 0.2344 0.4566] (refer to figure 4-10) .
+          +
+
+
+
+
+                         CA
+
+
+                                    AZ    NM
+                                                TX
+
+
+
+
+                                   Figure 4-10: the final scores in four states
+
+            California excels in all respects and ranks first. Texas ranks second. Although its
+         economic conversion rate and the proportion of renewable energy ranks the last four
+         states, its potential for renewable energy is better and its energy structure is more
+         reasonable. These factors are conducive to the increase of renewable energy proportion
+         and the optimization of Energy structure, which can promote economic development.
+         Besides, economic efficiency can be improved. Arizona and New Mexico come in third
+         and fourth place. We find that their energy structure is the least reasonable. Although
+         they have higher renewable energy proportions and economic conversion rates, the
+         potential of renewable energy is explored slightly, which affects the overall ranking.
+         Based on the four scores, we find that Arizona and New Mexico are in a better position
+         now but their prospects are negative. The optimization of energy structure is very
+         difficult. States in this type require to be determined to ensure a balanced and
+         environmentally friendly energy structure. Texas, however, is in the worst shape but
+         with promising and sustainable growth prospects. We suggest that Texas should
+         continue to maintain its proportion of renewable energy consumption and optimize its
+         energy structure.
+         4.4 The prediction based on VAR Model
+
+           In order to predict energy consumption and sustainable development of each state,
+         we predict the total energy consumption, the average energy price, the petroleum price,
+         the electricity price, the electricity production and the electricity consumption in four
+
+         states. The total energy consumption and the average energy price reflect the future
+         trends of energy usage in each state. The petroleum and electricity price, electricity
+         production and consumption can reflect the sustainable development trends of each
+
+
+=== PHYSICAL PAGE 16 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         state. In these two aspects, we set up Energy Consumption Prediction Model
+         Team #82150                                                                (ECPM)
+                                                                               Page 13 of 36
+             and Sustainability Development Prediction Model (SDPM) based on Vector
+             Autoregression Model. Given economic and social factors, we take GDP growth rate
+             and population into account in our models as well. We take ECPM of California as an
+             example and the modeling process is as follows.
+
+
+
+
+               The prediction charts are as follows:
+
+
+
+
+                               Figure 4-11: the prediction of TEC and price in California
+
+
+=== PHYSICAL PAGE 17 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 14 of 36
+
+                              Table 4-4: the prediction accuracy of ECPM and SDPM
+                         Energy Consumption Prediction Model          Sustainability Development Prediction Model
+            Arizona                  97.28%                                          93.64%
+           California                97.15%                                          94.48%
+          New Mexico                 96.81%                                          93.60%
+             Texas                   97.64%                                          90.94%
+
+           Based on our prediction, the energy profiles of four states in 2025 and 2050 are
+         shown in the table 4-5 and table 4-6. All prediction is made under the circumstances of
+         no policy intervention.
+
+
+                                Table 4-5: the energy profile prediction of four states in 2025
+                            Total              Total          Total         Average          Average           Average
+                           energy           electricity    electricity       energy         electricity       petroleum
+                        consumption      consumption      production          price            price            price
+            Arizona       1923218           347936.5       577838.4        25.03065         30.99559          24.19626
+           California     9389109            1100789       575461.7        26.57905         46.88564          28.01131
+          New Mexico      832192.8          100305.3       533703.2        23.86519         26.13365           26.7748
+             Texas       13271970            1525875       586494.5        22.81525         36.29519          23.22217
+
+                                Table 4-6: the energy profile prediction of four states in 2050
+                            Total              Total          Total         Average          Average           Average
+                           energy           electricity    electricity       energy         electricity       petroleum
+                        consumption      consumption      production          price            price            price
+            Arizona       2558264           493663.8       841818.4        35.50622         39.36702          35.12232
+           California    10886977            1391365        843764         37.90532         65.47865          40.32907
+          New Mexico      1037193             138641       750917.2        33.47528         32.10451          38.56357
+             Texas       15625368            2044211       858801.2         32.8048         49.98144          33.20695
+
+            In the future, four states’total energy consumption and average energy prices are on
+         the rise. Among them, the average energy prices of these states are not significantly
+         different Nevertheless, New Mexico's total energy consumption is far lower than that
+         of the other three states. Thus, we conclude that New Mexico's industrial development
+         is still relatively backward. At the same time, the industrial development of Texas and
+         California is in the leading position.
+            In term of the future trends of sustainable development, the consumption, production
+         and price of clean renewable energy (refer to electricity in this paper) are on the rise.
+         However, the clean renewable energy sources in Texas and California both have low
+         self-sufficient rates and their self-sufficient rates will be further reduced in the future.
+         As we can see in above table, Arizona and New Mexico's clean renewable energy
+         production will grow faster than energy consumption and may be further exported-
+         oriented in the future.
+
+         5 Part II New energy compact
+         5.1 Goals for the new four-state energy compact.
+
+         5.1.1. Four-state cooperation model with Genetic Optimization Algorithm
+           Comparing the energy profile of four states, especially the renewable energy, we can
+         conclude that California is energy self-sufficient, Arizona is energy export-oriented,
+
+
+=== PHYSICAL PAGE 18 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 15 of 36
+
+         New Mexico and Texas are energy import-oriented. Their self-sufficient rates of
+         renewable energy are 0.90, 1.53, 0.24 and 0.54 respectively.
+
+
+             Based on above-mentioned evaluation model, California ranks the highest, which
+         reveals its balanced energy structure. Considering its self-sufficient rate is close to 1，
+         it is safe to say that California is self-sufficient in the usage of renewable energy. So we
+         assume that California can benefit little in the new energy compact, expect for a closer
+         interstate relationship.
+            In contrast, the other three states can get a significant promotion. On one hand, the
+         compact can reduce the import prices of renewable energy. Accordingly, the cost of
+         their industrial electricity consumption will be reduced, thus bringing considerable
+         economic benefits to energy import-oriented states. On top of this, lower electricity
+         costs can motivate their use of electricity energy and improve their energy structure. As
+         to energy export-oriented state, on the other hand, their exports of renewable energy
+         will be boosted. Definitely, more energy exports will promote their economic
+         development.
+          Optimal strategies of new energy compact
+           For New Mexico and Texas, the energy import-oriented states, a resource allocation
+         optimization model is built under the principle of maximizing economic efficiency (ie.
+         minimizing energy costs) and optimizing interstate relations. The dynamic
+         development theory of trust between partners in supply chains tells us that trust
+         develops in a dynamic way and mutually reinforces with the dependence[9].
+           Under the assumption of constant total energy consumption n , the formation of
+         new energy compact will merely affect the usage of renewable energy in each state. In
+         addition, in term of energy security and ecological protection, we make some restraints
+         on the states’ self-sufficient rate and the proportion of renewable energy. On the basis
+         of 3E Model, the optimization model is built from the aspect of energy efficiency,
+         economic benefits and ecological benefits.
+
+
+=== PHYSICAL PAGE 19 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 16 of 36
+
+
+
+
+         electricity consumption and total petroleum consumption respectively. and denote
+         the lower limits of renewable energy proportion and self-sufficient rate. Genetic
+         Algorithm is applied to solve the optimization above.
+          Solution to the optimization problem
+            Genetic Algorithm is used to solve optimal energy allocation strategy, for it is
+         effective to solve combinatorial optimization problems[10]. The algorithm flow is as
+         follows:
+
+
+
+
+                                          Figure 5-1: the algorithm flow
+
+            In the paper, we take Texas in 2025 and 2050 as an example to describe this problem.
+         According to the predicted electricity price, we define that the price of electricity
+         imported from Arizona in states’ compact are 32 and 45 in 2025 and 2050 respectively.
+         Besides, we define = 15% and = 20% in 2025 and 2050 respectively. Both
+         in 2025 and 2050 are defined as 25%.
+
+
+
+
+                 Figure 5-2: the plot of Fitness Function of Genetic Algorithm in 2025 and 2050
+
+           Through calculation, we can obtain the optimal renewable energy imports of Texas.
+         When < 5 × 1012, that is, when the relationship between four states is relatively
+         harmonious, the optimal renewable energy imports of Texas will be 1083997 and
+         1729084.8 Billion Btu respectively.
+
+           5.1.2. Renewable energy usage targets for 2025 and 2050
+           Under the new energy compact, we can calculate the optimal renewable energy
+         imports of New Mexico and Texas. Enjoying the lower price        , New Mexico and
+         Texas will be inclined to exploit more renewable energy, thus giving rise to a larger
+         share of renewable energy A 3 .
+
+
+=== PHYSICAL PAGE 20 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+           Accordingly,
+         Team #82150    the final target for New Mexico and Texas is a significant increase
+                                                                                Page 17 of 36in
+              the usage of cleaner, renewable energy sources because of lower import costs.
+
+            Table 5-1 :The target renewable energy proportion A3 of New Mexico and Texas under new energy compact
+                                     Optimal imports              A3 (Target)                    (Predicted)
+           New Mexico(2025)              93424                       0.14                          0.12
+           New Mexico(2050)            119321.95                     0.15                          0.13
+             Texas(2025)               1083996.5                     0.15                          0.11
+             Texas(2050)                1729085                      0.20                          0.13
+
+
+
+
+                        Table 5-2: The target economic conversion rate A4 of Arizona under new energy compact
+                                        Optimal exports                     A4                        (Predicted)
+                                                                          (Target)
+                Arizona (2025)              1177421                         0.22                         0.15
+                Arizona (2050)              1848407                         0.26                         0.15
+              5.2 Three actions to meet their energy compact goals
+
+                In a bid to meet their energy compact goals, three policies are proposed, including
+              export tax cut, renewable energy subsidies as well as inner relation building.
+              5.2.1. Export tax cut
+                 As is well known to all, export is one of three carriages to promote economic growth.
+              And its growth can promote the growth of GDP[13]. We define Υ as the export
+              coefficients to denote the export multiple. Υ indicates the contribution of unit
+              electricity exports to the economy：
+
+
+
+
+                Via cutting export taxes, the interstate trading costs can be largely reduced, thus
+              improving the value of Υ With a greater export multiple, the growth of economy
+              pulled by energy export will be more conceivable. When the value of Υ of Arizona
+
+
+=== PHYSICAL PAGE 21 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 18 of 36
+         increases by 1%, its economic conversion rate A4 will increases by 3.4%. Hence,
+         export tax cut plays a prominent role in the advancement in the economic conversion
+         efficiency of renewable energy.
+         5.2.2. Renewable energy subsidies
+
+
+
+
+         6 Strengths and Weaknesses
+         6.1 Strengths
+
+            When analyzing the evolution of energy profile in each state, we take the factor of
+             economy, population, modernism and geography into consideration. Not only do
+             we consider indicators in a comprehensive way, but we also find the quantitative
+             relationship between them.
+            Our evaluation model follows the principle of 3E model, which embraces the
+             aspects of energy, economy and environment.
+            Combining TOPSIS and PROMETHEE methods, the evaluation model not only
+             reflects the relation among the usage of cleaner, renewable energy of different
+             states, but also compares it with the ideal conditions. It allows us to evaluate and
+             sort the usage of cleaner, renewable energy comprehensively in different states.
+            In the prediction of energy profile, we consider the lag effect of different variables.
+             Moreover, Vector Autoregression Model enables us to make a prediction on multi-
+
+
+=== PHYSICAL PAGE 22 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 19 of 36
+
+             dimensional data.
+            In order to set realistic goals for new energy compact, we obtain the optimal
+             allocation among four states through Genetic Algorithm. In view of different self-
+             sufficient rate of four states, we determine different goals for energy import-
+             oriented and export-oriented states.
+
+
+
+         6.2 Weaknesses
+
+            We assume that the electricity represents all the renewable energy but there are
+             many other kinds of renewable energy.
+            Since the self-sufficient rate of California is close to 1, we reckon that California
+             will benefit little from the energy compact. Nevertheless, it may also enjoy the
+             lower import price or the growth in the export.
+            When we use Hamming value to calculate the closeness degree between the
+             electricity origins structure and the standard structure, we define the standard
+             structure as Geothermal, Nuclear, Photovoltaic and Solar, Wind each accounting
+             for 1/4. However, in fact, due to different material resources in different states,
+             different state's standard structure shouldn’t be the same.
+
+
+
+
+         7 Conclusion
+           In this paper, we make an analysis and prediction on the energy profiles to set realistic
+         and proper goals for new four-state energy compact. Besides, we propose three practical
+         actions for the governors to meet these goals. Here we conclude our findings.
+           Firstly, as to select which state have the “best” profile for use of cleaner, renewable
+         energy in 2009, we establish the EM-TOPSIS-PROMETHEE evaluation model. The
+         scores for Arizona, California, New Mexico and Texas are 0.40, 1.00, 0.23 and 0.46.
+           Secondly, Energy Consumption Prediction Model and Sustainability Development
+         Prediction Model are developed and we conclude that overall energy use and
+         sustainability development both have been improved.
+           Then, according to the changes of energy import price, we set the promotion in
+         Renewable Energy Proportion and Economic Conversion Rate as their energy compact
+         goals.
+            At last, we put forward three actions to realize the compact’s goals. States can
+         strengthen inner communication, cut the export taxes and impose subsides.
+
+
+=== PHYSICAL PAGE 23 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 20 of 36
+
+
+
+         References
+
+         [1] LIU Hao. Study on the Energy System Planning in Small and Medium-sized Towns - A Case
+         Study of Guanzhong Region [D]. Xi'an University of Architecture and Technology,2012.
+         [2] Luo Xuan. China's energy consumption of space-time characteristics and its influencing factors
+         [D]. Hunan University, 2012.
+         [3] YAO Yong-ling: Analysis of Influencing Factors of Energy Consumption in Beijing Urban
+         Development [J]. China Population Resources and Resources, 2011, (10): 40-45.
+         [4] Forsberg C W. Sustainability by combining nuclear, fossil, and renewable energy sources [J].
+         Progress in Nuclear Energy, 2009, 51(1):192-200.
+         [5] Shen Y C, Lin G T R, Li K P, et al. An assessment of exploiting renewable energy sources with
+         concerns of policy and technology [J]. Energy Policy, 2010, 38(8)： 4604-4616.
+         [6] Hoogwijk M, Graus W. Global Potential of Renewable Energy Source: A Literature Assessment
+         [R]. Report prepared for Renewable Energy Network(REN-21), Pairs:2008.
+         [7] DBS King. Hamming value determination and comparison [P]. United States, 6330702[P]. 2001.
+         [8] Zhang Long. Research on Performance Evaluation of Renewable Energy Development and
+         Utilization. PhD thesis, 2017: 31.
+         [9] Niu Qianqian. Establishment of trust mechanism of supply chain cooperation and dynamic
+         equilibrium of trust [D]. Xi'an University of Architecture and Technology,2014.
+         [10] Yuen, Shiu y. ; Chow, Chi Kin. / A genetic algorithm that adaptively mutates and never revisits.
+         In: IEEE Transactions on Evolutionary Computation. 2009 ; Vol. 13, No. 2. pp. 454-472.
+         [11] Xing Wei, Li Changying. Research on the pulling effect of export-added value of the whole
+         industry based on the heterogeneity of factor density [J]. Economic Issues, 2016 (09): 92-100.
+         [12] Koopman R, Wang Z, Wei S J．Tracing Value: Added and Double Counting in Gross Exports
+         [J]．American Economic Review, 2014, 104(2) : 459-494．
+         [13] Lisheng Shen. Evaluating the Contribution of Three Components of GDP [J]. The Journal of
+         Quantitative & Technical Economics, 2009, 4: 139-151.
+
+
+=== PHYSICAL PAGE 24 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 21 of 36
+
+
+
+         Appendix
+
+                                       Table: The unit price in four states in 2009
+                                                                                 Unit: Dollars per million Btu
+                                  Arizona              California           New Mexico            Texas
+             Unit price          19.66482                18.40528            17.17897           15.37925
+
+
+
+                            Table: The proportion of energy consumption in all sectors
+                                                                                                Unit: Percent
+            Period            Sector           Arizona       California       New Mexico            Texas
+             1979                             0.237032       0.282016           0.248018           0.17142
+             1989                             0.214547       0.309027           0.243588          0.173232
+                          Transportation
+             1999                             0.208348       0.298436           0.232408          0.166937
+             2009                             0.196507        0.32081            0.18999          0.183397
+             1979                             0.115476       0.125964           0.098233          0.074429
+             1989                              0.14142       0.139915           0.116483          0.080017
+                           Commercial
+             1999                             0.136568       0.140413           0.114565          0.083152
+             2009                              0.14017       0.161829           0.114899           0.09826
+             1979                             0.320244       0.190493           0.313081          0.182351
+             1989                             0.372031       0.182877           0.366535          0.209918
+                          Electric power
+             1999                             0.401203       0.185745           0.344286          0.223504
+             2009                             0.421049       0.179354           0.370944          0.239445
+             1979                              0.19982       0.247005           0.241575          0.485956
+             1989                             0.129121       0.212388           0.184561          0.440694
+                            Industrial
+             1999                             0.113406       0.220383           0.210342          0.430968
+             2009                             0.082708       0.181443           0.213437          0.370412
+             1979                             0.127429       0.154522           0.099092          0.085843
+             1989                              0.14288       0.155792           0.088833          0.096139
+                           Residential
+             1999                             0.140474       0.155022           0.098398          0.095439
+             2009                             0.159566       0.156565            0.11073          0.108486
+
+
+
+                               Table: the proportion of TEC in five sectors in 2009
+                                                                                                Unit: percent
+                          Transportation       Commercial      Electric power     Industrial     Residential
+           Arizona            19.65               14.02             42.10           8.27           15.96
+          California          32.08               16.18             17.94           18.14          15.66
+         New Mexico           19.00               11.49             37.09           21.34          11.07
+            Texas             18.34               9.83              23.94           37.04          10.85
+
+
+=== PHYSICAL PAGE 25 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 22 of 36
+
+                                  Table: The proportion of electricity origins
+                         Geothermal          Nuclear        Photovoltaic and solar   Wind
+             AZ              0.0000          0.9987                 0.0004           0.0009
+             CA              0.2408          0.6377                 0.0121           0.1094
+             NM              0.0000          0.0000                 0.0000           1.0000
+             TX              0.0000          0.6895                 0.0000           0.3105
+
+
+          getMsn.m
+          clear;
+          clc;
+          %simple version
+          simpleData=['promblemC_msn.xlsx'];
+          %all data
+          allData=['promblemC.xlsx'];
+          %get msncodes in the sheet 'msncodes'
+          %Msncodes is the code of different resources
+          %count_msn is the number of msn
+          [num,Msncodes]=xlsread(simpleData);
+          %Msncodes=cell2mat(Msncodes);
+          msn=[];
+          [count_msn,n]=size(Msncodes);
+          msn=[msn;cell2mat(Msncodes([2:count_msn],1))];
+          %msn=['MSSSS';'CLTXB'];
+
+
+          %get all resources
+          %Year_Data is Year & Data
+          %MSN_State is MSN &State
+          [Year_Data,MSN_State]=xlsread(allData,'seseds');
+          %MSN_State=cell2mat(MSN_State);
+          [count_data,nn]=size(MSN_State);
+          year=Year_Data(:,1);
+          data=Year_Data(:,2);
+          MSN=[];
+          State=[];
+          MSN=[MSN;cell2mat(MSN_State([2:count_data],1))];
+          State=[State;cell2mat(MSN_State([2:count_data],2))];
+          port=[];
+          %get realPos
+          realPos=[];
+          result_temp=[];
+          result=[];
+          result_year=[];
+          result_state=[];
+          result_data=[];
+
+
+=== PHYSICAL PAGE 26 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 23 of 36
+
+          %findDataByMsncodes in the sheet 'sesedes'
+          for i=1:count_msn-1
+              i,
+              %port=repmat(msn(i,:),);a
+              port=msn(i,:);
+              new_port=[];
+          %    repmat(A,6,1)
+              port=repmat(port,count_data-1,1);
+              %pos1960=find(year_1960);
+              iseq=(port(:,1)==MSN(:,1));
+              len=length(find(iseq));
+              if(len==0)%1
+                    continue;
+              end
+              realPos=find(iseq);
+              new_port=MSN(find(iseq),:);
+              iseq=(port(find(iseq),2)==new_port(:,2));
+              len=length(find(iseq));
+              if(len==0)%2
+                    continue;
+              end
+              realPos=realPos(find(iseq));
+              new_port=new_port(find(iseq),:);
+              iseq=(port(find(iseq),3)==new_port(:,3));
+              len=length(find(iseq));
+              if(len==0)%3
+                    continue;
+              end
+              realPos=realPos(find(iseq));
+              new_port=new_port(find(iseq),:);
+              iseq=(port(find(iseq),4)==new_port(:,4));
+              len=length(find(iseq));
+              if(len==0)%4
+                    continue;
+              end
+              realPos=realPos(find(iseq));
+              new_port=new_port(find(iseq),:);
+              iseq=(port(find(iseq),5)==new_port(:,5));
+              len=length(find(iseq));
+              realPos=realPos(find(iseq));
+              if(len==0)%5
+                    continue;
+              end
+              result=[result;(new_port(find(iseq),:))];
+
+
+=== PHYSICAL PAGE 27 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 24 of 36
+
+                result_state=[result_state;State(realPos',:)];
+                result_year=[result_year;year(realPos)];
+                result_data=[result_data;data(realPos)];
+          end
+          [c,r]=size(result);
+          for i=1:c
+                result_c(i)=mat2cell(result(i,:));
+                result_state_c(i)=mat2cell(result_state(i,:));
+                result_year_c(i)=mat2cell(result_year(i));
+                result_data_c(i)=mat2cell(result_data(i));
+          end
+                resultFinal(:,1)=result_c';
+                resultFinal(:,2)=result_state_c;
+                resultFinal(:,3)=result_year_c;
+                resultFinal(:,4)=result_data_c;
+          xlswrite('result.xls',resultFinal);
+
+
+
+          Part_B_1
+          library(maps)
+          library(ggplot2)
+          data=read.csv("the Grid Modernization Index.csv")
+          rownames(data)=data$region
+          data$region=tolower(rownames(data))
+          states<-map_data("state")
+          choro=merge(states,data,by="region")
+          choro=choro[order(choro$order),]
+          qplot(long,lat,data=choro,group = group, fill = the.Grid.Modernization.Index,geom="polygon",
+                  colour=I("white"))
+
+
+
+          Part_1_C
+          data=xlsread('指标 2009.xlsx');
+          %
+          [n,m]=size(data);
+          maxdata=repmat(max(data),n,1);
+          mindata=repmat(min(data),n,1);
+          max_min=maxdata-mindata;
+          stddata=(data-mindata)./max_min;
+          %%
+          f=(1+stddata)./repmat(sum(1+stddata),n,1);
+          e=-1/log(n)*sum(f.*log(f));
+          d=1-e;
+          w=d/sum(d); %
+
+
+=== PHYSICAL PAGE 28 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 25 of 36
+
+
+          %%
+          normdata=repmat(w,n,1).*stddata; %
+          posideal=max(normdata); %
+          negideal=min(normdata); %
+          %%
+          dtopos=sqrt(sum((normdata-repmat(posideal,n,1)).^2,2));
+          dtoneg=sqrt(sum((normdata-repmat(negideal,n,1)).^2,2));
+          %%
+          d1=zeros(4,4);
+          for j=1:4
+                for i=1:4
+                      d1(j,i)=stddata(j,1)-stddata(i,1);
+                end
+          end
+          d2=zeros(4,4);
+          for j=1:4
+                for i=1:4
+                      d2(j,i)=stddata(j,2)-stddata(i,2);
+                end
+          end
+          d3=zeros(4,4);
+          for j=1:4
+                for i=1:4
+                      d3(j,i)=stddata(j,3)-stddata(i,3);
+                end
+          end
+          d4=zeros(4,4);
+          for j=1:4
+                for i=1:4
+                      d4(j,i)=stddata(j,4)-stddata(i,4);
+                end
+          end
+          p1=zeros(4,4);
+          for j=1:4
+                for i=1:4
+                      if d1(i,j)>0
+                            p1(i,j)=1;
+                      end
+                end
+          end
+          p2=zeros(4,4);
+          for j=1:4
+                for i=1:4
+                      if d2(i,j)>0
+
+
+=== PHYSICAL PAGE 29 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 26 of 36
+
+
+                           p2(i,j)=1;
+                     end
+               end
+          end
+          p3=zeros(4,4);
+          for j=1:4
+                for i=1:4
+                      if d3(i,j)>0
+                           p3(i,j)=1;
+                      end
+                end
+          end
+          p4=zeros(4,4);
+          for j=1:4
+               for i=1:4
+                     if d4(i,j)>0
+                           p4(i,j)=1;
+                     end
+               end
+          end
+          pi_ab=w(1)*p1+w(2)*p2+w(3)*p3+w(4)*p4;
+          fipos=zeros(1,4);
+          for i=1:4
+                fipos(i)=(pi_ab(i,1)+pi_ab(i,2)+pi_ab(i,3)+pi_ab(i,4))/3;
+          end
+          fineg=zeros(1,4);
+          for i=1:4
+                fineg(i)=(pi_ab(1,i)+pi_ab(2,i)+pi_ab(3,i)+pi_ab(4,i))/3;
+          end
+          fipos=fipos/fipos(2);
+          dtoneg=dtoneg'/dtoneg(2);
+          (fipos+dtoneg)/2
+
+
+          Part_1_D
+          library(vars)
+          data<-as.matrix(read.csv("VAR.csv",header = F));
+          data_AZ1<-data[,2:5];
+          data_AZ2<-data[,4:9];
+          data_CA1<-data[,11:14];
+          data_CA2<-data[,13:18];
+          data_NM1<-data[,20:23];
+          data_NM2<-data[,22:27];
+          data_TX1<-data[,29:32];
+          data_TX1<-data[,31:36];
+
+
+=== PHYSICAL PAGE 30 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 27 of 36
+
+
+          # traindata
+          data_CA1.train<-data_CA1[1:28,];
+          data_CA1.train<-scale(data_CA1.train)
+          center.back=attr(data_CA1.train,"scaled:center")
+          scale.back=attr(data_CA1.train,"scaled:scale")
+          # stationary test
+          library(tseries)
+          for(i in 1:ncol(data_CA1.train))
+          {
+             pValue=adf.test(data_CA1.train[,i])$p.value
+             print(paste("",colnames(data_CA1.train)[i],"",pValue))
+          }
+          library(timeSeries)
+          data_CA1.train.diff=data_CA1[1:(dim(data_CA1.train)[1]-1),]
+          for(i in 1:ncol(data_CA1.train))
+          {
+             v0=diff(data_CA1.train[,i])
+             data_CA1.train.diff[,i]=v0
+             pValue=adf.test(v0)$p.value
+             print(paste("",colnames(data_CA1.train)[i],"",pValue))
+          }
+
+
+
+          rowCol=dim(data_CA1.train.diff)
+          aicList=NULL
+          lmList=list()
+          for(p in 1:3)
+          {
+             baseData=NULL
+             for(i in (p+1):rowCol[1])
+             {
+                baseData=rbind(baseData,c(as.vector(data_CA1.train.diff[i,]),
+                                               as.vector(data_CA1.train.diff[(i-1):(i-p),])))
+             }
+             X=cbind(1,baseData[,(rowCol[2]+1):ncol(baseData)])
+             Y=baseData[,1:rowCol[2]]
+             coefMatrix=solve(t(X)%*%X)%*%t(X)%*%Y
+             aic=log(det(cov(Y-X%*%coefMatrix)))+2*(nrow(coefMatrix)-1)^2*p/nrow(baseData)
+             aicList=c(aicList,aic)
+             lmList=c(lmList,list(coefMatrix))
+          }
+          data.frame(p=1:3,aicList)
+
+
+=== PHYSICAL PAGE 31 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 28 of 36
+
+
+          p=which.min(aicList)
+          n=nrow(data_CA1.train.diff)
+          preddf=NULL
+          for(i in 1:4)
+          {
+             predData=as.vector(data_CA1.train.diff[(n+i-1):(n+i-p),])
+             predVals=c(1,predData)%*%lmList[[p]]
+             predVals=data_CA1.train[n+i,]+predVals
+             predVals=predVals*scale.back+center.back
+             preddf=rbind(preddf,predVals)
+            data_CA1.train=rbind(data_CA1.train,(data_CA1[n+i+1,]-center.back)/scale.back)
+            data_CA1.train.diff=rbind(data_CA1.train.diff,data_CA1.train[n+i+1,]-data_CA1.train[n+i,])
+          }
+          rownames(preddf)=NULL
+          data_CA1.test=data_CA1[29:32,]
+          preddf-data_CA1.test
+          summary(as.vector(abs(preddf-data_CA1.test)*100/abs(data_CA1.test)))
+
+
+
+
+          par(mfrow=c(2,2))
+          seloc=29:32;
+          for(i in 1:ncol(data_CA1))
+          {
+             plot(data_CA1[,i],type='l',lwd=2,col='gray',ylim=range(data_CA1[,i]))
+             lines(seloc,preddf[,i],col='red',lty=3,lwd=2)
+          }
+          par(mfrow=c(1,1))
+          #########################
+          data_CA1<-data[,11:14];
+          data_CA1<-scale(data_CA1)
+          center.back=attr(data_CA1,"scaled:center")
+          scale.back=attr(data_CA1,"scaled:scale")
+
+          library(tseries)
+          library(timeSeries)
+          data_CA1.diff=data_CA1[1:(dim(data_CA1)[1]-1),]
+          for(i in 1:ncol(data_CA1))
+          {
+             v0=diff(data_CA1[,i])
+             data_CA1.diff[,i]=v0
+             pValue=adf.test(v0)$p.value
+             print(paste("",colnames(data_CA1)[i],"",pValue))
+          }
+
+
+=== PHYSICAL PAGE 32 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 29 of 36
+
+
+
+          rowCol=dim(data_CA1.diff)
+          aicList=NULL
+          lmList=list()
+          for(p in 1:3)
+          {
+             baseData=NULL
+             for(i in (p+1):rowCol[1])
+             {
+                baseData=rbind(baseData,c(as.vector(data_CA1.diff[i,]),
+                                               as.vector(data_CA1.diff[(i-1):(i-p),])))
+             }
+             X=cbind(1,baseData[,(rowCol[2]+1):ncol(baseData)])
+             Y=baseData[,1:rowCol[2]]
+             coefMatrix=solve(t(X)%*%X)%*%t(X)%*%Y
+             aic=log(det(cov(Y-X%*%coefMatrix)))+2*(nrow(coefMatrix)-1)^2*p/nrow(baseData)
+             aicList=c(aicList,aic)
+             lmList=c(lmList,list(coefMatrix))
+          }
+          data.frame(p=1:3,aicList)
+
+
+
+          p=which.min(aicList)
+          n=nrow(data_CA1.diff)
+          preddf=NULL
+          for(i in 1:41)
+          {
+             predData=as.vector(data_CA1.diff[(n+i-1):(n+i-p),])
+             predVals=c(1,predData)%*%lmList[[p]]
+             predVals=data_CA1[n+i,]+predVals
+             predVals=predVals*scale.back+center.back
+             preddf=rbind(preddf,predVals)
+             data_CA1=rbind(data_CA1,(predVals-center.back)/scale.back)
+              data_CA1.diff=rbind(data_CA1.diff,data_CA1[n+i+1,]-data_CA1[n+i,])
+          }
+
+
+
+          data_CA1<-data[,11:14];
+          forecast<-rbind(data_CA1,preddf)
+          colnames(forecast)<-c("TEC","P","VGDP","POP")
+          tsforecast<-ts(forecast,start=1978,freq=1)
+          par(mfrow=c(1,2))
+          seloc=2010:2050
+          time<-c(1978:2050)
+
+
+=== PHYSICAL PAGE 33 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 30 of 36
+
+
+            plot(time,tsforecast[,1],type='l',lwd=2,col='darkolivegreen1',
+                      ylim=range(tsforecast[,1]),ylab='Total Energy Consumption/Billion Btu')
+            lines(seloc,tsforecast[33:73,1],col='red',lty=3,lwd=4)
+
+            plot(time,tsforecast[,2],type='l',lwd=2,col='darkolivegreen1',
+                   ylim=range(tsforecast[,2]),ylab='Price/Million dollars')
+            lines(seloc,tsforecast[33:73,2],col='red',lty=3,lwd=4)
+          par(mfrow=c(1,1))
+
+          Part_2_A
+          function
+          [BestPop,Trace]=fga(FUN,LB,UB,eranum,popsize,pCross,pMutation,pInversion,options)
+          T1=clock;
+          if nargin<3, error('FMAXGA requires at least three input arguments'); end
+          if nargin==3, eranum=200;popsize=100;pCross=0.8;pMutation=0.1;pInversion=0.15;options=[0
+          1e-4];end
+          if nargin==4, popsize=100;pCross=0.8;pMutation=0.1;pInversion=0.15;options=[0 1e-4];end
+          if nargin==5, pCross=0.8;pMutation=0.1;pInversion=0.15;options=[0 1e-4];end
+          if nargin==6, pMutation=0.1;pInversion=0.15;options=[0 1e-4];end
+          if nargin==7, pInversion=0.15;options=[0 1e-4];end
+          if find((LB-UB)>0)
+               error('Error because LB<UB:');
+          end
+
+          global m n NewPop children1 children2 VarNum
+
+          bounds=[LB;UB]';bits=[];VarNum=size(bounds,1);
+          precision=options(2);
+          bits=ceil(log2((bounds(:,2)-bounds(:,1))' ./ precision));
+          [Pop]=InitPopGray(popsize,bits);
+          [m,n]=size(Pop);
+          NewPop=zeros(m,n);
+          children1=zeros(1,n);
+          children2=zeros(1,n);
+          pm0=pMutation;
+          BestPop=zeros(eranum,n);
+          Trace=zeros(eranum,length(bits)+1);
+          i=1;
+          while i<=eranum
+               for j=1:m
+                     value(j)=feval(FUN,(b2f(Pop(j,:),bounds,bits)));
+               end
+               [MaxValue,Index]=max(value);
+               BestPop(i,:)=Pop(Index,:);
+
+
+=== PHYSICAL PAGE 34 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 31 of 36
+
+
+               Trace(i,1)=MaxValue;
+               Trace(i,(2:length(bits)+1))=b2f(BestPop(i,:),bounds,bits);
+               [selectpop]=NonlinearRankSelect(FUN,Pop,bounds,bits);
+          [CrossOverPop]=CrossOver(selectpop,pCross,round(unidrnd(eranum-i)/eranum));
+               %round(unidrnd(eranum-i)/eranum)
+               [MutationPop]=Mutation(CrossOverPop,pMutation,VarNum);
+               [InversionPop]=Inversion(MutationPop,pInversion);
+               Pop=InversionPop;
+          pMutation=pm0+(i^4)*(pCross/3-pm0)/(eranum^4);
+               p(i)=pMutation;
+               i=i+1;
+          end
+          t=1:eranum;
+          plot(t,Trace(:,1)');
+          xlabel('Eranum');ylabel('Max Fitness');
+          [MaxFval,I]=max(Trace(:,1));
+          X=Trace(I,(2:length(bits)+1));
+          hold on; plot(I,MaxFval,'*');
+          text(I+5,MaxFval,['FMAX=' num2str(MaxFval)]);
+          str1=sprintf (' %d generation ,when independent variable is %s ,the optimal value is %f\nThe
+          chromosome ：%s',I,num2str(X),MaxFval,num2str(BestPop(I,:)));
+          disp(str1);
+          %figure(2);plot(t,p);
+          T2=clock;
+          elapsed_time=T2-T1;
+          if elapsed_time(6)<0
+                elapsed_time(6)=elapsed_time(6)+60; elapsed_time(5)=elapsed_time(5)-1;
+          end
+          if elapsed_time(5)<0
+                elapsed_time(5)=elapsed_time(5)+60;elapsed_time(4)=elapsed_time(4)-1;
+          end
+
+          function [initpop]=InitPopGray(popsize,bits)
+          len=sum(bits);
+          initpop=zeros(popsize,len);%The whole zero encoding individual
+          for i=2:popsize-1
+                pop=round(rand(1,len));
+                pop=mod(([0 pop]+[pop 0]),2);
+                initpop(i,:)=pop(1:end-1);
+          end
+          initpop(popsize,:)=ones(1,len);%The whole one encoding individual
+
+          function [fval] = b2f(bval,bounds,bits)
+          scale=(bounds(:,2)-bounds(:,1))'./(2.^bits-1); %The range of the variables
+
+
+=== PHYSICAL PAGE 35 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 32 of 36
+
+
+          numV=size(bounds,1);
+          cs=[0 cumsum(bits)];
+          for i=1:numV
+          a=bval((cs(i)+1):cs(i+1));
+          fval(i)=sum(2.^(size(a,2)-1:-1:0).*a)*scale(i)+bounds(i,1);
+          end
+
+
+
+
+          function [selectpop]=NonlinearRankSelect(FUN,pop,bounds,bits)
+          global m n
+          selectpop=zeros(m,n);
+          fit=zeros(m,1);
+          for i=1:m
+                fit(i)=feval(FUN(1,:),(b2f(pop(i,:),bounds,bits)));
+          end
+          selectprob=fit/sum(fit);
+          q=max(selectprob);
+          x=zeros(m,2);
+          x(:,1)=[m:-1:1]';
+          [y x(:,2)]=sort(selectprob);
+          r=q/(1-(1-q)^m);
+          newfit(x(:,2))=r*(1-q).^(x(:,1)-1);
+          newfit=cumsum(newfit);
+          rNums=sort(rand(m,1));
+          fitIn=1;newIn=1;
+          while newIn<=m
+                if rNums(newIn)<newfit(fitIn)
+                     selectpop(newIn,:)=pop(fitIn,:);
+                     newIn=newIn+1;
+                else
+                     fitIn=fitIn+1;
+                end
+          end
+
+
+
+
+          function [NewPop]=CrossOver(OldPop,pCross,opts)
+          global m n NewPop
+          r=rand(1,m);
+          y1=find(r<pCross);
+
+
+=== PHYSICAL PAGE 36 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 33 of 36
+
+
+          y2=find(r>=pCross);
+          len=length(y1);
+          if len>2&mod(len,2)==1
+                y2(length(y2)+1)=y1(len);
+                y1(len)=[];
+          end
+          if length(y1)>=2
+               for i=0:2:length(y1)-2
+                     if opts==0
+
+          [NewPop(y1(i+1),:),NewPop(y1(i+2),:)]=EqualCrossOver(OldPop(y1(i+1),:),OldPop(y1(i+2),:
+          ));
+                      else
+
+          [NewPop(y1(i+1),:),NewPop(y1(i+2),:)]=MultiPointCross(OldPop(y1(i+1),:),OldPop(y1(i+2),:
+          ));
+                      end
+                end
+          end
+          NewPop(y2,:)=OldPop(y2,:);
+
+
+
+          function [children1,children2]=EqualCrossOver(parent1,parent2)
+          global n children1 children2
+          hidecode=round(rand(1,n));
+          crossposition=find(hidecode==1);
+          holdposition=find(hidecode==0);
+          children1(crossposition)=parent1(crossposition);
+          children1(holdposition)=parent2(holdposition);
+          children2(crossposition)=parent2(crossposition);
+          children2(holdposition)=parent1(holdposition);
+
+
+
+          function [Children1,Children2]=MultiPointCross(Parent1,Parent2)
+          global n Children1 Children2 VarNum
+          Children1=Parent1;
+          Children2=Parent2;
+          Points=sort(unidrnd(n,1,2*VarNum));
+          for i=1:VarNum
+                Children1(Points(2*i-1):Points(2*i))=Parent2(Points(2*i-1):Points(2*i));
+                Children2(Points(2*i-1):Points(2*i))=Parent1(Points(2*i-1):Points(2*i));
+          end
+
+
+=== PHYSICAL PAGE 37 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+         Team #82150                           Page 34 of 36
+
+
+          function [NewPop]=Mutation(OldPop,pMutation,VarNum)
+
+          global m n NewPop
+          r=rand(1,m);
+          position=find(r<=pMutation);
+          len=length(position);
+          if len>=1
+               for i=1:len
+                     k=unidrnd(n,1,VarNum);
+                     for j=1:length(k)
+                           if OldPop(position(i),k(j))==1
+                               OldPop(position(i),k(j))=0;
+                           else
+                               OldPop(position(i),k(j))=1;
+                           end
+                      end
+                end
+          end
+          NewPop=OldPop;
+
+
+
+
+          function [NewPop]=Inversion(OldPop,pInversion)
+          global m n NewPop
+          NewPop=OldPop;
+          r=rand(1,m);
+          PopIn=find(r<=pInversion);
+          len=length(PopIn);
+          if len>=1
+                for i=1:len
+                       d=sort(unidrnd(n,1,2));
+                       if d(1)~=1&d(2)~=n
+                           NewPop(PopIn(i),1:d(1)-1)=OldPop(PopIn(i),1:d(1)-1);
+                           NewPop(PopIn(i),d(1):d(2))=OldPop(PopIn(i),d(2):-1:d(1));
+                           NewPop(PopIn(i),d(2)+1:n)=OldPop(PopIn(i),d(2)+1:n);
+                      end
+                end
+          end

@@ -1,0 +1,1918 @@
+=== PHYSICAL PAGE 1 ===
+               Problem Chosen                        2021 微信公众号：数学模型
+                                                              Team Control Number
+                                                   MCM/ICM
+                       B                         Summary Sheet                       2116496
+
+                               Drone System               VS       Wildfire
+     The 2019-2020 fire season in Australia has a huge impact on New South Wales and Eastern Victoria, forcing
+people to seek urgent solutions. However, in recent years, drones are used to assist in the observation and
+
+                                                                                       型
+communication of rescuing fires. To better improve the rescue efficiency of drones, a Drone Arrangement Model
+is proposed to solve the current dilemma.
+
+
+                                                                      学
+     For problem 1, we establish a drone system consisting of EOCs, front-line personnel, SSA and repeater
+drones. Step I: To better predict the fire situation, we firstly pre-deploy the front-liners according to the known or
+
+
+                                                                       模
+possible fire locations which are estimated by the Gaussian Mixed Model (GMM). Step II: Using the k-means
+algorithm, we determine the locations of EOCs, ensuring the maximum safety and observation of front-line
+personnel and fires. Step III: In order to solve the problem of communication between personnel and EOCs, as
+
+                                                              数
+well as minimize the economic cost, we obtain the minimum spanning tree near each EOC, which provides the
+shortest signal transmission channel for repeaters, and solve the problem of minimizing the number of repeaters.
+
+
+                                             号
+Step IV: We propose two different cruise strategies for SSA drones to minimize the economic costs and reduce
+
+                                                                       m
+the risk of fires. Finally, an effectiveness function considering capability, safety, economics, and observation is
+
+
+                                              ：
+determined, where the coefficients between the various indicators are determined by the AHP model.
+
+                                                                        od
+     For step I, our personnel distribution is based on the size and frequency of fires in a period of time, which
+can reflect the capability of a fire rescue to a certain extent. For step II, the location of the EOC creates unsafety
+                                                                          els
+                                     众
+and unobservability of personnel and fires, and the construction cost of EOC also needs to be taken into
+consideration. For step III, the establishment of the minimum spanning tree determines the economic effect
+brought by the repeaters, and the communication is well guaranteed. For step IV, the number of SSA is determined
+
+                             公                         AT
+by a parameter about the minimum fire tolerance time in this step, where this parameter also affects the safety of
+fire and the economy brought by SSA. We optimize the data of two different months, and get optimal results: the
+
+
+            微                                             H
+numbers of the repeaters and SSA are 73, 80 and 80, 104 for November and December in 2019, respectively.
+     For problem 2, in order to investigate the effect of extreme fire events, we introduce the GM model to predict
+
+
+             信
+the environment condition over the next decade by the temperature and precipitation data from 2011-2020. The
+                                                M
+prediction shows that year 2030 owns the worst situation. Based on it, we analyze the extreme fire events with
+three types: Widespread fires occurring at higher probability cause a huge change in EOC costs increasing by
+
+                                       ：
+46.15%; Small fires with high frequency affect SSA costs increasing by 98.08% dramatically; Explosive fires in
+an unpredictable manner have a strong effect on Repeater costs increasing by 53.75%.
+
+
+                              号
+     For problem 3, we introduce altitude data to simulate different terrains, which extends our model to the three-
+dimension space. The result shows that both SSA drones and repeater drones are limited by varied terrains. The
+distributions in a two-dimension plane and three-dimensional arrangement are shown to illustrate the optimal
+
+                      信
+locations of repeater drones. The result shows that the repeater drones at high altitude are more intensive.
+     Sensitivity analysis shows the strong robustness under the impact of the changing fire size and observation
+
+              微
+time (tolerance time), and we obtain the optimal solutions about the number of EOC. Although we get
+comprehensive and multifaceted optimization results, the efficiency of counter to the extreme fire events still
+need to be improved.
+Keywords:; Drone Arrangement Model; K-means Model; Minimum Spanning Tree Model; GM Model;
+
+
+
+ 微信号：MATHmodels                                                                                          2
+
+                                                                                                MATHmodels
+                                                                                                             关注数学模型
+
+                                                                                                             获取更多资讯
+
+
+=== PHYSICAL PAGE 2 ===
+ Team # 2116496
+                                                                               微信公众号：数学模型                                           Page 1 of 24
+
+
+                                                                       Contents
+ 1. Introduction ········································································································2
+    1.1 Background ·····································································································2
+    1.2 Restatement of the Problem ···················································································2
+    1.3 Our Work ········································································································2
+ 2. Assumptions and Justifications ·················································································2
+                                                                                                                         型
+ 3. Notations ············································································································3
+
+
+                                                                                                学
+ 4. Model I: Drone Arrangement Model ··········································································4
+    4.1 Local Assumptions ·····························································································4
+
+
+                                                                                                 模
+    4.2 Basic ideas and Method ·······················································································4
+      4.2.1 Basic Ideas ···································································································································4
+      4.2.2 Method ·········································································································································4
+
+                                                                                    数
+    4.3 Data Processing·································································································5
+    4.4 Step I: Forecast Deployment of Front-line Personnel ······················································6
+
+
+                                                          号
+    4.5 Step II: Decision on the Locations of the EOCs ····························································7
+
+
+                                                                                                  m
+    4.6 Step III: Deployment of Hovering Repeaters ·······························································8
+
+
+                                                           ：
+      4.6.1 Channel Plan ································································································································9
+
+                                                                                                   od
+      4.6.2 Repeater Plan ·······························································································································9
+
+
+                                                                                                     els
+    4.7 Step IV: Design of SSA Monitor Strategy ·································································10
+
+
+                                              众
+    4.8 Rescue Effectiveness··························································································12
+      4.8.1 Effectiveness Indicators ·············································································································12
+
+
+                                 公
+      4.8.2 Effectiveness Function ···············································································································12
+
+                                                                         AT
+    4.9 Results ··········································································································12
+      4.9.1 Estimation of Weights ················································································································12
+
+
+        微                                                                   H
+      4.9.2 Calculation Results ····················································································································13
+ 5. Model II: Extreme Condition Arrangement Model························································14
+
+
+         信
+    5.1 Prediction of Fire Conditions ················································································14
+
+                                                              M
+    5.2 Extreme Fire Events ··························································································15
+    5.3 Calculation Results ····························································································16
+
+                                                ：
+ 6. Model III: Repeater Location Optimization Model························································17
+    6.1 Analysis of Terrain Impact ···················································································17
+
+
+                                    号
+    6.2 Calculation Results ····························································································18
+ 7. Sensitivity Analysis ·······························································································20
+ 8. Strengths and Weaknesses ······················································································22
+
+                       信
+    8.1 Strengths········································································································22
+    8.2 Weakness ·······································································································22
+
+
+           微
+ 9. Conclusion ·········································································································22
+ 10. Continue to Work ·······························································································23
+ 11. Reference ·········································································································23
+ 12. Budget Request ··································································································24
+
+
+
+微信号：MATHmodels                                                                                                                                  2
+
+                                                                                                                                       MATHmodels
+                                                                                                                                                      关注数学模型
+
+                                                                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 3 ===
+ Team # 2116496
+                                                   微信公众号：数学模型                          Page 2 of 24
+
+
+
+
+ 1. Introduction
+ 1.1 Background
+      The 2019-2020 season has been one of the worst fire seasons in Australia on record, especially
+
+                                                                               型
+ for New South Wales and Eastern Victoria. By 2019, the combination of long-term warming,
+ insufficient rainfall and abnormal ocean circulation made Australia’s ground conditions extremely
+ susceptible to fires. Not only a large number of forests were burnt down, but the ecological
+
+                                                               学
+ diversity was also severely damaged. Therefore, it is very necessary for Australia to take effective
+ measures and actions for fighting wildfires. However, for the time being, the use of drones is a
+
+                                                                模
+ common means of monitoring fire, and in conjunction with other equipment. In order to balance
+ the relationship between the efficiency of firefighting and the cost, it is significant to arrange the
+ drone system reasonably and effectively [1].
+ 1.2 Restatement of the Problem                        数
+                                      号
+      Our specific tasks include the following:
+
+                                                                m
+ (1) Build a model to determine the optimal numbers and the proportion of assigned number of
+
+                                       ：                         od
+     SSA drones and Radio Repeater drones for “Rapid Bushfire Response”.
+
+
+                                                                   els
+ (2) Illustrate the adaptability of our model to extreme situations and predict the increased costs
+
+                              众
+     when the changing likelihood of extreme fire events occurs over the next decade.
+ (3) Optimize the locations of hovering VHF/UHF radio-repeater drones for different terrains and
+
+                      公                         AT
+     different sizes of fires in the Victorian region.
+ 1.3 Our Work
+
+     微                                             H
+     The topic requires us to determine the rational optimization of drones in different situations.
+
+
+      信
+ Our work mainly includes the following:
+ ⚫                                       M
+     Based on the terrains of Eastern Victoria and South Wales, a dual internal and external
+     optimization model for drone arrangement is established;
+ ⚫
+                                ：
+     In the face of extreme cases of fire, we characterize the flexible adaptability of our model and
+     give relevant results, and calculate the future cost increase;
+ ⚫                      号
+     Based on the previous model, a more general and stable model is developed to optimize the
+     location of the repeaters on East Victoria and show the specific locations vividly and clearly;
+ ⚫             信
+     Prepare an one page annotated Budget Request for CFA to submit to the Victoria State Govern-
+     ment.
+       微
+ 2. Assumptions and Justifications
+      To simplify the problem, we make the following basic assumptions, each of which is properly
+ justified. Other assumptions may not be as follows, but will be put forward in the model later.
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 4 ===
+ Team # 2116496
+                                                 微信公众号：数学模型                       Page 3 of 24
+
+ ⚫ Assumption 1: The occurrence of a fire is predictable.
+  Justification: Although the occurrence of forest fires is random, we assume the possible fire
+   location can be predicted by the weather conditions and locations of frequent outbreaks in the
+   past.
+ ⚫ Assumption 2: More than one EOC is located in the southeast corner of Australia.
+
+                                                                             型
+  Justification: Since the given range of the southeast corner of Australia is from 140.8°E to
+   153.6°E, where the horizontal span is too large for a single EOC to support. So we assume
+   that multiple EOCs can be built to meet the support requirements.
+ ⚫
+                                                            学
+   Assumption 3: Fire caused by malicious destruction is not considered during the wildfires in
+   the scope of research.
+                                                             模
+  Justification: In addition to the known fire points, our model is also suitable for predictable
+   fire locations, and rely on the analyzed location for deployment arrangements in a way.
+
+
+ ⚫
+                                                    数
+   Therefore, unpredictable malicious fire causes can be ignored.
+   Assumption 4: All drones & equipment and EOC are reliable for fire rescue without con-
+
+                                     号
+   sidering biological death and injury.
+
+                                                             m
+  Justification: Since forest rescue is an urgent issue, which determines the safety of the
+
+                                      ：                       od
+   ecology and economy, and some serious losses are immeasurable. Therefore, we believe that
+   our drones & equipment and EOC are completely reliable in our model and the loss of life is
+   not as a measure of the effectiveness in our response.
+                                                                els
+ ⚫                              众
+   Assumption 5: Assume the research data is accurate.
+  Justification: We assume that economic costs for EOCs and drones do not show obvious
+
+                     公                        AT
+   measurable deviation, so we can establish a more reasonable model based on it.
+
+
+
+     微
+ 3. Notations
+                                                 H
+     For convenience, we introduce some important notations below.
+
+      信                Notations       M        Explanations
+                          𝑁𝑖
+                           𝑘𝑖   ：  The number of equipment or personnel
+                                   The coefficient of personnel deployment
+
+
+                      号   𝐴𝑖
+                           𝑓
+                                   The size of each fire point
+                                   The frequency of fires
+
+
+               信           𝑝𝑖
+                          𝑊𝑖
+                                   The fairness frequency expected
+                                   The total cost of equipment
+
+       微                   𝐸       The effectiveness function
+
+
+
+
+微信号：MATHmodels                                                                               2
+
+                                                                                    MATHmodels
+                                                                                                 关注数学模型
+
+                                                                                                 获取更多资讯
+
+
+=== PHYSICAL PAGE 5 ===
+ Team # 2116496
+                                                 微信公众号：数学模型                        Page 4 of 24
+
+
+ 4. Model I: Drone Arrangement Model
+ 4.1 Local Assumptions
+ ⚫   VHF/UHF signals can be continuously amplified by two repeaters (or more, of course, one is
+     perfectly fine too), and the energy loss between these two can be ignored. In other words, as
+
+                                                                            型
+     long as any repeater receives electromagnetic waves, it can amplify and propagate the signal
+     according to its own unique propagation range.
+ ⚫
+
+
+                                                             学
+     As most of the front-line personnel are highly qualified and experienced, it can be assumed
+     that they are in the vicinity of areas where fires have occurred or are likely to occur. This
+
+
+                                                              模
+     allows for a faster response to fire-fighting rescue and thus reduces ecological and economic
+     damage.
+ 4.2 Basic ideas and Method
+ 4.2.1 Basic Ideas                                   数
+                                       号
+    According to the various equipment and places, as well as their functions given in the problem,
+ we make the following explanations:
+                                                              m
+                                        ：                      od
+ (1) EOC: A place that can launch SSA drones and receive their signals instantaneously, and can
+     also communicate with the front-line personnel through a repeater;
+
+                                                                 els
+                             众
+ (2) Front-line personnel: Personnel with the device detectable for SSA drone(s) near the EOC;
+ (3) SSA: A kind of drone that extrapolate the nearby situation around the personnel who wear the
+     detectable devices, and then feedback to the EOC;
+                     公                        AT
+ (4) Repeater: A kind of hovering drone that maintain communication between personnel and EOC
+     by amplifying the signal.
+
+     微
+ 4.2.2 Method                                    H
+      信
+      Once the above ideas are fully made sense, the problem becomes how to efficiently and
+                                       M
+ rationally deploy EOCs and drones in such a fire-prone environment. The exact mechanism can
+ be shown in the following figure.
+
+                               ：
+                       号
+                信
+       微
+                            Figure 1   Mechanistic map of the problem
+
+
+微信号：MATHmodels                                                                                2
+
+                                                                                     MATHmodels
+                                                                                                  关注数学模型
+
+                                                                                                  获取更多资讯
+
+
+=== PHYSICAL PAGE 6 ===
+ Team # 2116496
+                                                   微信公众号：数学模型                         Page 5 of 24
+
+ ⚫    Step I: Forecast Deployment of Front-line Personnel
+      According to the local assumption II, the location of frontline personnel can be determined
+ according to the known (or possible) fire locations, so that we can obtain the deployment of front-
+ line personnel over the entire map. In this way, the front-line personnel and the wildfire can be
+ seen together ‘as a whole’.
+
+ ⚫    Step II: Decision on the Locations of the EOCs
+                                                                               型
+      Determine the locations of the EOCs based on the known deployment map of the current front-
+
+
+                                                              学
+ line personnel. The principle of the determination is to have the front-line personnel covered as
+ much as possible. Based on step I , it is easy to conclude that covering the front-line personnel is
+
+
+                                                               模
+ approximately the same as including the wildfire in the monitoring.
+
+ ⚫    Step III: Deployment of Hovering Repeaters
+      After the EOCs’ position have been determined, the repeater position also needs to be
+                                                      数
+ considered. Since front-line personnel must communicate with the EOC via a repeater to ensure
+ safety, which is a mandatory constraint, there must be an optimal arrangement for the locations of
+
+                                      号
+ the repeaters that maximize the safety of personnel and the timeliness of rescue.
+
+                                                                m
+ ⚫
+
+
+                                       ：
+      Step IV (Internal model): Design of SSA Monitor Strategy
+                                                                 od
+      As there is still a link between the EOC and the SSA drone to ensure the non-delay and safety
+
+                                                                   els
+ of the wildfire (or arguably the personnel) within the flight range of the SSA drone. Since this step
+
+                              众
+ is separate from the others and does not affect each other, we can consider this step separately.
+
+      However, during these steps, unforeseen circumstances may occur, such as the limited cruise
+
+                      公                        AT
+ capability of the drone making this fire fighter's timeliness or observation ability limited, or
+ unexpected circumstances that necessitate the addition of new EOC locations or the moving of
+
+
+     微
+ EOCs resulting in additional financial losses. From the combined metrics of these constraints a
+                                                  H
+ relatively optimal drone arrangement can be determined, which is what we need.
+
+
+      信
+ 4.3 Data Processing
+ ⚫    Fire Conditions                    M
+                                ：
+      As our problem is based on the period 2019-2020, we investigate the occurrence of wildfires
+ regarding this period in the south-eastern Australia and obtain the data of four months of fires [2].
+ In the subsequent article, we will select two of them for calculation.
+ ⚫                     号
+      Altitude and Topography
+      As the signals from both handheld radios carried by front-line personnel and repeaters are
+
+               信
+ affected by the topography, which can be approximately represented by the altitude in south-
+ eastern Australia, we segment the altitude to represent a certain topography within each segment
+
+       微
+ [3]. The elevation map of south-eastern Australia and the distribution of the topography can be
+ processed as the following two figures.
+
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 7 ===
+ Team # 2116496
+                                                    微信公众号：数学模型                          Page 6 of 24
+
+
+
+
+                                                                                型
+                                                                学
+                   Figure 2
+                                                                 模
+                               Altitude distribution and its topographical divisions
+ ⚫   Signal Range                                      数
+      Based on previous literature, we find that the propagation of radio is very much influenced
+
+                                       号
+ by distance and topography, and different power transmitters are affected in different ways [4].
+ The relevant data are shown in the table below.
+                                                                 m
+                                        ：
+                              Table 1 Signal propagation range
+                                                                  od
+                    Power (W) Plain Range Urban Range Mountain Range
+                                                                    els
+                        5
+                       10      众  5 km
+                                 20 km
+                                               2 km
+                                               7 km
+                                                               1 km
+                                                               3 km
+ ⚫   The Cost
+                      公                         AT
+     Based on previous research and experience, we believe that the cost of building an EOC and
+
+
+      微
+ maintaining a drone for each rescue is as follows [5]:
+                                                   H
+                                      Table 2 Economic Cost
+
+       信                      Cost (AUD) M    EOC
+                                             $50,000
+                                                            Drone
+                                                             $50
+
+
+                                ：
+ 4.4 Step I: Forecast Deployment of Front-line Personnel
+      Our drone system will not only rescue existing fires that have already occurred, but can also
+
+                        号
+ predict locations that have not yet occurred and are likely to do so. Therefore the two need to be
+ discussed separately.
+
+
+                信
+      Although fires are somewhat predictable, there is a high probability of sudden outbreaks in
+ occasional areas. Since the spread of fire is continuous, we can assume that the fire is continuous
+
+
+       微
+ in the vicinity of the fire, that is to say, the probability of a fire in the vicinity of fire-occurred
+ location can be expressed as:
+                                                 𝑃1 = 1                                              (1)
+      For possible chance scenarios, we can predict the probability of a possible fire based on the
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 8 ===
+ Team # 2116496
+                                                    微信公众号：数学模型                            Page 7 of 24
+
+ frequency of fires at that location over the years. Since the occurrence of chance generally satisfies
+ the Gaussian distribution and this applies to any location, we can use the GMM model to describe
+ the probability of fire occurrence of a location:
+                                             1        (𝑋 − 𝜇)𝑇 (𝑋 − 𝜇)
+                                   𝑃2 (𝑋) =    𝑒𝑥𝑝 [−                  ]                                (2)
+                                            2𝜋               2
+
+                                                                                  型
+      Where 𝑋 represents any of the possible fire points to be estimated and 𝜇 represents the
+ locations of all the statistically obtained fire points over time.
+
+
+                                                                学
+      According to local assumption II, front-line personnel are in the area near the location of the
+
+
+                                                                 模
+ (possible) fire. In general, as the size of the fire increases, the more front-line personnel need to be
+ deployed to ensure that the fire is controllable. Therefore, the number of personnel deployed
+ around a (possible) fire point can be written as the following expression:
+
+                                                        数             𝑁𝑖 = 𝑘𝑖 ∙ 𝐴𝑖 ∙ 𝑃𝑖
+                                                                             𝑓
+                                                                                                        (3)
+
+
+
+                                       号                         m     𝑁 = ∑ 𝑁𝑖
+                                                                            𝑖=1
+                                                                                                        (4)
+
+
+                                        ：                         od
+                                                      Where 𝑁𝑖 represents the number of front-line
+                                                personnel deployed in different locations, thus 𝑁
+
+                                                                    els
+                                                corresponds to the total number of front-line
+
+                               众                personnel counted at all fire locations, 𝑓 is
+                                                statistical frequency of fires over a period of time, 𝐴𝑖
+
+                      公
+ Figure 3 Principle of Step I
+                                                represents the size of the fire, 𝑘𝑖 is the coefficient of
+                                                 AT
+                                                the number of frontline personnel to be deployed per
+                                                unit area of fire location.
+
+      微
+ 4.5 Step II: Decision on the Locations of the EOCs H
+       信
+      As front-line personnel and the wildfire can be seen ‘as a whole’, based on the previous
+                                          M
+ deployment of personnel, the locations of the EOCs need to be determined to ensure maximum
+ observability of personnel and safety of the fire.
+
+                                ：
+      As the SSA drone is required to be in the vicinity of the EOC for cruise reporting and has a
+ flight range of 30km, so that the locations of the EOCs can be framed as a circle with a radius of
+                        号
+ 30 km which moves as the EOC moves.
+
+
+                信
+       In addition, the cost of building an EOC should also be taken into account, so our aim is to
+ build the minimum number of EOCs to allow more personnel (as well as the fires) to be covered
+ in its circle. This minimizes costs and maximizes the safety and observability of personnel and
+ fires.
+       微
+      Based on this, we introduce the K-means algorithm, which allows for maximum coverage
+ of personnel and wildfires with the proper number of EOCs. By iterating given a proper number
+
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 9 ===
+ Team # 2116496
+                                                   微信公众号：数学模型                         Page 8 of 24
+
+ of clusters 𝐾, the entire area can be initially divided into 𝐾 clusters, then optimize the distance
+ to the centroid each time, the distance can be expressed as:
+
+                                    𝑑 = √(𝑥 − 𝑥𝑖 )2 + (𝑦 − 𝑦𝑖 )2                                     (5)
+      Where (𝑥𝑖 , 𝑦𝑖 ) represents the coordinates of the centroid of each iteration. After combining
+ the distances of all points to the corresponding centers, we can obtain the following indicators for
+ each time:
+                                               𝑀                               型
+                                      𝑆𝑆𝐸 = ∑ ∑ 𝑑(𝐶𝑖 , 𝑥)2
+                                              𝑖=1 𝑥∈𝐶𝑖
+                                                              学                                      (6)
+
+
+
+                                                               模
+      By optimizing the centroids of the area at each iteration, we can end up with an optimal cluster
+ that minimizes the sum of the distances 𝑆𝑆𝐸 from all points 𝑥 in the area to the centroids of the
+ clusters 𝐶𝑖 to which they belong. In our model, this means that the distance from the personnel
+
+                                                         数
+ and the fire to the EOC is minimized, thus ensuring that as many personnel and fires as possible
+ are covered within the nearest EOC.
+
+
+                                      号             With the K-means model, we can obtain the
+
+                                                                m
+                                               optimal centroid coordinates (𝑥𝑀 , 𝑦𝑀 ), which is also
+
+                                       ：                         od
+                                               our optimal EOCs’ positions. However, such a result
+                                               would also produce some out-of-range front-line
+
+                                                                   els
+                                               personnel and fire points at a rate of
+
+                              众                                     𝑝𝑖 =
+                                                                          ∆𝑁𝑖
+                                                                           𝑁𝑖
+                                                                                                  (7)
+
+
+                      公                        AT   Where ∆𝑁𝑖 is the number of uncovered
+                                               personnel or fire points, 𝑝𝑖 is the rate of uncovered
+                                               personnel or fire points, both of which may result in
+
+     微
+ Figure 4 Principle of Step II
+                                                  H
+                                               reduced safety and observability.
+
+
+      信
+      Another effect that arises in this step is the construction cost 𝑊𝐸𝑂𝐶 of the EOC:
+                                         M
+                                         𝑊𝐸𝑂𝐶 = 𝑁𝐸𝑂𝐶 ∙ 𝑤𝐸𝑂𝐶                                          (8)
+
+                                ：
+      Where 𝑤𝐸𝑂𝐶 represents the construction cost per EOC, 𝑁𝐸𝑂𝐶 is the number of EOCs.
+ 4.6 Step III: Deployment of Hovering Repeaters
+
+                       号
+      Front-line personnel must communicate with the EOC via repeater to ensure the safety of
+ personnel and the timely observation of the fire. The radio equipment used to communicate with
+
+               信
+ the front-line personnel and the EOCs is also affected by distance and topography, so we should
+ deploy the repeater at a reasonable distance to ensure that all front-line personnel can communicate
+
+       微
+ with the EOC, so that our communication efficiency is 100% guaranteed to be optimal.
+      From an economic perspective, the fewer repeaters consume the less economic cost, so our
+ goal is to make it possible to meet all personnel locations connected to the EOCs with the minimal
+ repeaters. In this section, we split the two parts of the communication channel and the repeater
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 10 ===
+ Team # 2116496
+                                                  微信公众号：数学模型                         Page 9 of 24
+
+ deployment.
+ 4.6.1 Channel Plan
+       As repeaters have a limited signal propagation range, fewer repeaters means building shorter
+ communication channels. We introduce the Kruskal algorithm to obtain a minimum spanning
+ tree (MST) to guarantee the shortest channel. The process can be represented in the following flow
+ -chart.
+                                                                              型
+                                                             学
+                                                              模
+                                                     数
+                                      号                       m
+                                       ：                       od
+                                                                 els
+            Figure 5
+                             众
+                       Flow chart of the Kruskal algorithm and principle of Step III (a)
+     Using this algorithm, the optimal path can be determined, thus providing a channel for sub-
+
+                       公
+ sequent repeaters scheduling.
+ 4.6.2 Repeater Plan                          AT
+     微                                           H
+      The optimum channel has been obtained in the previous section, which means that the sum
+ of the distances from each group of front-line personnel to the EOC has been minimized so that
+
+      信
+ lining up the repeaters on each channel minimizes the number of repeaters used.
+                                       M             According to Table 1 and Figure 6, we can see
+
+                               ：               that the signal transmission range varies in different
+                                               topography. According to the propagation range,
+
+                       号                       deploying repeaters on the channel limits gives the
+                                               following equation:
+
+
+               信                                             𝑁𝑟𝑒𝑝
+
+                                                    𝐿 𝑖,𝑖+1 = ∑ 𝑙𝑗 + max ( 𝑙𝑗=1 , 𝑙𝑗=𝑁𝑟𝑒𝑝 )
+                                                             𝑗=1
+                                                                                                   (9)
+
+
+       微
+ Figure 6 Principle of Step III (b)
+      Where 𝐿 𝑖,𝑖+1 is the sum of the maximum distances propagated by repeaters on one channel,
+ 𝑙𝑗 is the distance propagated a repeater at a particular location, 𝑁𝑟𝑒𝑝 represents the total number
+
+
+微信号：MATHmodels                                                                                 2
+
+                                                                                      MATHmodels
+                                                                                                   关注数学模型
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 11 ===
+ Team # 2116496
+                                                   微信公众号：数学模型                         Page 10 of 24
+
+ of repeaters on one channel, 𝑙𝑗=1 and 𝑙𝑗=𝑁𝑟𝑒𝑝 represent the propagation distance of the first and
+ last repeater respectively.
+      Then the constraint can be written as the following expression:
+                                          𝐿 𝑖,𝑖+1 ≥ ∆𝑑 𝑖,𝑖+1                                         (10)
+      Similar to step II, this step also incurs an economic cost 𝑊𝑟𝑒𝑝 :
+
+                                                           ′
+                                  𝑊𝑟𝑒𝑝 = ∑ 𝑁𝑟𝑒𝑝 ∙ (𝑤𝑟𝑒𝑝 + 𝑤𝑟𝑒𝑝 )
+                                                                               型                     (11)
+
+                                                                 学
+    Where 𝑤𝑟𝑒𝑝 represents the construction cost per repeater, which equals to $10,000
+         ′
+ (AUD), 𝑤𝑟𝑒𝑝 is the additional maintenance costs.
+
+ 4.7 Step IV: Design of SSA Monitor Strategy                      模
+                                                         数
+      Since SSA drones are cruising in the vicinity of the EOC and has a radius of 30 km, the EOC
+ and SSA drones can be seen as an integrated system, which we call the EOC-UAV cruise system.
+
+
+                                      号
+ Thinking further we can analyze that the factors that affect the number of SSA are the fire situation
+ within the EOC-UAV system and its own capabilities.
+                                                                 m
+                                       ：                          od
+      For a fire, an untimely rescue is very dangerous, so we can define a limit tolerance time 𝑡
+ which represents the maximum time a fire can withstand being unmonitored, which can be a further
+
+                                                                    els
+ indication of the safety of the fire. Then we can think about the number of SSA drones and their
+                              众
+ cruising strategy. We propose the following two cruising strategies:
+ ⚫
+
+                      公
+      Strategy A: Multiple SSA circular cruise
+
+      Principle: 𝑃 SSA drones monitor each fire AT
+     微
+ point in a periodic cycle with the EOC-UAV system.
+                                                   H
+      信
+      To maximize fire-fighting efficiency, we
+
+                                         M
+ consider that all SSA's maintain maximum speed
+ during cruise, which is 𝑣 =20 m/s. The mechanism
+
+                                ：
+ of this cruising strategy can be represented in the
+ right figure. Multiple SSAs cruise on the path
+ between two points in a certain order.
+
+                       号                                        Figure 7 Principle of Step IV (A)
+
+               信
+      With this strategy, without taking into account the need for charging, it may happen that a
+ particular fire point is not monitored by any of the drones for a period of time, which corresponds
+
+
+       微
+ to the limit tolerance time 𝑡 we mentioned above.
+      For a timely fire, we then get the following constraint:
+                                               ∆𝑡𝑖 ≤ 𝑡                                               (12)
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 12 ===
+ Team # 2116496
+                                                        微信公众号：数学模型                 Page 11 of 24
+
+      Where ∆𝑡𝑖 represents the minimum time interval in an EOC-UAV system that is not moni-
+ tored. We use the following expression to calculate ∆𝑡𝑖 :
+                                                     ∑ 𝐷 𝑖,𝑖+1
+                                           ∆𝑡𝑖 =                                                  (13)
+                                                    𝑁𝑆𝑆𝐴 , 1 ∙ 𝑣
+                                                               2
+
+      Where 𝐷 𝑖,𝑖+1 is the distance between each group of front-liners, 𝑁𝑆𝑆𝐴 , 1/2 is the number of
+
+                                                                                 型
+ SSA drones without taking into account the charging situation, 𝑣 is the maximum speed, which
+ is 20 m/s. Using equation (12), we can obtain the following expression:
+
+                                         𝑁𝑆𝑆𝐴 , 1 ≥
+                                                         ∑ 𝐷 𝑖,𝑖+1
+                                                                      学                           (14)
+
+
+                                                                       模
+                                                2          𝑣∙𝑡
+      In order to reduce the unobservability of the fire over a period of time, the front and back
+ groups of drones should remain perfectly connected, which means that there is no time gap
+
+                                                             数
+ between the two groups of drones ‘at the handover’, with the first group ready to recharge and
+ return just as the second group reaches the first drone.
+
+
+                                      号
+      Then the total number of drones can be written as:
+                                                                        m
+                                       ：
+                                 𝑁𝑆𝑆𝐴 = 2 × 𝑁𝑆𝑆𝐴 , 1 ≥ 2 ×
+                                                         2               od
+                                                                     ∑ 𝐷 𝑖,𝑖+1
+                                                                       𝑣∙𝑡
+
+                                                                           els
+                                                                                                  (15)
+
+
+                                众
+      However, there may also be a case that 𝑁𝑆𝑆𝐴 , 1/2 is so large that it exceeds the number of
+ cruising sections when 𝑡 is too small, so strategy A can be further improved.
+ ⚫
+
+                      公
+      Strategy B: SSA fixed-point cruise
+                                                AT
+     Principle: Point-to-point monitoring of fire
+
+
+     微
+ points in the EOC-UAV system by 𝑃 drones, i.e. 𝑃
+ drones for 𝑃 fire points.                         H
+      信                                  M
+      This situation corresponds to the fact that the
+ 𝑁𝑆𝑆𝐴 , 1/2 calculated for strategy A is too large that:
+
+
+                                ：
+                     𝑁𝑆𝑆𝐴 , 1 ≥ 𝑁 𝑓𝑖𝑟𝑒
+                            2
+                                                        (16)
+
+
+                        号
+      Where 𝑁 𝑓𝑖𝑟𝑒 is the number of fire points
+ within an EOC-UAV system. Thus the cruise strate-
+
+               信
+ gy A creates an unnecessary unmonitored time inter          Figure 8 Principle of Step IV (B)
+ -val ∆𝑡𝑖 for each fire point. However, using strategy B can obtain the following equations:
+
+
+       微                                        ∆𝑡𝑖 = 0
+                                           𝑁𝑆𝑆𝐴 , 1 = 𝑁 𝑓𝑖𝑟𝑒
+                                                    2
+                                                                                                  (17)
+                                                                                                  (18)
+
+      Whether to choose strategy A or strategy B, it will incur economic cost:
+
+
+
+微信号：MATHmodels                                                                                2
+
+                                                                                     MATHmodels
+                                                                                                  关注数学模型
+
+                                                                                                  获取更多资讯
+
+
+=== PHYSICAL PAGE 13 ===
+ Team # 2116496
+                                                   微信公众号：数学模型                         Page 12 of 24
+
+
+                                                            ′
+                                   𝑊𝑆𝑆𝐴 = ∑ 𝑁𝑆𝑆𝐴 ∙ (𝑤𝑆𝑆𝐴 + 𝑤𝑆𝑆𝐴 )                                    (19)
+
+    Where 𝑤𝑆𝑆𝐴 represents the construction cost per SSA drone, which equals to $10,000
+         ′
+ (AUD), 𝑤𝑆𝑆𝐴 is the additional maintenance costs.
+ 4.8 Rescue Effectiveness
+ 4.8.1 Effectiveness Indicators                                                型
+      In the analysis of the four steps above, the indicators on the impact of rescue effectiveness
+
+                                                              学
+ are obtained. The corresponding indicator in each step is shown in the table below:
+
+
+
+        Step I
+                  Capability
+                  ✓: 𝑁𝑝𝑒𝑟𝑠𝑜𝑛
+                                                               模
+                                  Table 3 Effectiveness indicators
+                                    Safety    Economics Observation Communication
+
+       Step II
+       Step III
+                                    ✓: 𝑝𝑖
+                                                      数
+                                                  ✓: 𝑊𝐸𝑂𝐶
+                                                  ✓: 𝑊𝑟𝑒𝑝
+                                                                  ✓: 𝑝𝑖
+                                                                                 ✓: 100%
+       Step IV
+                                      号
+                                     ✓: 𝑡         ✓: 𝑊𝑆𝑆𝐴
+
+                                                                m
+                                       ：
+      In the previous section, we ensure that all front-line personnel are able to communicate with
+
+                                                                 od
+ the EOCs in both directions, so the communication effectiveness is 100%, so it can be ignored
+ when discussing the final effectiveness function.
+                                                                   els
+ 4.8.2 Effectiveness Function
+                              众
+      In evaluating the effectiveness of the rescue, we ignore those immeasurable values because
+
+                      公                        AT
+ the value of human or biological life cannot in fact be estimated numerically. The specific effect-
+ iveness function is shown as below:
+
+
+     微            ̿̿̿̿̿̿̿̿̿̿̿̿̿̿   ̿̿̿̿̿̿̿̿̿̿̿̿
+                                   ̿̿̿̿̿̿̿        H                              ̿̿̿̿̿̿̿
+
+      信
+                                                     ̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿̿
+          𝐸 = 𝛼 ∙ ∑ 𝑁𝑝𝑒𝑟𝑠𝑜𝑛 + 𝛽 ∙ (∑ 𝑝𝑖 + 𝑡̿) + 𝛾 ∙ (𝑊 𝐸𝑂𝐶 + 𝑊𝑟𝑒𝑝 + 𝑊𝑆𝑆𝐴 ) + 𝛿 ∙ ∑ 𝑝𝑖 (20)
+
+                                         M
+      Where 𝛼 , 𝛽 , 𝛾 , 𝛿 are the weights of the capability, safety, economics and observation,
+
+                                ：
+ respectively. The parameters with ̿̿̿̿ above represent the normalized result, and the positive and
+ negative correlation of each indicator to effectiveness are also processed. Based on this
+
+                       号
+ effectiveness function, we can optimize different EOC-UAV system for different situations.
+ 4.9 Results
+
+               信
+ 4.9.1 Estimation of Weights
+      In order to further explore the impact of the above four factors on the effectiveness, we choose
+
+       微
+ to use Analytic Hierarchy Process (AHP) to calculate the weights of different factors when they
+ react on the wildfire rescue effectiveness. We use MATLAB to get the weight vector matrix as
+ follows:
+                             𝑊 = [0.4918 0.2459 0.1639 0.0984]                                    (21)
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 14 ===
+ Team # 2116496
+                                                  微信公众号：数学模型                        Page 13 of 24
+
+     According to the order, the four factors are safety, capability, economics and observation.
+ 4.9.2 Calculation Results
+    Based on the optimization results, we perform calculations for two consecutive months in No-
+ vember and December 2019, and obtain the following drones arrangement solutions as follows:
+
+
+                                                                             型
+                                                             学
+                                                              模
+                                                     数
+                                         号                    m
+                                          ：                    od
+                                                                 els
+                              众
+                             Figure 9    The drone solution in November
+
+
+
+                     公                         AT
+     微                                            H
+      信                                  M
+                                ：
+                       号
+               信             Figure 10   The drone solution in December
+
+       微
+     Both blue and red points represent fire locations within a month. The small orange triangle
+ represents the location of a possible fire based on our predictions. Most importantly, the specific
+ optimal number and the ratio of the two drones, as well as the budget costs (for Victoria)are
+
+
+
+微信号：MATHmodels                                                                                 2
+
+                                                                                      MATHmodels
+                                                                                                   关注数学模型
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 15 ===
+ Team # 2116496
+                                                       微信公众号：数学模型                            Page 14 of 24
+
+ given in the upper left corner of the figure. From an overall perspective, we can clearly see that
+ the total number of drones deployed is higher in areas with more severe fires, which in part explains
+ the important role played by the parameter 𝑨(size) and 𝒇(frequency) included in our model.
+
+ 5. Model II: Extreme Condition Arrangement Model
+
+                                                                                     型
+     Considering the extreme fire events over the next decades, we first need to make projections
+ over a ten-year period.
+ 5.1 Prediction of Fire Conditions
+                                                                    学
+      Since fires often occur in locations with higher temperatures and less precipitation, these two
+
+                                                                     模
+ factors can be approximated as an estimate of the likelihood of fire. By reviewing the literature we
+ obtain data on temperature and precipitation over the last ten years, as shown in the following table
+ [6]:
+                                                           数
+                   Table 4 Data on temperature and precipitation for 2011-2020
+         Year 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020
+         T ℃      23.4    24
+                                         号
+                                  25.2 24.9 24.1 25.4 25.6 25.9 26.1 24.4
+        P 𝑚𝑚 724.9 877.8 829.9 692 935.8 821.2 702.3 568.3 481.2 777.1
+                                                                       m
+                                          ：                             od
+      Since only 10 temperature and precipitation data are collected, we need to predict the con-
+ dition for 10 years. GM(1,1) can help us to get a valid prediction result.
+                                                                          els
+                                众
+     The calculation process of GM (1,1) is shown as follows.
+     The original sequence is:
+
+                       公                           AT
+                                 𝑥 (0) = (𝑥 (0) (1), 𝑥 (0) (2), ⋯ , 𝑥 (0) (10))                             (22)
+
+
+
+     微                                                H
+     Let 𝑥 (1) (𝑘) = ∑𝑘𝑖=1 𝑥 (0) (𝑖) , 𝑘 = 1,2, ⋯ ,10, 𝑥 (1) = (𝑥 (1) (1), 𝑥 (1) (2), ⋯ , 𝑥 (1) (10)).
+
+   Thus the AGO sequence 𝑥 (1) of 𝑥 (0) can be obtained. Then the regression equation of
+
+      信
+ GM(1,1) is :
+                                           M
+                               𝑥 (0) (𝑘) + 𝑎𝑥 (1) (𝑘) = 𝑏                           (23)
+
+
+                                  ：
+     The matric vector notation is:
+                                               𝑋 = [𝑎      𝑏 ]𝑇                                             (24)
+
+
+                         号     𝐵 = [𝑥 (0) (2) 𝑥 (0) (3) ⋯
+
+                                                −𝑥 (1) (2)
+                                                                   𝑥 (0) (10)]
+                                                                                 𝑇
+                                                                                                            (25)
+
+
+
+                信                                  (1)
+                                          𝐴 = [ −𝑥 (3)
+                                                   ⋯
+                                                                  1
+                                                                  1
+                                                                  ⋯]
+                                                                  1
+                                                                                                            (26)
+
+
+       微
+     Then GM(1,1) is to be:
+                                                  (1)
+                                               −𝑥 (10)
+
+                                            𝐵 = 𝐴𝑋                                                          (27)
+     Then using least square method to solve a and b:
+
+
+
+微信号：MATHmodels                                                                                          2
+
+                                                                                               MATHmodels
+                                                                                                            关注数学模型
+
+                                                                                                            获取更多资讯
+
+
+=== PHYSICAL PAGE 16 ===
+ Team # 2116496
+                                                   微信公众号：数学模型                          Page 15 of 24
+
+                                    𝑋 = [𝑎    𝑏]𝑇 = (𝐴𝑇 𝐴)−1 𝐴𝑇 𝐵                                    (28)
+      The final prediction of temperatures and precipitations are shown in the figure below:
+
+
+
+
+                                                       Year     2021   2022    型2023     2024   2025
+
+
+                                                               学
+                                                       T ℃      25.72 25.85 25.98 26.12 26.25
+                                                      P 𝑚𝑚 594.00 568.76 544.58 521.44 499.27
+                                                       Year
+                                                       T ℃
+                                                                模
+                                                                2026   2027     2028     2029
+                                                                26.38 26.52 26.66 26.79 26.93
+                                                      P 𝑚𝑚 478.05 457.73 438.27 419.65 401.81
+                                                                                                2030
+
+
+
+
+                                                       数Figure 11 Prediction data for 2021-2030
+     From the predictions we can see that 2030 will have the highest temperature and the least
+
+
+                                      号
+ precipitation, which most likely causes fires. So we analyze the extreme fire events based on the
+ projected data for 2030.
+                                                                m
+ 5.2 Extreme Fire Events
+                                       ：
+     We categorize the extreme fire events as follows:
+                                                                 od
+                                                                   els
+ ⚫
+                              众
+      Type I: Fires generally occur at a higher probability each location
+      As the temperature and precipitation conditions become worse, we assume that the probability
+
+                      公
+ of fire at each location increases. Applying equation (2) from model 1 to this situation, we lower
+
+                                                AT
+ the probability threshold for the occurrence of fire so that the probability of fire at each location
+ after superimposing the Gaussian distribution increases, causing widespread fire throughout the
+
+     微                                             H
+ whole area. Due to the larger extent of fire points, the economic impact of EOCs may be more
+ significant.
+ ⚫
+      信                                  M
+      Type II: Fires become smaller in size but occur more often
+      This situation can be likened to the frequent and concentrated occurrence of fires due to the
+
+                                ：
+ harsher climatic conditions in one location. One of the parameters mentioned in the model 1
+ regarding fire size 𝐴𝑖 and frequency 𝑓𝑖 can be adjusted to be larger and smaller respectively, to
+ suit the situation. As the fire points are concentrated in the area covered by the EOC, the number
+
+                        号
+ of SSAs sent should be significantly higher, which will result in more SSAs’ cost.
+      Type III: Fires erupt in an unpredictable manner, with a large area and low frequency
+ ⚫
+
+
+               信
+      It is also common for a fire to erupt suddenly due to some factors, and this situation is usually
+ characterized by a wide area of outbreak and low predictability. In other words, this type of fire is
+
+       微
+ a sudden outbreak that is large in area and very infrequent in occurrence. Due to the unpredictable
+ nature of this situation, the pre-deployed personnel cannot anticipate well, and may be more
+ dispersed throughout the whole area. This makes communication between personnel and the EOC
+ difficult and leads to more repeaters being deployed, resulting in greater economic costs.
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 17 ===
+ Team # 2116496
+                                                   微信公众号：数学模型                      Page 16 of 24
+
+ 5.3 Calculation Results
+     Based on the survey, the closest data to 2030 is obtained [7]. Based on this data, model 1 is
+ applied to obtain results corresponding to three types of extreme cases above.
+
+
+
+
+                                                                              型
+                                                             学
+                                                              模
+                                                      数
+                                       号                      m
+                      Figure 12         ：                      od
+                                     The drone arrangement solution of Type I
+
+                                                                 els
+                             众
+      The result corresponding to type I is shown above. As we know, a high probability of fire
+ inevitably leads to a large number of fires across the whole area, accompanied by an increase in
+ equipment costs. Compared to the data of Victoria from the December fire in 2019, the budget
+                     公                         AT
+ costs for repeater and SSA drone increase by $ 402,000 and $ 804,000, and the increased con-
+ struction costs for the EOC are $ 300,000.
+
+     微                                            H
+      信                                  M
+                               ：
+                       号
+               信
+       微
+                         Figure 13     The drone system solution of Type II
+
+
+微信号：MATHmodels                                                                                2
+
+                                                                                     MATHmodels
+                                                                                                  关注数学模型
+
+                                                                                                  获取更多资讯
+
+
+=== PHYSICAL PAGE 18 ===
+ Team # 2116496
+                                                    微信公众号：数学模型                          Page 17 of 24
+
+      The result corresponding to type II is shown above. For small but frequent fires, the number
+ of EOCs required is reduced, however, the number of personnel deployed near the fire point is
+ increased. Overall, the combined effect of the emergency response is significant. The increased
+ costs for repeater, SSA are $ 281,400, $ 1,025,100. EOCs’ budget costs reduce $100,000.
+
+
+
+                                                                                型
+                                                                学
+                                                                 模
+                                                       数
+                                       号                         m
+                                        ：                         od
+                                                                    els
+                           Figure 14 The drone system solution of Type III
+
+                              众
+       Unlike the second type of fire, for the sudden fire of type III, the number of personnel and
+ fires left outside the range is very much, which increases the number of repeaters and extends the
+
+                      公
+ communication channel. For the change in costs for this type, we obtain the following data: for
+
+                                                AT
+ repeater and SSA are $ 432,150 and $ 763,800 respectively; for EOC, the reduction cost is
+ $100,000.
+
+      微                                            H
+      The changes in the costs are shown in the table below:
+
+
+       信 Type
+        Type I
+                       Table 5 Changes in costs in 3 types of extreme cases
+                          Repeater
+                        +$ 402,000
+                                         M   SSA
+                                         +$ 804,000
+                                                                  EOC
+                                                              +$ 300,000
+                                                                                          Total
+                                                                                      +$ 1,506,000
+       Type II
+       Type III
+                                ：
+                        +$ 281,400
+                        +$ 432,150
+                                        +$ 1,025,100
+                                         +$ 763,800
+                                                              −$ 100,000
+                                                              −$ 100,000
+                                                                                      +$ 1,206,500
+                                                                                      +$ 1,095,950
+
+                        号
+     The three different colored blocks represent the most significant part of the equipment cost
+ corresponding to each type of extreme fire event. The results shown are coincide with our
+
+                  信
+ perceptions and predictions, and to a certain extent, it also reflects the reasonableness of our model.
+
+ 6. Model III: Repeater Location Optimization Model
+       微
+ 6.1 Analysis of Terrain Impact
+     The terrain will affect each step of the model we built earlier, as analyzed below.
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 19 ===
+ Team # 2116496
+                                                   微信公众号：数学模型                         Page 18 of 24
+
+ (1) The pre-deployment of personnel in step I changes due to the different levels of urgency in
+     case of fire in different terrains. The direct parameter affecting the number of personnel is 𝑘𝑖
+     in equation (3), which reflects the capability to rescue a particular fire point.
+
+ (2) In step II, changes in personnel may lead to movement of the location and number of EOC
+     after processing the k-means algorithm, which directly affects the construction cost of the
+
+                                                                               型
+     EOCs and also directly links to the economics. In addition, the proportion of personnel left
+     out of range may also be affected, corresponding to the parameter 𝑝 in equation (7), where
+
+
+                                                              学
+     the resulting safety and observability are further compromised.
+
+ (3) Most importantly, step III is affected by the difference in terrain，resulting in a change in the
+
+                                                               模
+     distance between two points, where the distance between personnel and EOC and the distance
+     between the two fire points are both included. Considering the limitation of the transmission
+     range caused by terrain factors, the number of repeaters will change accordingly, resulting in
+     a change in economy.
+                                                      数
+                                      号
+ (4) In the last step, the tolerance time 𝑡 for some ignition fire points may become shorter due to
+
+                                                                m
+     some rough terrain, corresponding to the safety indicator in the effectiveness function. Further-
+
+
+                                       ：
+     more, the change of 𝑡 may also cause a change in the cruising strategy of the SSA,
+                                                                 od
+     accompanied by a change in the number of SSA and thus the economy.
+ 6.2 Calculation Results
+                                                                   els
+                              众
+     Taking the terrain into account, the flight range of the SSA drones changes from a two-
+ dimensional flat circle to a three-dimensional sphere, and the fact that the signal cannot cross
+
+                      公                        AT
+ mountains should also be taken into consideration. Based on this, we optimize the locations of the
+ repeaters and obtain the following results.
+
+
+     微                                            H
+      信                                  M
+                                ：
+                       号
+               信
+       微
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 20 ===
+ Team # 2116496
+                                                微信公众号：数学模型                       Page 19 of 24
+
+
+
+
+                                                                          型
+                                                           学
+           Figure 15
+                                                            模
+                       The repeater location solution in November considering terrains
+
+
+                                                   数
+                                    号                       m
+                                     ：                       od
+                                                               els
+                            众
+                       公                     AT
+     微                                          H
+      信                               M
+                              ：
+                       号
+              信
+       微
+微信号：MATHmodels                                                                              2
+
+                                                                                   MATHmodels
+                                                                                                关注数学模型
+
+                                                                                                获取更多资讯
+
+
+=== PHYSICAL PAGE 21 ===
+ Team # 2116496
+                                                    微信公众号：数学模型                         Page 20 of 24
+
+            Figure 16 The repeater location solution in December considering terrains
+      For the above two groups of figures, the first figure of each group represents the two-
+ dimensional plane location of the repeaters, the white × in the figure represents the optimized
+ repeater location; the second figure of each group represents the detailed three-dimensional
+ information of the repeaters near each EOC.
+
+ 7. Sensitivity Analysis
+                                                                                型
+       In our previous model, there are three parameters that can be varied depending on the situation:
+ ⚫
+                                                                学
+       𝒌: the parameter that directly affect the number of personnel deployed in the vicinity of a fire
+       𝑵𝑬𝑶𝑪 : the parameter that continuously influence subsequent model from step II
+
+                                                                 模
+ ⚫
+
+ ⚫     𝒕: the parameter that directly decides the acceptable limit time a fire point not monitored.
+
+
+
+                                                       数
+    Based on this, we adjust these three parameters to test the sensitivity and robustness of our
+ model.
+ i. Impact of 𝑘:
+
+                                       号                         m
+    We set 𝑘 to a number of values and the resulting indicators are shown below:
+
+
+                                        ：
+    (PS: Through normalization and unification of positive and negative correlations (a part of
+
+                                                                  od
+ TOPSIS), the smaller the effectiveness value, the better the effect.)
+
+
+                                                                    els
+                               众
+                       公                         AT
+       微                                            H
+        信                                 M
+                                 ：
+                          号
+                  Figure 17   Changes in various indicators under the influence of 𝑘
+
+
+                 信
+      As the value of 𝑘 varies, there is a minimum value of the effectiveness value 𝐸 (𝑘 = 1.3).
+ It is clear from the changing trend that the overall value of 𝐸 does not vary much around the
+ optimum value, which means changes in the 𝑘 value have a small effect on our model. Therefore,
+
+         微
+ we can assume that 𝑘 and 𝐴 have the same effect on our model according to equation (3), which
+ means that our model is stable and adapts to fire situations with different sizes.
+ ii.   Impact of 𝑁𝐸𝑂𝐶 :
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 22 ===
+  Team # 2116496
+                                                      微信公众号：数学模型                          Page 21 of 24
+
+      Varying the value of 𝑁𝐸𝑂𝐶 can bring about the following changes:
+
+
+
+
+                                                                                型
+                                                                学
+                                                                 模
+                                                         数
+               Figure 18
+
+                                         号
+                               Changes in various indicators under the influence of 𝑁𝐸𝑂𝐶
+
+                                                                 m
+       During the discrete changes of 𝑁𝐸𝑂𝐶 , the effectiveness indicator 𝐸 decreases and then
+
+                                          ：                       od
+  increases, with the inflection point around 8. Before the inflection point, all indicators are in a
+  better direction, however, when 𝑁𝐸𝑂𝐶 continues to increase, the economic indicators become
+
+                                                                    els
+  worse, resulting in worse efficiency. Corresponding to the actual rescue system, too many and too
+
+                                 众
+  few emergency rescue centers are both unscientific. From this perspective, our model can be
+  considered reasonable.
+ iii. Impact of 𝑡:
+                       公                          AT
+      微                                              H
+       信                                    M
+                                   ：
+                         号
+                信
+        微          Figure 19     Changes in various indicators under the influence of 𝑡
+       The impact of tolerance time 𝑡 on each indicator is more complex, but in general, as the
+  tolerance time increases, the effectiveness value gradually tends to stable, maintaining a high level
+  of effectiveness, and only at very small 𝑡 does the effectiveness show slightly weaker. From this
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 23 ===
+ Team # 2116496
+                                                    微信公众号：数学模型                         Page 22 of 24
+
+ law, we can conclude that when the fire is very urgent or very severe, some indicators need to be
+ sacrificed, such as increasing some economic costs in exchange for the effectiveness of the rescue.
+
+ 8. Strengths and Weaknesses
+ 8.1 Strengths
+ ⚫
+
+                                                                                型
+     Our model combines many factors to obtain a universal situation and allows for a rapid
+     response and prevention of a fire situation, depending on the size and frequency of the area.
+
+
+                                                               学
+ ⚫   We apply a number of models and algorithms, optimize them several times to achieve optimal
+     results. More satisfyingly, we do not over-emphasis the process of these algorithms, but
+
+
+                                                                模
+     describe modelling ideas in vivid that each principle is illustrated with a figure to make it
+     easier to clarify problem solving ideas.
+ ⚫   For the extreme events, we categorize them and analyze the problem in a comprehensive and
+
+ ⚫
+                                                       数
+     multifaceted way, obtaining different results as well as adaptations.
+     Our models are not only able to rescue fires that have already occurred, but also to prevent
+
+
+                                       号
+     and warn of fires in locations that may possible occur, allowing for optimal rapid rescue and
+     reducing economic losses.
+                                                                m
+ ⚫
+
+                                        ：                        od
+     The pictures in our works are beautiful, which can better show our modeling results.
+ 8.2 Weakness
+                                                                   els
+ ⚫
+                              众
+     Some of the unpredictable and unmeasured effects are ignored on our discussed elements, and
+     may bias the effectiveness function of our model, thus affecting our optimal solution.
+ ⚫
+                      公                         AT
+     For the effect of topography, we ignore the effect of economic costs due to differences in
+     topography, which may lead to changes in economic indicators.
+ ⚫
+
+      微                                            H
+     There may be some other factors that affect our model, however, we pay less attention to these
+     factors and some biases may be caused.
+
+       信
+ 9. Conclusion                           M
+      In our article, we design models for the deployment of drones and use several algorithms in
+
+                                ：
+ the modelling process to optimize our results. We develop our modelling in four steps: Forecast
+ Deployment of Front-line Personnel, Decision on the Locations of the EOCs, Deployment of
+
+                        号
+ Hovering Repeaters, Design of SSA Monitor Strategy. In each step, we analyze indicators that may
+ affect effectiveness and obtain effectiveness indicators that take into account safety, capacity,
+
+
+               信
+ economy, observability and communication. By optimizing the effectiveness indicators, we obtain
+ scenarios of drones arrangements that satisfy different situations, each in line with common sense
+ and experience of people. In addition, we classify and analyze extreme fire situations and obtain
+
+       微
+ significant economic elements for different types of extreme fires. Further, we analyze the fire
+ situation for different sizes in different terrains, optimize the 3D spatial locations of the repeaters
+ in Victoria and give clear visualization results. Last but not least, we do sensitivity analysis on
+ three parameters, verify the stability of the model and get practical guidance significance. However,
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 24 ===
+ Team # 2116496
+                                                   微信公众号：数学模型                         Page 23 of 24
+
+ due to some assumptions in our model may cause the idealization of the model to a certain extent,
+ there is still a certain gap with the reality. In the future, we still have the chance to continue to
+ optimize our model.
+
+ 10. Continue to Work
+      According to our analysis, our model can adapt well to the majority of fires, and has good
+
+                                                                               型
+ rapidity and efficient anticipation for wildfire rescue. However, our model for the type III of
+ extreme wildfire may not work as well, with less effectiveness and more economical cost. A further
+
+
+                                                              学
+ analysis of the suddenness of the fire situation can be improved in the follow-up. In addition, some
+ of the algorithms in our model can be further optimized, where better results and applicability may
+ emerge in subsequent optimization process.
+
+ 11. Reference                                                 模
+                                                      数
+ [1] M.N.H. Khan, C. Neustaedter, M. Assoc Comp, An Exploratory Study of the Use of Drones
+ for Assisting Firefighters During Emergency Situations, 2019.
+
+
+                                      号
+ [2] https://storymaps.arcgis.com/stories/9ebbe1b54dc847f2a7dd01917c9f3071
+
+                                                                m
+ [3] https://search.earthdata.nasa.gov/search?m=0!0.140625!2!1!0!0%2C2&fst0=Solid%20Earth
+ &fsm0=Earth%20Gases/Liquids
+
+                                       ：                         od
+ [4] T.K. Sarkar, M.N. Abdallah, M. Salazar-Palma, Survey of Available Experimental Data of
+ Radio Wave Propagation for Wireless Transmission, Ieee Transactions on Antennas and
+                                                                   els
+                              众
+ Propagation, 66 (2018) 6665-6672.
+ [5] https://www.sonystyle.com.cn/search.html?q=%E5%85%85%E7%94%B5%E7%94%B5%E
+ 6%B1%A0
+
+                      公                        AT
+ [6] http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=136&p_display_type=
+ dailyDataFile&p_startYear=1939&p_c=-898361640&p_stn_num=067021\
+
+
+     微                                            H
+ [7] https://phys.org/news/2020-01-qa-climate-factors-stoke-australia.html
+
+
+
+      信                                  M
+                                ：
+                       号
+               信
+       微
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 25 ===
+         Team # 2116496
+                                                             微信公众号：数学模型                     Page 24 of 24
+
+
+12. Budget Request
+To: Victoria State Government
+From: Victoria’s Country Fire Authority
+Date: February 8, 2021
+Dear Victoria State Government:
+                                                                                     型
+I am reporting to you the budget for emergency rescue of wildfires, we will give our reasons in the following report.
+
+
+                                                                         学
+According to the National Weather Service, many places in the eastern part of our country have fallen into prolonged
+droughts, including our state of Victoria. As for 2019, Australia was the hottest and driest year on record, with
+
+
+                                                                          模
+average annual temperature 2.7 degrees. However, this long-term trend of high temperature and drought has no
+intention of going away. The forest fires in the months of 2019 are not the end, but just the beginning. For us CFA,
+we need more firefighting equipment to deal with this coming terrible crisis.
+
+                                                                数
+With the rapid development of automation technology, more and more areas adopt drone monitoring and prevention
+systems for emergency fire-fighting, especially for forest wildfires, where the terrain is complex, and it is almost
+
+                                                号
+impossible to fight fires solely by humans. Therefore, we intend to combine the UAV monitoring system and field
+
+                                                                          m
+visits by front-line personnel to give full play to the advantages of both.
+
+                                                 ：
+Specific UAV systems mainly include several types of equipment:
+radio handheld equipment, radio repeaters, situational awareness           od
+                                                                             els
+                                       众
+equipment (SSA), EOC signal receiving equipment, and UAV
+maintenance equipment. The specific mechanism and the limits
+between them are shown in the right figure:
+
+                               公                         AT
+We hire a professional team to conduct a budget analysis for our
+drone system, the specific budget is shown in the tables below:
+
+              微                                             H
+This table report is based on the forest wildfire in December 2019.
+
+
+               信
+The specific payment items are used for the following purposes:
+
+                                                  M
+ An EOC is deployed in all eight areas of Victoria. The construction
+cost of each EOC is $50,000, so our infrastructure cost is $ 400,000.
+
+
+                                         ：
+ The remaining costs are mainly used for drone deployment in each
+EOC area. The form on the right has detailed total number of drones in
+each area. The unit price of the drone is $ 10,000 and the maintenance
+                                号
+cost of each is $ 50. It is predicted that 184 drones will be needed, so the
+cost of drones plus maintenance costs totals $ 1,849,200.
+
+                        信
+ For some other handheld equipment, battery requirements and EOC
+signal receiving equipment, we also estimate $ 250,000 as a budget.
+
+                微
+Add up the above three parts, the final total demand is approximately
+$ 2,500,000 (AUD) as the total equipment budget for the next year. We
+hope that the government department will approve our budget to prevent future accidents. We will do our best to
+build our drone monitoring system to protect our home from fire to the greatest extent.
+
+
+   微信号：MATHmodels                                                                                      2
+
+                                                                                              MATHmodels
+                                                                                                           关注数学模型
+
+                                                                                                           获取更多资讯

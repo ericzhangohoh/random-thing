@@ -1,0 +1,48 @@
+# Template for the chosen full private project repository.
+# Review and merge into the repository-root .gitignore; do not overwrite blindly.
+# Original PDFs, ZIP archives, datasets, source manifests and research notes stay included.
+
+# OS/editor temporary metadata
+.DS_Store
+._*
+__MACOSX/
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Credentials and machine-local configuration
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+.claude/settings.local.json
+.claude/worktrees/
+
+# Regenerable dependency/runtime caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.cache/
+
+# Temporary rendering/build work only; keep named final figures/exports
+/tmp/
+**/tmp/pdfs/
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.part
+*.crdownload
+
+# Intentionally no blanket *.pdf, *.zip, *.xlsx, *.png, *.log, runs/, or data/ rule.
+# The chosen full-project upload INCLUDES research/extracted/ text and metadata.
+# Do not exclude source manifests, dependency lockfiles, or substantive run evidence.

@@ -1,0 +1,42 @@
+# Copy into an active contest project as control/role_assignments.yaml.
+# The coordinator is the sole editor. This file is descriptive, not OS enforcement.
+schema_version: 1
+project_root: "<absolute contest project path>"
+doc_root: "<absolute HIMCM_Agent_Working_Doc path>"
+mode: independent_sessions_shared_directory
+updated_at: "<ISO-8601 timestamp with timezone>"
+assignments:
+  - role: coordinator
+    session: "<session ID or human-readable terminal label>"
+    task_ids: []
+    write_scope: ["control/", "handoffs/<assigned-task-id>/coordinator-rNN.md"]
+    state: ready
+  - role: domain-data
+    session: "<session ID or terminal label>"
+    task_ids: []
+    write_scope: ["research/", "inputs/<new-admission-only>", "data/raw/<new-admission-only>", "handoffs/<assigned-task-id>/domain-data-rNN.md"]
+    state: ready
+  - role: modeler
+    session: "<session ID or terminal label>"
+    task_ids: []
+    write_scope: ["models/", "handoffs/<assigned-task-id>/modeler-rNN.md"]
+    state: ready
+  - role: computation
+    session: "<session ID or terminal label>"
+    task_ids: []
+    write_scope: ["code/", "data/interim/", "data/processed/", "runs/<assigned-run-id>/", "handoffs/<assigned-task-id>/computation-rNN.md"]
+    exclude_write_scope: ["code/visualization/"]
+    state: ready
+  - role: independent-reviewer
+    session: "<session ID or terminal label>"
+    task_ids: []
+    write_scope: ["qa/<assigned-review-id>/", "handoffs/<assigned-task-id>/independent-reviewer-rNN.md"]
+    authored_review_targets: []
+    state: ready
+  - role: writer-visuals
+    session: "<session ID or terminal label>"
+    task_ids: []
+    write_scope: ["paper/", "figures/", "code/visualization/", "handoffs/<assigned-task-id>/writer-visuals-rNN.md"]
+    state: ready
+# Replace broad scopes with exact filenames/task subdirectories before parallel work.
+# List ALL actual session assignments; never give two sessions the same write target.

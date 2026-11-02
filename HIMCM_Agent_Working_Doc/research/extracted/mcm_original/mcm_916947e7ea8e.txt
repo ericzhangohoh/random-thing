@@ -1,0 +1,1222 @@
+=== PHYSICAL PAGE 1 ===
+Introduction                                                                                          页码，1/25
+
+
+
+
+                                           Team Control Number
+
+
+
+                                              162
+For office use only                                                                   For office use only
+
+T1 ________________                                                                   F1 ________________
+
+T2 ________________                                                                   F2 ________________
+
+T3 ________________                                                                   F3 ________________
+                                              Problem Chosen
+T4 ________________                                                                   F4 ________________
+                                                     B
+
+
+                 2006 Mathematical Contest in Modeling (MCM) Summary Sheet
+                      (Attach a copy of this page to each copy of your solution paper.)
+
+
+                        Type a summary of your results on this page. Do not include
+                      the name of your school, advisor, or team members on this page.
+
+
+
+
+                                               Summary
+
+   Although air travel today is available to most people, difficulties to access still exist. A passenger
+with a disability may encounter inconvenience to change to a different airplane. Because airline provides
+wheelchairs and escorts to serve disabilities, it will generate costs. This paper is aimed to construct the
+economical scheduling algorithm about the movement of wheelchairs and escorts throughout a day, and
+find the minimal budget costs.
+   Firstly, combining the theory of greedy method, we divide the costs into five parts, such as the cost of
+wheelchairs’ storing, the cost for making the escorts available and so on. For each part, we establish a
+cost model to estimate minimal cost. We discover the number of wheel chairs and escorts is the key to
+contribute the total costs.
+   Secondly, we determine the optimal position of pilling up wheel chairs via geometrical analysis. And
+we carry out real-time simulation the process of scheduling wheel chairs to find minimal number of
+wheel chairs and escorts.
+   Using the above optimal model, we find a feasible solution. For large airport, the minimal budget
+costs is 480,900 dollars/year, for medium airport, the minimal budget costs is 170,880 dollars/year, for
+small airport, the minimal budget costs is 60,540 dollars/year. The distinctive point in our model is that
+scheduling algorithm can work for different types of airports under high and low traffic loads.
+    Finally, we evaluate our models’ strengths and weaknesses. Then, projections of potential costs and
+needs in the future with recommendations are available in the end.
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 2 ===
+Introduction                                                                                    页码，2/25
+
+
+
+
+Project M.C.S.D.:
+Minimal Costs for Serving Disabilities
+                                             电子科技大学
+
+               倪威 2310202009               伍捷2303002001              吕信江2303002023
+
+Introduction
+   Air travel is capable to fly through multiple airports, and each stop generally requires each traveler to
+change to a different airplane. This can be especially difficult for people who are not able to easily walk
+to a different flight’s waiting area. Some airlines render services, which provide wheelchairs upon
+request, to help the handicapped people change to different flights. To ensure wheel chairs are available,
+passengers, who require help, should be encouraged to call their airline to reserve one before flight
+arrival or departure. Passengers may also request wheelchair assistance at airline ticket counters.
+   Airlines are under constant pressure to keep their costs down. Combining the theory of greedy
+method, we divide the costs into five parts: the cost of wheelchairs’ purchase, maintenance and wearing
+out, the cost for making the escorts available, the cost of wheelchairs’ storing, the cost for liability risk
+that wheel chairs left in high traffic areas when people try to move around them, and the cost of holding
+a plane which causes that potential customers may choose to avoid an airline and lead to fewer ticket
+sales.
+   Based on minimizing the above costs, our objectives are:
+   z to model the serving disabilities’ process in airdrome.
+   z to give a recapitulative overview and analysis of serving disabilities’ process.
+   z to determine where the escorts and wheel chairs should be and how they should move throughout
+       each day.
+   z to bring forward the economical dispatch algorithm and illustrate program whether suits wide
+       range of airports under a variety of circumstances or not.
+   z to give the detailed description of a scheduling algorithm.
+   z to determine all potential costs and balance their respective weights.
+   z to consider the costs for budgets planning in both the short term and long term.
+   z to consider potential costs and forecast disabilities’ needs in the future with recommendation to
+       meet future needs.
+   We propose many models to solve the problems.
+Problem Approach
+  We break the overall problem down into several smaller pieces, solve the pieces separately, and put
+the pieces together to find the overall solution.
+z Analyze the original of five parts costs mentioned above.
+z Considering the above analyzing, we need establish respective models for five parts costs.
+z Under the condition that satisfies the disabilities’ needs and minimizes the total costs, we need
+    determine the number of wheel chairs and escorts by carrying out optimal dispatch algorithm.
+Background
+General situation in airdrome
+ Airdrome’s dedication to total quality management and continuous improvement activities has made it
+a leading supplier to the global aerospace industry. Commercial and military aircraft and space programs
+the world over utilizes the design, engineering and manufacturing expertise of Airdrome. The general
+picture of common airdrome is shown in Figure1.
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 3 ===
+Introduction                                                                                    页码，3/25
+
+
+
+
+                                     Fig.1 The general picture of airdrome
+
+
+The internal structure in one of terminals
+  For general terminal, it has three parts. One is arrival level, another is concourse level, and the third is
+departure level. The picture (Figure 2) as below illustrates the internal structure.
+
+
+
+
+                                       Fig.2 the picture of inner structure
+
+
+The process of changing planes
+  Passengers travel some places through flying multiple airports. During each stop, traveler should
+deplane at the first level called arrival level. And then they walk to different flight’s concourses on the
+second level to wait. After making safety- check-up, traveler goes to the departure level to board. The
+sketch map of boarding process is shown in Figure 3.
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 4 ===
+Introduction                                                                                页码，4/25
+
+
+
+
+                                   Fig.3 the sketch map of changing plane
+
+
+Escorts
+ Escorts are employees of the airline. Their duty is to arrange wheel chairs to meet disabilities’ needs.
+They can accompany disabilities to the boarding gate if the disabilities cannot travel independently.
+Thereby, whether escorts accompany disabilities or not, depends that whether or not disability requires
+accompany.
+
+Assumptions & Hypotheses
+
+z   Holding a plane is caused by many factors, such as weather, security etc. We consider the factor
+    only if some disabilities must wait for an escort and become late for their flight.
+z   There is no space limited for wheel chairs’ storing. i.e. We can choose the space freely according to
+    our model.
+
+z   Disabilities, who require help, must notify airline at least 1 hour in advance. [8]
+z   All the disabilities need wheel chairs, and 50% of them need escort’s accompany.
+z   Look upon all the staffs that serve disabilities as escorts.
+
+z   The open time of airport is from 6:30a.m. to 10:30p.m.[12]
+z   Airplane has two types, one is big with holding 110~140 passengers, and the other is medium with
+    holding 90~110 passengers.
+
+z   Every escort works 48 hours per week. [12]
+z   The size of a wheel chair occupy 0.8m×0.8m[2]
+z   The price of a wheel chair is $300[2]
+z   The wage of a escort annually is $20,000
+
+z   The rent-fee of storing space per square meter annually is $5,500.[11]
+
+
+
+Notions
+                                            Table 1. Symbols used
+       Symbol        Unit            Definition
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 5 ===
+Introduction                                                                             页码，5/25
+
+
+
+                                                           Variables
+     f          dollar       the total costs
+                             the cost of wheelchairs’ purchase, maintenance and wearing
+     f1         dollar
+                             out
+                             the cost for making the escorts available
+     f2         dollar
+                dollar       the cost of wheelchairs’ storing
+     f3
+
+                dollar       the cost for liability risk
+     f4
+
+                dollar       the cost of holding a plane
+     f5
+
+     n          chair        the number of wheel chairs
+     n0         people       the number of escorts right to serve all the disabilities
+
+     x          percentage   the proportion that the percentage of the delaying time
+                             account for average time of flight
+                unitless     parameter of an exponential distribution
+      λ
+
+     nc         people       the number of customers in a flight
+
+
+     nd         people       the number of disabilities in a flight
+
+                m/h          velocity which escort and wheel chair moves with disability
+     v1
+
+                m/h          velocity which escort and wheel chair moves without
+     v2
+                             disability
+                                                        Constants
+                dollar       every chair has left residual value ultimately on average
+     m0
+
+                dollar       the average fee of maintaining a wheel chair
+      m
+
+     ym         year         the life length of a wheel chair on average
+
+     w          dollar       the wage of a escort annually
+     twpw       hour         working-time per week every escort
+
+
+     topd       hour         the open-time of airport per day
+
+     r          dollar       the rent-fee per square meter annually for storing space
+                             the area a wheel chair occupy
+     s0         m2
+                percentage   the special proportion to make all the customers avoid a
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 6 ===
+Introduction                                                                                               页码，6/25
+
+
+
+
+         xm                              airline
+
+
+         LAr            meter            the distance vector between Ar and boarding gates
+
+
+         LCo            meter            the distance vector between Co and arrival gates
+
+                        meter            the distance matrix between arrival gates and boarding gates
+         L1
+
+                        meter            the distance matrix between boarding gates and arrival gates
+         L2
+
+
+
+Design the model
+Costs Estimation Model
+Cost Structure
+
+¾ Direct Cost
+z Wheel Chairs
+     Considering that wheel chairs will wear out and are expensive and require maintenance, we need
+  to determine how many numbers of chairs used and adopt which depreciation method. Suppose
+      there are n wheel chairs and m dollars per wheel chair. If every chair has residual value m0 dollars
+
+      ultimately, we adopt the conventional ym-year straight-line method, so annually the depreciation
+
+      would track at about
+                                                       ( m − m0 ) / y m
+
+    Each year, the average fee of maintaining a wheel chair is m
+
+    Therefore, this part of cost f1 is
+
+                                                                          f 1 = n ⋅ ( m + m − m0 ) / y m        (1)
+z      Escorts
+         It is reasonable that some escorts are employed to manage the wheel chairs and serve customers
+      with disability. Escorts with wheel chairs must be constantly moved around the airport so that they
+      are available to the disabilities. Of course the escorts aren’t volunteers and must be paid. But
+      airlines cannot charge the disabilities for the escort’s fare. So airlines should pay the fare for escorts.
+      Suppose their average wage is w dollars annually, and every escort works t hours per day. The open
+      time is t0 hours per day when the airplanes operate.
+
+        Further more, we assume that there are n0 escorts who are just right to serve all the disabilities in
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 7 ===
+Introduction                                                                                                        页码，7/25
+
+
+
+       some interval. Suppose that there are seven days in a week, and one month is made up of four
+     weeks and twelve months constitute a year (actually, there is no influence.).
+        Therefore, this part of costs f2 is
+
+                                                            w
+                                             f2 =                    ⋅ n0 ⋅ t opd ⋅ 7 ⋅ 4 ⋅ 12
+                                                      t wpw ⋅ 4 ⋅ 12
+
+                                       w ⋅ n0 ⋅ 7 ⋅ t opd
+                                   =
+                                              t wpw                                  (2)
+
+ where twpw is working-time per week every escort (48h/week)
+
+       topd is the open-time of airport per day (12h/day)
+
+
+z     Store
+        As all we know, the wheel chairs must be stored when they are at leisure. And at most airdrome,
+     space is expensive and severely finite. Considering the size of space is depended on the number of
+     wheel chairs, we minimize the size of space by minimizing the number of wheelchairs. The rent-fee
+     is r dollars per square meter annually. A wheel chair occupy s0 square meter.
+
+        Therefore, this part of cost f3 is
+
+                                                                                                 f 3 = r ⋅ s0 ⋅ n        (3)
+
+    But in fact, it is impossible that the space just holds all the wheel chairs, and there must be some
+  additional space left.
+¾ Indirect Cost
+      z Liability risk
+   If wheel chairs are piled up on the high traffic areas, it can probably hurt some customers, which
+causes high costs. So we should make our effort to take some proper measures, to avoid the liability risk.
+However, no matter which measure we take, this part of cost can’t be avoided completely. It is
+reasonable to insure it against risk.
+    Nevertheless, we denote the cost caused by liability risk f4.
+
+       z Hold a plane
+    Without considering the factor of weather, the cost f5 of holding a plane if some disabilities must wait
+
+for an escort and becomes late for their flight. Then it can affect the airline’s average flight delay, which
+can lead to fewer ticket sales as potential customers may choose to avoid an airline.
+   Under ideal situation, suppose that when the percentage of the delaying time accounting for average
+time of flight (we define the proportion as x) attains some value, all the customers will avoid this airline.
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 8 ===
+Introduction                                                                                   页码，8/25
+
+
+
+ Linear Model
+   We define the percentage of actual ticket sales volume accounting for ticket sales volume when no
+airplane delays as y. Considering only the delaying influence caused by disabilities, we suppose that
+airplane doesn’t have any delay, the ticket sales won’t be influenced at all, i.e. y =100%. If the
+percentage of the delaying time accounting for average time of flight (we define the proportion as x)
+attains some value xm, all the customers will avoid this airline, then y = 0%.
+
+  Supposing that y decreasing with x is linear, we give the equation:
+                                                                           y = 1 − x / xm               (4)
+
+  And sketch map as follow:
+
+
+
+
+                                 Fig.4 The sketch map of Straight-line Model
+
+
+  Nonlinear Model
+   Straight-line Model is very ideal situation, which can’t reflect the fact, so we need refine the model to
+reflect limited decrease. According to the basic common sense, initially, the decrease average time of
+holding a plane can’t influence ticket sales obviously, so the curve is not sensitive with the change of x,
+and when x trends to xm, the curve is also not sensitive with the change of x. Now the Differential
+
+Equation gives
+
+
+
+
+                                  Fig.5 The sketch map of refining the Model
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 9 ===
+Introduction                                                                                             页码，9/25
+
+
+
+
+                                                                                        dy
+                                                                                           = kx
+                                                                                        dx                    (5)
+
+                                                                     k = r ( x − x m ),            r>0        (6)
+
+where r is a constant. Substitute (6) into Equation (5) leads to
+                                                                                dy
+                                                                                   = r ( x − xm ) x
+                                                                                dx                            (7)
+
+or
+                                                                              dy = r ( x − x m ) x dx         (8)
+
+Again we assume the initial condition y (0) = 1 and y ( x m ) = 0
+which integrates to
+
+                                                                            ∫ dy = ∫ r ( x − x ) xdx
+                                                                                               m              (9)
+or
+                                                                             1 3 1
+                                                                     y=        rx − rx m x 2 + C
+                                                                             3     2                         (10)
+
+for some arbitrary constant C. Using the initial condition,
+                                                                    6
+                                                              r=
+                                             C =1     and          x m3 .
+
+We can obtain
+                                                                                2 3 3 2
+                                                                        y=          x − 2 x +1
+                                                                               x m3    xm                    (11)
+
+Analyzing the above-mentioned, we calculate this part cost f5 is
+
+                                                                                f 5 = f 0 ⋅ (1 − y )         (12)
+
+where f0 is annual ticket sales income which is a constant.
+
+Aggregates costs
+The total costs
+                                                                     f = f1 + f 2 + f 3 + f 4 + f 5          (13)
+
+Our Model’s goal is
+                                                    min f
+
+According to the theory of greedy method, we consider the situation shown as follow:
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 10 ===
+Introduction                                                                                    页码，10/25
+
+
+
+Analysis of Structure and Weight of Cost
+ As this paper described, the costs contain
+z f1: the cost of wheelchairs’ purchase, maintenance and wearing out
+z f2: the cost for making the escorts available
+z f3: the cost of wheelchairs’ storing
+z f4: the cost for liability risk that wheel chairs left in high traffic areas when people try to move
+    around them
+z f5: the cost of holding a plane which causes that potential customers may choose to avoid an airline
+    and lead to fewer ticket sales.
+ Among these five types of costs, f4 and f5 are most big costs. The former is caused by accidental injure
+
+and even life loss, which is difficult to measure. The latter is caused by holding plane, the biggest costs,
+will influence the ticket sales.
+ By comparison, f1 and f2 are the lower costs. But obviously, f3, f5 are dependent on f1 and f2. If f1 and
+
+f2 increase, f3 will increase along, but f5 will decrease. In other words, f5 is more sensitive than f1 and f2.
+
+It’s wonderful to reduce f5 dramatically via enhancing properly f1 and f2.
+
+ In the short term, if cutting down the number of wheel chairs and escorts, the costs f1, f2 and f3 would
+
+decrease, and f5 is not sensitive with the change. It seems that the total costs would decrease.
+
+ Actually, in the long term, after some period of time, the cost f5 is sure to increase according to the
+
+                     3      2
+         f5 = f0 ⋅ ( 2 x2 − 3 x3 )
+function            xm     xm
+
+Detailed Analysis of Costs
+¾ Where Wheel Chairs Are Stored
+
+
+
+
+                               Fig. 6 The real figure of concourses in some airport
+  When the number of wheel chairs is constant, no doubt that pilling up wheel chairs in proper position
+will shorten the time of wheel chairs’ scheduling. The efficiency will increase, which reduce the costs
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 11 ===
+Introduction                                                                                   页码，11/25
+
+
+
+  indirectly. Thereby, the proper position determined is also the key.
+  We abstract the practical map (Figure.6) into simplified one.
+z Two Types of Distribution of Gates
+ Only one side
+    Suppose boarding or arrival gates distribute on only one side in a level.
+Theorem 1 For Rectangle ACDE, there must exist Point O which superposes Point B, which can make
+the distance of | OA | + | OB | + | OC | shortest.
+
+
+
+
+                                                 Fig.7 Rectangle ACDE
+
+
+Proof. Suppose Point O is not the optimal point which can make the distance of | OA | + | OB | + | OC | is
+
+the shortest, then we choose Point O’ randomly, which is other than O.
+Obviously,
+                                                | O ' A | + | O ' C |>| AC |
+
+then
+                                | O ' A | + | O ' B | + | O ' C | > | OA | + | OB | + | OC |
+
+Therefore, Point O is optimal.□
+
+  If we place at B, obvious B is in high traffic areas, which represents a liability risk as people try to
+move around them. Thereby, Point O is optimal theoretically, but it can probably cause liability risk. It
+can hurt some customers, which causes high costs.
+  In order to solve the problem, we consider place in some lower traffic areas, such as Point D or E. But
+the scheduling time will increase.
+
+ Two sides and even multi-sides
+  Suppose boarding or arrival gates distribute on two sides or multi-sides on a level.
+Theorem 2 For Rectangle ACDF, there must exist Point O in the center of ACDF, which can make the
+distance of | OA | + | OB | + | OC | + | OD | + | OE | + | OF | short- est.
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 12 ===
+Introduction                                                                                 页码，12/25
+
+
+
+
+                                                         Fig.8 Rectangle ACDF
+
+
+Proof. As the same way, suppose Point O is not the optimal point which can make the distance of
+
+| OA | + | OB | + | OC | + | OD | + | OE | + | OF | is the shortest, then we choose Point O’ randomly, which
+
+is other than O.
+Obviously,
+                                                        | O ' A | + | O ' D |>| AD |
+
+                                                         | O ' B | + | O ' E |>| BE |
+
+                                                        | O ' C | + | O ' F |>| CF |
+
+i.e. | O ' A | + | O ' B | + | O ' C | + | O ' D | + | O ' E | + | O ' F |
+
+                             > | OA | + | OB | + | OC | + | OD | + | OE | + | OF | .
+
+Therefore, Point O is optimal.□
+Based on the above analysis, we should store wheel chairs in the center of the space.
+
+¾ Scheduling Model
+z Information system
+   This part is core, which is “CPU” of the whole scheduling process.
+
+
+
+
+                                                     Fig.9 The information system
+z Epsilon Airlines’ plane Arrival
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 13 ===
+Introduction                                                                                      页码，13/25
+
+
+
+  In some practical scheduling, we can know the time of airlines’ arrival. But in simulation, we must
+generate some random numbers regularly to simulate the real situation.
+   Suppose that the number of events that airplanes arrive in any time interval of length t has a Poisson
+distribution with parameter α t (where α , the rate of the arrival process, is the expected number of
+airplanes arriving in 1 unit of time) and that numbers of occurrences in non-overlapping intervals are
+independent of one another. Then the distribution of elapsed time between the occurrence of two
+successive arrivals is exponential with λ = α .
+  Exponential Distribution
+  This problem is a large number of arriving-time, which has an exponential distribution with parameter
+λ . The density function is
+                                                                             ⎧λ e − λ t , t > 0
+                                                                    f (t ) = ⎨
+                                                                             ⎩0         ,t ≤ 0         (14)
+Where, the expectation is 1 / λ .
+The time-interval of airplanes arriving one by one are T1 , T2 , Λ , Ti , Λ respectively, which are
+independent on each other, and obey an exponential distribution with parameter λ .
+  The estimation of λ
+In the period of time, if total numbers of airplanes arrived is n p , and the time interval between the ith
+and the (i+1)th airplane arriving is t i , then we can make a cursory estimate for λ
+                                                                                        np
+
+                                                                                  ∑t
+                                                                               1 i =1 i
+                                                                      E (Ti ) = =
+                                                                               λˆ  np                  (15)
+
+z Forecast The Number of Passengers With Disability
+  In some practical scheduling, we can know numbers of disabilities who need service. But under
+simulation, similarly, we must generate some random numbers regularly.
+  Usually, there may be some disabilities in a flight, which we assume is ω % of the whole customers.
+
+  Then we obtain
+                                                                           n d = nc ⋅ ω %              (16)
+
+where nc is the number of customers in a flight
+
+          nd is the number of disabilities in a flight
+
+  Besides, we can’t predict the number of customers who need escorts. The number ξ is influenced by
+many unforeseen random variables, according to Central Limit Theorem, ξ obeys the normal
+distribution N (ξ ; μ , σ ) .
+
+z The estimation of μ and σ
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 14 ===
+Introduction                                                                             页码，14/25
+
+
+
+
+According to 3σ -principle,
+
+
+
+
+                                            Fig.10 The normal curve
+
+                                         P(| ξ − μ |≤ 3σ ) ≈ 0.9974 → 1
+
+We assume the initial condition
+                                                                          ⎧μ + 3σ = nd
+                                                                          ⎨
+                                                                          ⎩μ − 3σ = 0         (17)
+Solve this equations set,
+                                                  ⎧μ = nd / 2
+                                                  ⎨
+                                                  ⎩σ = nd / 6
+
+Rewrite, ξ obeys the normal distribution N (ξ ; nd / 2, n d / 6) .
+z Determine distance
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 15 ===
+Introduction                                                                                页码，15/25
+
+
+
+
+                                        Fig.11 The sketch map of airport
+  There are many concourses A, B, C, D,……, every concourse has many boarding gates, such as A1,
+A2, A3,……, B1, B2, B3,……and so on. At the same time, there are many arrival gates α,β,γ,…….
+The position of storing on arrival level is Ar, and the position of storing on concourse level is Co.
+We denote the distance vector between Ar and boarding gates
+                              L Ar = (| Ar A1 |, | Ar A2 |, Λ , | Ar B1 |, | Ar B2 |, Λ )
+                                                                                        T
+
+
+
+the distance vector between Co and arrival gates
+                                       LCo = (| C oα |, | C o β |, | C o γ |,Λ )
+                                                                               T
+
+
+
+the distance matrix between arrival gates and boarding gates
+                                  ⎛ | αA1 | | αA2 | Λ | αB1 | | αB2 | Λ ⎞
+                                  ⎜                                         ⎟
+                                  ⎜ | β A1 | | β A2 | Λ | β B1 | | β B2 | Λ ⎟
+                             L1 = ⎜ Μ            Μ Ο        Μ        Μ Ο⎟
+                                  ⎜                                         ⎟
+                                  ⎜ | γA1 | | γA2 | Λ | γB1 | | γB2 | Λ ⎟
+                                  ⎜ Μ            Μ Ο        Μ        Μ Ο ⎟⎠
+                                  ⎝
+the distance matrix between boarding gates and arrival gates
+                                 ⎛ | A1α | | A2α | Λ | B1α | | B2α | Λ ⎞
+                                 ⎜                                         ⎟
+                                 ⎜ | A1 β | | A2 β | Λ | B1 β | | B2 β | Λ ⎟
+                            L2 = ⎜ Μ           Μ Ο        Μ        Μ Ο⎟
+                                 ⎜                                         ⎟
+                                 ⎜ | A1γ | | A2 γ | Λ | B1γ | | B2 γ | Λ ⎟
+                                 ⎜ Μ           Μ Ο        Μ        Μ Ο ⎟⎠
+                                 ⎝
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 16 ===
+Introduction                                                                               页码，16/25
+
+
+
+Numerically,
+                                                     L1 = L2 .
+
+Further more, we must definition two velocities
+v1 ：velocity which escort and wheel chair moves with disability
+
+v2 ：velocity which escort and wheel chair moves without disability
+
+Obviously,
+                                                     v1 < v 2 .
+
+Thus, we transfer distance into time as follows
+the time vector from Ar to boarding gates
+                                                                                       T
+                                    ⎛| A A | | A A | |AB | |AB | ⎞
+                            T Ar = ⎜⎜ r 1 , r 2 , Λ , r 1 , r 2 , Λ ⎟⎟
+                                    ⎝ v2        v2    v2     v2      ⎠
+the time vector from Co to arrival gates
+                                                                              T
+                                           ⎛| C α | | C β | | C γ | ⎞
+                                    TCo = ⎜⎜ o , o , o , Λ ⎟⎟
+                                           ⎝ v2        v2      v2   ⎠
+the time matrix from arrival gates to boarding gates
+
+                                  ⎛ | αA1 |   | αA2 |         | αB1 |    | αB 2 |      ⎞
+                                  ⎜                      Λ                          Λ⎟
+                                  ⎜ v1            v1              v1         v1        ⎟
+                                  ⎜ | βA1 |   | β A2 |        | β B1 |   | β B2 |      ⎟
+                                  ⎜                      Λ                          Λ⎟
+                             T1 = ⎜ v1            v1              v1         v1
+                                                                                       ⎟
+                                  ⎜ Μ              Μ     Ο         Μ          Μ     Ο⎟
+                                  ⎜ | γA1 |    | γA2 |
+                                                         Λ
+                                                               | γB1 |    | γB2 |
+                                                                                    Λ⎟
+                                  ⎜ v1            v1              v1         v1        ⎟
+                                  ⎜ Μ              Μ     Ο         Μ          Μ     Ο ⎟⎠
+                                  ⎝
+
+the time matrix from boarding gates to arrival gates
+
+                                 ⎛ | A1α |    | A2α |         | B1α |    | B2α |       ⎞
+                                 ⎜                       Λ                          Λ⎟
+                                 ⎜ v2            v2              v2         v2         ⎟
+                                 ⎜ | A1 β |   | A2 β |        | B1 β |   | B2 β |      ⎟
+                                 ⎜                       Λ                          Λ⎟
+                            T2 = ⎜ v 2           v2              v2         v2
+                                                                                       ⎟
+                                 ⎜ Μ              Μ      Ο        Μ          Μ      Ο⎟
+                                 ⎜ | A1γ |    | A2 γ |
+                                                         Λ
+                                                              | B1γ |    | B2 γ |
+                                                                                    Λ⎟
+                                 ⎜ v2            v2              v2         v2         ⎟
+                                 ⎜ Μ              Μ      Ο        Μ          Μ      Ο ⎟⎠
+                                 ⎝
+
+Scheduling Process
+ Since we want to confirm the proper number of wheel chairs n and the number of escorts n0, there may
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 17 ===
+Introduction                                                                                  页码，17/25
+
+
+
+be many solutions satisfied. But when we consider the costs of wheel chairs, the rent-fee of their storing
+space and escorts’ wage, there is only one optimal solution.
+   Some disabilities need escorts’ accompany, but others not. So, there are quantities of wheel chairs left
+on the concourse level. Thus, we must arrange some staffs to transfer the wheel chairs on the concourse
+level to the arrival level in time. In fact, in order to improve the efficiency, we can bring some advanced
+devices to help complete this work.
+
+¾ Algorithm Detailed Idea
+   On Arrival level and Concourse Level locates space for piling up wheel chairs. Our algorithm is
+aimed to determine how to schedule the escorts and wheel chairs so that every disability can get wheel-
+chair service.
+   When every disability who reserve in advance arrives at arrival gates, he or she must obtain a wheel
+chair, but he or she has right to choose whether to need escort or not. In fact, at some specific time, he or
+she doesn’t obtain service immediately. Only if serving him or her at some time domain, thus it meets
+requirement.
+   Once on wheel chair, he or she goes to concourse directly. Of course, when one goes to concourse,
+another disability may be served. Besides, we schedule free wheel chairs from concourse level to arrival
+level at some frequency.
+   In this scheduling process, we need make some supplements as follows:
+   Escorts return arrival level after escorting disability to concourse;
+   The free wheel chairs are piled at appointed position;
+   The number of wheel chairs from concourse level to arrival level one time is constant.
+   In a word, the key of algorithm is to find the proper number of wheel chairs n and the number of
+escorts n0, so that the corresponding cost is minimal and disabilities’ requirement is satisfied.
+
+
+¾ Figure presents the intuitive summary of how our model works.
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 18 ===
+Introduction                                                                                   页码，18/25
+
+
+
+
+                  Fig.12 The schematic depicting the steps occurring in the Scheduling Model
+
+
+Where n is the number of wheel chairs
+       n0 is the number of escorts
+
+       n’ is times that the given number of wheel chairs on the concourse level transferred to the arrival
+          level at unit interval
+Model Results
+z Real-time simulation the process of flights’ arriving
+  According to the actual data of SYDNEY AIRPORT [9], we estimate the parameter λ =42 min for the
+
+time-interval of airplanes arrival obeying an exponential distribution.
+  The simulation gives the number of disabilities arrival at specific time for different types of
+    airdromes (large airport, medium airport and small airport). Figures of the simulation are shown in
+    Figure.13~15
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 19 ===
+Introduction                                                                                     页码，19/25
+
+
+
+
+                     Fig.13 The figure of the number of disabilities arrival for small airport
+
+
+
+
+                   Fig.14 The figure of the number of disabilities arrival for medium airport
+
+
+
+
+                     Fig.15 The figure of the number of disabilities arrival for large airport
+
+
+ Analyzing the figure of the number of disabilities, we obtain the distribution of disabilities flow on
+  the different sections of time-interval. The figures of distribution for different types of airdromes
+  are shown as follows:
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 20 ===
+Introduction                                                                                        页码，20/25
+
+
+
+
+                    Fig.16 The figure of the distribution of disabilities flow for small airport
+
+
+
+
+                   Fig.17 The figure of the distribution of disabilities flow for medium airport
+
+
+
+
+                     Fig.18 The figure of the distribution of disabilities flow for large airport
+From the above-figures, we can obtain the disabilities flow at peak time and at low time.
+
+z Simulating the entire working dispatch in a day
+  For different types of airdromes, by scheduling algorithm for wheel chairs and escorts we obtain the
+number of wheel chairs and escorts in different time-interval during a day. The table is shown as below:
+
+                            Table2. The optimal number of wheel chairs and escorts in
+                              different time-interval for different types of airdromes
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 21 ===
+Introduction                                                                                                 页码，21/25
+
+
+
+
+                                    Small Airport           Medium Airport              Large Airport
+              Time (h)        Wheelchairs     Escorts    Wheelchairs     Escorts    Wheelchairs    Escorts
+              6:00~7:00              4              4         13            11          69              57
+              7:00~8:00             13              11        24            19          74              51
+              8:00~9:00             10              9         35            30          92              55
+             9:00~10:00             11              9         26            22          58              36
+            10:00~11:00              4              3          8             4           7              6
+            11:00~12:00              5              5         14            11          67              35
+            12:00~13:00              0              0          7             6          20              14
+            13:00~14:00              0              0          0             0           0              0
+            14:00~15:00              2              3         19            16          43              23
+            15:00~16:00              3              2         20            16          83              48
+            16:00~17:00              5              3         14            11          29              26
+            17:00~18:00              0              0          4             2           7              1
+            18:00~19:00              7              6         36            20          105             68
+            19:00~20:00              0              0          0             0           0              0
+
+
+
+
+z Budget Costs
+ From different types of airdromes perspective, the budget costs is shown as follows:
+                                                         Table 3.
+                                            Costs for different types of airports
+                               f1              f2             f3              f4              f5              f
+                          (dollars/year) (dollars/year) (dollars/year) (dollars/year) (dollars/year) (dollars/year)
+        Small airport         780           14,000         45,760             0               0             60,540
+      Medium airport         2,160          42,000        126,720             0               0          170,880
+        Large airport        6,300          105,000       369,600             0               0          480,900
+
+
+Why our cost is the lowest?
+  Firstly, in our scheduling process, we simulate the real-time scheduling, to find the indispensable
+number of escorts and wheel chairs. Thus, we can almost avoid holding a plane. That is to say, event { f5
+
+> 0} is a small probability event.
+  Secondly, if hurting some customers, which causes high costs. In our work, we consider place in
+some lower traffic areas to avoid liability risk, so f4 is very small.
+
+  Thus, f1, f2, f3 make mainly up of the total costs, which are indispensable. By the real-time scheduling
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 22 ===
+Introduction                                                                                   页码，22/25
+
+
+
+
+    algorithm, we can find the optimal number of escorts and wheel chairs. i.e. f1, f2, f3 are optimal.
+
+Projects In the Future
+
+   In the future, as populations begin to include a higher percentage of older people who have more time
+to travel but may require more aid. According to United Nation projections, by the year 2025, there are
+over 50 percent of people over 60 years of age have a disability in Western Australia. Therefore, we can
+convert older people to disabilities according to specific ratio to the parameters.
+   We conclude providing the needs for disabilities by airlines in the future:
+z Airlines provide guides for people with disabilities
+z Airlines provide medical for the disabilities. And the equipment that may not be brought on board is
+    an oxygen supply. Passengers may use the aircraft’s supply and a reasonable charge may be
+    assessed.
+z Airlines provide boarding assistance to passengers with disabilities by providing a mechanical lift or
+    other device.
+z Airlines must allow passengers with disabilities to store canes and other assistive devices close to
+    their seats and cannot count this equipment toward the limit on the number of carry-on items and
+    space in the airplane.
+z On request, airlines must make available to any disabilities the following information about the
+    aircraft:
+  The location of seats with movable aisle armrests
+  Any limitations on the airplane's ability to accommodate passengers with disabilities
+  Any limitations on the availability of storage facilities for assistive devices
+  Whether the airplane has an accessible lavatory
+ According to above-needs items, we give some suggestions to meet future needs. From Epsilon airlines
+perspective, they should adopt reasonable scheduling effective facilities and staffs, which are mentioned
+above in our models, to keep their costs down. And considering each part the potential costs which are
+generated by airlines’ providing, we similarly borrow ideals from theory of greedy method to minimize
+every part costs. By minimizing separate costs of each part, we obtain the minimal total costs and
+scheduling the process of serving disabilities. It can meet future needs.
+
+Strengths
+  The model does a good job to simulate the real-time process of scheduling wheel chairs after
+  airplane arriving.
+ The scheduling algorithm can work a wide range of airports under a variety of circumstances. And
+  the program is flexible enough to work for any size airdromes; it not specific to the individual
+  routes.
+ We adopt very skilled methods to obtain airplane arriving time-interval distribution; sequentially
+  we obtain people flow distribution.
+ The optimization algorithm runs very quickly.
+Weaknesses
+ The greatest weakness of this model is that it assumes that disabilities who ask for wheel chairs
+  must notify the airline in advance.
+ We only construct the scheduling algorithm to approximately estimate the costs and the number of
+  wheel chairs and escorts.
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 23 ===
+Introduction                                                                              页码，23/25
+
+
+
+Improvements in the Model
+  Our models need plentiful statistic data. With precise size of airport, the number of passengers, the
+rent-fee and so on, we could apply them into practical situation.
+ With sufficient information, we could use these models to create a simulation of a scheduling process.
+Future more, we could compute more practical costs.
+
+References
+[1] Jay L. Devore. 2004. Probability and Statistics For Engineering and The Sciences (Fifth Edition).
+Thomson Learning.
+[2] Price of a1 electric wheelchairs. http://www.a1-electric-whee lchairs.com/Wheel -chairs.htm
+[3] Denpasar Bali international flight schedule. http://www.baliblog.com/05-12/ denpasar- bali -
+   international-flight-schedule.html
+[4] The disabilities’ flow at ASD airport. http://accessandiego.org/event_detail.asp?
+   event=1429&event_type=1
+[5] Bureau of Transportation Statistics. http://www.transtats.bts.gov/
+[6] United Airlines Reports Record-High October Traffic Results. http://sev.prnews- wire.com/airlines-
+   aviation/20041104/CGTH05904112004-1.html
+[7] Air Travel Consumer Reports for 2006. http://airconsumer.ost.dot.gov/reports /atcr06. htm
+[8] Accessible Air Travel. http://www.unitedspinal.org/pages.php?catid=7&pageid =236&subtitle=
+   Accessible%20Air%20Travel&anchor#001
+[9]              Flight              Information             of             Sydney              Airport.
+   http://www.sydneyairport.com.au/SACL /Flight+Info/International+Arrivals/
+[10] Sale Revenue of Pinnacle Airlines Corp in 2004. http://www.hoovers.com /pinnacle-airlines/--
+   ID__105760--/free-co-factsheet.xhtml
+[11] The land-value in Los Angeles, California.
+   http://www.loopnet.com /Attachments /3 /A/9/3A9C9E50-D897-4D72-A216-10AB8DC3C305.pdf
+[12] The working-time for staffs in airport.
+   http://www.ndsu.nodak.edu/hr/hrinfo/sup_faq_refguide_hours.shtml
+
+
+
+
+Appendix
+clear all;
+n=input('the type of the airfield:');
+t_arr(1,:)=[50 2 69 15 19 24 14 33 12 85 25 183 85 15 5 155 0 10];
+t_arr(2,:)=[16 20 70 2 24 60 0 16 50 90 64 120 28 35 10 140 20 30];
+t_arr(3,:)=[10 10 50 35 1 26 54 32 29 100 34 190 3 18 10 170 6 20];
+%Time interval of airplanes at different airports
+for j=1:3
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 24 ===
+Introduction                                                               页码，24/25
+
+
+
+   tt(j,1)=6;
+   for kk=2:19
+      tt(j,kk)=tt(j,kk-1)+t_arr(j,kk-1)/60;
+   end
+end
+   if n==1
+      T(1,:)=tt(1,:);
+   elseif n==2
+T(1,:)=[tt(1,:),tt(2,:)];
+else
+   T(1,:)=[tt(1,:),tt(2,:),tt(3,:)];
+end
+T(1,:)=sort(T(1,:));
+   for k=2:length(T(1,:))
+      r=randperm(100);
+      if find(r==1)<35 % The probability of big-planes
+   ko=randperm(30);
+   T(2,k)=0;
+   for nm=1:(ko(20)+110);
+  ko1=randperm(20); % The probability of the people who need wheelchairs
+      if ko1(4)==1
+         T(2,k)=T(2,k)+1;
+      end
+   end
+else
+   ko=randperm(20);
+   T(2,k)=0;
+    for nm=1:(ko(20)+90);
+ ko1=randperm(20);% The probability of the people who need wheelchairs
+      if ko1(4)==1
+         T(2,k)=T(2,k)+1;
+      end
+   end
+end
+end
+T(2,1)=0;
+subplot(2,1,1)
+bar(T(1,:),T(2,:))
+hold on;
+plot(T(1,:),T(2,:),'x')
+xlabel('TIME (hour)'); ylabel('number ');
+% The first line of the matrixT shows the arrival time of the planes
+% The second line of T shows the number of disabilities at the very time
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26
+
+
+=== PHYSICAL PAGE 25 ===
+Introduction                                                            页码，25/25
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ddt=1;ts_n=1;
+for ts=6.5:ddt:20
+ sum=0;
+   tr=find(T(1,:)>=ts&T(1,:)<ts+ddt);
+   if length(tr)==0
+       Q_av(ts_n)=0;
+   else
+       for jk=1:length(tr)
+sum=sum+T(2,tr(jk));
+end
+Q_av(ts_n)=sum/ddt;
+end
+ts_n=ts_n+1;
+end
+subplot(2,1,2)
+ts2=6.5:ddt:20;
+bar(ts2,Q_av)
+xlabel('TIME (hour)'); ylabel('flow (n/hour)');
+%%%%%%%%%%%%% Flow of disabilities at different time quantum
+v1=0.5*3600;v2=0.8*3600;x=5;
+if n==1
+   l1=500;
+else
+   l1=(n-1)*2*500;
+end
+   for j=1:length(Q_av)
+   m1=0;
+   if Q_av(j)~=0
+for hj=1:ceil(Q_av(j))
+   xc=randperm(2);
+   if xc(2)==2
+      m1=m1+1;
+   end
+end
+end
+n_wheels(j)=ceil(2*l1*Q_av(j)/v1);
+n_escorts(j)=ceil(2*m1*l1/v1+2*Q_av(j)*v1/(v2*x));
+end %%%%%%%% Simplified scheduling
+n_wheels
+n_escorts %%%%%%%% Show the results
+
+
+
+
+http://202.115.21.138/wlxt/ncourse/model/web/math/front/StudyArea/mht... 2007-10-26

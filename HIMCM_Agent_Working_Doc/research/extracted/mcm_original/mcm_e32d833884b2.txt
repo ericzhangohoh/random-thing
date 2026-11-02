@@ -1,0 +1,1056 @@
+=== PHYSICAL PAGE 1 ===
+                                       Team Control Number
+
+
+
+                                        4339
+      For office use only                                              For office use only
+      T1 ________________                                              F1 ________________
+      T2 ________________                                              F2 ________________
+      T3 ________________                                              F3 ________________
+                                           Problem Chosen
+      T4 ________________                                              F4 ________________
+                                                  A
+
+
+            2009 Mathematical Contest in Modeling (MCM) Summary Sheet
+                (Attach a copy of this page to each copy of your solution paper.)
+
+
+                    Three steps to make the traffic circle go round
+
+Among all the solutions to maneuver vehicles at intersections is the traffic circle, designed by
+French architect as early as 1877. Nowadays, with the growing number of population,
+reconfigurations of traffic control devices at traffic circles are in urgent need. Despite the physical
+reconstruction, we are modeling to best control the traffic by add-ons: signal lights, stop/yield
+signs and orientation signs – a special sign designed in this article.
+
+First of all, we create two models - a macroscopic and a microscopic - to simulate transportations
+at traffic circles, assuming the information of add-ons are given. The former models the problem
+as Markov chain and solves in some other way, and the latter simulates the traffic by individual
+vehicles – a “cellular-automata like” model.
+
+Secondly, we introduce the multi-objective function to evaluate the control. Saturated capacity,
+average delay, equity degree, accident rate and device cost are taken into account as five aspects,
+and combined into a cost with US dollar / hour as its unit.
+
+Thirdly, we analyze the optimization problem of how to best choose the add-ons. Three steps are
+used to make the traffic circle go round:
+1) basic devices like lights and signs are optimally placed;
+2) orientation signs to lead vehicles into proper lanes are optimally set up;
+3) endow with self-adaptivity to allow the traffic auto-adjust according to different traffic demands
+
+Throughout this article the 6-arm-3-lane Sheriffhall
+Roundabout in Scotland has been examined. Detailed
+suggestion on the traffic control in this circle has been given.
+Lights are assigned with a 68-second period, and a sample
+orientation sign is given as the figure to the right.
+
+Some smaller and larger dummy circles have been tested to verify the strength and sensitivity.
+Emergency cases have also been appended to judge the flexibility.
+
+
+=== PHYSICAL PAGE 2 ===
+Team #4339                                                                  Page 1 of 23
+
+
+
+
+      Three Steps to Make the Traffic Circle Go Round
+                                    Team #4339
+                                  February 10th, 2009
+
+
+
+Contents
+Introduction ________________________________________________________ 2
+Assumption ________________________________________________________ 2
+Terminology & Basic Analysis _________________________________________ 3
+  Terminology ______________________________________________________________ 3
+  A Glance at Sheriffhall Roundabout __________________________________________ 3
+Simulation Model ___________________________________________________ 5
+  Model I - The Macroscopic Simulation _______________________________________ 5
+  Model II – The Microscopic Simulation _______________________________________ 7
+  Comparison of Two Simulation Models and Sensitivity Analysis __________________ 8
+The Multi-Objective Function_________________________________________ 10
+  Basic Standards __________________________________________________________ 10
+  How are the Objectives Affected ____________________________________________ 10
+  The Combined Objective: The Money We Lost _______________________________ 11
+  Application: Evaluate Typical Arrangements _________________________________ 12
+Optimization Model _________________________________________________ 14
+  The All-Purpose Solution __________________________________________________ 14
+  Step 1 – Basic Device Placement & Timestamp Chosen _________________________ 14
+  Step 2 – Orientation Sign Placement ________________________________________ 16
+  Step 3 – Time Variance & Self Adaptivity ____________________________________ 18
+  Verification of Optimization Model _________________________________________ 18
+    The Circle is In Work __________________________________________________________ 18
+    Accuracy ____________________________________________________________________ 19
+    Sensitivity ___________________________________________________________________ 19
+    Emergency Case ______________________________________________________________ 20
+The Technical Summary _____________________________________________ 21
+Conclusion ________________________________________________________ 22
+Reference _________________________________________________________ 23
+
+
+=== PHYSICAL PAGE 3 ===
+Team #4339                                                                                Page 2 of 23
+
+
+                                          Introduction
+
+Traffic control assures the safety and efficiency of transportation. It has been proved that the
+traffic circle is a decent solution to the traffic flow passing a node – either a busy conflux or a
+small scale crisscross. Should a traffic circle be accompanied with appropriate assistant devices,
+the whole control system would possibly perform better.
+
+To derive traffic factors from data, we develop two different models to simulate the flow. The
+macro-model uses a Markov process to move vehicles between junctions, while the micro-model
+concentrates on the behavior of each vehicle with a modified cellular automata algorithm. The
+outcomes of these two approaches show great consistency when applied to a real scenario in
+Scotland.
+
+At the same time, we must visualize the abstract definition of a “good” method. The annoyance
+from delay, the threat from accident and other aspects concerned serve as various objectives of the
+total effectiveness and make a thorough criterion complicated. Finally we choose five main
+objectives and combine them with an overall measure called the combined expense.
+
+In our pursuit of optimization, genetic algorithm is employed to generate the final control method.
+Not only has it solved the problem on determining the green light period, the orientation signs are
+also employed to direct the vehicles in order to save time. Moreover, the complexity of the
+problem itself brings indefinite results. We also consider the ability to treat with unexpected affairs
+like accidents or car breakdowns, which offer insight observations on the quality of the result.
+
+We eventually come up with a concise technical summary explaining how our model works and
+giving the answers under typical conditions.
+
+
+                                          Assumption
+    The geometric design of the traffic circle cannot be changed.
+    The traffic circle is a standard one (at grade) with all lanes on the ground, that is, no grade
+     separation structure.
+    The incoming vehicle flow in a period we study (e.g. 24 hours) is known.
+    People drive on the left (since the example analyzed later is from the UK)
+    Since we are considering the traffic flow, the pedestrians are ignored. In fact, the model can
+     be easily modified to take this factor into account.
+    Motorcycles move freely even in a traffic jam and are not taken into consideration.
+
+
+=== PHYSICAL PAGE 4 ===
+Team #4339                                                                               Page 3 of 23
+
+
+                            Terminology & Basic Analysis
+
+Terminology
+When we explain the definition of basic terms below, the relative discusses are presented at the
+same time, if necessary:
+
+   Junction: the intersection where vehicles flow in and out of the traffic circle.
+   Lane: part of the road for the movement of a single line of vehicles.
+    The number of lanes directly affects the flux through a traffic circle by limiting the entrance
+    and leave of vehicles. However, since both the conventional design and real-time photos
+    suggest that vehicles are most likely to exit a traffic circle easily, our model neglects the
+    restriction on outward flow.
+   l0 : the number of lanes of the traffic circle
+   Section: part of the traffic circle between two adjacent arms.
+   Yield/Stop sign: a yield sign asks drivers to slow down and give the right of way to vehicles
+    in the different direction. A stop sign asks drivers to come to a full stop before merging into
+    the flow.
+   Orientation sign: signals indicating the lane for vehicles to take according to their destination.
+   Traffic light: a signaling device using different colors of light to indicate the moment to stop
+    or move.
+    It is claimed that a traffic light with direction arrows performs much better [1], so we are
+    inclined to use such kind of traffic light in our model.
+    Moreover, the function of traffic lights remains a controversial issue. Comparing with yield
+    /stop signs, traffic lights slow down the vehicle movement. At the same time, however, even
+    at a remote motorway traffic circle with few pedestrians, a malfunction of traffic light will
+    probably lead to an accident [2]. The use of traffic light will be discussed in details later.
+   Cycle period: the time in which a traffic light experiences exact stages of all 3 colors.
+    An optimal cycle period is critical whenever traffic lights are employed. The method we use
+    is called Webster Equation [3]. The value we use in our model is calculated as 68 seconds.
+   Green light period: the time that a traffic light keeps green in one cycle.
+   Timestamps: A sequence of characters denoting the start/end time of red/green lights.
+
+A Glance at Sheriffhall Roundabout
+We here take an early look at the Sheriffhall Roundabout, the traffic circle to which our model is
+applied later. This traffic circle is relatively big in size among ones with sufficient data.
+
+
+=== PHYSICAL PAGE 5 ===
+Team #4339                                                                               Page 4 of 23
+
+
+
+
+                                                  2
+                                        1                   3
+
+                                        6
+                                                            4
+                                                  5
+
+
+
+                                 Figure 1: The Sheriffhall Roundabout
+
+One characteristic of this traffic circle is that the arms of southwest(6)-northeast(3) direction have
+larger amount of flow than that of others. The arms of north(2) and south(5) direction have two
+lanes, while the other four arms and the circle have three lanes. The traffic circle is modeled as a
+ring with an inner radius of 38.79m and an outer radius of 50.43m.
+
+The discussion in following sections will use the origin-destination flow (Table 1) given by
+Xiaoguang Yang, et al [4]. Since the current traffic demand is far from saturate (discussed later),
+we will experiment on different scales of this inflow matrix, like its multiple of
+1.2,1.4,1.6 and 1.8.
+
+                  From\To           1        2         3        4     5        6
+                      1             -        0         0    188      77        67
+                      2             0        -         8        37   41        95
+                      3             2        0         -    119      79       1007
+                      4            338      129       63        -     0       208
+                      5            116      124       142       0     -        16
+                      6            90       172       988   236      10        -
+
+                          Table 1: Origin-destination flows (vehicles/hour)
+
+
+=== PHYSICAL PAGE 6 ===
+Team #4339                                                                            Page 5 of 23
+
+
+                                    Simulation Model
+
+The simulation model is the first step in controlling the traffic circle. Here we provide two
+different approaches. The macroscopic simulation takes vehicles as a whole, and is nonrandom.
+On the contrary, the microscopic simulation traces each individual vehicle, and includes
+randomness.
+
+Model I - The Macroscopic Simulation
+To find the best way to control the traffic circle, we must acquire some information about it.
+Usually, we do not know how each vehicle behaves, especially, through which way it enters the
+circle and which way it leaves. Under the circumstances that we only know the number of vehicle
+come in and out of the circle through each arm, we adopt the macroscopic simulation.
+
+For the simplicity of statement, we first combine the lanes in the sections and arms together, and
+regard them as one-lane roads. We then further explain how the multi lane simulation works.
+
+ Assumptions
+                                                                            ARM 3
+   Vehicles in the same section of the                                                   FLOW
+    circle are located uniformly in the                                                   DIRECTION
+    section.
+                                                               SECTION 2
+   The arrival rate at each arm is                             s2
+    constant in the time period we                                        SECTION 3
+    simulate.                                                            θ1
+                                             ARM 2
+   For simplicity of statement, we
+                                                          SECTION 1     SECTION 4          ARM 4
+    consider an ideal round traffic
+    circle (Figure 2).
+    The macroscopic simulation itself
+    does not depend on the shape of
+    the circle.
+                                                                     ARM 1
+
+                                                        Figure 2: Sample traffic circle
+ Sections and arms
+
+We divide the whole traffic area into sections and take vehicles in the same section as a whole.
+Label the sections and the arms as the figure above shows. Sections are attached with the
+following quantities:
+
+   Number of vehicles contained in one section at a specific time: numti
+    The upper label stands for time.
+
+   Number of vehicles waiting to enter through one arm at a specific time: armti
+
+   The max number of vehicles possible to enter the traffic section through one arm per unit
+    time: capti
+
+
+=== PHYSICAL PAGE 7 ===
+Team #4339                                                                               Page 6 of 23
+
+
+ A Markov Process
+
+The traffic state at time t + 1 depends only on the traffic state at time t, so that the traffic is a
+Markov process. To describe traffic state of the whole system, only quantities numti and armti
+are needed. Our task to realize the simulation is to determine numt+1
+                                                                  i   and armt+1
+                                                                             i   , for
+i = 1,2, … , n.
+
+Our initial idea is to adopt the classical Markov method. In principle we can calculate the
+transition probability matrix under the assumption listed above. A final steady distribution can be
+achieved through the normal Markov method.
+
+The method does not work in our problem. This can be seen by estimating the dimension of the
+transition probability matrix. For a traffic circle with four arms/sections and each of them at most
+holds ten vehicles. The number of traffic states in it is 108 .
+
+For this fact, we use the expectation num ti and arm ti instead of the distribution to denote a state.
+
+ The Simulation Process
+
+                             Pervious section
+
+
+
+
+                                                        num ti ∙ outi
+                                 num ti ∙ (1 − outi )       out i       ARM
+                                        out i              capti
+
+
+
+
+                              Successive section
+
+
+                                    Figure 3: Flows at a junction
+
+    num ti × out ti vehicles is running out of the circle from section i.
+     The ratio out ti will drop when numti approaches its capacity.
+
+    To deal with the junction
+     There are two streams numti ∙ (1 − out i ) and capti trying to flow into the successive
+     section. If traffic light is installed, depending on the current time t, only one of them will be
+     allowed. If stop/yield sign is used (at the arm side for example), then only a small fraction of
+     capti can flow in. This fraction is denoted by the disobey rate αstop or αyield .
+
+    An inflow of ini newly-arrived vehicles runs into arm i.
+
+ Multi lane traffic circle
+
+Considering the separation of section into lanes, the simulation is expected to be more accurate.
+We assume that vehicles do not change lanes within arms and sections, which means they can only
+change lanes at junctions. This is reasonable because a large number of lane transfers happen at
+junctions.
+
+
+=== PHYSICAL PAGE 8 ===
+Team #4339                                                                                    Page 7 of 23
+
+
+In order to treat lanes differently, we need to know what proportion of vehicles that passes through
+each lane. This indicates the relative popularity of lanes. At each junction, the outflow for a given
+lane will be distributed into successive lanes according to their popularity.
+
+
+
+
+                         Figure 4: a two-lane circle has been divided into lanes.
+                         Each arc in the right figure denotes a single lane.
+
+
+Model II – The Microscopic Simulation
+Partially inspired by the Sequential Cellular Automata, we adopt a microscopic model. In this
+model the traffic circle is divided into l0 lanes. Vehicles can stay at real argument in polar
+coordinates but with discrete radius values. We model the behavior of each individual vehicle,
+with the help of some general principles:
+
+    Traffic coming in
+
+     As described in Table 1, the number of vehicles per hour is given in a matrix ai,j                . We
+                                                                                                 n×n
+
+                                                        a i,j
+     use a Poisson distribution with mean value of              to describe the incoming vehicles from arm
+                                                         T
+
+     i to arm j.
+
+    Lane choosing and changing
+     For a specific vehicle from arm i to arm j, the driver has his ideal lane to be in. The hidden
+     principle is [5]: the more sections the vehicle is to pass before its exit, the inner lane the
+     driver wish to take, both in the arm and the circle. In our simulation, we adopt this rule. We
+     will discuss more about it in the Optimization Model.
+
+    Vehicle speed
+     We define maximum velocity vmax and maximum acceleration a max for vehicles, and
+     record the velocity individually. The principles for an vehicle to accelerate or decelerate are:
+
+         When a vehicle faces a red light or other vehicles, its speed decreases to zero.
+
+         When a vehicle changes lanes, it decelerates.
+
+         Otherwise, it will attempt to accelerate.
+
+    The function of a yield sign.
+     When a vehicle faces a yield sign, it checks whether it is empty enough for it to enter the
+     junction. If not, it will wait till it is empty enough, but with a disobey rate 𝛼𝑦𝑖𝑒𝑙𝑑 - ignore the
+     sign and try to scramble. This reaction affects the accident rate.
+
+
+=== PHYSICAL PAGE 9 ===
+Team #4339                                                                              Page 8 of 23
+
+
+    The function of a stop sign.
+     When a vehicle faces a stop sign, it should stops instantaneously. As a next step, it deals with
+     similar procedure as a yield sign. The only difference is that it will accelerate from a zero
+     speed. The disobey rate is 𝛼𝑠𝑡𝑜𝑝
+
+    The effect of traffic lights – just like normal.
+
+After we have made all the things clear, we only need to discreet the time and follow the rules
+presented above for every individual vehicle after it comes to the circle. We can simulate the
+whole process. We can easily calculate the average passing time for one vehicle, and the accident
+rate (by the total number of touches of vehicles). A vivid view of simulation result is presented
+below:
+
+
+
+
+                            Figure 5: The vehicles around the traffic circle
+
+
+Comparison of Two Simulation Models and Sensitivity Analysis
+ Results
+
+We use the two different models to simulate a real traffic circle: The Sheriffhall Roundabout in
+Scotland. We used a given traffic light configuration in [4]. For simplicity, we only take into
+consideration the average time needed for a vehicle to pass the traffic circle. This value for model
+I and II are 42.73s and 41.64s respectively. The two results are close enough and it is reliable to
+believe that the actual passing time is around 42 seconds.
+
+ Sensitivity
+
+We analyze the sensitivity by running the program with modified parameters. Some of the major
+variable parameters are listed in the following table. We study the sensitivity.
+
+
+=== PHYSICAL PAGE 10 ===
+Team #4339                                                                                 Page 9 of 23
+
+
+                          Parameter       variation    model I    model II
+                              𝒗𝒎𝒂𝒙        +10%         -2.6%      -8.5%
+                                          -10%         10.5%      11.1%
+                                𝒍𝟎        +1           -19.6%     -16.4
+                                          -1           121%       65.2%
+                              𝒓𝒐𝒖𝒕        +10%         -7.3%      -3.9%
+                                          -10%         1.1%       3.3%
+                          Traffic flow    +10%         10.6%      7.0%
+                                          -10%         -3.0%      -6.7%
+
+                          Table 2: Sensitivity test of Simulation Model
+
+
+The two models give similar sensitivity results. Note that the average passing time is very
+sensitive to the parameters except l0 . It is reasonable since the number of traffic lanes in the circle
+affects the passing time significantly.
+
+Model II is a random simulation, which enables us to calculate the deviation. However, the
+standard deviation of passing time is no larger than 3% in this case.
+
+ Complexity
+
+Both the time complexities of the algorithm of the two models is proportional to maximum
+number of vehicles that can be hold in the circle and the time needed to make the system work
+periodically – number of iteration. It is shown that the number of iterations is smaller than 1,000
+by practice. Thus the complexity is about 1000 times a linear function of the size of the circle.
+This is short enough.
+
+Model I is a little simpler than model II, since we do not need to trace each individual. Reversely,
+Model II needs more a priori information than Model I. As the two models are consistent and give
+similar results. We adopt model II for further study.
+
+
+=== PHYSICAL PAGE 11 ===
+Team #4339                                                                                Page 10 of 23
+
+
+                             The Multi-Objective Function
+
+It is complicated to evaluate a traffic control method. We here list possible metrics and try to
+conclude a synthetic objective function with a unified measure.
+
+Basic Standards
+We want to include both subjective evaluations (such as the feelings of drivers) and objective
+measures (such as the expense on devices). Also, the standards here should be calculated from the
+viable data. Based on the reasons above, we choose 5 evaluation standards below:
+
+    Saturated flow capacity
+     When traffic flow becomes tremendous, vehicles will accumulate on arms as time goes by.
+     The threshold flux to avoid such an accumulation is called the saturated flow capacity under
+     a certain control method.
+    Average delay
+     A vehicle may suffer various kinds of delay in congestion, acceleration and more. The
+     difference between the average time during which a vehicle passes the traffic circle and it
+     passes a void one is called the average delay.
+    Equity degree
+     A multi-arm traffic circle may distribute the incoming flow inequably, which annoys drivers
+     more frequently. The relative derivation of average delay is called the equity degree.
+    Accident expectation
+     Too much emphasize on speed may mean potential risk of accident. The consideration of this
+     threat calls for the description of accident per hour, which is named the accident expectation.
+    Device cost
+     The total expense on the traffic signs and lights is called the device cost.
+
+Any standard above may serve as an independent objective to maximize/minimize. Still, we aim at
+combining them with a synthesized function. Before that we first look into the factors that affect
+them.
+
+How are the Objectives Affected
+Generally speaking, the objectives all come from the simulation process above implicitly.
+However, it is still necessary to point out some relationships.
+
+ Saturated Flow Capacity
+
+This objective is really complicated. Besides the geometric design, any little modification of the
+control system will change the amount. We below estimate the change because of signal types.
+
+A yield sign is likely to work more effectively since it seldom causes unnecessary stops on
+vehicles. A stop sign, however, at least add the acceleration/deceleration delay to every vehicle
+rushing inside. The efficiency of a traffic light, however, is highly related to its green light period.
+Dull traffic lights sometimes block vehicles from entering a void circle, while the self-adaptive
+ones may work according to the road condition.
+
+In fact, a traffic circle with yield signs at all junctions bears the heaviest traffic in the simulations
+
+
+=== PHYSICAL PAGE 12 ===
+Team #4339                                                                             Page 11 of 23
+
+above, and traffic lights are left with great potential to improve in optimization.
+
+ Average Delay
+
+First, the average delay is controlled by the incoming flux. The delay time will increase rapidly
+when traffic start to congest. The signal arrangement also contributes here.
+
+In our model, the delay time of a vehicle is calculated only when it successfully exit s the traffic
+circle. When this delay time is considered in the overall objective, there should be penalties on
+congestion rate, which is calculated from the current flow and saturated flow capacity.
+
+ Equity Degree
+
+Equity degree is directly calculated from the delay time distribution. The factor listed above will
+also affect it. Note that not only the flow distribution but the total flux contributes to the equity
+degree, since high flux may lead to unexpected distribution failures.
+
+ Accident Expectation
+
+Accident expectation is calculated with local accident rate (unit: accident/vehicle). Besides the
+disobey rate discussed in the previous section, we also assume that each kind of signal reduces the
+accident by its respective percentage. (These fractions are merged from [1][6][7]) The flux data
+and signal numbers are once again taken into consideration.
+
+ Device Cost
+
+This expense is the simplest objective which relies only on the number of each kind of signal.
+
+The Combined Objective: The Money We Lost
+Now we come to a combined objective. Government usually mentions expense and economic loss
+in their report, and our model try to make a further integration measured with US dollar. The final
+result is called the combined expense (CE), which we attempt to minimize.
+
+We begin our approach from objectives most related to money. The prices of traffic control
+devices are easy to be accessed on the Internet [8][9]. Along the expense of maintenance and
+operation, the average cost per hour for each kind of device is calculated. Since traffic lights
+consume much electricity, we ignore the money spent on other types of devices. A traffic light is
+expected to spend $0.23/hour according to the viable data [10][11].
+
+Accident expense losses are often reported in news. We take the average data from an annual
+report of local traffic office as the average loss per accident [12]:
+
+                                  𝐴𝑐𝑐𝑖𝑑𝑒𝑛𝑡 𝐿𝑜𝑠𝑠 = $630 × 𝐹𝑙𝑢𝑥
+
+The average delay time must be accompanied with a value of delay to get involved. From the data
+of US Department of Transportation and fuel price [13], about $1.2 is lost on a delay of one hour
+(per vehicle):
+
+                  𝐷𝑒𝑙𝑎𝑦 𝐸𝑥𝑝𝑒𝑛𝑠𝑒 = $1.2 × 𝐹𝑙𝑢𝑥 × 𝐴𝑣𝑒𝑟𝑎𝑔𝑒 𝐷𝑒𝑙𝑎𝑦 𝑇𝑖𝑚𝑒
+
+The saturate capacity shows the endurance of the control design as well as its ability to face
+sudden challenges. The unused part of this capacity assures for any extra incoming, whose value is
+
+
+=== PHYSICAL PAGE 13 ===
+Team #4339                                                                            Page 12 of 23
+
+estimated as following:
+
+ 𝐶𝑎𝑝𝑎𝑐𝑖𝑡𝑦 𝐵𝑜𝑛𝑢𝑠 = 5% × $1.2 × 𝑆𝑎𝑡𝑢𝑟𝑎𝑡𝑒 𝐶𝑎𝑝𝑎𝑐𝑖𝑡𝑦 − 𝐹𝑙𝑢𝑥 × 𝐴𝑣𝑒𝑟𝑎𝑔𝑒 𝐷𝑒𝑙𝑎𝑦 𝑇𝑖𝑚𝑒,
+
+in which 5% is the possibility of an unexpected vehicle coming.
+
+Equity degree (ED) is a tricky component in the determination. Current traffic systems often fail
+to consider this factor. The most annoying situation is to keep two “main arms” open to traffic by
+sacrificing all other arms, whose equity degree is estimated to be the function of the number of
+arms 𝑛:
+
+
+                                                                  n(n − 2)
+                          𝑅𝑒𝑓𝑒𝑟𝑒𝑛𝑐𝑒 𝐸𝑞𝑢𝑖𝑡𝑦 𝐷𝑒𝑔𝑟𝑒𝑒 (𝑅𝐸𝐷) =
+                                                                  2(n − 1)
+
+The equity degree will be normalized by this reference and appear in a penalty on delay expense:
+
+                                                                            𝐸𝐷
+                  𝐶𝑜𝑟𝑟𝑒𝑐𝑡𝑒𝑑 𝐷𝑒𝑙𝑎𝑦 𝐸𝑥𝑝𝑒𝑛𝑠𝑒 = 𝐷𝑒𝑙𝑎𝑦 𝐸𝑥𝑝𝑒𝑛𝑠𝑒 × 1 +
+                                                                           𝑅𝐸𝐷
+
+The combined index is then calculated out:
+
+    𝐶𝐸 = 𝐶𝑜𝑟𝑟𝑒𝑐𝑡𝑒𝑑 𝐷𝑒𝑙𝑎𝑦 𝐸𝑥𝑝𝑒𝑛𝑠𝑒 − 𝐶𝑎𝑝𝑎𝑐𝑖𝑡𝑦 𝐵𝑜𝑛𝑢𝑠 + 𝐴𝑐𝑐𝑖𝑑𝑒𝑛𝑡 𝐿𝑜𝑠𝑠 + 𝐷𝑒𝑣𝑖𝑐𝑒 𝐶𝑜𝑠𝑡,
+
+which serve as the final objective function we use in the following optimization.
+
+Application: Evaluate Typical Arrangements
+We take a glance at three general control method – pure traffic light, stop sign only or yield sign
+only.
+
+
+
+
+                   Figure 6: A view on 5 objectives of 3 general control methods
+
+The 5 objectives are first normalized (converting values into the interval between 0 and 1 from
+worst to best). A superficial look at this radar chart raises doubt on the expensive traffic lights.
+However, traffic lights act superiorly in controlling the accident, while the other two signs may be
+
+
+=== PHYSICAL PAGE 14 ===
+Team #4339                                                                         Page 13 of 23
+
+hazardous in accelerating the flow. The convoluted fact is clear when we compare their CE values:
+
+
+                    Control Method     The Combine Expense (US$/hour)
+                      Traffic light                   66.76
+                       Stop sign                      103.29
+                       Yield sign                     116.61
+
+                    Table 3: Combined Expense for 3 typical control methods
+
+The results above suggest that traffic lights are worthwhile when encountered with heavy traffic.
+The optimization, however, needs more insight observations in the following part.
+
+
+=== PHYSICAL PAGE 15 ===
+Team #4339                                                                                Page 14 of 23
+
+
+                                    Optimization Model
+
+In the previous sections we have demonstrated two distinct methods to predict the transportation
+behavior in traffic circles. Now we are looking for techniques that will help maneuver vehicles
+through the traffic, exerting the best this traffic circle can do.
+
+The All-Purpose Solution
+The multi-objective function of our problem has been clearly defined in last section, and all
+relative factors are converted to a single measure (in US dollar). The remaining difficulty is in
+how to find an optimal or quasi-optimal solution.
+
+For the reason that the objective function is calculated through our Simulation Model, its
+analytical form becomes difficult to obtain. Under such situation quasi-optimal solution is
+welcome and approximation algorithms turn into candidates.
+
+In this problem a normal approximation algorithm may fall into local maxima. However, some
+high-level technique can be used like Simulated Annealing, or what we have used – Generic
+Algorithm. Specifically, the traffic controls in different junctions are used as genes. The
+configuration of a traffic circle is a vector of genes, containing all the devices used in different
+junctions. In details:
+
+
+Process                                               Explain
+Breeding             Combine the traffic control methods of two different configurations.
+Mutation                    Randomly mutate the traffic control in a single junction.
+Evolution        Locally adjust the traffic controls in all junctions, and seek for better solution.
+
+                Table 4: The explanation of Generic Algorithm used for optimization
+
+
+In this article we are mainly dealing with three kinds of traffic control devices: 1) traffic lights, 2)
+yield/stop signs and 3) orientation signs – a special traffic signal designed ourselves. We name the
+first two basic devices.
+
+Step 1 – Basic Device Placement & Timestamp Chosen
+A traffic junction can be placed with any one of the following five devices: 1) Traffic Light, 2)
+Yield Sign in the circle, 3) Yield Sign at the entrance, 4) Stop Sign in the circle, and 5) Stop Sign
+at the entrance. Besides, the timestamps of red/green lights for traffic lights are also changeable.
+
+ Sheriffhall Roundabout
+
+Considering all potential variables above, we run our program against the Sheriffhall Roundabout.
+Again, we use the origin-destination flow data in Table 1. We assume this flow matrix is fixed in a
+one-hour period. The solution of our program shows that traffic lights should be used prior to
+stop/yield signs, in respect that the accident rate will increase dramatically in this busy circle.
+
+
+=== PHYSICAL PAGE 16 ===
+ Team #4339                                                                                Page 15 of 23
+
+
+    Arm     G       R
+
+    1       0       14
+    2       7       14
+    3       38      18
+    4       3       19
+    5       3       13
+    6       38      14
+
+             Figure 7: The traffic light timestamps in 6 junctions (light green / and scarlet)
+                         Period = 68s (calculated in assumption), Original flow info is used.
+
+ In Figure 7, green lights represent the permission of vehicles from the incoming road, and red
+ lights indicate the in-circle pass. The optimal configuration creates a long period of red light for all
+ junctions, and allows the digestion of vehicles quickly in this interval. This configuration
+ accelerates the flows, but has a lower saturated flow capacity.
+
+
+        Objective                              Value
+
+  Saturated Flow                       6904 vehicles / hour
+     Capacity
+   Average Delay                 42.763 seconds / vehicle ∙ hour
+                                 = 62.04$ / hour
+   Equity Degree                            0.3187
+
+Accident Expectation                       4.63$ / hour
+
+    Device Cost                            1.38$ / hour
+
+Combined expense                          𝟕𝟖. 𝟗𝟖$ / 𝐡𝐨𝐮𝐫
+
+            Table 5: The multi-objectives of the optimal configuration of Sheriffhall, Original flow
+
+   Sheriffhall Roundabout with 1.8 × original inflow
+
+ When the incoming flow density increases by 0.8 times, the optimal configuration shows
+ significant difference:
+
+
+=== PHYSICAL PAGE 17 ===
+Team #4339                                                                              Page 16 of 23
+
+
+
+ Arm     G       R
+
+ 1       0       12
+ 2       10      18
+ 3       49      15
+ 4       38      57
+ 5       41      52
+ 6       10      45
+
+         Figure 8: The traffic light timestamps in 6 junctions (light green / and scarlet)
+                     Period = 68s (calculated in assumption), Original flow × 1.8 is used.
+
+
+In Figure 8, the green-light periods for all junctions are shortened in order to let the circle digest
+greater number of incoming vehicles. One may find an interesting fact that there no longer exists a
+long period with all junctions in red light. As an alternative, there exists a free pass between
+Junction 3 and Junction 6 (shadowed stripe). This greatly enlarges the saturated flow capacity, but
+reduces the pass speed – high in average delay (see Table 6).
+
+To point out why one needs to look at the origin-destination flow Table 1, in which the flow
+between Junction 3 and 6 constitutes a significant portion of all the inflows. The white stripe in
+Figure 8 actually gives a good opportunity and let vehicles travel between them.
+
+     Objective                         Value
+
+Saturated Flow                 8354 vehicles / hour
+   Capacity
+ Average Delay            81.278 seconds / vehicle ∙ hour
+                          = 117.91$ / hour
+ Equity Degree                       0.3042
+
+   Accident                         5.41$ / hour
+  Expectation
+  Device Cost                       1.38$ / hour
+
+ Table                      𝟏𝟒𝟕.
+       6: The multi-objectives
+  Combined                         𝟏𝟒$ /
+                               of the    𝐡𝐨𝐮𝐫configuration of Sheriffhall, Original flow × 1.8
+                                      optimal
+   expense
+Step 2 – Orientation Sign Placement
+Normally, the number of lanes inside a traffic circle and the number of junctions does not equal. In
+some country, a hidden rule [5] is: the vehicle nearer to its exit should stay left (Remark: we are
+driving on the left!) Now we are going to refine this rule.
+
+There are n arms in total. Suppose a vehicle is at Junction a(1 ≤ a ≤ n), and its destination is
+b(1 ≤ b < 𝑛) junctions next to it. We manage two variables lowerab and upperab so that such a
+vehicle is suggested stay in the range of lowerab ≤ x ≤ upperab . Our aim is to assign vehicles
+averagely into lanes, so that the traffic jam can be reduced to some extent. In order to optimize
+
+
+=== PHYSICAL PAGE 18 ===
+Team #4339                                                                             Page 17 of 23
+
+
+these intervals [lowerab , upperab ], we do the Generic Algorithm again.
+
+
+
+
+                          Figure 9: The magic effect of Orientation Sign
+
+Figure 9 demonstrates the effect of Orientation Sign in reducing the average delay by different
+amount of inflow. As the number of incoming vehicles increase, the positive effect of our
+orientation sign becomes distinct. From the point of view of Saturated Flow Capacity, the
+configuration without Orientation Sign is 8354 (Table 6), and this number has increased to 8812
+with the help of this newly-introduced sign. In short, the very last potential capacity has been
+extracted in our model.
+
+
+
+
+        LANE 1                            LANE 2                           LANE 3
+
+                  Figure 10: The orientation sign to hang over the junction entrance
+                               (At junction 3, with 1.8 × original inflow)
+
+
+=== PHYSICAL PAGE 19 ===
+Team #4339                                                                               Page 18 of 23
+
+
+Step 3 – Time Variance & Self Adaptivity
+Apparently, the origin-destination flows vary from morning to evening. The easiest way to handle
+this is to run our previous step with different traffic demand information for different time-period.
+Actually, we can go further on this, and make the traffic control self-adaptive if traffic lights are in
+use.
+
+Given the traffic light timestamps calculated in Step 1, and assume in a following hour the traffic
+demand has changed to some new value. We may select the original configuration as our seed, and
+carry on the Generic Algorithm and gain a similar but better solution. As an example:
+
+                      Arm     G    R                          Arm    G     R
+
+                      1       0    12                         1      0     14
+                      2       10   18                         2      11    18
+                      3       49   15                         3      51    15
+                      4       38   57                         4      21    46
+                      5       41   52                         5      41    53
+                      6       10   45                         6      12    45
+   Figure 11: The Self Adaptivity as the inflow drops from 1.8 to 1.4 × original inflow in an hour
+
+
+One may find that the timestamps change a little and hence will not significantly affect the
+vehicles already in circle. As the night falls, traffic demands become considerably small. Now the
+traffic lights are suggested to be replaced by Yield/Stop Signs. This cannot happen in the usual
+way. However, a special status of traffic light can be switched on – flashing yellow.
+
+Flashing yellow is used as an international light signal [14] that has the same effect as Yield Sign –
+to remind the drivers be careful. It can be used when the traffic is not too busy and greatly reduces
+the average delay.
+
+Verification of Optimization Model
+ The Circle is In Work
+
+
+
+
+              Figure 12: 39 seconds later, most of the vehicles waiting at Junction 6 moves in
+
+
+Figure 12 shows that when the inflow is 1.8 times as high as given in Table 1, the traffic circle is
+
+
+=== PHYSICAL PAGE 20 ===
+Team #4339                                                                                   Page 19 of 23
+
+still in work.
+
+ Accuracy
+
+As a follow-up study to verify the Optimization Model, we need to test on different traffic circles.
+For the reason of lack of precious data (most of them are in charge), we created our dummy traffic
+circles. A large traffic circle with 12 arms and 6 lanes are tested, and the result shows our model
+can treat with large data in time.
+
+An interesting thing is that when we are testing on a dummy suburban circle with 4 arms with
+relatively lower traffic demand: 1) the mixture of stop signs and traffic lights are encountered; 2)
+the in circle signs are encountered. In this example the origin-destination flow between Junction 1
+to Junction 3 is remarkably greater than all other pairwise flows.
+
+Two of the quasi-optimal solutions are:
+
+                               Entrance                                           Entrance
+
+                 Exit                                              Exit
+
+                                             Exit                                              Exit
+
+ Entrance                                             Entrance
+
+
+
+                                           Entrance                                          Entrance
+
+        Exit                                               Exit
+
+                                    Exit                                              Exit
+                 Entrance                                         Entrance
+
+         Figure 13: Two intuitive configurations generated by our model.
+         The left one has two in-circle stop signs and guarantees the left-right fast pass;
+         The right one has a mixture of traffic lights and stop signs.
+
+ Sensitivity
+
+The sensitivity of our model is tested in such way that the model has been run 50 times and the
+standard deviation of average delay is calculated as an example:
+
+
+   The multiple of                         Average Delay                      Standard Deviation
+    income flow
+      1.0 times                 42.76 seconds / vehicle ∙ hour            0.95 seconds / vehicle ∙ hour
+      1.2 times                 47.22 seconds / vehicle ∙ hour            1.56seconds / vehicle ∙ hour
+      1.4 times                 51.99 seconds / vehicle ∙ hour            2.54 seconds / vehicle ∙ hour
+      1.6 times                 61.54 seconds / vehicle ∙ hour            3.81 seconds / vehicle ∙ hour
+      1.8 times                 81.28 seconds / vehicle ∙ hour            8.30 seconds / vehicle ∙ hour
+                            Table 7: The sensitivity test of Optimization Model
+
+
+=== PHYSICAL PAGE 21 ===
+Team #4339                                                                             Page 20 of 23
+
+
+ Emergency Case
+
+Our model can simulate the emergency case. As in Figure 14, one of the cars breaks down and has
+blocked the whole lane. However, the configuration stands its test and the traffic circle is still in
+work. However, the average delay time has increased by 10 seconds.
+
+The Self-Adaptivity of our model makes us able to adjust the light timestamps and reduce the
+traffic jam in emergency case. However, because of the limited time we cannot represent our
+adaptivity here.
+
+
+
+
+ Figure 14: The broken-down of some vehicle slows down the traffic, but the circle is still in
+       work
+
+
+=== PHYSICAL PAGE 22 ===
+Team #4339                                                                             Page 21 of 23
+
+
+                                The Technical Summary
+
+We present an arrangement of traffic control devices for a composite of the specific traffic circle
+information and the respective flow. Before applying this method, we remove the artificial
+patterns and construct a map in a simplified version with the key factors like:
+
+    The geometry design, including arms and junctions around the circle
+
+    The number of lanes in any road
+
+The detailed information of the traffic flow is welcome. Basically we need the following:
+
+    The incoming & outward flow of each arm, or
+
+    The origin-destination information between any two arms, if possible.
+
+Using the data above, we start to construct an optimal choice. We offer two different simulation
+methods to choose from. The macro one deals with insufficient data, while the micro one leads to
+a more accurate view, providing enough information. A combined objective function visualizes
+our goal. The typical results are discussed below.
+
+When applied to the simplest circumstance with few vehicles passing a traffic circle, yield signs
+are always welcomed to eliminate unnecessary wait caused by stop signs and red lights, as
+expected.
+
+When faced by a metropolitan traffic circle with many arms and lanes filled with heavy traffic, our
+model suggests that traffic lights control the system both safely and effectively. The green light
+period is determined by the traffic flow distribution. Usually the traffic lights will be adjusted so
+that vehicles from the most crowded arms encounter green light consecutively when driving
+around the circle.
+
+Another noteworthy thing is the imbalance phenomena that are likely to occur in suburban areas.
+The traffic flows on arms of two vertical directions show great difference. Our model advises that
+a stop sign should stand at the junction of one low-stream arm with traffic lights at the others. The
+forcible stop of the incoming flow avoids congestion inside the circle, especially when the traffic
+circle is relatively small.
+
+If the traffic flow notably changes with time, traffic lights are again recommended with their
+self-adaptive ability. The parameters of traffic lights do not show significant dependence on the
+flow variation. The lights may also activate their special status to deal with a flux drop at night.
+
+For any condition, whether specified above or not, our model points out the potential on an
+interpolation of orientation signs. This special measure amazingly reduces the delay time when the
+traffic shows evidence of congestion.
+
+Overall, our model will be useful for determining a decent solution, which is expected to be
+significantly more comprehensive regardless of the traffic circle condition.
+
+
+=== PHYSICAL PAGE 23 ===
+Team #4339                                                                           Page 22 of 23
+
+
+                                         Conclusion
+
+To estimate the overall performance of a traffic circle with a specific vehicle flow, we developed
+two simulation models. The first model uses a Markov process to overlook the whole flow.
+Contrarily, the second model transfers its attention to the individual behavior of each vehicle.
+
+Five objectives are chosen to evaluate the control method. They are finally converted to the
+combined expense. This standard is applied to a real-life stage with typical traffic control device
+setups.
+
+The combination of the former two parts gives the optimization model. This model solves our
+problem with traffic devices selection and provides ways to determine the green light period when
+traffic lights are used. In addition, the orientation signs are introduced as a thoroughly new
+measure to bring efficiency. The flexibility of these solutions is proved when confronted with
+accidents.
+
+
+=== PHYSICAL PAGE 24 ===
+Team #4339                                                                          Page 23 of 23
+
+
+                                            Reference
+
+[1] Markus Hubacher, Roland Allenbach. Safety-related aspects of traffic lights. bfu-Report 48,
+2002
+
+[2] Businesses want Sheriffhall flyover. Edinburgh Evening News. Feb 9th, 2009.
+<http://edinburghnews.scotsman.com/edinburgh/Businesses-want-Sheriffhall--flyover.4225078.j
+p>
+
+[3] N.J. Garber and L.A. Hoel. Traffic and Highway Engineering, 3rd. edition, Brooks/Cole, Pacific
+Grove, CA, 2002.
+
+[4] Mike Maher. The Optimization of Signal Settings on a Signalized Roundabout Using the
+Cross-entropy Method. Computer-Aided Civil and Infrastructure Engineering. 23 (2008) 76–85.
+
+[5] How to Correctly Use a Traffic Circle. Feb 9th, 2009.
+< http://www.bbc.co.uk/dna/h2g2/A199451>
+
+[6] London Road Safety Unit. Do traffic signals at roundabouts save lives? Transport for London
+ Street Management. April 2005.
+
+[7] Kay Fitzpatrick. Accident Mitigation Guide for Congested Rural Two-lane Highways. National
+ Research Council (U.S.). Transportation Research Board. 2000.
+
+[8] Feb 9th, 2009.< http://trafficlightwizard.com/ >
+
+[9] Feb 9th, 2009.<http://www.tuffrhino.com/Yield_Sign_p/sts-r1-2.htm>
+
+[10] Feb 9th, 2009.
+<http://www.kaifeng.gov.cn/html/4028817b1d926237011d9332cfe300bb/3214.html>
+
+[11] Feb 9th, 2009.
+< http://www.shjubao.cn/epublish/gb/paper148/20010815/class014800004/hwz462812.htm>
+
+[12] Feb 9th, 2009.
+< www.hzpolice.gov.cn/tabid/67/InfoID/9343/Default.aspx>
+
+[13] Status of the Nation's Highways, Bridges, and Transit: 2004 Conditions and Performance. Feb
+9th, 2009.
+< http://www.fhwa.dot.gov/policy/2004cpr/chap14.htm>
+
+[14] Unusual uses of traffic lights. Feb 9th, 2009.
+< http://en.wikipedia.org/wiki/Unusual_uses_of_traffic_lights>

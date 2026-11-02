@@ -1,0 +1,273 @@
+=== PHYSICAL PAGE 1 ===
+Positioning and Moving Sprinkler Systems for Irrigation
+                                          Team 729
+                                         6 Feb 2006
+
+
+1     Introduction
+The problem of optimizing a schedule for a moving sprinkler system is broken into several
+parts. First, a pipe flow model is developed to predict the sprinkler nozzle velocity and flow
+rate; it is consistent with commercially available sprinklers. Second, a kinematic model for
+water droplet trajectories is proposed with a quadratic wind-resistance term. The solution
+technique is matches contemporary software, and the distribution of water is close to experi-
+mental sprinkler studies. Finally, a graph or network model for scheduling is suggested with
+a well-known solution algorithm.
+
+
+2     Pipe flow model
+                                                                                                2
+Assuming the flow is Bernoulli (inviscid, irrotational, incompressible), the quantity B = pρ + u2
+is conserved from the flow inside the pipe to the flow through the sprinkler nozzle.
+
+                                 ppipe u2pipe   patm u2nozzle
+                       Bpipe =        +       =     +         = Bnozzle                       (1)
+                                  ρ      2       ρ      2
+     The pressure in the pipe is 420 kPa; the flow rate in the pipe is 150 liters/minute, so the
+average velocity (u = flow rate/cross section area) is .1013 meters/second.
+     With the problem parameters as specified, we find the velocity through the nozzle to be
+unozzle = 25.3 ms . At this velocity, 42.9 liters/minute flow through the sprinkler nozzle.
+     It is reasonable to expect some frictional dissipation because of the sharp angles of pipe
+fittings, so this may be viewed as an upper bound for velocity and flow rate.
+     To determine if this is sensible, we refer to the specifications of current sprinkler heads.
+For large applications (farms and fields), this flow rate is within the standard range.
+     Note that the conservation of Bernoulli function is independent of nozzle size, which
+necessitates a mass conservation constraint. Since the fluid is constant in density, in-flow
+must be balanced by out-flow: Qin = Qout . The flow in is 150 liters/minute, so 3.5 sprinkler
+heads are needed.
+
+
+
+
+                                                1
+
+
+=== PHYSICAL PAGE 2 ===
+3     Spray coverage model
+To model the area that the sprinkler’s spray covers, we use kinematic equations with a
+quadratic air drag term. The initial velocity is set by the nozzle velocity, v0 , discussed in the
+previous section.
+                                                    !2
+                      d2 y      1          dy                     dy
+                           =g−    CD Aρair                   ;           = v0 sin(θ)          (2)
+                      dt 2     2m          dt                     dt t=0
+                                                    !2
+                       d2 x     1          dx                    dx
+                            =−    CD Aρair               ;              = v0 cos(θ)           (3)
+                       dt 2    2m          dt                    dt t=0
+where g is the gravitational constant, m is the droplet mass, CD is the drag coefficient, A is
+the cross-section area, and ρair is the air density. The droplets are assumed to be spheres, so
+m = 34 πr 3 ρwater and A = πr 2 . The values used for air and water density are adopted from
+Kundu and Cohen ([2]).
+    The drag coefficient for spheres has been empirically tested over a large range of Reynolds
+numbers (Re = ul    ν
+                      ). The range of Reynolds numbers for this problem is Re ≈ 103 − 105 .
+Within this range, the drag coefficient of a sphere is approximately a constant value of
+CD = 0.6 ([2]).
+    The kinematic equations are integrated using MATLAB’s ode45, an explicit Runge-
+Kutta(4,5) formula. This is the same method used in a contemporary software package
+for simulating the trajectories of sprinkler droplets ([1]).
+    The radius of the droplet must be specified to compute its trajectory. We randomly draw
+radii from a log-normal distribution with parameters µ and σ. This choice of distribution
+is grounded in fire sprinkler literature ([4]); however, we refer to a sprinkler field test to
+determine the distribution’s parameters.
+    To verify the validity of our droplet spray model and choose droplet distribution param-
+eters, we compare to recent measurements of drop size distribution by optical spectroplu-
+viometer ([3]). In this paper, sprinkler nozzles with pipe diameter of 4.8 mm and pressure of
+350 kPa are tested. One insight that the study offers is that as pressure decreases, drop size
+increases.
+    Below are plots comparing the results from our model and the real-world data.
+
+
+
+
+                                                2
+
+
+=== PHYSICAL PAGE 3 ===
+                                        Plot of volume vs. distance                                                                                          Plot of number of droplets vs. distance
+                3000                                                                                                                2000
+                                                                                     sprinkler 1                                                                                                            sprinkler 1
+                                                                                     sprinkler 2                                                                                                            sprinkler 2
+                                                                                     model                                          1800                                                                    model
+
+                2500
+                                                                                                                                    1600
+
+
+                                                                                                                                    1400
+                2000
+
+
+
+
+                                                                                                               Number of droplets
+                                                                                                                                    1200
+
+
+
+
+ Volume (mm3)
+                1500                                                                                                                1000
+
+
+                                                                                                                                    800
+
+                1000
+                                                                                                                                    600
+
+
+                                                                                                                                    400
+                500
+
+                                                                                                                                    200
+
+
+                  0                                                                                                                   0
+                       0    2   4   6          8         10         12          14   16            18                                      0        2   4     6          8         10         12       14   16            18
+                                        Distance from sprinkler (m)                                                                                               Distance from sprinkler (m)
+
+
+
+
+    The discrepancies are most likely due to our uncertainty in the parameters of our droplet
+distribution. There is greater bias in the plot of number of drops at each distance, but this
+is less important than the volume at each distance.
+    For the calibration, the log-normal parameters are µ = 6 and σ = 0.7. To adjust for the
+20% higher pressure of the model problem pipe, we use µ = 5.8 (20% less in a logarithmic
+sense) and σ = 0.7. With model problem parameters the spray of the sprinklers extends 20
+meters away from the center.
+                                                                                                    Volume vs. Distance
+                                                                     3500
+
+
+
+
+                                                                     3000
+
+
+
+
+                                                                     2500
+
+
+
+
+                                                      Volume (mm3)
+                                                                     2000
+
+
+
+
+                                                                     1500
+
+
+
+
+                                                                     1000
+
+
+
+
+                                                                     500
+
+
+
+
+                                                                       0
+                                                                            0   5         10                 15                                20       25          30
+                                                                                                        Distance (m)
+
+
+
+
+4                          The Field
+Because the sprinklers cover so much area with the model problem parameters, it is reasonable
+to only use two or three sprinklers along the 20 meter pipe. Two such arrangements are shown
+below.
+
+
+
+                                                                                                        3
+
+
+=== PHYSICAL PAGE 4 ===
+                   0                                       0
+
+
+
+                 100                                     100
+
+
+
+                 200                                     200
+
+
+
+                 300                                     300
+
+
+
+                 400                                     400
+
+
+
+                 500                                     500
+
+
+
+                 600                                     600
+
+
+
+                 700                                     700
+
+
+
+                 800                                     800
+                       0   100      200   300                  0   100      200   300
+                             nz = 6160                               nz = 6859
+
+
+
+
+    It is natural to break the possible locations for the sprinkler system into a discrete grid,
+with the costs of moving the irrigation pipe a linear function of distance. While a discrete
+grid does not truly represent the continuum of possible positions, it is adequate to the task
+because the spray distribution is smooth enough that it would be unreasonable to move the
+sprinklers less than one meter. The problem of scheduling moving the sprinkler system can
+be posed as a network or graph model and solved using the network simplex algorithm. The
+constraints are those in the problem statement, no part of the field should receive more than
+0.75 cm of water per hour and each part of the field should receive at least 2 cm of water
+every 4 days, coupled with the sprinkler spray model.
+
+
+5    Conclusion
+Three mathematical models are proposed for different aspects of the problem: a Bernoulli
+solution to the sprinkler nozzle velocity, a kinematic model for the spread of water droplets,
+and a network simplex constrained optimization algorithm for finding an optimal moving
+schedule.
+    Though simplifications have been made to make the problem more tractable, each aspect
+of the model is consistent with experiments and existing literature.
+
+
+References
+ [1] Carrion, P., J.M. Tarjuelo, and J. Montero (2001), SIRIAS: a simulation model for
+     sprinkler irrigation I. Description of model, Irrig. Sci., 20:73-84.
+
+                                                4
+
+
+=== PHYSICAL PAGE 5 ===
+[2] Kundu, P.K. and I.M. Cohen (2004), Fluid Mechanics, 3rd ed., Elsevier, Amsterdam.
+
+[3] Montero, J., J.M. Tarjuelo, and P. Carrion, Sprinkler droplet size distribution measured
+    with an optical spectropluviometer, Irrig. Sci., 22:47-56.
+
+[4] Putorti, A.D. (2004), Simultaneous Measurements of Drop Size and Velocity in Large-
+    Scale Sprinkler Flows Using Particle Tracking and Laser-Induced Fluorescence, Doctoral
+    Thesis, University of Michigan.
+
+
+
+
+                                            5

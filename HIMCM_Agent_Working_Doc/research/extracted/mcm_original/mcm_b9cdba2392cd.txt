@@ -1,0 +1,1184 @@
+=== PHYSICAL PAGE 1 ===
+ For office use only                 Team Control Number                      For office use only
+ T1 ________________                        22599                             F1 ________________
+ T2 ________________                                                          F2 ________________
+ T3 ________________                                                          F3 ________________
+                                        Problem Chosen
+ T4 ________________                           A                              F4 ________________
+
+
+
+
+                                             2013
+               Mathematical Contest in Modeling (MCM/ICM) Summary Sheet
+                       (Attach a copy of this page to your solution paper.)
+
+                       Heat Radiation in The Oven
+
+
+           ww
+Heat distribution of pans in the oven is quite different from each other, which
+
+
+             w.
+depends on their shapes. Thus, our model aims at two goals. One is to analyze the
+heat distri- bution in different ovens based on the locations of electrical heating
+
+
+           数 ma
+cubes. Further- more, a series of heat distribution which varies from circular pans to
+rectangular pans could be got easily. The other is to optimize the pans placing, in
+
+
+             学 di
+order to choose a best way to maximize the even heat and the number of pans at the
+same time.
+
+
+               中 o.
+Mathematically speaking, our solution consists of two models, analyzing and
+
+
+                国 ne
+optimi- zing. In part one, our whole-local approach shows the heat distribution of
+every pan. Firstly, we use the Stefan-Boltzmann law and Fourier theorem to
+
+                    t
+describe the heat distribution in the air around the electrical heating tube. And then,
+based on plane in- tercept method and simplified Monte Carlo method, the heat
+distribution of different shapes of pans is obtained. Finally, we explain the
+phenomenon that the corners of a pan always get over heated with water waves
+stirring by analogy. In part two, our discretize- convert approach optimizes the
+shape and number of the pans. Above all, we discre- tize the side length of the oven,
+so that the number and the average heat of the pans vary linearly. In the end, the
+abstract weight P is converted into a specific length, in order to reach a compromise
+between the two factors.
+
+Specially, we create a unique method to convert the variables from the whole space
+to the local section. The special method allows us to draw the heat distribution of
+every single section in the oven. The algorithm we create does a great job in
+flexibility, which can be applied to all shapes of pans.
+
+                   Type a summary of your results on this page. Do not include
+                 the name of your school, advisor, or team members on this page.
+
+
+=== PHYSICAL PAGE 2 ===
+                      Heat Radiation in The Oven
+
+
+Summary
+Heat distribution of pans in the oven is quite different from each other, which depends
+on their shapes. Thus, our model aims at two goals. One is to analyze the heat distri-
+bution in different ovens based on the locations of electrical heating cubes. Further-
+more, a series of heat distribution which varies from circular pans to rectangular pans
+could be got easily. The other is to optimize the pans placing, in order to choose a best
+way to maximize the even heat and the number of pans at the same time.
+
+Mathematically speaking, our solution consists of two models, analyzing and optimi-
+zing. In part one, our whole-local approach shows the heat distribution of every pan.
+Firstly, we use the Stefan-Boltzmann law and Fourier theorem to describe the heat
+
+
+           ww
+distribution in the air around the electrical heating tube. And then, based on plane in-
+tercept method and simplified Monte Carlo method, the heat distribution of different
+
+
+             w.
+shapes of pans is obtained. Finally, we explain the phenomenon that the corners of a
+pan always get over heated with water waves stirring by analogy. In part two, our
+
+
+           数 ma
+discretize- convert approach optimizes the shape and number of the pans. Above all,
+we discre- tize the side length of the oven, so that the number and the average heat of
+
+
+             学 di
+the pans vary linearly. In the end, the abstract weight P is converted into a specific
+length, in order to reach a compromise between the two factors.
+
+
+               中 o.
+Specially, we create a unique method to convert the variables from the whole space to
+
+
+                国 ne
+the local section. The special method allows us to draw the heat distribution of every
+single section in the oven. The algorithm we create does a great job in flexibility,
+
+
+                    t
+which can be applied to all shapes of pans.
+
+
+Keywords: Monte Carlo            thermal radiation      section      heat distribution
+               discretization
+
+
+=== PHYSICAL PAGE 3 ===
+Team #22599                                                                   Page 1 of 23
+
+
+
+Introduction
+Many studies on heat conduction wasted plenty of time in solving the partial
+differential equations, since it’s difficult to solve even for computers. We turn to
+another way to work it out. Firstly, we study the heat radiation instead of heat
+conduction to keep away from the sophisticated partial differential equations. Then,
+we create a unique method to convert every variable from the whole space to section.
+In other words, we work everything out in heat radiation and convert them into heat
+contradiction.
+Assumptions
+We make the following assumptions about the distribution of heat in this paper.
+
+·Initially two racks in the oven, evenly spaced.
+
+·When heating the electrical heating tubes, the temperature of which changes from
+
+              ww
+ room temperature to the desired temperature. It takes such a short time that we can
+
+
+                w.
+ ignore it.
+
+
+
+
+              数 ma
+· Different pans are made in same material, so they have the same rate of heat
+ conduction.
+
+
+                学 di
+·The inner walls of the oven are blackbodies. The pan is a gray body. The inner walls
+
+
+                  中 o.
+ of the oven absorb heat only and reflect no heat.
+
+
+
+                   国 ne
+·The heat can only be reflected once when rebounded from the pan.
+
+
+Heat Distribution Model
+                       t
+Our approach involves four steps:
+
+·Use the Fourier theorem to calculate the loss energy when energy beams are
+ spread in the medium. So we can get the heat distribution around each electrical
+ heating tube. The heat distribution of the entire space could be go where the heat of
+ two electrical heating tubes cross together.
+
+·When different shapes of the pans are inserted into the oven, the heat map of the
+ entire space is crossed by the section of the pan. Thus, the heat map of every single
+ pan is obtained.
+
+·Establish a suitable model to get the reflectivity of every single point on the pan with
+ the simplified Monte Carlo method. And then, a final heat distribution map of the
+ pan without reflection loss is obtained.
+
+·A realistic conclusion is drawn due to the results of our model compared with water
+ wave propagation phenomena.
+
+
+=== PHYSICAL PAGE 4 ===
+Team #22599                                                                      Page 2 of 23
+
+
+
+
+First of all, the paper will give a description of the initial energy of the electrical hea-
+ting tube. We see it as a blackbody who reflects no heat at all. Electromagnetic know-
+ledge shows that wavelength of the heat rays ranges from 10 −1 um to 10 2 um as
+shown below[1]:
+
+
+
+
+                                          Figure 1.
+
+
+              ww
+                w.
+              数 ma
+                学 di
+                  中 o.
+                   国 ne                   Figure 2.
+
+                       t
+We apply the Stefan-Boltzmann’s law[2] whose solution is
+                                         c λ−5
+                                 Ebλ = c2 / 1(λT )
+                                       e           −1                                    (1)
+                               ∞          ∞
+                                                   c λ−5
+                          Eb = ∫ Ebλ dλ = ∫ c2 / 1(λT ) dλ                               (2)
+                               0           0
+                                               e         −1
+
+Where Eb means the ability of blackbody to radiate. c1 and c2 are constants.
+Obviously,, the initial energy of a black body is Eb 0 = 3.2398e + 012( w × m 2 ) .
+
+Combine Figure 1 with Figure 2, we integrate (1) from λ1 to λ2 to get the equation
+as follow:
+                                                 λ2
+
+                                    Eb ( λ1 −λ2 ) = ∫ Ebλ dλ                             (3)
+                                                 λ1
+
+
+=== PHYSICAL PAGE 5 ===
+Team #22599                                                                 Page 3 of 23
+
+
+
+
+                                      Figure 3.
+
+From Figure 3, it can be seen how the power of radiation varies with wavelength.
+
+Secondly, based on the Fourier theorem, the relation between heat and the distance
+
+              ww
+from the electrical heating tubes is:
+                                               dt
+
+                w.
+                                       Q = −λS                                      (4)
+                                               dx
+Where Q is the power of heat ( J / s = W ), S is the area where the energy beam
+
+
+              数 ma
+radiates ( m 2 ),
+                  dt
+                  dx
+                      represents the temperature gradient along the direction of energy
+beam. [3]
+                学 di
+                  中 o.
+It is known that the energy becomes weaker as the distance becomes larger. According
+to the fact we know:
+
+
+                   国 ne
+                                         dQ
+                                     ρ=                                          (5)
+                                          dx
+
+                       t
+Where ρ is the rate of energy changing.
+
+We assume that the desired temperature of electrical heating tube is 500k. With the
+two equations, the distribution of heat is shown as follow:
+
+
+
+
+               Figure 4. (a)                                Figure 4. (b)
+
+
+=== PHYSICAL PAGE 6 ===
+Team #22599                                                                Page 4 of 23
+
+
+
+
+In order to draw the map of heat distribution in the oven, we use MATLAB to work
+on the complicated algorithm. The relation between the power of heat and the distance
+is shown in Figure 4(a). The relation between temperature and distance is presented in
+Figure 4(b). The spreading direction of energy beam is presented in Figure 5.
+
+
+
+
+              ww
+                w.
+              数 ma
+                                      Figure 5.
+
+
+
+                学 di
+The shape of electrical heating tube is irregular. The heat distribution of a single
+electrical heating tube can be draw in 3D space with MATLAB. The picture is shown
+
+
+                  中 o.
+in Figure 6. After superimposing, the total heat distribution of two tubes is shown
+below in Figure 7 and Figure 8.
+
+
+                   国 ne
+                       t
+
+
+              Figure 6.                                   Figure 7.
+
+
+=== PHYSICAL PAGE 7 ===
+Team #22599                                                                 Page 5 of 23
+
+
+
+
+                                       Figure 8.
+
+The pictures above show the energy in an oven with no pan. We put in a rectangular
+pan whose area is A , and intercept the maps with MATLAB. The result is show in
+
+
+              ww
+Figure 9.
+
+
+
+                w.
+              数 ma
+                学 di
+                  中 o.
+                   国 ne
+                       t               Figure 9.
+
+
+
+
+                                       Figure 10.
+Put in a circular pan to intercept the maps, whose area is A , also. The distribution of
+heat is shown in Figure 11.
+
+
+=== PHYSICAL PAGE 8 ===
+Team #22599                                                               Page 6 of 23
+
+
+
+
+              ww
+                w.
+              数 ma
+                学 di
+                  中 o.
+                                     Figure 11.
+
+
+
+                   国 ne
+When put in a pan in transition shape, which is neither rectangular nor circular. The
+area of it is A , also. The heat distribution on such a pan is shown as follow:
+
+
+                       t
+
+
+                                   Figure 12( a )
+
+
+=== PHYSICAL PAGE 9 ===
+Team #22599                                                                    Page 7 of 23
+
+
+
+
+                                     Figure 12( b ).
+
+
+
+
+              ww
+                w.
+              数 ma
+                学 di
+                  中 o.
+                   国 ne
+                       t
+
+                                      Figure 13.
+
+Next, learning from the Monte Carlo simulation[4], a model is established to get
+obtain the reflectivity. We generate a random number between 0 and 1 to determine if
+the energy beam on certain point is reflected.
+
+• Firstly, to demonstrate the question better , we construct a simple model:
+
+
+=== PHYSICAL PAGE 10 ===
+Team #22599                                                                Page 8 of 23
+
+
+
+
+                                       Figure 14.
+                                                                                θ
+Where θ is the viewing angle from electrical heating tube to the pan. R =          is
+                                                                               360
+the proportion of the beams radiated to the pan.
+
+• What is more, we assume the total beam is M 1 . Ideally, the number of absorption is
+      θ
+M1 ×      . Then, each element of the pan is seen as a grid point. Each grid point can
+     360
+              ww
+generate a- M 1 ×
+                   θ
+
+                w.
+                      -random-number vector between 0 and 1 in MATLAB.
+                  360
+
+
+
+              数 ma
+• After MATLAB simulating, the number of beams decreased by M 2 , due to the
+                                           360 × M 2
+
+
+                学 di
+reflection. So we define a probability ρ =           to describe the number of beams
+                                             M 1θ
+reflected.
+
+
+                  中 o.
+The conclusion is :
+
+
+                   国 ne
+• If ρ ≤ R , the energy beam is absorbed.
+
+                       t
+• If ρ > R , the energy beam is reflected.[5]
+
+Based on the analysis above, our model get a final result of heat-distribution on the
+pan as shown below:
+
+
+
+
+                                     Figure 15(a)
+
+
+=== PHYSICAL PAGE 11 ===
+Team #22599                                                                  Page 9 of 23
+
+
+
+
+                                     Figure 15(b).
+
+The conclusion is known that the closer the shape of pans is to circle, the more evenly
+the heat is distributed. Moreover, the phenomenon that the corners always get over
+heated can be explained by water wave propagation in different containers.
+
+
+              ww
+When there is a fluctuation in the center of the water, the ripples will fluctuate and
+
+
+                w.
+spread in concentric circles, as shown in Figure 16. The fluctuation stirs waves up
+when contacting the borderlines. Compared with the waves with one boundary, the
+
+
+
+              数 ma
+waves in corner make a higher amplitude.
+
+The thermal conduction on the pan is exactly the inverse process of the waves
+
+
+                学 di
+propagation. The range of thermal motion is much smaller than it on the side. That’s
+why the corners is easy to get over heated.
+
+
+                  中 o.
+In order to make the heat evenly distributed on the pan, the sides of the pan should be
+
+
+                   国 ne
+as few as possible. Therefore, if nothing is considered about the utilization of space, a
+circle pan is the best choice.
+
+
+                       t
+
+
+
+                      Figure 16, the water waves propagation[6]
+
+According to the analysis above and Figure 7, the phenomenon shows that the heat
+conduction is similar to water waves propagation. So it is proved that heat
+
+
+=== PHYSICAL PAGE 12 ===
+Team #22599                                                               Page 10 of 23
+
+
+concentrates in the four corners of the rectangular pan.
+The Super Pan Model
+Assumptions
+
+• The width of the oven ( W ) is 100mm , the length is L .
+
+• There are three pans at most in vertical direction.
+
+• Each pan’s area is A .
+
+The first part.
+Calculate the maximum number of pans in the oven. Different shapes of pan have
+different heat distribution which affects the number of pans, judging from the
+previous solution. According to the conclusion in the first model, the heat is
+distributed the most evenly on a circular pan rather than a rectangular one. However,
+the rectangular pans make fuller use of the space the space than circular ones. Both
+
+
+              ww
+factors considered, a polygonal pan is chosen.
+
+
+
+                w.
+A circle can be regard as a polygon whose number of boundaries tends to infinity.
+Except for rectangle, only regular hexagon and equilateral triangle can be closely
+placed. Because of the edges of equilateral triangle, heat dissipation is worse than
+
+              数 ma
+rectangle. So, hexagonal pans are adopted after all the discussion.
+
+
+
+                学 di
+Considering the gaps near boundaries, we place the hexagonal pans closely attached
+each other on the long side L . There are two kinds of programs as shown below.
+
+
+                  中 o.
+                   国 ne
+                       t
+                                       Program 1.
+
+
+
+
+                                       Program 2.
+
+
+=== PHYSICAL PAGE 13 ===
+Team #22599                                                                   Page 11 of 23
+
+
+
+
+Obviously, Program2 is better than Program1 when considering space utilization. So
+scheme 1 is adopted.
+
+Then, design a size of each hexagonal pan to make the highest space utilization. With
+the aim of utilization, hexagonal pans has to be placed contact closely with each other
+on both sides. It is necessary to assume a aspect ratio of the oven to work out the
+number of pans( N ).
+
+Assume that the side length of a regular hexagon is a , the length-width ratio of the
+oven is λ and ∆L is the increment in discretization. Because the number of pans
+can not change continuously when n ∈ ( m, m + 1), m = 1,2,3 ⋅ ⋅ ⋅ , the equations would be
+as follows.
+                         ⎧W
+                         ⎪5 =a
+                         ⎪
+                         ⎪0 < W < 1
+                         ⎪       L
+
+              ww         ⎪ L = L + k ⋅ ∆L
+                         ⎪        0
+
+
+
+
+                w.
+                         ⎪           3
+                         ⎪∆L =         ⋅ a;
+                         ⎪          2
+
+
+              数 ma
+                         ⎪⎪      L + k ⋅ ∆L ⎡ L + k ⋅ ∆L ⎤
+                          ⎨0 ≤               −⎢          ⎥⎦ < 1                      (6)
+                                    W         ⎣ W
+
+
+                学 di
+                          ⎪
+                          ⎪ W
+                          ⎪              =λ
+                          ⎪ L + k ⋅ ∆L
+
+                  中 o.    ⎪ N 0 = 8, L0 = W
+                          ⎪
+
+
+                   国 ne
+                          ⎪     ⎡         ⎤
+                          ⎪     ⎢ L −W ⎥
+                          ⎪n = ⎢          ⎥
+
+                       t  ⎪
+                          ⎪⎩
+                                ⎢ 3 ⋅a⎥
+                                ⎢⎣ 2      ⎥⎦
+
+                      ⎧                n −1
+                      ⎪⎪ N1 = N 0 + 3 ⋅ 2 + 1 n = 2k − 1, k = 1,2,3 ⋅ ⋅ ⋅
+Result:                ⎨
+                       ⎪N = N + 3 ⋅ n         n = 2k , k = 1,2,3 ⋅ ⋅ ⋅
+                       ⎪⎩ 2     0
+                                       2
+Where N1 represents the number of pans when n is odd, N 2 represents the
+number of pans when n is even. The specific number of pans is depended on the
+width-length ratio of oven.
+
+The second part.
+Maximum the heat distribution of the pans. We define the average heat( H ) as the
+ratio of total heat and total area of the pans. Aiming to get the most average heat, we
+set the width-length ratio of the oven λ . Space utilization is not considered here.
+
+A conclusion is easy to draw from Figure 8 that a square area in the oven from
+150 mm to 350 mm in length shares the most heat evenly. So the pans should be
+
+
+=== PHYSICAL PAGE 14 ===
+Team #22599                                                                 Page 12 of 23
+
+
+placed mainly in this area. From model 1 we know that the corners of the oven are apt
+to gather heat. Besides, four more pans are added in the corners to absorb more heat.
+Because heat absorbing is the only aim, there is no need to consider space utilization.
+Circular pans can distribute heat more evenly than any other shape due to model 1. So
+circular pans are used in Figure 17.
+
+
+
+
+              ww                      Figure 8.
+
+
+                w.
+              数 ma
+                学 di
+                  中 o.
+                   国 ne
+                       t              Figure 17.
+We set the heat of the pans in the most heated area (the middle row) as Q . Pans in the
+
+corners receive more heat but uneven theoretically. And the square of the four pans in
+the corners is so small compared with the total square that we set the heat of the four
+as Q too. When the length of oven ( L ) increases, the number of pans increases too.
+
+It makes the square of the gaps between pans bigger, meanwhile. If each pan has a
+same radius ( r ) and square ( A ), the equation about average heat, length-width ratio
+and number of pans would be (7).
+
+
+=== PHYSICAL PAGE 15 ===
+Team #22599                                                                 Page 13 of 23
+
+
+                                   ⎧      1 3
+                                   ⎪r = ⋅ ⋅ W
+                                   ⎪      4 5
+                                   ⎪A = π ⋅r2
+                                   ⎪
+                                   ⎪0 < W < 1
+                                   ⎪       L
+                                   ⎪ L = L + k ⋅ ∆L
+                                   ⎪
+                                   ⎪∆L = 2 ⋅ r
+                                   ⎪
+                                   ⎪       L + k ⋅ ∆ L ⎡ L + k ⋅ ∆L ⎤                (7)
+                                   ⎨0 ≤               −⎢            ⎥ <1
+                                   ⎪           W       ⎣    W       ⎦
+                                   ⎪ W
+                                   ⎪               =λ
+                                   ⎪ L + k ⋅ ∆L
+                                   ⎪ N 0 = 7; L0 = W
+                                   ⎪
+                                   ⎪n = ⎡ L − W ⎤
+                                   ⎪      ⎢ 2⋅r ⎥
+                                          ⎣         ⎦
+                                   ⎪
+                                      N  =  N   + n
+
+              ww
+                                   ⎪          0
+                                   ⎪⎩ k = 1,2,3...
+
+
+                w.
+     Here we get the most average heat ( H ):
+                                          400 Q
+                                     H=       ⋅
+
+
+              数 ma
+                                          9π W 2
+The third part.
+
+
+                学 di
+We discussed two different plans in the previous parts of the paper. One is aimed to
+get the most average heat, while the other aimed to place the most pans. The two
+
+
+                  中 o.
+plans are contradictory with each other, and can not be achieved together.
+
+
+
+
+                   国 ne
+Firstly, the weight of plan 1 is P and the weight of plan 2 is 1 − P . Obviously, this
+kind optimization has difficulty in solving and understanding. So we turn to another
+
+
+                       t
+way to make it a easier and linear question. It has been set that the width of the oven
+is a constant W and there should be three pans at most in vertical direction. We
+make the weight P a proportion of the two plans. Thus the two plans could be
+achieved together due to proportion P and 1 − P , as shown in Figure 18.
+
+
+
+
+                                      Figure 18.
+
+
+=== PHYSICAL PAGE 16 ===
+Team #22599                                                                    Page 14 of 23
+
+
+As been told in model 1, the corners have a higher temperature than other parts of the
+oven. So plan 1 is used in district 1 (in Figure 10) and plan 2 is used in district 2 (in
+Figure 10). A better compromise could be reached in this way, as shown in Figure 19.
+
+
+
+
+                                         Figure 19.
+
+
+              ww
+Every pan has a square of A . Radius of circular ones is r . Side length of regular
+
+
+                w.
+hexagon is a .
+
+                                         3 3 2
+
+
+              数 ma
+                               π ⋅r2 =      ⋅a        ⇒   a : r = 1.1                   (8)
+                                          2
+
+
+
+                学 di
+Based on the equation (8), if the pans are placed as shown in Figure 19, regular
+hexagons are placed full of district 1, the circular ones will be placed beyond the
+
+
+                  中 o.
+border line. If the circular ones are placed full of district 2, there will be more gaps in
+district 1, which will be wasted. So we change our plan of placing pans as Figure 20.
+
+
+                   国 ne
+                       t
+
+                                         Figure 20.
+
+The number of circular ones decreases by two, but the space in district 1 is fully used,
+and no pan will be placed beyond the borderline.
+
+We assume that P is bigger than 1 − P , so that, the heat in district 1 will be fully
+used. By simple calculating, we know that the ratio of the heat absorbed in circular
+pan ( H1 ) and in regular hexagon ( H 2 ) is 1.2:1.
+
+
+=== PHYSICAL PAGE 17 ===
+Team #22599                                                                    Page 15 of 23
+
+
+
+
+                                      Figure 21.
+
+
+              ww
+So, based on the pans placing plan, a equation on heat can be got as follow:
+
+
+                w.             ⎧ 3
+                               ⎪
+                               ⎪ 2
+                                     a ≈ r = x;
+
+
+              数 ma             ⎪
+                               ⎪A =
+                                      3 3
+                                           ⋅a = π ⋅r2
+
+
+                学 di
+                               ⎪        2
+                               ⎪     W
+                               ⎪0 <      <1
+
+
+                  中 o.
+                               ⎪      L
+                               ⎪ L = L0 + k ⋅ ∆L
+                               ⎪∆L = x
+
+
+                   国 ne
+                               ⎪
+                               ⎪     L + k ⋅ ∆L ⎡ L + k ⋅ ∆L ⎤                        (9)
+                               ⎨0 ≤              −⎢          ⎥ <1
+
+                       t       ⎪
+                               ⎪
+                               ⎪
+                                     W
+                                          W
+
+
+                               ⎪ L + k ⋅ ∆L
+                                              =λ
+                                                   ⎣   W     ⎦
+
+
+
+                               ⎪ N 0 = 9, L0 = W
+                               ⎪
+                               ⎪n = ⎡ P ⋅ L − W ⎤
+                               ⎪ 1 ⎢⎣         x ⎥⎦
+                               ⎪
+                               ⎪ n = ⎡(1 − P ) ⋅ L − W ⎤
+                               ⎪ 2 ⎢⎣              x ⎥⎦
+                               ⎪
+                               ⎩ k = 1,2,3...
+
+
+=== PHYSICAL PAGE 18 ===
+Team #22599                                                                            Page 16 of 23
+
+
+
+                               ⎧                           n1 − 1
+                               ⎪ N 1 = N 0 + 2 ⋅ n2 + 3 ⋅ 2 + 1           ( n1 = 2 k − 1)
+                               ⎪
+                               ⎪ N = N + 2 ⋅ n + 3 ⋅ n1                   ( n1 = 2 k )
+                               ⎪ 2       1        2
+                                                           2
+                               ⎪             n −1
+                               ⎪       (5 + 1       ⋅ 3) ⋅ Q + 1.2Q ⋅ ( 4 + 2 ⋅ n2 )
+Resolution:                    ⎪                2                                            (10)
+                               ⎨H1 =
+                               ⎪                           N1 ⋅ A
+                               ⎪              n
+                               ⎪       (5 + 1 ⋅ 3) ⋅ Q + 1.2Q ⋅ ( 4 + 2 ⋅ n2 )
+                               ⎪H 2 =         2
+                               ⎪                         N2 ⋅ A
+                               ⎪ k = 1,2,3...
+                               ⎪
+                               ⎩
+
+N1 and H1 means the number of pans and average heat absorbed when n is odd.
+
+N 2 and H 2 means the number of pans and average heat absorbed when n is even.
+For example:
+              ww
+                w.
+(1) When λ = 0.37 , P = 0.6 :
+                      Q
+    N = 16 , H = 1.075 . The best placing plan is:
+
+
+              数 ma
+                      A
+
+
+
+                学 di
+                  中 o.
+                   国 ne
+                       t
+(2) When λ = 0.37 , P = 0.7 :
+                       Q
+   N = 18 , H = 1.044 ⋅ . The best placing plan is:
+                       A
+
+
+=== PHYSICAL PAGE 19 ===
+Team #22599                                                                  Page 17 of 23
+
+
+(3) When λ = 0.58 , P = 0.6 ：
+                       Q
+   N = 12 , H = 1.067 ⋅ . The best placing plan is:
+                       A
+
+
+
+
+A conclusion is easy to draw that when the ratio of width and length of the oven ( λ )
+is a constant, the number of pans increases with an increasing P, but the average heat
+
+              ww
+decreases (example (1) and (2)). When the weight P is a constant, the number of pans
+decreases with an increasing λ , and the average heat decreases also. So, the actual
+
+                w.
+plan should be base on your specific needs.
+
+
+
+              数 ma
+Conclusion
+
+
+
+                学 di
+In conclusion, our team is very certain that the method we came up with is effective in
+heat distribution analysis. Based on our model, the more edges the pan has, the more
+
+
+                  中 o.
+evenly the heat distribute on. With the discretize-convert approach, we know that
+
+
+
+                   国 ne
+when the ratio of width and length of the oven ( γ ) is a constant, the number of pans
+
+increases with an increasing P , but the average heat decreases. When the weight P
+
+                       t
+is a constant,the number of pans decreases with an increasing γ , and the average heat
+
+decreases also. So, the actual plan should be base on your specific needs.
+
+
+
+Strengths & Weaknesses
+
+
+Strengths
+• Difficulties Avoided.
+In model 1, we turn to another way to work simulate the heat distribution instead of
+work on heat conduction directly. Firstly, we simulate heat radiation not heat
+conduction to keep away from the sophisticated partial differential equations. Then,
+we create a unique method to convert every variable from the whole space to section.
+In other words, we work everything out in heat radiation and convert them into heat
+contradiction.
+
+
+=== PHYSICAL PAGE 20 ===
+Team #22599                                                                   Page 18 of 23
+
+
+•Close to Reality.
+Our model considers both the thermal radiation and surface reflection, which is
+relatively close to the actual situation.
+
+•Flexibility Provided.
+Our algorithm does a great job in flexibility. The heat distribution map on sections are
+intercepted from the heat distribution maps of the entire space. All shapes of sections
+can be used in the algorithm. The heat distribution in the whole space is generated
+based on the location of the electrical heating tubes and the decay curve of the heat,
+which can be modified at any time.
+
+•Innovation.
+Based on our model, the space of an oven can be divided into six parts with different
+hear distribution. In order to make full use of the inner space, we invent a new pan
+which allows users to cook six different kinds of food at same time. An advertisement
+
+
+              ww
+is published in the end of the paper.
+
+
+
+                w.
+Weaknesses
+• Pan’s Thermal Conductivity Ignored.
+
+
+              数 ma
+The heat comes from not only the electrical heating tubes, but also heat conduction of
+the pans themselves. But the pan’s thermal conduction is ignored in the model, which
+
+
+                学 di
+may cause little inaccuracy.
+
+
+
+
+                  中 o.
+• Thermal Conductivity of Electrical Heating Tubes Ignored.
+it is assumed that there are two electrical heating tubes in the oven and placed in a
+
+
+                   国 ne
+specific location. The initial temperature of the tubes is a desired constant temperature.
+In other words, the time electrical heating tubes spend to heating themselves is
+
+
+                       t
+ignored. The simplification can cause some inaccuracy.
+
+• Linear simplification.
+In model 2, the length of the oven is discretized, so that the number of pans will
+changes linearly. calculating through simple integer linear method. This will lead to
+the result of our model is not accurate enough.
+
+Application
+
+We have discussed the heat distribution in the oven in model 1. The heat distribution
+is shown in figure 1 and figure 2.
+
+
+=== PHYSICAL PAGE 21 ===
+Team #22599                                                                 Page 19 of 23
+
+
+
+
+                                       Figure 1
+
+
+
+              ww
+                w.
+              数 ma
+                学 di
+                  中 o.
+                   国 ne
+                       t                  Figure 2
+As shown, the edges of the oven are distributed the most heat. Areas on both sides of
+the, is distributed the least heat. While the middle area absorbs little less than the
+edges. So, we can separate the oven area into six parts, as shown bellow.
+
+
+=== PHYSICAL PAGE 22 ===
+Team #22599                                                                   Page 20 of 23
+
+
+
+
+              ww
+                w.
+Part 1 and part 2 are distributed the least heat and located the furthest from the heat
+source (the electrical heating tubes locate on the bottom of the oven). So these two
+
+
+              数 ma
+parts absorb the least heat. Part 3 and part 4 are distributed the least heat but locating
+the nearest to the heat source. Part 5 located far from the bottom but distributed the
+
+
+                学 di
+most heat. So simply, we regard the heat of part 3, part 4 and part 5 as the same. Part 6
+is distributed the most heat, and locating nearest to the bottom. So, the heat part 6
+
+
+                  中 o.
+absorbs is the most in the oven.
+
+
+
+                   国 ne
+Based on our conclusion above, we invent the iPan, a new combined pan, which can
+bake three kinds of food at the same time. For example, one wants to have a little
+
+
+                       t
+bread, pieces of sausage, a chicken wing and a pizza for lunch. He will have to wait
+30 minutes at least for his lunch, if he just has one oven. As the Chinese saying goes,
+‘Bear paws and fish never come together’ .
+
+By using iPan can solve the issue for him, he could put the bread in pan 1, pizza in
+pan 2, sausage in pan 5 and chicken wing in pan 6, and power on. Thus, he can have
+his delicious lunch in at least 10 minutes. So, bear paws and fish come together.
+
+We make an advertisement for Brownie Gourmet Magazine in the end of the paper.
+
+
+Advertising Sheets
+
+
+=== PHYSICAL PAGE 23 ===
+Team #22599                Page 21 of 23
+
+
+
+
+              ww
+                w.
+              数 ma
+                学 di
+                  中 o.
+                   国 ne
+                       t
+
+
+=== PHYSICAL PAGE 24 ===
+Team #22599                                                          Page 22 of 23
+
+
+
+
+              ww
+                w.
+              数 ma
+                学 di
+                  中 o.
+                   国 ne
+                       t
+References
+[1] Heat Radiation, http://wenku.baidu.com/view/f5ed1619cc7931b765ce1599.html,
+Page. 4
+[2] G. S. Ranganath, Black-body Radiation,
+http://link.springer.com/article/10.1007%2Fs12045-008-0028-7?LI=true#, February,
+2013
+[3] Kaiqing Lu, The Chemical Basis of Heat Transfer, Journal of Higher
+Correspondence Education(Natural Sciences Edition), Vol.3: p.33, 1996
+[4] Mark M. Meerschaert, Mathematical Modeling(Third Edition), China: China
+Machine Press, May. 2009
+[5] Jianzhong Zhang, Monte Carlo Method, Mathematics in Practice and Theory,
+
+
+=== PHYSICAL PAGE 25 ===
+Team #22599                                                              Page 23 of 23
+
+
+Vol.1 p.28, 1974
+[6] Shallow water equations, http://en.wikipedia.org/wiki/Shallow_water_equations
+
+
+
+
+              ww
+                w.
+              数 ma
+                学 di
+                  中 o.
+                   国 ne
+                       t

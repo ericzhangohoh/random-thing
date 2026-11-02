@@ -1,0 +1,833 @@
+=== PHYSICAL PAGE 1 ===
+Team    # 22063                                                              Page 1 of 21
+
+
+                                  Team Control Number
+
+For office use only                                                For office use only
+T1 ________________
+T2 ________________
+                                22063                              F1 ________________
+                                                                   F2 ________________
+T3 ________________                                                F3 ________________
+                                     Problem Chosen
+T4 ________________                                                F4 ________________
+                                           A
+
+
+          2013 Mathematical Contest in Modeling (MCM) Summary Sheet
+
+                          The Ultimate Brownie Pan
+
+                                       Abstract
+     Brownie Cake is famous for its fantastic taste, but how can we cook Brownie
+Cake better? Apparently, it needs to be baked in a suitable pan. Now, let’s take a close
+look at Ultimate Brownie Pan designed in this article.
+     For the sake of dealing with the contradiction between delicacy and efficiency,
+there are two mathematical models being developed.
+     The model 1, namely, model with three-dimensional differential equation of heat
+conduction, provides a solution to studying the heat distribution of pans in different
+shapes. By using ANSYS to simulate, the maximum temperature difference of
+rectangle pan is 2.296 centigrade. And the maximum temperature difference of round
+pan is 1.386 centigrade. It proved that the heat temperature distribution of round pan
+is more uniformer than rectangle pan.
+     In order to study the best shape of pan under given conditions, model 2 is a
+mixed one of two-dimensional packing model and combination optimization model.
+Temperature variance of pan and utilization radio of area are selected to quantize two
+indexes given.Six basic shapes of pans are discussed.We get the best appropriate pan
+in the different shapes. In particular, a curve have been fitted to reflect which shape of
+pan is suitable for the oven under certain condition.
+
+
+Keywords: Brownie Pan           Heat Conduction Equation ANSYS
+              Temperature Variance      Combinatorial Optimization Model
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 22063                                                                                                                    Page 2 of 21
+
+
+                                                              Contents
+I. Introduction....................................................................................................................................3
+II. Models.......................................................................................................................................... 3
+      1. Model 1..................................................................................................................................3
+           1.1 Symbols and Definitions............................................................................................. 3
+           1.2 Assumptions................................................................................................................ 4
+           1.3 The foundation of model 1.......................................................................................... 4
+           1.4 Solution to the problem............................................................................................... 5
+           1.5 Verification with simulation diagram..........................................................................7
+           1.6 Strength and Weakness................................................................................................9
+           1.7 Conclusion:..................................................................................................................9
+      2. Model 2..................................................................................................................................9
+           2.1 Symbols and Definitions............................................................................................. 9
+           2.2 Assumptions.............................................................................................................. 10
+           2.3 The foundation of model 2........................................................................................ 10
+           2.4 Solution to the problem............................................................................................. 12
+           2.5 Result and Analysis to the problem........................................................................... 12
+           2.6 Strength and Weakness..............................................................................................18
+           2.7 Conclusion.................................................................................................................18
+III Future Work............................................................................................................................... 19
+           3.1 The improvement of model 1.................................................................................... 19
+           3.2 The improvement of model 2.................................................................................... 19
+IV A letter........................................................................................................................................20
+V References................................................................................................................................... 21
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 22063                                                                           Page 3 of 21
+
+
+
+                                       I. Introduction
+      Product gets overcooked at the corners when baked in a rectangular pan, but not
+overcooked at the edges when baked in a round pan. However, using round pan is not
+efficient with respect to using space in a rectangular oven. So it is necessary to design
+pans of new shape satisfied for maximizing both even distribution of heat for the pan
+and number of pans that can fit in the oven.
+      In order to study better the heat distribution of pans in different shape, the paper
+develops a mathematical model with three-dimensional differential equation of heat
+conduction, and use ANSYS to simulate.
+      For the sake of studying the best shape of pans, the model 2 is developed as a
+mixed one of two-dimensional packing model and combination optimization model.
+
+
+                                                II. Models
+
+1.Model 1
+
+1.1 Symbols and Definitions
+
+                                      Table.1 Symbols and Definitions
+                      symbol                                            definition
+
+                  T ( x, y , z , t )                          temperature of a plate ( °C )
+
+                    g ( x, y , t )                      volumetric energy of heat source ( Wm )
+                                                                                               −3
+
+
+                                                      functions describing the movement of the heat
+                    x (t ) , y (t )
+                                                                       source ( m )
+
+                       T0 , T1                        temperatures of a surrounding medium ( °C )
+
+                       a , b, h                                dimensions of a plate ( m )
+
+                           t                                            time( s )
+
+                       x0 , y0                          coordinates of fixed point of a plate( m )
+
+           G ( x, y , z , t , ξ , η , ζ , τ )                      Green’s function
+
+                          κ                                                          2 −1
+                                                              thermal diffusivity ( m s )
+
+                          ε                             size of the quadratic element on the plate
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 22063                                                                                     Page 4 of 21
+
+                                                                surface heated by the heat source ( m )
+
+                        δ( )                                              Dirac delta function
+
+                      α 0 , α1                                  heat transfer coefficients ( Wm K
+                                                                                                     −1        −1
+                                                                                                                    )
+
+                                                                                                −1        −1
+                          λ                                       thermal conductivity ( Wm K )
+
+                                                                  angular velocity of the moving heat
+                          ϕ                                                                −1
+                                                                           source( rad s )
+
+                  i, j , k , l , m, n                                            indices
+
+
+
+1.2 Assumptions
+
+     For the model 1, some reasonable assumptions are as follows:
+     1.In the oven, the heat transfer mode is heat conduction;
+     2.The heat distributes evenly in the oven, and thermal environment of the same
+pans has no difference;
+     3.The pan’s material is even and appears isotropy in physics.
+
+
+1.3 The foundation of model 1
+
+     The temperature T ( x, y, z , t ) of the pan satisfies differential equation of heat
+
+conduction:
+                                           1 ∂T 1
+                                    ∇ 32T − ⋅  + g ( x, y , t ) = 0                                                      (1)
+                                           k ∂t λ
+              (           ) (               ) (         )
+where ∇ 32 ≡ ∂ 2 ∂x 2 + ∂ 2 ∂y 2 + ∂ 2 ∂z 2 , k is thermal diffusivity, λ is thermal
+
+conductivity and           g ( x, y , t )     denotes a volumetric energy generation. [1]In
+
+consideration that the temperature rises rapidly to a stable state in the oven, the
+volumetric energy of heat source g ( x, y, t ) is thought to be a constant.
+
+     The analysis for the heat distribution of the rectangular pan as a example is
+presented, as follows.
+     The differential equation (1) is complemented by the following initial and
+boundary conditions:
+                                              T ( x, y, z , 0 ) = 20                                                    (2)
+
+                               λ ∂T ( 0, y, z , t ) ∂x = −α 0 ⎡⎣T0 − T ( 0, y, z, t ) ⎤⎦                                (3)
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 22063                                                                              Page 5 of 21
+
+
+                             λ ∂T ( a, y, z , t ) ∂x = α1 ⎡⎣T1 − T ( a, y, z , t ) ⎤⎦                (4)
+
+                           λ ∂T ( x, 0, z , t ) ∂y = −α 2 ⎡⎣T2 − T ( x, 0, z, t ) ⎤⎦                 (5)
+
+                           λ ∂T ( x, b, z , t ) ∂y = α 3 ⎡⎣T3 − T ( x, b, z, t ) ⎤⎦                 (6)
+
+                          λ ∂T ( x, y , 0, t ) ∂z = −α 4 ⎡⎣T4 − T ( x, y , 0, t ) ⎤⎦                 (7)
+
+                          λ ∂T ( x, y , h, t ) ∂z = α 5 ⎡⎣T5 − T ( x , y , h , t ) ⎤⎦                (8)
+
+where α i ( i = 0,1, 2,⋯ 5) is the heat transfer coefficients, and Ti ( i = 0,1, 2,⋯ 5 ) is
+
+known temperatures of the surrounding medium.
+
+
+1.4 Solution to the problem
+
+    The solution to the initial-boundary problem, which is given by Eq.(1) and
+conditions (2) — (8), is determined by using Green’s function method. The Green’s
+function G ( x, y, z , t , ξ ,η , ζ ,τ ) is a solution to the differential equation:
+
+                             ⎛ 2 1 ∂⎞
+                             ⎜ ∇3 − ⋅ ⎟ G ( x, y, z , t , ξ ,η , ζ ,τ ) = 0                          (9)
+                             ⎝     k ∂t ⎠
+and satisfies the homogeneous initial-boundary conditions, analogous to the initial
+and boundary conditions (2)—(8):
+                     ( λ ∂G ∂x − α 0G ) x =0 = 0, ( λ ∂G ∂x + α1G ) x =a = 0                        (10)
+
+                     ( λ ∂G ∂y − α 2G ) y =0 = 0, ( λ ∂G ∂y + α 3G ) y =b = 0                      (11)
+
+                     ( λ ∂G ∂z − α 4G ) z =0 = 0, ( λ ∂G ∂z + α5G ) z =h = 0                        (12)
+
+The Green’s function for the considered heat conduction problem as a solution to the
+homogeneous differential problem (9) — (12) is presented[2]. The application of a
+reciprocity relation [3]: G ( x, y, z , t , ξ ,η , ζ ,τ ) = G ( ξ ,η , ζ , −τ , x, y, z, −t ) , in Eq.(9),
+
+yields
+                        ⎛ 2 1 ∂T ⎞
+                        ⎜ ∇3 − ⋅   ⎟ G ( x, y , z , t , ξ ,η , ζ ,τ ) = 0                          (13)
+                        ⎝     k ∂τ ⎠
+            2
+where ∇3 = ( ∂ 2 ∂ξ 2 ) + ( ∂ 2 ∂η 2 ) + ( ∂ 2 ∂ζ 2 ) . Eq.(13) is then used to solve the
+problem.
+      The Green’s function is applied to determine the temperature T in the pan. To
+this end the following steps should be performed:
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 22063                                                                                                           Page 6 of 21
+
+
+      —Replacement of variables x, y , z , t in Eq.(1) by ξ ,η , ζ ,τ , respectively.
+
+      — Multiplication of both sides of the equation obtained in the first step, by the
+Green’s function G ( x, y, z , t , ξ ,η , ζ ,τ ) .
+
+      — Integration of both sides of the equation obtained in the second step, with
+respect to ξ ,η , ζ ,τ in the intervals ( 0, a ) , ( 0, b ) , ( 0, h ) , ( 0, t ) ,respectively[1].
+
+      As a result one obtains
+              a    b       h       t   ⎡⎛           2     1 ∂T ⎞                            1                    ⎤
+             ∫ ∫ ∫ ∫ ⎢⎣⎜⎝ ∇ − k ⋅ ∂τ ⎟⎠ T (ξ ,η , ζ ,τ ) + λ g (ξ ,η , ζ ,τ )⎥⎦
+              0    0       0       0
+                                                    3
+
+
+
+
+                                   ×G ( x, y , z , t , ξ ,η , ζ ,τ ) dτ d ζ dη d ξ = 0                                         (14)
+
+Next, the integral in Eq.(14) is integrated by parts: the terms which include
+derivatives of the function T with respect to ξ ,η , ζ , are integrated by parts twice
+
+and the term including the derivative with respect to τ is integrated once. After
+utilizing the initial and boundary conditions (2)—(8) and Eq.(10)—(12), the following
+equation is obtained:
+                   a       b       h           t   ⎧ ⎡⎛   2      1 ∂T ⎞                                    ⎤
+                  ∫ ∫ ∫ ∫ ⎨⎩⎢⎣⎜⎝ ∇ − k ⋅ ∂τ ⎟⎠ G ( x, y, z, t , ξ ,η , ζ ,τ )⎥⎦
+                   0       0       0           0
+                                                          3
+
+
+
+
+                                                              1                                                    ⎫
+                  ×T ( ξ ,η , ζ ,τ ) +                          g ( ξ ,η , ζ ,τ ) G ( x, y , z , t , ξ ,η , ζ ,τ ) ⎬
+                                                              λ                                                    ⎭
+
+                  ×dτ d ζ dηξ + B.c. = 0                                                                                      (15)
+                       b       h       t
+where B.c. = ∫ ∫ ∫ ⎡ µ1T1G ξ = a + µ 0T0G ξ =0 ⎤dτ dζ dη
+              0 0 0⎣                           ⎦
+                       a       h           t
+                  + ∫ ∫ ∫ ⎡ µ3T3G η =b + µ 2T2G η =0 ⎤dτ dζ dξ
+                     0 0 0⎣                          ⎦
+                       a       b           t
+                  + ∫ ∫ ∫ ⎡ µ5T5G ζ = h + µ 4T4G ζ =0 ⎤dτ dη dξ                                    (16)
+                     0 0 0⎣                           ⎦
+Finally, using (13) in Eq.(15) and using the properties of the Dirac delta function[1],
+one obtains:
+                    1 a b h t
+T ( x, y, z , t ) = ∫ ∫ ∫ ∫ g (ξ ,η , ζ ,τ ) G ( x, y , z , t , ξ ,η , ζ ,τ ) × dτ dζ dη dξ + B.c. (17)
+                    λ 0 0 0 0
+      Analogous to the analysis method for the heat distribution of the rectangular pan
+in space rectangular coordinate system, problem of the heat distribution in a round
+pan based on cylindrical coordinate system is solved , and also the other cases such as
+elliptical, regular hexagon and so on.
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 22063                                                             Page 7 of 21
+
+
+1.5 Verification with simulation diagram
+
+     In order to show the distribution of heat across the outer edge of a pan for pans
+of different shapes - rectangular to circular and other shapes in between, six pans
+made up of iron in different shapes are selected to do simulation by using ANSYS[4].
+Here are the physical properties of iron, requirements for baking[5] and six basic
+shapes of pans:
+                       Table.2 The physical properties of iron
+      Items        Specific Heat          Density        Thermal Conductivity
+      Value        460J·kg-1·°C-1        7850kg·m-3       40×1.163W·m-1·°C-1
+
+                         Table.3    Requirements for baking
+         Items      Baking Temperature        Size of Cake      Baking Time
+         Value            180°C                9cm×12cm            1800s
+
+                         Table.4    Six basic shapes of pans
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 22063                                                           Page 8 of 21
+
+
+    Simulation diagrams are as follows:
+
+
+
+
+            Figure.1 Temperature distribution simulation diagram one
+
+
+
+
+            Figure.2 Temperature distribution simulation diagram two
+
+
+
+
+             Figure.3 Temperature distribution simulation diagram three
+     Fig.1 — 3 show that the heat distribution of the pan becomes more and more
+uniform, with the pan’s shape changing from rectangular to circular gradually.
+Therefore, it expounds perfectly that product gets overcooked at the corners when
+baked in a rectangular pan, but not overcooked at the edges when baked in a round
+pan.
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 22063                                                              Page 9 of 21
+
+
+1.6 Strength and Weakness
+
+     The advantages:
+     1.The model can be simulated by utilizing ANSYS ,which turns out the model is
+right and suitable.
+     2.The model is universal and can easily slove out heat distribution for different
+shapes of pans.
+     3.The model can appear the change of heat distribution for different shapes from
+rectangle to circular well.
+
+     The disadvantage:
+     The model considers heat conduction and heat convection but ignores heat
+radiation ,which leads to some errors to the result.
+
+
+1.7 Conclusion:
+
+     Utilizing ANSYS to simulate the model 1,the paper gets Fig.(1)—(3) simulation
+diagrams for different geometric shapes, Fig.(1)—(3) indicate that when the shape
+changes from rectangle to circular,the temperature distribution for geometric shape
+becomes more and more uniform,so the temperature distribution for a round pan is
+most uniform.
+
+
+2.Model 2
+
+2.1 Symbols and Definitions
+
+                           Table.5 Symbols and Definitions
+                 symbols                                   definitions
+
+                    u                       the even extent of heat distribution in a
+                                                               pan
+                    v                         the area of pans to the area of oven
+                                                           inside ratio
+                    p                        the weight for the even extent of heat
+                                                      distribution in a pan
+                  1− p                             the weight for area ratio v
+                    S                                the area of oven inside
+                    W                             the width of the oven inside
+                    L                             the length of the oven inside
+                    A                             the area of a rectangular pan
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 22063                                                                            Page 10 of 21
+
+
+                          a, b                              the dimensions of the rectangular pan
+                            n                                the number of the rectangular pans
+                                                           the temperature variance of round pan’s
+                           d0
+                                                                         outer edge
+                                                           the temperature variance of rectangular
+                           d'
+                                                                      pan’s outer edge
+
+
+2.2 Assumptions
+
+     For the model 2, some reasonable assumptions are as follows:
+     1.The heat distributes evenly in the oven, and thermal environment of the same
+pans has no difference;
+     2.At the same time there is only one kind of shape of pans in the oven.
+
+
+2.3 The foundation of model 2
+
+      The problem expounded is the two dimensional packing of a big rectangle with a
+given number of small rectangles or some other shapes. The analysis for the
+configuration of the rectangular pan in the oven as a example is presented, as follows.
+      It is important to consider that the sides of small rectangles must be parallel with
+the sides of a big rectangle. Two cases are possible: in the first case, a 90° degree
+rotation for smaller rectangles is not allowed, while the second case allows rotation.
+Smaller rectangles must be placed completely inside the big rectangle and they must
+not overlap. Let the dimensions of the big rectangle be respectively W and L .
+There are n          small rectangles. Let their dimensions be respectively ai               and bi
+
+( i = 1, 2,⋯ n ) . It is allowed for the small rectangles to have the same dimensions.
+      Let xi and yi              ( i = 1, 2,⋯ , n ) be coordinates of the centers of rectangles in the
+rectangular coordinate system, where strip starts from x -axis and is spreading in the
+direction of y -axis. Bounding rectangle then has vertices in points with coordinates
+
+( 0, 0 ) , ( 0, L ) , (W , L )     and   (W , 0 ) . Model is presented and proofed in [24]. The
+following mathematical model for packing rectangles into bounding rectangle is
+obtained[6]:
+                                              n
+                                                  max ( 0, L − yi )
+                                         max ∑                      ai bi                       (18)
+                                             i =1    L − yi
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 22063                                                                   Page 11 of 21
+
+
+           ⎧ x j − xi y j − yi    x − x y − yi
+           ⎪         −         + j i+ j             ≥ 1，i = 1, 2,⋯ n − 1，j = i + 1,⋯ n
+           ⎪ ai + a j bi + b j    ai + a j bi + b j
+           ⎪
+           ⎪ yi − L ≥ bi ，i = 1, 2,⋯ n
+           ⎪           2
+      s.t. ⎨
+           ⎪ ai            ai
+           ⎪ 2 ≤ xi ≤ W − 2 ，i = 1, 2,⋯ n
+           ⎪
+           ⎪ y ≥ bi ，i = 1, 2,⋯ n                                                      （19）
+           ⎪⎩ i 2
+     In order to determine the even extent of heat distributing in the rectangular pan
+exactly, it is necessary to separate the outer edge of the rectangular pan to several
+sections evenly. Then discretize the temperatures of each section, and obtain their
+variance. So the temperature variance of pan’s outer edge could be satisfied for
+describing the even extent of heat distribution. The lesser the variance is, the better
+the even extent will be. As a result one obtains:
+                                max Z = p ⋅ v + (1 − p ) ⋅ u                          (20)
+
+                                        ⎧ S = WL
+                                        ⎪
+                                        ⎪ A = ab
+                                        ⎪
+                                   s.t. ⎨ nA ≤ S                                       (21)
+                                        ⎪u = d d '
+                                        ⎪      0
+
+                                        ⎪⎩v = nA S
+
+where u : the even extent of heat distribution in a pan;
+      v : the area of pans to the area of oven inside ratio;
+        p : the weight for area ratio v ;
+
+       1 − p : the weight for the even extent of heat distribution in a pan;
+
+       S : the area of oven inside;
+       W : the width of the oven inside;
+       L : the length of the oven inside;
+       A : the area of a rectangular pan;
+        a, b : the dimensions of the rectangular pan;
+        n : the number of the rectangular pans;
+        d 0 : the temperature variance of round pan’s outer edge;
+
+        d ' : the temperature variance of rectangular pan’s outer edge;
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 22063                                                                Page 12 of 21
+
+
+2.4 Solution to the problem
+
+     BL algorithm must meet BL condition,that is, arbitrary rectangle within the
+configuration diagram can’t be moved to left or down unless it produces interference
+or breaks the boundary.
+     Define the rectangle which will be arranged as P1,P2,P3.……Pn.
+     The algorithm has three steps as follows:
+     1.P1 is arranged in the bottom left corner,if the value of P1 is negative
+number,then rotating P1 for 90 degree,and working out the maximum height of the
+rectangular area parked after arranging.
+     2.Pi (i=2,3.……n) is arranged in the maximum height on the right side and
+moved to left or down in turn. First, Pi is moved to down as much as possible,then
+turned left as much as possible until the movement stops,finally,working out the the
+maximum height.
+     3.Repeating to do listed above until all rectangles are arranged,the maximum
+height got in the end is the length of the space which is parked[7].
+
+     In order to optimize a combination of conditions (1) and (2) where weights p and
+(1- p) are assigned to illustrate how the results vary with different values of W/Land p.
+As it known all, it is rather difficult to take W/L and p at the same time. In this paper,
+the change of W/L and p were considered separately.
+     Firstly, only the variation of p is taken into account, the change of W/L is not
+considered. Under this circumstance, different shapes of pans were placed in the oven.
+The shape of pans have been listed in model 1.Then based on model 2, the fitness
+willmigerl of each shape can be obtained. So it can be seen clearly that the shape
+which have the bigger fitness willmigerl is more suitable for the oven. What’s more in
+order to demonstrate the different outcome of every shape. The relation between p and
+Z is found for every shape of pans. And this relation is displayed in figures. At last,
+we make a summary of the relation between p and Z. This relation is also displayed in
+a figure.
+     Secondly, only the variation of W/L is considered, the change of p is ignored. As
+the above, different shapes of pans were placed in the oven. And the outcome is
+displayed in histogram.
+
+
+2.5 Result and Analysis to the problem
+
+      The size of pans is in [5], and size of oven inside is in [8]. Based on those data,
+as a result one obtains:
+      1.Only on the condition one ,that is p=1,it means that the aim becomes to realize
+the maximum area utilization rate. Owing to the oven is rectangle and the pan shape
+can change, so the rectangle pan must reach the aim according to oven’s W/L. The
+result is as follows:
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 22063                                                              Page 13 of 21
+
+
+
+
+             Figure.4 The configuration of rectangular pans in the oven
+
+     2.Only on the condition two, that is p=0,it means that the aim becomes to realize
+the maximum even extent u . According to the conclusion from the model 1,it’s easy
+sure that round pan can reach the aim incontrovertibly. The result is as follows:
+
+
+
+
+               Figure.5 The configuration of round pans in the oven
+
+     3.On condition (3), the even extent of heat distribution and area ratio are both
+taken into account:
+     (1) results when only vary W/L:
+
+
+
+
+                       Figure.6 The Value of Z(W/L=55/56)
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 22063                                                                 Page 14 of 21
+
+
+
+
+                     Figure.7 The Value of Z(W/L=59.5/57.2[9])
+
+
+
+
+                     Figure.8 The Value of Z(W/L=44.7/38.3[10])
+     The three figures above shows the Z value of different pan shape when we vary
+W/L only. On this occasion, the weight p is set at 0.5.
+     Fig.6 is the result when the size of oven is 55*56. From Fig.6, the Z value of
+circular pan is the biggest , it means that circular pan is the best selection under this
+circumstance.
+     Fig.7 is the result when the size of oven is59.5*57.2. From Fig.7, the Z value of
+circular pan is the biggest , it also means that circular pan is the best selection on this
+occasion.
+     Fig.8 is the result when the size of oven is 44.7*38.3. From Fig.8, the Z value of
+Racetrack-type pan is the biggest , it also means that Racetrack-type pan is the best
+selection on this occasion.
+
+(2) results when only vary the weight p
+      The following tables show the configuration of pans in the oven based on the
+result of model 2:
+                      Table.6 The configuration of rectangular pans
+                                                Rectangle
+           size（b*a）          10*10.8        9*12         8*13.5     6*18
+             variance          0.2732       0.2624        0.2828    0.3014
+              number             25           26            25        27
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 22063                                                               Page 15 of 21
+
+
+                 Table.7 The configuration of Racetrack-type pans
+                                          Racetrack-type
+      size（b*a）         6*9.93        7*7.22         8*4.935         9*2.95
+        variance        0.2043        0.2224          0.1991         0.1922
+         number           27             24             24             24
+
+            Table.8 The configuration of rounded rectangle pans
+                                     Rounded Rectangle
+ size（a*R）    5.5*1        6*1        6.5*1         7*1       7.5*1               8*1
+   variance   0.2637     0.2461      0.2394       0.2312     0.2378             0.2562
+    number      22          21          21           18         20                 16
+
+                       Table.9 The configuration of ellipse pans
+                                                 Ellipse
+   size(a*b)       3*11.5     3.5*9.8      4*8.6       4.5*7.64    5*6.88      5.5*6.25
+   variance        0.3912     0.3022      0.2446        0.2131      0.183       0.1829
+    number           18          20         18            23          20          20
+
+           Table.10 The configuration of circular and regular hexagon pans
+                 Circular                                 Regular hexagon
+         size(R)            5.9                        size(a)         6.44
+        variance          0.1829                      variance        0.1979
+        number              20                        number            20
+
+    There are some configuration figure of pans in the oven, as follows:
+
+
+
+
+       Figure.9 The configuration of rounded rectangular pans in the oven
+
+
+
+
+               Figure.10 The configuration of ellipse pans in the oven
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 22063                                                         Page 16 of 21
+
+
+
+
+         Figure.11 The configuration of regular hexagon pans in the oven
+
+
+    The relationship between Z and p is displayed as the following figures.
+
+
+
+
+        Figure.12 The relationship between Z and p (rectangle,ellipse)
+
+
+
+
+ Figure.13 The relationship between Z and p (racetrack-type,rounded rectangle)
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 22063                                                               Page 17 of 21
+
+
+
+
+     Figure.14 The relationship between Z and p (circular,regular hexagon)
+
+     The six figure above shows that the relationship between Z and p . And as a
+
+matter of fact, it really makes sense. For instance, in Fig.12, from the relationship
+between Z and p of rectangle, Z becomes bigger while p increases. When
+
+p = 0 , Z is nearly equal to 0.7.On the other hand, when p = 1 , Z is nearly equal
+
+to 0. Next, let’s come to analyze this phenomenon. In model 2, p          stands for the
+
+weight of area ratio v . According to the actual situation, if p = 0 , it means that the
+
+area ratio is not taken into account. The objective function can be transformed to:
+     While p = 0 , in Eq.(20), yields: max Z = u                                  (22)
+
+      In this way, it means that the consumer is only concerned about the uniform heat
+distribution. From the work above , the even extent u of rectangle is nearly to 0.7.
+So it can be seen that the theoretical results is accord with the actual situation.
+According to the actual situation, if p = 1 , it means that the even extent is not taken
+
+into account. The objective function can be transformed to :
+     While p = 1 , in Eq.(20), yields: max Z = v                                      (23)
+
+     Under this circumstance, it means that the consumer only concerned about the
+area ratio v . From the work above, the area ratio v of rectangle can reach nearly 1
+if the right size of rectangle pan is selected. So the theoretical results in Fig.15 is
+accord with the actual situation.
+     Follow the analysis step above, it can be proved that the relationship between Z
+and p of circular pan is correct. And the trend of other figure make sense.
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 22063                                                               Page 18 of 21
+
+
+
+
+                  Figure.15 The relationship between Z and p
+
+
+2.6 Strength and Weakness
+
+     Model 2 is a mixed model of two-dimensional packing model and combination
+optimization model. In this model, the packing step and optimization step were
+combined into one model. So it can reflect the actual situation well. And in this model,
+different weight p can be assigned to the area ratio v and even extent, so it can
+
+select the best pan shape for oven under different situation.
+     But on the other hand, this model also has several weaknesses. The most
+important one is that this model is a non-linear model, the solution for this model is a
+bit complex. We have to simply the solve procedure. It have been discussed in the
+solution for model 2. Therefore, the outcome of this model can’t be globally optimal
+solution.
+
+
+2.7 Conclusion
+
+     Model 2 is a mixed model of two–dimensional packing model and combination
+optimization model. In this model , we vary the weight p and the W/L of oven to
+
+select the best shape of pan for the oven. In order to make the model more convincing,
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 22063                                                                   Page 19 of 21
+
+
+we use several different shape of pans in the model.
+    Next, we obtain the relation figure of p and Z and the Z value of different pan
+shape when we vary the W/L.
+    Finally, we compared the theoretical results with the actual situation and use
+them to select the best pan shape under different circumstance.
+
+
+                               III Future Work
+
+3.1 The improvement of model 1
+
+    Model 1 is based on heat conduction equation and heat convection. But actually, when
+ baking product, thermal radiation also exists. So thermal radiation should be added into the
+ model to make it more precise.
+
+
+3.2 The improvement of model 2
+
+   Model 2 is a mixed model of two-dimensional packing model and combination
+ optimization model. But the two-dimensional packing in this paper is intended for
+ rectangle. So it’s necessary to find algorithm that can be applied to more shapes.
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 22063                                                                   Page 20 of 21
+
+
+
+                                   IV A letter
+Dear Editor:
+    We take part in the 2013 MCM during the last four days. The problem we study during these
+days is the optimization of Brownie Pan. As it known to all, when baking in a rectangular
+pan, the product gets overcooked at the corners. So it is necessary to change the shape
+of pans to get better product quality.
+      However, there is a contradiction between product quality and the space use ratio
+of the oven. We will explain it in a common way. For example, it is common sense
+that product gets overcooked at the corners of the rectangle. On another occasion,
+when we bake product in round pans, the product is heated evenly at the edges. So
+you may think that why not we bake product in round pans. Then the quality and taste
+of the product will be better.
+      Unfortunately, every coin has two sides. Although the product is heated evenly at
+the edge of round pan. When we use round pan instead of rectangle pan, the space use
+ratio will decrease. It is illustrated in the following figures
+
+
+
+
+     .
+        Fig.1 use rectangle pans in oven      Fig.2 use round pans in the oven
+     Fig.1 and Fig.2 shows that the space use ratio of rectangle pan is bigger than the
+round pan.
+     In general, we have three choices when baking product. If you are only
+concerned about the quality of product, you can choose the round pan. If you are only
+concerned about the space use ratio of the oven, you can select the rectangle pan. In
+addition to these, you can make a compromise. For example, the space use ratio of
+rounded rectangle is bigger than rectangle. While the heat uniform degree of rounded
+rectangle is smaller than circle.
+     In particular, if you want to design a pan that is most suitable for yourself. Our
+mathematical model will provide a good solution for you.
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 22063                                                            Page 21 of 21
+
+
+
+                             V References
+[1] J. Kidawa-Kukla: Temperature distribution in a rectangular plate heated by a
+moving heat source, International Journal of Heat and Mass Transfer 51 (2008) 865–
+872.
+[2] J. Kidawa-Kukla, Analysis of beam vibration induced by moving heat source, in:
+H.A. Mang, F.G. Rammerstorfer, J. Eberhardsteiner, J. (Eds.), Proceedings of the
+Fifth World Congress on Computational Mechanics(WCCM V),July
+7-12,2002,Vienna, Austria. Vienna University of Technology, Austria, ISBN
+3-9501554-0-6, <http://wccm.tuwien.ac.at>.
+[3] J.V. Beck, K.D. Cole, A. Haji-Sheikh, B. Litkouhi: Heat Conduction Using
+Green’s Functions, Hemisphere, New York, 1992.
+[4] Song E, Li Shiguo: Technique and application of thermal field analysis for
+electro-thermal products based on ANSYS,Machinery Design and Manufacture,
+(2005), Number 10, 117-119.
+[5]http://baike.baidu.com/view/977867.htm (Feb.02nd-04th,2013).
+[6] Aleksandar SAVIC, Tijana SUKILOVIC, Vladimir FILIPOVIC:SOLVING THE
+TWO-DIMENSIONAL PACKING PROBLEMWITH m-M CALCULUS, Yugoslav
+Journal of Operations Research:21 (2011), Number 1, 93-102.
+[7] Wang Yanfang: An automatic packing algorithm aimed to solve the packing
+problem in the crystal solar cell fragment encapsulation, Nankai University, (2009),
+27-28.
+[8]http://detail.tmall.com/item.htm?spm=a230r.1.10.18.WGNJ7G&id=12426809377
+      &adid=&am_id=&cm_id=&pm_id=(Feb.03rd,2013).
+[9]http://item.taobao.com/item.htm?spm=a230r.1.10.36.n3Eyt1&id=15640151069(Fe
+b.04th,2013)
+[10]http://item.taobao.com/item.htm?spm=a230r.1.10.77.BmXuIX&id=15535918101
+(Feb.04th,2013).

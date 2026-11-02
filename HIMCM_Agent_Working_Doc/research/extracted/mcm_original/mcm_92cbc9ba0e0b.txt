@@ -1,0 +1,1088 @@
+=== PHYSICAL PAGE 1 ===
+                                  Team Control Number
+
+
+                                22927
+For office use only                                                For office use only
+T1 ________________                                                F1 ________________
+T2 ________________                                                F2 ________________
+T3 ________________                                                F3 ________________
+T4 ________________                 Problem Chosen                 F4 ________________
+                                          A
+
+
+Never Worry About Your Baking
+                                                     --Gourmet Gospel
+Summary
+    People always worry about the overcooking of cakes. The round pan can
+distribute heat evenly but wastes the space of the oven. The rectangular pan can
+make full use of space but always causes the cake overcooked, especially in the
+corners. Then, how can we design the shape of the pan to take both factors into
+consideration?
+     At first, we calculate the temperature of every part of the pan by the two-
+dimensional non-steady-state heat transfer formula. Secondly, we set two standard
+temperatures of the roasted temperature and scorched temperature. Thirdly, use
+Visual Studio 2010 to make C++ programming to simulate the baking of the cake, so
+that we can get the distribution of heat and the scorched rate. Lastly, we use R 2.15.1
+to plot the figures of heat distribution. We find that the rounded rectangle pan
+distribute the heat most evenly.
+     To maximum the number of pans fitted in the oven, we need to minimum the
+wasted space of the oven. Therefore, we calculate the wasted space of different
+shapes, and the lower wasted space is the better shape is. After making the data
+dimensionless, we create an evaluation function by the weight P of the factor which
+aims for maximizing number. Then, we plot a scatterplot of the wasted rate and
+scorched rate, and obtain the smallest convex hull to realize the linear programming.
+The result shows that rounded rectangle pan is the best, and the radius increases
+with the increasing of the weight P. When P=0, which means that we just aim to
+maximum the number, the radius=0, that means the rectangle one is the best. We
+choose five ovens that have different width to length ratio of W/L, and calculate the
+best shape for them in different weight of P. We summary the results in table5.3.1.
+     Finally, we compare the wasted rate and scorched rate of the best shape for nine
+different ovens. Then we find that the shorter the W/L is the better the shape is.
+Therefore, if we know the area of the oven that can fit pans, we should choose the
+shape that has the shortest W/L, otherwise, choose the pan whose width to length
+ratio equals to the oven’s. At the last two pages of our solution paper is the
+advertisement for presenting our design of the pan.
+     Above all, our model can design the best shape for any different kinds of ovens,
+and the algorithm which is used to solve the model is stable and robust.
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 22927                                        Page 2 of 24
+
+
+                    Contents
+1. Introduction……………………………………………………… 3
+2. Assumptions………………………………………………………3
+3. Symbol description……………………………………….………3
+4. Analysis……………………………………………………………3
+    4.1 The heat distribution…………………………………………….. 3
+    4.2 Create an ideal shape ……………………………………………. 4
+5. Models……………………………………………………………. 4
+    5.1 Heat transfer model……………………………………………… 4
+         5.1.1 Preparation of the model…………………………………….. 4
+         5.1.2 Establishment of the model…………………………………... 5
+         5.1.3 Model solution……………………………………………... 6
+    5.2 Wasted rate model ………………………………………………12
+         5.2.1 The initial design of the pan………………………………… 12
+         5.2.2The calculating of wasted rate……………………………….. 13
+    5.3 Evaluation model………………………………………………... 14
+         5.3.1 Data reduction……………………………………………... 14
+         5.3.2 Establishment of the model……………………………………14
+         5.3.3 Model solution……………………………………………… 15
+6. Final design………………………………………………………17
+7. Analysis of the Models………………………………………… 18
+    7.1 Sensitivity analysis………………………………………………... 18
+    7.2 Strengths…………………………………………………….......... 18
+    7.3 Weakness……………………………………………………......... 18
+
+Reference………………………………………………………… 19
+Appendix………………………………………………………… 19
+Advertisement…………………………………………………… 23
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 22927                                                               Page 3 of 24
+
+1. Introduction
+     Most families or bakery use the oven to bake delicious cakes, but there’re always
+some cakes were overcooked, especially the one that is at the edge of the baking pan.
+One of the most significant causes is the shape of the pan.
+     Except for the edges of the pan, the cakes received from the other aspects of heat
+are the same. The cakes at the edges of the plates having a greater heating area, thus,
+it continues high temperature and is easy to be overcooked.
+     For rectangular pan, heat is concentrated in the 4 corners cause that the product
+gets overcooked. For round pan, the heat is distributed evenly over the entire outer
+edge and the product is not overcooked at the edges. However, since most ovens are
+rectangular in shape using, round pans is not efficient with respect to using the
+space in an oven.
+     We can develop a model to show the distribution of heat across the outer edge of
+a pan for pans of different shapes – form rectangular to circular and other shapes in
+between. Subsequently, establish a model that can be used to select the best shape of
+pan under the following conditions:
+     1. Maximize number of pans that can fit in the oven (N)
+     2. Maximize even distribution of heat (H) for the pan
+     3. Optimize a combination of conditions (1) and (2) where weights P and (1-P)
+        are assigned to illustrate how the results vary with different values of W/L
+        and P.
+
+
+
+2. Assumptions
+   A width to length ratio of W/L for the oven which is rectangular in shape.
+   Each pan must have an area of A.
+   Initially two racks in the oven evenly spaced.
+   The temperature of oven is evenly distributed and unchanged
+   The initial temperature of the cake is uniform.
+
+
+3. Symbol description
+   R i : The wasted rate
+   Hi : The scorched rate
+   Pi : The weight of condition1
+
+
+
+4. Analysis of the problem
+4.1 The heat distribution
+    Develop a model to show the distribution of heat across the outer edge of
+different shapes -- rectangular to circular and other shapes in between.
+     According to the introduction, the cake is most likely to get overcooked at the
+corners of the rectangular pan. And in a round pan the heat is distributed evenly
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 22927                                                               Page 4 of 24
+over the entire outer edge which makes the cake is not overcooked. Thus, we try to
+replace the corners by other shape that is sleek.
+     To change the shape of the pan, firstly, we replace the corner by a quarter of
+circle whose radius is R. With the increase of radius, the shape of pan gradually
+turns into a shape that has a rectangular in the middle of two semicircles. Secondly,
+we view the semicircle as a semiellipse whose semi-minor axis is equal to semi-major
+axis. With the increase of semi-major axis, the shape of pan gradually turns to be
+oval-shaped. Finally, we decrease the semi-major axis of the oval pan which
+gradually turns the shape into a round.
+     For any kind of shape, we need to calculate their heat distribution. We assume
+the temperature of oven is evenly distributed and unchanged, and the initial
+temperature of the cake is uniform. The temperature of every part of the cake
+depends on the temperature of previous time of the adjacent region and its own. To
+simplify the model, we discretize the area of the cake, and use their central
+temperature to represent the temperature of every piece. Then, we establish the heat
+transfer model, and use computer simulation to solve it out.
+
+4.2 Create an ideal shape
+    Establish a model that can be used to select the best shape of pan under the
+conditions of the introduction.
+    To choose the shape of pan that can maximum the number of pans fitted in the
+oven, first we calculate the area (B) of the bounding rectangle of each shape. Since
+the area of pan is A, the ratio of A and B the greater the better, which means if A/B is
+greater than others, then that shape of pan can fit more in the oven.
+    To choose the shape of pan that won’t make cake overcooked, we define a
+scorched rate as Hi . The lower the Hi is the better the shape is.
+    To combine the two conditions, we set P as the weight of condition1, and create
+evaluation function for it. Then, we can obtain the different optimal shapes for
+different requirements.
+    At last, we choose nine typical sizes of ovens, and calculate the best shape for
+them to explore the influence of the oven size to the shape.
+
+
+
+5. Models
+5.1 Heat transfer model
+5.1.1 Preparation of the model
+     The heat transfer during baking cakes includes conduction and radiation. Due to
+the edges of the pan is connected with the cake most of the time; the main form of
+heat transfer is the conduction. Thus, we view the heat transfer during baking cakes
+as thermal conduction.
+     Steady state conduction is the form of conduction that happens when the
+temperature difference driving the conduction are constant, so that (after an
+equilibration time), the spatial distribution of temperatures (temperature field) in the
+conducting object does not change any further. Transient conduction is the mode of
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 22927                                                                                                         Page 5 of 24
+thermal energy flow that during any period in which temperatures are changing in
+time at any place within the object.
+     During the process of baking cake, the temperature of the different parts of the
+cake isn’t in a continuously changing until cake is baked. Thus, the process of baking
+cake belongs to the transient conduction.
+     The basic idea of solving the heat transfer model is as follows: Replace the
+continuous temperature distribution within the object by the temperature
+approximation of a finite number of discrete points, which can turn the problem that
+calculates the continuous temperature distribution into a problem that calculates the
+temperature. Therefore, the main content of the heat transfer model is to discretize
+the solution domain and to establish and solve the node temperature algebraic
+equations.
+     The basic steps of solving the heat transfer model:
+1. Simplify the problem reasonably and establish the physical model. Then establish
+    a complete mathematical model to calculate the heat transfer equation and single-
+    valued conditions.
+2. Discretize the solution domain: divide the target area into some smaller
+    subdomains (their size are the same) ，and then, view the temperature of the
+    center point as the temperature of the subdomains.
+3. Establish and solve the node temperature algebraic equations.
+
+5.1.2 Establishment of the model
+     We assume the baking from the bottom of the pan is uniform, and the shape of
+the pan only influences the baking from the edges of the pan. Thus, we can view the
+problem as a two-dimensional non-steady-state heat transfer problem.
+     Divide the pan (the area of the pan is A) into n pieces, and the area of each piece
+is a . Meanwhile, divide the baking duration into 'm' times of intervals, and the step
+length is one. Then, the temperature of one of the piece can replace by the
+temperature of its center in different time.
+     Through the heat balance method, we can establish a different equation of the
+inner region and the boundary region’s temperature.
+     For the two-dimensional non-steady-state heat transfer problem, the thermal
+equilibrium of the inner region(i, j) is expressed as follows: at time k, separately
+transfer into the flow of heat per unit time from the adjacent region i − 1, j ,
+ i + 1, j , i, j − 1 , (i, j + 1) is Q1，Q2，Q3，Q4 , and the sum is equal to the heat
+increments dU . Then we have
+                      Q1  Q2  Q3  Q4  dU .                                                                       (5.1.1)
+    If we calculate the temperature on the time rate of change by forward
+differencing, then we have
+           tik1, j  tik, j    tik1, j  tik, j    tik, j 1  tik, j    t ik, j 1  tik, j        t ik, j 1  tik, j
+                                                                                         ac                     . (5.1.2)
+                 a                   a                     a                     a                          1
+                       
+      Define            , rearranging (5.1.2) produces
+                       c
+                                                         tik1, j  tik1, j  tik, j 1  tik, j 1  4tik, j
+                             t   k 1
+                                        t   k
+                                                                                                               .    (5.1.3)
+                                 i, j        i, j
+                                                                              a 2
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 22927                                                                                                     Page 6 of 24
+                      
+    Define FO              , and Fo is a Fourier number. Rearranging (5.1.2) produces an
+                    a 2
+explicit formula:
+                          tik, j 1  Fo (tik1, j  tik1, j  tik, j 1  tik, j 1 )  (1  4Fo )tik, j .    (5.1.4)
+     The formula (5.1.4) is called the two-dimensional transient conduction
+differential equation of the internal regional temperature. It shows that
+1. The temperature of an interior region at a particular moment can be calculated by
+    the temperature of the region and its adjacent areas in the previous moment.
+    Thus, we needn’t to calculate the simultaneous equations but to calculate by the
+    initial temperature.
+2. The stability condition of the formula (5.1.4): The temperature of each internal
+    region in time k +1 depends on the temperature of the region and its adjacent
+    areas in time k. Within this region, the higher the temperature is at time k, the
+    temperature at its corresponding time k+1 is higher as well. Therefore, the
+                                                                                 1
+    coefficient of t ik, j in formula (5.1.4) can't be negative which means Fo  .
+                                                                                 4
+     As for the thermal equilibrium of the boundary region, the sum of the heat flow
+from the edges and the adjacent areas is equal to the heat increments. If the heat
+transferred from the edges of pan to the boundary region is determined and the
+temperature of the pan maintains equal to the oven, we can turn the problem of
+boundary region into the problem of inner region.
+
+5.1.3 Model solution
+     Use C++ Programming to calculate the heat transfer model, and simulate the
+unsteady heat transfer process.
+1. The initial temperature of the cake is set to 20, the initial temperature of the oven
+    is set to 180, and the Fourier number Fo is set to 0.22.
+2. Discretize the heating area into a grid of 100100 , and put the different kind of
+   pan in it (the area of the pan is A). Then, calculate the discrete regional grid
+   covered by the pan.
+3. According to the initial conditions, calculate the next temperature of the covered
+   grid through formula (5.1.4).
+4. Set all temperature reach 60 or more as the goal, which means we consider the
+   baking of the cake is finished. After achieved, record the temperature of each grid.
+   According to the above process, we can calculate the heat distribution of different
+kind of pan. And we describe five typical pans as follows.
+
+Rectangular pan
+   The conditions is
+                                                 WL = A
+                                                 W     w
+                                                    =                       .                                           (5.1.5)
+                                                  L    l
+                                               W > 0, 𝐿 > 0
+    Solving for (5.1.5) we obtain
+                                                            w                     w
+                                        W=           A/( ), L =                 A( ) .                                  (5.1.6)
+                                                             l                     l
+    Figure5.1.1 shows the schematic diagram of rectangular pan.
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 22927                                                                   Page 7 of 24
+
+
+
+
+                    Figure 5.1.1 the schematic diagram of rectangular pan.
+     To show the heat distribution of the pan, we get figure5.1.2 by R2.15.1. In
+addition, the color to be filled is “rainbow” causes the central location’s color is
+orange which represent a low temperature here. And the one on the right-hand side
+of the figure is the temperature corresponding to different colors.
+
+
+
+
+                                          Figure 5.1.2
+
+Rounded rectangle pan
+   We replace the corner of the rectangle by a quarter of circle, so that we get the
+rounded rectangle pan.
+   Set the radius of the circle as a, then it should meet
+                                WL − 4 − π 𝑎2 = A
+                                        W     w
+                                          =           .                     (5.1.7)
+                                      L      l
+                                   W > 0, 𝐿 > 0
+   Solving for (5.1.7) we obtain
+                                      1
+                              L=           𝐴 + 4 − 𝜋 𝑎2
+                                     𝑤 𝑙                     .                     (5.1.8)
+                            W= 𝑤 𝑙 𝐴+             4 − 𝜋 𝑎2
+   Figure5.1.3 shows the schematic diagram of rounded rectangle pan.
+
+
+
+
+                Figure 5.1.3 the schematic diagram of rounded rectangle pan.
+
+   Figure5.1.4 shows the heat distribution of the rounded rectangle pan.
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 22927                                                                    Page 8 of 24
+
+
+
+
+                                           Figure 5.1.4
+
+Oval plus rectangle pan
+   We add a rectangle into the oval, and then get the oval plus rectangle pan.
+   Set the length of the semi-major axis as a, then it should meet
+                                 πWa
+                                     + L − 2a W = A
+                                     2
+                                             W
+                                             =
+                                                   w            .                      (5.1.9)
+                                             L   l
+                                         W > 0, 𝐿 > 0
+   Solving for (5.1.9) we obtain
+                                          4−π      4−π   2 4A
+                                              a+       a +w
+                                           2        2
+                                                            l
+                                    L=                                                (5.1.10)
+                                                   2
+                                                    w
+                                            W = L( )
+                                                       l
+   Figure5.1.5 shows the schematic diagram of oval plus rectangle pan.
+
+
+
+
+               Figure 5.1.5 the schematic diagram of oval plus rectangle pan.
+
+   Figure5.1.6 shows the heat distribution of the oval plus rectangle pan.
+
+
+
+
+                                         Figure 5.1.6
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 22927                                                           Page 9 of 24
+
+Oval pan
+   Set the length of the semi-major axis as a, then it should meet
+                                       πaL
+                                           =A
+                                          2
+                                          W
+                                           =
+                                                  w.                         (5.1.11)
+                                         L    l
+                                      W > 0, 𝐿 > 0
+    Solving for (5.1.11) we obtain
+                                                   2A
+                                           L=
+                                                πa
+                                              2A w             .             (5.1.12)
+                                        W=         ( ）
+                                              πa       l
+    Figure5.1.7 shows the schematic diagram of oval pan.
+
+
+
+
+                      Figure 5.1.7 the schematic diagram of oval pan
+
+    Figure5.1.8 shows the heat distribution of the oval pan.
+
+
+
+
+                                       Figure 5.1.8
+
+Round pan
+   Set the radius of the circle as r, then it should meet
+                                        πr 2 = A
+                                         W = 2r
+                                         W     w     .                     (5.1.13)
+                                            =
+                                         L     l
+                                      W > 0, 𝐿 > 0
+   Solving for (5.1.13) we obtain
+                                                  A
+                                       W=2
+                                                  π
+                                                           .               (5.1.14)
+                                              A    l
+                                     L=2
+                                              π    w
+    Figure5.1.9 shows the schematic diagram of round pan.
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 22927                                                               Page 10 of 24
+
+
+
+
+                     Figure 5.1.9 the schematic diagram of oval pan
+
+    Figure5.1.10 shows the heat distribution of the oval pan.
+
+
+
+
+                                     Figure 5.1.10
+
+     The temperature distribution of each point can be seen intuitively by the figures.
+However, in order to quantify the above results, we need to set a standard of
+temperature. Because the heat distribution of round pan is more uniform than the
+rectangle, and we find the temperature of the edges of the round one is
+approximately 177. Then, we set 177 as the standard temperature, which means we
+view the area whose temperature is higher than 177 is overcooked.
+     Calculate the number of the overcooked area of each type of pan. Next, calculate
+the proportion of the overcooked area in the entire region, and we define it as
+scorched rate. Then, we can obtain the shape that has the least scorched rate, which
+means it’s the shape that has the most uniform distribution of heat.
+    In five different ratios of W/L (1:2, 3:4, 0.618:1, 1:1, 7:10), we calculate the
+scorched rate of different shapes by C++ Programming, and plot them as a line chart.
+(Figure 5.1.11-5.1.15)
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 22927                                                                                                                Page 11 of 24
+
+
+
+                             The scorched rate of size 1:2(%)
+           2.5
+
+             2
+
+           1.5
+
+             1
+
+           0.5
+
+             0
+                                                                                                                      101   106
+                  1     6   11   16   21   26   31   36   41   46   51   56   61   66   71   76   81   86   91   96
+
+                                                           Figure 5.1.11
+     Note: Abscissa of 2-32 represents the different type of rounded rectangle. 33-78 represents the
+different type of oval plus rectangle. 79-107 represents the different type of oval. And the 1
+represents rectangle, the 108 represents round.
+    Figure5.1.11 shows that 22 has the least scorched rate, which means the rounded
+rectangle is the best shape.
+
+                             The scorched rate of size 3:4（%）
+                   3
+                  2.5
+                   2
+                  1.5
+                   1
+                  0.5
+                   0
+                        1 4 7 10 13 16 19 22 25 28 31 34 37 40 43 46 49 52 55 58 61 64
+
+                                                           Figure 5.1.12
+     Note: Abscissa of 2-40 represents the different type of rounded rectangle. 41-57 represents the
+different type of oval plus rectangle. 58-65 represents the different type of oval. And the 1
+represents rectangle, the 66 represents round.
+    Figure5.1.12 shows that 34 has the least scorched rate, which means the rounded
+rectangle is the best shape.
+
+                        The scorched rate of size 0.618（%）
+            2.5
+
+             2
+
+            1.5
+
+             1
+
+            0.5
+
+             0
+                   1 4 7 10 13 16 19 22 25 28 31 34 37 40 43 46 49 52 55 58 61 64 67 70 73 76 79 82
+
+                                                          Figure 5.1.13
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 22927                                                                              Page 12 of 24
+     Note: Abscissa of 2-35 represents the different type of rounded rectangle. 36-66 represents the
+different type of oval plus rectangle. 67-83 represents the different type of oval. And the 1
+represents rectangle, the 84 represents round.
+    Figure5.1.13 shows that 20 has the least scorched rate, which means the rounded
+rectangle is the best shape.
+
+                      The scorched rate of size 1:1（%）
+             3
+           2.5
+             2
+           1.5
+             1
+           0.5
+             0
+                 1 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47
+
+                                           Figure 5.1.14
+     Note: Abscissa of 2-46 represents the different type of rounded rectangle. And the 1 represents
+rectangle, the 47 represents round.
+    Figure5.1.14 shows that 39 has the least scorched rate, which means the rounded
+rectangle is the best shape.
+
+                     The scorched rate of size 7:10（%）
+            3
+           2.5
+            2
+           1.5
+            1
+           0.5
+            0
+                 1 4 7 10 13 16 19 22 25 28 31 34 37 40 43 46 49 52 55 58 61 64 67 70
+
+                                                Figure 5.1.15
+     Note: Abscissa of 2-38 represents the different type of rounded rectangle. 39-60 represents the
+different type of oval plus rectangle. 61-71 represents the different type of oval. And the 1
+represents rectangle, the 72 represents round.
+    Figure5.1.15 shows that 34 has the least scorched rate, which means the rounded
+rectangle is the best shape.
+    All the results show that the rounded rectangle is the best shape for distributing
+heat evenly.
+
+5.2 Wasted rate model
+5.2.1 The initial design of the pan
+     The oven is rectangular in shape, and the width to length ratio of W/L. So, we
+can set the width to length ratio as W/L to maximize number of pans that can fit in
+the oven (figure 5.2.1).
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 22927                                                                   Page 13 of 24
+
+
+
+
+                    Figure5.21 the pan in the oven (a part of the whole)
+     Then, we change the shape of the pan as the analysis mentioned, which turn the
+corner of the rectangle to a sleek one. In order to keep the area of the pan as A, we
+just need to increase the length and the width by the same proportion. Figure5.2.1
+shows the progress of the change in shape (we just use R2.15.1 to plot the upper part
+of the shape).
+
+
+
+
+                      Figure5.2.1 the progress of the change in shape
+
+5.2.2The calculating of wasted rate
+     To calculate the wasted rate of the space, we first calculate the area of the
+rectangle that can exactly wrap the shape, and denote the area by Srec . And we
+denote the wasted rate by R. Then we get the formula (5.2.1)
+                                        S      −A
+                                   R = rec                                      (5.2.1)
+                                            S rec
+    In five different ratios of W/L (1:2, 3:4, 0.618:1, 7:10), we calculate the wasted rate
+of different shapes by C++ Programming, and plot them as a line chart. (Figure 5.2.3)
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 22927                                                                                     Page 14 of 24
+
+
+     25                                                  25
+
+     20                                                  20
+     15                                                  15
+     10                                                  10
+      5                                                   5
+      0                                                   0
+            1
+           10
+           19
+           28
+                                                                  1 6 11 16 21 26 31 36 41 46 51 56 61 66
+           37
+           46
+           55
+           64
+           73
+           82
+           91
+          100
+
+          (a) The wasted space rate of size 1:2          (b)The wasted space rate of size 3:4
+     25                                                  25
+
+     20                                                  20
+
+     15                                                  15
+
+     10                                                  10
+
+      5                                                   5
+
+      0                                                   0
+          1 7 13 19 25 31 37 43 49 55 61 67 73 79                 1 6 11162126313641465156616671
+
+      (c) The wasted space rate of size 0.618:1    (d) The wasted space rate of size 7:10
+                                          Figure 5.2.3
+    All the figures show that with the shape of a rectangle into rounded, the wasted
+rate is increasing.
+
+5.3 Evaluation model
+5.3.1 Data reduction
+     To make the data dimensionless, we try to standardize them. However, we must
+make sure that the data is negative so that we can create a feasible objective function.
+Thus, we change the original formula into formula (1).
+                                        R −R           H −H
+                                 R i ′ = i min , Hi ′ = i min         (1)
+                                                    DR                   DH
+
+
+5.3.2 Establishment of the model
+     After the data reduction, we make a scatterplot as figure5.3.1. The horizontal axis
+is the wasted rate and the longitudinal axis is the scorched rate.
+
+                                     Scatterplot(W/L=1:1)
+                    4
+
+                    3
+
+                    2
+
+                    1
+
+                    0
+                        0      0.5      1       1.5           2         2.5      3      3.5
+                   -1
+                               Figure 1 𝐑 𝐢 − 𝐇𝐢 scatterplot (with line)
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 22927                                                                   Page 15 of 24
+     Then, we create the evaluation function:
+                                zmin = pR + (1 − p)H .                           (5.3.2)
+     Solving for (5.3.2) we obtain
+                                      −p      1
+                                 H=      N+     z .                              (5.3.3)
+                                         1−p         1−p
+                                                                                             −p
+     Take the linear programming method to get zmin . Make a line whose slope is
+                                                                                           1−p
+and move it to minimize the intercept, then the intercept is zmin .
+     However, it’s impossible for us to get the graphical analytical solution, so that
+we find another way to get an approximate solution. Firstly, we make a scatterplot of
+the discrete value (Figure5.3.2).
+                3.5
+
+                  3
+
+                2.5
+
+                  2
+
+                1.5
+
+                  1
+
+                0.5
+
+                  0
+                      0    0.5       1         1.5         2   2.5   3   3.5
+
+                                 Figure 5.3.2 𝐑 𝐢 − 𝐇𝐢 scatterplot
+     Then, calculate the smallest convex hull that is able to wrap them. The progress
+is as follows.
+Step 1: Obtain the point Q1 whose abscissa is the smallest, and view it as the current
+          point Q.
+Step 2: Make lines between Q and every other point. Then, pick out the line that has
+          the smallest slope, and denote the point as Q’.
+Step 3: If Q’ has the smallest ordinate, then end, otherwise, view it as the current
+          point Q and back to step 2.
+     After the above steps, we get a polyline which is a part of the convex hull. And
+the line of formula (5.3.3) must intersect with the polyline. Then, we can obtain the
+shape of pan corresponding to different P by following progress.
+1. Calculate the slope(k i ) of every line segment(Si ) of the polyline.
+                                                                                     ki
+2.   Since we have got k i , we can calculate the value of Pi by the formula Pi =            .
+                                                                                    k i −1
+3. Obtain the Pi of the two segments that are connected with the Q. If P belongs to
+   the [Pi , Pj ], then the best shape for P is the shape of Q.
+
+5.3.3 Model solution
+     Since we have the conclusion that the rounded rectangle is the best shape, we
+just need to calculate the radius of the round to create the pan. We assume there are
+five different kind of ovens whose size are 0.1:1, 0.2:1, 0.5:1, 0.618:1, 1:1. Then, choose
+the best radius for each of them by C++ programming. That is, first we calculate the
+R i and Hi corresponding to different radius of the rounded rectangle. Next, we
+standardize the R i and Hi and plot a scatterplot of the dimensionless data. Use the
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 22927                                                                         Page 16 of 24
+scatterplot to make a smallest convex hull. At last, we get the best radius for
+different P in five different ovens. Table5.3.1 shows the summary of results.
+
+               Table5.3.1 the rounded rectangle pan for five ovens in different p
+
+ W/L              The range of P            radius Scorched rate (%) Wasted rate (%)
+                     [𝟎. 𝟓𝟑𝟏𝟐, 𝟏]             0         0.2312              0
+ 1:10            [𝟎. 𝟒𝟎𝟏𝟑, 𝟎. 𝟓𝟑𝟏𝟐)           5         0.1447           0.0867
+                  [𝟎. 𝟏𝟏𝟗, 𝟎. 𝟒𝟎𝟏𝟑)           8         0.1159           0.2312
+                      [𝟎, 𝟎. 𝟏𝟏𝟗)             16           0             1.2044
+                     [𝟎. 𝟔𝟒𝟑𝟗, 𝟏]             0         0.6702              0
+                 [𝟎. 𝟐𝟔𝟒𝟐, 𝟎. 𝟔𝟒𝟑𝟗)           5         0.5833           0.0874
+  1:5            [𝟎. 𝟏𝟔𝟎𝟒, 𝟎. 𝟐𝟔𝟒𝟐)           8         0.5138           0.2278
+                 [𝟎. 𝟎𝟖𝟔𝟖, 𝟎. 𝟏𝟔𝟎𝟒)           12        0.4013           0.6550
+                     [𝟎, 𝟎. 𝟎𝟖𝟔𝟖)             16        0.3733           1.1917
+                     [𝟎. 𝟔𝟗𝟕𝟑, 𝟏]             0         2.3375              0
+                 [𝟎. 𝟒𝟓𝟏𝟕, 𝟎. 𝟔𝟗𝟕𝟑)           5         2.2529           0.0866
+                 [𝟎. 𝟒𝟑𝟎𝟑, 𝟎. 𝟒𝟓𝟏𝟕)           8         2.1404           0.2307
+                 [𝟎. 𝟐𝟖𝟓𝟕, 𝟎. 𝟒𝟑𝟎𝟑)           11        2.0300           0.4906
+                 [𝟎. 𝟐𝟕𝟐𝟕, 𝟎. 𝟐𝟖𝟓𝟕)           12        1.9686           0.6519
+  1:2            [𝟎. 𝟐𝟒𝟔𝟏, 𝟎. 𝟐𝟕𝟐𝟕)           14        1.9154           0.8503
+                 [𝟎. 𝟏𝟖𝟕𝟏, 𝟎. 𝟐𝟒𝟔𝟏)           16        1.8359           1.1905
+                 [𝟎. 𝟏𝟕𝟎𝟗, 𝟎. 𝟏𝟖𝟕𝟏)           19        1.7202           1.7188
+                 [𝟎. 𝟏𝟎𝟏𝟏, 𝟎. 𝟏𝟕𝟎𝟗)           22        1.6450           2.3669
+                 [𝟎. 𝟎𝟖𝟐𝟑, 𝟎. 𝟏𝟎𝟏𝟏)           23        1.6200           2.6021
+                     [𝟎, 𝟎. 𝟎𝟖𝟐𝟑)             29        1.5536           4.3481
+                     [𝟎. 𝟗𝟐𝟏𝟗, 𝟏]             0         2.9855              0
+                 [𝟎. 𝟓𝟑𝟓𝟕, 𝟎. 𝟗𝟐𝟏𝟗)           5         2.9011           0.0866
+                 [𝟎. 𝟐𝟗𝟑𝟐, 𝟎. 𝟓𝟑𝟓𝟕)           9         2.7616           0.2899
+                 [𝟎. 𝟐𝟑𝟐𝟏, 𝟎. 𝟐𝟗𝟑𝟐)           10        2.7066           0.4058
+0.618:1          [𝟎. 𝟐𝟏𝟖𝟎, 𝟎. 𝟐𝟑𝟐𝟏)           15         2.475           1.0254
+                 [𝟎. 𝟏𝟖𝟖𝟗, 𝟎. 𝟐𝟏𝟖𝟎)           16        2.4216           1.1963
+                 [𝟎. 𝟏𝟓𝟓𝟏, 𝟎. 𝟏𝟖𝟖𝟗)           18        2.3150           1.5666
+                 [𝟎. 𝟏𝟏𝟐𝟒, 𝟎. 𝟏𝟓𝟓𝟏)           22        2.1449           2.3769
+                 [𝟎. 𝟎𝟖𝟐𝟑, 𝟎. 𝟏𝟏𝟐𝟒)           27        2.0493           3.6434
+                     [𝟎, 𝟎. 𝟎𝟖𝟐𝟑)             48        1.9908          11.5816
+                     [𝟎. 𝟗𝟓𝟏𝟖, 𝟏]             0         3.7633              0
+                 [𝟎. 𝟒𝟐𝟔𝟓, 𝟎. 𝟗𝟓𝟏𝟖)           5         3.6803           0.0862
+                 [𝟎. 𝟑𝟎𝟒𝟖, 𝟎. 𝟒𝟐𝟔𝟔)           10        3.4324           0.4022
+  1:1            [𝟎. 𝟏𝟗𝟒𝟔, 𝟎. 𝟑𝟎𝟒𝟖)           14        3.1907           0.8474
+                 [𝟎. 𝟎𝟗𝟖𝟏, 𝟎. 𝟏𝟗𝟒𝟔)           21        2.8594           2.2032
+                 [𝟎. 𝟎𝟔𝟕𝟎, 𝟎. 𝟎𝟗𝟖𝟏)           25        2.7260           3.1944
+                 [𝟎. 𝟎𝟓𝟕𝟕, 𝟎. 𝟎𝟔𝟕𝟎)           32        2.5654           5.2182
+                     [𝟎, 𝟎. 𝟎𝟓𝟕𝟕)             46        2.5492           10.624
+    Note: we assume the area of the pan is 14000, and the value of radius is calculated at the
+condition of A=14000.
+    In order to find the connection between W/L and the shape of pan, we calculate
+the R i and Hi of the best shape for nine kinds of oven and the different weight P.
+And we plot them in a scatterplot with different colors (figure5.3.3).
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 22927                                                                    Page 17 of 24
+
+
+
+
+                               Figure 5.5.3 𝐑 𝐢 − 𝐇𝐢 scatterplot
+     Since the lower R i and Hi are, the better the shape is. In figure3, if point Q i is in
+the bottom left of Q j , then Q i is better than Q j . Thus, we can get the conclusion that
+the smaller the W/L is the better the shape is.
+
+
+
+6. Final design
+     After we solved the models, we find that the smaller W/L is the better the shape
+is. Thus, we obtain the final progress to get a best pan.
+     First, assume the area of the oven that can put the pan is S, the area of the pan is
+A, and the width to length ratio is W/L. Then, we can calculate the length and width
+                                 S         S                                S
+of the oven by formula L =            , W = . The maximum number N =            .
+                               W /L        L                                A
+     In the condition of the maximum number is N, we can know that the maximum
+length of the pan is L , the maximum width is [W/N], and the minimum width is
+[A/L].
+    P=0 represents the more number of pans the better, thus set width as W/N is the
+best shape.
+    P=1 represents the shape only depends on the scorched rate. After calculating,
+we obtain the best radius of the rounded rectangle pan is one third of width, and
+     3L− 9L 2 −4A（4−π）
+r=                    .
+         2（4−π）
+   If 0<P<1, we can use the C++ programming that we have created to solve the best
+shape out.
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 22927                                                                     Page 18 of 24
+
+7. Analysis of the Models
+7.1 Sensitivity analysis
+      In the model solutions above, we discretize the heating area into a grid of
+100100 in the condition of A=14000. To find whether the discretize accuracy has an
+influence on the result, we double the area of the pan and discretize the heating area
+into a grid of 141141 , then solve the result out. We find that the rounded rectangle
+is still the best shape. Figure 7.1.1 shows the result of two kind of accuracy.
+
+
+
+
+                            Figure 7.1.1 the result of two kind of accuracy
+    Note: the green one is the result before improving the accuracy, and the yellow one is the
+result after improving the accuracy.
+     As the figure7.1.1 shows, the discretize accuracy only has a small influence on
+the result.
+
+7.2 Strengths
+    The fundamental strengths of our model are its robustness and flexibility. All of
+the data is fully parameterized, so the model can be applied to illustrate how the
+results vary with different values of W/L, p, and many other factors. It was fast but
+also had the sensitivity we desired.
+    In addition, our model is well matched up with real life. It produced table5.3.1
+that show how the results vary with different intervals of w/l and p, which is
+convenient for users to choose and use.
+
+7.3 Weakness
+    Because of the limited time, the models have a low precision. Our results lack
+clear illustrative power, and data manipulated by a computer program cannot
+achieve the same effect as analytical solution.
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 22927                                                                                     Page 19 of 24
+
+Reference
+【1】Xianqing Chen. Design and Research of Hamburger Machine [M]. China:
+   Xiamen University,2008.
+【2】Rujia Liu, Liang Huang. Algorithm Art and Informatics Competitions[M].
+   China: Tsinghua University,2004.
+【3】 Emmanuel Paradis. R for beginners[M].Beijing: China Machine PRESS,2011.
+【4】Andrew Koenig. C Traps and Pitfalls[M].Beijing: Posts and Telecom Press,2008.
+【5】WIKIPEDIA.Thermal conduction[EB/OL].
+   http://en.wikipedia.org/wiki/Thermal_conduction#Steady-state_conduction,
+   2013-1-30/2013-2-5.
+
+
+Appendix
+（1）The area of the pan is A, and the width to length ratio of the oven is W/L.
+Below is the C++ code for calculating the wasted rate and scorched rate of the best
+shape .
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#define Pi 3.1415926536
+using namespace std;
+double temp[1002][1002][2];
+double wlratio = 0.618,A = 7000;
+int w = 100,l;
+double initemp = 20,maxtemp = 180, ripetemp = 60, overtemp = 177;
+double F = 0.22;
+int ans[1002],i,j;
+double dist(int a,int b,double c,double d){//count the dist
+      return sqrt(((a-c)*(a-c)+(b-d)*(b-d)));
+}
+bool check(int i,int j,int type,int a){//check if (i,j)is in the shape(a)
+      switch (type){
+           case 1:
+                  if (i<=a && j<=a || i>w-a && j<=a || i<=a && j>l-a || i>w-a && j>l-a){
+                         if (dist(i,j,a,a)<a || dist(i,j,a,l-a+1)<a ||dist(i,j,w-a+1,a)<a||dist(i,j,w-a+1,l-
+      a+1)<a) return true;
+                         return false;
+                  }
+                  return true;
+                  break;
+           case 2:
+                  if (i<=a || i>w-a){
+                         double c = sqrt((a*a-l*l/4)*1.0);
+                         if (dist(i,j,a-c,l/2)+dist(i,j,a+c,l/2)>2*a && dist(i,j,w-a-c,l/2)+dist(i,j,w-
+      a+c,l/2)>2*a) return false;
+                         return true;
+                  }
+                  return true;
+           case 3:
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 22927                                                                                   Page 20 of 24
+                double c = sqrt((a*a-l*l/4)*1.0);
+                if (dist(i,j,a-c,l/2)+dist(i,j,a+c,l/2)>2*a) return false;
+                return true;
+     }
+}
+double getans(int type,int a){
+
+     w = static_cast<int>(sqrt((A+(4-Pi)*a*a)/wlratio));
+           l = w*wlratio;
+           for (int i=0;i<=w+1;i++)
+           for (int j=0;j<=l+1;j++){
+                 temp[i][j][0] = temp[i][j][1] = maxtemp;
+           }
+     for (int i=1;i<=w;i++)
+           for (int j=1;j<=l;j++){
+                 temp[i][j][0] = check(i,j,type,a)?initemp:maxtemp;
+           }
+
+     int t=0;
+     while (true){
+           int number = 0;
+           for (int i=1;i<=w;i++)
+                  for (int j=1;j<=l;j++)if (check(i,j,type,a)){
+                        temp[i][j][1-t] = F*(temp[i-1][j][t] + temp[i+1][j][t] + temp[i][j-1][t] +
+     temp[i][j+1][t])+(1-4*F)*temp[i][j][t];
+                        if (temp[i][j][1-t] <ripetemp) number ++;
+                  }
+           if (number == 0) break;
+           t=1-t;
+     }
+
+     int number = 0,sum = 0;
+     for (int i=1;i<=w;i++){
+           for (int j=1;j<=l;j++){
+                 if (check(i,j,type,a)) sum++;
+           }
+     }
+     for (int i=1;i<=w;i++){
+           for (int j=1;j<=l;j++){
+                 if (check(i,j,type,a)&&temp[i][j][1-t]>overtemp) number++;
+           }
+     }
+     return number*100.0/sum;
+
+}
+double getrate(int type,int a){
+     w = static_cast<int>(sqrt((A+(4-Pi)*a*a)/wlratio));
+           l = w*wlratio;
+     int sum = 0,x = 200,y = 200,xx = 0,yy = 0;
+     for (int i=1;i<=w;i++){
+           for (int j=1;j<=l;j++){
+                 if (check(i,j,type,a)) {
+                       sum++;
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 22927                                                                         Page 21 of 24
+                      if (i<x) x = i;
+                      if (i>xx) xx = i;
+                      if (j<y) y = j;
+                      if (j>yy) yy = j;
+           }}
+      }
+      return 100 - sum * 100.0/((xx-x+1)*(yy-y+1));
+
+}
+int main(){
+     if (wlratio>1) wlratio = 1/wlratio;
+     ofstream output("result.txt");
+
+      int type=1;
+      for (int a=0;a<=l/2;a++){
+            output<<type<<' '<<a<<' '<<getans(type,a)<<' '<<getrate(type,a)<<endl;
+      }
+
+      type = 2;
+      for (int a=l/2+1;a<=w/2;a++){
+            output<<type<<' '<<a<<' '<<getans(type,a)<<' '<<getrate(type,a)<<endl;
+            }
+      type = 3;
+      for (int a=w/2;a>sqrt(A/Pi);a--){
+            output<<type<<' '<<a<<' '<<getans(type,a)<<' '<<getrate(type,a)<<endl;
+      }
+      return 0;
+}
+
+
+(2) The area of the pan is A, print the width to length ratio and the radius of the pan
+to calculate the area of the rectangle that can exactly wrap the shape. Here is the
+code.
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main(){
+      while (true){
+           int a,A=7000;
+           double c,Pi=3.1415926536;
+           double w,l;
+           while (cin>>c>>a){
+                 w = (sqrt((A+(4-Pi)*a*a)/c));
+                 l = w*c;
+                 cout<<w<<' '<<l<<endl;
+           }
+      }
+}
+
+
+(3) The code to calculate the smallest convex hull.
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+
+=== PHYSICAL PAGE 22 ===
+Team # 22927                                                               Page 22 of 24
+int main(){
+     ifstream input("resultl.txt");
+     ofstream output("result.txt");
+     double a[1000],b[1000];
+
+      int n=0,mina=0,minb=0;
+      while (!input.eof()){
+           input>>a[n]>>a[n]>>a[n]>>b[n];
+
+           if (a[n]<=a[mina]) mina = n;
+           if (b[n]<b[minb]) minb = n;
+           n++;
+      }
+      output<<a[mina]<<' '<<b[mina]<<endl;
+      int p=mina;
+      while (p!=minb) {
+           double k,kmin=1000000; int kk;
+           for (int i=0;i<n;i++) if (a[i]>a[p]){
+                 if (abs(a[i]-a[p])>0.000001) k=(b[i]-b[p])/(a[i]-a[p]);
+                 if (k<kmin) { kmin = k; kk = i;};
+           }
+           p=kk;
+           output<<a[p]<<' '<<b[p]<<endl;
+      }
+      return 0;
+}
+
+
+(4) The code to calculate shape of different weight P.
+#include <iostream>
+#include <fstream>
+using namespace std;
+int main(){
+       ofstream output("outgold.txt");
+double a[200],b[200],c[200],p;
+int n,i;
+cin>>n;
+       for (i=0;i<n;i++) cin>>a[i]>>b[i];
+
+      int pre = -1;
+      for (p=0;p<1;p+=0.00001){
+           int min = 0;
+           for (i=0;i<n;i++){
+                 c[i] = a[i]*p+b[i]*(1-p);
+                 if (c[i]<c[min]) min = i;
+                 }
+           if (min!=pre){
+                 output<<p<<' '<<min<<endl;
+                 pre= min;
+           }
+      }
+      return 0;
+      }
+
+
+=== PHYSICAL PAGE 23 ===
+Team # 22927   Page 23 of 24
+
+
+=== PHYSICAL PAGE 24 ===
+Team # 22927   Page 24 of 24

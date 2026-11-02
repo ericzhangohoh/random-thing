@@ -1,0 +1,2085 @@
+=== PHYSICAL PAGE 1 ===
+          Problem Chosen
+                  D
+                                                    微信公众号：数学模型
+                                                 2021
+                                               MCM/ICM
+                                                        Team Control Number
+                                                            2124497
+                                             Summary Sheet
+
+
+
+
+                   How to analyze the music objectively?
+                                                Summary
+
+                                                                                型
+     Music is a form of art that profoundly influences humans and societies. Given the four data sets, we
+
+
+                                                                学
+ are motivated to develop a series of objective measurements to analyze the music from four perspectives.
+
+
+
+                                                                 模
+     First of all, the measurement of music influence between artists is given by the combination of
+ three indicators: 1) the indicator related to artists active in one certain decade being followed by
+ artists active in other decades, 2) the indicator related to artists of one certain genre being followed by
+
+
+                                                       数
+ artists of other genres, and 3) the out-degree of the influencers. A weighted directed graph 𝐺 (𝑉, 𝐸)
+ is constructed to represent the influence network, where an edge is directed from the influencer to the
+ follower. Therefore, the calculated influence between the two artists is the weight of a directed edge.
+
+
+                                       号                         m
+     Secondly, the music similarity is quantified. Since the provided data sets full_music_data contains
+
+
+                                        ：
+ high-dimensional data, thus the dimension reduction is needed. We are motivated to use the modified
+
+                                                                  od
+ randomly distributed embedding (RDE) framework to take good advantage of interaction information
+
+
+                                                                    els
+ of high-dimensional data. Moreover, the Bayes error rate is used to identify whether the distributions
+
+                              众
+ of within-genre and between-genre are significantly different.
+
+    Thirdly, we analyzed two kinds of roles of musical characteristics by examining the 𝑝-values from
+
+                      公                         AT
+ Kruskal-Wallis test. We removed each characteristic one at a time, and compared the 𝑝-values before
+ and after the certain characteristics is removed. From the experiment results, the most influential
+
+
+      微
+ characteristics in distinguishing genres are Energy, Valence, and Speechiness. The most contagious
+
+                                                   H
+ characteristics among artists are Acousticness, Danceability, and Valence.
+
+
+       信
+      Finally, we detected the most revolutionary artists by detecting the important nodes in the influ-
+                                         M
+ ence network using the modified closeness centrality (the synthesized centrality of in-closeness and
+ out-closeness centrality). The calculated top 12 evolutionary artists are listed, including Bob Dylan,
+
+                                ：
+ Chuck Berry, The Beatles, etc. In addition, the dynamic process of evolution is analyzed. By con-
+ ducting discrete Fourier transform (DFT) and detecting the time series which is reconstructed from
+
+
+                        号
+ low-frequency components, we can observe the low-frequency components in a musical characteristic
+ over time. An indicator 𝜎 is proposed to measure the proportion of low-frequency components among
+ all the frequency components. Energy and Popularity have large 𝜎 values according to the experiment,
+
+                信
+ meaning that there are rich low-frequency components in the time series of these two characteristics.
+
+
+
+       微
+    Keywords: Complex Network; Bayes Error Rate; Closeness Centrality; Kruskal-Wallis Test;
+ Discrete Fourier Transform
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 2 ===
+ Team # 2124497                                     微信公众号：数学模型                                Page 1 of 22
+
+
+
+                                            Contents
+
+ 1   Introduction                                                                                       2
+     1.1 Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         2
+     1.2
+     1.3                                                                       型
+           Restatement of the Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+           An Overview of Our work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                        2
+                                                                                                        2
+
+ 2   Problem Analysis
+                                                               学                                        3
+
+ 3   Model Assumptions and Notations
+     3.1                                                        模
+           Assumptions and Justifications . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                        3
+                                                                                                        3
+
+
+ 4
+     3.2
+                                                       数
+           Notations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+     Model Construction
+                                                                                                        4
+
+                                                                                                        4
+
+
+                                      号
+     4.1 Measurement of Influence between Artists . . . . . . . . . . . . . . . . . . . . . .
+
+                                                                m
+     4.2 The Music Similarity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                        4
+                                                                                                        7
+           4.2.1
+           4.2.2                       ：                         od
+                   Quantification of Similarities Based on the MRDE Framework . . . . . . .
+                   Distribution of Similarities Between and Within Genres . . . . . . . . . . 10
+
+                                                                   els
+                                                                                                        8
+
+
+
+     4.3
+           4.2.3
+                              众
+                   Test the Measurement of Influence by the Similarity Network . . . . . . . 12
+           The Roles of Characteristics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+
+
+                      公
+           4.3.1 Characteristics that Distinguish Genres . . . . . . . . . . . . . . . . . . . 14
+           4.3.2
+                                                AT
+                   The Contagious Characteristics among Artists . . . . . . . . . . . . . . . 16
+
+
+      微
+     4.4   Revolutionary Artists Based on Closeness Centrality . . . . . . . . . . . . . . . . 17
+     4.5
+                                                   H
+           Dynamic Process of Evolution . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+
+ 5
+       信
+     Test the Model
+                                         M                                                             21
+
+ 6   Strengths and Weaknesses
+     6.1                        ：
+           Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+                                                                                                       21
+
+
+
+
+ 7
+     6.2
+                        号
+           Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+
+     Conclusion                                                                                        22
+
+               信
+       微
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 3 ===
+ Team # 2124497                                      微信公众号：数学模型                                Page 2 of 22
+
+
+
+ 1      Introduction
+ 1.1     Background
+     Music has had a profound effect on humans and societies throughout history. The evolution of
+ music occurs constantly, influenced by advanced technology, personal experiences, social events,
+
+
+                                                                                   型
+ etc. The internal influence between artists also accounts for the music changes. Analysis of music
+ is usually deemed relatively perceptual and subjective. However, music that is more abstract in
+ itself can be quantified by various characteristics, which makes it possible for us to analyze the
+ music systematically and objectively.
+                                                                学
+     One of our goals in this paper is to develop appropriate measures to quantify the influence
+
+                                                                 模
+ and similarity of music. Based on the quantification, more thorough analyses could be conducted,
+ including identifying the significant artists and characteristics. We believe that a better understand-
+ ing of the music evolved could be also be obtained with a series of carefully designed models and
+ experiments.
+
+ 1.2     Restatement of the Problem
+                                                        数
+                                        号                        m
+     The analysis of music influence involves detail ranging from methods for quantification to
+
+
+                                         ：
+ identification of decisive factors. Thus, in order to analyze the influence of music in a clear and
+ systematic way, we restate the problem as follows.
+                                                                  od
+                                                                    els
+                                众
+       • Develop a measurement of music influence between artists, and construct a directed influence
+         network that connects influencers and followers accordingly;
+
+
+                        公                        AT
+       • Quantify the music similarities and compare the music similarities between and within genres;
+
+       • Testify whether there are significant differences between the distributions of within-genre
+
+       微 and between-genre similarities;
+                                                    H
+        信
+       • Discover the decisive music characteristics that distinguish genres;
+
+                                          M
+       • Determine the most contagious music characteristics among artists;
+
+
+                                 ：
+       • Identify the revolutionary artists, and analyze the evolution of music.
+
+
+ 1.3
+                         号
+         An Overview of Our work
+     To address the problem, this paper proposed five models to solve the respective sub-problems.
+
+                 信
+ The rest of the paper is structured as follows. Section 2 states a thorough problem analysis and our
+ motivations. In Section 3, we give the assumptions and notations of the model. Section 4 provides
+
+
+         微
+ sufficient details of our model. In Section 5, we test the proposed model. Section 6 analyzed the
+ strengths and weaknesses of our model. At lat, a conclusion is given in Section 7. A one-page
+ document to the ICM Society is given in the appendices???.
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 4 ===
+ Team # 2124497                                      微信公众号：数学模型                                Page 3 of 22
+
+
+
+ 2      Problem Analysis
+     Based on the detailed information provided by the four data sets, we first systematically analyze
+ the problem. After exploring and reviewing the relevant literature research, we then construct a
+ detailed model.
+     To begin with, the a directed network is required to be constructed from the influence_data data
+
+                                                                                  型
+ set. In influence_data, a detailed relationship between influencers and followers is given. For an
+ influence network, an edge is directed from the influencer to the follower. Though a directed graph
+
+
+                                                                学
+ is easy to construct, a measurement of influence should be developed to describe the strength of the
+ influence. Therefore, three factors are taking into account to measure the influence:1) the indicator
+
+
+                                                                 模
+ related to artists active in one certain decade being followed by artists active in other decades, 2)
+ the indicator related to artists of one certain genre being followed by artists of other genres, and 3)
+ the out-degree of the influencers.
+
+
+                                                        数
+     On top of that, the music similarity also needs to be quantified. An abundant amount of data are
+ provided in full_music_data data set, and the quantification of high-dimensional data is therefore
+ essential. Classical methods, such as the principal components analysis (PCA), are commonly used
+
+                                        号
+ for dimension reduction. However, we are motivated to use the modified the randomly distributed
+
+                                                                 m
+ framework (RDE) instead, which can take good advantage of interaction information provided by
+
+                                         ：                        od
+ high-dimensional data. We also testify difference between the distribution of within-genre and
+ between-genre similarities to justify whether the influencers indeed influence the followers.
+
+                                                                    els
+                                众
+     Thirdly, we need to analyze roles of characteristics under different circumstances. The influential
+ characteristics are defined to be the ones that are effective in distinguishing the genres, and the
+ contagious characteristics are defined to represent the common inherent music features among
+
+                        公                        AT
+ artists. We are inspired to test the influence of a characteristics by comparing the p-values (obtained
+ by conducting non-parametric test) before and after it is removed from other characteristics.
+
+
+       微                                            H
+     Afterwards, the artists who signify the revolutionaries is detected. Empirically, we assume that
+ the revolutionary artists have great impact on others while receiving small influence from others.
+
+
+        信
+ Therefore, we are motivated to calculate closeness centrality of the directed influence network, and
+
+                                            M
+ use the difference between out-closeness and in-closeness centrality to measure how revolutionary
+ an artist is.
+
+
+                                 ：
+     Finally, the analyze of dynamic process of evolution is needed. With the date given in data_year,
+ we aim at analyzing the evolution trend of each musical characteristics from the perspective of
+
+
+                         号
+ frequency domain. Therefore, we are motivated to conduct the discrete Fourier transform in order
+ to observe the different frequency components. Since it is not objective to observe the series
+ by the curve shapes, we developed an indicator σ that measures the proportion of low-frequency
+ components.
+
+ 3
+                 信
+        Model Assumptions and Notations
+ 3.1     微
+         Assumptions and Justifications
+       • The musical characteristics chosen in the data set are representative;
+       • The data collected are reliable;
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 5 ===
+ Team # 2124497                                      微信公众号：数学模型                                  Page 4 of 22
+
+
+
+       • The revolutionary artist are the ones who have large impact on others while receiving small
+         influence from others;
+
+
+ 3.2     Notations
+             Symbol
+             G
+             vi
+                              Definition
+                              A directed graph describing the influence among artists
+                              The ith node in the graph G
+                                                                                     型
+             eij
+                                                                 学
+                              The edge in graph G directed from node vi to node vj
+             wij
+             n0
+                              The weight of edge eij
+                              The number of nodes in graph G      模
+             nj
+             Iij
+                              The in-degree of node vj
+                                                        数
+                              The influence of influencer vi on follower vj
+             wij
+             Sij                       号
+                              The weight on edge eij in graph G
+
+                                                                  m
+                              The musical similarity between two nodes
+             ci
+             Fi                         ：                          od
+                              The ith musical characteristics, i = 1, 2, ...13
+
+
+                                                                     els
+                              The set of labels of artists that followed artist vi
+             CCi (i)
+             CCo (i)
+                               众
+                              The in-closeness centrality of node vi
+                              The out-closeness centrality of node vi
+             C(i)
+                       公                         AT
+                              The synthesized closeness centrality of node vi
+
+
+
+       微                                            H
+ 4      信
+        Model Construction                M
+ 4.1
+                                 ：
+         Measurement of Influence between Artists
+     According to the influence relationship revealed in the influence_data data set, a directed graph
+
+                         号
+ G(V, E) can be constructed, where V is a set of nodes and E is a set of links directed from one node
+ to another. Let n0 be the number of nodes (the number of artists mentioned in influence_data).
+
+
+                   信
+ The n0 nodes are labeled from v1 to vn0 , and eij denotes the edge directed from vi to vj . For each
+ follower vj , let nj represent its in-degree (i. e. the number of artists that influence vj ). A subgraph
+ showing the relation among one follower and its influencers is illustrated in Fig. 1.
+
+         微
+    In a addition to construct a directed network by simply connecting the influencer to the follower,
+ we aim at measuring the influence by three indicators from the perspective of a pair of the follower
+ and influencer on edge eij : 1) frequency k eij that indicates the influence according to the period
+ where influencer vi and follower vj are active, 2) frequency m e ij that describes the influence due to
+
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 6 ===
+ Team # 2124497                                     微信公众号：数学模型                                 Page 5 of 22
+
+
+
+
+                                                                                型
+                                                                  学
+                                                                   模
+                    Fig. 1. The subgraph of one follower vj and its nj influencers
+
+
+
+                                                        数
+ the main genres of influencer vi and follower vj , and 3) the out degree Oi of the influencer vi . To
+                                                                  kij and m
+ better explain the three indicator, more explicit definitions of e       e ij are given as follows.
+
+
+                                       号
+     Let Di be the decade when the artist vi begin his or her music career. For influencer vi and
+
+                                                                    m
+ follower vj on edge eij , kij is defined to be the total number of times that artists in period Di are
+ followed by artists in period Dj .
+
+                                        ：                            od
+ Definition 4.1. For edge eij that is directed from influencer vi to follower vj , the indicator e
+ defined as:
+                                                                       els
+                                                                                                 kij is
+
+
+                              众           ekij = P
+                                                    kij
+                                                   l∈Sj klj
+                                                                                                    (1)
+
+
+                      公                         AT
+    where Sj is the set of labels of influencers of follower vj .
+
+
+      微                                            H
+     Similarly, let Ri be the main genre of artist vi . Then mij is defined as the total number of times
+ that artists of genre Ri are followed by artists in genre Rj .
+
+
+       信                                 M
+ Definition 4.2. For edge eij that is directed from influencer vi to follower vj , the indicator m
+ defined as:
+                                                     mij
+                                                                                                 e ij is
+
+
+
+                                ：         m
+                                          e ij = P
+                                                    l∈Sj mlj
+                                                                                                     (2)
+
+
+
+
+                        号
+    where Sj is the set of labels of influencers of follower vj .
+                                                 kij and m
+     Applying the data from influence_data), the e       e ij for influencers and followers of each
+
+                信
+ type (including the decade when they began their music career and their main genres) are shown in
+ Fig. 2.
+
+
+       微
+    Therefore, the influence Iij of influencer vi on follower vj should be able to aggregate the data
+                                                         kij , m
+ and information provided by the three indicators, i. e. e     e ij and Oi .
+ Definition 4.3. The influence Iij of influencer vi on follower vj on edge eij is defined as:
+                                                kij · m
+                                          Iij = e     e ij · Oi                                        (3)
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 7 ===
+ Team # 2124497                                      微信公众号：数学模型                               Page 6 of 22
+
+
+
+
+                                                                               型
+                                           (a) The indicator kij
+                                                                   学
+                                                                    模
+                                                         数
+                                      号                            m
+                                       ：                            od
+                                                                      els
+                              众
+                      公                          AT
+      微                                             H
+                                          (b) The indicator mij
+
+
+
+
+       信
+ Fig. 2. The calculation results of mij and kij . (a) The indicator kij for any pair of influencers and
+
+                                         M
+ followers, where the vertical axis denotes the decade when the followers began their music career,
+ and the horizontal axis denotes the time interval of the decade of followers and influencers. (b)
+
+
+                                ：
+ The indicator mij for any pair of influencers and followers, where the vertical and horizontal axes
+ represent the main genre of the followers and influencers, respectively.
+
+
+
+ m                      号
+      Here, in Example 1, we give a brief example to better illustrate the calculation of influence
+                      kij can be calculated by using the exact same method). Since the number of
+  e ij (the indicator e
+
+               信
+ influencer is huge and the out-degree Oi for the influencers in each edge can be easily found out
+ from the data set, we will avoid displaying the cumbersome data here.
+
+
+       微
+     Example 1 Consider an influencer vi and a follower vj whose main genres are Avant_garde
+ and Classical, respectively. Through the statistics in influence_data data set, the total number of
+ times for artists of genre Classical to be influenced by artists of genre Avant_garde is 11, i. e.
+ mij = 11. Additionally, there are in total 37 artists of various genres being followed by the artists
+ of genre Avant_garde. Therefore, it can be calculated that the indicator m   e ij between these two
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 8 ===
+ Team # 2124497                                        微信公众号：数学模型                                   Page 7 of 22
+
+
+
+            e ij = 11/37 ≈ 0.2973. It should be noted that the m
+ artists is m                                                  e ij remains the same for any pair of
+ influencer and follower whose genres are respectively Avant_garde and Classical.
+     By employing the calculation method illustrated in Example 1, let the weight wij of each
+ directed edge in graph G be the quantified influence Iij (i. e. wij = Iij ). Therefore, a weight matrix
+ W is obtained, and graph G can be extended to G(V, E, W ). Fig. 3 demonstrated the overall
+ structure of graph G.
+                                                                                    型
+                                                                   学
+                                                                    模
+                                                          数
+                                         号                          m
+                                          ：                          od
+                                                                       els
+                                众
+ Fig. 3. The structure of graph G. The size of nodes represents the out-degree. The largest two
+
+
+                       公
+ nodes are Bod Dylan and The Beatles, whose subnetwork is presented in Fig. 4
+
+                                                   AT
+       微
+     In Fig. 3, the color of nodes represent the genre they belong to, and the thickness of an edge
+
+                                                      H
+ denote the its weight (the thicker the edge is, the larger its weight is). Fig. 3 gives a rough distribution
+
+
+        信
+ of genres and influence among artist, but is hard to discover details from. To give a better insight
+
+                                           M
+ into the influence among artists, a subnetwork shown in Fig. 4 is provided.
+
+ 4.2    The Music Similarity
+
+                                  ：
+      With an abundant amount of data regarding the music-related characteristics, it is essential to
+ develop a measurement to quantify the similarity with these high-dimensional data. Moreover,
+
+                         号
+ it is also of great importance to analysis whether the genres are distinguishable according to the
+ similarity measurement that we developed. In this section, we proposed a modified randomly
+ distributed embedding (MRDE) framework to measure the music similarity, which takes good
+
+                信
+ advantage of interaction information among high-dimensional data. Afterwards, we analyze the
+ similarity distribution between and within genres to identify whether the difference between within-
+
+        微
+ genre similarity and between-genre similarity is significant. Finally, we test the effectiveness of the
+ proposed measurement of influence in Section 4.1 by analyzing the similarity distribution among
+ artist who do or do nor have mutual influence.
+
+
+
+
+微信号：MATHmodels                                                                                         2
+
+                                                                                              MATHmodels
+                                                                                                           关注数学模型
+
+                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 9 ===
+ Team # 2124497                                    微信公众号：数学模型                                 Page 8 of 22
+
+
+
+
+                                                                               型
+                                                              学
+                                                               模
+                                                      数
+                Fig. 4. A subnetwork of Bod Dylan, The Beatles and their followers
+
+ 4.2.1
+
+                                      号
+         Quantification of Similarities Based on the MRDE Framework
+
+                                                                m
+   In this section, we demonstrate our model for quantifying the musical similarity. The proposed
+
+                                       ：                         od
+ MRDE framework is explained carefully, and the quantification result is then given and visualized.
+     To begin with, a brief introduction of the original RDE (randomly distributed embedding)
+
+                                                                   els
+                              众
+ framework is given. The RDE framework is first proposed by Ma et al. in 2018 published on PNAS
+ [1]. When dealing with high-dimensional data, dimension reduction techniques are usually applied,
+ but the application is likely to overlook the interactions among high-dimensional variables. To make
+
+                      公
+ good use of the interaction information, the RDE framework builds a distribution of a sufficient
+
+                                               AT
+ number of embeddings of low-dimension. While each low-dimensional embedding preserves a
+ part a information of the whole system, these low-dimensional embeddings form a probability
+
+     微                                            H
+ distribution which can be used to obtain the final one-dimensional variable (or the value). Readers
+ could refer to more details in [1]. Hence, we proposed the MRDE framework to adapt the original
+
+      信
+ RDE framework for the problem discussed in this paper, which provides another perspective for
+ the comprehensive evaluation.
+                                         M
+                                ：
+     Among the fourteen musical characteristics summarized in data_by_artist, we eliminate the
+ factor count for the experiment in this section, since count is not music-related and do not provide
+ any information about an artist’s music style. Then we are left with 13 musical characteristics from
+
+                       号
+ danceability to popularity. In the MRDE framework, we choose the embedding dimension e to
+ be e = 3 empirically according to the experiment in [1]. In other words, for each 3-dimension
+ embedding, we randomly choose 3 characteristics out of the 13 musical characteristics. There are
+
+               信
+ in total q kinds of combination of the chosen 3 characteristics, which can be calculated by Eq. (4).
+                                                     
+                                                     E
+
+         微                                     q=
+                                                      e
+ where E = 13 is the total number of musical characteristics involved in the analysis, e = 3 is the
+ embedding dimension.
+                                                                                                   (4)
+
+
+
+
+    Each of the 13 musical characteristic is label from c1 to c13 . For each 3-dimensional embedding,
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 10 ===
+ Team # 2124497                                      微信公众号：数学模型                                   Page 9 of 22
+
+
+
+ we construct an index tuple l = (l1 , l2 , l2 ), (lk = 1, 2, ...13, k = 1, 2, 3), where l1 , l2 and l3 are
+ the indexes of characteristics in this tuple. Let Cj represent the tuple of values of 3 chosen
+ characteristics for node vj , then the three characteristics of artist vj is represented as Cj =
+ (cl1 , cl2 , cl3 ).
+     When measuring the similarity between artist vi and artist vj , we need to first identify their
+
+                                                                                   型
+ rough similarity calculated by each embedding. For the kth 3-dimensional embedding (k=1, 2, ...,
+ q), we define its rough similarity srk as
+
+                                         srk = 1 − kCi − Cj k2
+                                                                 学                                        (5)
+
+
+
+                                                                  模
+     Let Sr be the random variable where srk (k = 1, 2, ..., q) are the specific value. Therefore, the
+ q rough similarity labeled from sr1 to srq can form a probability distribution. The actual similarity
+ Sij between vi and vj is defined as the expectation value of the distribution, formulated in Eq. (6).
+
+                                              Sij = E(Sr)数                                                (6)
+
+
+                                        号
+ where Sij ∈ [0, 1], and E(Sr) is the expectation of random variable Sr. When Sij is large, it
+
+                                                                   m
+ indicates that the these two artist are more similar, and vice versa.
+
+
+                                         ：                          od
+    By using Eq. (5) and Eq. (6), the similarity Sij between vi and vj can be calculated. The
+ proposed MRDE framework can be better illustrated by the following steps:
+
+                                                                      els
+                               众
+ Step 1: Randomly choose q tuples. Each tuple contains 3 index numbers denoted as l = (l1 , l2 , l2 ),
+         and the musical characteristics in this tuple are denoted as (cl1 , cl2 , cl3 );
+
+                       公                          AT
+ Step 2: For the q tuples (namely the 3-dimensional embeddings), calculated the rough similarity
+         srk , k = 1, 2, ..., q by using Eq. (5);
+
+      微                                              H
+ Step 3: Aggregate the rough similarities calculated in each embedding to form the probability
+
+
+       信 distribution of the random variable Sr;
+
+                                           M
+ Step 4: Given the distribution of Sr, obtain the similarity Sij = E(Sr) by calculating the expec-
+         tation value of random variable Sr.
+
+                                 ：
+     A undirected network G1 (V1 , E1 ) is constructed, where V1 is the set of nodes and E1 the set of
+
+                         号
+ undirected edges. Since nodes being analyzed are the same as in G, so the label of nodes remain
+ the same (such v1 , v2 etc.). It should be noted that even though Eq. (6) and Fig. ?? measures
+
+
+                信
+ the musical similarity between two artists, the proposed MRDE scheme can also be applied to
+ quantify the musical similarity between genres and songs, as long as the musical characteristics are
+ available.
+
+       微
+    Discussion
+     In the original data_by_artist data set, the order of magnitude of each musical characteristics
+ varies from −6 to 5 . However, since the Euclidean norm is used to measure the rough similarity,
+ the influence of order of magnitude must be eliminated as much as possible before calculating the
+
+
+微信号：MATHmodels                                                                                       2
+
+                                                                                            MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 11 ===
+ Team # 2124497                                     微信公众号：数学模型                            Page 10 of 22
+
+
+
+ Euclidean norm. Thus, the min-max normalization is utilized to normalize each characteristics.
+ All of the normalized value of musical characteristics range from 0 to 1. Moreover,
+                                                                           √         when we apply
+ the 3-dimensional embedding, the  √maximum value of rough similarity is 3. Thus, the calculated
+ similarities Sij are reduced to 1/ 3 of the original scale.
+
+ 4.2.2   Distribution of Similarities Between and Within Genres
+
+                                                                               型
+     From Section 4.2.1, we have obtained the similarity between every two artists. From the
+ influence_data data set, we can easily label each artist with his or her main genre. Therefore, the
+
+
+                                                               学
+ similarity distribution among artists can easily be transformed into similarity distribution between
+ and within genres. From our intuitive understanding, we would assume that the similarity within
+
+
+                                                                模
+ genres are smaller than between genres. We might assume that the similarity between genres might
+ also varies. For instance, the genre of Electronic and Country may differ from each other from our
+ daily experience. In this section, we will use the similarity distribution, Gaussian fitting and Bayes
+ error rate for a thorough analysis.
+                                                       数
+     Among the 19 genres (the genre Unknown is eliminated
+                                                     19
+                                                                due to the possible interference of
+
+
+                                      号
+                                                       
+ wrong or missing information), there are in total 2 kinds of combinations. Fig. 5 is an example
+
+
+                                                                m
+ of the similarity distribution within the genre Folk and between Folk and Reggae.
+
+
+                                       ：                         od
+                              众                                    els
+                      公                         AT
+      微                                            H
+       信                                 M
+                                ：
+ Fig. 5. The similarity within and between genres. The blue part denotes the similarity distribution
+
+                        号
+ within the genre of Folk, while the red part denotes the distribution between Folk and Reggae. The
+ vertical axis represents the number of times that a certain value of similarity appears in the total
+
+               信
+ calculated similarities, and the horizontal axis represents the similarity ranged from 0 to 1.
+
+
+
+         微
+     From Fig. 5, we can have an intuitive understanding that the similarity distribution within
+ and between genres is different in the given example. But now a question arises: how can this
+ difference be measured?
+    We are motivated to measure the above-mentioned difference by using Bayes error rate. Bayesian
+ decision theory can address the patter classification problem from the perspective of statistics [2].
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 12 ===
+ Team # 2124497                                       微信公众号：数学模型                               Page 11 of 22
+
+
+
+ The theory quantifies the trade-off between the decision made and the costs that accompany the
+ decision. Bayes error, on the other hand, is the lowest possible error rate for a pattern classification
+ problem [3]. Let class ω1 denote the within genres, class ω2 denote the between genres, and s denote
+ the similarity value. P (ωi |s), i = 1, 2 is the posterior probability. For the distribution illustrated in
+ Fig. 6, the probability of error can be calculated by Eq. (7).
+
+
+                                                                                   型
+                                          (
+                                            P (ω1 |s) whenP (ω2 |s) > P (ω1 |s)
+                         P (error|s) =                                                                   (7)
+                                            P (ω2 |s) whenP (ω1 |s) > P (ω2 |s)
+
+     The Bayes error rate is therefore formulated in Eq. (8).
+                                                                  学
+                      P (error) =
+                                    Z s0
+
+                                       −∞
+                                          P (ω2 |s)p(s)ds +
+                                                            Z ∞
+
+                                                                   模
+                                                                P (ω1 |s)p(s)ds
+                                                                s0
+                                                                                                          (8)
+
+
+
+                                                         数
+ where s0 is a certain point on the horizontal axis shown in Fig. 6 that divides the space into two
+ parts. P (error) can also be denoted as the size of shadow area.
+
+
+                                        号
+     Due to the large scale of data, we demonstrate some typical similarity distribution here. First
+
+                                                                     m
+ of all, Fig. 7 shows the similarity within and between the genres of Country and Eletronic.
+
+
+                                         ：                            od
+     From Fig. 7, it can be observed that the overall similarity within Country is much smaller
+ than the one within Electronic and between these two genres. The results indicate that value of
+
+                                                                        els
+ musical characteristics of artists of genre Country are highly similar, whereas the ones of artists of
+
+                                众
+ genre Electronic are relatively scattered. Moreover, by performing Gaussian fitting, the estimated
+ distribution for within the genre Country, within the genre Electronic and between the two genres are
+
+
+                       公
+ N (0.85, 0.06), N (0.74, 0.0.8) and N (0.75, 0.09), respectively. With the Gaussian fitting results, the
+
+                                                  AT
+ Bayes error of distributions in Fig. 7(a) and Fig. 7(b) are 0.486 and 0.916, respectively, indicating
+ again that the similarity distributions in Fig. 7(a) are more different and distinguishable.
+
+
+      微                                              H
+    In order to have an overall understanding of the similarity within and between genres, Fig. 8
+ shows the similarity distribution by combining all the values of similarity within each genre and
+
+       信
+ between every two genres.
+                                            M
+    The Gaussian fitting result of the within-genre and between-genre distribution are N (0.806, 0.078)
+
+
+                                 ：
+ and N (0.758, 0.095), respectively. The Bayes error rate calculated is 0.770. Combining the vi-
+ sualization result in Fig. 8, the Gaussian fitting result and the calculated Bayes error rate, we can
+
+
+                         号
+                信
+        微
+           Fig. 6. An example of probability distribution to illustrate the Bayes error rate
+
+
+微信号：MATHmodels                                                                                        2
+
+                                                                                             MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 13 ===
+ Team # 2124497                                          微信公众号：数学模型                                 Page 12 of 22
+
+
+
+
+                                                                                        型
+                                                                      学
+                                                                       模
+    (a) The similarity within Country and between genres (b) The similarity within Electronic and between genres
+
+
+                                                            数
+ Fig. 7. The similarity distribution within and between two typical genres. (a) The light blue and
+ blue curves denote the uniformed similarity distribution and the corresponding Gaussian fitting
+
+
+                                          号
+ result between Country and Electronic. The light orange and orange curves denote the uniformed
+
+                                                                       m
+ similarity distribution and the corresponding Gaussian fitting result within Country. (b) The light
+
+
+                                           ：
+ blue and blue curves denote the same thing as in subgraph a. The light orange and orange curves
+
+                                                                        od
+ denote the uniformed similarity distribution and the corresponding Gaussian fitting result within
+ Electronic.
+
+
+                                 众                                        els
+ reach a conclusion: 1) the similarity between genres is generally larger than within genres, and 2)
+
+
+                        公
+ the smaller the between-genre similarity is, the less similar are the corresponding two genres.
+
+ 4.2.3
+                                                     AT
+         Test the Measurement of Influence by the Similarity Network
+
+
+      微                                                 H
+     In section 4.1, the measurement of influence among artists is proposed. In Section 4.2.1, we
+ quantify the similarities of musical characteristics. To discover the interaction relationship between
+
+
+       信
+ the above-mentioned two measurements, we conduct another experiment by combining the directed
+
+                                             M
+ network G of influence and the undirected network G1 of similarities. The experiment is aim at
+ detecting whether the measurement of influence in Section 4.1 can actually reflect the real-world
+ influence among artists.
+                                   ：
+     First of all, we will explained how the combination works in this paper. Basically, we will
+
+
+                          号
+ reallocate the similarity distribution in G1 in to two distribution, based on whether two artists have
+ unilateral or mutual influence on each other in graph G. Let S1 and S2 be two random variables,
+ where S1 denotes the similarity distribution of edges in G1 that are connected in graph G (the
+
+                 信
+ directed graph describing the influence), and S2 denotes the similarity distribution of edges in G1
+ that are not connected in graph G.
+
+
+         微
+ Step 1: Start traversing all edges in the undirected similarity network G1 ;
+
+ Step 2: Consider an undirected edge that connect node vi and vj . If there exists a directed edge in
+         the influence network G directed from vi to vj or from vj to vi , then the similarity value
+         Sij on this undirected edge is a possible value of the random variable S1 ;
+
+
+微信号：MATHmodels                                                                                             2
+
+                                                                                                  MATHmodels
+                                                                                                               关注数学模型
+
+                                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 14 ===
+ Team # 2124497                                     微信公众号：数学模型                             Page 13 of 22
+
+
+
+
+                                                                                型
+                                                                学
+                                                                 模
+                                                       数
+ Fig. 8. The overall similarity distribution. The light orange and orange curves denote the distribution
+ that concludes the between-genre similarity of any combination of two genres. The light blue and
+
+
+                                       号
+ blue curves denote the distribution that concludes all the within-genre similarity of every genre.
+
+                                                                 m
+                                        ：                         od
+ Step 3: Consider the same edge in Step 2. If no directed edge exists between vi and vj in graph G,
+         then the similarity value Sij is a possible value of the random variable S2 ;
+
+                                                                    els
+                              众
+ Step 4: Repeat Step 2 and Step 3 until all the undirected edges in graph G1 have been traversed;
+
+ Step 5: Compute the distributions of random variables S1 and S2 .
+
+                      公                         AT
+    The visualization of distributions of the two random variables are displayed in Fig. 9.
+
+
+      微                                            H
+       信                                 M
+                                ：
+                        号
+                信
+       微
+ Fig. 9. The distributions of S1 and S2 . The light orange and orange curves denote the distribution
+ when there is no influence between to artists. The light blue and blue curves denote the distribution
+ when two artists are unilaterally or mutually influence by each other.
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 15 ===
+ Team # 2124497                                     微信公众号：数学模型                              Page 14 of 22
+
+
+
+     The Gaussian fitting result for the distribution of S1 and S2 are N (0.830, 0.067) and N (0.781, 0.076),
+ respectively. The Bayes error rate is 0.6452. The overall similarity between the artists who uni-
+ laterally or mutually influenced one another is significantly larger than similarity of artists that did
+ not influence each other. The result demonstrates that the similarity of artists who have a influence
+ relationship is in fact larger than the artists who do not. That is to say, the identified influencers
+ indeed influence the respective followers from a statistical perspective.
+
+ 4.3     The Roles of Characteristics                                            型
+                                                                学
+     When measuring the music similarity, we have combined the information of 13 musical char-
+ acteristics to form the quantification. However, what remains unknown is the roles that different
+
+
+                                                                 模
+ musical characteristics plays in influencing the music. In other words, we wish to identify the one
+ or several characteristics that are significant in distinguishing the genres. We also analyze which
+ characteristics indicate the more general inherent features among artists. In this section, we first
+
+                                                        数
+ define the central node in each genre. Then we eliminate the characteristics one at a time or one by
+ one, and conduct the non-parametric test to identify the roles of characteristics.
+
+ 4.3.1
+
+                                       号
+         Characteristics that Distinguish Genres
+
+                                                                 m
+    Due to the lack of synthesized data for each genre, we first synthesize the information about
+
+                                        ：                         od
+ musical characteristics by defining the central nodes. Then the Kruskal-Wallis test is utilized to
+ identify the most influential characteristics that distinguish genres.
+
+                                                                    els
+                               众
+    The Central Nodes of Each Genre:
+    We assume that each node in one genre is accounted for a certain percentage when deciding the
+
+
+                      公
+ central node of this genre. The percentage of node vj is denoted as Pj , formulated in Eq. (9).
+                                              P
+                                                 AT
+                                                 k∈Fj Ijk Sjk
+
+
+
+       微
+                                        Pj =                                                     (9)
+
+                                                    H
+                                                    Oj
+
+
+
+        信
+ where Fj is the set of labels of artists that follow artist vj . Ijk and Sjk denote the influence and
+
+                                          M
+ similarity between vj and vk , respectively.
+     Let Ri be the set of labels of nodes that belong to the ith genre, where i = 1, 2, ...19. Let Chi
+
+                                ：
+ represent the 13 musical characteristics of the central node of the ith genre, then Chi is defined in
+ Eq. (10).                                      P
+                                                   j∈R Pj · Cj
+
+
+                        号               Chi = P i
+                                                     j∈Ri Pj
+
+ where Cj is the vector of 13 musical characteristics of node vj .
+                                                                                                   (10)
+
+
+
+                信
+    We can then obtain the 13 musical characteristics of central nodes of each genre by using Eq.
+ (10).
+
+         微
+    The Most Influential Characteristics:
+    Let M1 be the 19 × 13 matrix, where each row stores the vector of 13 musical characteristics
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 16 ===
+ Team # 2124497                                   微信公众号：数学模型                             Page 15 of 22
+
+
+
+ of the central node of each genre. M1 is formulated in Eq. (11).
+                                                       
+                                                  Ch1
+                                                 Ch2 
+                                         M1 =  ..                                                 (11)
+                                                       
+                                                 . 
+                                                  Ch19
+
+                                                                              型
+ where Chi represents the 13 musical characteristics of the central node of the ith genre.
+
+
+
+                                                              学
+     The uniformed values of matrix M1 is visualized in Fig. 10. For each column in Fig. 10, the
+ corresponding characteristics has a great influence in distinguishing genres if the colors of each
+
+
+                                                               模
+ cube demonstrates a greater variability. We could roughly observe that the values of characteristics
+ of Energy, Valence, Speechiness varies to a large extent, while values of Acousticness, Instrumen-
+ talness have relatively concentrated distribution. We will test the rough conclusion by conducting
+
+
+                                                      数
+ Kruskal-Wallis test on these 5 characteristics in the following part.
+
+
+
+
+                                      号                        m
+                                       ：                        od
+                                                                  els
+                              众
+                      公                        AT
+     微                                            H
+      信                                 M
+          Fig. 10. The values of musical characteristics of the central nodes in each genre.
+
+
+                               ：
+     The Kruskal-Wallis test is a non-parametric test that can assess the the significant differences
+ by two or more groups of variables [4]. The null hypothesis H0 and the alternative hypothesis
+
+                       号
+ H1 are defined. The null hypothesis represents no effect or no difference, while the alternative
+ hypothesis denotes the presence of an effect or a difference [5]. A p−value is the probability that
+ assumes H0 is true. Namely, the smaller the p-value, the strong the evidence evidence against the
+
+               信
+ null hypothesis.
+     By the most influential characteristics, we mean that theses characteristics play important
+
+       微
+ roles in distinguishing the genres. In other words, the similarity between genres will significantly
+ increase once theses characteristics are removed from matrix M1 . Therefore, we removed each
+ one of the 13 columns in M1 , and calculate the respective p-value before and after the elimination.
+ The Kruskal-Wallis test is applied in calculating the p-value. The typical p-values calculated are
+ presented in Table 2.
+
+
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                    关注数学模型
+
+                                                                                                    获取更多资讯
+
+
+=== PHYSICAL PAGE 17 ===
+ Team # 2124497                                      微信公众号：数学模型                              Page 16 of 22
+
+
+               Table 2: The typical p-values when removing one of the characteristics
+
+  The removed characteristics     Energy       Valence     Speechiness Acousticness Instrumentalness
+  p-value before elimination      0.1284       0.1284      0.1284         0.1284         0.1284
+  p-value after elimination       0.6500       0.5319      0.3057         0.0086         0.0035
+
+                                                                                   型
+ * The p-values in the second row denote the non-parametric results before elimination. The p-values
+ in the third row is the result after the characteristics of this column has been eliminated.
+
+
+                                                                 学
+      From Table 2, the result shows that after eliminating Energy, Valence and Speechiness, the
+
+
+                                                                  模
+ p-value increases significantly, meaning that the similarity distributions of each genre become less
+ different after the elimination. Therefore, Energy, Valence, Speechiness are influential character-
+ istics in distinguishing genres. The experiment result analysis is similar for other characteristics.
+
+                                                         数
+ On the other hand, the p-values become extremely small after eliminating Acousticness and Instru-
+ mentalness, meaning that these two characteristics are distributed similarly among genres. We can
+ conclude that Energy, Valence and Speechiness are the relatively influential characteristics, while
+
+                                       号
+ Energy is even more influential than other influential characteristics.
+
+                                                                  m
+ 4.3.2
+
+                                        ：
+         The Contagious Characteristics among Artists
+                                                                   od
+     In the last section, we discussed how influential the characteristics are when distinguishing the
+
+                                                                     els
+ genres. In this section, we aim at discovering how Contagious the characteristics are when deciding
+
+                               众
+ the musical style of various artists.
+    The Selected Artists:
+
+                       公                         AT
+     Since there are in total 5854 artists in the data_by_artists data set, it is neither practical nor
+ necessary to perform the Kruskal-Wallis test among all the available artists. Therefore, we selected
+
+      微                                             H
+ the top 25 artists who have the highest Pj value (who accounted for more percentage when deciding
+ the central nodes) introduced in Section 4.3.1. Let M1 be the 25 × 13 matrix, where each row
+
+
+       信
+ stores the vector of 13 musical characteristics of the central node of each genre. M1 is formulated
+ in Eq. (11).
+                                           M       
+                                                      Ch1
+                                                           
+
+
+                                 ：                  Ch2 
+                                            M2 =  .. 
+                                                   
+                                                    . 
+                                                           
+                                                                                                   (12)
+
+
+                        号                            Ch25
+ where Chi represents the 13 musical characteristics of the central node of the ith artists.
+
+
+                信
+    The Most Contagious Characteristics:
+     Different from the level of characteristics influence in Section 4.3.1, we define the characteristics
+
+         微
+ to be Contagious when they represent the common inherent features of artists’ musical styles.
+ Following the idea of non-parametric test in Section 4.3.1, the Kruskal-Wallis test can also be used
+ here to measure the level Contagious. The adapted method is illustrated as follows:
+
+ Step 1: For the 13 musical characteristics, calculate the corresponding 13 p-values. Each p-value
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 18 ===
+ Team # 2124497                                      微信公众号：数学模型                              Page 17 of 22
+
+
+
+           is obtained by conducting Kruskal-Wallis test when the certain one out of 13 characteristics
+           is temporally removed;
+
+ Step 2: Pick out the smallest p-value in step one and eliminate the respective characteristics per-
+         manently from M2 . Name the characteristics as the most contagious characteristics;
+
+
+                                                                                  型
+ Step 3: For the rest 12 characteristics, repeat the process in Step 1 and Step2. The characteristics that
+         was picked out and eliminated is named as the the second most contagious characteristics;
+
+
+
+                                                                 学
+ Step 4: Repeat the process described from Step 1 to Step 3, until all the 13 characteristics have
+         been sorted with an order.
+
+
+                                                                  模
+     Due to the limited length of the article, we will only demonstrate the 4 most contagious
+ characteristics calculated from the above steps. Moreover, among the 25 artists we chose, their
+
+                                                        数
+ characteristics Mode all possess the value 1. Since M ode is apparently the same for all the selected
+ artists, it can be deemed as the most contagious characteristics. Table 3 listed the p-values of the
+ other 3 most contagious characteristics before and after they are eliminated.
+
+                                       号                          m
+              Table 3: The p-values when removing the 4 most contagious characteristics
+
+        The removed characteristics
+        p-value before elimination
+                                        ：      Acousticness
+                                               0.7786
+                                                                   od
+                                                                 Danceability
+
+
+                                                                     els
+                                                                 0.2631
+                                                                                    Valence
+                                                                                    0.0326
+
+                               众
+        p-value after elimination              0.2631            0.0326             0.0205
+
+
+                       公
+       * The p-values in the second row denote the non-parametric results before elimination of
+
+                                                 AT
+       the characteristics of the corresponding column, while the third row denotes results after
+       elimination.
+
+
+       微                                            H
+     From Table 3, we can draw a conclusion that Mode, Acousticness, Danceability and Valence
+
+
+        信
+ are the most contagious characteristics among artists, while the Mode and Acousticness have the
+
+                                          M
+ highest and the second highest level of contagiousness. The Danceability and Valence are the
+ third and fourth most contagious characteristics, respectively. Since the smaller p-values represent
+ larger significant difference, our experiment results are valid because: the elimination of our
+
+                                    ：
+ discovered contagious characteristics will lead to significant reduction of the p-value, indicating
+ that characteristics have more concentrated distribution after the contagious characteristics are
+
+                         号
+ removed. The results is in correspondence with our definition of contagiousness.
+
+ 4.4     Revolutionary Artists Based on Closeness Centrality
+
+                 信
+     By revolutionary artists, we generally mean that their contribution to the field should be
+ significant. Moreover, they ought to have great impact on others while receiving small influence
+
+         微
+ from others. Inspired by the structure of the influence network G constructed in Section 4.1,
+ we apply the evaluation of important nodes in discovering the revolutionary artists. To be more
+ specific, we combine the in-closeness and out-closeness centrality to evaluate the significance of
+ an artists in revolutionaries. Our goal is to discover the artists with small in-closeness centrality
+ and large out-closeness centrality.
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 19 ===
+ Team # 2124497                                     微信公众号：数学模型                             Page 18 of 22
+
+
+
+     For the influence network G(V, E), the closeness centrality CC(i) of node vi is the average
+ farness to all the other nodes in the network, formulated in Eq. (13).
+                                                       n−1
+                                        CC(i) = P                                                     (13)
+                                                      j6=i d(i, j)
+
+ where n is the number of nodes in graph G.
+                                                                                型
+     Since closeness is a directional measure in the directed graph, the in-closeness centrality CCi (i)
+
+
+                                                                     学
+ and the out-closeness centrality CCo (i) can be calculated accordingly. To evaluate the influence of
+ the evolutionary artists who have large out-closeness centrality and small in-closeness centrality,
+
+
+                                                                      模
+ the synthesized closeness centrality of artist vi is defined in Eq. (14).
+
+                                       C(i) = CCo (i) − CCi (i)                                       (14)
+
+
+                                                        数
+    The synthesized closeness centrality of the top 12 artists are shown in Fig. 11.
+
+
+
+                                       号                             m
+                                        ：                             od
+                                                                        els
+                              众
+                      公                         AT
+       微                                           H
+        信                                M
+                                ：
+                  Fig. 11. The synthesized closeness centrality of the top 12 artists
+
+
+                        号
+    The basic information of top 12 evolutionary artists are listed in Table 4.
+
+
+                信
+    Reader can easily find our results reliable according the name of these 12 artist. For instance,
+ Dylan was awarded the Nobel Prize in Literature in 2016, Chuck Berry is one of the pioneers of
+ Rock and Roll music, and The Beatles is regarded as the most influential band of all time.
+
+ 4.5   微Dynamic Process of Evolution
+    From data_by_year data set, we have known the evolution trend of the musical characteristics
+ over time. Though the general trend is easy to observe by visualizing the data, deeper information
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 20 ===
+ Team # 2124497                                            微信公众号：数学模型                               Page 19 of 22
+
+
+                      Table 4: The basic information of top 12 evolutionary artists
+
+  Artist ID        Name                      Centrality       Artist ID      Name                         Centrality
+  120521           Chuck Berry               0.2921           287604         Louis Jordan                 0.2777
+  824022           Little Richard            0.2904           269972         Little Willie John           0.2731
+  66915
+  79016
+                   Bob Dylan
+                   Billie Holiday
+                                             0.2838
+                                             0.2806
+                                                              549797
+                                                              317093                    型
+                                                                             Hank Williams
+                                                                             Nat King Cole
+                                                                                                          0.2730
+                                                                                                          0.2729
+
+
+
+                                                                          学
+  608701           Muddy Waters              0.2801           754032         The Beatles                  0.2708
+  46861            Ray Charles               0.2783           238115         Sam Cooke                    0.2702
+
+
+
+                                                                           模
+ * From left to right, top to bottom, the 12 artists are sorted according to their synthesized centrality.
+
+
+ could still be discovered. We are then motivated to analyze the frequency components of time
+ series of each musical characteristics.
+                                                              数
+     Discrete Fourier transform (DFT) could transform a sequence of samples with a finite length
+
+                                            号
+ into a equally-spaced samples discrete-time Fourier transform with the same length [7]. Let x[n]
+
+                                                                          m
+ denote a time series. The DFT X[k] of the series x[n] is formulated in Eq. (15).
+
+
+                             X[k] =
+                                      N
+                                      X −1
+                                             ：        2π
+                                             x[n]e−j N kn ,                od
+                                                              k = 0, 1, 2, ..., N − 1
+                                                                             els                                   (15)
+
+                                 众
+ where N is the length of series x[n].
+                                      n=0
+
+
+
+
+                        公                              AT
+    An indicator σ is developed in Eq. (16), which measures the proportion of low-frequency
+ components in the time series x[n].
+
+
+      微                                  2 4m=1 |X[m]|2
+                                          P
+                                     σ = PN −1
+                                                |X[m]|2   H                            (16)
+
+
+       信
+                                            m=0
+
+
+ where N is the length of x[n], m=0N
+                                    PN −1
+                                               M
+                                            |X[m]|2
+                                              is the energy of series x[n]. It should be noted that FFT
+ (fast Fourier transform) is used instead of DFT when computing DFT by computers.
+
+                                    ：
+     Eq. (16) is reasonable because |X[0]| = 0 (the DC component) according to data preprocessing,
+ where x̂[n] = x[n]x[n]−x̄[n]
+                                . x̄[n] and x[n]max denote the average and maximum value of series x[n],
+ respectively.
+                          号
+                     max −x̄[n]
+
+
+
+
+     For computers, we apply IFFT (inverse fast Fourier transform) to the four low-frequency
+
+                 信
+ components illustrated in Eq. (16). The time series x[n] is the data of Acousticness from 1955 to
+ 2014 of the genre Pop & Rock. N = 60 is the length of x[n]. The results of FFT are shown in Fig.
+ 12.
+        微
+     From Fig. 12, we can observe that the time series reconstructed from the low-frequency com-
+ ponents can well represent the overall trend of the original time series. The result also indicates
+ the the low-frequency components takes up more percentage in the time series of Acousticness of
+ the genre Pop & Rock
+
+
+微信号：MATHmodels                                                                                             2
+
+                                                                                                  MATHmodels
+                                                                                                                   关注数学模型
+
+                                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 21 ===
+ Team # 2124497                                      微信公众号：数学模型                                Page 20 of 22
+
+
+
+
+                                                                                 型
+                                                               学
+                (a) Amplitude of the FFT result
+                                                                模
+                                                               (b) Phase of the FFT result
+
+
+
+                                                      数
+                                           号                    m
+                                            ：                    od
+                                                                   els
+                                 众
+                     (c) The original time series      (d) The IFFT of low-frequency components of
+
+                        公                            ATthe original seires
+
+                Fig. 12. The process of reserving the low-frequency components of x[n]
+
+     微                                                  H
+    We calculate σ for other typical characteristics of the genre Pop & Rock. The result is listed in
+
+      信
+ Table 5.
+                                              M
+             Table 5: The σ values in for the time series of three typical characteristics
+
+            Characteristics        ：        Energy       Popularity          Liveness
+            σ
+                          号                 0.7895       0.8481              0.4936
+
+
+
+                 信
+    The results indicate that Energy and Popularity have larger proportion of low-frequency com-
+ ponents, and have a smoother revolution over time. Meanwhile, Liveness has more high-frequency
+
+
+       微
+ components. The dynamic process of evolution for other characteristics can be computed and
+ analyzed in the exact same way.
+
+
+
+
+微信号：MATHmodels                                                                                        2
+
+                                                                                             MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 22 ===
+ Team # 2124497                                     微信公众号：数学模型                             Page 21 of 22
+
+
+
+ 5     Test the Model
+     In Section 4.3.1 we introduced the definition of Central node in each genre. Therefore, we will
+ test the effectiveness of our Central node model in this section.
+      The within-genre similarity distribution of Country is given in Section 4.2.2, while the Gaussian
+ fitting result is N (0.85, 0.06). Different from the similarity distribution defined previously (where
+
+                                                                                型
+ similarity denotes the similarity between every two nodes in the certain genre), we re-define the
+ distribution of similarity values between the central node and other nodes within Country.
+
+
+                                                                学
+     From the definition of central nodes, we can have an intuitive understanding that the overall
+ similarity will become smaller after the re-definition, because the central node is likely to locate at
+
+
+                                                                 模
+ the "center" of the genre. The new similarity distribution within Country is shown in Fig. 13.
+
+
+
+
+                                                       数
+                                       号                         m
+                                        ：                         od
+                                                                    els
+                              众
+                      公                         AT
+       微                                           H
+                               Fig. 13. The new similarity distribution.
+
+
+        信                                M
+     The Gaussian fitting result for the new distribution is N (0.45, 0.04). Compared with the original
+ distribution (which is N (0.85, 0.06)), the expectation value of similarity is significantly reduced,
+
+                                ：
+ meaning that our proposed model of central nodes is valid.
+
+ 6
+ 6.1                    号
+       Strengths and Weaknesses
+        Strengths
+
+                信
+     1. For the measurement of influence, we have considered comprehensive aspects with the
+        provided information in the influence relationship;
+
+        微
+     2. The MRDE framework we proposed for similarity measurement can well retain information
+        of high-dimensional data;
+
+     3. Closeness centrality is used to detect the revolutionary artists. The idea of this method is
+        tested to be effective by comparing the results with real-life information of corresponding
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 23 ===
+ Team # 2124497                                     微信公众号：数学模型                             Page 22 of 22
+
+
+
+       artists.
+
+ 6.2    Weaknesses
+     1. The aggregation we used in the MRDE framework is not accurate enough for defining the
+        actual similarity value from the distribution;
+
+                                                                                型
+     2. When we introduced the method for time series analysis, more state-of-the-art mechanism
+        can be utilized.
+
+
+ 7     Conclusion                                               学
+                                                                 模
+     In this paper, we proposed a detailed model in order to analyze the music objectively. The
+ measurement of influence and quantification of similarity is proposed. Kruskal-Wallis test is
+
+                                                       数
+ performed to identify the influential characteristics in distinguishing genres, and the contagious
+ nodes are detected using the similar method. Moreover, careful analyses of dynamic process
+
+
+                                       号
+ evolution are done by transforming the characteristics’ time series by discrete Fourier transform.
+
+
+                                                                 m
+     In the future, more state-of-the-art techniques could be utilized to analyze the evolution process.
+
+
+                                        ：
+ For example, the long short term memory (LSTM) framework to predict the time series, providing
+                                                                  od
+ insight into the possible future trend of music evolution. Meanwhile, the external influence on the
+
+
+                                                                    els
+ evolution of music could be examined or even quantified by calculating the correlation value (the
+
+                              众
+ Pearson correlation for instance) between the given the time series of external factors and a certain
+ characteristics.
+
+ References
+                      公                         AT
+  [1] Ma, H., Leng, S., Aihara, K., Lin, W., & Chen, L. (2018). Randomly distributed embedding
+
+       微                                           H
+      making short-term high-dimensional data predictable. Proceedings of the National Academy
+      of Sciences, 115(43), E9994-E10002.
+
+
+        信                                M
+  [2] Yuille, A. L., & Bülthoff, H. H. (1993). Bayesian decision theory and psychophysics.
+  [3] Tumer, K., & Ghosh, J. (1996, August). Estimating the Bayes error rate through classifier
+
+                                ：
+      combining. In Proceedings of 13th international conference on pattern recognition (Vol. 2,
+      pp. 695-699). IEEE.
+
+
+                        号
+  [4] McKight, P. E., & Najab, J. (2010). Kruskal-wallis test. The corsini encyclopedia of psychol-
+      ogy, 1-1.
+
+
+                  信
+  [5] Hamill, T. M. (1999). Hypothesis tests for evaluating numerical precipitation forecasts.
+      Weather and Forecasting, 14(2), 155-167.
+
+
+        微
+  [6] Valente, T. W., Coronges, K., Lakon, C., & Costenbader, E. (2008). How correlated are
+      network centrality measures?. Connections (Toronto, Ont.), 28(1), 16.
+  [7] Winograd, S. (1978). On computing the discrete Fourier transform. Mathematics of compu-
+      tation, 32(141), 175-199.
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 24 ===
+                                                              微信公众号：数学模型
+      Team # 2124497                                                                             Feb 9th , 2021
+
+
+
+
+  A Valuable Work to Analyze the Influence of Music
+
+                                                                                        型
+                             Understanding the influence
+                                                                        学
+                                                                         模
+KEYWORDS:
+                             of music is a skill that
+                             humans have always
+                             wanted to possess. Whether
+Complex Network              to explore the influence
+
+
+Bayes Error Rate
+                             relationship between
+                             musicians or study the             数
+                                                 号
+                             music similarity, the models
+                             and methods of complex
+Closeness Centrality
+                             network analysis are always
+
+
+                                                  ：
+                             valuable. By connecting
+                             influencers and followers
+                                                                         mod
+Kruskal-Wallis Test
+
+
+
+Discrete Fourier Transform
+                             and assigning weights to the
+
+
+                                       众
+                             corresponding edges, a
+                             directed influence network
+                             among artists can be
+                                                                            els
+                              公
+                             established. Our work
+                             analyzes this network in
+                             detail, and obtains the          AT                        However, due to the
+                                                                                        limited data, our analysis
+                                                                                        of certain types of music
+
+
+                微            quantified influence values.
+
+                             At the same time, the               H
+                                                              In fact, based on these
+                                                                                        may not be sufficient.
+                                                                                        With more data, we can
+                                                                                        have more effective
+
+
+                 信
+                                                              data, we have also
+                             similarity distribution within                             information in the
+
+                                                    M
+                             and between genres of is
+                             also analyzed. The results
+                                                              analyzed results other
+                                                              than similarity and
+                                                              influence. For
+                                                                                        network analysis. Since
+                                                                                        our model mainly use the
+                                                                                        matrix-based linear
+
+                                         ：
+                             show that the similarity
+                             within genres is generally
+                             larger than that between-
+                                                              example, we can
+                                                              analyze the
+                                                              revolutionary
+                                                              musicians by finding
+                                                                                        calculation, the
+                                                                                        increased number of
+                                                                                        data will not significantly
+
+
+                                号
+                             genre similarity. We
+                             obtained the representative
+                             vector of each genre that
+                                                              the important nodes by
+                                                              closeness centrality in
+                                                              the network. We have
+                                                                                        increase the
+                                                                                        computational
+                                                                                        complexity. In addition,
+
+
+                             信
+                             synthesized the music
+                             characteristics. The
+                             synthesized data has been
+                                                              also established a
+                                                              model for analyzing
+                                                              dynamic influence
+                                                                                        when there is a larger
+                                                                                        order of magnitude of
+                                                                                        data, our model still
+                                                                                        retains computational
+
+                   微         tested to be indeed
+                             representative. Based on
+                             the synthesized result, we
+                             detected the main
+                                                              indicators, and
+                                                              correspondingly, we
+                                                              have analyzed the
+                                                              dynamic process of the
+                                                              evolution for different
+                                                                                        advantages. For
+                                                                                        example, the proposed
+                                                                                        MRDE framework can
+                                                                                        take random tuple
+                             differentiating factors                                    selection to obtain the
+                                                              genres of music in the
+                             between different genres.                                  same effective similarity
+                                                              past 100 years.
+                                                                                        distribution.
+
+  微信号：MATHmodels                                                                                      2
+
+                                                                                             MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯

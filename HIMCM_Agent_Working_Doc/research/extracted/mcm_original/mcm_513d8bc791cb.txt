@@ -1,0 +1,1083 @@
+=== PHYSICAL PAGE 1 ===
+      Problem Chosen                          2023                      Team Control Number
+                                            MCM/ICM
+              E                           Summary Sheet
+                                                                              2312411
+         Evaluation and Optimization of Light Pollution
+                    Based on EWM-TOPSIS
+      In order to alleviate the more and more serious light pollution phenomenon, this paper will
+analyze the issues related to the evaluation of light pollution risk levels and light pollution
+treatment by establishing mathematical models.
+      For problem 1, firstly, a hierarchical interactive evaluation index system with 7 factors that
+impact the risk level of regional light pollution is established in this paper. After that, an
+Evaluation Model of Light Pollution Risk Level is established based on this. A combination of
+the Entropy Weighting Method and TOPSIS is used to evaluate the selected specific locations
+that aim to formulate the metrics of light pollution risk level.
+      For problem 2, In order to visually reflect the light pollution risk levels of the four types of
+locations, this paper takes Shaanxi Province, China, as the research area, and utilizes ArcGIS
+geographic information software to calculate the geometric shape centers of the plots and extract
+the data of each index. On this basis, the constructed light pollution risk level model is applied to
+measure the light pollution level of the four types of locations and produce a map of light
+pollution risk distribution in Shaanxi Province in 2022. The results showed that urban
+communities, represented by Xi'an, Shaanxi Province, had the highest light pollution risk level of
+0.407. Light pollution risk scores in protected land, rural and suburban communities were 1.1%,
+6.8%, and 68.6% of urban communities, respectively.
+      For problem 3, this paper proposes three light pollution treatment strategies and
+quantitatively analyzes the impact of the three light pollution treatment strategies on each light
+pollution risk level evaluation index. In this way, a Light Pollution Treatment Optimization
+Model is constructed to optimize the evaluation indexes that affect the light pollution risk level.
+Lastly, the potential impact of light pollution treatment is analyzed by combining the optimized
+light pollution risk values.
+      For problem 4, nature reserves and urban communities are selected for evaluation among
+four types of sites, and the optimization model of light pollution treatment is applied to analyze
+the effectiveness of three light pollution treatment strategies for these two sites. To determine the
+optimal improvement strategies for the evaluation sites in the short-term (0-10 years), medium-
+term (11-35 years), and long-term (36-50 years), respectively, this paper uses Logistic equations
+to predict the population data and also combines the predicted values of other factors by Arima
+time series method for the optimized light pollution score calculation. Comparing the risk levels
+before and after optimization, the results show that the optimal strategies for urban communities
+in the short-term, interim, and long-term are the strategies of raising residents' awareness of
+light pollution treatment, the strategies of regulating market standards, and the strategies of
+establishing a sound social monitoring mechanism, respectively; while in the next 50 years, the
+effects of the three optimal strategies on the treatment of protected land are not obvious, because
+the light pollution risk level in protected land itself is low and not easily influenced by external
+factors. For urban communities, crime rates increased by an average of 2.140%, and traffic
+accident rates decreased by an average of 2.135% in areas following light pollution treatment.
+      Finally, based on the results of solving the above mathematical model, we make flyers to
+advertise light pollution treatment measures in urban communities represented by Xi'an, China.
+
+Keywords: Light pollution risk level; EWM-TOPSIS evaluation; Arima; Light pollution control
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 2312411                                                                                                               Page 2 of 25
+
+
+                                                              Contents
+1 Introduction ................................................................................................................................ 3
+     1.1 Background ................................................................................................................... 3
+          1.1.1 Light Pollution ....................................................................................................... 3
+          1.1.2 Sunshade ................................................................................................................ 3
+     1.2 Restatement of the Problem .............................................................................................. 4
+2 Our Approach ............................................................................................................................ 4
+3 Model Preparation ..................................................................................................................... 5
+     3.1 Assumptions...................................................................................................................... 5
+     3.2 Notations ........................................................................................................................... 6
+     3.3 Study Region and Data Collection .................................................................................... 6
+4 Model Establishment and Result Analysis .............................................................................. 6
+     4.1 Model I: Light Pollution Risk Evaluation Model ............................................................. 6
+          4.1.1 Establishment of Interactive Evaluation Index System ......................................... 6
+          4.1.2 Pre-processing of Evaluation Index ....................................................................... 8
+          4.1.3 Construction of EWM-TOPSIS Evaluation Model ............................................... 8
+     4.2 Model II: Light Pollution Risk Measurement Application Model.................................. 10
+          4.2.1 Classification of Land Types in the Region ......................................................... 10
+          4.2.2 Selection of Evaluation Sites ............................................................................... 11
+          4.2.3 Data Extraction and Processing ........................................................................... 12
+          4.2.4 Solution of Model II............................................................................................. 13
+     4.3 Model III: Light Pollution Treatment Optimization Model ............................................ 14
+          4.3.1 Formulation of Light Pollution Treatment Strategies .......................................... 15
+          4.3.2 Prediction of Evaluation Indicators ..................................................................... 15
+          4.3.3 Quantification of the Impact of Treatment Strategies.......................................... 16
+          4.3.4 Judging the Strengths and Weaknesses of Treatment Strategies ......................... 18
+          4.3.5 Potential Impact of Light Pollution Treatment .................................................... 18
+     4.4 Model IV: Light Pollution Treatment Application Model .............................................. 19
+          4.4.1 Selection of the Research Sites ............................................................................ 19
+          4.4.2 Prediction of Original Data of Evaluation Index ................................................. 20
+          4.4.3 Judging the Strengths and Weaknesses of Treatment Strategies ......................... 21
+          4.4.4 Analysis of Potential Impact of Light Pollution Control ..................................... 22
+5 Test of the Model..................................................................................................................... 23
+6 Evaluation and Improvement of the Model .......................................................................... 23
+     6.1 Strengths of the Model .................................................................................................... 23
+     6.2 Weaknesses of the Model ............................................................................................... 23
+References .................................................................................................................................... 24
+Flyer: Speak for the Stars………………………………………………………….…………..25
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 2312411                                                                                    Page 3 of 25
+
+
+1 Introduction
+      To enable reasonable modeling, this section will introduce the phenomenon of light
+pollution and the proper nouns involved in the paper. It will also sort out and evaluate the issue
+that the subject necessitates solving.
+1.1 Background
+1.1.1 Light Pollution
+    According to reference [1], light pollution, also known as light damage, is an ecologically
+damaging phenomenon caused by the excessive use of artificial light as humans enter industrial
+society. Light pollution is a by-product of industrial development, mainly from home lighting,
+industrial lighting, recreational activities, sports field lighting, etc. Its common forms include
+light trespass, over-illumination (e.g. Figure 1) and light clutter (e.g. Figure 2).
+
+
+
+
+ Figure 1 The City of Lights（https://baike.sogou.com）   Figure 2 Colorful city lights （https://baike.sogou.com）
+     Light trespass is the phenomenon of artificial light covering the natural state of dark areas,
+while over-illumination refers to the use of light intensity higher than the required level, thereby
+creating light interference in the surrounding area phenomenon. These two phenomena are
+correlated in a certain way, meaning that over-illumination will cause light trespass at the same
+moment. Light clutter is a light pollution phenomenon which is caused by an excess of light
+wavelength and color blending.
+    The main countries seriously affected by light pollution are developed countries like Japan
+and the United States, as well as in developed areas of developing countries like China. Light
+pollution may cause human sleep deprivation, stress, disruption of plant and animal growth
+rhythms ,and other hazards, which can be mitigated by taking measures to improve lighting
+systems, laws, and regulatory systems.
+1.1.2 Sunshade
+     Sunshade is a type of architectural design that, by rerouting light and altering its path,
+lowers the dangers of sunlight and light pollution. It is frequently used in tall houses made of
+
+
+
+
+              Figure 3 Operating principle diagram                      Figure 4 Operating principle diagram
+                  of vertical sunshade(plan view)                   of horizontal sunshade (longitudinal section)
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 2312411                                                                          Page 4 of 25
+
+
+glass curtain materials in urban areas [2]. Sunshades can be categorized into two categories:
+vertical sunshades and horizontal sunshades. Figures 3 and 4 above illustrate the corresponding
+operating principles for each category.
+     The incident shading area and the reflected shading area are created on the glass curtain
+wall by the sunshade, which significantly lowers the glass curtain wall's reflective area, as can be
+seen from the principle of the above figures [2]. Through the simultaneous use of vertical and
+horizontal sunshades, the light can also be reflected to the ground or light-absorbing materials,
+effectively reducing the light pollution brought on by secondary reflection of artificial light.
+1.2 Restatement of the Problem
+      Light pollution can have a negative impact on people's daily lives and the ecosystem. This
+paper integrates various factors to evaluate the effects of light pollution in various locations and
+suggests some steps that can mitigate the effects of light pollution in an effort to increase
+people's awareness of the effects of light pollution. The following are the particular problems
+that need to be solved:
+1. Establish an evaluation model that can assess the risk level of light pollution at any location by
+   taking into account the population, biodiversity, geographical conditions, climatic conditions,
+   and degree of development of the area.
+2. The light pollution risk level evaluation model is applied to evaluate the light pollution risk
+   levels of the four types of locations involved in the question, and the reasons for the
+   evaluation results are analyzed.
+3. Propose strategies to the light pollution issue and analyze the effects of each optimization
+   strategy's measure on light pollution as well as the potential impacts of light pollution
+   improvement on society.
+4. Two sites were selected from the four types of sites to determine the optimal light pollution
+   management strategy for each. In addition, the impact of each strategy on the light pollution
+   phenomenon is quantified, and the causes of the various impacts are analyzed.
+5. Make a flyer for local distribution to publicize light pollution measures in a particular location.
+2 Our Approach
+      Combining the requirements of problem and relevant background information, through data
+collection, processing and analysis, the approach in this paper is as follows.
+➢ Measurement of light pollution risk
+1. Establishment of light pollution risk evaluation model
+      A hierarchical interactive evaluation index system based on the categorization of light
+pollution phenomena will be established as the foundation for further scoring in response to the
+specifications stated in question 1. The entropy weight method is then used cyclically to compute
+the factors in the evaluation index system in a stratified fashion and determine their weights
+based on the samples of data that have been gathered. The specified locations are scored using
+the TOPSIS evaluation model in combination with the weights determined by the entropy
+weight method after standardizing and normalizing the various types of data. The scoring
+outcomes and established light pollution rating criteria can then be used to calculate the risk of
+light pollution at the designated location.
+2. Establishment of light pollution risk measurement application model
+      In order to solve problem 2,this paper will first divide the land in the study area into the four
+land types specified by the question, using Shaanxi Province, China, as an example. Following
+that, ArcGIS software will compute the geometric shape centers of the divided land parcels using
+the WGS1984 projection coordinate system. The extracted value tool was used to extract each
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 2312411                                                                        Page 5 of 25
+
+
+category of index's raster data to its associated shape-center points, whereupon the light pollution
+risk evaluation model was used to determine the shape-center light pollution risk score. Lastly,
+the light pollution risk value for this type of site is calculated using the average of the scores at
+the geometric center of the same type of site, eliminating individual differences and improving
+measurement accuracy.
+➢ Optimization of light pollution problems
+3. Establishment of light pollution treatment optimization model
+      For problem 3, this paper incorporates the causes of light pollution and the objects they
+affect in order to develop three optimization strategies from both subjective and objective aspects,
+each of which includes a mix of mandatory and soft requirements. The impact is then
+quantified into the evaluation index system established by model 1 based on the predetermined
+measures, and the optimized factor values are then scored again using the Entropy Weight
+Method-TOPSIS evaluation model to determine the light pollution level following the
+implementation of the improvement measures. In order to compare the benefits and drawbacks of
+the three strategies and determine the potential effects of improving light pollution on society,
+the light pollution risk ratings before and after the improvement are compared.
+4. Establishment of light pollution control application model
+      As required by question 4, in order to investigate the applicability of each policy in extreme
+situations and reasonably determine the optimization effectiveness of the centered locations of
+light pollution risk under the three policies, we will choose the two form centers with the largest
+difference in light pollution scores in 2022 among the form centers of divided plots in Shaanxi
+Province. In order to study the applicability of different strategies in the short term (next 0-10
+years), medium term (next 11-35 years), and long term (next 36-50 years),we will gather data on
+some of the evaluation indicators for the two selected points in previous years and predict their
+values for the next 50 years using Logistic equations and Arima time series after identifying the
+optimization sites. Finally, to determine the optimal strategy for the two sites over time and the
+potential effects of reduced light pollution, the predicted original values and optimized values of
+the three policies were added year by year into model 1 for evaluation and comparison.
+      After solving all the problems, this paper will select the optimal light pollution
+improvement strategy for a specific location based on the model results and analysis, and write a
+flyer for dissemination.
+3 Model Preparation
+3.1 Assumptions
+      In this paper, the following reasonable assumptions are formulated in order to be able to
+solve the issue effectively.
+1. For the next 50 years, there won't be a substantial change in the zoning of land use in the
+    study region.
+Explanation: Based on the four site types listed in the title, this research generally categorizes
+the site characteristics of the study region. Small-scale changes in site characteristics brought on
+by new construction, relocation, etc. have little impact on the parcel's overall characteristics.
+2. Negligible changes in elevation of sites in the study area over a long period of time in the
+    future.
+Explanation: Elevation is a naturally occurring feature, and when crustal movement is not
+dramatic, even minor changes to it are insignificant in comparison to the current base.
+3. Ecological collapse in the research area caused by a significant natural disaster or
+    conflict is not taken into account.
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 2312411                                                                         Page 6 of 25
+
+
+3.2 Notations
+     Important notations used in this paper are listed in Table 1.
+                                            Table 1 Notations
+                  Symbol                       Definition                     Unit
+                                             Index weight                      /
+                                           Relative proximity                  /
+                                         Illumination intensity               Lx
+                                               Crime rate                      /
+                                          Traffic accident rate                /
+3.3 Study Region and Data Collection
+      The geographical center of China is the Shaanxi Province, which is situated in the country's
+interior and has a number of big and small towns, suburbs, and rural areas. Furthermore, Shaanxi
+Province is home to 12 environmental reserves, including the Qinling Nature Reserve, one of the
+biggest in China and one of the model reserves in Asia according to the Global Environment
+Facility in 1996 due to its remarkable and representative biodiversity. In conclusion, Shaanxi
+Province was selected as the study location in this work because it has four different types of
+sites in the topic and has a high reference value.
+      In this paper, a wide variety of economic statistics and geographic information data are used
+in the modeling process. These data primarily include nighttime light distribution data,
+precipitation distribution data, DEM digital elevation maps, GDP distribution data, population
+distribution data, biodiversity data, building density data, and the number of criminal suspects
+arrested and the number of traffic accidents occurred in Shaanxi Province, China, over a long
+period of time. Table 2 below lists the sources of these data.
+                                      Table 2 Data source summary
+                                        Website                        Data format
+                        https://www.resdc.cn/Default.aspx                  .tif
+                         http://srtm.csi.cgiar.org/srtmdata/               .tif
+                                https://bio-one.org.cn                    .xlsx
+                              http://www.dsac.cn/                         .xlsx
+                            http://www.stats.gov.cn/                      .xlsx
+4 Model Establishment and Result Analysis
+4.1 Model I: Light Pollution Risk Evaluation Model
+     The impact of light pollution depends on a variety of factors.As the study objects in this
+section, four elements and seven distinct evaluation indices for assessing the impact of light
+pollution will be used to build a hierarchical interactive light pollution risk level evaluation index
+system. And using this information, a complete evaluation approach that combines the TOPSIS
+method and the entropy weight method will be utilized to build a model for evaluating the risk
+level of light pollution.
+4.1.1 Establishment of Interactive Evaluation Index System
+     Combined with the actual situation, lighting factors, social factors, environmental factors
+and policy factors are taken into account to build a light pollution risk level evaluation index
+system. The principles of indicator selection are as follows:
+➢ Lighting Factors
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 2312411                                                                        Page 7 of 25
+
+
+      Artificial light is an essential factor in triggering the phenomenon of light pollution.
+Flashing neon lights and various lighting systems at night can cause the phenomenon of artificial
+daylight in cities when the light intensity is high enough, resulting in huge light pollution.
+Therefore, this paper measures the lighting factors in different areas by using the light intensity
+at night as an indicator, and the higher the light intensity at night in an area, the higher the level
+of light pollution risk in that area.
+➢ Social Factors
+      The number of lighting systems needed and the potential risk of light pollution in a region
+both increase with a region's level of development and population size. To measure the social
+elements in various regions, this paper uses the GDP (Gross Domestic Product) and population
+size of those regions as indicators
+➢ Environmental Factors
+      The level of light pollution risk in a region will also rely on the local environmental
+circumstances because, in addition to having a negative influence on daily human life, light
+pollution can also have a significant negative impact on the ecological environment.Normally,
+the risk of light pollution is lower and the number of lighting systems required is smaller in areas
+with higher altitudes and smaller populations. The amount of precipitation in various places is
+also an important aspect to take into account because one important cause of light pollution is the
+scattering of light through water vapor particles in the air to produce halos. Moreover, light
+pollution can make plants and animals more nocturnal, which has an impact on the diversity of
+species. The higher the danger of light pollution in a region, the less diverse that region is.
+➢ Architectural Factors
+      The level of light pollution risk in an area will usually be related to the construction
+planning of the area, such as construction land planning. The higher the planned building density,
+the more the number of buildings in the area. The increase in the number of buildings will lead to
+an increase in the number of lighting systems, while various decorations such as glass curtain
+walls, polished marble and paint of various buildings will also reflect light and produce light
+pollution such as glare, so the building density in different areas is also a factor we need to
+consider.
+      In summary, the light pollution phenomenon in a hierarchical manner is constructed as
+Figure 5 below.
+
+
+
+
+                          Figure 5 Hierarchical interactive evaluation index system
+    As can be seen from the figure above, over-illumination and light clutter, etc. It is obvious
+that different forms of light pollution phenomena depend on different factor indicators.
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 2312411                                                                           Page 8 of 25
+
+
+According to our analysis and definition of different factor indicators, the risk level of over-
+illumination is primarily determined by lighting factors, social factors and environmental factors,
+the risk level of light clutter is mostly driven by social factors, and the risk level of light trespass
+depends on the influence of the above four elements. As illustrated in the above picture, various
+light pollution phenomena between and between various components will have mutual influence
+and restrictions, which is consistent with the actual situation.
+4.1.2 Pre-processing of Evaluation Index
+     According to their characteristics, the different types of indicators can be classified as
+maximum indicators, minimal indicators, medium indicators, and interval-type indicators; only
+maximum indicators and minimal indicators are discussed in this work. The rating of the
+evaluation object increases as the value of maximum indicators increases and the value of
+minimal indicators decreases. It is frequently necessary to pre-process various types of
+evaluation indicators before building the model because of the different nature of evaluation
+indicators for different factors, which frequently results in huge differences in values that
+ultimately affect the evaluation effect of the model. The pre-processing methods are as follows.
+step1. Dimensionless processing
+     With the vector specification approach, each element of the original matrix is normalized to
+within       , converting each indicator into a dimensionless value that can be compared among
+indicators. The principle is as follows.
+
+                                                                                                 (1)
+
+     Where       is the original value of the index,    is the dimensionless value of the index.
+step2. Indicator normalization process
+     No processing is required for the maximum value indicator. For the minimal value
+indicator ,a forwarding process is required to convert it to a maximum value indicator, as follows.
+                                                                                             (2)
+     Where       is the allowed upper limit of the index, which is dimensionless and takes the
+value of 1.    is the result of the normalization of the minimal index.
+4.1.3 Construction of EWM-TOPSIS Evaluation Model
+     Generally, two evaluation methods are combined to achieve the goal of complementing
+each other's strengths and weaknesses in order to address the deficiencies of a single evaluation
+approach. The TOPSIS method is used in this paper to evaluate the object to be evaluated after
+the weights of each index are determined using the Entropy Weight Method. The specific steps
+are as follows.
+step1. Construction of evaluation matrix based on indicators
+
+
+                                                                                                 (3)
+
+
+     where, is the number of pre-selected evaluation individuals; is the number of evaluation
+indicators; and is the value of indicators after pre-processing.
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 2312411                                                                          Page 9 of 25
+
+
+step2. Calculate the entropy value and determine the weights [3]
+    First, the weight of the th object under the th indicator is calculated, i.e., the contribution
+   :
+
+                                                                                                (4)
+
+       From this, we can calculate the entropy value          for the th indicator:
+
+                                                                                                (5)
+       This gives the weight     of each indicator as:
+
+                                                                                                (6)
+
+     This paper adopts the principle of Entropy Weight Method to calculate the relative weights
+of the bottom layer to the top layer layer by layer, and finally the absolute weights of the scheme
+layer and the guideline layer to the target layer are calculated from the relative weights due to the
+interaction phenomenon of the elements within the evaluation index system.The calculating
+principle is shown in Figure 6 below.
+
+
+
+
+                               Figure 6 Entropy weight method calculation process
+step3. Construct the weighted normalized decision matrix                    [4]
+
+
+                                                                                                (7)
+
+
+step4. Calculate the relative proximity of pre-selected points                    [4]
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 2312411                                                                            Page 10 of 25
+
+
+    In the weighted normalized decision matrix, the vector consisting of the largest element in
+each column is taken as the positive ideal point ：
+
+                                                                                                  (8)
+
+     Similarly, take the vector consisting of the smallest element in each column as the negative
+ideal point ：
+
+                                                                                                  (9)
+
+     From this, the relative proximity       of the evaluation sites can be calculated：
+                                                                                                 (10)
+     where，                  ；                  ;          is the Euclidean norm of   ：
+
+                                                                                                 (11)
+
+     where, the value range of        is       , and the larger   indicates the higher risk level of
+light pollution at the evaluation site.
+step5. Determine the risk level of light pollution
+     In this paper, the quintiles in statistics were used as the basis for the division [5], and the
+score intervals of the evaluation model were divided as shown in Table 3 below.
+                              Table 3 Light pollution risk level evaluation table
+                                     Medium-         Medium         Medium-
+       Risk level      Low risk                                                High risk
+                                      low risk         risk         high risk
+                       [0, 0.2]      (0.2, 0.4]     (0.4, 0.6]      (0.6, 0.8]  (0.8, 1]
+   Thus, the theoretical framework of the light pollution evaluation model is built and can be
+used for subsequent site-specific assessment of light pollution risk levels.
+4.2 Model II: Light Pollution Risk Measurement Application Model
+     This section divides the four different land use types in Shaanxi province using ArcGIS
+geographic information software, extracts the geographic information data of various locations,
+and then uses Model I to calculate the light pollution risk level of each location in Shaanxi. This
+allows the light pollution risk level of the four different land use types to be more intuitively
+reflected.
+4.2.1 Classification of Land Types in the Region
+      This paper will assess the risk of light pollution at four different types of sites in accordance
+with the demands of the subject. It is necessary to choose a study region that has four different
+types of sites at once in order to avoid geographical disparities and display the danger level of
+light pollution from various types of sites more intuitively.
+      Shaanxi Province in China was selected for this paper's study area based on the data
+analysis. The protected land, rural communities, suburban communities, and urban communities
+in Shaanxi Province were separated using ArcGIS geographic information software based on the
+geographic information features of Shaanxi Province, and the results of the division are shown in
+Figure 7.
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 2312411                                                                                 Page 11 of 25
+
+
+
+
+                            Figure 7 Shaanxi Province land type division schematic
+                                (Scenic images from https://www.baidu.com/)
+4.2.2 Selection of Evaluation Sites
+        In order to calculate the level of light pollution risk in four different types of regions, we
+calculate the geometric shape centers [6] of the plates in various regions based on the four types
+of geographic regions in Shaanxi Province as previously classified. The calculated centroid is
+shown in the Figure 8 below.
+
+
+
+
+                      Figure 8 Distribution of evaluation points for different types of land
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 2312411                                                                                       Page 12 of 25
+
+
+     The geometric centroid divided by different types of land is calculated as shown in the
+following Table 4.
+                             Table 4 Classification of different types of land evaluation points
+                                Protected         Rural            Suburban           Urban
+            Location types
+                              land location    community          community        community
+             Number                0-3             4-16              17-26             27-33
+     Finally, the central location of each region is evaluated, and the light pollution risk level of
+the central location of each region represents the overall light pollution risk level of each region.
+4.2.3 Data Extraction and Processing
+     According to the evaluation system of light pollution risk level constructed in Model I, we
+need to determine the data of each index for each evaluation site.
+A.Geographic Information Data
+     The essential index data for each evaluation site are gathered using geo-visualized
+information data picture extraction in order to precisely compute the light pollution risk level of
+each evaluation site. The location data of official observation locations and the data they
+collected make up the visible geographic information data map. In order to generate the
+evaluation index data for each individual coordinate point in the entire map region, we combined
+the data provided in the visible geographic information data map using Kriging interpolation,
+which is based on the following concept [7].
+                                                                                                            (12)
+     Where           is the target point evaluation index data;                    is the offset coefficient, which
+satisfies                        ;          is the index estimation value. Thus, the distribution data of
+light intensity, GDP, population, altitude and precipitation in Shaanxi Province in 2022 obtained
+in this paper are shown in Figure 9 below.
+
+
+
+
+                     Figure 9 Shaanxi Province Geographic data for each evaluation site in 2022
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 2312411                                                                               Page 13 of 25
+
+
+B.Textual Data
+     For data like biodiversity and building density of the area, we collected and compiled them
+by finding relevant official documents for the four types of sites given in the question.
+     For biodiversity, we refer to the biodiversity data in the BioONE biodiversity big data
+platform to determine the biodiversity data for four different types of sites, as shown in Table 5
+below.
+                           Table 5 Biodiversity reference for different types of sites
+                                Protected         Rural          Suburban           Urban
+        Location types
+                              land location     community      community         community
+             plants            3646-4892        2896-3112       1592-2706         1204-1537
+             birds              449-508          340-358         197-316           160-169
+             beasts              71-89            37-61           17-33              6-14
+          amphibians             53-73            40-46           16-25              9-12
+            reptiles             81-95            43-54           27-37             14-24
+      Number of species        4300-5657        3356-3631       1849-3117         1393-1756
+     Combining geographic information data from specific evaluation sites, we can determine
+the biodiversity of different evaluation sites.
+     We gathered and summarized the geographical distribution information of construction land
+in Shaanxi Province for the building density of four different types of sites, as shown in Table 6
+below. We can calculate the building density of the various evaluation sites using the geographic
+information data of the particular evaluation sites.
+                         Table 6 Building density reference for different types of sites
+                               Protected               Rural                Suburban          Urban
+       Location types
+                             land location          community              community       community
+      Building density           0-1%                 3%-5%                  6%-9%          26%-30%
+4.2.4 Solution of Model II
+     The weights of various assessment indicators between various levels can be derived using
+the entropy weighting method in accordance with the constructed evaluation system of light
+pollution risk level. Figure 10 below illustrates the specifics.
+
+
+
+
+                           Figure 10 Weights of each level of the evaluation system
+      As nighttime light intensity and building density have an impact on the lighting factor and
+the building factor separately in the scheme layer, thus, these two indications have a weight of 1
+in the criterion layer. The 0 weight is present because some of the indications are unrelated and
+have no impact on one another. Nighttime light intensity has a higher weight on light trespass
+and over-illumination among the indicators, while the population factor has a higher weight on
+light clutter,which indicates population and nighttime light intensity are major factors impacting
+the danger level of light pollution in the area. This result makes sense because people are direct
+users of light and nighttime light levels have the most direct impact on light pollution.
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 2312411                                                                                        Page 14 of 25
+
+
+     The light pollution risk levels at the 34 selected geometric centers were calculated
+separately based on the weights, and the averages for the four site types in Shaanxi Province
+were then determined. The information is shown in Table 7 below.
+                       Table 7 Shaanxi Province four types of land light pollution risk level
+  Location types     Protected land         Rural community          Suburban community            Urban community
+  Light pollution
+                         0.00456                  0.02792                    0.27889                   0.40678
+    risk score
+    Risk level           Low risk                Low risk               Medium-low risk              Medium risk
+     In the four different types of locations, urban communities have the highest level of light
+pollution risk because of their dense population and high light usage. Suburban and rural
+communities have a relatively low level of light pollution risk, and protected areas have the
+lowest level of light pollution risk because of their sparse population and low light usage.
+     In order to make our model more applicable and meet the requirements of practical
+applications, we used the Kriging interpolation method to obtain a chart of the risk levels of light
+pollution for the entire area of Shaanxi Province based on the light pollution data of the 34
+evaluation sites selected, as shown in Figure 11 below
+
+
+
+
+                    Figure 11 Map of light pollution risk levels across Shaanxi Province in 2022
+     From this, this enables us to determine the risk levels for the four different types of areas as
+well as the risk level of light pollution at each location on the map.
+     The light pollution risk level map shows that Xi'an, the largest city in Shaanxi Province, has
+the highest population and light usage, making it the area with the highest risk of light pollution.
+In contrast, the Qinling Nature Reserve has a lower risk of light pollution because it is protected
+land with very little population and light usage.
+4.3 Model III: Light Pollution Treatment Optimization Model
+      In order to efficiently manage light pollution, in this part, three light pollution management
+strategies are suggested, and the exact steps involved in putting each plan into practice are
+explained. This paper forecasts changes in various evaluation indicators over the next 50 years in
+order to analyze the overall effects of different light pollution management strategies. It also
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 2312411                                                                                 Page 15 of 25
+
+
+examines the effects of different strategies on short-, medium-, and long-term risk levels of light
+pollution as well as briefly examines the potential effects of light pollution improvement.
+4.3.1 Formulation of Light Pollution Treatment Strategies
+      Given that the effects of light pollution depend on a variety of factors, some of which may
+alter over time, the governance strategies may include both long-term and short-term plans.
+Moreover, light pollution treatment strategies can be split into direct protection from the source
+and indirect protection from other elements based on the optimization object [8]. This led to the
+three light pollution treatment strategies that are suggested in Table 8 below.
+                              Table 8 Light pollution treatment strategy details
+  Treatment           Specific
+                                                                      Description
+   Strategy          measures
+                      Choose                  In the case of meeting normal living needs, residents are
+                  environmentally      recommended to use energy-saving lamps and other environmentally
+                   friendly light         friendly light sources with low light intensity to help reduce the
+   Raising             source                                 impact of light pollution.
+awareness of                              Building materials with high reflectivity such as highly reflective
+ residents to                             glass tend to reflect light, so when residents actively choose low-
+                    Selection of
+combat light                            reflective building materials, they can reduce the occurrence of light
+                  environmentally
+  pollution                                pollution phenomena such as glare. At the same time, the use of
+                      friendly            structural designs to control light pollution on buildings (such as
+                  building design        sunshades, etc.) can effectively reduce the direct reflection of light
+                                                                         pollution.
+                                          Formulate relevant standards to regulate the market for lamps and
+                    Regulating the
+                                        lanterns, and limit the production scale of high light intensity lamps
+    Setting        lighting market                                     and lanterns.
+standards and   Establishing                When the relevant environmental indicators are lower than the
+    norms                                "environmental red line", appropriate mandatory strategies such as
+               "environmental            shutting down part of the lighting system to avoid light pollution to
+                  red lines"                      cause great damage to the ecological environment.
+              Regulatory light             Formulate the maximum light intensity of lights allowed in each
+                   intensity                                   region and regulate them.
+Establishment    Regulatory         Maintain the orderly development of the society and avoid the
+              social  expansion increase of light pollution due to the rapid development of the society
+ of a sound
+    social       Regulatory
+                                 The environmental indicators of the area are regulated to control the
+ regulatory     environment                    environmental impact of light pollution.
+ mechanism       Indicators
+                                  Regulate the construction industry, such as real estate, to prevent
+                 Regulatory
+                                   building density from expanding too fast and exacerbating light
+              building density                                 pollution.
+4.3.2 Prediction of Evaluation Indicators
+      The above three light pollution reduction strategies and their specific activities will have an
+impact on a number of evaluation indicators according to the system built in this study for
+evaluating the danger level of light pollution. This paper forecasts the changes of several
+assessment indicators over the next 50 years in order to assess the timeliness of the treatment
+strategies because some indicators will alter over time. Also, the effects of the three treatment
+strategies on light pollution will be examined over three timespans: short-term (next ten years),
+medium-term (next 35 years), and long-term (next 50 years). The evaluation indicators'
+prediction process is as follows.
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 2312411                                                                                Page 16 of 25
+
+
+➢ Population Projections
+     We use a separate logistic model [9] that is appropriate for population prediction, has a high
+data fit, and has a high prediction accuracy for demographic indicators because the weight of
+demographic indicators is relatively large in our evaluation system and changes in population
+size can significantly affect the results.
+➢ Other Indicators Projections
+     We utilized the ARIMA model [10] to make predictions for the data on light intensity, GDP,
+biodiversity, precipitation, and building density. On the basis of the application of Kriging
+interpolation, the data were initially extended by the addition of Gaussian perturbations [7]. The
+indicators of the selected assessment points were projected for the following 50 years after
+reviewing the current data patterns and completing the prediction model's testing.
+4.3.3 Quantification of the Impact of Treatment Strategies
+     To obtain the improvement effect of the three strategies on light pollution, the impact of
+each specific measure in different strategies on each evaluation index needs to be analyzed. The
+specific quantification process is as follows.
+Strategy 1. Raising awareness of residents to combat light pollution
+➢ Selecting environmentally friendly light sources
+     The light intensity of various types of light sources in an area can directly affect the level of
+light pollution risk in that area. In this paper, we collected and compiled the lighting power of
+commonly used lamps [11] and the usage ratio of various types of lamps in China in 2020 [12],
+as shown in Table 9 below.
+                  Table 9 Commonly used lamps and lanterns lighting power and market share
+                                Incandescent      Halogen tungsten                           Energy-saving
+  Lamp types     LED lamp                                             Fluorescent lamp
+                                    lamp               lamp                                      lamp
+   Lighting
+                   100W              200W               250W                 32W                 11W
+    power
+  Usage ratio       78%              5.32%             0.58%                3.1%                 13%
+    According to the law of illumination [13], we can obtain:
+                                                                                                       (13)
+     Where      is the intensity of light; is the luminous intensity, that the light source luminous
+intensity is proportional to the lamp wattage; is a point to the distance of the light source.
+     Considering that LED lights have the advantages of stable luminescence, high brightness,
+good lighting effect, etc., and have an absolute share of the Chinese lighting market, it will have
+a deterrent effect on advocating people to use environmentally friendly light sources, so we
+define the proportion of people giving up LED and other light sources and choosing energy-
+saving light sources as , then will gradually decrease over time.
+                                                                                               (14)
+     Where is the initial transfer rate, this paper takes the difference between the market share
+of energy-saving lamps and LED lamps is 65%; is the hysteresis coefficient of this function,
+        , takes the value range is       , from which we can get:
+
+                                                                                                       (15)
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 2312411                                                                                 Page 17 of 25
+
+
+     After implementing this strategy and correcting the light intensity index        , the impact of
+the optimized measures on the light pollution evaluation system can be obtained as:
+                                                                                               (16)
+➢ Selecting environmentally friendly building design
+     Large-scale usage of highly reflecting mirrors in construction of cities tends to reflect and
+refract artificial light, causing secondary light pollution. Optimized building design or the use of
+low-reflective building materials can significantly lessen the effects of light pollution. The
+diffuse light reflecting capabilities of the new vermiculite steel construction materials enable
+them to minimize light pollution by 3.8% to 6.7% [14]. In addition, installing sunshades atop
+glass curtain walls can reflect light to lessen light pollution. This method has a 4.5% efficacy rate
+in mitigating light pollution [2].
+      The promotion of environmentally friendly building design essentially reduces the density
+of buildings that produce light pollution to some extent, whether through the use of new
+materials or the optimization of building design, and the more environmentally friendly buildings
+there are, the lower the density of buildings at risk of light pollution.Therefore, the
+implementation of this strategy will have the following effects on the building density index       .
+                                                                                               (17)
+     Where       is the effect of using environmentally friendly materials on light pollution
+treatment; is the effect of optimizing architectural design on light pollution treatment.
+Strategy 2. Setting standards and norms
+➢ Regulating the lighting market
+     Controlling the market for lamps and lanterns and expanding the market for intelligent
+lighting systems can reduce light intensity indicators and help lower the level of light pollution
+risk. The use of intelligent lighting tools, such as sound-controlled lights and timing lights, is
+essential to the management of light pollution.
+     For the growth of the smart lighting market, we employ a hysteresis model to fit the average
+growth rate        of the smart lighting market , taking into account the hysteresis effect because
+the market will likely continue to be saturated.
+                                                                                               (18)
+     Where is the hysteresis coefficient ,             , takes values in the range       , from which
+we obtain:
+
+                                                                                                      (19)
+
+     After implementing this strategies, the light intensity index was corrected to obtain the light
+intensity index optimized by this measure:
+                                                                                             (20)
+➢ Establishing "environmental red lines"
+     The impact of light pollution on the ecological environment, especially biodiversity, is
+immeasurable. Thus,it is imperative that the government and relevant ministries take action to
+lessen the impact of light pollution on the ecological environment. Based on this, the
+"environmental red line" is defined in this paper as 50% of the median of the regional
+biodiversity data interval; the precise values for the various regions are shown in Table 10 below.
+                     Table 10 Four types of land corresponding to the "ecological red line"
+         Location types       Protected land            Rural              Suburban           Urban
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 2312411                                                                          Page 18 of 25
+
+
+                                 location        community        community         community
+        Species median            4978.5           3493.5            2483             1574.5
+       Ecological red line       2489.25          1746.75           1241.5            787.25
+      When the regional biodiversity data is below the "environmental red line", to prevent the
+ecosystem from collapsing every year, the government must take mandatory steps to raise
+regional biodiversity statistics to 3% above the "environmental red line" after one year. In order
+to later calculate the optimization effect of the treatment strategies, the optimized indicator of the
+"environmental red line" is recorded as       .
+Strategy 3. Establishing a sound social regulatory mechanism
+      The strategy can be optimized for lighting factors, social factors, environmental factors, and
+building factors in accordance with the specific actions we suggest to establish an improved
+social regulatory mechanism, but there is a significant amount of uncertainty in the regulatory
+mechanism, and the regulatory-style management strategy may result in a rebound effect [15].
+Thus, for the indicators (aside from DEM) predicted for the next 50 years, we establish a
+perturbation term under this optimization technique, and the range of is set to                  . By
+adding the optimized indicators to the assessment system for evaluation, the level of reduction in
+light pollution caused by the strategy may be measured.
+4.3.4 Judging the Strengths and Weaknesses of Treatment Strategies
+      To obtain the optimal effects of the three different treatment strategies in the short-term,
+interim and long-term, we calculated the level of light pollution risk for the next 50 years at each
+evaluation site using Model I. The specific steps are as follows.
+step1. Scoring calculation for original solution and improvement strategy
+      Model I is used to calculate the light pollution risk level of the evaluation site in the next
+50 years, after which the optimized indicators of the three treatment strategies are substituted
+into Model I to evaluate the regional light pollution risk level after the optimization of the
+three strategies in the next 50 years.
+step2. Calculation of treatment effect
+      Calculate the effectiveness       of the three strategies to combat light pollution in three
+different time intervals: short-term (0-10 years), medium-term (11-35 years) and long-term (36-
+50 years):
+                                                                                                (21)
+      Where denotes the number of years in different periods;         denotes the effect of different
+treatment strategies on light pollution,        denotes the positive effect of treatment strategies
+on light pollution treatment, and vice versa denotes the negative effect of treatment strategies on
+light pollution.
+step3. Selection of the optimal improvement strategy
+      The optimal treatment strategy for the evaluation site in the short-, medium-, and long-term
+is determined based on the magnitude of the treatment effect           of the three strategies at the
+evaluation site over different time periods.
+4.3.5 Potential Impact of Light Pollution Treatment
+    In the process of light pollution management, the reduction of its risk level can be a side
+reaction to the reduction of the area and intensity of artificial light radiation. This will inevitably
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 2312411                                                                             Page 19 of 25
+
+
+result in further social phenomena, such as a rise in local crime rates and a drop in the frequency
+of traffic accidents. In this paper, we examine the potential effects of light pollution control using
+Shaanxi Province's crime and traffic incident rates as indicators.
+➢ Regional crime rate
+     The procedure of treating light pollution eventually diminishes the area's light intensity,
+which raises the crime rate in the area. We establish the following functional link between
+regional crime rate and the effects of various treatment strategies: the bigger the increase in
+regional crime rate, the better the effect of light pollution treatment.
+                                                                                                   (22)
+     Where denotes the original crime rate of the area; denotes the crime rate of the area
+after the implementation of the light pollution control strategies.
+➢ Traffic accident rate
+      During the implementation of light pollution control strategy, traffic accidents caused by
+light pollution will be reduced with the reduction of light pollution phenomena such as light
+clutter. Therefore, we construct a functional relationship between the regional traffic accident
+rate and the effect of light pollution control.
+                                                                                                   (23)
+      where, denotes the original traffic accident rate of the area;          denotes the traffic accident
+rate of the area after the light pollution treatment.
+4.4 Model IV: Light Pollution Treatment Application Model
+     This section chooses two sites from among four different types of sites and forecasts the
+data for each of their primary metrics in order to show the validity of Model III. The predicted
+data are used to determine the optimal short-term, interim, and long-term light pollution
+management strategies for the two locations as well as to analyze and discuss how the
+management strategies impact the risk levels of light pollution at the two sites.
+4.4.1 Selection of the Research Sites
+      To verify the optimization effect of different treatment strategies for areas with different
+light pollution risk levels, we select Point 28 with the highest light pollution risk level and Point
+2 with the lowest light pollution risk level among 34 evaluation points in Shaanxi Province in
+Model II for treatment optimization, and the geographical information of the two points is shown
+in Figure 12 below.
+
+
+
+
+                            Figure 12 Summary of optimized location information
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 2312411                                                                                          Page 20 of 25
+
+
+     The two sites in 2022 with the two most extreme ratings were selected in order to examine
+the environmental adaptability of different strategies. Thus, this can serve as a guide for selecting
+the method for other evaluation points with scores in between.
+4.4.2 Prediction of Original Data of Evaluation Index
+     To facilitate the subsequent analysis of the optimization effects of different treatment
+strategies on the two evaluation sites in the short-, interim, and long-term, we predicted the data
+of light intensity, population, GDP, and biodiversity for the two sites over the next 50 years.
+Among them, the population data was predicted using a Logistic model, and the results are
+shown in Figure 13 below.
+
+
+
+
+                   Figure 13 Population projections of the evaluation sites for the next 50 years
+     Other data were predicted using the Arima model, and the predicted biodiversity results for
+the evaluation sites are shown in Figure 14.
+
+
+
+
+                   Figure 14 Biodiversity projections of the evaluation sites for the next 50 years
+   The predicted results of the nighttime light usage data for the evaluation sites for the next 50
+years are shown in Figure 15 below.
+
+
+
+
+             Figure 15 Nighttime light intensity projections of the evaluation sites for the next 50 years
+     The important data are shown above, and the precipitation, building density, and GDP for
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 2312411                                                                                    Page 21 of 25
+
+
+the next 50 years are also predicted using Arima time series, which are not shown here for space
+reasons.
+4.4.3 Judging the Strengths and Weaknesses of Treatment Strategies
+      Combining the predicted data of each indicator at the two sites in the next 50 years, the
+effect of three treatment strategies on the two evaluation sites was analyzed using the light
+pollution risk evaluation model established in the previous section.
+Strategy 1. Raising awareness of residents to combat light pollution
+      For the selected site 2 and 28, the light pollution risk levels in the next 50 years were
+predicted by equation (16) and (17) in the absence of policy intervention and optimization using
+strategy 1, as shown in Figure 16 and Figure 17 respectively.
+
+
+
+
+Figure 16 Comparison before and after the optimization    Figure 17 Comparison before and after the optimization
+                 of the 2nd site in Strategy 1                           of the 28th site in Strategy 1
+      Through the figures we can learn that the treatment strategy 1 has a better optimization
+effect for site 2 in the short-, medium- and long-term, while it has a positive optimization effect
+only in the short term for point 28.
+Strategy 2. Setting standards and norms
+      For the selected sites 2 and 28, their light pollution risk levels for the next 50 years without
+strategy intervention and using strategy 2 optimization are shown in Figure 18 and Figure 19
+below, respectively.
+
+
+
+
+Figure 18 Comparison before and after the optimization   Figure 19 Comparison before and after the optimization
+             of the 2nd site in Strategy 2                            of the 28th site in Strategy 2
+     From the figures, we can learn that the treatment Strategy 2 has relatively good optimization
+effect for site 2 in the short, medium and long term, while it has positive optimization effect only
+in the medium term for site 28.
+
+
+=== PHYSICAL PAGE 22 ===
+Team # 2312411                                                                                         Page 22 of 25
+
+
+Strategy 3. Establishment of a sound social regulatory mechanism
+     For the selected sites 2 and 28, their light pollution risk levels for the next 50 years without
+policy intervention and using Strategy 2 optimization are shown in Figure 20 and Figure 21
+below, respectively.
+
+
+
+
+Figure 20 Comparison before and after the optimization        Figure 21 Comparison before and after the optimization
+       of the 2nd site in of the 28th site in Strategy 3                   of the 28th site in Strategy 3
+     Analyzing the figures we can get that the treatment strategy 3 is not significant for site 2,
+but in the long-term, strategy 3 has a positive treatment effect on site 28.
+     The above targeted analysis of the three strategies reveals their optimization effects for the
+short-, medium- and long-term for sites 2 and 28. The optimization effects (i.e., the value of      )
+of each strategy are summarized in Table 11 below.
+                               Table 11 Evaluation point each strategy optimization effect
+                   Short-term                         medium-term                                long-term
+Site    Strategy    Strategy    Strategy     Strategy      Strategy    Strategy      Strategy     Strategy   Strategy
+            1           2           3            1             2           3             1            2          3
+         1.73×      1.439×       8.461×      6.508×        4.45×        3.352×       3.035×       8.913×     5.189×
+  2
+          10-4        10-4         10-5        10-5         10-5          10-5         10-4         10-5       10-5
+ 28      0.019       0.006       -0.001       0.021        0.025         0.006        0.025        0.024      0.032
+      In summary, combining the graphs of the optimization effect of the governance strategy at
+sites 2 and 28 and the optimization effect table, we give the following conclusions.
+      1.For site 2, Strategy 1 has relatively good treatment effects in the short-term, interim and
+long-term, and it is recommended to use strategy 1 for light pollution treatment at site 2. Among
+them, the optimization effect of 3 of the treatment strategies on site 2 in different periods is not
+particularly obvious, because site 2 belongs to the nature reserve, which itself has a low level of
+light pollution risk and is not easily interfered by external factors.
+      2.For site 28, strategy 1, strategy 2 and strategy 3 have the best treatment effect in the short,
+medium and long term, respectively, so we suggest to implement strategy 1 in the short term,
+strategy 2 in the medium term and strategy 3 in the long term to ensure that light pollution can be
+effectively treated in different periods in the future.
+4.4.4 Analysis of Potential Impact of Light Pollution Control
+      In addition, since site 2 is located in a nature reserve, there are no large-scale crimes and
+traffic accidents, so we choose the data of site 28 to solve the potential impact of light pollution
+control in Model 3. The results are shown in Table 12:
+                                   Table 12 Potential impact of light pollution control
+                                Original                                                             Improvement
+      Potential impact                          Strategy 1        Strategy 2        Strategy 3
+                                 data                                                                   effect
+
+
+=== PHYSICAL PAGE 23 ===
+Team # 2312411                                                                                                Page 23 of 25
+
+
+    Number of crimes              22997.1            23501.7          23476.5            23286.9               2.140%
+   Number of accidents            5555.4              5433.5          5440.1             5484.8                2.135%
+      Therefore, for urban communities, the implementation of light pollution control strategy
+will lead to an increase of crime rate of 2.140% and a decrease of traffic accident rate of 2.135%.
+5 Test of the Model
+     To verify the sensitivity and stability of the model, we performed a sensitivity analysis of
+the values of the factor nighttime light intensity at evaluation site 2 and evaluation site 28 under
+the strategy 3 optimization measures in Model III. The perturbation term was modified within
+            and a Gaussian perturbation was added to the original nighttime light intensity data.
+The results are shown in Figures 22 and 23 below.
+
+
+
+
+Figure 22 Test analysis of nighttime light intensity at site 2   Figure 23 Test analysis of nighttime light intensity at site 28
+     The figures show that for policy 3, the improvement measures have a high potential for
+improving the light intensity at night. At the same time, the model results for the changes are in
+a certain reasonable range, indicating that the established has a reasonable sensitivity and
+stability.
+6 Evaluation and Improvement of the Model
+6.1 Strengths of the Model
+    After completing the evaluation and analysis of the impact of light pollution and the analysis
+and discussion of light pollution treatment, the three advantages of the model constructed in this
+paper can be summarized as follows.
+⚫ Strength 1：The evaluation model of light pollution risk level integrates various factors such
+    as environment and policy, and innovatively constructs a hierarchical interactive evaluation
+    index system with better evaluation effect.
+⚫ Strength 2：This paper uses ArcGIS geographic information software to extract and visualize
+    raster data. The paper also makes a map of light pollution risk distribution in Shaanxi
+    Province, which makes the data display more intuitive and makes the model more practical.
+⚫ Strength 3：The model analyzes and optimizes the treatment effects of three different light
+    pollution treatment strategies in three time dimensions: short-term, medium-term and long-
+    term, which makes the model better applicable.
+6.2 Weaknesses of the Model
+    However, the following problems exist in the construction and solution of the model in this
+paper, and their corresponding improvement measures are attached below it.
+⚫ Weakness 1：The analysis of the potential impact of light pollution treatment in this paper is
+
+
+=== PHYSICAL PAGE 24 ===
+Team # 2312411                                                                                 Page 24 of 25
+
+
+   not linked to the specific measures of light pollution treatment strategies, and the potential
+   impact of light pollution treatment is not considered comprehensively.
+   Improvement 1：A correlation function between the potential impact of light pollution
+   treatment and the indicators affected by light pollution control measures can be constructed
+   to analyze the potential impact of light pollution control caused by each specific measure.
+⚫ Weakness 2 ： In this paper, the short-, medium-, and long-term impacts of three light
+   pollution treatment strategies are analyzed without considering the interactions of the same
+   treatment strategy itself at different time stages.
+   Improvement 2：Three different light pollution treatment strategies can be arranged and
+   used in combination, and then the short-, medium- and long-term effects of various light
+   pollution control strategies can be analyzed to further analyze the mutual effects of the same
+   control strategy itself in different time stages.
+References
+[1]Anonymous, Light pollution, https://zh.wikipedia.org, 2023, 2,17.
+[2]Zheng Gengtao. Study on the Application of Sunshade in Light Pollution Control of Glass Curtain Wall[J].
+     China Resources Comprehensive Utilization, 2020, 38(07): 53-56.
+[3]Chen Hongfang, Gao Yi, Liu Lixia. Comprehensive evaluation method of graduation requirement achievem
+     ent degree based on entropy weight method and TOPSIS method [J]. HEILONGJIANG EDUCATION
+     （Theory & Practice), 2023, No. 1416(02): 58-60.
+[4]Arezoo Azimifard, Seyed Hamed Moosavirad, Shahram Ariafar. Selection sustainable supplier countries for
+      Iran’s steel industry at three levels by using AHP and TOPSIS methods [J]. Resource Policy, 2018, 57: 3
+     0, 44.
+[5]Jia Junping, He Xiaoqun, Jin Yongjin. Statistics（7th edition), China Renmin University Press, 2018.
+[6]Zhang Peng. Study on geometric properties of plane figures[J]. Journal of Yangzhou Vocational University,
+      1997(02): 51-57.
+[7]Zhang Qi, Ma Yanning, Wang Xiaojun, et al. Modeling of main discontinuities of rock tunnel based on opti
+     mized Kriging interpolation method[J]. CHINA CIVIL ENGINEEＲING JOUＲNAL, 2022, 55(S2): 74-
+     82.
+[8]Ma Juntao, Yang Chunyu, Liang Shuying, et al. Classification and Evaluation of Urban Light Pollution and
+     Ｒelated Measures[J]. Lamp and illumination, 2014, 38(02): 10-14.
+[9]Zhang Xiaole, Huang Jingxia. Analysis and prediction of the population based on Logistic regression
+     model[J]. JOURNAL OF CHUXIONG NORMAL UNIVERSITY, 2013, 28(09): 9-13.
+[10]Zhang Lijuan, Yang Yuan, Mei Cheng, et al. Comparison of asphalt pavement performance prediction
+     based on ARIMA and SVM models [J]. Sino-foreign highway, 2022, 42(02): 52-56.
+[11]Anonymous, Common wattage and specification of various luminaries and light sources, https://zhuanlan.z
+     hihu.com/p/138450630, 2023.2.21.
+[12]Anonymous, Panorama of China's LED lighting industry in 2022, https://www.qianzhan.com/analyst/detai
+     l/220/211118-6e06017a.html,2023.2.19.
+[13]Li Siqi. Calculation and selection of bulb power in chicken illumination[J]. Chinese poultry, 1997(09): 21-
+     22.
+[14]Liu Xijun, Tang Lina, Liang Guicai, et al. Construction Technique of Stee-l tile Roof with New Light and
+     Environmental Vermiculite Type[J]. World of building materials, 2011, 32(02): 72-75.
+[15]Xu Ronghui. Research and Application of the Logistic Equation[J]. Journal of Xinzhou Teachers Universit
+     y, 2011, 27(05): 28-30.
+[16]Kong Li, Hu Guangwen, Mu Xianzhong. Energy rebound effects associated with consumption distribution
+of residents in Beijing[J]. Resource Science, 2022, 44(10): 2022-2037.
+
+
+=== PHYSICAL PAGE 25 ===

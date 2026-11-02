@@ -1,0 +1,1344 @@
+=== PHYSICAL PAGE 1 ===
+          2011 Mathematical Contest in Modeling (MCM) Summary Sheet
+                                       Team Control Number
+
+
+
+                                       9665
+      For office use only                                              For office use only
+      T1 ________________                                              F1 ________________
+      T2 ________________                                              F2 ________________
+      T3 ________________                                              F3 ________________
+                                          Problem Chosen
+      T4 ________________                                              F4 ________________
+                                                 A
+
+
+                                             Summary
+
+      As is known to all, in half-pipe games, the shape of the half-pipe has some influences on the
+performances of the snowboarders in many aspects, such as the “vertical air” and the average
+degree of rotation. It’s a big challenge for the snowboard designers to determine the shape of the
+half-pipe so as to achieve the desired performances. This problem can be attributed to an
+optimization problem.
+      For Question One, an interesting optimization model is constructed for the “vertical air”
+based on the theory of Dynamics. In particular, in order to achieve the maximum vertical distance
+above the edge of the half-pipe, we have derived the best height of the platform, which is 6.241
+meters. On the other hand, by the relationship between the arc angle of the transitions and the
+vertical component of velocity, the best value for the arc angle of the transitions is determined to
+be 51.66°. Furthermore, according to the analytic expression of the curve of velocity recovery,
+we calculate the width of the flat is 19.18 meters. Finally, by the four steps method, the length of
+the U-shape bowl is calculated as 159.95 meters.
+      For Question Two, the mechanical characteristics model is constructed based on the theory
+of Sport Biomechanics. Particularly, we firstly derived the relationship between the torque and the
+horizontal twist angle. Then, the function relationship between the horizontal twist angle and the
+arc angle of the transitions is examined. Also, the situation of twist in the vertical direction can be
+discussed similarly and finally, in order to maximize the twist in the air, the best values of the arc
+angle of the transitions, the length and width of the U-shape bowl and the height of the platform
+are respectively calculated as 45°, 165.96 meters, 19.18 meters and 6.241 meters.
+      For Question Three, the weighted tradeoff model based on the “vertical air” and the twist
+angle is developed which ensures that the athlete would get the best scores. Based on the
+relationship among the “vertical air”, the twist angle and the corresponding scores obtained, we
+derived the appropriate weight coefficient and develop a practical course.
+      Moreover, the influences of other two different shapes of half-pipes on the “vertical air” and
+twist angle are also discussed. The model is tested by a numerical example and the sensitivity
+analysis about the initial velocity is performed. Finally, based on the analysis about the strengths
+and weaknesses of the proposed model, we have also considered the refinement of our model,
+taking the safety of the athlete and the air resistance into account.
+
+
+=== PHYSICAL PAGE 2 ===
+    Team # 9665                                                                                              Page 1 of 30
+
+
+Keywords:
+Snowboard          Half-Pipe         Theory of Dynamics              Optimization          Mechanical Characteristics
+
+   Fly Higher with More Twist: The Optimization of a Half-Pipe
+
+Content
+I Introduction..................................................................................................................2
+II Symbol Definitions.....................................................................................................2
+III Solution to Question One.......................................................................................... 3
+      3.1 Half Pipes......................................................................................................... 3
+      3.2 The Description of Half-Pipe We Focused.......................................................4
+      3.3 Basic Model......................................................................................................4
+           3.3.1 Assumptions and Notations...................................................................5
+           3.3.2 The Analysis of Snowboarder’s Movement.......................................... 6
+           3.3.3 The Calculation of W f ......................................................................... 6
+          3.3.4 The Discussion of W p .......................................................................... 7
+          3.3.5 The Function of W p ............................................................................. 8
+          3.3.6 Approach Parameters of Half-Pipe........................................................9
+IVMechanical Characteristics Model of Question Two...............................................16
+     4.1 Assumptions................................................................................................... 16
+     4.2 Torque.............................................................................................................16
+     4.3Mechanical characteristics.............................................................................. 16
+     4.4 The Determination of Parameters of Half-Pipe..............................................17
+V Tradeoffs Model to Question Three..........................................................................18
+     5.1 The Determination of Parameters...................................................................18
+     5.2 The Inclined Angle of Half-Pipe’s Placement................................................19
+VI The Discussion of other Kinds of Half Pipe........................................................... 20
+     6.1 The Half Pipe whose Transitions are Ellipse..................................................20
+     6.2 The Half-Pipe whose Flat is a Arc..................................................................21
+VII The Verification of Our Models.............................................................................21
+     7.1 The Verification by Living Example.............................................................. 21
+     7.2 Sensitivity Analysis........................................................................................ 22
+VIII Strengths and Weaknesses.................................................................................... 23
+     8.1 Strengths.........................................................................................................23
+     8.2 Weaknesses.....................................................................................................24
+IX The Refinement of our Model.................................................................................24
+     9.1 The Refined Model Considering the Air Resistance...................................... 24
+     9.2 The Refined Model Considering the Safety of Athlete.................................. 25
+Reference......................................................................................................................26
+
+
+=== PHYSICAL PAGE 3 ===
+    Team # 9665                                                                                              Page 2 of 30
+
+
+Appendix...................................................................................................................... 27
+
+
+
+
+I Introduction
+
+    The snowboarding was firstly introduced in the early 1970s and since then, it has
+become more and more popular all over the world.
+    However, with the rapid development of modern science and technology, there is
+no doubt that the sport equipment has played an important role for an athlete to
+improve the performance.
+    To meet the needs of skilled snowboarders, manufactures have introduced lots of
+different designs utilizing different materials and shapes for snowboarder courses,
+which are also currently known as half-pipes (Brennan, et al, 2003). In order to
+achieve the desired performance, the key point in determining the shape of a half-pipe
+is to balance the possible requirements, such as the maximum production of “vertical
+air” and maximum twist in the air.
+    The performance of an athlete heavily depends on the total air time, average
+degree of rotation and the “vertical air”. In fact, these elements are also related to the
+shape of a half-pipe, especially the transition radius, the height and the length and
+width of the flat bottom of the half-pipe.
+    In this paper, the theory of Dynamics and Sport Biomechanics are employed to
+design the shape of a half-pipe for the purpose of maximizing the vertical distance and
+the twist in the air.
+
+
+II Symbol Definitions
+
+
+             Symbol                                                      Definition
+                 hx                                              the height of platform
+                     rx                                        the radius of transitions
+                                                            the arc angle of transitions
+                     wx                                              the width of flat
+                                                      the twist angle of athlete in the sky
+                     ax                                         The length of platform
+                   h                                                    vertical air
+                                    the coefficient of sliding friction of the surface of half-pipe
+
+
+=== PHYSICAL PAGE 4 ===
+  Team # 9665                                                                    Page 3 of 30
+
+
+                FN       the sustain force given by half pipe to snowboard an athlete
+                       the angle between gravity and vertical direction of arc plane
+                S         the slide distance from backing to flat to completing acceleration
+                rx                           the radius of transitions
+                vs               the velocity when athlete making flight part
+                vmax         the biggest velocity before sliding on the transitions
+                S max           the slid distance during acceleration on the flat
+                 f                   the friction applied to snowboard
+                ac                    the acceleration of athlete on the flat
+                tt                        the time in the air for athlete
+                                          angular velocity of rotation
+                Mˆ x                   the bending moment about x axis
+
+
+III Solution to Question One
+
+3.1 Half Pipes
+
+    A half-pipe is basically a U-shaped bowl that allows riders to move from one wall
+to the other by making jumps and performing Snowboarding Tricks on each transition
+(Half-pipe snowboarding).
+    There is a variety of different kinds of half-pipes utilized internationally and the
+main differences between them are:
+         the bottom region is flat or arched,
+         the two side arches of the half-pipe are circular or other arches.
+      Considering the possible differences mentioned above, we mainly divide the
+following three kinds of half-pipes:
+(1) The bottom region and its two sides are respectively flat and circular. This kind of
+     half-pipe is used in Winter Olympics.
+(2) The bottom region and its two sides are respectively arched and circular. This
+     kind of half-pipe is used in previous games.
+(3) The bottom region and its two sides are respectively flat and elliptical. This kind
+     of half-pipe is used in some local games.
+      For a skilled snowboarder, it’s obvious that the shape of a half-pipe will affect
+his achievement. In the following discussions, we shall develop a mathematical model
+and focus on analyzing the first kind of half-pipe. In addition, a few designs of some
+other kinds of half-pipes are also discussed and compared with respect to the
+influences on the athlete’s performances in games.
+
+
+=== PHYSICAL PAGE 5 ===
+  Team # 9665                                                            Page 4 of 30
+
+
+
+3.2 The Description of Half-Pipe We Focused
+
+   The Halfpipe Schematic drawn in Figure 1:
+
+
+
+
+         Figure 1. Snowboarding Half-pipe Schematic (Half-pipe snowboarding)
+       Sources: http://www.abc-of-snowboarding.com/snowboardinghalfpipe.asp
+   To illustrate the half-pipe more specific, we throw light upon its main elements.
+
+      Flat
+         Is the center flat floor of the Half-pipe
+      Transitions
+         The curved transition between the horizontal flat and the vertical walls
+      Verticals
+         The vertical parts of the walls between the Lip and the Transitions
+      Platform/Deck
+         The horizontal flat platform on top of the wall
+      Entry Ramp
+         The beginning of the half-pipe where athlete start their run
+
+
+3.3 Basic Model
+
+    In this section, a basic model is developed in order to model the design of a
+half-pipe and analyze its influence on the performance of an athlete.
+
+
+=== PHYSICAL PAGE 6 ===
+  Team # 9665                                                            Page 5 of 30
+
+
+
+3.3.1 Assumptions and Notations
+
+
+    For the sake of convenience of the following discussions, we firstly assume that:
+(1) The “ vertical air “ for an specific athlete is a constant.
+(2) The snowboard and snowboarder are an entity and the internal action of them can
+    be ignored.
+(3) The air resistance is ignored.
+(4) The coefficient of sliding friction of the half pipe surface is fixed.
+
+   Now, we are to introduce some notations which will be used in the subsequent
+Sections.
+
+
+    hx : denotes the height of platform;
+    rx : denotes the radius of transitions;
+    : denotes the arc angle of transitions;
+   wx : denotes the width of the flat;
+   t x : denotes the thickness of flat;
+   ax : denotes the length of U-shape bowl;
+   bx : denotes the width of the U-shape bowl.
+
+   In particular, a scheme of a half-pipe with the notions introduced above is drawn
+and presented in Figure 2.
+
+
+
+
+                     Figure 2. A scheme of a half-pipe with notations.
+
+
+=== PHYSICAL PAGE 7 ===
+  Team # 9665                                                                 Page 6 of 30
+
+
+    Based on the discussions above, we have
+                                   hx  (rx  rx  cos  )  tx ,
+                                   bx  wx  2rx  sin   2tx .
+   Obviously, in order to complete the design of a half-pipe, we should find the
+numerical solutions of each variable defined in Figure 2.
+
+3.3.2 The Analysis of Snowboarder’s Movement
+
+
+   As shown in Figure 2, when an athlete starts from point O to a random extreme
+point A , there only exists the gravity and friction which are in work in the whole
+process.
+   According to the law of conservation of energy, we can get
+                                     W p  W f  mg  h,
+                                      
+                                       h  h  hx ,
+
+   where Wp denotes the work done by the snowboarder on the flat and it is used for
+acceleration, W f denotes the work done by friction.
+   Obviously, in order to maximize the “vertical air”, we should maximize W p and
+minimize W f , respectively. Note that the resistant function of friction for the
+snowboard is much smaller than the work done by the snowboarder, the achievement
+of maximizing the “vertical air” can approximately be obtained only by maximizing
+Wp .
+
+3.3.3 The Calculation of W f
+
+
+    Firstly, it’s known that the work done by friction is given by W f  f  l    FN  l .
+In order to compute the force FN , we consider the following two different situations:
+     When the snowboarder is on the flat, then we have FN  mg , where m is
+         the total weight including both the snowboard and the athlete.
+     When the snowboarder is on the transition, then the centripetal force is
+         provided by the support force of arch and the gravity. Thus, we have
+                                                           mv 2
+                                    FN  mg  cos             ,
+                                                            2
+    where v is the velocity,  ( 0     ) is the angle between the gravity and the
+vertical direction of arch. We can also get that dl  rx  d  and the force analysis of
+the snowboarder is presented in Figure 3.
+
+
+=== PHYSICAL PAGE 8 ===
+  Team # 9665                                                                   Page 7 of 30
+
+
+
+
+                                           
+
+
+
+                        Figure 3. Force analysis of the snowboarder.
+
+   Assume that the snowboarder has completed n times flight actions, we can
+ approximately calculate the distance l by the following equation:
+                                  l  n  (wx  2r   ) / cos  .
+ Thus, we can get
+                           nmg  wx                   mv 2
+                    Wf                  n(mg cos        )  2rx  d  .
+                             cos          0              rx
+
+    Note that it is difficult to deal with the friction changes of the transitions and the
+work done by the friction is much less than that done by the athlete used for
+acceleration, we approximate the value of the friction of the transitions as  mg and
+it will not induce a big difference. So, we have
+                             W f    nmg  ( wx  2r   ) / cos  .
+
+
+
+
+3.3.4 The Discussion of W p
+
+
+   Snowboarders get higher velocity by stomping or rising leg on the flat. However,
+as to friction of half-pipe, the velocity has a maximum value vmax . When the velocity
+achieves vmax , snowboarder can’t improve it by snowboarding skills. We assume the
+work done by snowboarder when he accelerate for i th on the flat as W pi . However,
+in the process of design the half-pipe, we don’t care about the numerical solution of
+W pi . The reason of discussing it is to ensure the integrity and accuracy of our model.
+   Combing with the equations derived above, we obtain
+
+
+=== PHYSICAL PAGE 9 ===
+  Team # 9665                                                            Page 8 of 30
+
+
+                                 n
+
+                                 W   nmg (w  2r ) / cos 
+                                          pi              x
+                         h    i 1
+
+                                                     mg              .
+
+   Obviously, the value of h is decided by W p directly. For the process of every
+slid motion done by athlete is same basically, we can calculate W p by
+                                                  1 n
+                                           Wp       W pi
+                                                  n i 1
+
+   By analyzing the above equations, we can get that the “vertical air” is maximum if
+the velocity when athlete make flight action is limit value.
+
+
+
+3.3.5 The Function of W p
+
+
+   W p is the work done by athlete used for accelerating and it is used to compensate
+the lose caused by the work done by friction.
+   Figure 4 shows the specific situation we investigate.
+
+
+
+
+                   Figure 4. The scheme of slid motion done by athlete
+
+   As is shown in Figure 4, from point A to B, the velocity of athlete decreases
+because of the friction. In this process, the following equations are obeyed.
+                                       1 2          1 2
+                                        mvmax  mvB  W f1
+                                       2            2           .
+                                       W f  f1  ( AA ' BB ')
+                                        1
+   From point B to C, the velocity recoveries to the maximum value with the help of
+
+
+=== PHYSICAL PAGE 10 ===
+  Team # 9665                                                                        Page 9 of 30
+
+
+
+W p . So we have,
+
+                                 1 2         1 2
+                                  mvmax  mvB  W f2  Wp
+                                 2            2           ,
+                                 W f  f 2  BC
+                                  2
+
+   where, f1 is the friction applied to snowboard of AA ' and BB ' , f 2 is that of
+BC and W f1 , W f2 are the corresponding work done by f1 and f 2 . Thus, we have
+                                         W p  W f1  W f 2
+
+
+3.3.6 Approach Parameters of Half-Pipe
+
+   The height of the platform and the radius of transition
+
+    The height of platform is related to the original velocity of athletes. In the process
+of sliding down from the entrance, there is almost no loss of energy, namely, the
+gravitational potential energy translates into kinetic energy totally. So we have
+                                                  1
+                                        mg  hx  mv02
+                                                  2
+    The original velocity decides the achievement of athletes in competition and is
+related to the “vertical air”. Thus , it is very important to consider it in the design of
+the height of platform.
+    According the study by Huang and his team, in order to get a relative good score,
+athlete should ensure the original velocity when he or she enters the half-pipe to be
+11.06m / s at least.
+    Since the abusive high of platform will result in the big loss of velocity before the
+flight part made, the relative suitable original velocity for design platform is the least
+one. Thus,
+                                            v02
+                                       hx       6.241 m .
+                                            2g
+
+
+   The arc angle of transitions
+
+    Athletes make flight part on the top of transitions and his velocity of flight can be
+resolute in the three directions-x, y and z. Namely,
+                    vx  vs  cos  x , v y  vs  cos  y and vz  vs  cos  z ,
+
+   where, vx , v y and vz are the component velocities of vs in the directions of x,
+
+
+=== PHYSICAL PAGE 11 ===
+  Team # 9665                                                              Page 10 of 30
+
+
+
+y and z respectively and  x ,  y and  z are the angle of vx , v y and vz . Figure 5
+shows the specific situation.
+
+
+
+
+                          Figure 5. The scheme of resolution of vs
+
+
+   What is more, in vertical plane, just like what is shown in Figure 6 , the
+relationship of  ,  x and  y obeys the following equations approximately.
+                                   x   and  y  90  
+                                                                  .
+   Thus,
+                                vx  vs  cos  and v y  vs  sin  .
+
+
+
+
+                Figure 6. The scheme of component velocities in vertical plane.
+
+   The height of flight h increase with the vertical component velocity v y . As is
+shown in Figure 4, from point A to A ' , the relationship of energy obeys
+
+
+                            m  vs 2 1
+                                      m  vmax
+                                             2
+                                                  f1  AA  mg  hx .
+                              2      2
+   Namely,
+
+
+=== PHYSICAL PAGE 12 ===
+   Team # 9665                                                                                                                                                  Page 11 of 30
+
+
+
+                                                                                               2 1 2          w r
+                                                                         vs                    ( mvmax  f1 ( x x )  mgrx (1  cos  ))
+                                                                                               m 2             cos                       .
+    Then, we can get
+                                                                                             2 1 2          w r
+                  vy                                                                         ( mvmax  f1 ( x x )  mgrx (1  cos  ))  sin 
+                                                                                             m 2             cos 
+
+    Where f1 is the friction force in the inclined plane, which decrease with  . For
+the variation of it is not significant, we regard it as a constant.
+    We assume that m  75kg ,   0.1 and   5 , then the solution of                                                                                                        is
+transformed as a question which calculating the maximum of function of one variable.
+    Utilizing the MATLAB software, we can get the value of  corresponding to the
+max component velocity in vertical direction is 51.66°.
+    The relationship of  and v y is shown in Figure 7
+
+
+                                                                                    14
+
+
+
+
+                   c o m p o n e n t s p e e d in th e v e rtic a l d ire c tio n
+                                                                                    12
+
+
+
+                                                                                    10
+
+
+
+                                                                                     8
+
+
+
+                                                                                     6
+
+
+
+                                                                                     4
+
+
+
+                                                                                     2
+
+
+
+                                                                                     0
+                                                                                         0      0.2   0.4       0.6       0.8        1        1.2   1.4   1.6
+                                                                                                            the arc angle o f trans itio ns
+
+
+
+                                                                                             Figure 7 .The relationship of  and v y
+
+    Just as shown in Figure7, the relationship of two variables obeys parabola
+approximately. When   51.66 , the v y reaches the maximum value.
+    According the equation
+                                                                                                               v y 2  2 g  h ,
+
+    we can derive the “vertical air” is maximal when   51.66 . So, the radius of
+transitions can be calculated as
+                                           hx
+                                  rx             16.44 m .
+                                       1  cos 
+
+
+=== PHYSICAL PAGE 13 ===
+  Team # 9665                                                             Page 12 of 30
+
+
+
+
+   The width of flat
+
+    The process of athlete doing work for acceleration can’t be completed in a very
+short distance. It must reach the minimum distance Smax for accelerating velocity to
+vmax . Base on this, we promote the curve of velocity recovery.
+    Just as shown in Figure 8, the curve has following characteristics:
+
+   (1) Horizontal axis presents the slid distance to the start point, and vertical axis
+        presents the maximum velocity can be achieved corresponding to a fixed slid
+        distance.
+   (2) The recovery function to velocity decreases with the increment of slid
+        distance S , namely the slope in figure decreases with S .
+   (3) In order to obtain vmax , Smax should be slid at least.
+   (4) If the slid distance is longer than Smax , the achieved velocity at last can be
+        regarded as a constant approximately.
+
+
+
+
+                        Figure 8. The curve of velocity recovery
+
+   Fortunately, Harding, et al. (2007) investigate the relationship between the
+acceleration and the time used for sliding by utilizing a sliding Fast Fourier Transform
+(FFT) window and subsequent power analysis and characterize it in Figure 9 .
+
+
+=== PHYSICAL PAGE 14 ===
+  Team # 9665                                                            Page 13 of 30
+
+
+
+
+   Figure 9. A unfiltered accelerometer trance associated with a snowboarding run
+
+    In Figure 9, the point M characterizes the time when athlete attach flat after
+leaving transitions. The acceleration is very big at the moment of M . The point N
+presents the slid distance of an athlete reaches S max and the velocity is max. The
+point P characterizes the time when athlete attach the other transition after
+completing the slide on flat.
+    We can get, by analyzing, the conclusion that the velocity of athlete will not
+change after acceleration for some time in the condition of the length of flat is long
+enough. To investigate it more deeply, we distill the relationship in the figure into a
+approximate broken line which shown in Figure 10.
+
+
+
+
+           Figure 10 .The distilled relationship between acceleration and time
+
+   Combing the data shown in Figure 9, The relationship between the acceleration
+and time when athlete accelerate in flat can be characterized by the following
+equation.
+                                   2.5 g  2.5 gt ,   t  1s
+                              ac                            .
+                                   0                   t>1s
+
+
+=== PHYSICAL PAGE 15 ===
+  Team # 9665                                                                     Page 14 of 30
+
+
+   Thus, the velocity of athlete at random can be calculated by
+                               1
+                     v  v1   (2.5 g  2.5 gt )dt  v1  2.5 gt  1.25 gt 2 .
+                               0
+
+   The slid distance when the acceleration decreased to 0 at the time of t  1s is
+Smax , which can be calculated by
+                                       1
+                              Smax   (v1  2.5 gt  1.25 gt 2 )dt
+                                       0                              .
+Note that v1  11.06 m / s , we get Smax  19.27m .
+   In addition, combing the discussion above and the assumption that   5 , we get
+                                   wx  Smax  cos   19.18m
+
+
+   The solution of the length of a half-pipe
+
+   The length of a half-pipe is decided by the slid distance between two continuous
+fight part and the times of flight parts made by athlete simultaneously. Thus,
+                                               .
+
+
+
+
+                       Figure 11. The scheme of process of sliding
+
+   From Figure 11, we can get that
+                           a0  DD  sin   2rx    sin   vx  tt .
+
+   In order to get the numerical solution of ax , the following 4 steps should be
+applied.
+
+
+   Step1: Calculating vs
+
+   From Figure 4, we have
+
+
+=== PHYSICAL PAGE 16 ===
+  Team # 9665                                                                      Page 15 of 30
+
+
+                              1 2 1 2
+                                mvs  mvmax  f1  AA’ mghx .
+                              2      2
+   Thus,
+                                  2 1 2
+                          vs      ( mvmax   mg  AA  mghx ) .
+                                  m 2
+   In order to calculate vs , the parameters m , vmax , AA ' and vs                    should be
+known.
+        We assume that m is 75kg which is the average weight of a snowboarder.
+   Then,
+                        vmax  (v1  2.5 gt  1.25 gt 2 )|t 1  23.31 m / s .
+   Note that the range of coefficient of sliding friction is from 0.03 to 0.2, we assume
+that it is 0.1. From Figure 4, we can also get that
+                                                r 
+                                        AA   x     .
+                                               cos 
+   Thus, vs can be calculated.
+
+
+   Step2: The solution of vx and tt by utilizing vs
+
+                                                                              v
+                  vx  vs  cos  x  vs  cos  , v y  vs  sin  and tt  2 y
+                                                                               g
+
+
+   Step3: The solution of DD 
+                                                         wx
+                                               DD  
+                                                        cos 
+
+   Step4: Getting ax by calculation of a0
+
+   Combing the above derivation, we can get that
+                                          a0  22.85 m
+
+   According the current investigations, the times of flight part for a athlete is about
+7. Therefore, we have
+                                          ax  159.95m
+
+
+=== PHYSICAL PAGE 17 ===
+  Team # 9665                                                            Page 16 of 30
+
+
+
+
+IVMechanical Characteristics Model of Question Two
+
+4.1 Assumptions
+
+       Athlete can transform the horizontal velocity to the one twist with the central
+        axis of snowboarder.
+       The path of sliding and the “ vertical air” are unchangeable
+       The velocity of athlete can reach vmax
+
+
+
+4.2 Torque
+
+   In order to maxim twist in the air, athlete must bend his body. A torque, which is
+perpendicular to snowboard’s axis of rotation, is generated simultaneously when
+snowboarder bending his body. Figure 12 describe the specific situation.
+
+
+
+
+            Figure 12. Torque applied to the snowboard and the angle of twist
+    Source: Brennan, et al. Modelling the mechanical characteristics and on-snow
+performance of snow boards.
+
+
+
+4.3Mechanical characteristics
+
+    We treat the snowboard as a thin beam and relate the applied moment and applied
+torque to the radius of curvature and the rate of twist by the relationship (Kollár &
+Springer 2003):
+                                 1  W                ˆ
+                                      x  22 W24   M x  ,
+                                                        
+                                    W24 W44   Tˆ 
+
+
+=== PHYSICAL PAGE 18 ===
+  Team # 9665                                                                             Page 17 of 30
+
+
+
+      where Mˆ x is the bending moment about the x axis, 1
+                                                                           x is the curvature of the
+
+longitudinal y axis (Figure 4), Tˆ            is the applied torque,            is the rate of twist
+
+                                                                                 d
+which is related to the angle of twist  by the expression:                            and W22 W24
+                                                                                 dy
+
+and W44 are the elements of the compliance matrix. The origin of the local x  y  z
+
+co-ordinate system is at the centroid（Brennan, et al，2003）.
+
+      When only a bending moment is applied we have:
+                                     1
+                                           W22 Mˆ x and   W24 Mˆ x .
+                                     x
+
+Since, W24 is decided by the intrinsic property of half pipe. we only need to calculate
+Mˆ . Note that Mˆ is the product of M (the mass of half pipe) and the projection of
+  x                 x                             u
+
+transition arc at the direction of x . Namely,
+
+
+                                            Mˆ  M u  rx  sin  ,
+
+      where rx is determined by  . Thus, in order to maxim the angle of twist, we
+should maximize  and can get that
+                                                W24 Mˆ x d y
+
+
+4.4 The Determination of Parameters of Half-Pipe
+
+      In order to maximize the twist angle, the bending moment Mˆ x                          should be
+maximized. The method of determination of parameters of half-pipe is similar to that
+of question 1.
+      Athlete accelerates his velocity to vmax            on the flat, slides to transition at this
+velocity and makes flight part. The key of ensuring the maximum of twist angle of
+athlete is design of height and arc of transition.
+      We resolute the velocity vs when athlete begins his flight part, and get:
+                        vx  vs  cos  x , v y  vs  cos  y and vz  vs  cos  z .
+
+    After the flight part, vx and vz are unchangeable, and athlete can convert vx
+into the rotational velocity ( vx ) whose central axis is that of snowboard. So,
+vx   vx , where             is the efficiency of converting and only related to the
+
+
+=== PHYSICAL PAGE 19 ===
+   Team # 9665                                                                                Page 18 of 30
+
+
+
+competence of athlete. In addition, with the consideration of benefitting athlete to
+return back snowboarding run,  z should be relative big.
+                                                                                         l0
+    Since the radius of rotation after athlete making fight part is                         , we can get the
+                                                                                         2
+angular velocity of rotation          (   vx / (l0 / 2) ). In addition, the total time for
+
+athlete flight tt ( tt  2v y / g ) can be calculated.
+
+    Thus, the angle of twist could be calculated as
+                                                   tt
+
+    For  x       and  y  90   , we can get
+
+                                vx  vs  cos  and v y  vs  sin  .
+    Thus, we can derive that
+                                                                    vs2  sin 2
+                             tt    vs2  sin   cos                        .
+                                                                         2
+
+    Based on the above investigation, we can get the following conclusion.
+    When the arc angle of transition  equals 45 degree, the twist angle is maximal.
+    Regarding twist angle as an optimizing object and by the method used in question
+one, we obtain
+                                            hx  6.241 m .
+    And the radius of transitions can be calculated as
+                                   rx  hx / (1  cos  )  21.3 m
+
+    The method used in calculating the width of half pipe is similar to the one used in
+question one. However, the arch angles of transitions in two methods are different.
+The numerical solution is ax  165.96m .
+
+
+V Tradeoffs Model to Question Three
+
+5.1 The Determination of Parameters
+
+    Base on analysis we have done, we can conclude that the parameters calculated
+with different objectives- “vertical air” or twist in the air-are different. In order to
+design the half-pipe which is most suitable to athletes, we tradeoff the two kinds of
+
+
+=== PHYSICAL PAGE 20 ===
+  Team # 9665                                                              Page 19 of 30
+
+
+
+objectives and get the corresponding parameters.
+   Objective of optimization: the best achievement of athlete in the competition.
+   Harding and his team (2008) provide the relationship among the “vertical air”,
+degree of rotation and the predicted scores of athlete obeys the following equation.
+                              PS  3.42 AVA  0.011ADR  1.794 ,
+   where PS      is the predicted scores of athletes in the competition, AVA is the
+average “vertical air” of athletes, and ADR is the average degree of rotation.
+   Basing on the above equation, we can find that the “vertical air” is much more
+important than the degree rotation for the scores of athletes.
+   For the objective of optimization is the scores given by judges, we regard the
+coefficients of AVA and ADR as weight when designing half-pipe.
+   The weight of “vertical air” is
+                                        3.421
+                                  k1              0.997 .
+                                    3.421  0.011
+   And , the weight of degree of rotation is
+                                        0.011
+                               k2                 0.003 .
+                                    3.421  0.011
+
+   As the width of flat and the height of platform are equal in the calculations with
+different objective, there is no need to weight them. Namely,
+                                hx  6.241m and wx  19.18m
+
+   To the remain parameters, ax and rx can be decided by  , hx and wx . Thus,
+in order to complete the design of half-pipe in the tradeoff model, the only things to
+do is to determine the value of  .
+   According to the principle of weighting, the most suitable arc angle of transitions
+ t should be calculated by
+                                    t  k11  k2 2  51.63 ,
+
+   where the 1      and  2     are arc angle of transitions in question one and two
+respectively.
+   It is easy to get the following parameters
+                               rx  16.37m and ax  160.19m .
+
+
+5.2 The Inclined Angle of Half-Pipe’s Placement
+
+   The inclined angle of half-pipe’s placement refers to the angle of flat plane and
+
+
+=== PHYSICAL PAGE 21 ===
+  Team # 9665                                                                 Page 20 of 30
+
+
+
+horizontal one, which is unrelated to the size of half-pipe and only decided the method
+of placement.
+    The angle is used for benefitting to capture the high velocity and reducing the
+friction force. And a multitude of researchers have done the investigation of inclined
+angle. Combing them, we get a recommended value which is 18 ° . If the size of
+half-pipe is relative small, the angle should decrease slightly, however, it should in the
+range of 15~18°.
+
+
+VI The Discussion of other Kinds of Half Pipe
+
+6.1 The Half Pipe whose Transitions are Ellipse
+
+   The design parameters of this kind half pipe can be applied by two methods, as is
+shown in Figure 13.
+
+
+
+
+                   Figure 13 a. The first method for designing half-pipe
+
+
+
+
+                  Figure 13 b. The second method for designing half-pipe
+
+    To the fist method, for the slope of transition is too steep, it is very hard for athlete
+sliding to the top which used for making flight part. Even though he or she can reach
+the top of half pipe, the huge loss on velocity can be ignored too. Thus, the difficulty
+of snowboarding on this kind of half-pipe is relative big, and it is suit for the
+snowboarder who pursuit high difficulty.
+    To the second one, it is equivalent to extend a distance at each sides of flat. In the
+condition that the width of flat is wide enough, this method will waste the resource of
+half-pipe. What is more, the arc angle of transitions is difficult to control and it is easy
+to result in athlete flying out the half-pipe for the reason of the slope of transition is
+
+
+=== PHYSICAL PAGE 22 ===
+  Team # 9665                                                              Page 21 of 30
+
+
+too gentle.
+
+
+6.2 The Half-Pipe whose Flat is a Arc
+
+   The transition of this kind of half-pipe is the same to that of the one we mainly
+discussed, but, the flat of it is arced. For a variety of reasons such as athlete is more
+vulnerable when he or she sliding on it for it is difficult to stop on the arc run, the
+effect of acceleration is not obvious for it rely on the static friction, this kind of
+half-pipe have been abolished.
+   Figure 14 shows the shape of this kind of the half-pipe.
+
+
+
+
+                 Figure 14. The shape of half-pipe whose flat is arced.
+
+
+VII The Verification of Our Models
+
+7.1 The Verification by Living Example
+
+   We design three kinds of U-shape half-pipes, and their parameters are shown in
+Table 1. In order to compare the difference between the current half-pipes used in the
+competition and the one we design, we collect 6 sets of data which character the
+parameters of 6 different kinds of practical half-pipe, see Table 2.
+
+                   Table 1. The parameters of half-pipes we design          unit (m)
+
+          Parameters              Half-pipe in    Half-pipe in   Half-pipe in      Unit
+                                  question 1      question 2     question 3
+  The arc angle of transitions       51.66             45           51.63        degree
+   The length of half-pipe          159.95          165.96         160.19          m
+       The width of flat             19.18           19.18          19.18          m
+    The height of platform           6.241           6.241          6.241          m
+
+
+=== PHYSICAL PAGE 23 ===
+  Team # 9665                                                                                            Page 22 of 30
+
+
+
+                           Table 2. The parameters of current half-pipes                                   unit (m)
+            Parameters                               Data appeared in different reference
+      The length of half-pipe                  160-220 160        80      100-110     160-200
+        The width of flat                         18       18     18       13-15         18
+      The height of platform                     7~8        6      5       3-3.5        5-6
+
+    By Table 1, we can find, obviously, our half-pipe belongs to the relative big one.
+This is because of the original velocity used for designing the height of platform is
+that of athlete who competing in big games. Thus, the half-pipe decided by the
+parameters has a relative big size and can be used for big competitions, such as Winter
+Olympics.
+    Combing the analysis of the two tables, the parameters of our half-pipes are close
+to that of current big one. And this phenomenon can verify the correctness of our
+model.
+
+
+7.2 Sensitivity Analysis
+
+    By changing the original velocity used for designing hx and utilizing our model,
+we calculating a set of parameters of half-pipe. The range of original velocity is from
+7m/s to 12m/s, and we take 11 velocities totally with the interval of 0.5 m/s. The data
+of parameters with different velocity is drawn in Figure 15.
+                        th e h e ig h t o f p la tfo rm                th e a rc a n g le o f tra n s tio n s
+                8                                             1
+
+                                                            0 .9
+                6
+                                                            0 .8
+                4
+                                                            0 .7
+
+                2                                           0 .6
+                    6        8           10           12           6           8           10           12
+
+                        th e le n g th o f h a lfp ip e                       th e w id th o f fla t
+           180                                               22
+
+                                                             20
+           160
+                                                             18
+           140
+                                                             16
+
+           120                                               14
+                    6        8           10           12           6           8           10           12
+
+
+            Figure 15 The trend of half-pipe parameters in sensitivity analysis
+
+
+=== PHYSICAL PAGE 24 ===
+          Team # 9665                                                                  Page 23 of 30
+
+
+
+
+           As Figure 15 showing, we can get that
+               The size of half-pipe increase with v0
+               hx , ax and wx are linear with v0 approximately
+               The arc angle of transitions has the broken line relationship with v0 , and the
+                linearity is better when v0 is relatively big.
+           The specific data of them are shown in Table 3
+                               Table 3. The data calculated in sensitivity analysis
+
+ v0 m/s     7           7.5      8      8.5       9       9.5      10       10.5      11      11.5      12
+  ax m 124.31      128.72     135.12   139.78   144.25   148.47   152.45   156.15   159.1   162.94     165.94
+  hx m   2.50       2.89       3.27      3.69    4.13     4.60     5.10     5.63     6.17     6.75      7.35
+  wx m   15.22      15.73     16.23     16.73   17.23     17.73   18.24    18.74    19.24    19.74     20.24
+ degree 40.69      40.79     44.67     46.03   47.17     48.29   49.39    50.49    51.58    52.64     53.70
+
+
+          From Table 3, when v0 takes the value of 8, 9, 10 and 11m/s, the theoretical
+      results match the current half-pipe very well, which agrees with our model.
+          Base on the data in Table 3, we divide the half pipes into three kinds-small,
+      medium and big and recommend the relative classic parameters of them.
+         The big half-pipe:
+                              ax  159.71 , hx  6.17 , wx  19.24 and   51.58 .
+           The medium half-pipe:
+                              ax  139.78 , hx  3.69 , wx  16.73 and   46.03 .
+           The small half-pipe:
+                              ax  128.72 , hx  2.89 , wx  15.73 and   40.79 .
+          On the condition of other requirement required, the designer can look up Table 3
+      to get the corresponding parameters of half-pipe. Obviously, by sensitivity analysis,
+      the range available is extended largely.
+
+
+      VIII Strengths and Weaknesses
+
+      8.1 Strengths
+
+               Simplicity: The mathematical model we construct is simple enough to
+                understand with a small amount of mathematical skill. And, the calculation of
+                it can solved by simple mathematical software such as Matlab.
+
+
+=== PHYSICAL PAGE 25 ===
+  Team # 9665                                                             Page 24 of 30
+
+
+
+
+       Flexibility: Models in this paper consider influence on the performance of
+        athletes given by the parameters-height, width, angle and so on –of half pipe
+        to ensure the flexibility and entity of the design. By doing so, it can design
+        different shape of half pipes with different requirements.
+
+       Operability: Our models take into account the criteria of snowboarding and
+        promote the design plan, which helps athlete perform better in the
+        competitions.
+
+       Developed from history data: All the data we used are from the records of
+        Olympic Games.
+
+       Refinement: Base on considering other factors such as injures of athlete, we
+        refine our model.
+
+
+8.2 Weaknesses
+
+       Assumptions: Simplifying assumptions such as ignoring air resistance had to
+        be made in order to create a calculable model.
+
+       Inputs：This verification of model requires a multitude data, some of which is
+        difficult to obtain.
+
+
+
+
+IX The Refinement of our Model
+
+9.1 The Refined Model Considering the Air Resistance
+
+   As the equation (Answer.com) of calculating the air resistance is
+                                      1
+                                 fa  c    Sw  v2
+                                       2
+   where, f a is the air resistance, c is the coefficient of air resistance,  is the
+density of air. S w is the frontal area of object and v is   relative velocity of object
+and air. In addition, c and       are constants. And S w is variable, however, the
+variation is very small.
+   Based on the analysis above, we can conclude that
+
+
+=== PHYSICAL PAGE 26 ===
+  Team # 9665                                                                            Page 25 of 30
+
+
+
+   In the process of sliding, the air resistance is proportional to the square of velocity.
+   In horizontal direction,
+
+
+                                                   dS
+                                                      v
+                                                   dt    .
+   And the work done by air resistance is
+                                              Smax
+
+                                     W fa   f a dS
+                                               0
+
+                                                     c  Sw 2
+                                              Smax
+
+                                              (          ) v dS
+                                                0
+                                                        2          .
+
+   The equation of velocity on the flat investigated in question is applicable and
+S max is reached when t  1s . Thus,
+
+                          1
+                           c  Sw            1
+                                                 c  Sw
+                W fa   (        )  v dt   (
+                                       3
+                                                        )  (v1  2.5 gt  1.25 gt 2 )3 dt
+                       0
+                              2              0
+                                                    2
+                          c  S w 2425 3 95 2
+                                (     g    g  5v12 g  v13 )
+                             2      224     8
+
+
+   For the given c , S w ,  and v1 , the numerical solution of W fa is a constant.
+Thus, just by substituting the sum of W f and W fa into the models we construct, the
+parameters of half-pipe can be calculated.
+
+
+9.2 The Refined Model Considering the Safety of Athlete
+
+   Snowboarders are vulnerable in the competition, and combing the safety factor
+into the design of half-pipe is necessary. By analyzing the relationship of safety and
+the twist angle, we can get the function between them. Then, by substituting the factor
+of safety by the twist angle into the model we constructed, the parameters of half-pipe
+are also be calculated.
+
+
+=== PHYSICAL PAGE 27 ===
+  Team # 9665                                                          Page 26 of 30
+
+
+
+
+Reference
+
+[1] Brennan,S.M. et al. 2003. Modelling the mechanical characteristics and on-snow
+    performance of snowboards. Sports Engineering 6, 193-206.
+[2] ABC-OF-SNOWBOARDING. Halfpipe Snowboarding/ Half Pipes Halfpipes.
+    http://www.abc-of-snowboarding.com/snowboardinghalfpipe.asp.
+[3] Hongguang,Yuan.et al.2009.Factors Influencing Velocity Away from Decks in
+    Snowboard Half-pipe.Journal of Shenyang Sport University 28(3),16-28.
+[4] Harding,J.W. et al. 2007. Feature Extraction of Performance Variables in Elite
+    Half-Pipe Snowboarding Using Body Mounted Inertial Sensors.
+    http://www.anarchistathlete.com/wp-content/uploads/2009/05/harding-et-al-_200
+    7_-feature-extraction-hp-kpvs-inertial-sesnors.pdf.
+[5] Kollár, L.P. and Springer, G.S. 2003. Mechanics of Composite Structures, p. 209.
+    Cambridge University Press, New York, NY, USA.
+[6] Answers.com. What is the formula for air resistance please state what each
+    symbol or letter stands for? http://wiki.answers.com/Q/What_is_the_formula_for
+    _air_resistance_please_state_what_each_symbol_or_letter_stands_for.
+[7] Harding, J.W and James,D.A.2010. Performance Assessment Innovations for
+    Elite Snowboarding. 8th Conference of the International Sports Engineering
+    Association.
+[8] Harding,J.W. et al. 2008. Automated scoring for elite half-pipe snowboard
+    competition: important sporting development or techno distraction? Sports
+    Technology Journal. No.6, 277-290.
+[9] Snowboarding. Halfpipe Construction: The Shape of Things to Come.
+    http://snowboarding.transworld.net/1000022552/how-to/halfpipe-construction-the
+    -shape-of-things-to-come/
+[10]Wikipedia, the free encyclopedia. Half-pipe, http://en.wikipedia.org/wiki/Half
+    pipe.
+[11]Subic, Aleksandar,et al.2010. Experimental installation for evaluation of
+    snowboard simulated on snow dynamic performance.8th Conference of the
+    International Sports Engineering Association
+[12]Buffinton, Keith W.2003.Laboratory, computational and field studies of
+    snowboard dynamics, Sports Engineering 6,129-137.
+[13]Thomas, H, et al.2010.Recognizing Turns and Other Snowboarding Activities
+    with a Gyroscope.http://ieeexplore.ieee.org/xpl/mostRecentIssue.jsp?punumber=
+    5648406
+
+
+=== PHYSICAL PAGE 28 ===
+  Team # 9665                                                        Page 27 of 30
+
+
+
+
+Appendix
+
+A 1. The solution of  in question 1
+
+
+   f = @(x)-sqrt(2/75*(0.5*75*23.31^2-0.1*75*9.8*(19.81+25.*x)/cos(5*pi/180)
+   -75*9.8*25*(1-cos(x)))).*sin(x); % The positive number of v y
+
+   x = fminbnd(f, 0, 2)
+   y = -f(x)
+
+
+A2. The Figure characterizes the relationship between arch angle and velocity
+   syms o;
+   o=0.001:0.001:pi/2;
+   g=9.8;a=5*pi/180;rx=25;wx=19.81;
+   m=75;vmax=23.31;f1=0.1*m*g;
+   vy=sqrt(2/m*(0.5*m*vmax^2-f1*(wx+rx.*o)/cos(a)-m*g*rx*(1-cos(o)))).*sin(o);
+   plot(o,vy)
+
+A3. The solution of width of half-pipe
+   a=5*pi/180;rx=16.44;o=51.66*pi/180;smax=19.27;rx=16.44;
+   hx=6.241;u=0.1;m=75;g=9.8;vmax=23.31;wx=19.18;n=7;
+   AB=rx*o/cos(a);
+   CD=smax+2*AB;
+   vs=sqrt(2/m*(0.5*m*vmax^2-u*m*g*AB-m*g*hx));
+   vx=vs*cos(o);
+   vy=vs*sin(o);
+   tt=2*vy/g;
+   a0=CD*sin(a) +2*rx*o*sin(a) +vx*tt; % the solution for horizontal distance
+   ax=a0*n
+
+A4. Sensitivity Analysis
+
+   % The solution for parameters of half-pipe
+   thta=[40.6857 40.7889       44.6735 46.0314 47.1659...
+        48.2889 49.3947       50.4948 51.5777 52.6434 53.6976];
+   o=thta*pi/180;
+   vmax=[19.2500 19.7500 20.2500 20.7500 21.2500            21.7500...
+          22.2500 22.7500        23.2500 23.7500 24.2500];
+   wx=[15.2246 15.7265 16.2284 16.7303 17.2322            17.7342...
+        18.2361 18.7380       19.2399 19.7418 20.2437];
+   smax=[15.1667 15.6667         16.1667 16.6667 17.1667 17.6667...
+
+
+=== PHYSICAL PAGE 29 ===
+  Team # 9665                                                               Page 28 of 30
+
+
+         18.1667      18.6667     19.1667 19.6667 20.1667];
+     hx=[2.5 2.89 3.27 3.69 4.13 4.60 5.1 5.63 6.17 6.75 7.35];
+   % The parameter matrix corresponding to the chosen data
+   a=5*pi/180;rx=16.37;
+   u=0.1;m=75;g=9.8;
+   AB=rx*o/cos(a);
+   CD=smax+2*AB;
+   vs=sqrt(2/m*(0.5*m*vmax.^2-u*m*g*AB-m*g*hx));
+   vx=vs.*cos(o);
+   vy=vs.*sin(o);
+   tt=2*vy/g;
+   a0=(CD*sin(a) +2*rx*o*sin(a) +vx.*tt);
+   a1=a0*7
+   % Plotting the relationship figures of v y and parameters of half-pipe
+
+   v0=7:0.5:12;
+
+   subplot(231)
+   plot(v0,hx,'r-o')
+   title('hx'),xlabel('v0')
+
+   subplot(232)
+   plot(v0,smax,'b-d')
+   title('smax'),xlabel('v0')
+
+   subplot(233)
+   plot(v0,o,'k-*')
+   title('o'),xlabel('v0')
+
+   subplot(234)
+   plot(v0,a1,'m-p')
+   title('a1'),xlabel('v0')
+
+   subplot(235)
+   plot(v0,vmax,'K-+')
+   title('vmax'),xlabel('v0')
+
+   subplot(236)
+   plot(v0,wx,'c-<')
+   title('wx'),xlabel('v0')
+
+A5. The data appeared in references
+           Parameters                Data appeared in different reference
+     The length of half-pipe   160-220 160        80             100-110
+
+
+=== PHYSICAL PAGE 30 ===
+                Team # 9665                                                                   Page 29 of 30
+
+
+                        The width of flat              18       18       18                13-15
+                      The height of platform          7~8        6        5                3-3.5
+                       The inclined angle              18       18       15                15~18
+
+                            Parameters                     Data appeared in different reference
+                      The length of half-pipe         135        135         120           130
+                         The width of flat            17.5       17.5       17.0           16.0
+                      The height of platform           4.8        4.8        4.5            4.6
+                        The inclined angle            16.5       16.5       16.0           16.5
+
+              A6. The results calculated in the solution
+
+v0    m/s         7           7.5     8         8.5         9     9.5     10       10.5       11        11.5     12
+ax    m         124.31    128.72    135.12   139.78    144.25   148.47   152.45   156.15     159.1     162.94   165.94
+hx    m          2.50      2.89      3.27     3.69       4.13    4.60      5.10    5.63       6.17       6.75     7.35
+wx    m          15.22    15.73     16.23    16.73      17.23   17.73     18.24    18.74     19.24      19.74    20.24
+    degree      40.69    40.79     44.67    46.03      47.17   48.29     49.39    50.49     51.58      52.64    53.70
+S max m          15.17    15.67     16.17    16.67      17.17   17.67     18.17    18.67     19.17      19.67    20.17
+vmax m           19.25    19.75     20.25    20.75      21.25   21.75     22.25    22.75     23.25      23.75    24.25
+ vs m/s          17.28    17.62     17.91    18.23      18.55   18.86     19.17    19.46     19.76      20.05    20.34
+ tt   s          2.30      2.35      2.57     2.68       2.78    2.87      2.97    3.06       3.16       3.25     3.35

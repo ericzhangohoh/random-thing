@@ -1,0 +1,914 @@
+=== PHYSICAL PAGE 1 ===
+Virtual Lines in Topoland with These Designs
+
+February 11, 2004
+
+Abstract
+
+Long amusement park lines significantly reduce park user’s enjoyment.
+To mitigate this problem Topoland currently uses a QuickPass system, but
+it has several flaws. In this paper, we propose several QuickPass schemes
+in an attempt to increase people’s enjoyment of the amusement park and
+avoid the current problems with Topoland’s scheme. Using a model of our
+design, we implement a computer simulation to measure the enjoyment of
+park users for various proposed schemes. We then adjust parameters to
+maximize park user’s enjoyment while providing users equal opportunity
+to park rides.
+
+We conclude by recommending a QuickPass scheme to Topoland. Our
+recommended QuickPass scheme depends on the day’s expected park user
+population. If the park occupancy is less than 11,000, we recommend
+that Topoland reserve 75% of the available seats on its five major rides
+for QuickPass users. For each ride only 25% of the seats should go to the
+normal line and the remaining 75% should go to the QuickPass line. If
+the occupancy is greater than 11,000, we recommend that each QuickPass
+reserve a virtual spot in the normal line. In this case, QuickPass users are
+loaded before normal users.
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 22
+
+Contents
+1 Executive Summary
+2 Introduction
+
+3 QuickPass Schemes
+
+3.1 No QuickPass Scheme .....
+3.2 Fixed-Rate Scheme .......
+3.3. Single Line Scheme. ......
+
+4 Our Model: Evaluating Schemes
+4.1 The Model ...........
+
+4.2 Details of Topoland.......
+4.3 Details of the Park Users ...
+4.4 Discussion of Our Model... .
+
+5 Estimations
+5.1 Idle Users Matter... .....
+5.2 QuickPasses are Effective ...
+
+5.3. Upper Bound on Waiting Time
+
+6 Park Simulation
+
+6.1 Assumptions ..........
+6.2 Formulation. ..........
+6.3 Stability Check .........
+6.4 Schemes and Park Configuration
+6.5 Results..............
+6.6 Time Windows .........
+
+7 Discussion
+
+Page 2 of 20
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 22 Page 3 of 20
+
+8 Conclusions and Recommendations 19
+8.1 Conclusions... 2... ee 19
+
+8.2 Recommendations .............. 0.0.00 00 0000.2 19
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 22 Page 4 of 20
+
+1 Executive Summary
+
+In recent years, amusement parks around the world have invested in QuickPass
+schemes to mitigate long wait times for popular attractions. Growth over re-
+cent years and the addition of several “thrill” rides have given Topoland much
+potential for future profits. However, the QuickPass scheme that is currently
+being used by Topoland is critically flawed. If Topoland does not improve the
+operation of their QuickPass scheme, Topoland risks losing customers to other
+parks.
+
+In our report, we describe a model and a simulation which was used to evaluate
+several QuickPass schemes. The model is customizable and extensible.
+
+Based on our simulations we recommend Topoland use the following QuickPass
+scheme:
+
+1. If the number of people in the park is less than 11,000 then the park
+reserves 75% of seats for the QuickPass users and the remaining 25% for
+normal users.
+
+2. If the number of people in the park is greater than 11,000, then each
+QuickPass reserves a virtual spot in line, as if a friend would hold a position
+for the user.
+
+In both cases, a person will be given a return time that is the sum of the normal
+line’s wait time and the time to serve users with QuickPasses having earlier
+return times.
+
+Our proposed scheme
+1. maximizes consumer enjoyment
+2. gives each park customer an equal opportunity
+3. and is easy to implement and maintain
+
+We are committed to any future changes to the QuickPass system.
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 22 Page 5 of 20
+
+Figure 1: The Mébius Madness Roller Coaster
+
+2 Introduction
+
+After the introduction of the popular Mébius Madness Roller Coaster, which
+circles the track twice to return riders right side up, the waiting times at the
+Topoland amusement park became an unpleasant two hours or more. To reduce
+waiting time, Topoland developed and implemented a QuickPass scheme.
+
+In a QuickPass scheme, a customer may decide not to wait in the long line for
+an attraction and instead insert their entrance ticket into a machine near the
+attraction. The machine gives the customer a QuickPass that allows him or her
+to return at a given later time and wait in a second line which is presumably
+quite short.
+
+The QuickPass scheme currently used by Topoland has several flaws. The sys-
+tem may give a pass with a return time of four hours but then shortly thereafter
+give a pass with a return time of only one hour. Also the lines for people with
+passes can be as long as the normal line.
+
+In this report we compare various QuickPass systems and recommend a Quick-
+Pass system to replace the current one used by Topoland. Our task is the
+following:
+
+1. Propose various QuickPass schemes.
+2. Determine the criteria we will use in evaluating our proposed schemes.
+
+3. Develop and implement a model to evaluate these schemes according to
+our determined criteria.
+
+Our approach is:
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 22 Page 6 of 20
+
+Park Users
+
+Estimation
+
+LPS
+
+Park Model Computer Result
+> o>) Simulation o)
+T
+
+Schemes
+
+Figure 2: Structure of our Evaluations
+
+1. We consider necessary conditions for a QuickPass scheme and propose
+various QuickPass schemes for evaluation. We also hypothesize the ad-
+vantages and disadvantages of each of these schemes.
+
+2. We determine the criteria we will use to evaluate our proposed schemes.
+The primary criteria is the park user’s enjoyment, which we represent by
+a utility function.
+
+3. We present the relevant data on Topoland. This data is estimated based
+on large-scale amusement parks.
+
+4. We state assumptions for our park users. These assumptions are based on
+and justified by our own experiences.
+
+5. We construct and analyze a model to evaluate our QuickPass schemes.
+
+6. We implement a computer simulation to examine our proposed QuickPass
+schemes.
+
+7. We estimate these computer simulations to ensure that they make sense.
+
+8. Based on the results of the computer simulation we give strong recom-
+mendations on implementing QuickPass schemes.
+
+3 QuickPass Schemes
+
+To narrow the large number of QuickPass schemes we could consider, we first
+specify necessary conditions for a QuickPass scheme and eliminate possible
+schemes that we consider to be ineffective. We choose QuickPass schemes
+with the following properties:
+
+1. Users can only hold one QuickPass at a time. If not, early-arrival
+park users have a huge advantage on late-arrival users.
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 22 Page 7 of 20
+
+2. Cancelled QuickPass times are not reentered into the system
+for others to use. Sequential distribution of QuickPass times eliminates
+the possibility that given two QuickPass users, the second user to request
+a QuickPass will not receive an earlier return time than the first which
+would be clearly unfair.
+
+3. A limited number of QuickPasses should be issued per time in-
+terval of the day. This excludes what we refer to as the “Line Loan
+QuickPass” scheme. The “Line Loan QuickPass” scheme never rejects
+an attempt to obtain a QuickPass and merely defers a park user to a
+later time. This effectively decreases line lengths for a short time, but
+then QuickPass users accumulate later in the day and end up waiting in
+a QuickPass line as long as the normal line.
+
+These potential problems and the problems with Topoland’s QuickPass system
+serve as a reminder that QuickPass schemes must be given much consideration
+before proposal. The following subsections describe our candidate schemes,
+which we will refer to as No QuickPass Scheme, Fixed-Rate Scheme, and Single
+Line Scheme.
+
+3.1 No QuickPass Scheme
+
+This scheme will serve as a comparison for evaluating other schemes. Although
+the “Non-Scheme” should always be tested in models, it is especially important
+in this problem because we are optimizing user “enjoyment”- a quantity which
+can only be thought of in relative terms. Without the No QuickPass scheme,
+“enjoyment” quantities have little meaning.
+
+3.2 Fixed-Rate Scheme
+
+Each park ride has the capacity to entertain a fixed rate of people. This scheme
+reserves a fixed proportion ¢, of the ride capacity for QuickPass users. Thus,
+QuickPass users are sequentially issued return times based only on @ and on
+the number of previously queued QuickPass users. Upon returning, QuickPass
+users enter a different line than normal users and are allowed to enter into the
+ride at the rate ¢. We do not propose a value for the rate ¢ at this time, for
+we will optimize it in our model later. QuickPass users cannot be expected to
+return at an exact time, so we must provide a time window for which they are
+permitted to return. This time window is addressed in Section 6.6.
+
+Hypothesized Advantages and Disadvantages
+
+Advantages of this scheme include easy implementation and administration. A
+fixed merging rate ¢, is much easier for park attendants to use than a merging
+rate that varies with time or line length.
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 22 Page 8 of 20
+
+Disadvantages of this scheme include the necessity for two lines: one for normal
+users and one for QuickPass users. Topoland already has already installed the
+necessary facilities because they already have a QuickPass system in place, but
+this scheme requires more park attendants than the No QuickPass Scheme.
+
+3.3. Single Line Scheme
+
+In this scheme, QuickPass return times are issued according the following equa-
+tion:
+
+(1) Quick PassReturnTime = NormalLineTime + QuickPassLineTime
+
+Here, NormalLineTime is the expected difference in the time between entering
+the line and loading the ride. QuickPassLineTime is the expected QuickPass
+return time for a ride. In this scheme, the normal line and the QuickPass line
+are effectively the same. Thus, users will more frequently request a QuickPass
+than stand in the normal line. QuickPass users returning for the ride are loaded
+before normal users in this scheme.
+
+Hypothesized Advantages and Disadvantages
+
+Advantages of this scheme include easy implementation and administration.
+Since the opportunity cost for waiting for the ride decreases, there are more
+QuickPass users in this scheme. Thus, opportunity is provided for more park
+users to take advantage of the QuickPass. However, this also lengthens the
+QuickPass return times. Here again, the time window for which QuickPass users
+are allowed to return must be considered. This issue is addressed in Section 6.6.
+
+4 Our Model: Evaluating Schemes
+
+Our schemes must be evaluated with certain objectives in mind. Here, in order of
+decreasing importance, we list the two primary considerations when constructing
+our model. Our scheme should:
+
+1. Increase park user’s enjoyment
+
+2. Give all park users an equal opportunity.
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 22 Page 9 of 20
+
+4.1 The Model
+
+To evaluate a person’s enjoyment in Topoland, we assume that their enjoyment
+depends only on the following:
+
+e the quantity of rides the user enjoys
+e the quality of rides the user enjoys
+e the amount of time spent in line for these rides
+
+Assuming such, we assign a user utility function, AU, that measures the change
+in enjoyment of an individual user. The users in our model will also rely on this
+function to choose a ride or become idle.
+
+Q) AU;= RideScore — LineTime x User'sPatience user rides
+"= | -User'sIdleConstant x IdleTime user idling
+
+Here, RideScore is a quantity each ride in the park is assigned based on its pop-
+ularity. This process is described in Section 4.2 and also the rides of Topoland
+are assigned scores. LineTime is the expected wait time for a ride’s line.
+User’sPatience and User’sIdleConstant are both quantities assigned to each
+individual user. They will be discussed in Section 4.3. IdleTime is the time in
+which a user is idle, that is, not in a line and not on a ride.
+
+Then, for each individual user, the sum over the course of a day, U = Day AU,
+represents the enjoyment he or she had that day. The mean U value represents
+the average enjoyment of park users. The standard deviation in U values is the
+typical variation a user had from the mean value. Thus the standard deviation
+is a measure of a scheme’s fairness. A scheme with a low standard deviation
+gives each park user an equal opportunity.
+
+4.2 Details of Topoland
+
+For a given amusement park, we assign each park ride a score (0-100) based on
+its popularity. The larger the score, the longer an average individual is willing
+to wait for that ride. For Topoland, we ranked the park rides as listed in Table
+1. The RideTime and Passenger Capacities are estimated based on large-scale
+amusement parks. [7, 3]
+
+4.3 Details of the Park Users
+
+Before we can measure the enjoyment of our park users,we assume the fol-
+lowing:
+
+e Park users have a uniform preference for each of the rides. This
+assumption makes the scoring of the park rides well-defined.
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 22 Page 10 of 20
+
+Table 1: Scores of the Rides in Topoland
+
+[ Score | Ride [ Ride Time | Capacity |
+
+100 Mobius Madness Roller Coaster 10 min. 90
+
+90 House-o-Hausdorff 10 min. 90
+
+65 Homotopic Horror Roller Coaster 10 min. 80
+
+50 Torus Float 10 min. 80
+
+40 Krazy-Kliene-Kar 10 min. 70
+10-20 20 Carnival-Type Rides 10 min. 30-50
+10-20 15 Children’s Rides 10 min. 20-40
+10-20 5 Longer Rides 15-25 min. | 80-120
+
+e Park users are aware of the line length for each of their choices.
+This assumption is realistic in parks such as Topoland that have screens
+throughout the park which display the line length for each ride.
+
+e Park users attempt to maximize the quantity and quality of their
+ride time and minimize their time spent in line.
+
+e The occupancy of the park is a known distribution with respect
+to the time of the day. This can be realistically estimated based on
+past park occupancy distributions.
+
+e We assume that each user has a well-defined quantity that we
+refer to as his or her User’sPatience. This constant defines a linear
+relationship between the popularity of a ride and the time in which a user
+is willing to wait for it.
+
+e We assume each user has a well-defined quantity that we refer
+
+to as the User’s Idle Constant. This constant defines the length of
+time in which the rider will no longer wait in line.
+
+The two constants mentioned above - User’sPatience and User’s Idle Constant
+depend upon the individual, but the average can be calculated in the following
+manner. Based on data collected in Topoland, we determined that the average
+park user will wait for 120 minutes in line for the Mébius Madness Roller Coaster
+and enjoy their time spent. Thus we calculate User’s Patience by the equation:
+
+(3) AU; = 0 = (100pts.) — (120minutes) x (User’s Patience)
+Thus we obtain an average value of User’sPatience=.83.
+
+Also from data collected in Topoland, we determind that the average park user
+will not join the line for Mébius Madness Roller Coaster if it is more than 150
+minutes. With this value, we estimate the average value of User’s Idle Constant
+to be:
+
+(4) AU; = 0 = (100pts.) — (150minutes) x (User’s Patience)
+
+Thus we obtain an average value of User’s Idle Constant=.2.
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 22 Page 11 of 20
+
+4.4 Discussion of Our Model
+
+In our model, if each of the users has an equal opportunity and each maximizes
+their utility function, we expect all users to have roughly the same utility func-
+tion value and for each to be greater than or equal to the utility value for an
+idle park user (see Table 2):
+
+(5) AU, = AU, =--- = AU, > AU.
+The inequality will hold be an equality if and only if there are idle users.
+
+One of the strengths of this model is its capability to adapt to different parks
+and to various occupancy distributions. To investigate an additional park, say
+Algebraland, an administrator only needs to assign each ride in the park a rating.
+Also it is quite possible that a ride’s popularity might change over the course
+of a day and this variation can also be accommodated. For example, the Torus
+Float, being a water ride, would be much more popular during the hot hours of
+the day.
+
+Our model can also be adapted to monitor other useful data. For instance, a
+park manager could decide to optimize the amount of time park users spend
+doing a specific activity. We do this by treating say, the Tori Bakery as a ride in
+our model. Adjustments in QuickPass schemes could then be made to increase
+the number of people buying higher genus donuts in the Tori Bakery.
+
+The major weakness of our model is due to the large number of assumptions we
+have made. In reality, park usrs do not have a uniform preference for each of the
+rides. However, as user preferences scatter, our model will underestimate the
+average utility values. This can be consempated for by underestimating the park
+user population. Another weakness in our model is the assumption that users
+have these linear constants- User’sPatience and User’s Idle Constant. There is
+little reason for these values to be linear on a large range of time.
+
+5 Estimations
+
+5.1 Idle Users Matter
+
+Here we show by approximation that the effectiveness of a QuickPass scheme
+can be calculated by the number of additional idle users. Because of the large
+number of variables, we have compiled them in Table 2 for the reader’s conve-
+nience.
+
+For each user, we have
+
++ RideScore/RideTime Riding
+dU ;
+
+(6) an) TP In Line
+t -e Idling
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 22 Page 12 of 20
+
+Table 2: Definition of Several Variables Used
+
+[ Variable Name | Definition |
+p Average User’s Patience
+¢c Average User’s Idle Constant
+R; User on a Ride
+Qi User in Line
+I Total Number of Idle Users in the Park
+T Total Number of Users in the Park
+AU, The Expected Utility Difference
+AU, The Idle Utility Difference
+
+When Equation 6 is summed over all park users, the utility change in the whole
+park is obtained:
+
+(7)
+dU RideScore
+an RidTime* Pt OD me
+user users—on—ride users—in—line users—idle
+RideScore
+= , x wimepcone\ ;xp-Ixe
+ye (®. * a Ye @xp-Ixe
+attraction attraction
+RideScore
+= ,x Hetpcore*\ _(r- /-I -~Ixe.
+3 (nx a) ( 3 Ri } xp-Ixe
+attraction attraction
+
+We assume that almost every seat in each major attraction is taken, and write
+>? Q; in terms of T, R;, and J. We know that
+
+(8) T= Rit Qit+]
+
+attraction attraction
+
+(9)
+
+dU RideScore
+
+—~) R, xX ——— ] -|T- Ri | x p+Ix (pre
+
+di ye ( ; | ( ~ 7 Pp (po)
+users attraction attraction
+Since the first term only involves the attraction properties, and the second term
+doesn’t depend on the choice of QuickPass scheme, I x (p —c) is the only term
+that depends on the QuickPass scheme. Conceptually, It can be realized as that
+the QuickPass system removes people from the normal waiting line, so those
+park users now suffer c rather than p.
+
+More precisely, the coefficient (p— c) is exactly the difference between standing
+in line and idle, which makes a perfect sense with the above reasoning. This
+effect is positive since p is defined to be greater than c. Thus, it is clear that
+the effect of QuickPass comes from the increase of idle users.
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 22 Page 13 of 20
+
+5.2 QuickPasses are Effective
+
+Here we show that the effectiveness of implementing a QuickPass scheme on a
+ride is proportional to the popularity of the ride. When there are some idle park
+users, we know that AU; = AU. & 0, so
+
+(10) AU; = RideScore — LineTime x p = 0
+
+(11) LineTime  RideScore/p
+Now suppose we issue QuickPasses at a constant rate at the ith attraction,
+
+(12) Q; & (RideOccupancy — Quick Pass Per Ride) x LineTime/RideTime
+
+(13)
+Qi Ri Occupancy x RideScore ~ Quick PassPerMinute x RideScore
+RideTime x p Pp
+(14) R; » RideOccupancy
+(15) T=T- YO (Qi+R)
+attraction
+. RideOccupancy x RideScore
+[=T- deOcc' y=
+ye G eOceupancy RideTime x p
+(16) attraction
++ (QuickPassPerMinute x a)
+Pp
+
+attraction
+
+Since only the last term involves the QuickPass scheme, the number of idle users
+has a positive linear relationship with the amount of QuickPass issued at each
+attraction, while the coefficient is propotional to its RideScore.
+
+We can realize this effect as that when a virtual queue comes into play, it
+comparatively narrows down the corresponding normal queue and push people
+out from it, and therefore increases the number of idle users.
+
+In addition, we know from Section 5.1 the utility gain by QuickPass is de-
+termined by I x (p—c). This shows that when there are idle users, issuing
+QuickPasses on popular attractions has a larger effect on the change in user
+utility than low scored ones.
+
+5.3. Upper Bound on Waiting Time
+
+In all cases we have AU; > AU. = 0, thus
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 22 Page 14 of 20
+
+(17) AU; =RideScore — LineTime x p> 0
+LineTime < RideScore/p
+
+This gives an approximate upper bound on LineTime.
+
+Similar to the effect in Section 5.2, when there are no idle users, opening a
+vitural queue increases the overall waiting time in the normal lines. When there
+are no idle users, if we increase the ratio of QuickPass users, the waiting time will
+increase until it reaches this upper bound. After it reaches this upper bound,
+it remains constant while idle users appear and affect utility gains. In brief,
+the advantage of the QuickPass system is insignificant when we only issue a few
+passes, but it becomes significant as more idle users appear.
+
+6 Park Simulation
+
+6.1 Assumptions
+
+Some of the interactions between real park users and real parks are too compli-
+cated to simulate in a computer. We therefore make the following assumptions
+to simplify the problem:
+
+e The park distribution is simple. Topoland opens for 12 hours a day.
+The 6 hours in the middle are considered to be busy hours. Park users
+arrive and leave sequentially in the first and last three hours, rather than
+rush in and out simultaneously. The park occupancy distribution assumed
+is depicted in Figure 3.
+
+e Park users act in groups of 10. This reduces the computation time by
+a great factor, and the effect of the clustering tends to average out when
+the number of park users is large.
+
+e Park users spend minimal time walking and always use their
+QuickPasses.
+
+e Each park user has the same User’s Patience and User’s Idle
+Constant These are set to the average values obtained in Section 4.3.
+
+6.2 Formulation
+
+We construct the simulation as follows:
+
+e Each attraction in the park is represented by a real queue and a virtual
+queue. The real queue holds the park users who wait in the normal line,
+while the virtual queue tracks the park users who use QuickPasses.
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 22 Page 15 of 20
+
+10000
+
+000
+
+6000
+
+4000
+
+s
+2
+g
+2
+3
+&
+8
+6
+
+2000
+
+S00AM 1200 PM 6:00 Fm 00 PM
+Time of Day
+
+Figure 3: Park Occupancy Over the Course of One Day
+
+e The park configuration consists of the set of attractions and the position
+of the park users.
+
+e We keep track of the changes in the park in discrete time steps of 10
+minutes. At each step, the status of each attraction is updated, and idle
+users choose their next move.
+
+e The utility gains (or losses) among all the users in the park at each time
+step are collected and summed to give the total utility gain for a day.
+
+6.3 Stability Check
+
+In order to guarantee that the result of simulation doesn’t shift too much when
+the inputs change slightly, we make the following variations on the inputs and
+monitor the output of the simulation:
+
+e We vary the occupancy of the park by + 200 people. The average utility
+varies less than 2%.
+
+e We slightly change the score list of the attraction set by 1% to 4%, but
+keep the ratio among each ride score. The output shows no significant
+difference.
+
+e We change the group size of users to 1, 2, and 5. The result only changes
+by tiny amounts.
+
+6.4 Schemes and Park Configuration
+
+We considered the following variations for our proposed scheme:
+
+e Nine QuickPass schemes: No-Pass Scheme, 7 variations of Fixed Rate
+Scheme, and Single Line Scheme. Details of the 7 different types of Fixed
+Rate Schemes are shown in Figure 4.
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 22 Page 16 of 20
+
+Scheme 1 High Med. Low Scheme 2 High Med. Low
+Morning [50%] 25%| 0%] Morning [25%] 0%] 0%|
+Mid-day [75%] 50%| 0%] Mid-day [50%| 25%] 0%)
+Night [50%] 25% 0%] Night — [75% 50%6| 25%)
+
+Scheme 3 High|Med. Low) Scheme 4/High Med. Low
+Morning [75%| 50%)25%] Moming [50%| 0%] 0%
+Mid-day |50%| 25%] 0%) Mid-day [50%| 0%] 0%
+Night [25%] 0% 0%] Night [50%] 0%] 0%|
+
+Scheme § |High|Med. Low) [Scheme 6 High|Med. [Low
+Morning [75%[_0%| 0%| Moming [75% 50%| 0%]
+Mid-day |75%[_0%| 0%| Mid-day [75% 0%| 0%!
+Night [75%[_0%[ 0%] Night [7596] 0%| 0%!
+
+Scheme 7 High Med. Low
+Morning [75%] 75%| 0%,
+Mid-day [75%] 75%| 0%,
+Night 75%| 75%| 0%|
+
+Figure 4: Variations of Fixed-Rate Schemes Simulated
+
+60
+50
+> 40 @5,000users
+= 8,000 users
+2 a 10,000 users
+2 012,000 users
+$
+= 20
+10
+0
+NoPass 1 2 3. 4 5 6 7 Single
+Line
+‘Scheme Type Scheme
+
+Figure 5: Average Utility for Various Schemes and Occupancies
+
+For the park:
+
+e Four values for park attendance: 5000, 8000, 10000, and 12000. These
+reflect the different crowd conditions between holidays and weekdays.
+
+e The attraction set includes 2 coasters with high scores, 3 coasters with
+medium scores, and 40 rides with low scores (see Table 1).
+
+6.5 Results
+
+Results from our simulations are presented in Figure 5. Different bar shades
+correspond to the park at different occupancy levels, and the variations of the
+schemes are defined in Section 6.4. Apparent from Figure 5, it is clear that
+different schemes perform well under different conditions. Clearly, Type 7 of
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 22 Page 17 of 20
+
+Table 3: How Variations in the Time window Effect the Average Waiting Time
+[ Time Window | Resulting average waiting time ]
+
+30 5.5
+45 5.6
+60 5.7
+75 5.8
+90 6.1
+120 6.2
+
+the Fixed-Rate Scheme performs best in the rage of values < 11,000. The
+Single Line Scheme performs best in the range > 11, 000.
+
+6.6 Time Windows
+
+When users recieve a QuickPass, they are assigned a return time. Since they
+cannot be expected to return at an exact time, a time window in which they are
+permitted to return is assigned. In this section we investigate how the average
+line length is dependent on the length of the time window. We use a program
+to calculate the expected waiting time for various time windows. Taking the
+Mobius Madness Roller Coaster as an example, the time per ride is ten minutes
+and the occupancy per ride is 90 users. In Table 3, the resulting average waiting
+times are computed for various time windows.
+
+Clearly, the resulting average waiting time is not significantly affected by the
+time window assigned. We suggest a one hour time window, because smaller
+time windows may cause users inconvenience, while larger time windows may
+still lead to a comparatively longer waiting time.
+
+7 Discussion
+
+From the results we can see that several of the schemes compete for maximiz-
+ing the utility function over different ranges in park occupancy. Therefore we
+could proposed multiple schemes that are implemented depending on the park
+occupancy. It will be difficult to implement if we have too many candidates for
+schemes, it will make the QuickPas system unnecissarily complicated. Also, it
+is necessary for administration purposes not to change schemes mid-day. This
+can be prevented if the crowd size is accurately predicted each day. It is clear
+that implementing a small number of schemes maximizes the user function over
+the largest population distribution and it will not cause too much confusion for
+park administrators.
+
+A disadvantage in all of these schemes is that they can defer QuickPass users
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 22 Page 18 of 20
+
+for too long. For instance, the Topological Amusement Park has two main
+attractions: the M6dbius Madness Roller Coaster and the House-o-Hausdorff
+Ride. Suppose that the line for the Mobius Madness Roller Coaster is 2 minutes
+long and also that the House-o-Hausdorff Ride routinely distributes QuickPass
+tickets that defer riders for some time greater than x. This creates a situation
+in which park users who arrive early are able to take advantage of the House-o-
+Hausdorff Ride QuickPass and while waiting for their time window, ride on the
+Mobius Madness Roller Coaster. As one can easily see, this is not fair to users
+who arrive to the park later in the day. In our model this would be refelcted in
+the standard deviation of user utility functions, but this was not investigated in
+our simulation.
+
+This equal opportunity for all park users problem has long-term consequences
+on Topoland. If people feel that the system is unfair, they will be unwilling
+to return to the park. Since our model evaluates only short-term effects, this
+problem should be considered simultaneously.
+
+Thus, we provide a few solutions to prevent this practice from occurring:
+
+1. Active Ride Restriction Program This program actively prevents
+park users from using other major attractions while they hold a Quick-
+Pass. This would require that Park Tickets were checked upon entry into
+a normal line. This is an added expense but would prevent this pitfall.
+
+2. Passive Ride Restriction Program This program attempts to deter
+park users from using other major attractions while they hold a QuickPass.
+This is implemented by offering coupons on the QuickPasses to encourage
+QuickPass holders to shop in one of the many Topoland Gift Shops or enjoy
+a meal from the Disjoint Dinner. This not only reduces the problem but
+also increases the revenues of Topoland. However, this does not actively
+prevent QuickPass holders from joining another major line in the park.
+
+3. Compromise Restriction Program This program is not active but is
+more aggressive than the Passive Restriction Program. In this program,
+QuickPass holders are required to activate their QuickPasses at one of the
+restaurants or shops in the park. This is tempting trip is bound to prevent
+some of the QuickPass holders from returning in time to stand in another
+major line. Although this program is likely to make park users upset.
+
+We want to ensure that our proposed QuickPass scheme does not have the same
+problems as the Topoland’s current scheme. Currently, users in Topoland may
+insert their ticket into the Kiosk to receive a time. Just a short time later,
+a user will insert their ticket into the Kiosk and receive an earlier time. This
+disorder of return times is possibly because some users cancel their QuickPasses,
+creating holes in the virtual queue. The system must then redistribute these
+QuickPasses to new requests. Since we do not allow for this to happen, our
+scheme will not have this problem.
+
+Also, the lines for people with Quickpasses are nearly as long and slow as the
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 22 Page 19 of 20
+
+regular lines in the current Topoland scheme. Because we control the rate at
+which tickets are distributed in our scheme, park users experience almost no
+line as shown in Table 3.
+
+The cost of implementation is also an aspect of the evaluated schemes that
+should be considered. Since the infrastructure is already in place for a Quick-
+Pass scheme, these costs will be low. Thus, they do not significantly effect our
+proposed schemes.
+
+8 Conclusions and Recommendations
+
+8.1 Conclusions
+
+e From the estimation in section 4, we derive some interesting conclusions
+about the QuickPass system. First of all, the total advantage gained from
+the system merely depends on the increased number of idle park users,
+because QuickPass actually transfers users who were originally stuck in
+line to idle status.
+
+e Secondly, the number of idle users has linear relationship with the amount
+of QuickPass issued at each attraction, while the coefficient is proportional
+to its RideScore. This simply shows that QuickPass works better with
+popular rides.
+
+e We also conclude that there is an upper bound on the waiting time at
+each attraction, given by RideScore/w. The QuickPass system shows its
+great power when the amount of QuickPass issued is large enough so that
+there idle users appear in the park.
+
+e There is no single scheme that is best over the entire range of park popu-
+lations.
+
+8.2 Recommendations
+
+e To maximize park users’ enjoyment: If the occupancy of Topoland
+is lower than 11,000 people, we strongly recommend Type 7 of Fixed
+Rate Scheme. However, when the park occupancy exceeds 11,000 people,
+we think the Single Line Scheme is the best choice. In both cases, the
+QuickPass system can be easily implemented without too much marginal
+cost.
+
+e To give park users as equal opportunities as possible: Among the
+three different strategies, we suggest the Active Ride Restriction Program.
+This should make the QuickPass system more balanced, and create more
+revenue in long term business for Topoland.
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 22 Page 20 of 20
+
+References
+
+NE
+
+cS
+
+9]
+
+http: //allearsnet.com/tp/fastpass.htm, Accessed 5 Feb. 2004.
+
+http: //dir.yahoo.com/Entertainment /Amusement_and_Theme_Parks/
+Roller_Coasters, Accessed 6 Feb. 2004.
+
+http: //disneyland.disney.go.com/dlr/index, Accessed 6 Feb. 2004.
+
+http: //www.geocities.com/CapeCanaveral/Launchpad/9844/
+fastpass.html, Accessed 6 Feb. 2004.
+
+http: //www.ibiblio.org/darlene/coaster/FAQ/FAQ.attendance.html,
+Accessed 6 Feb. 2004.
+
+http: //www.passporter.com/wdw/fastpassinfo.htm, Accessed 6 Feb. 2004.
+http://www.sixflags.com/, Accessed 5 Feb. 2004.
+http://www.student.math.uwaterloo.ca/ pmat467, Accessed 6 Feb. 2004.
+http://www.themedattraction.com/fastpass.htm, Accessed 6 Feb. 2004.

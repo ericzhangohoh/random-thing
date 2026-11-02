@@ -1,0 +1,2583 @@
+=== PHYSICAL PAGE 1 ===
+         Problem Chosen                       2021
+                                                   微信公众号：数学模型
+                                                      Team Control Number
+                                            MCM/ICM
+                 C                        Summary Sheet                    2123823
+
+                   Trace the Buzz:
+  A Comprehensive Study on the Reports About Hornets
+
+
+
+                                              AT      ：
+                                              Summary
+
+    With the fast rise of trade and tourism, invasive species have become a global concern.
+  This paper aims to help the government make full use of the public reports to rationalize the
+
+
+
+
+                                                         数
+  deployment of limited resources to conduct investigations into the sparrow hornet.
+
+
+
+
+                                                 Hm
+      For Problem (a), to predict the spread of the sparrow hornet, we construct a Combined
+  Forecast Model. From the spatial perspective, factor analysis is used for variable selection
+
+
+
+
+                                                           学
+  (see Table 4.1) to measure the environmental suitability in a speciﬁed area. From the temporal
+  perspective, we use K-means clustering on the three types of sightings (positive, unveriﬁed,
+  unprocessed) in diﬀerent months. The Gaussian mixture model (GMM) is applied to calculate
+  the likelihood distribution of sparrow hornets in diﬀerent months. The combination of the two
+
+
+
+
+                                                   od
+  models illustrates the spread trend of hornets. The results show that Vs is less than 0.1 throughout
+
+
+
+
+                                                            模
+  the period, indicating our model’s high precision.
+
+
+                            众
+     For Problem (b), we aim to predict the likelihood of misclassiﬁcation. First, we construct
+  a Convolutional Neural Network (CNN) for image recognition and then carry out the text
+
+                             号
+                                                     els
+  mining with an improved tf-idf model. Finally, we combine them for better estimation. The
+
+
+
+
+                                                              型
+  CNN predicts very well while the text mining can tell us the relative likelihood. After we
+  combine these two methods, AUC(a measure of accuracy) increases by 1.08%.
+
+                    公
+     For Problem (c), to prioritize investigation of the positive reports, we establish a compre-
+  hensive model by combining the two models in Problem (a) and Problem (b), which is based
+
+
+           信
+  on Regularized Logistic Regression. As a result of this model, we give more comprehensive
+  judgments, with more than 99% accuracy.
+
+
+  微    For Problem (d), to update our model with new reports, pseudo labelling is introduced to
+
+                                        M
+  utilize the unused (new) data. Compared with the result without pseudo labelling, AUC has
+  increased to 0.96 by 2.13%. In terms of the appropriate update frequency, we use the subjective
+
+
+                     号
+  evaluation method to score each area based on ﬁve factors. Finally, we calculate the reporting
+  frequency of a speciﬁc area based on its objective conditions and ﬁnd that the highest number
+  of reports occurs in July and August (5.2/month).
+
+                      ：
+      For Problem (e), to determine the evidence of eradication in Washington, we use the
+  regression model with longitudinal data to modify the model in Problem (a). The improved
+
+
+            信
+  model’s advantage lies in its ability to predict changes in species populations with human
+  intervention. We select local bee and sparrow hornet populations in 20 areas as samples. The
+  state between two extreme points of the population curves indicates the eradication evidence.
+
+
+    微At the very last, we analyze the strengths and weaknesses of our model as well as its
+  sensitivity, whose results show that our model has high robustness, precision and accuracy.
+  After that, a memo is attached.
+  Keywords: Environmental suitability; K-means clustering; CNN; Text mining; Pseudo la-
+  belling; Regression model with longitudinal data
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 2 ===
+                                                   微信公众号：数学模型
+                                            Contents
+
+
+  1   Introduction                                                                                      2
+      1.1   Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          2
+
+
+
+
+                                                      ：
+      1.2   Problem Restatement . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .           2
+
+
+
+
+                                              AT
+      1.3   Problem Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          2
+
+  2   Assumptions and Justiﬁcations                                                                     3
+
+
+
+
+                                                 Hm      数
+  3   Notation                                                                                          3
+
+
+
+
+                                                           学
+  4   Analysis and Modelling                                                                            4
+      4.1   Spread of sparrow hornet over time . . . . . . . . . . . . . . . . . . . . . . . .          4
+            4.1.1    Data Preprocessing . . . . . . . . . . . . . . . . . . . . . . . . . . . .         4
+
+
+
+
+                                                   od       模
+            4.1.2    Model 1: Factor Analysis Method . . . . . . . . . . . . . . . . . . . .            4
+            4.1.3
+                             众
+                     Model 2: K-means clustering algorithm and Gaussian Mixture Model .                 6
+
+
+
+                              号
+            4.1.4    Combined Forecast Model . . . . . . . . . . . . . . . . . . . . . . . .            8
+
+
+
+
+                                                     els      型
+      4.2   Prediction of Mistaken Classiﬁcation . . . . . . . . . . . . . . . . . . . . . . .          9
+            4.2.1    Model 3: Image Recognition Based on CNN . . . . . . . . . . . . . .                9
+            4.2.2   公Model 4: Text Mining in the Level of Words and Sentences . . . . . . . 10
+
+
+      4.3   信
+            4.2.3    Combination of Image Recognition and Text Mining . . . . . . . . . . 13
+            Determine the likelihood of a Positve Report . . . . . . . . . . . . . . . . . . . 14
+
+
+  微   4.4   Update of the Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+            4.4.1                       M
+                     Model 3*: Improved CNN With Pseudo Labelling . . . . . . . . . . . 15
+
+
+      4.5
+            4.4.2
+
+                      号
+                     Subjective Evaluation Method . . . . . . . . . . . . . . . . . . . . . . 16
+            Evidence of Eradication in Washington State . . . . . . . . . . . . . . . . . . . 18
+            4.5.1
+                       ：
+                     Regression Model With Longitudinal Data . . . . . . . . . . . . . . . 18
+
+  5
+            信
+      Sensitivity Analysis
+      5.1   Model’s Sensitivity in Problem (a) . . . . . . . . . . . . . . . . . . . . . . . . 20
+                                                                                                       20
+
+
+
+
+  6
+      微
+      5.2   Model’s Sensitivity in Problem (c) . . . . . . . . . . . . . . . . . . . . . . . . 21
+
+      Model Evaluation                                                                                 21
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                            关注数学模型
+
+                                                                                                            获取更多资讯
+
+
+=== PHYSICAL PAGE 3 ===
+  Team # 2123823                                      微信公众号：数学模型                            Page 2 of 24
+
+
+
+  1      Introduction
+  1.1 Background
+     Nowadays, biological invasions are a global concern in agriculture, food production and
+  biodiversity. Invasive species have detrimental eﬀects on the newly colonized areas, such as
+  impoverishment of local species assemblages, as well as the decline of critical insects providing
+
+
+
+
+                                                        ：
+  herbivore control and pollination services [1].
+
+
+
+
+                                                AT
+      The recent ﬁnding of Vespa mandarinia (Asian giant hornet) in Canada and the USA has
+  prompted concern that it could become an invasive species. Until the Entomological Society
+  of America decides on the oﬃcial common names for V. mandarinia, we are suggested to use
+
+
+
+
+                                                           数
+  ‘sparrow hornet’ [2]. Sparrow hornet tends to nest in low mountain foothills, lowland forests
+  or green space in urban landscapes [3]. Sparrow hornet is a quarantine pest for the USA for it
+
+
+
+
+                                                   Hm
+  will cause a signiﬁcant loss to beekeepers [4]. Therefore, much care should be taken to predict
+  the migration of hornets over time and identify manual reports to deploy government resources
+
+
+
+
+                                                             学
+  more eﬃciently to investigate the problem.
+
+  1.2 Problem Restatement
+      (a) Develop a model to predict the sparrow hornet’s spread over time, and analyze the degree
+
+
+
+
+                                                     od       模
+          of precision of the model.
+
+
+                              众
+      (b) Taking the look-alike species into account, study how to predict the likelihood of a
+          mistaken classiﬁcation using only the data set ﬁle and (possibly) the image ﬁles provided.
+
+
+                               号
+                                                       els
+      (c) Set a goal for taking priority in investigating the reports that are most likely to be positive
+
+
+
+
+                                                                型
+          sightings, and discuss the way to conduct the classiﬁcation analysis.
+      (d) Address how to update the previous model using additional new reports over time, and
+
+                     公
+          determine the optimum frequency of new reports.
+      (e) Based on the model, ﬁnd out what would constitute evidence that the pest has been
+
+
+            信
+          eradicated in Washington State.
+
+
+
+
+  微
+  1.3 Problem Analysis
+                                          M
+      For Problem (a), we plan to predict the spread of sparrow hornets from both spatial and
+  temporal perspectives. First, the spread of hornets may be constrained by many natural factors,
+
+                       号
+  so we consider using factor analysis to calculate the environmental suitability, as this method is
+  suitable for cases where data is not available or with low quality [5]; second, the spread may be
+
+
+                        ：
+  aﬀected by seasonal and cyclical factors, so we can try to use clustering methods to determine
+  the aggregation of hornets in diﬀerent periods.
+     For Problem (b), the data we can utilize are the reporters’ images and notes. We should
+
+              信
+  make the most of them by statistical methods.
+      For Problem (c), to work out how to estimate the likelihood of reports being positive and
+
+      微
+  prioritize investigation of them, we decide to consider all aspects of information involved above
+  and establish a new evaluation model based on models we have applied in Problem (a) and
+  Problem (b).
+     For Problem (d), pseudo labelling is an excellent way to improve the model accuracy when
+  more unlabeled data are now available [6]; thus we want to use it to update our model based
+
+
+微信号：MATHmodels                                                                                         2
+
+                                                                                              MATHmodels
+                                                                                                            关注数学模型
+
+                                                                                                            获取更多资讯
+
+
+=== PHYSICAL PAGE 4 ===
+  Team # 2123823                                     微信公众号：数学模型                          Page 3 of 24
+
+
+
+  on the additional new reports. As the frequency of model updates is closely related to the
+  frequency of report submissions, we need to determine an appropriate number of reports in a
+  given period.
+      For Problem (e), to determine whether the control measures have eradicated the pests, we
+  can use the regression model with longitudinal data to modify the spread model by taking the
+  changes of pest population with human intervention into account. With data on population
+
+
+
+
+                                                        ：
+  changes after taking controlled measures, we can determine the point in time and evidence of
+
+
+
+
+                                                AT
+  pest eradication.
+
+  2      Assumptions and Justiﬁcations
+
+
+
+                                                           数
+     To simplify our problems, we make the following basic assumptions, each of which is
+
+
+
+
+                                                   Hm
+  adequately justiﬁed.
+
+      (a) In each month, the number of clustering centers of sparrow hornets is positively correlated
+
+
+
+
+                                                             学
+          with their activity level, reaching a peak in July and August.
+      (b) The activity period of sparrow hornets was from April to October of year. During other
+          times, the sparrow hornets were in hibernation. The events of sparrow hornets found by
+
+
+
+
+                                                     od
+          the public during these limited periods can be considered unreliable and ignored.
+
+
+
+                               众                              模
+      (c) The ethnic inﬂuence of sparrow hornets is normally distributed over distance.
+      (d) The environmental suitability of the same area is generally consistent from year to year.
+
+
+                                号
+                                                       els      型
+  3      Notation
+               Symbol
+                      公
+             N (x, ui , di )
+                                                       Description
+                                The probability density function of the i-th Gaussian model
+
+            信   P (x)
+                 πi
+                               The likelihood of sparrow hornets appearing in the position x
+                                            weight of the i-th Gaussian model
+
+
+  微               β
+                 Vs
+                  c
+                                          M         Weight of Model 2
+                                                  coeﬃcient of variation
+                                                      Term frequency
+              P (N eg)
+              P (P os)   号                     Likelihood of negative things
+                                               Likelihood of positive things
+
+                 N
+                  P
+                          ：                The actual number of positive reports
+                                           The acutal number of negative reports
+
+
+              信   θ
+                  λ
+                 bk
+                                                  Regression parameters
+                                                 regularization coeﬃcient
+                                                     Fixed eﬀect factor
+
+      微          ηki                               Random eﬀect factor
+
+
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 5 ===
+  Team # 2123823                                     微信公众号：数学模型                             Page 4 of 24
+
+
+
+  4       Analysis and Modelling
+  4.1 Spread of sparrow hornet over time
+     After analyzing the provided data set, we can ensure that the spread of sparrow hornet is
+  predictable.
+
+
+
+
+                                                        ：
+      Understanding the role of biotic (species ecology, predation and interspeciﬁc competition)
+
+
+
+
+                                                AT
+  and abiotic (anthropogenic role, climate change, geographical barriers) factors has become the
+  major challenge in ecology and biogeography. In this problem, however, we rely on abiotic
+  variables because little is known about other biotic factors, such as species evolution, predators
+  and competitors, which may aﬀect the location of sparrow hornet [7].
+
+
+
+
+                                                   Hm      数
+                                                             学
+                             众                       od       模
+               Figure 4.1: The procedures of establishing Combined Forecast Model
+
+
+
+
+                              号
+                                                       els
+  4.1.1    Data Preprocessing
+
+
+
+
+                                                                型
+     We ﬁrst weed out events where the date is incorrectly formatted though the number of these
+
+
+                    公
+  events is small. We screen out the data before September 2019. This is because sparrow hornets
+  were ﬁrst found in Sep. 2019 in Vancouver Island, and in Dec. 2019 in Washington State.
+  So any report before Sep. 2019 is certain to be negative; For each year, we select the data
+
+
+            信
+  from April to October. According to reference [8], sparrow hornets will go through hibernation
+  outside this interval. So reports from Apr. to Oct. are much more meaningful and valuable.
+
+
+
+  微
+  4.1.2    Model 1: Factor Analysis Method
+
+                                         M
+    The basic idea of factor analysis is to group variables according to the correlation so that
+  variables are more correlated within the same group and less correlated in diﬀerent groups.
+
+
+                      号
+  Each group of variables represents a basic structure, which is referred to as a common factor.
+  So it is possible to describe each component of the original observation in terms of a linear
+
+
+                       ：
+  function of unmeasured common factors and the special factors.
+      The factor analysis can be expressed in the following model:
+
+
+             信
+      微
+      In which, x1 , x2 , . . ., xp mean p standardized variables with a mean of 0 and a standard
+  deviation of 1, F1 , F2 , . . ., Fm refer to m factor variables. Moreover, this model can be translated
+  into the form of the matrix.
+                                                 X = AF + aε
+
+
+微信号：MATHmodels                                                                                         2
+
+                                                                                              MATHmodels
+                                                                                                            关注数学模型
+
+                                                                                                            获取更多资讯
+
+
+=== PHYSICAL PAGE 6 ===
+  Team # 2123823                                       微信公众号：数学模型                         Page 5 of 24
+
+
+
+      in which, F is the common factor; A is the factor loading matrix, which is the loading of the
+  i-th original variable on the j-th factor variable; aij is the projection of xi onto the coordinate
+  axis Fj if the variable xi is viewed as a vector in an m-dimensional factor space; ε is the special
+  factor, indicating the part of the original variable that cannot be explained by the factor variables
+  (which can be thought of as the residuals in a multiple regression model).
+
+
+
+
+                                                         ：
+  Results of Model 1 Environmental suitability is deﬁned as the conditional probability of
+
+
+
+
+                                                 AT
+  occurrence of a species given the state of the environment at a location [9]. Many abiotic
+  drivers determine sparrow hornet colonies distribution. For instance, the abundance of sparrow
+  hornets is positively associated with green spaces in urban landscapes [3]. On the other hand,
+  sparrow hornet has been described as a species highly sensitive to heat and extreme climate
+
+
+
+
+                                                            数
+  conditions, and negatively associated with high temperatures [10]. As a result, we consider
+  as many documented or relevant impact variables a as possible when carrying out the factor
+
+
+
+
+                                                    Hm
+  analysis, in order to adequately estimate the environmental suitability of the Northwest United
+  States. Finally, 16 variables that can explain sparrow hornet current distribution are selected.
+
+
+
+
+                                                              学
+                                Table 4.1: Variable used in the analysis
+                Classiﬁcation                        Factor              Abbreviation
+                                                                     ◦
+
+
+
+
+                                                      od
+                                         Annual mean temperature ( C)       T_m
+
+
+
+
+                                                               模
+                  Climate                              ···
+
+
+                                众      Annual mean radiation (M J/m2 )
+                                                Forest stands (%)
+                                                                            R_m
+                                                                            H_for
+              Habitat structure
+
+                                 号                     ···
+
+
+
+
+                                                        els      型
+                                                 Scrubland (%)              H_scr
+           Vegetation productivity Normalised diﬀerence vegetation index    HDVI
+
+
+                       公
+               Hydrography
+                Topography
+              Human activity
+                                         Average distance to rivers (m)
+                                                 Elevation (m)
+                                              Average population
+                                                                           Dist_riv
+                                                                             Elv
+                                                                           D_pop
+
+
+              信
+         At last, values of all the variables are converted into z-score.
+
+
+  微                                        M
+      It can be seen from the cumulative percentage of variance that the ﬁrst four principal
+  components already explain nearly 87.9% of the total variance, so these could be selected for
+  analysis. The scree plot on the right illustrates that the fold’s slope is steeper for the ﬁrst
+
+                        号
+  four principal components. However, it tapers oﬀ later, which is another evidence that it is
+  appropriate to take the ﬁrst four principal components.
+     a
+
+
+                         ：
+      Data Source: Climatic variables are retrieved from the Weather Atlas (https://www.weather-us.
+  com).     The website Elevations and Distances in the United States (https://pubs.usgs.gov/gip/
+  Elevations-Distances/elvadist.html) is used to gather topographic data. The data of vegetation pro-
+
+
+                信
+  ductivity and hydrography can be obtained from http://glovis.usgs.gov/. Anthropogenic drivers such as
+  population are derived from the Census Bureau (https://www.census.gov/).
+
+
+
+
+    微
+微信号：MATHmodels                                                                                       2
+
+                                                                                            MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 7 ===
+  Team # 2123823                                  微信公众号：数学模型                           Page 6 of 24
+
+
+
+
+                                             AT      ：
+                 Figure 4.2: The results of total variance explained and scree plot
+
+      Next, we apply the formula Y = Zx × t, where Zx is the normalized matrix and t is the
+
+
+
+
+                                                        数
+  normalized orthogonal eigenvector matrix to obtain the values of the four principal components.
+  Based on the percentage of variance in Figure 4.2 for the weighting, we can calculate the overall
+
+
+
+
+                                                Hm
+  score and the environmental suitability of 14,260 selected points.
+
+                    Ytotal = 0.50196Y1 + 0.18929Y2 + 0.11459Y3 + 0.07326Y4
+
+
+
+
+                                                          学
+                                      ES = 500 + 100Ytotal
+
+      From the two ﬁgures below, we can see that the USA and Canada’s western coasts are ideal
+
+
+
+
+                                                  od       模
+  for the survival of hornets. A second peak occurs in and around the North Cascades National
+
+
+                            众
+  Park on the Rosario Strait’s east coast. The Kootenay National Forest in the interior is the
+  third best place for hornets - although not as suitable as the coastal areas, the environmental
+  suitability has been primarily maintained at around 300. By comparison, we can see that ’
+
+                             号
+                                                    els
+  high-scoring’areas all share some common and distinctive characteristics, such as high forest
+
+
+
+
+                                                             型
+  cover and NDVI, proximity to water sources, low human presence etc. These ﬁndings are
+  consistent with the habits of sparrow hornets recorded in related research material [3] [10], so
+
+                   公
+  we consider the level of environmental suitability calculated by factor analysis is convincing to
+  some extent.
+
+
+          信
+  微                                    M
+                     号
+                      ：
+  Figure 4.3: Two-dimensional map of envi- Figure 4.4: Contour map of environmental suitability
+  ronmental suitability
+
+
+  4.1.3
+            信
+          Model 2: K-means clustering algorithm and Gaussian Mixture Model
+    In Model 2, considering that the sparrow hornets live in groups and are distributed around
+
+    微
+  the queen, we ﬁrst thought of applying the K-means clustering algorithm to ﬁnd the sparrow
+  hornets’ cluster centres. When applying the K-means clustering algorithm to ﬁnd the clustering
+  centers, we, in order to improve the reliability of the data, directly delete the data judged as
+  "Negative ID" and use the remaining part.
+     According to the reference [8], sparrow hornets’ growth can be divided into six stages, and
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 8 ===
+  Team # 2123823                                    微信公众号：数学模型                         Page 7 of 24
+
+
+
+  we correspond to months to determine the number of clustering centers in each month. We
+  preset more clustering centers in the months when sparrow hornets are active. The speciﬁc
+  settings have been shown in the ﬁgure below.
+
+
+
+
+                                               AT      ：
+                                                  Hm      数
+                Figure 4.5: Variation of the number of clustering centers by month
+
+
+
+
+                                                            学
+       Since the initial point selection of the K-means algorithm is random, this algorithm may
+  fall into a local optimal solution instead of a global optimal solution. To avoid this situation,
+  we calculate many times and ﬁnd the situation with relatively good output as the global optimal
+  solution. Based on the processed data, we ﬁnally used the K-means clustering algorithm to ﬁnd
+
+
+
+
+                                                    od       模
+  the clustering centers’ location in each month and calculated the categories of each event. The
+
+
+                            众
+  results are shown in Figure 4.6.
+     After getting each cluster center’s position and the number of ethnic groups in each month,
+
+
+                             号
+  we began to apply the Gaussian mixture model to calculate the likelihood distribution of sparrow
+
+
+
+
+                                                      els      型
+  hornets in various places within the speciﬁc geographic area.
+       Let us brieﬂy introduce the Gaussian mixture model. The Gaussian mixture model uses the
+
+                   公
+  Gaussian probability density function (normal distribution curve) to quantify things accurately.
+  It is a model based on Gaussian probability density function (normal distribution curve) that
+  decomposes things into several.
+
+          信
+  微                                    M
+                     号
+                      ：
+            信            Figure 4.6: The distribution of clustering center
+
+
+
+    微 The mixed Gaussian model consists of K Gaussian models (that is, the data contains K
+  clustering centers). The probability density function of GMM is as follows:
+
+                                     ∑
+                                     K                    ∑
+                                                          K
+                            p(x) =         p(i)p(x|i) =         πi N (x, ui , di )
+                                     i=1                  i=1
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 9 ===
+  Team # 2123823                                   微信公众号：数学模型                               Page 8 of 24
+
+
+
+  where x represents the position of the sample, represents the likelihood of sparrow hornets
+  appearing in the position x, p(x|i) = N (x, ui , di ) represents the probability density function of
+  the i-th Gaussian model, and ui , di , πi represent the mean, standard deviation and weight of i-th
+  Gaussian model respectively. πi is proportional to the number of ethnic group members, and
+  ∑K
+     πi = 1. The greater the number of ethnic group members, the greater the inﬂuence, which
+  i=1
+
+
+
+
+                                                      ：
+  is very reasonable.
+
+
+
+
+                                              AT
+     In our model, the probability of sparrow hornets appearing in various places within a speciﬁc
+  geographic area is aﬀected by multiple cluster centers in this area. The change curve of this
+  eﬀect with distance is the probability density curve of the normal distribution.
+
+
+
+
+                                                         数
+  Results of Model 2 We calculate the likelihood of sparrow hornets appearing everywhere in
+
+
+
+
+                                                 Hm
+  a speciﬁc geographic area in each month, rescale it between 0 and 1, and ﬁnally draw a contour
+  map in Figure 7(a).
+
+
+
+
+                                                           学
+  4.1.4    Combined Forecast Model
+     Model 1 calculates the environmental suitability according to the region’s natural conditions
+  and scales it to between 0 and 1 to obtain the likelihood distribution of sparrow hornets. Model 2
+
+
+
+
+                                                   od
+  predicts the likelihood distribution of sparrow hornets in diﬀerent months based on the existing
+
+
+
+
+                                                            模
+  data of the distribution of sparrow hornets. And then we combine the results of these two
+
+                              众
+  models at a ratio of 1 : β. In this part, let us set β = 1. Furthermore, we will study how to select
+  its value in Sensitivity Analysis. Finally, we obtained the likelihood distribution of sparrow
+
+
+                               号
+                                                     els
+  hornets in diﬀerent months in recent years, as shown in Figure 7(b).
+
+
+
+
+                                                              型
+      Since the K-means clustering algorithm results are not necessarily consistent each time it
+  runs but are similar, this causes the results obtained by our ﬁnal model to ﬂuctuate within a
+
+                    公
+  speciﬁc range. Therefore, we need to calculate the precision of our model predictions. Our
+  deﬁnition of precision is the degree of error in the prediction results of the comprehensive
+
+
+            信
+  prediction model, which corresponds to the magnitude of the error. Therefore, we use the
+  coeﬃcient of variation Vs to reﬂect the level of precision. The smaller the coeﬃcient of
+  variation Vs , the smaller the variation range of the prediction results, which means the higher
+
+
+  微
+  the precision level. The calculation of the coeﬃcient of variation is as follows where σ and X̄
+                                           M
+  represents standard deviation and average of data X.
+                                                      σ
+
+
+                        号
+                                               Vs =                                                    (4.1.1)
+                                                      X̄
+
+
+
+                         ：
+              信
+    微             (a) results of Model 2               (b) results of the combined model in Problem (a)
+
+              Figure 4.7: Likelihood distribution of sparrow hornets in diﬀerent months
+
+        We calculated the coeﬃcient of variation of outputs predicted by month. From Figure 4.8,
+
+
+微信号：MATHmodels                                                                                         2
+
+                                                                                              MATHmodels
+                                                                                                                 关注数学模型
+
+                                                                                                                 获取更多资讯
+
+
+=== PHYSICAL PAGE 10 ===
+  Team # 2123823                                            微信公众号：数学模型                                 Page 9 of 24
+
+
+
+  we can ensure that our model’s precision is high enough to estimate the likelihood.
+
+
+
+
+                                                     AT      ：
+                                      Figure 4.8: Vs of outputs by month
+
+
+
+
+                                                                数
+  4.2 Prediction of Mistaken Classiﬁcation
+
+
+
+                                                        Hm
+      After inspection of the given spreadsheet, we ﬁnd that most reported sightings are identiﬁed
+  as mistaken ones. Hence, in this part, we are to establish a model to help predict the likelihood
+
+
+
+
+                                                                  学
+  of a mistaken classiﬁcation.
+     N.B. We may call something such as a report, a ﬁgure, a note or even a word, as ‘positive’ or
+  ‘negative’ in the following. This means its corresponding ‘Lab Status’ is positive or negative.
+
+
+
+
+                                                          od       模
+  4.2.1     Model 3: Image Recognition Based on CNN
+
+
+                                 众
+  Data Preprocessing While the given data was cleaned in the last part, it still shows a severe
+
+
+                                  号
+  imbalance of the data distribution, in that, there are 2028 negative reports versus only 14 positive
+
+
+
+
+                                                            els      型
+  ones. This is not good for the following learning of sparrow hornets’ features.b We come up
+  with two approaches to solve this. For one thing, we increase the number of positive samples.
+  In detailc ,
+
+                      公
+         • we ﬂipp the positive ﬁgures vertically and horizontally to triple its number;
+
+
+             信
+         • we download some ﬁgures from reliable websites.d
+
+     For another, we decreased the number of negative samples. In detail, we randomly selected
+
+  微                                           M
+  some of them, making its number equal to positive ones.
+     Through preprocessing, now there are 258 positive samples and 258 negative ones. We mix
+
+
+                         号
+  them uniformly and split them by the ratio of 7 to 3 for training and test.
+      As to the targets, we label the positive and negative target as 1 and 0 respectively, denoting
+
+
+                          ：
+  the likelihood of a positive target. Finally, there are 411 training samples & targets and 177 test
+  samples & targets.
+
+
+
+               信
+  Convolutional Neural Network Convolutional neural networks(CNN) have played an im-
+  portant role in the history of deep learning, especially in object recognition. For instance, they
+     b
+        Actually we had once attempted to use all of them to train our model. It was found that the model was inclined
+
+    微
+  to predict all the samples as negative regardless of the real targets.
+      c
+        Resizing and normalization are also incorporated in preprocessing. They are not mentioned in the main body
+  since they made no contributions to the increase of positive samples
+      d
+        Data Source: Asian Giant Hornet(https://en.wikipedia.org/wiki/Asian_giant_hornet), Get
+  to know the Asian giant hornet, or ’murder hornet’(https://agrilifetoday.tamu.edu/2020/05/11/
+  get-to-know-the-asian-giant-hornet-or-murder-hornet/)
+
+
+
+微信号：MATHmodels                                                                                                     2
+
+                                                                                                          MATHmodels
+                                                                                                                         关注数学模型
+
+                                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 11 ===
+  Team # 2123823                                  微信公众号：数学模型                          Page 10 of 24
+
+
+
+  were used to win many contests, including the ImageNet object recognition challenges [11]. So
+  here we establish a CNN for preliminary prediction.
+
+
+
+
+                                             AT      ：
+                                                Hm      数
+  Figure 4.9: The architecture of our CNN Figure 4.10: ROC curve of CNN’s prediction
+
+      We construct our CNN with PyTorch. The architecture of the network is displayed in Figure
+
+
+
+
+                                                          学
+  4.9(drawn with TikZ). There are two convolutional layers, two pooling layers and two fully
+  connected layers. The shape of the input is (b × 3 × 96 × 96), where b denotes the batch size, 3
+  denotes the number of channels, and 96 × 96 are the height and width. The shape of the output
+  is (b). Train for 200 epochs.
+
+
+
+
+                                                  od       模
+      The test accuracy reaches its peak of 0.8968 at the 93rd epoch. The model at this epoch
+
+                            众
+  is saved as the ﬁnal predictor. We plot the ROC Curve in Figure 4.4.10. The horizontal and
+  vertical axes are the false positive rate (F P R) and true positive rate (T P R). AUC denotes
+
+
+                             号
+                                                    els
+  the Area Under ROC Curve. A model with AUC closer to one shows better performance in
+
+
+
+
+                                                             型
+  prediction. Now our model’s AUC equals to 0.93. With only 411 training samples, this result
+  is quite acceptable.
+
+  4.2.2
+                   公
+          Model 4: Text Mining in the Level of Words and Sentences
+    The given data set also includes some notes attached by the reporters, which are not to be
+
+           信
+  ignored. We have just modelled the prediction of P (P os) and P (N eg) based on images, while
+  these notes are also thought to be helpful to our prediction.
+
+
+  微                                    M
+  Introduction of the improved tf-idf model In information retrieval, tf–idf, short for term
+  frequency–inverse document frequency, is a numerical statistic that is intended to reﬂect how
+
+
+                     号
+  important a word is to a document in a collection or corpus [12]. Such a model is made up of
+  two parts literally.
+
+
+
+                      ：
+       Term frequency, i.e., cw , is the number of times a term w occurs in a document, while
+  inverse document frequency is a measure of how much information the word provides, i.e., if
+  it’s common or rare across all documents. In most cases, a term with a higher cw tends to
+
+
+            信
+  contribute more to the document. Nevertheless, a stopword like ‘the’ or ‘I’m’ can hardly give
+  us any information.
+      This inspires us to estimate the ‘positive’ likelihood of each word, viz., Pw (P os) according
+
+    微
+  to its cw . What is diﬀerent here is about ‘Lab Status’. For instance, a ‘negative’ word will
+  contribute inversely to the note. So we suggest an improved tf-idf model according to its cw
+  considering the Lab Status.
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 12 ===
+  Team # 2123823                                           微信公众号：数学模型                    Page 11 of 24
+
+
+
+  Data Preprocessing & Qualitative Analysis We continue using the data from Sep. 2019. For
+  each note, eliminate the stopwords e . Then we group these notes by its Lab Status. Furthermore,
+  we quantify Lab Status in the form of P (P os).
+      For ‘Positive ID’, Ppos (P os) = 1. For ‘Negative ID’, Pneg (P os) = 0. For ‘Unveriﬁed’,
+  Puv (P os) = 0.5, because even oﬃcial specialist cannot identify it. Also, a matter with the
+                                                                             P
+
+
+
+
+                                                                 ：
+  likelihood of 0.5 is hardest to predict. For ‘Unprocessed’, Pup (P os) =       , where P and N
+                                                                           P +N
+
+
+
+
+                                                         AT
+  denote the actual number of positive and negative reports separately. This is because it has not
+  been classiﬁed rather than be unable to be classiﬁed. So we use the mathematical expectation
+  as P (P os).
+
+
+
+
+                                                                    数
+     Let n, p, up , uv represent the number of the four kinds of reports mentioned above in order.
+  We will have these two equations.
+
+
+
+
+                                                            Hm
+                                                      N
+                                       N = n + up ×      + 0.5 × uv                                  (4.2.1)
+
+
+
+
+                                                                      学
+                                                    N +P
+                                                      P
+                                       P = p + up ×      + 0.5 × uv                                  (4.2.2)
+                                                    N +P
+
+
+
+
+                                                              od
+         Solve the simultaneous equations and we can obtain the value of N and P .
+
+
+
+                                 众                                     模
+                                T = N + P = n + p + uv + up = 4440
+                                  n + uv /2
+                                            = 3251, P = T − N = 1189
+
+                                  号
+                               N=
+                                  1 − up /T
+
+
+
+
+                                                                els      型
+      After ﬁlling P (P os) for each note, we create the word clouds of positive notes and negative
+
+                        公
+  notes. This can reﬂect a word’s ‘positive’ or ‘negative’ attribute qualitatively.
+
+
+
+              信
+  微                                            M
+                                 (a) for positive ones           (b) for negative ones
+
+
+
+                          号            Figure 4.11: Word clouds of notes
+
+
+
+                           ：
+      The word ‘hornet’ often appears both in positive and negative notes, which can be easily
+  explained by the creature’s name. Additionally, the word ‘wsda’ is conspicuous in the positive
+
+
+                信
+  word cloud. This may be because the notes including ‘wsda’ are submitted by WSDA or its
+  staﬀ with more knowledge about the sparrow hornet.
+
+
+
+    微
+  Modelling of a Word For a ‘Lab Status’ i, Pi (P os) can be regarded as a sort of score. We
+  can grade each word except stopwords.
+      Now let us set the grading rule. If a word w appears ci times for status i, it will get a score
+  of ci × Pi (P os). The ﬁnal score is calculated by adding four scores together. This score have
+     e
+         The stopwords are provided by the corpus of Python’s Natural Language Toolkit
+
+
+微信号：MATHmodels                                                                                       2
+
+                                                                                            MATHmodels
+                                                                                                               关注数学模型
+
+                                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 13 ===
+  Team # 2123823                                     微信公众号：数学模型                          Page 12 of 24
+
+
+                                                                      ∑
+  no upper limit. So we divide it by the total times it appears, i.e., i ci (w). We deﬁne this value
+  as Pw (P os). Apparently, Pw (P os) is between 0 and 1.
+                                 ∑
+                                     cw (i) × Pi (P os)
+                             def
+                  Pw (P os) ===    i
+                                        ∑               ,    i ∈ {pos, neg, uv, up}          (4.2.3)
+                                            cw (i)
+                                          i
+
+
+
+
+                                               AT      ：
+      If we rewrite Eq. 4.2.3 as
+                               ∑                 cw (i)
+                 Pw (P os) =        Pi (P os) × ∑        ,     i ∈ {pos, neg, uv, up}                (4.2.4)
+                                                  cw (i)
+
+
+
+
+                                                          数
+                                i
+                                                 i
+
+
+
+
+                                                  Hm
+                                                                         cw (i)
+  then Pw (P os) is the weighted mean of Pi (P os), whose weight equals ∑        .
+                                                                          cw (i)
+                                                                              i
+
+
+
+
+                                                            学
+  Modelling of a Note A note is composed of several words. Thus the positive likelihood
+  of a note, viz., Pn (P os) is also a composition of Pw (P os). It is found that some words like
+  ‘Manson’ and ‘incident’ only appears once, rendering them much less reliable for the positive
+
+
+
+
+                                                    od       模
+  likelihood. In this sense, they should contribute less to Pn (P os). This means Pn (P os) is
+  positively correlated with a word’s term frequency, cw . Based on the above, we deﬁne Pn (P os)
+  as
+                             众          ∑
+                                        
+                                        
+                                         w∈Sn∑
+                                                  ln cw × Pw (P os)
+                                                                     , Sn ̸= ∅;
+
+                              号
+                                                      els
+                                                   w∈Sn ln cw
+                                   def
+                       Pn (P os) ===
+
+
+
+
+                                                               型
+                                                                                                (4.2.5)
+                                        
+                                            P
+                                                                    , Sn = ∅.
+                                          P +N
+
+
+                    公
+  where Sn is the set of all words in the note n. As mentioned in the last part, the data distribution
+  show a severe imbalance between negative and positive ones. So if a note is not empty, we will
+  take a logarithm of cw to bridge the gap. However, there also exist some reports without notes.
+
+           信
+  In this case, we choose the mathematical expectation as their value.
+      With this deﬁnition, let us recalculate the positive likelihood of each note. Notes are grouped
+
+  微
+  by ‘Lab Status’(marked as G1, G2, G3, G4). The distribution of each group’s Pn (P os) is shown
+                                         M
+  in Figure 4.12. The subtitles represent the means of Pn (P os).
+
+
+
+                      号
+                       ：
+             信
+    微              Figure 4.12: Distribution histograms of four group’s Pn (P os)
+
+
+      In general, G1 has the greatest mean Pn (pos) and G2 has the least mean Pn (P os), which
+  is consistent with reality. But the maximum of G1’s Pn (P os) is less than 0.5. This is normal
+
+
+微信号：MATHmodels                                                                                       2
+
+                                                                                            MATHmodels
+                                                                                                               关注数学模型
+
+                                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 14 ===
+  Team # 2123823                                  微信公众号：数学模型                        Page 13 of 24
+
+
+
+  for that many words appearing in positive notes also appear in negative ones. Moreover, the
+                        N
+  calculated value of        is 0.262045. So it can be seen that both G2 and G3 have a spike
+                      N +P
+  when Pn (P os) ≈ 0.26, which can be attributed to their ‘empty’ notes.
+      To check the eﬀect of the logarithm, we compare the distribution of G1’s Pn (P os) con-
+  sidering logarithm and without it. The latter corresponding formula for a non-empty note
+
+
+
+
+                                                         ：
+  is                                  ∑
+
+
+
+
+                                                 AT
+                                      
+                                             cw × Pw (P os)
+                                       w∈Sn∑                  , Sn ̸= ∅;
+                                               w∈Sn cw
+                                  def
+                      Pn′ (P os) ===                                                   (4.2.6)
+                                      
+                                         P
+                                                              , Sn = ∅.
+
+
+
+
+                                                            数
+                                        P +N
+
+      Figure 4.13 informs us that G1’s Pn (P os) moves towards 1 in general, and the mean has
+
+
+
+
+                                                    Hm
+  increased from 0.301 to 0.326 by 8.31%. Thus Deﬁnition 4.2.5 proves to be more reliable than
+  Deﬁnition 4.2.6.
+
+
+
+
+                                                              学
+                            众                         od       模
+                     (a) Using Deﬁnition 4.2.6          (b) Using Deﬁnition 4.2.5
+
+
+
+
+                             号
+                   Figure 4.13: Comparison of the distribution of G1’s Pn (P os)
+
+
+
+
+                                                        els      型
+  4.2.3   Combination of Image Recognition and Text Mining
+
+
+                   公
+     Although our improved tf-idf model predicts worse than the CNN, the relative likelihood
+  is accurate. Furthermore, it measures a report from a diﬀerent aspect. In this sense, we can
+
+
+          信
+  combine these two models to increase the accuracy of prediction.
+      We plot the distribution of the prediction results in Figure 4.14. The two histograms diﬀer
+  signiﬁcantly in shape, which is not suitable for linear combination. In this case, we turn to
+
+  微
+  combine them in a nonlinear form.
+                                        M
+                     号
+                      ：
+            信
+   Figure 4.14: Distribution of the results Figure 4.15: 2-D visualization of the result’s distribution
+                                            for training data
+
+    微In order ro represent the contributions of the images and the notes, we introduce the
+  coeﬃcient C1 and C2 as their exponents. The general form is as below.
+
+                   ln P̂ (P os) = ln m × {k × [Pim (P os)]C1 × [Pn (P os)]C2 + b}                (4.2.7)
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                           关注数学模型
+
+                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 15 ===
+  Team # 2123823                                          微信公众号：数学模型                                  Page 14 of 24
+
+
+
+     By ﬁtting the training data, the values of the coeﬃcients are
+
+                   m = 0.6489, k = 0.0956, C1 = −39.3, C2 = −4.4, b = −3.806
+
+  C1 is nearly nine times larger than C2 , which tells us the result depends much more on the image
+  than the textual part. This is also consistent with Figure 4.15, where actual positive points only
+  appear when Pm (P os) is greater than 0.9.
+
+
+
+
+                                                   AT      ：
+      We calculate the result of the test samples and display the distribution in Figure 4.16. The
+  value of AUC is increased to 0.94 by 1.08%.
+
+
+
+
+                                                      Hm      数
+                                                                学
+  Figure 4.16: 3-D visualization of the re- Figure 4.17: The ROC curve based on combined model
+
+
+
+
+                                                        od       模
+  sult’s distribution for test data         in Problem (b)
+
+
+                              众
+  4.3 Determine the likelihood of a Positve Report
+
+                               号
+                                                          els      型
+     Based on the work above, we intend to integrate these two models through Regularized
+  Logistic Regression to improve prediction accuracy.
+
+
+                    公
+  Regularized Logistic Regression             We take the likelihood of sparrow hornets appearing
+  obtained by the two models in Problem (a) and (b) as input values, respectively marked as pab1
+
+
+          信
+  and pab2 , and the actual likelihood is the output value, which is marked as y. The data set we
+  select refers to the events that provide the picture and are judged as positive or negative, where
+  Positive ID corresponds to 1, and Negative ID corresponds to 0. Then we randomly divide this
+
+  微
+  data set into the training set and test set.
+                                            M
+     Before training, considering the input only has two features, we need to apply the feature
+
+
+                     号
+  mapping method to expand the two features into 28 features.
+
+                 mapF eature(pab ) = [1, pab1 , pab2 , p2ab1 , pab1 pab2 , p2ab2 , · · · , p6ab2 ]T
+
+
+                      ：
+  where pab and mapfeature(pab ) respectively represents the 2-dimensional vector and 28-dimensional
+  vector.
+
+
+            信
+      After that, we started to train the model on the training set. The cost function J(θ) is
+  calculated as follows.
+
+
+    微      J(θ) =
+                  1 ∑
+                     m
+
+                  m i=1
+                                    (i)
+                                           hθ (pab ) =
+                                                              1
+                                                         1 + e−θT pab
+                                                                 (i)
+                        [−y ln(hθ (pab )) − (1 − y ) ln(1 − hθ (pab ))] +
+                           (i)                    (i)                      λ ∑ 2
+                                                                              n
+                                                                                θ
+                                                                          2m j=1 j
+
+
+
+
+微信号：MATHmodels                                                                                                    2
+
+                                                                                                         MATHmodels
+                                                                                                                      关注数学模型
+
+                                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 16 ===
+  Team # 2123823                                   微信公众号：数学模型                           Page 15 of 24
+
+
+
+  where θ represents regression parameters, λ represents the regularization coeﬃcient, which we
+  set as 0.6. When the cost function J(θ) is the smallest, the regression eﬀect is best, and the
+  regression model can be considered the ﬁnal model.
+
+  Results and Analysis To evaluate our model, we test this new model’s accuracy on the test
+  set. The ﬁnal predicted result matches the real situation perfectly.
+
+
+
+
+                                                      ：
+      Analyzing the predicted results, we found that even though there were two misjudgments in
+
+
+
+
+                                              AT
+  the event, the overall accuracy rate has reached 0.99, which shows that our model is reliable.
+  Therefore our model is helpful to determine the likelihood of positive reports positive and
+  prioritize investigation of them.
+
+
+
+
+                                                 Hm      数
+                                                           学
+                                                   od       模
+                           Figure 4.18: Distribution of predicted outputs
+
+
+  4.4 Update of the Model   众
+                             号
+                                                     els      型
+      Although the CNN in section 4.2.1 has a relatively high accuracy of 0.8969, it can be
+  furtherly improved due to a great deal of new data, especially from the additional new reports.
+
+
+                    公
+  Through pseudo labelling, we are now able to make use of the unexploited data.
+      Pseudo labelling is the process of using the labelled data model to predict labels for un-
+
+
+           信
+  labelled data. It is often used in semi-supervised learning, where most data are unlabelled.
+  Nowadays, this technique is used for hyperspectral image classiﬁcation and the identiﬁcation
+  of COVID-19 on chest X-rays. [11][12] Based on image recognition results of CNN, we will
+
+
+  微
+  use pseudo labelling to improve our model. The procedure is shown in the ﬂow chart below.
+  (Figure 4.9)
+                                        M
+                     号
+  4.4.1   Model 3*: Improved CNN With Pseudo Labelling
+     Pseudo labelling is the process of using the labelled data model to predict labels for unlabelled
+
+
+                      ：
+  data. It is often used in semi-supervised learning, where most data are unlabelled. Nowadays,
+  this technique is used for hyperspectral image classiﬁcation and the identiﬁcation of COVID-19
+  on chest X-rays [13][14].
+
+
+            信
+    Based on image recognition results of CNN, we will use pseudo labelling to improve our
+  model. The procedure is shown in the ﬂow chart below. (Figure 4.19)
+
+
+    微 Because additional data from Washington state on Asian hornets similar to what was
+  provided in the spreadsheet is explicitly not allowed in Problem (c), we add the unlabeled
+  data (unveriﬁed and unprocessed) that were not originally in the training set as "new report
+  data" to this model, which can help us test whether additional new reports will improve our
+  model. We reckon that the precision of the value of P (P os), which is farther away from 0.5
+  is more reliable and convincing. Therefore, we only label the predicted result which is either
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 17 ===
+  Team # 2123823                                 微信公众号：数学模型                          Page 16 of 24
+
+
+
+  larger than 0.9 or less than 0.1. To check this, we visualize some of the prediction results of
+  unveriﬁed images in Figure 4.21.
+
+
+
+
+                                            AT      ：
+  Figure 4.19: The procedures of pseudo la-
+  belling
+
+                                               Hm      数Figure 4.20: A real sparrow hornet
+
+
+
+
+                                                         学
+     The 1st and the 3rd ﬁgures’ values of P (N eg) are below 0.1, showing they are likely to be
+  positive sightings. We can compare them with a real sparrow hornet in Figure 4.20. They are
+
+
+
+
+                                                 od       模
+  very similar to the three typical characteristics of a real hornet’s appearance. Therefore, such
+
+
+                           众
+  prediction is relatively reliable and can be labelled as (pseudo) positive.
+      After pseudo labelling, we include them into the original labelled dataset and retrain our
+
+
+                            号
+  CNN obtained before. At the 7th epoch, test accuracy reaches a higher peak of 0.9096, which
+
+
+
+
+                                                   els      型
+  has increased by 1.43% compared to previous 0.8968.
+
+
+
+                   公
+           信
+  微                                    M
+                     号
+                      ： Figure 4.21: Prediction result of unveriﬁed images
+
+
+      Compared with the result before pseudo labelling, the value of AUC has increased to 0.96
+
+            信
+  by 1.08%. The result demonstrates the eﬀectiveness of improving our model by setting the new
+  report as a pseudo label added to the training model.
+
+
+    微
+  4.4.2   Subjective Evaluation Method
+     The key to solving an appropriate frequency of model updates lies in determining an appropri-
+  ate number of reports in a given period. As a result, we use the subjective evaluation method
+  to score each area based on diﬀerent factors closely correlated with the emergence of potential
+  reporting cases. We ﬁnally select ﬁve key evaluation indicators for analysis: environmental
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 18 ===
+  Team # 2123823                                   微信公众号：数学模型                            Page 17 of 24
+
+
+
+  suitability (1), seasonal factors (2), major external events (3), economic development (4),
+  and reporting stability (5). The ranking results of importance are as follows.
+
+                                       I2 > I3 > I1 > I4 > I5
+
+      The speciﬁc scoring rules are: each area’s score consists of two parts (initial score and
+
+
+
+
+                                                      ：
+  additional score), where the initial score is dependent on the environmental suitability of this
+
+
+
+
+                                              AT
+  area, and other four factors determine the additional score. The area’s score is updated every
+  day until the threshold (e.g. 100) is reached, which means that the area should submit new
+  reports at this point. Then, all the scores of this area are cleared, and the scoring starts again.
+
+
+
+
+                                                         数
+  According to the data we have, we estimate there will be a report submitted from this area in
+  almost six days, which also indicates that 17 points need to be added in average per day on a
+
+
+
+
+                                                 Hm
+  100-point scale. After distributing the ﬁve factors’ weights, the initial score (IS) formula is as
+  follows.
+                                                  ESi
+                    ISi = 17 × W eight3 ×                  ,     i = 1, 2, . . . , 63
+
+
+
+
+                                                           学
+                                              M edianES
+  in which W eight3 means the weight of the third factor (environment suitability) and 63 refers
+  to the total number of the areas in Washington State.
+
+
+
+
+                                                   od
+     There are also some rules regarding the determination of additional score:
+
+
+
+                            众                               模
+    (a) Seasonal factors require diﬀerent additional scores in diﬀerent months in the same area.
+        We will consider the number of clustering centers (NCC) in Model 2 as a determinant of
+
+                             号
+                                                     els
+        the additional score. Its formula is as follows.
+
+
+
+
+                                                              型
+                                                  N CCj
+                     ASaj = 17 × W eight1 ×                 ,        j = 1, 2, . . . , 12
+
+                   公                            M edianN CC
+
+    (b) The impact of major external events is mainly reﬂected in the fact that when a positive
+
+
+           信
+        sighting occurs in the region, the area’s daily additional score can be set to 125% of the
+        initial score for the next six months. (This eﬀect can be stacked)
+
+
+  微 (c) The higher the level of economic development in the area, the higher the frequency of
+                                        M
+        reporting. The following equation can express this relationship.
+                                                   GDPi
+
+                     号
+                     ASci = 17 × W eight4 ×
+                                                M edianGDP
+                                                           ,          i = 1, 2, . . . , 63
+
+
+
+                      ：
+    (d) Reporting stability can be positively correlated with the duration of consistently negative
+        reports for the area. Speciﬁcally, suppose an area has more than six months of consecutive
+        negative reports recorded. In that case, the additional value is −50% of its initial value
+
+            信
+        from the sixth month until a positive record occurs in the area.
+        Let us consider a speciﬁc example. Suppose there is a circular area A with a radius of
+                                GDPA
+
+
+    微   30km. In this area, M edian  GDP
+                                          = 1.2 and the expected environmental suitability is 84
+        (median is 115 in the whole state). Moreover, we assume that it is now at the beginning
+        of May. It is also important to note that there was one positive case reported in the region
+        at the end of April. The current estimate is that there will be no further positives in the
+        area for six months after that.
+
+
+
+微信号：MATHmodels                                                                                        2
+
+                                                                                             MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 19 ===
+  Team # 2123823                                          微信公众号：数学模型                               Page 18 of 24
+
+
+
+      By considering the various factors in our evaluation model, we conclude that the monthly
+  reportable quantity in Region A varies over time in the next eight months, with the highest in
+  July and August (5.2/month) and the lowest in November and December (1.3/month).
+
+  4.5 Evidence of Eradication in Washington State
+      Eradication is deﬁned as eliminating every individual of a species from an area to which
+
+
+
+
+                                                           ：
+  recolonization is unlikely to occur [15]. There are various ways to eradicate the sparrow hornet
+
+
+
+
+                                                   AT
+  recommended by the United States Department of Agriculture (USDA). For instance, we can
+  use lethal traps during the early (pre-nesting and solitary stages) and late seasons (reproductive
+  stage) to kill queens, or take a proactive approach to ﬁnd and eliminate nests during the middle
+
+
+
+
+                                                              数
+  seasons (cooperative and polyethic) [16]. As a result, judgements about the eﬀectiveness of
+  eradication will directly determine the extent to which diﬀerent methods can be applied in
+
+
+
+
+                                                      Hm
+  diﬀerent areas.
+
+  4.5.1   Regression Model With Longitudinal Data
+
+
+
+
+                                                                学
+     Some relevant literature reveals that invasive hornets are particularly problematic due to the
+  adverse impact on local bee assemblages [4]. So when constructing the model to evaluate
+  eradication eﬀectiveness, we mainly focus on two crucial factors - changes in the population of
+
+
+
+
+                                                        od
+  local bees and sparrow hornets in a given area over time. According to our hypothesis, the
+
+
+
+
+                                                                 模
+  local bee population theoretically shows an increase followed by a decrease during the control
+
+                              众
+  process. In contrast, the invasive hornet population shows the opposite trend, with a decrease
+  followed by an increase. Given this, we can model a quadratic regression of density on time:
+
+
+                               号
+                                                          els      型
+                yij = b0i + b1i tij + b2i t2ij + εij ,     i = 1, . . . , n,   j = 1, . . . , ni               (4.5.1)
+
+  where yij means the density of local bees (or sparrow hornets) of the j-th observation at the
+
+                    公
+  i-th site, and tij refers to the time point of the j-th observation at the i-th site; n is the number
+  of sites where the invasive species occur, and ni is the number of observations at the i-th site
+
+
+           信
+  during the whole period.
+     Based on the above, the quadratic regression model above is rewritten using a mixed model to
+  highlight the area’s overall density data. A mixed-eﬀects model is a statistical model containing
+
+  微
+  both ﬁxed eﬀects and random eﬀects [6].
+                                            M
+                                      bki = bk + ηki ,       k = 0, 1, 2                                       (4.5.2)
+
+                      号
+  in which bk is the ﬁxed eﬀect factor for the whole area (not related to the observation site),
+
+
+                       ：
+             信
+    微
+  Figure 4.22: Report Fre-                               Figure 4.23: Report Frequency of Area A
+  quency Assessment Form
+
+
+
+微信号：MATHmodels                                                                                                 2
+
+                                                                                                      MATHmodels
+                                                                                                                         关注数学模型
+
+                                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 20 ===
+  Team # 2123823                                          微信公众号：数学模型                       Page 19 of 24
+
+
+
+  while ηki is the random eﬀect factor varying with the observation site. The random eﬀect
+  factor is assumed to obey normal distribution with a mean of zero and constant variance of d2k ,
+  and be independent of each other.
+         Substituting Eq. 4.5.2 into Eq. 4.5.1 yields a regression model with longitudinal data.
+
+                            yij = b0 + b1 tij + b2 t2ij + η0i + η1i tij + η2i t2ij + εij                 (4.5.3)
+
+
+
+
+                                                    AT      ：
+         It can be rewritten in the form of the matrix.
+                                                  
+                        yi1              1 ti1 t2i1                              2       
+                       yi2            1 ti2 t2                b0               d1 0 0
+
+
+
+
+                                                               数
+                                               i2 
+                                                                 
+                Yi =  ..  , Xi =  .. ..        ..  ,      b = b1  ,      D =  0 d22 0 
+                       .              . .      .              b2                0 0 d23
+
+
+
+
+                                                       Hm
+                                                  2
+                       yini              1 ti3 ti3
+
+
+
+
+                                                                 学
+                                             Vi = Xi DXiT + σ 2 I
+  in which Yi is assumed to obey normal distribution with a mean vector of Xi b and variance
+  matrix of Vi . The estimation of the coeﬃcients requires the application of Maximum Likelihood
+  Estimation (MLE), instead of Original Least Squares (OLS) for it cannot handle cases where
+
+
+
+
+                                                         od       模
+  the model is not linear. The likelihood function for Yi is given as follows.
+
+                 L(b, D, σ ) =
+                           2
+                               ∏
+                                众
+                                n
+                                         ni               1
+                                   {(2π)− 2 |Vi |− 2 exp[− (Yi − Xi b)T Vi−1 (Yi − Xi b)]}
+                                                   1
+
+
+
+
+                                 号
+                                                          2
+
+
+
+
+                                                           els
+                               i=1
+
+
+
+
+                                                                    型
+      Finally, by solving the maximum point of the likelihood function L, the estimated values of
+
+
+                       公
+  b, D and σ 2 can be calculated.
+     The model’s signiﬁcance is that the ﬁxed eﬀect coeﬃcient bk , which reﬂects the overall
+
+
+              信
+  eﬀect in the area, can predict the time point of eradication in an average sense. In contrast, the
+  random eﬀect coeﬃcient ηki incorporates the variability between diﬀerent sites (e.g. climate,
+  topography, population), thus assessing the conﬁdence interval of time point of eradication
+
+
+  微
+  under a certain level.
+
+                                             M
+  Results and Analysis To determine the local bee population, we use data from the National
+
+
+                        号
+  Agricultural Statistics Services of the USAf , which reports the number of colonies per county
+  where the honey was harvested. To get the valid data on the spread of hornets under controlled
+  conditions, we modify the spread model mentioned in section 4.1 using the regression model
+
+                         ：
+  with longitudinal data. The period of the controlling process is chosen from April (queens ﬁrst
+  appear) to October (soon to be hibernating)
+
+
+                信
+      Next, we randomly select 20 areas and predict local bee and sparrow hornet populations’
+  changes over time after some control measures are taken. Figure 4.24 shows the situation of
+  local bees in three of these areas.
+
+
+    微f
+     Data Source: the National Agricultural Statistics Services of the USA(https://quickstats.nass.usda.
+  gov/results/98D6C754-2F7A-319C95FE-CB8F673A140E)
+
+
+
+
+微信号：MATHmodels                                                                                           2
+
+                                                                                                MATHmodels
+                                                                                                                   关注数学模型
+
+                                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 21 ===
+  Team # 2123823                                   微信公众号：数学模型                          Page 20 of 24
+
+
+
+
+                                              AT      ：
+                   Figure 4.24: Population of local bees with human intervention
+
+
+      We can plot the model results (Figure 4.25) by testing the model with the hypothetical data.
+
+
+
+
+                                                         数
+  When t = 6.83, the sparrow hornet population in the 20 areas of Washington will reach the
+  minimum point with roughly 1; when t = 7.46, the local bee population in these areas will
+
+
+
+
+                                                 Hm
+  reach the maximum point with approximately 241. Therefore, we can conclude that when the
+  time range is from 6.83 to 7.46, the number of local bees is not less than 240. The number
+
+
+
+
+                                                           学
+  of hornets is not higher than 1, which indicates that the pest has been eradicated in these 20
+  areas of Washington State. The model can also be used for calculations for other areas of the
+  state.
+
+
+
+
+                            众
+                             号                     od       模
+                   公                                 els      型
+              Figure 4.25: Population changes with and without human intervention
+
+
+  5
+           信
+       Sensitivity Analysis
+     In our model, the changes of several values may signiﬁcantly impact the model’s results, so
+
+
+  微
+  we need to analyze them one by one.
+
+  5.1 Model’s Sensitivity in Problem (a)M
+                     号
+      In order to analyze the sensitivity of the weights of Model 1 and Model 2, we select diﬀerent
+  values of β to calculate the precision of the Combined Forecast Model. We select each element
+
+
+                      ：
+  in the set {0.1, 0.3, 0.6, 1, 3, 6, 10} in sequence as the value of β. The boxplot is showed below.
+
+
+
+
+            信
+      微                         Figure 5.1: Sensitivity analysis of β
+
+      It can be concluded from the ﬁgure above that β has little eﬀect on the prediction precision
+  of our model, which shows that our model is robust and very reliable.
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 22 ===
+  Team # 2123823                                  微信公众号：数学模型                         Page 21 of 24
+
+
+
+  5.2 Model’s Sensitivity in Problem (c)
+      To test the inﬂuence of the value change of the regularization coeﬃcient λ, we pick diﬀerent
+  values of λ and predict the likelihood distribution of sparrow wasps appearing. The predicted
+  result is shown in Figure 5.2.
+
+
+
+
+                                             AT      ：
+                                                Hm      数
+                               Figure 5.2: Sensitivity analysis of λ
+
+
+
+
+                                                          学
+     When λ changes within a certain range, the accuracy of our model prediction is stable above
+  90%. When λ increases over 10, the prediction accuracy of the model drops rapidly. When
+  lambda is equal to 0.6, our model can achieve the best prediction.
+
+
+
+
+                                                  od
+  6    Model Evaluation
+
+                           众                               模
+  Strengths:
+
+
+                            号
+                                                    els
+      • Comprehensive consideration: We have predicted the spread of the sparrow hornets
+
+
+
+
+                                                             型
+        from both temporal and spatial perspectives, and selected 16 factors to calculate the
+        environmental suitability. Almost every useful factor has been included in Model 1. (see
+
+
+                   公
+        Section 4.1)
+
+      • Full utilization of information: When evaluating the likelihood distribution of sparrow
+
+
+          信
+        hornets, we have applied the feature mapping method to expand the 2 features into 28
+        features, making the most of the features of limited data. (see Section 4.3)
+
+
+
+  微   • Sophisticated model improvement method: Through pseudo labelling, we are able
+
+                                       M
+        to make use of unexploited data, which can help improve the accuracy of the original
+        prediction model. (see Section 4.4)
+
+  Weaknesses:
+                     号
+                      ：
+      • Insuﬃcient data volume: The ratio of positive to negative reports is too extreme. Al-
+        though we have taken some measures (e.g., ﬂipping the images horizontally and vertically
+
+
+            信
+        to increase the amount of data) to reduce its negative impact on the training set, we could
+        not eliminate it completely;
+
+      • Subjective error: When calculating the update frequency, we apply a subjective evalua-
+
+      微 tion method to assign weights to ﬁve factors , which is reasonable to some extent but not
+        accurate enough. (see Section 4.4)
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 23 ===
+                                                  微信公众号：数学模型
+                                    Memorandum
+  To: The Washington State Department of Agriculture
+
+  From: Team # 2123823
+
+
+
+
+                                                     ：
+  Subject: Prediction of the Spread of Sparrow Hornets
+
+
+
+
+                                             AT
+  Date: February 9, 2021
+
+
+
+
+                                                Hm      数
+     Dear Sir:
+      With the growth of trade, transportation and tourism under globalization, the introduction
+
+
+
+
+                                                          学
+  of sparrow hornets is now one of the greatest threats to the ecological system of Washington
+  State. In our work, we have built a series of models in hope to help the government make full
+  use of the data provided by the public reports to rationalize the deployment of limited resources
+  to conduct investigations.
+
+
+
+
+                                                  od       模
+      Analyzing the result predicted, we have many important discoveries and advice, which can
+
+
+                            众
+  help you signiﬁcantly improve the eﬃciency of the investigation.
+
+
+
+                             号
+                                                    els
+     i) Focus on the events occurring in the areas with a high likelihood of sparrow hornet
+
+
+
+
+                                                             型
+        appearing, and prioritize investigation of these events. Comparing the environmental
+        suitability between diﬀerent areas, we ﬁnd that there are three area centers ‘friendly’
+
+                   公
+        to sparrow hornet: the ﬁrst is the northwestern coastal region of the United States; the
+        second is the North Cascades National Park and its vicinity on the east coast of the Rosario
+        Strait; the third is the Kootenay National Forest in the interior. Over time, sparrow hornets
+
+          信
+        will migrate to these three area centers. Then combine with the data of the current year,
+        we can accurately predict the distribution of sparrow hornets in the next year. There
+        are detailed data in the text above. You can determine where to deploy the elimination
+
+  微                                    M
+        measures to achieve the best eﬀects, given the limited resources of government agencies.
+
+    ii) Use image recognition and text mining methods to reduce your workload and eﬀectively
+
+
+                     号
+        increase the investigation’s accuracy. In addition, you can encourage people to take
+        pictures or videos of sparrow hornets and upload them on the website to help you
+
+
+                      ：
+        estimate the distribution of sparrow hornets. In this process, notes following the pictures
+        or videos will improve the accuracy of your estimation. However, due to the low quality
+        of the photos taken by the public, many of them are not suitable for image recognition,
+
+
+            信
+        and most of the uploaded notes do not contain useful information. Therefore, you ought
+        to appropriately promote relevant knowledge to the public to improve photos, videos and
+        notes. For example, as to how to take photos of high quality, we suggest that the head,
+
+
+    微   thorax and abdomen of sparrow hornet, which features are apparent, had better be taken
+        in the photos. What’s more, public notes should contain useful information, such as
+        color, stripe and body size and so on.
+
+    iii) Pay more attention to events taking place in the months of summer, when sparrow hornets
+         tend to be more active, and increase the frequency of investigation and updating data.
+
+
+微信号：MATHmodels                                   22                                               2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 24 ===
+                                                  微信公众号：数学模型
+        According to results predicted, we ﬁnd that sparrow hornets are most active in July and
+        August. During the period from November to March of the next year, sparrow hornets
+        are almost in hibernation and appear a little, when you had better properly decrease the
+        frequency of investigation and updating data, to avoid the waste of human resources and
+        material resources.
+
+    iv) According to the predicted location of the migration of sparrow hornets, notify beekeepers
+
+
+
+
+                                             AT      ：
+        and farmers and other stakeholders in time to avoid unnecessary economic losses. As
+        an alien specie, sparrow hornet tends to hunt bee colonies closer to it on a large scale,
+        causing economic losses.
+
+
+
+
+                                                        数
+      As to how to eradicate the sparrow hornets, after looking up relevant information, we provide
+
+
+
+
+                                                Hm
+  several approaches as follows.
+
+     i) Targeting Queens. The queen in an ethnic group tends to go out in April and October,
+
+
+
+
+                                                          学
+        and you’d better conduct more traps during this time to catch and kill the queen. Once
+        the queen is dead, this ethnic group will disappear in a short time.
+
+    ii) Targeting Nests. You can track the sparrow hornets back to the nest, ﬁnd their nest and
+
+
+
+
+                                                  od       模
+        destroy it.
+
+
+                            众
+    iii) Public Outreach. In daily life, you need to strengthen the popularization of knowledge
+         about pest control.
+
+
+                             号
+                                                    els      型
+      The suggestions above will help you better predict the distribution of sparrow hornets,
+  update the data promptly and more eﬀectively resist the invasion of alien species, protecting
+
+                   公
+  the local ecosystem. We sincerely hope that our study will beneﬁt you and better protect the
+  ecology of Washington State, USA.
+
+
+          信
+     Sincerely,
+     Team #2123823
+
+
+  微                                    M
+                     号
+                      ：
+            信
+    微
+微信号：MATHmodels                                   23                                               2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 25 ===
+  Team # 2123823                                 微信公众号：数学模型                         Page 24 of 24
+
+
+
+  References
+   [1] Adam M Baker and Daniel A Potter. Invasive paper wasp turns urban pollinator gardens
+       into ecological traps for monarch butterﬂy larvae. Scientiﬁc Reports, 10(1):1–7, 2020.
+   [2] Unknown. Asian giant hornets. Retrieved from https://extension.psu.edu/
+       asian-giant-hornets Accessed Unknown.
+   [3] Muna Maryam Azmy, Tetsuro Hosaka, and Shinya Numata. Responses of four hornet
+
+
+
+
+                                            AT      ：
+       species to levels of urban greenness in nagoya city, japan: Implications for ecosystem
+       disservices of urban green spaces. Urban Forestry & Urban Greening, 18:117–125, 2016.
+   [4] Alberto J Alaniz, Mario A Carvajal, and Pablo M Vergara. Giants are coming? Predicting
+       the potential spread and impacts of the giant asian hornet (vespa mandarinia, hymenoptera:
+
+
+
+
+                                                       数
+       Vespidae) in the usa. Pest Management Science, 77(1):104–112, 2021.
+
+
+
+
+                                               Hm
+   [5] MP Robertson, N Caithness, and MH Villet. A PCA-based modelling technique for
+       predicting environmental suitability for organisms from presence records. Diversity and
+       distributions, 7(1-2):15–27, 2001.
+
+
+
+
+                                                         学
+   [6] Fernanda L Schumacher, Clecio S Ferreira, Marcos O Prates, Alberto Lachos, and Victor H
+       Lachos. A robust nonlinear mixed-eﬀects model for covid-19 deaths data. arXiv preprint
+       arXiv:2007.00848, 2020.
+   [7] Makoto Matsuura. Comparative biology of the ﬁve japanese species of the genus vespa
+
+
+
+
+                                                 od       模
+       (hymenoptera, vespidae). 1984.
+
+
+                           众
+   [8] Makoto Matsuura and Shôichi F Sakagami. A bionomic sketch of the giant hornet, vespa
+       mandarinia, a serious pest for japanese apiculture (with 12 text-ﬁgures and 5 tables).
+
+
+                            号
+       Journal of the Faculty of Science, Hokkaido University, 19(1):125–162, 1973.
+
+
+
+
+                                                   els      型
+   [9] John M Drake and Robert L Richards. Estimating environmental suitability. Ecosphere,
+       9(9):e02373, 2018.
+
+
+                   公
+  [10] Ana S Bessa, Joao Carvalho, Alberto Gomes, and Frederico Santarem. Climate and land-
+       use drivers of invasion: predicting the expansion of vespa velutina nigrithorax into the
+       iberian peninsula. Insect Conservation and Diversity, 9(1):27–37, 2016.
+
+
+          信
+  [11] Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. The MIT Press,
+       2016.
+
+
+  微
+  [12] Anand Rajaraman and Jeﬀrey David Ullman. Mining of massive datasets. Cambridge
+       University Press, 2011.
+                                      M
+  [13] Hao Wu and Saurabh Prasad. Semi-supervised deep learning using pseudo labels for
+
+
+                    号
+       hyperspectral image classiﬁcation. IEEE Transactions on Image Processing, 27(3):1259–
+       1270, 2017.
+
+
+
+                     ：
+  [14] Angelica I Aviles-Rivero, Philip Sellars, Carola-Bibiane Schönlieb, and Nicolas Pa-
+       padakis. Graphxcovid: Explainable deep graph diﬀusion pseudo-labelling for identifying
+       covid-19 on chest x-rays. arXiv preprint arXiv:2010.00378, 2020.
+
+
+            信
+  [15] Judith H Myers, Anne Savoie, and Ed van Randen. Eradication and pest management.
+       Annual review of entomology, 43(1):471–491, 1998.
+  [16] Small Banded Pine Weevil. New pest response guidelines. Dec.ny.gov, 2004.
+
+   微
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                    关注数学模型
+
+                                                                                                    获取更多资讯

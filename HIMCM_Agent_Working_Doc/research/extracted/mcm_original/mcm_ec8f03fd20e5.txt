@@ -1,0 +1,2209 @@
+=== PHYSICAL PAGE 1 ===
+                                           Summary
+      In this article, we develop models to analyze leaves, including description and classification,
+their relations to overlap, distribution and branch structure, as well as leaf mass estimation.
+      Firstly we investigate the factors determining the diversity of leaves, and then several key
+parameters are chosen to describe leaves. Based on these parameters, a model for leaf
+classification using cluster analysis is provided, and model testing based on neural network shows
+the validity of the classification model.
+      To analyze the relation between leaf shape and overlap, we build a 3D projection analysis
+model with geometric method. We find that narrow leaves are generally less affected by overlap
+since they have a larger effective leaf area, and longer leave petioles are significant to decrease the
+overlap for broader leaves.
+      Assuming that narrowness of the leaves in a certain tree is identical, we focus on the relation
+between leaf size and its position within a tree crown. We figure out the light distribution in the
+tree, and illuminate the relation of light intensity and leaf size based on a revised Logistic model.
+We generally conclude that leaves on higher layers are larger than the lower ones in ideal
+condition, and leaves further from the trunk are larger than the central ones.
+      As for tree profiles, we divide branching patterns into two types: orthotropic and plagiotropic.
+A logistic regression model is developed and tested that demonstrates a strong relation between
+leaf shape and branch pattern. In detail, we use statistical method and conclude that orthotropic
+tree leaves are generally broader, larger and with longer petioles than that of plagiotropic trees.
+Reasonable explanations of the results are also provided.
+      Two methods are put forward to estimate total leaf mass. A volumetric model is built, and we
+  multiply the volume of the crown by the leaf mass constant of the tree to estimate the total leaf
+  mass. Another method involves allometric equations which describe the relations of leaf mass
+  and tree parameters. Detailed comparison of both models show that a biological
+  mechanism-based method, which indicates that leaf mass is a quadratic function of the diameter
+  at breast height (DBH) of a tree, is the most accurate and convenient way to estimate leaf mass.
+      Sensitivity analysis of our models is provided, and a primary weakness of our work is a lack
+of enough data to test some of our models.
+
+
+=== PHYSICAL PAGE 2 ===
+#Team 16831                                                                                                          Page 1 of 53
+
+
+Contents
+1. Introduction .................................................................. 2
+2. Model of Leaf Description and Classification .............. 2
+    2.1   Introduction .................................................................................................................. 2
+    2.2   Leaf Classification Model .............................................................................................. 3
+    2.3   Model Testing Using Neural Network ........................................................................... 6
+3. Model of the Relation between Leaf Shape and
+Overlapping ....................................................................... 9
+    3.1   Building the Model ...................................................................................................... 12
+    3.2   Further Discussion....................................................................................................... 20
+    3.3   Overall Conclusion....................................................................................................... 21
+    3.4   Sensitivity Analysis ...................................................................................................... 22
+4. Model of the Relation between Leaf Shape and Leaf
+Distribution ...................................................................... 22
+    4.1   Light Distribution ......................................................................................................... 23
+    4.2   Leaf Size Model ........................................................................................................... 25
+    4.3   Result and Analysis...................................................................................................... 27
+5. Model of the Relation between Leaf Shape and
+Branching Structure ........................................................ 28
+    5.1   Introduction ................................................................................................................ 28
+    5.2   Logistic Regression Model ........................................................................................... 28
+    5.3   Testing of the Model ................................................................................................... 29
+    5.4   Relations of Leaf Shape and Branch Pattern ............................................................... 30
+    5.5   Conclusions and Analysis ............................................................................................ 33
+6. Model of Leaf Mass Estimation .................................. 33
+    6.1   A Basic Volumetric Model ........................................................................................... 33
+    6.2   An Improvement of the Model ................................................................................... 35
+    6.3   Allometric Equation Model ......................................................................................... 36
+    6.4   Conclusions and Overall Comparison of models ......................................................... 38
+7. Strength and Weakness ............................................. 38
+8. Further Work ............................................................... 40
+9. A letter to Scientific Journal Editor ............................. 41
+10.   Reference............................................................... 42
+Appendix ......................................................................... 43
+
+
+=== PHYSICAL PAGE 3 ===
+#Team 16831                                                               Page 2 of 53
+
+
+                 The Secrets of Leaves
+
+1. Introduction
+      The leaves of trees are the common but essential organs to carry
+out photosynthesis. During the process of photosynthesis, they produce nutrition on
+which trees thrive. Scientific problems related to tree leaves are also drawing the
+attention of researchers. Such problems include the biological mechanism of leaves
+and so on. However, the factors that affect the shape of leaf is a problem seldom
+touched by previous researchers. What’s more, other valuable questions such as
+“Why do leaves have various shapes?”, “How can we estimate the leaf mass of a
+tree?” and ”How to classify leaves?” are also worth carefully studying. These are the
+questions we also focus on in this article.
+      In order to solve the questions above, we need to consult specific literature.
+Some of the previous work are done by Hirokazu Tsukaya on the mechanism of
+leaf-shape determination. Other researchers such as Akiotakenaka, Gretchen F.
+Sassenrath-Cole, Robin L.Chazd,ülo Niinemets and Lawren Sack have studied the
+relation bet between light distribution and tree structure and leaf shape. The
+researches on leaf classification have already been done by many researchers such as
+Chia-Ling Lee, Shu-Yuan Chen, B.D Ripley. Although many of the literature we refer to
+relates to the questions we are dealing with, none of them can generally answer our
+questions. Further modeling work is needed.
+      However, there are some tradeoffs limiting our modeling. Due to the difficulty in
+collecting data, our models are not fully tested by actual data, so we cannot ensure
+the validity when some of them are applied to all kinds of data. Besides, phenomena
+in biology are hard to analyze since some of them are caused by multiple factors,
+which affects the comprehensiveness of our models and make it nearly impossible to
+accurately conclude the answer.
+      To sum up, our approaches are pretty clear: develop models on each of the
+problems, especially focusing on classification, leaf shape, the estimation of leaf
+mass and light interception of leaves. After formulating the models, we test our
+models making the best of the data we collect and analyze the sensitivity of our
+models.
+
+
+
+2. Model of Leaf Description
+ and Classification
+2.1 Introduction
+     In order to describe and classify leaves, we firstly need to understand the causal
+
+
+=== PHYSICAL PAGE 4 ===
+#Team 16831                                                                Page 3 of 53
+
+factors that lead to the diversity of leaves shapes. We attribute the factors to the
+following two aspects:
+
+ Genetype
+    The gene of a tree determine the shapes of leaves on a tree to a large degree.
+As we know, the shapes of a tree's leaves are a response to the tree species' long
+term ecological and evolutionary histories.
+
+ Environment
+      An ecosystem's limiting factors may also modify the finished form and shape of
+a tree's leaves.
+     Considering that the genetype of a tree is also a response to the natural
+selection determined by the environment, we mainly focus on the impacts of
+environment.
+      Understanding of the "logic" behind the varied forms of leaves is facilitated by a
+firm grasp of the precise functions a leaf must accomplish:
+1. A leaf must "capture" sunlight for photosynthesis (in such a process it may also
+absorb a great deal of heat).
+2. A leaf must take in carbon dioxide from the surrounding air via pores (called
+"stomatae").
+      This carbon dioxide is also needed for photosynthesis. When these leaf
+stomatae are open to allow the uptake of carbon dioxide, water from inside the leaf
+is lost to the atmosphere.
+3. Transpiration.
+      Leaf transpiration occurs through stomata, and can be thought of as a necessary
+"cost" associated with the opening of the stomata to allow the diffusion of carbon
+dioxide gas from the air for photosynthesis. Transpiration also cools plants and
+enables mass flow of mineral nutrients and water from roots to shoots.
+The leaf, then, is affected by these balancing acts: enough sunlight and carbon
+dioxide to run photosynthesis and transpiration.
+      Knowing why leaves have various shapes, our next step is to determine the
+parameters which might be effected by the two functions listed above of leaves and
+also they can describe the shapes of leaves. Our goal is to build a mathematical
+model to describe and classify leaves using the parameters we find.
+
+
+2.2 Leaf Classification Model
+2.2.1 Leaf Description
+     We focus on four traditional parameters to describe the biodiversity of leaf
+shape:
+1. Leaf index (a ratio of leaf length to leaf width), which describes the narrowness of
+   leaf.
+2. Leaf area. Here we use the product of length and width to approximate the area.
+
+
+=== PHYSICAL PAGE 5 ===
+#Team 16831                                                                 Page 4 of 53
+
+3. Non-serrated ratio(NR).
+                                  D(Centroid , Cc ) / N eq1
+                                   N
+
+                            NR    i 1              i
+
+                                  D(Centroid , Cv ) / M
+                                   M
+                                   j 1              j
+
+    Where
+    D( X , Y ) represents the distance between X and Y,
+
+    Centroid is the centroid of leaf.
+    Cci is the point on the concave part of the margin.
+
+    Cv j is the point on the convex part of the margin.
+
+    N    is the total number of Cci .
+
+    M    is the total number of Cv j .
+
+     NR can be used to determine the degree of serration of the margin, the smaller
+NR is, the sharper the serration is. Thus NR=1 means the leaf have smooth margin
+and NR=0 occures when the leaf is analogical to a maple leaf.
+4. Leaf extended angle (LEA).
+     The definitions of NR and LEA are presented visually in the figures below.
+
+
+
+
+             Figure 1. NR                                   Figure 2. LEA
+
+
+2.2.2 The Process of Classification based on cluster analysis
+     We calculate these parameters of 32 leaves from the 55 leave images we find in
+the literature(Chia-Ling Lee, Shu-Yuan Chen,2006),the detailed data and images can
+be viewed in the appendix.
+     Next, we classify the 32 leaves using the parameters we have. Since we don’t
+have any previous knowledge about how many classifications there should be, we do
+cluster analysis to classify these 32 samples (using R 2.13.1, the codes are presented
+in the appendix).
+     The result of clustering is displayed in Figure3.
+
+
+=== PHYSICAL PAGE 6 ===
+#Team 16831                                                              Page 5 of 53
+
+
+
+
+                               Figure 3. cluster analysis
+     Figure 3 shows that the 32 samples can be classified into 4 clusters. Then we
+match the cluster result with each of the images of leaves respectively, we obtain the
+classification below.
+Type 1
+
+
+
+
+Type 2
+
+
+
+
+Type 3
+
+
+
+
+Type 4
+
+
+=== PHYSICAL PAGE 7 ===
+#Team 16831                                                                  Page 6 of 53
+
+
+
+
+    The figure above gives a visual result of classification where the leaves in the
+same classification are fairly similar with each other.
+
+
+2.3 Model Testing Using Neural Network
+      Given the classification result above, now we are trying to classify the rest of the
+leaves in the database, that is, to determine which of the 4 types each of the rest
+belongs to. Such being the case, we choose randomly 8 samples from the rest to
+determine type of them. Based on neural network, the previous 32 samples are used
+as training samples and the 8 samples we just choose are used as testing samples.
+Next we present basic steps of formulating our neural network model.
+ Step 1. Data Pre-processing.
+     In order to obtain an effective training of neural networks, the numerical data
+should be scaled. This process is known as normalization. One form of suitable data
+normalization can be achieved using the following equation,which is known as Linear
+Transformation equation. The scaled variable should be within the range of 0 to 1.
+                                               v  vmin
+                                       v' 
+                                              vmax  vmin
+
+    Where：
+    v'   is the new feature value that has been normalized.
+    vmin   is the minimum feature value in the data sample.
+
+    vmax   is the maximum feature value in the data sample.
+
+    v      is the old feature value before normalization.
+ Step2.Building Back-Propagation Neural Network
+The Back-Propagation Neural Network (BPNN) is based on a supervised
+learning method, and is a generalization of the delta rule. It requires a teacher that
+knows, or can calculate, the desired output for any input in the training set. The
+BPNN architecture used as the classifier for this research (Figure 4) consists of four
+layers which are:
+Input Layer -- There are 4 neurons in the input layer for each predictor variable. Each
+of the neurons represents a parameter (either leaf index, leaf area, NR or LEA) that
+describes the leaf shape.
+
+
+=== PHYSICAL PAGE 8 ===
+#Team 16831                                                               Page 7 of 53
+
+Hidden Layer -- This layer has one neuron for each case in the training dataset. The
+neuron stores the values of the predictor variables for the case along with the target
+value. In this case, there are 10 neurons in this layer.
+Decision Layer -- This layer divides the value accumulated in the numerator
+summation unit by the value in the denominator summation unit and uses the result
+as the predicted target value.
+
+
+
+
+                                Figure 4. neural network
+      To sum up, the process of classifying new leaves using BP Neural Network can
+be illustrated by a simple flow chart presented below.
+
+
+
+
+                             Figure 5. classifying process
+
+     In the BPNN model, some of the detailed parameters are listed below:
+     net.trainParam.epochs=1000;
+     net.trainParam.show=10;
+     net.trainParam.lr=0.06;
+     net.trainParam.goal=0.01;
+     net.trainParam.min_grad = 1e-20;
+
+      Before displaying our classification results, we present an extra figure output
+from MaLab, which shows how the final result is approached. Figure 6 and Figure 7
+are final results output from MatLab.
+
+
+=== PHYSICAL PAGE 9 ===
+#Team 16831                                                            Page 8 of 53
+
+
+
+
+                 Figure 6                                   Figure 7
+
+     To demonstrate the results with the images of leaves, we present the
+classification in the form below (NOTE that the images in rectangular frame
+represent the new leaves that are classified by BP Neural Network and add up to 8 in
+total):
+Type 1
+
+
+
+
+Type 2
+
+
+
+
+Type3
+
+
+=== PHYSICAL PAGE 10 ===
+#Team 16831                                                              Page 9 of 53
+
+
+
+
+Type 4
+
+
+
+
+                             Figure 9. classifying result
+
+     As is shown in the results, except for the leaf in Type 3, rest of the leaves are
+correctly classified into the category of which the leaves are most analogical to it.
+Apparently, the testing results verify the validity of our model.
+
+
+
+
+3. Model   of the Relation
+ between Leaf Shape and
+ Overlapping
+Introduction
+     In this section, we mainly discuss the factors closely related to the overlapping
+area of a single branch. These factors include:
+      solar altitude angle (SA-Angle)
+      sunlight direction angle (SD-Angle) on horizontal plane
+      narrowness of the leaf (Leaf index)
+      petiole length (scaled to leaf area)
+      leaf inclination angle (LI-Angle)
+      internode length (scaled to leaf area).
+     As we know, the leaf phyllotaxis (leaf pattern) describes the way how leaves are
+
+
+=== PHYSICAL PAGE 11 ===
+#Team 16831                                                              Page 10 of 53
+
+distributed along the shoot, and it has a great impact on the effectiveness of light
+capture efficiency of a shoot.
+      Three representative phyllotaxes are shown below:
+
+
+
+
+                 Figure 10. distichous, decussate, spiral pattern
+    Source: http://en.wikipedia.org/wiki/Phyllotaxy
+    In our leaf overlapping model, we focused on a common scenario: distichous.
+
+
+Assumptions
+     We simplified this pattern with some assumptions:
+  Each blade has unit area, and all blades are identical.
+  Since most leaves are roughly symmetric, we regard the blade shape as rhombus
+ with 2 diagonal lines, which refer to the width and length respectively. The main
+ purpose of this approximation is to simplify the computation and consider the key
+ factor, narrowness, the most significant coefficient of the blade shape when we
+ discuss the leaf overlapping.
+  The shoot radius is relatively small to blade, so is the radius of petiole, so we can
+ neglect the shade of them both.
+  The curl and thickness of the leaf are neglected, which means we can view the
+ blade as a thin palate.
+  The sunlight is the main light source, so we view the light is parallel.
+  We assume vertical shoot in the model. The change of light direction can be
+ used to discuss the scenarios when shoot is not vertical.
+
+
+Variable descriptions
+     Based on these assumptions, we build a 3D model of leaf overlapping as the
+figure given below.
+
+
+=== PHYSICAL PAGE 12 ===
+#Team 16831                                                             Page 11 of 53
+
+
+
+
+                                Figure 11. A 3D model
+     *Note: the figure only shows a model with no petiole, a particular condition
+     Now we give detailed definitions about the variables to build a 3D model to
+analyze the factors mentioned above.
+
+
+
+
+                             Figure 12. schematic figure
+
+    The variables we define are as follow:
+                            Table 1. variable definitions
+ Variable name        Corresponding note        Value rage        Physical Meaning
+ SA-Angle                                       0°to 90°          The altitude of
+                        
+                                                                  sunlight
+ SD-Angle                                      0°to       360°   The direction of
+
+
+=== PHYSICAL PAGE 13 ===
+#Team 16831                                                                 Page 12 of 53
+
+                                                                      sunlight
+ Leaf-Index              Height/Width                 Leaf-Index>0    Leaf narrowness
+ p-length                Petiole/Leaf area            p-length>=0
+ LI-Angle                                            0°to   90°      leaf inclination
+ Inter-length             H /Leaf area               Inter-length >0 Vertical distance
+                                                                      between       two
+                                                                      neighboring
+                                                                      layers
+
+*Note: With the definition of Leaf-Index and Inter-length, we can analyze leaf with
+different size conveniently.
+
+3.1 Building the Model
+    We mainly discuss the shoot with two layers of leaves following, because of the
+most significant impact is given by the neighboring layer above. That means we only
+need to consider 4 blade, 2 on upper layer, and 2 on down layer.
+    To give the criteria of overlapping, effective area ratio (EAR) is defined by the
+formula below.
+                                              SU
+                                     EAR 
+                                             Stotal
+
+     Where SU is the total leaf area that is not shaded, namely the effective area,
+
+and Stotal is the total leaf area.
+
+      Under this definition, our solution should be able to calculate the shaded area
+of the two leaves in down layer. That means, we should get the relation between the
+shade profile in upper layer and the profile of two leaves in down layer.
+
+We focus on two types of blades:
+
+ Horizontal Blade: leaves are perpendicular to branches
+
+ Inclined blade: leaves are inclined to branches
+    They are showed below:
+
+
+=== PHYSICAL PAGE 14 ===
+#Team 16831                                                                Page 13 of 53
+
+
+
+
+              Horizontal Blade                                 Inclined blade
+                                 Figure 13. schematic figure
+
+     In each scenario, we analyze two cases:
+        The leave have no petiole;
+        The leave have petiole;
+
+
+3.1.1 Case 1: Horizontal Blade
+
+       (1) Without petiole
+      To build this model, we firstly consider a certain scenario, where the LI-Angle is
+zero, and the SA-Angle is 90 degree. In this case the blade plane is horizontal, and the
+sunlight is vertical. Obviously, the leaves on down layers are totally shaded, EAR=0.5.
+      We assume LI-Angle and p-length are zero now, and we will discuss their
+influence in later part. If we assume SA-Angle is 45 degree, the SD-Angle is 0,
+Leaf-Index is 1 (square shape), Inter-length is 0.4, the figures below will show what
+will happen.
+
+
+=== PHYSICAL PAGE 15 ===
+#Team 16831                                                                     Page 14 of 53
+
+
+
+
+                               Figure 14. A schematic figure
+                          *Note: OL refers to overlapping area.
+       The upper layer curve is the profile of shade on down layer plane here. Down
+layer curve is the leaf profile. 3 OL part is she shaded area on down layer leaves.
+      Apparently, the upper layer curve is a congruent of the down layer curve with a
+certain displacement. This enables us to find a method to calculate the OL area. We
+need to calculate the displacement vector at first.
+      In 3D Cartesian coordinate system, the projection point (X’,Y’,Z’) by the sunlight of one
+certain point(X,Y,Z) on horizontal plane can be calculated as following.
+
+                     X ' 1 0  sin( SDAngle) tan( SAAngle)   X 
+                     Y '   0 1  cos( SDAngle) tan( SAAngle)   Y 
+                                                               
+                     Z '  0 0             0                  Z 
+     The proof of this formula is easy with basic geometrical theory. So we omit this
+part in our article.
+     We denote the 3X3 matrix as TFM (transform matrix).
+     Tangent (SAAngle) here is 1 (SAAngle =45 degree), as a result, the trace of
+projection displacement vector can be described as：
+                            X   sin(SDAngle)Interlength
+
+                            Y   cos(SDAngle)Interlength
+     The formula shows a circle trace of the vector endpoint.
+
+
+=== PHYSICAL PAGE 16 ===
+#Team 16831                                                                 Page 15 of 53
+
+
+
+
+                             Figure 15. a schematic figure
+     Figure 15 shows displacement with SDAngle=45,90,135 degree.
+     Noticing this phenomenon, we can calculate the OL area as following.
+
+
+
+
+                                     Figure 16. a magnification
+
+    We magnify the second figure to show how to caculate the OL area sidelength.
+    In triangle ABC, AB=displacment vector length , CAB can be caculated with
+SDAngle and a certain apex angle of rhombus (determined by Leaf-Index) , ACB
+
+eqauls to ( 180  angle).So BC is detemined in this triangle. Thus sidelength is
+determined.
+  Omitting other geometrical caculation steps, we give the final expression of OL
+areas in common condition. The result depends on  .
+
+  (1) for 0    0 :
+
+                        m2  1 sin( 0   )                m2  1 sin( 0   )
+  SOL  2sin(2 0 )  (                      h  tan )(                      h  tan ) 
+                         2m     sin(2 0 )                   2m     sin(2 0 )
+   sin(   0 ) sin(   0 )
+                               (h  tan ) 2
+          sin(2 0 )
+
+
+=== PHYSICAL PAGE 17 ===
+#Team 16831                                                                          Page 16 of 53
+
+
+
+  (2) for 0    180  0
+
+                            m2  1 sin(  0 )                m2  1 sin(  0 )
+  SOL  2sin(20 )  (                          h  tan )(                     h  tan )
+                             2m     sin(20 )                   2m     sin(20 )
+
+
+  (3) for 180  0    180
+
+                          m2  1 sin(  0  180 )                m2  1 sin(   0  180 )
+  SOL  2sin(20 )  (                              h  tan )(                            h  tan )
+                           2m         sin(20 )                     2m         sin(20 )
+      sin(  0  180 )sin(   0  180 )
+                                           (h  tan ) 2
+                    sin(20 )
+
+
+  Where
+  m=LeafIndex
+   = 90  SAAngle
+  h = Interlength
+   0 =acrtan (1/m) is the critical angle when OL3 part is diminished.
+
+
+Results and analysis:
+
+   We plot SU (unshaded area) —SAAngle curves with different Leaf-Index in
+
+Matlab as following.
+
+
+=== PHYSICAL PAGE 18 ===
+#Team 16831                                                               Page 17 of 53
+
+
+                   Figure 17. SU (unshaded area)—SAAngle curves
+
+      The max
+                SU , mean SU value and some SU values with particular SD-Angle
+
+are provided in the diagram below.
+                                     Table 2. Result
+         Leaf       Max value      45 degree     0 degree      Mean value
+         1:1        2.9714         2.8000        2.8914        2.8913
+         2:1        3.2800         3.0114        2.6800        2.9799
+         8:1        3.9200         3.6327        2.3700        3.4198
+
+
+      The mean value ratio of case 1:1 to case 8:1 is 0.845.
+      The maximal ratio of case 1:1 to case 8:1 is 0.758.
+
+
+conclusions
+      From the figure and result above we can conclude:
+       SU varies with Sunlight direction, and the maximum points lie when SAAngle is
+       0 or 90 degree.
+      The maximum of SU varies with different narrowness ratio significantly.
+
+       Narrow leaves get a higher effective area both in maximum value and mean
+       value than broader leaves.
+
+
+        (2) With petiole
+      The similar model is used to discuss the petiole length impact on effective area,
+with a slightly modification. S3 area in figure is largely determined by petiole length.
+     With a longer petiole length, the leaves can be more dispersive, thus a smaller
+shade will be projected on down layers. If we regard branch with leaves as a cylinder,
+then a longer petiole length means a lager radius of Cross-sectional circle.
+
+Result and analysis
+
+    We modified the expression (given in appendix) of OL areas, then plot a SU
+
+(unshaded area) —SAAngle curves with plength=0.2 as follow:
+
+
+=== PHYSICAL PAGE 19 ===
+#Team 16831                                                           Page 18 of 53
+
+
+
+
+                 Figure 17. SU (unshaded area)—SAAngle curves
+
+      The max SU , mean SU and some SU values with particular SD-Angle are
+
+ provided in the diagram below.
+                                    Table 3. Result
+        Leaf      Max value       45 degree     0 degree    Mean value
+        1:1       2.9714          2.8000       2.9714       2.9169
+        2:1       3.2800          3.0114       2.7200       2.9877
+        8:1       3.9200          3.6327       2.3800       3.4204
+
+Conclusions:
+      We can get several conclusions from the result above when compared with no
+petiole case.
+   The broaden leaves are more sensitive to the petiole length, showing a higher
+       SU in intervals around 0 and 180 degree, while the narrow leaves roughly
+      remain unchanged with petiole length.
+     The mean SU value of broaden leaves increase faster than narrow leaves.
+
+      Although the change is only 1 percent, the increasing speed will be much
+      higher if we consider multi-layer leaves.
+
+
+3.1.2 Case 2: Inclined Leaf Blade
+      The basic model is given in part1, due to a lack of professional 3D simulation
+
+
+=== PHYSICAL PAGE 20 ===
+#Team 16831                                                             Page 19 of 53
+
+environment, it’s not practical to get the unshaded area directly. We mainly focused
+on getting the shade profiles of both layers, and approximate the areas from the
+shade profiles, using this ‘shade overlapping area ratio’ to approximately present the
+effective area on blades.
+      We firstly get all apexes coordinate from our 3D model, using coefficient of
+LI-Angle, Leaf-Index, SD-Angle, Inter-length to express the apex position. Using
+transform matrix we defined above, finally get the shade profile of two layers on
+horizontal plane.
+      We compared Leaf-Index of 8:1(Left row) with 1:1(Right row).
+   (1) SDAngle is 0:
+
+
+
+
+                                  Figure 18. SDAngle is 0
+  (2) SDAngle is 45 degree:
+
+
+
+
+                              Figure 18. SDAngle is 45 degree
+
+  (3) SDAngle is 90 degree:
+
+
+=== PHYSICAL PAGE 21 ===
+#Team 16831                                                                Page 20 of 53
+
+                              Figure 19. SDAngle is 90 degree
+
+
+Result and analysis:
+
+     The diagram below shows the SU in each case:
+
+                                    Table 4. Result
+SD-Angle in degree    0                      45                    90
+Leaf-Index=1          2.379                  2.871                 2.894
+Leaf-Index=8          2.294                  3.512                 3.793
+
+     Compare with the Table 2, we find that a 30 degree inclination angle will lead to
+a 2.6% and 3.2% decline of the max SU in two cases where Leaf-Index=1 and
+
+Leaf-Index=8.
+     We use the summation of 3 results in each case above to estimate the mean
+value ratio. Based on the tendency of the curves we plot, we generally assume the
+max value is reached when SD-Angle is 90 degree.
+     The approximate mean value ratio of case 1:1 to case 8:1 is 0.848.
+     The max value ratio of case 1:1 to case 8:1 is 0.764.
+
+Conclusions:
+
+   The 30 degree inclined leaf blade will get a smaller
+                                                           SU with 2.6% and 3.2%
+
+    decline in two cases, which means inclined leaves has a less effective area ratio.
+   The mean value ratio of case 1:1 to case 8:1 and the max value ratio of case 1:1
+    to case 8:1 are roughly stay the same despite the 30 degree inclination angle.
+
+      That shows the narrow leaves are still more effective than the broaden leaves,
+the ratio of the two scenarios is not changed. They all declined with the inclination
+angle.
+
+
+3.2 Further Discussion
+      Based on the overlapping analysis model we built before, we show a certain
+ case of muti-layers leaf. We can see the total effective areas can be approximate by
+ considering only one coefficient, the radius of the cylinder, if we only wish to make
+ a rough estimation.
+
+
+=== PHYSICAL PAGE 22 ===
+#Team 16831                                                              Page 21 of 53
+
+
+
+
+                               Figure 19. a common case
+     The figure shows the projection of effective blade area can be estimate by using
+rectangular d x h, which can be calculated by the equivalent cylinder.
+     Therefore, the petiole length, narrowness are positive factors to the effective
+radius of the equivalent cylinder.
+
+
+3.3 Overall Conclusion
+     The shape of leaves is closely related to the overlapping shadow. Narrow leaf is
+more effective in maximizing the exposure to sunlight, and it always works whether
+with or without petiole, blade inclination.
+
+     The broaden leaves tend to maximizing their light capture by extending their
+petiole.
+
+      However, it is still not easy to answer the question, “Do the shapes ‘minimize’
+overlapping individual shadows that are cast, so as to maximize exposure?” Because
+the complication in ecosystem is far more than you can imagine, the leaf shape is
+determined by a great deal of factors, and the key factor is always different in
+different places.
+
+     So we give our final answer to the question as:
+   In areas where sunlight is the most important factor for trees to live, especially
+    when sunlight is insufficient, they tend to minimize their overlapping shadow by
+    generating a narrow leaf blade or a long petiole.
+   In areas where other factors (e.g. water) are more important than sunlight, they
+    may not shape their leaves to minimize overlapping shadows.
+
+
+=== PHYSICAL PAGE 23 ===
+#Team 16831                                                               Page 22 of 53
+
+
+3.4 Sensitivity Analysis
+(1) In horizontal blade case, We make comparisons of Su of the leaves with petioles
+     and the leaves without petioles. The result is as follows:
+    Case 1:1:
+    The max value is unchanged and the mean value increases by 1%
+    Case 2:1 and Case 8:1:
+     The max value is unchanged and the mean value increases by less than 0.3%
+
+(2) In our model, we mainly discuss
+                                          SU variance with inclination angle, petiole
+
+
+length and leaf index, the relation between these 3 factors with
+                                                                          SU is not so
+
+
+“self-evident”. Now we discuss the max
+                                              SU in one of the most representative
+
+scenario, where SAAngle=45 degree, SDAngle=90 degree, Interlength=0.4,
+Leaf-index=1, petiolelength=0.
+      If SAAngle, SDAngle, Interlength, Leaf-index increase 5% respectively,
+petiolength increase 0.05,
+      The diagram below shows the variance ratio of each parameter.
+parameter                                                S
+                                       Variance of Max U
+SAAngle                                   2.5%
+SDAngle                                   -0.0167%
+Interlength                               1.35%
+Leaf-index                                0.0153%
+petiolelength                             0
+
+*Note: petiolelength effect mean value of
+                                             SU
+
+    The sensitivity analysis above is quite different and the most significant 2 factors
+are SAAngle and interlength. Effective area are relatively insensitive to other factors.
+
+
+
+4. Model    of the   Relation
+ between Leaf Shape and Leaf
+ Distribution
+Introduction
+     Since leaves on one tree are always analogical to each other due to the genetical
+reasons, in this section we neglect other parameters of the shape of leaves and only
+focus on the leaf blade area, namely the leaf size, variation due to spatial distribution
+of them.
+
+
+=== PHYSICAL PAGE 24 ===
+#Team 16831                                                                Page 23 of 53
+
+      However, the contributing factors to the leaf size of the same species is too
+many in natural environment, such as water supply, sunlight, wind, insects, branch
+angle, soil fertilize condition and so on. The spatial distribution of these factors is
+complicated and tough to make a comprehensively quantitative analysis. So we
+focused on the illumination distribution which is closely related to the leaf position in
+different part in the tree canopy.
+      Therefore we are trying to find following relations:
+1. The relation between layers of the canopy (the height of different layers) and
+    illumination intensity.
+2. The relation between horizontal position of leaf and illumination intensity.
+3. The relation between leaf blade area and illumination intensity.
+
+     Combining these relations, we finally find the relation between leaf area and
+the distribution of leaf where distribution refers to both the horizontal and vertical
+position of leaves.
+
+
+Assumptions
+1. The illumination intensity on the same layer of canopy is only determined by the
+   leaf height and the distance from the trunk.
+2. When considering the factors to determine the leaf size, other external factors
+   such as water and density of carbon dioxide are abundant for the survival of
+   leaves.
+3. The maximum leaf size exist which is determined by the tree species traits. We
+   assume it to be a constant.
+4. Leaf has a living and constructional energy cost.
+
+   Based on assumptions above, we build a light distribution model and a leaf size
+model.
+
+
+4.1 Light Distribution
+ Jackson’s model
+     In 1995, Jackson [15] built a model of the distribution of illumination intensity
+within the tree canopy, which is thought to be effective, shown as:
+                                     I  I 0 exp(kl )
+
+Where I 0 is the light intensity above the tree canopy; k is so-called light
+
+absorption coefficient, which is determined by the tree characters including factors
+such as leaf optical traits the leaf inclination angle, branch structure and leaf density;
+l here refers to the vertical depths start from the top of canopy.
+
+
+=== PHYSICAL PAGE 25 ===
+#Team 16831                                                               Page 24 of 53
+
+The formula clearly showed an exponentially declination of illumination intensity
+through vertical direction.
+
+
+ Our model
+      If we consider the difference of illumination intensity on horizontal plane, which
+is significant in actual condition, the Jackson’s model apparently cannot show this
+factor.
+
+     Based on the model build by Jackson, we add a horizontal declination term to
+the equation. In consideration of the actual scenario, the declination speed in
+horizontal direction is much slower in compared with the vertical declination, since
+the light reflectance by leaf is always much greater than penetration. Therefore, we
+add a linear term and get an improved illumination intensity distribution as follows:
+                                I  I 0 (1   D) exp(kl )
+
+Where  is the horizontal declination coefficient determined by the tree; D is the
+distance from the trunk of the tree canopy.
+
+
+
+
+                           Figure 20. variable definition
+   The figure above shows the variables in the equation.
+
+     Coefficients,  and k , can be estimated by the actual illumination intensity in
+certain position, the center of top layer, on top layer surface, on bottom layer
+surface.
+     We simulate the distribution of light in Matlab, and get a surface of light
+distribution showing below.
+
+
+=== PHYSICAL PAGE 26 ===
+#Team 16831                                                                Page 25 of 53
+
+
+
+
+                         Figure 21. light distribution within a tree
+
+Result Analysis
+     We compare the tendency of the tree distribution with a series data of an apple
+tree in SUN’s paper [16]. The curve tendency matches pretty well. Considering the
+location of the tree, an orchard, where it is well irrigated, well fertilized and grown up
+with sufficient sunlight, we assume our model assumptions about the living
+condition is eligible. So we believe our model is well built.
+
+
+4.2 Leaf Size Model
+Analysis before modeling
+      It’s easy to know that leaf blade area increases when illumination strengthens
+since the process of photosynthesis becomes intensive and more nutrition is
+produced which will help the growth of leaf. However, the size of leaf cannot be
+infinitely large, that is, many limitations lying in environment condition (e.g. the
+density of carbon dioxide) and genetic factors may cause the termination of growing
+even if illumination intensity keeps strengthening.
+
+
+Details of the model
+      Thus we consider using modified Logistic Model (Pierre Verhulst ,1838) to
+analyze the relation between leaf area and illumination intensity. We give the
+modified equation and explain why we modify it. The leaf size is described by the
+differential equation:
+                                     dS            S
+                                         r0 I (1  )
+                                     dI            K
+
+
+=== PHYSICAL PAGE 27 ===
+#Team 16831                                                                    Page 26 of 53
+
+Where:
+S refers to leaf blade area.
+I refers to illumination intensity.
+K refers to the upper limit of leaf blade area.
+r0   refers to the size growth rate in the absence of external and internal limitations.
+
+    To show the relation between leaf size and light supply, we modified 2 terms in
+the equation, replacing S by I in describing the increasing rate, and replacing the
+temporal variable t by I.
+    After the modification, the equation can describe the increasing rate, which is
+proportional to the product of light intensity and the 1 minus normalized size. This
+present the mechanism we discussed in Analysis part.
+    The differential equation can be solved by integration of I and S respectively and
+simultaneously.
+
+The equation has the following solution:
+                                       S0       1 2 1
+                            K [1  (1  ) exp( r0 I  r0 I 0 )]( I  I 0 )
+                                                              2
+                  S (I )              K         2        2
+                           
+                                             0( I  I 0 )
+
+     Considering that leaves are not able to survive when the initial illumination
+intensity is too small, we give them initial value, I 0 and S 0 , referring to the critical
+
+scenario when minimum leaf size possible.
+    The curve of the solution is presented below.
+
+
+
+
+                  Figure 21. relation of leaf blade area and light intensity
+    In the figure above，we can see leaves cannot live in a weak-lighted area. If the
+light get stronger than the min light needed, the leaf blade area shows an
+approximately linear increasing, and when the leaf is approaching the maximum size
+
+
+=== PHYSICAL PAGE 28 ===
+#Team 16831                                                                      Page 27 of 53
+
+possible, they show a slower increasing speed with a certain light increasing.
+     This curve agrees with our common sense, in places where stronger sunlight can
+be seen, leaves are larger when they are matured, and leaf cannot live in dim light
+areas (e.g. under the bottom a canopy).The saturated light intensity can be seen in
+researches of photosynthesis.
+
+
+4.3 Result and Analysis
+    The overall relation of leaf blade area and leaf distribution is as follows:
+                                         S0       1 2 1
+                              K [1  (1  ) exp( r0 I  r0 I 0 )]( I  I 0 )
+                                                                2
+                    S (I )              K         2        2
+                             
+                                               0( I  I 0 )
+
+Where
+                                 I  I 0 (1   D) exp(kl )
+
+      D and l describe the position of the leaf.
+      According to these two equations, we plot a surface to see how the leaves are
+distributed within a tree. We give the surface in following figure to show size
+distribution.
+      According to these two models, we plot a surface to see how the leaves are
+distributed within the canopy of a tree. We give the surface in the following figure.
+
+
+
+
+                             Figure 22. leaf area distribution
+     The figure above shows the leaf size distribution along vertical (height) and
+horizontal (radius) direction, the higher the larger, the closer to the truck the larger
+the larger is the leaf size.
+     From this figure we also find out that leaf size is more sensitive in vertical
+direction than horizontal. As a result the leaf size distribution is generally seen in the
+way that higher leaves are more possible to be larger.
+
+
+=== PHYSICAL PAGE 29 ===
+#Team 16831                                                              Page 28 of 53
+
+    However, in this figure, the down critical point of the weak light effect is not
+marked because of cumbersome calculation problems.
+
+
+5. Model   of   the  Relation
+ between Leaf Shape and
+ Branching Structure
+5.1 Introduction
+      The branching patterns of understory saplings and exposed canopy trees were
+classified as (David. A King et al 1999):
+ Orthotropic: three-dimensional arrangements of leaves about ascending twigs
+ Plagiotropic: leaves arranged in planes, usually along the sides of horizontal
+     twigs
+
+
+
+
+                  Orthotropic                                  Plagiotropic
+                   Figure 23. Orthotropic and Plagiotropic trees
+
+      In this section, we use these two categories to describe the branching structure
+of trees and each of them has its own unique characteristics in branching structures.
+      In orthotropic branching, the axes are upwardly inclined and the leaves are
+arranged around them in more or less radial symmetry, whereas in plagiotropic
+branching, planes of foliage are formed from leaves arranged along the sides of
+nearly horizontal twigs (HalleÂ et al. 1978; Givnish 1984).
+      Next, we will formulate a model to analyze the dependence of branching
+structures on three leaf parameters. And through this model, we can evaluate
+whether branching structures will effect leaf shape.
+
+
+5.2 Logistic Regression Model
+     Discriminant analysis was used to determine the function that best separated
+the orthotropic and plagiotropic species in terms of the three measured leaf
+dimensions. The analysis was based on logistic regression (Ripley 1996), with the
+discriminant function taking the form:
+                    di  ai  b1 log( PL)  b2 log( BL)  b3 log( BW )
+
+
+=== PHYSICAL PAGE 30 ===
+#Team 16831                                                                  Page 29 of 53
+
+Where:
+PL refers to petiole length of leaves
+BL refers to blade length of leaves
+BW refers to blade width of leaves
+i   refers to site and the leaf dimensions have been logarithmically transformed to
+make the distributions of the two architectural groups more nearly normal.
+ai is a variable determined by latitude, and b1 , b2 , b3 are constants.
+
+     Orthotropy is expected for species for Which di  0 , and plagiotropy when
+
+di  0 , with the
+     probability of orthotropy for a randomly selected species given as:
+                                       pi  edi / (1  edi )
+     This discrimination function provides a convenient way to relate the branch
+pattern of a tree to its leaf shapes and a method to classify branch patterns
+according to the parameters of leaves.
+
+
+5.3 Testing of the Model
+     By the work of David A. King [1999], the coefficients of the discriminant function
+are estimated, and the equation can be rewritten as:
+         di  7.0  0.19latitude  6.30log( PL)  6.80log( BL)  6.80log( BW )
+
+           or       di  7.0  0.19latitude  6.30log( PL)  6.80log( BL / BW )
+
+      Using data from King [1999] who has collected the leaves and their parameters
+in five areas, we test the accuracy of the model and the result is as follows:
+                               Table 5. classification result
+                                                    Region
+                          1           2             3         4            Total
+      Total species       127         109           102       118          456
+      Correct-classified 126          93            90        105          414
+      species
+      accuracy            0.99        0.85          0.88      0.89         0.91
+
+     Clear to see, this model has quite high accuracy and can be used to classify
+branch patterns according to the leaf parameters. On the other hand, the correctness
+of the model has demonstrated that the leaf shapes (blade length, blade width and
+petiole length) of trees are strongly related to the branch structure of trees. It is
+these three parameters that determine the branch pattern of a tree synthetically.
+
+
+=== PHYSICAL PAGE 31 ===
+#Team 16831                                                            Page 30 of 53
+
+
+5.4 Relations of Leaf Shape and Branch Pattern
+     Having justified the close relation between leaf shapes and branch patterns,
+next we analyze the relation in detail.
+     As we know, the blade length and petiole length are important indicators of leaf
+shapes. In the following figures we show the difference between the two branch
+patterns in these two parameters in the four regions.
+
+
+
+
+             Figure 23. differences of Orthotropic and Plagiotropic trees
+     For trees of the two patterns in the four areas, we investigate the relation of
+branch pattern and each of the leaf shape parameter individually. The parameters of
+leaves include:
+ Petiole length
+ Blade length
+ Length-width ratio (leaf index)
+ Simple or compound leaf
+
+     For the first three parameters, we use t-test to determine the relation between
+each parameter and the two branching patterns; a linear fitting is also shown to
+better demonstrate the relation between petiole length and Length-width ratio for
+orthotropy trees.
+
+
+=== PHYSICAL PAGE 32 ===
+#Team 16831                                                               Page 31 of 53
+
+
+   petiole length
+     The t-test result is as follows:
+                                     Table 6. petiole length
+                           Mean log ( petiole length/cm) of species
+Rigion                  Plagiotropic           orthotropic         P
+1                       0.16±0.08              0.58±0.04           6.644e-16
+2                       0.23±0.03              0.47±0.03           2.836e-08
+3                       -0.16±0.02             0.32±0.04           5.596e-05
+4                       -0.04±0.01             0.24±0.02           4.106e-09
+
+     It can be easily seen from the table that Plagiotropic and orthotropic species
+differ sub-stantially in petiole length. Generally, the petiole length of orthotropic
+trees is notably larger than that of plagiotropic trees, and further explanation of this
+result will be provided hereinafter.
+
+   blade length
+    The t-test result is as follows:
+
+                                    Table 7. blade length
+                                      Mean log ( blade length/cm) of species
+Rigion                 Plagiotropic           orthotropic       P
+1                      1.29±0.04              1.39±0.02         3.621e-04
+2                      1.21±0.03              1.33±0.03         1.545e-03
+3                      1.21±0.02              1.31±0.04         4.322e-02
+4                      1.23±0.01              1.30±0.02         3.056e-03
+
+     The P-Value again shows that there exists true difference in mean between the
+blade length of plagiotropic and orthotropic trees. From the mean value we can see
+that from both the 4 regions the mean blade length of orthotropic trees is higher
+than plagiotropic trees, but not as notable as the comparison of petiole length.
+
+   Length-width ratio (leaf index)
+     The t-test result is as follows:
+                                    Table 8. leaf index
+                                     Mean log ( blade length/cm) of species
+Rigion                 Plagiotropic         orthotropic        P
+1                      2.39±0.15            1.87±0.09          6.261e-02
+2                      3.43±0.28            2.42±0.11          3.243e-04
+3                      3.56±0.14            2.21±0.06          1.275e-08
+4                      2.64±0.06            1.68±0.03          4.136e-06
+
+     As we can see, the length-width ratio, which determine the narrowness of a leaf,
+differs significantly in the two branching patterns. Generally, the length-width ratio of
+
+
+=== PHYSICAL PAGE 33 ===
+#Team 16831                                                                Page 32 of 53
+
+orthotropic trees is smaller than plagiotropic trees, meaning that orthotropic tree
+leaves are relatively broader than plagiotropic trees.
+      Meanwhile, considering the longer petiole of orthotropic trees, we try to find
+the relationship between these two characteristics. The figure below shows the
+relation of them for orthotropic trees.
+
+
+
+
+             Figure 23. relation of petiole length and length-width ratio
+     The figure shows a strong correlation between the petiole length and the
+length-width ratio of leaves. R2=0.86, demonstrating the accuracy of linear fitting. It
+means that when the length-width ratio of leaves increase, the petiole length grows
+accordingly.
+
+    Simple or compound leaf
+      We analyze the relation between whether a specie has simple or compound
+leaves and its branching pattern. Using data from King [1999], we get the proportion
+of these two types of leaves in the two branching patterns, respectively. The
+following figure shows the proportion in the 4 areas, and a total proportion is also
+considered.
+
+ 100                                             250
+                                                                      Simple-leaved species
+    80                                           200
+                                                                      Compound-leaved
+    60                          Simple-leaved    150                  species
+    40                          species
+                                Compound-        100
+    20
+                                leaved species
+                                                 50
+     0
+          SA-P
+         SA-O
+                                                  0
+         PA-P
+         PA-O
+          CR-P
+         CR-O
+         NQ-P
+         NQ-O                                          plagiotropic    orthotropic
+            Figure 24. statistics in 4 areas          figure 25. total statistics
+*Note: SA, PA, CR and NQ stand for four areas, and P, O stand for plagiotropic and
+orthotropic trees.
+
+
+=== PHYSICAL PAGE 34 ===
+#Team 16831                                                                 Page 33 of 53
+
+    From the total statistics above we can figure out that for plagiotropic trees,
+simple-leaved species are in priority and reach a proportion of over 70%, while for
+orthotropic trees there is no significant difference between the amounts of these
+two kinds of species.
+
+
+5.5 Conclusions and Analysis
+      From the statistical analysis above, we can get the following conclusions:
+    The branch patterns are strongly related to leaf shapes, including their petiole
+     length, blade length, length-width ratio (leaf index), and it is a synthetic effect of
+     all of them.
+ The petioles of orthotropic trees are generally longer than plagiotropic trees.
+ The length-width ratios (leaf index) of orthotropic trees are generally smaller
+     than plagiotropic trees, meaning that the former have broader leaves than the
+     latter.
+ The blade of orthotropic trees are generally longer than plagiotropic trees. Along
+     with the point above, we can conclude that the leaf size of orthotropic trees are
+     larger.
+ There is significant positive correlation between the length-width ratios and
+     petiole length for orthotropic trees.
+ A majority of plagiotropic trees are simple-leaved while for orthotropic trees
+     there are no notable differences.
+      As is discussed above, the major differences in leaf shapes for plagiotropic and
+orthotropic trees are that orthotropic trees have broader leaves and longer petioles.
+This can be explained by the overlap and photosynthesis efficiency of leaves. For
+plagiotropic trees, the effect of overlap is much smaller, so the petiole needn’t be
+long, whereas orthotropic species with orthotropic trees which have more steeply
+angled branches require longer petioles to avoid self-shading. It explains the positive
+correlation between the petiole length and length-width ratio for orthotropic trees,
+and more importantly, it is consistent with our model in Part II as well as previous
+literature such as the models of light interception in relation to leaf shape and
+phyllotaxis (Niklas 1988 and Takenaka 1994).
+
+
+
+6. Model    of                                      Leaf                   Mass
+ Estimation
+6.1 A Basic Volumetric Model
+     We use a volumetric method to estimate the leaf mass (LM) . Based on the idea
+of past studies, we use six geometric solids to approximate the tree crown shapes
+defined by their crown heights and mean crown radiuses:
+     cylinder, vertical ellipsoid, paraboloid, cone, sphere, pyramid.
+
+
+=== PHYSICAL PAGE 35 ===
+ #Team 16831                                                                   Page 34 of 53
+
+
+
+
+                                                                        h
+
+                                                                               r
+
+
+                              Figure 26. volumetric model
+       Then the leaf mass can be calculated:
+
+         Leaf mass= volume of geometric solids * leaf mass constant
+      The leaf mass constant (LMC) can be found in the literature. For example, for
+ oak trees the value is approximately 280g/cm3 (). Then we need to calculate the
+ volume of the geometric solids using the crown heights (CH) and mean crown
+ radiuses (CR).
+      If we use a cone to approximate the crown, the leaf mass for an oak tree can be
+ calculated as follows:
+                                                1
+                               LM  V  LMC   r 2 h  280
+                                                3
+      The following table shows the results using this model to estimate the leaf mass
+ of 14 oak trees, and the measured leaf mass is also included:
+                  Table 9. leaf mass estimation using volumetric model
+                                    fraction to measured leaf mass
+tree    CH(m)   CR(m)   Cylinder   Vertical    Paraboloid   Cone   Sphere   Pyramid   measured
+                                   ellipsoid                                          LM(g)
+ 1       4.4     1.1     1.34       0.89         0.77       0.45    1.96     1.92      3500
+ 2       4.1     2.0     1.48       0.99         0.85       0.49    3.95     0.64      9750
+ 3       3.2     1.1     1.54       1.03         0.89       0.51    2.26     2.21      2210
+ 4       6.3     1.4     2.08       1.38         1.19       0.69    3.88     1.84      5230
+ 5       4.5     1.8     1.89       1.26         1.09       0.63    4.53     1.01      6790
+ 6       4.5     1.2     2.92       1.25         1.68       0.97    4.68     3.52      1950
+ 7       5.6     1.1     1.35       0.99         0.78       0.45    1.98     1.93      4420
+ 8       5.0     1.5     1.84       1.23         1.06       0.61    3.68     1.42      5380
+ 9       7.5     3.6     2.92       1.95         1.68       0.97   14.01     0.39      29300
+ 10      2.8     1.1     1.63       1.09         0.94       0.54    2.39     2.33      1830
+ 11      4.5     1.5     1.70       1.21         0.98       0.57    3.41     1.31      5230
+ 12      4.6     1.2     2.65       1.37         1.32       0.88    4.24     3.19      2200
+ 13      5.5     1.8     1.73       1.26         1.00       0.58    4.16     0.93      9040
+
+
+=== PHYSICAL PAGE 36 ===
+#Team 16831                                                                Page 35 of 53
+
+14      2.0      2.1     1.31      0.87       0.75      0.44    3.66     0.51       5930
+
+     According to the result, the mean fraction for the respective six solids is as
+follows:
+                                Table 10. a comparision
+                 Cylinder Vertical            Paraboloi Cone Sphere pyramid
+                              ellipsoid       d
+mean fraction 1.80            1.18            1.09         0.60     3.44         1.75
+to MLM
+
+     Clear to see, for paraboloid and vertical ellipsoid, mean fraction (also defined as
+the total leaf mass estimates factor) is 1.09 and 1.18 of the measured, respectively.
+Therefore, these two solids give estimates of total leaf mass within 12 percent of the
+measured, justifying that this model works well to give a relatively accurate estimate
+of leaf mass.
+
+
+6.2 An Improvement of the Model
+     In the previous discussion we define the leaf-mass constant as a real “constant”,
+while this is not the actual case. As a tree grows up, the leaf-mass constant (namely,
+the ratio of leaf mass to crown volume) will decrease, because the outer surface of
+the crown tend to move up and out as the branches grow, so crown volume increases
+as the cube of the distance from the outer leave to the center of the tree. Thus, it is
+not hard to see that LMC will decrease as a tree grows (its crown volume increases).
+     A notable example is the 9th tree in the table 1. When the crown volume V
+reaches a larger value, the fraction of both paraboloid and vertical ellipsoid is a little
+bit abnormal and inaccurate.
+     On the other hand, it is easy to see that for the two best solids, paraboloid and
+vertical ellipsoid, the model both overestimate the actual LM. Thus, a decrease must
+be also needed to make up.
+     For the two reasons above, we multiply an attenuation factor related to the
+crown volume to the previous equation:
+
+                                LM  V  LMC  eV
+     λ=0.01 in the model.
+     When crown volume V is small, the impact of H on LM is little and can be
+
+neglected. However, when crown volume V grows the impact of e V cannot be
+overlooked. Using the improved model, we calculate the leaf mass above again
+(choosing the paraboloid and vertical ellipsoid models) and get the revised leaf mass.
+The result is as follows:
+
+                       Table 11. two better estimation methods
+                                     vertical ellipsoid   paraboloid
+
+
+=== PHYSICAL PAGE 37 ===
+#Team 16831                                                              Page 36 of 53
+
+       Basic model                   1.18                  1.09
+       Improved model                1.08                  1.02
+
+     We can see that the revised model has truly improved the estimation and finally
+get highly accurate result.
+
+
+6.3 Allometric Equation Model
+      In this model, we use a commonly used and conveniently measured parameter
+of a tree to estimate the leaf mass: the diameter at breast height (DBH). An equation
+is needed to relate DBH to the leaf mass of a tree.
+
+
+6.3.1 A previous method
+     According to Nowak [1996], there is an allometric equation between these two
+variables:
+                      ln Y  7.6109  0.0643 X      (equation 1)
+      Y is the leaf mass and X is DBH. It provides a relatively accurate and convenient
+method to approximate the leaf mass, but it overlooks the inner mechanism of the
+life of a tree and the result just comes from data fitting method.
+
+
+6.3.2 A more accurate model considering the biological mechanism
+
+       of trees
+     We analyze the biological mechanism of trees to determine the relation
+between LM and DBH. As we know, the mass of leaf is depended on its capacity to
+carry materials (mainly water), which is determined by the vascular system. The area
+of vascular system is proportional to the intersection area of the stem, which is
+proportional to the square of diameter or circumference. Thus, a second order
+equation can be used to describe the relation between DBH and LM:
+
+                       Y  aX 2  bX  c            (equation 2)
+
+      We use this equation to couple the data from Table 9 and get the following
+fitting result:
+
+
+=== PHYSICAL PAGE 38 ===
+#Team 16831                                                          Page 37 of 53
+
+
+
+
+                       Figure 27. fitting of leaf mass and DBH
+
+    R2=0.98, showing a very accurate fitting result.
+
+     Using the data above, we can also plot the relation between DBH and LM using
+equation 1 and equation 2 and get the following result. The measured LM is also
+included in the figure.
+
+
+
+
+                 Figure 28. a comparison of two allometric models
+
+     It can be easily seen that the second model (two order allometric model) is
+better than the previous one in the literature, so we choose equation2 to estimate
+
+
+=== PHYSICAL PAGE 39 ===
+#Team 16831                                                               Page 38 of 53
+
+leaf mass of trees.
+
+
+6.4 Conclusions and Overall Comparison of models
+   As is discussed above, we can get the following conclusions:
+ For volumetric model, paraboloid and vertical ellipsoid solids are the best to
+  approximate the crown profiles. Crown height and crown radius are used in the
+  model, and for relatively higher trees, the tree height is also useful to get more
+  accurate estimation.
+ For allometric equation model, a second order equation related to DBH of trees
+  is better and more convenient for estimation.
+
+      Using data from Table 9, we make a comparison of volumetric model and
+allometric model, the result shows that the mean fractions to measured LM using
+these two models are 0.93 and 1.03, respectively. Both of two models show high
+accuracy. However, considering that using AEM, we only need to measure DBH of a
+tree, which of quite convenient, so eventually we view the allometric equation model
+as the best to solve this problem.
+
+
+
+
+7. Strength and Weakness
+ Model of leaf shape description and classification
+Strength
+1. Since our model is built based on cluster analysis, the result of classification is
+   approached completely by mathematical calculation which ensures there will be
+   no subjective factors involved in the result.
+2. The only inputs of our model are 4 parameters, no extra information needed to
+   be provided.
+3. According to the testing result, the validity of our model is verified.
+4. This model can be used not only in leaves classification, but also any classification
+   problems.
+
+Weakness
+1. This model is highly feasible when it is used to classify not too many leaves, once
+   the amount of leaves gets too large, the amount of computation will be so
+   excessive that it will take too much time finishing the classification.
+2. The process of cluster may lack specialized support in botany.
+
+
+ Model of the relation of leaf shape and overlap
+
+
+=== PHYSICAL PAGE 40 ===
+#Team 16831                                                               Page 39 of 53
+
+
+Strength
+1. A universal used method to calculate overlapping area in different cases
+2. Clearly analytical expression is obtained, and the results are statistically
+   characterized
+3. Discuss all the 5 different variables sensitivity
+
+
+Weakness
+1.   We only focused on leaves on one branch, failed to consider the impact by
+     neighboring branches
+2.   Other complex factors (e.g. leaf flatness, unparalleled light), which may be
+     significant as well, are not taken into consideration.
+
+ Model of the relation of leaf shape and distribution
+Strength
+1. We build models from the mechanism of light intensity distribution which make
+   sense reasonably
+2. We find a simple but effective way to describe the leaf size and the light intensity
+3. We neglected the detail structure within the tree, making it more generally
+   applicable to different structures.
+
+Weakness
+1. The ideal assumptions about environment are somewhat too radical, maybe only
+   few areas can fit it well
+2. We need more data to test and revise our model
+3. The coefficients are needed to be determined in either experimental way or
+   empirical way to get a higher precise level
+
+ Model of the relation of leaf shape and branching structure
+Strength
+1. We figure out the light intensity distribution in a tree based on the experiment
+   data of previous researchers, and this simplified our model.
+2. We successfully derived the relation between light intensity and leaf blade area
+   based on Logistic model.
+3. We draw the distribution figure so that the result is shown more clearly.
+
+Weakness
+1. We only focus on the leaf blade area, while did not consider the other leaf
+   parameters to simplify the model.
+2. We lack enough data to test our model.
+
+
+=== PHYSICAL PAGE 41 ===
+#Team 16831                                                         Page 40 of 53
+
+
+ Model of leaf mass estimation
+Strength
+1. We build several models and make detailed comparison among them.
+2. The volumetric method is quite easy to understand and calculate.
+3. Our optimal method only needs the data of diameter at the breast height, which
+   is convenient to measure, and the method has high accuracy.
+
+Weakness
+1. Some of the allometric equations are based on statistic method and lack
+   theoretical support.
+2. We haven’t thoroughly figure out the biological mechanism that determines leaf
+   mass, and only a simplified biological analysis is considered
+
+
+8. Further Work
+     Since ecological phenomena are multi-factor determined, we can do a lot of
+jobs about the leaves of a tree. Here we mention 2 important directions:
+1.     Consider the relation between water supply and mechanism of transpiration,
+        and estimate its impact on the leaf shape and leaf mass.
+2.     Search more detailed data to clarify the cases where our models cannot be
+        used
+
+
+=== PHYSICAL PAGE 42 ===
+#Team 16831                                                                 Page 41 of 53
+
+
+9. A letter to Scientific Journal
+ Editor
+Dear editor,
+      In the contest, we developed models to analyze leaves, including description
+and classification, their relations with overlap, distribution and branching structure,
+as well as leaf mass estimation. We solved a series of problems on leaf shapes and
+leaf mass, and here are our key findings on these problems as listed below, and
+hopefully they have scientific value.
+1. There are two main factors leading to the diversity of leaves—genetic and
+environmental factors. Genetic factor is determined by genes while environmental
+factor is dominated by three sub factors: sunlight, carbon dioxide and temperature.
+2. Cluster analysis can be an effective method to classify leaves as long as we have
+the specific data on 4 parameters of leaves which refer to leaf index, leaf area,
+concave ratio and leaf extended angle.
+3. The shape of leaves is closely related to the overlapping shadow. Narrow leaves
+tend to be more effective in maximizing the exposure to sunlight, and this conclusion
+always works whether petiole and blade inclination exist or not. Longer leaf petiole is
+significant to decrease the overlap for broader leaves.
+4. Leaves on higher layers are generally larger than the lower ones in ideal condition,
+and leaves further from the trunk are larger than the central ones.
+5. Branching patterns of trees are strongly related to leaf shapes, including their
+petiole length, blade length, length-width ratio (leaf index), and it is a synthetic effect
+of all of them.
+6. Orthotropic tree leaves are generally broader, larger and with longer petioles than
+that of trees.
+7. A majority of plagiotropic trees are simple-leaved while for orthotropic trees there
+are no notable differences on whether the leaves are simple or compound.
+8. We can get the total leaf mass of a tree by multiplying the crown volume and leaf
+mass constant, and paraboloid is the optimal geometric solid to approximate the
+crown for crown volume calculation.
+9. The total leaf mass is statistically related to the size characteristics of a tree. A
+biological mechanism-based method, which shows that leaf mass is a quadratic
+function of the diameter at breast height (DBH) of a tree, is the most accurate and
+convenient way to estimate leaf mass.
+
+     Since our findings are gained through both mathematical analysis and biological
+mechanism analysis, we really hope they will benefit the science research on tree
+leaves. Finally, thanks for your time.
+
+                                                                             BestRegards,
+                                                                            Team # 16831
+
+
+=== PHYSICAL PAGE 43 ===
+#Team 16831                                                                            Page 42 of 53
+
+
+10. Reference
+[1]http://www.psu.edu/dept/nkbiology/naturetrail/leaves.htm
+
+[2]Zalikha Zulkifli Puteh Saad Itaza Afiani Mohtar        Plant Leaf Identification using Moment
+Invariants & General Regression Neural Network
+
+[3]Hirokazu Tsukaya Mechanism of Leaf-Shape Determination            Annu. Rev. Plant Biol.2006.
+57:477–96
+
+[4]Ü lo Niinemets and Lawren Sack      Structural determinants of leaf light-harvesting
+capacity and photosynthetic potentials
+Progress in Botany, Vol. 67 Springer-Verlag Berlin Heidelberg 2006
+
+[5]AKIO TAKENAKA ,Effects of leaf blade narrowness and petiole length on
+the light capture efficiency of a shoot , Ecological Research (1994) 9, 109-114
+
+[6]Chia-Ling Lee, Shu-Yuan Chen, Classification of Leaf Images, under grant NSC-95–2745-E-155–
+008-URD, 2006 Wiley Periodicals, Inc.
+
+[7]C. Faloutsos, R. Barber, M. Flickner, J. Hafner, W. Niblack, D. Petkovic,and W. Equitz, Efficient
+and effective querying by image content, J IntellInform Syst 3 (1994), 231–262
+
+[8]Zalikha Zulkifli, Puteh, SaadItaza, Afiani Mohtar
+Plant Leaf Identification using Moment Invariants & General Regression Neural Network
+978-1-4577-2152-6/11/$26.00_c 2011 IEEE
+
+[9]Akio Takenaka, A Simulation Model of Tree Architecture Development
+Based on Growth Response to Local Light Environment
+Journal of Plant Research by The Botanical Society of Japan 1994
+
+[10]Daniel S. Falster and Mark Westoby , Leaf size and angle vary widely across species:
+what consequences for light interception
+New Phytologist(2003)158: 509–525 www.newphytologist.com
+
+[11]Magali Willaume . Pierre-Éric Lauri . Hervé Sinoquet, Light interception in apple trees
+influenced by canopy architecture manipulation Received: 5 November 2003 / Accepted: 24 June
+2004 / Published online: 29 July 2004 Springer-Verlag 2004
+
+[12]Aluru MR, Bae H,Wu D, Rodermel SR. 2001. The Arabidopsis immutans mutation affects
+plastid differentiation and the morphogenesis of white and green sectors in variegated
+plants. Plant Physiol. 127:67–77
+
+
+=== PHYSICAL PAGE 44 ===
+#Team 16831                                                                      Page 43 of 53
+
+[13]Beerling DJ, Osborne CP, Chaloner WG. 2001. Evolution of leaf-form in land plants
+linked to atmospheric CO2 decline in the Late Palaeozoic era. Nature 410:352–54
+
+[14]Barritt B H. Vertical aris training seen as alternative for apple [J].
+Good Fruit Grower, 1998, 39 (3): 24-26.
+
+[15]Jackson J E. Theory of modeling by model hedgerow ordards in relation to latitude, time of
+the year and hedgerow configuration and orientation. J Apple Ecol, 1980, 9: 341-357.
+
+[16]SUN Zhi- hong1, WEI Qin- ping2*, YANG Chao- xuan3, SUN Zhong- fu4, WANG Xiao- wei2
+Relationships between distribution of r elative light intensity and shoots
+and foliage in different tier of canopy of Red Fuji apple trees with modified
+open centre tree shape
+
+[17]DAVID A. KING* and JOHN H. MAINDONALD, Tree architecture in relation to leaf dimensions
+and tree stature in temperate and tropical rain forests
+Journal of Ecology 1999,
+87, 1012±1024
+
+Appendix
+Appendix1:
+The data extracted from the leaf images
+
+width length(in pixel) Leaf index approximated area concave-ratio                           leaf
+extend angle(roughly)
+Class1 101 108 1.069306931      5454 1       90
+Class2 83 105 1.265060241       4357.5 1     180
+Class3 146 47 0.321917808       3431 0.97         270
+Class4 140 60 0.428571429       4200 0.3642       180
+Class5 127 105 0.826771654      6667.5 1     180
+Class6 141 74 0.524822695       5217 1       240
+Class7 131 94 0.717557252       6157 0.2367       240
+Class8 80 110 1.375 4400 1             60
+Class9 73 106 1.452054795       3869 0.1781       60
+Class10 87 104 1.195402299      4524 1       90
+Class11 84 106 1.261904762      4452 1       120
+Class12 56 104 1.857142857      2912 1       60
+Class13 30 110 3.666666667      1650 1       120
+Class14 69 102 1.47826087 3519 0.9333        120
+Class15 100 93 0.93    4650 0.9        90
+Class16 113 100 0.884955752     5650 1       180
+Class17 90 94 1.044444444       4230 0.8333       150
+Class18 50 106 2.12    2650 1          30
+
+
+=== PHYSICAL PAGE 45 ===
+#Team 16831                                                   Page 44 of 53
+
+Class19 138 92 0.666666667   6348           0       360
+Class22 44 94 2.136363636    2068           1       30
+Class23 136 73 0.536764706   4964           0.3888      240
+Class29 104 99 0.951923077   5148           1       180
+Class31 51 106 2.078431373   2703           1       120
+Class36 25 102 4.08    1275 1               30
+Class38 114 108 0.947368421  6156           1       120
+Class40 100 104 1.04   5200 0.95                180
+Class47 117 98 0.837606838   5733           0.7614      180
+Class48 81 95 1.172839506    3847.5         0.1852      90
+Class50 111 76 0.684684685   4218           0       270
+Class52 117 62 0.52991453 3627 0                360
+Class53 101 60 0.594059406   3030           0.539       270
+Class60 140 80 0.571428571   5600           0.84        240
+
+cluster analysis code
+
+R Code
+> rt2<-read.table("sj2.txt",head=T)
+> X<-scale(rt2,center=T,scale=T)
+> D2<-dist(X)
+> hc2<-hclust(D2,"ward")
+> plot(hc2,hang=-1,main="ward method")
+> rect.hclust(hc2,k=4)
+
+
+Classification result of cluster analysis
+Name type
+Class1 3
+Class2 4
+Class3 1
+Class4 1
+Class5 3
+Class6 1
+Class7 1
+Class8 4
+Class9 4
+Class10 4
+Class11 4
+Class12 2
+Class13 2
+Class14 4
+Class15 4
+Class16 3
+
+
+=== PHYSICAL PAGE 46 ===
+#Team 16831                                               Page 45 of 53
+
+Class17 4
+Class18 2
+Class19 1
+Class22 2
+Class23 1
+Class29 3
+Class31 2
+Class36 2
+Class38 3
+Class40 3
+Class47 3
+Class48 4
+Class50 1
+Class52 1
+Class53 1
+Class60 1
+
+
+
+
+Appendix2:
+Neural Network simulation code in Task 1:
+
+
+clc ;
+clear;
+close all;
+%% loading data
+P0=load('trainning.txt');
+P1=P0';
+T0 = load('trainresult.txt');
+T1=T0';
+Ptem=load('testdata.txt');
+P2 =Ptem';
+PN1=P1;
+PN2=P2;
+net=newff(minmax(PN1),[10 1],{'tansig','purelin'},'trainlm');
+net.trainParam.epochs=1000;
+net.trainParam.show=10;
+net.trainParam.lr=0.06;
+net.trainParam.goal=0.01;
+net.trainParam.min_grad = 1e-20;
+net=train(net,PN1,T1);
+%% simulation testing
+
+
+=== PHYSICAL PAGE 47 ===
+#Team 16831                                                                 Page 46 of 53
+
+T_sim=sim(net,P2);
+%decision         process
+for i=1:length(T_sim)
+      if T_sim(i)<=1.5
+            T_sim(i)=1;
+      else if T_sim(i)>1.5&&T_sim(i)<=2.5
+                  T_sim(i)=2;
+            else if T_sim(i)>2.5&&T_sim(i)<=3.5
+                        T_sim(i)=3;
+                  else
+                        T_sim(i)=4;
+                  end
+            end
+      end
+end
+disp('The type of the testing leaves:');
+disp(T_sim);
+
+
+Testing data extracted from leaf images:
+    width length Leaf index approximated area               concave ratio    leaf extend
+angle(roughly)
+
+Class21 79 105 1.329113924            4147.5   1 120
+Class24 58 106 1.827586207            3074     1 90
+Class39 42 107 2.547619048            2247     1 90
+Class51 49 66 1.346938776             1617     1 150
+Class54 143 84 0.587412587            6006     0.7889 240
+Class55 58 98 1.689655172             2842     1 90
+Class57 51 91 1.784313725             2320.5   0.8627 60
+Class59 68 98 1.441176471             3332     0.9471 60
+
+
+Appendix3:
+
+Overlapping analysis without petiole
+
+clf;clc;
+x=0:pi/360:pi;
+for i=1:91;
+
+
+
+y(i)=2*(1-0.4*sin(pi/4-x(i))).*(1-0.4*cos(pi/4-x(i)))+0.4*sin(pi/4-x(
+i)).*0.4*cos(pi/4-x(i));
+end
+
+
+=== PHYSICAL PAGE 48 ===
+#Team 16831                                               Page 47 of 53
+
+for i=92:271
+y(i)=2*(1-0.4*sin(x(i)-pi/4)).*(1-0.4*cos(x(i)-pi/4));
+end
+for i=272:361
+
+
+y(i)=2*(1-0.4*sin(-3*pi/4+x(i))).*(1-0.4*cos(-3*pi/4+x(i)))+0.4*sin(-
+3*pi/4+x(i)).*0.4*cos(-3*pi/4+x(i));
+end
+
+
+plot(x/pi,4-y);
+hold on;
+crit=26.565*pi/180;
+si=sin(pi-2*crit);
+si2=sin(2*crit);
+t=0:0.1*pi/180:pi;
+for i=1:266
+
+
+z(i)=2*0.8*(0.5*sqrt(5)-0.4*sin(crit-t(i))/si).*(0.5*sqrt(5)-0.4*sin(
+t(i)+crit)/si)+0.4*0.8*(sin(crit-t(i))/si).*0.4*(sin(t(i)+crit)/si);
+end
+for i=267:1535
+
+
+z(i)=2*0.8*(0.5*sqrt(5)-0.4*sin(t(i)-crit)/si).*(0.5*sqrt(5)-0.4*sin(
+pi-t(i)-crit)/si);
+end
+for i=1536:1801
+
+
+z(i)=2*0.8*(0.5*sqrt(5)-0.4*sin(crit-pi+t(i))/si).*(0.5*sqrt(5)-0.4*s
+in(pi-t(i)+crit)/si)+0.4*0.8*(sin(crit-pi+t(i))/si).*0.4*(sin(pi-t(i)
++crit)/si);
+end
+
+
+plot(t/pi,4-z,'r');
+
+
+hold on;
+crit=7.125*pi/180;
+si=sin(pi-2*crit);
+si2=sin(2*crit);
+t=0:0.1*pi/180:pi;
+for i=1:72
+
+
+g(i)=2*si2*(0.25*sqrt(65)-0.4*sin(crit-t(i))/si).*(0.25*sqrt(65)-0.4*
+sin(t(i)+crit)/si)+0.4*si2*(sin(crit-t(i))/si).*0.4*(sin(t(i)+crit)/s
+i);
+
+
+=== PHYSICAL PAGE 49 ===
+#Team 16831                                                    Page 48 of 53
+
+end
+for i=73:1729
+
+
+g(i)=2*si2*(0.25*sqrt(65)-0.4*sin(t(i)-crit)/si).*(0.25*sqrt(65)-0.4*
+sin(pi-t(i)-crit)/si);
+end
+for i=1730:1801
+
+
+g(i)=2*si2*(0.25*sqrt(65)-0.4*sin(crit-pi+t(i))/si).*(0.25*sqrt(65)-0
+.4*sin(pi-t(i)+crit)/si)+0.4*si2*(sin(crit-pi+t(i))/si).*0.4*(sin(pi-
+t(i)+crit)/si);
+end
+maxvalue(1)=4-min(y);
+maxvalue(2)=4-min(z);
+maxvalue(3)=4-min(g);
+disp('maxvalue');
+disp(maxvalue);
+degree(1)=4-y(91);
+degree(2)=4-z(451);
+degree(3)=4-g(451);
+disp('45 degree');
+disp(degree);
+degree(1)=4-y(1);
+degree(2)=4-z(1);
+degree(3)=4-g(1);
+disp('0 degree');
+disp(degree);
+meanvalue(1)=4-mean(y);
+meanvalue(2)=4-mean(z);
+meanvalue(3)=4-mean(g);
+disp('meanvalue');
+disp(meanvalue);
+plot(t/pi,4-g,'g');
+
+
+
+Overlapping analysis with petiole
+
+
+clf;clc;
+x=0:pi/360:pi;
+for i=1:91;
+
+
+      y(i)=2*(1-0.4*sin(pi/4-x(i))).*(1-0.4*cos(pi/4-x(i)));
+end
+for i=92:271
+
+
+=== PHYSICAL PAGE 50 ===
+#Team 16831                                                 Page 49 of 53
+
+y(i)=2*(1-0.4*sin(x(i)-pi/4)).*(1-0.4*cos(x(i)-pi/4));
+end
+for i=272:361
+      y(i)=2*(1-0.4*sin(-3*pi/4+x(i))).*(1-0.4*cos(-3*pi/4+x(i)));
+end
+figure(3);
+plot(x/pi,4-y);
+hold on;
+crit=26.565*pi/180;
+si=sin(pi-2*crit);
+si2=sin(2*crit);
+t=0:0.1*pi/180:pi;
+for i=1:266
+
+
+z(i)=2*0.8*(0.5*sqrt(5)-0.4*sin(crit-t(i))/si).*(0.5*sqrt(5)-0.4*sin(
+t(i)+crit)/si);
+end
+for i=267:1535
+
+
+z(i)=2*0.8*(0.5*sqrt(5)-0.4*sin(t(i)-crit)/si).*(0.5*sqrt(5)-0.4*sin(
+pi-t(i)-crit)/si);
+end
+for i=1536:1801
+
+
+z(i)=2*0.8*(0.5*sqrt(5)-0.4*sin(crit-pi+t(i))/si).*(0.5*sqrt(5)-0.4*s
+in(pi-t(i)+crit)/si);
+end
+plot(t/pi,4-z,'r');
+
+
+hold on;
+crit=7.125*pi/180;
+si=sin(pi-2*crit);
+si2=sin(2*crit);
+t=0:0.1*pi/180:pi;
+for i=1:72
+
+
+g(i)=2*si2*(0.25*sqrt(65)-0.4*sin(crit-t(i))/si).*(0.25*sqrt(65)-0.4*
+sin(t(i)+crit)/si);
+end
+for i=73:1729
+
+
+g(i)=2*si2*(0.25*sqrt(65)-0.4*sin(t(i)-crit)/si).*(0.25*sqrt(65)-0.4*
+sin(pi-t(i)-crit)/si);
+end
+
+
+=== PHYSICAL PAGE 51 ===
+#Team 16831                                               Page 50 of 53
+
+for i=1730:1801
+
+
+g(i)=2*si2*(0.25*sqrt(65)-0.4*sin(crit-pi+t(i))/si).*(0.25*sqrt(65)-0
+.4*sin(pi-t(i)+crit)/si);
+end
+plot(t/pi,4-g,'g');
+maxvalue(1)=4-min(y);
+maxvalue(2)=4-min(z);
+maxvalue(3)=4-min(g);
+disp('maxvalue');
+disp(maxvalue);
+degree(1)=4-y(91);
+degree(2)=4-z(451);
+degree(3)=4-g(451);
+disp('45 degree');
+disp(degree);
+degree(1)=4-y(1);
+degree(2)=4-z(1);
+degree(3)=4-g(1);
+disp('0 degree');
+disp(degree);
+meanvalue(1)=4-mean(y);
+meanvalue(2)=4-mean(z);
+meanvalue(3)=4-mean(g);
+disp('meanvalue');
+disp(meanvalue);
+
+
+
+Overlapping plotting with 30 degree inclination
+
+clf;
+h=0.4; %%internode length ,can be revised
+incang=pi/6; %%inclination angle, can be revised
+sunang=pi/2; %%sun direction angle, can be revised
+
+
+m=8; %%leaf index, can be revised
+
+
+b=sqrt(2*m);
+a=sqrt(2/m);
+Transform_matrix=[1,0,-sin(sunang);0,1,-cos(sunang);0,0,0];
+A=[0;0;h];
+B=[a;cos(incang)*b;h+sin(incang)*b];
+C=[0;2*cos(incang)*b;h+sin(incang)*2*b];
+D=[-a;cos(incang)*b;h+sin(incang)*b];
+
+
+=== PHYSICAL PAGE 52 ===
+#Team 16831                                 Page 51 of 53
+
+E=[a;-cos(incang)*b;h+sin(incang)*b];
+F=[0;-2*cos(incang)*b;h+sin(incang)*2*b];
+G=[-a;-cos(incang)*b;h+sin(incang)*b];
+A2=Transform_matrix*A
+B2=Transform_matrix*B
+C2=Transform_matrix*C
+D2=Transform_matrix*D
+E2=Transform_matrix*E
+F2=Transform_matrix*F
+G2=Transform_matrix*G
+points=[A2,B2,C2,D2,A2,E2,F2,G2,A2];
+x=points(1,:);
+y=points(2,:);
+z=[0,0,0,0,0,0,0,0,0];
+plot3(x,y,z);
+grid;
+
+
+
+h=0.0;
+A=[0;0;h];
+B=[a;cos(incang)*b;h+sin(incang)*b];
+C=[0;2*cos(incang)*b;h+sin(incang)*2*b];
+D=[-a;cos(incang)*b;h+sin(incang)*b];
+E=[a;-cos(incang)*b;h+sin(incang)*b];
+F=[0;-2*cos(incang)*b;h+sin(incang)*2*b];
+G=[-a;-cos(incang)*b;h+sin(incang)*b];
+A2=Transform_matrix*A
+B2=Transform_matrix*B
+C2=Transform_matrix*C
+D2=Transform_matrix*D
+E2=Transform_matrix*E
+F2=Transform_matrix*F
+G2=Transform_matrix*G
+points=[A2,B2,C2,D2,A2,E2,F2,G2,A2];
+
+
+x=points(1,:);
+y=points(2,:);
+
+
+z=[0,0,0,0,0,0,0,0,0];
+hold on;
+plot3(x,y,z,'r');
+xlabel('X');
+ylabel('Y');
+
+
+=== PHYSICAL PAGE 53 ===
+#Team 16831                                              Page 52 of 53
+
+
+Appendix3:
+Surface of distribution plotting codes
+
+% illumination intensity distribution
+a=0.02;
+b=0.8;
+c=0.1;
+r=linspace(0, 10, 25);
+h=linspace(0, 10, 25);
+[r1,h1]=meshgrid(r, h);
+L=(a*r1+b).*exp(-c*(10-h1));
+surf(r1, h1, L);
+xlabel('radius');
+ylabel('height');
+zlabel('relative illumination intensity');
+title('light distribustion within a tree');
+
+
+
+% blade area distribution
+a=0.04;
+b=0.8;
+c=0.1;
+S0=40;
+Sm=500;
+k=0.4;
+r=linspace(0, 10, 25);
+h=linspace(0, 10, 25);
+[r1,h1]=meshgrid(r, h);
+L=(a*r1+b).*exp(-c*(10-h1));
+S=S0*Sm./(S0+(Sm-S0).*exp(-k.*L));
+surf(r1,h1,S); % »-³öÁ¢ÌåÇúÃæÍ¼
+xlabel('radius(m)');
+ylabel('height(m)');
+zlabel('area(mm2)');
+title('leaf area distribution');
+
+
+Curve of light intensity with blade area plotting code
+I=0:0.05:35;
+for i=1:101
+      S(i)=0;
+end
+for i=102:701
+
+
+=== PHYSICAL PAGE 54 ===
+#Team 16831                                      Page 53 of 53
+
+S(i)=(1-(0.8)*exp(-0.012*I(i).^2+0.012*5.^2));
+end
+plot(I,S);
+xlabel('illumination intensity');
+ylabel('leaf blade area');

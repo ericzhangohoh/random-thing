@@ -1,0 +1,677 @@
+=== PHYSICAL PAGE 1 ===
+Team # 19064                                                                                     Page 1 of 18
+
+
+           For office use only                 Team Control Number                For office use only
+                                                     19064
+           T1 ________________                                                    F1 ________________
+
+           T2 ________________                                                    F2 ________________
+                                                 Problem Chosen
+           T3 ________________                                                    F3 ________________
+                                                        A
+           T4 ________________                                                    F4 ________________
+
+
+                                                      2013
+                            Mathematical Contest in Modeling (MCM/ICM) Summary Sheet
+
+                                                         .
+
+
+   In this paper we propose a mathematical model to optimize the pan shape for a rectangular Oven in
+   order to have most pans inside and evenly distributed heat pattern for each pan.
+
+
+
+   Our approach is based upon two methodologies:
+
+            Transient Finite Difference Equations: It generates heat pattern variation with time for any
+             shape by dividing them into infinitesimally dense grid and performing numerical analysis at
+             nodal points. The key application of this assumption is that it can be easily computed through
+             simulations.
+            Shape Variation and Packaging: The variation of shape from rectangle to circle for the pans is
+             achieved by continuously increasing the boundary corners (starting from 4 in a rectangle) with
+             change in the width to length ratio of the figure. This leads to conversion of shapes into vector
+             forms that could be easily plotted and examined. These shapes are then approximated by
+             bounding rectangle to apply Recursive Partitioning Algorithm for packing and the variation of
+             total no. of pans with shape is obtained.
+
+
+   The evenness of the heat distribution is defined as a function of Temperature gradients across its outer
+   boundary.
+
+   The above model is simulated and the variation of heat distribution along the periphery is realized. The
+   distribution obtained with the shape variation defines approximate functions for evenness of heat
+   distribution and maximum no. of pans packed. These functions are combined with a weight value of p
+   and 1-p. This function is maximized to obtain best shape forms for different oven width to length ratios,
+   evenness of heat distribution and no. of pans contained.
+
+   An advertisement and lots of code at the end.
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 19064                                                                                   Page 2 of 18
+
+
+
+
+                      The Ultimate Brownie Pan
+                                             Team# 19064
+
+
+
+                                             Introduction
+
+   The Heat Distribution in an Oven Pan is not even due to difference in heat transfer mechanisms at
+   corners, edges and points inside of the Pan. The points of the pan exposed directly to the heat obtain
+   heat through convection as supposed to conduction through the adjacent points inside the Pan. Hence,
+   for a rectangular pan, the product gets overcooked in the corners (and less across edges), while for a
+   round pan the product is not overcooked at the edges. Other than the even heat distribution
+   requirement, the rectangular shape of most of the Ovens encourages the usage of the Oven area to
+   include maximum no. of pans. Packing of round pans inside a rectangular area is quite inefficient due to
+   larger spacing in between.
+
+   It is required that the even heat distribution of each pan (with a weight p assigned to it) along with the
+   maximization of the no. of pans (with a weight 1-p assigned to it) inside a given rectangular oven should
+   be attained by deciding the most efficient shape ranging from a rectangle to round pan. Also width to
+   length ratio for the oven (W/L) could be responsible for the most efficient shape determination for the
+   pans. In this paper, a model is proposed to determine the best type for the shape of pan with given W/L
+   Oven ratio, Pan Area AP and Oven Area (NOA) by implementing “Transient 2D finite difference
+   equations” to obtain heat distribution and Recursive Partitioning Approach to maximize no. of pans.
+
+   It is required that we first assume a heat environment across the pan. Then, by considering the heat
+   transfer mechanisms, heat pattern around the Pan can be obtained with variation across Time.
+
+   It is also required that the shape variation from rectangle to circle are obtained in a manner such that
+   the heat distribution gets more even with the deviation of the shape from rectangle towards circle.
+   These shapes generated should be easily recognizable in available solutions for packaging problems.
+
+   These data would be then simulated into MATLAB to obtain following distributions:
+
+          Heat Distribution (H) as a function of Shapes (rectangle to circle)
+          Maximum no. of Pans (N) inside given (W/L) Rectangular Oven as a function of Shapes
+          Assign a weight p and 1-p to H and N, and vary p to obtain Optimum Shape as function of p.
+          Variation of Optimum shape as function of (W/L)
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 19064                                                                                     Page 3 of 18
+
+
+            Vary the (W/L) ratio and p to obtain Optimum Shapes.
+
+   An analysis of these variations can help determine the best shape or the range to be considered for the
+   best shape.
+
+
+
+
+                                              Assumptions
+
+
+   In our model we will deal with the following parameters:
+
+                                           Table 1: Parameter Descriptions
+
+                 Symbols                                        Description
+           AP                   Area of the Pan
+           NO                   Oven to Pan Area ratio
+           CO                   Width/Length ratio (W/L) for the Oven
+           N                    Maximum no. of Pans that can fit in an Oven
+           TP                   Initial Temperature of the Pan
+           T∞                   Temperature Outside the Pan
+           a=l/2                Major axis length of equivalent ellipse
+           b=w/2                Minor axis length of equivalent ellipse (a>=b ; always)
+           c                    =b/a (ratio of axis lengths) ; A Shape Defining Parameter
+           n                    Total no. of Corners in the shape; A Shape Defining Parameter
+           L,W                  Length , Width of Oven
+           RO                   Ratio of width to length for Oven
+           H                    Even Heat Distribution
+           p                    Weight given to H for Shape optimization
+           tf                   Time taken for the product to get cooked
+
+
+   Following assumptions are taken to implement the model that we have constructed later:
+
+      It is assumed that there is a constant temperature across the pan (T∞=200°C). This assumption
+       means that first the heat inside the oven was developed and set to constant and only after that the
+       pan started its heating process from the initial room temperature (TP=30°C). This error is negligible if
+       the final heating temperature inside the oven (around the pan) required to heat the material is
+       attained quite fast.
+
+      The pan is assumed as a 2D model with the convection taking place across the edges and the
+       corners. Convection along the third dimension (top and bottom) is not taken into consideration
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 19064                                                                                  Page 4 of 18
+
+
+       since its effect on each point in the 2D Plane is assumed to be almost uniform.
+
+      During the transformation of shapes from rectangle to circle, the ‘Finite difference equations’ are
+       applied with an assumption that the curvature shapes at the edges are rectangular with very small
+       rectangular dimensions.
+
+      While considering the optimized Packing of shapes in the rectangular Oven, the Recursive
+       Partitioning Algorithm is applied to each shape by considering each shape as rectangular with
+       dimensions (2a*2b). This also means that for each pan, n is a multiple of 4.This can be considered
+       adequate since packaging problems have no definite solution. Shapes considered this way can still
+       find an efficient solution for some CO.
+
+      Initially some parameters are assumed to be constant. Their values are obtained from applied cases
+       and set as below:
+
+   AP= 600cm2 ; NO = 25; CO = 2/3 ; T∞=200°C ; TP=30°C ;
+
+
+
+
+   Shape Variation
+   The shapes are supposed to be varied from rectangle to a circle. In our model, we assume two
+   parameters n and c to define each shape [Table 1] such that,
+
+                                            n ϵ N – {1,2,3} ; c ϵ (0,1]
+
+   Thus,   Rectangle is (n=4), Circle is ( n= ∞ , c=1) & Square is ( n=4, c=1)
+
+    Since the Area of each shape is assumed to be constant i.e. AP and the shape is dependent on c and n,
+   the a and b are determined as a function of c,n and AP. The change of the shape is modeled in the
+   following format:
+
+      Draw an ellipse with b/a =c
+
+
+      Divide it in n points as (a*cos(m*pi/n), c*a*sin(m*pi/n)). Draw tangents to each of these points.
+       The figure enclosing these tangents is the required shape for given c,n
+      Equate the Area of this figure with AP and the following relationship is obtained:
+
+
+                                       √                                  √
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 19064                                                                                   Page 5 of 18
+
+
+   Now starting from n=4 and some c, if the n becomes very large, the shape corresponds to an ellipse of
+   area AP. And if c becomes unity, the shape becomes a circle of area AP.
+
+   Once a system for variation of shapes is developed, the heat distribution across these shapes and
+   packaging for each shape can be obtained. We can plot H and N as a function of (n,c) to implement the
+   shape variation of pan.
+
+   For Shape(c,n) , the coordinates for n-points are:
+
+
+
+
+                                             where, m ϵ {1,2,…..,n}
+
+   These coordinate equations would be helpful in computational purposes [Appendix].
+
+
+
+
+   Heat Distribution
+   Pan of the oven is considered as two dimensional object as we are interested in the temperature
+   distribution on its surface only. Heat transfer inside the pan occurs by conduction. Heat transfer
+   between air and pan occurs by convection.
+
+   Instead of finding temperature of every point, a numerical technique called finite-difference method is
+   used for determination of temperature only at discrete points. In this method whole pan is divided into
+   grid and numerical analysis is done on nodal points.
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 19064                                                                                    Page 6 of 18
+
+
+
+
+                                                    Figure 1
+
+   Initial temperature of whole pan is taken as 300C. After putting it in the oven containing hot air at
+   temperature 2000C which is uniform across oven, transient of temperature is obtained using finite-
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 19064                                                                                  Page 7 of 18
+
+
+   difference equations shown in fig 2.
+
+
+
+
+                                                    Figure 2
+
+   Using these equations temperature on discrete time instances can be computed. Out of two methods
+   Explicit method is used which computes temperature at time instance (p+1)∆t using temperature values
+   at time instance p∆t. Where p is an integer. Temperature profile of pan at tf = 5s is obtained using its
+   initial temperature.
+
+                                          Where
+
+    =120e-6 m2/s
+
+   h= 200 W/m2 .K when air is under force convection
+
+   k=50 W/m.K
+
+   Determining Evenness of Heat Distribution
+
+   In order to determine the evenness of heat distribution, we use the H vs (c,n) Graph and calculate the
+   minimum, maximum and standard deviation of the Temperature along the boundary of the shape.
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 19064                                                                                      Page 8 of 18
+
+
+   Evenness of Heat Distribution (H) is defined as
+
+
+
+
+   where, H is unit less and        is the standard deviation along the boundary of the shape.
+
+   This measure of evenness would be appropriate since our penultimate aim is to have the similar
+   distribution of temperature at boundaries after tf time. This boundary turns out to be equal to . In
+   this paper, we set
+
+
+
+
+   Packaging of Pans
+   For each shape that we are considering in the (c,n) domain, we need to obtain the maximum no. of
+   shapes that can be packed without overlap into the LxW rectangular Oven. The Area of the Oven is NOAP
+   . An effective method to pack rectangles of l x w in L x W is through Recursive Partitioning Algorithm. So,
+   if we consider each shape as a rectangle of some length l and width w , then this algorithm would be
+   easily applicable. For simplicity we consider shapes (c,n) to be confined only for n that are multiples of 4.
+   This is because for multiples of 4, a rectangle of length l=2a and w=2b can be considered for packaging.
+
+   The Recursive Partitioning algorithm is combination of Recursive five-block algorithm and L-block
+   algorithm. The maximum of the two algorithm output is supposed to be the optimal method of
+   arranging rectangles inside rectangles either horizontally or vertically.
+
+   The code iterated over a defined vector space of (c,n) leads to construction of N(c,n,RO) vs (c,n).
+
+   Optimization of Shape
+   After getting evenness as a function H(n,c) and maximum pan as a function N(n,c,Ro) optimized shape
+   S(n,c) for given p can be obtained by maximizing following function
+
+                                           P*H(n,c) + (1-p) *N(n,c,Ro)
+
+   by taking n and c as independent variables. Where p is weight given to evenness and 1-p is weight given
+   to maximum number of pans.
+
+   From this we get n and c as function of p and Ro. Finally we get shape S(n(p, Ro), c(p, Ro)) which
+   represents variation in shape for different p and Ro =W/L.
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 19064                                                                                   Page 9 of 18
+
+
+   Model Testing
+   Simulation results:
+
+
+
+
+                                                    Figure 3
+
+   The figure above depicts the heat distribution, the temperature at each point within a number of regular
+   polygon shapes starting from a square (4 sides) to a nonagon (9 sides). It can be seen that according to
+   our model, the heat distribution along the edges is more uniform as the number of sides increases.
+
+   Any region outside the polygon is represented in blue. Higher the temperature of the region, the color is
+   more toward red. The temperature distribution is obtained by simulating 10 seconds of heating with our
+   model. The number of sides is denoted above each sub-figure (n=i, i=4, 5, …, 9).
+
+   It can also be observed from the color scale to the right of each sub-figure that the maximum
+   temperature in the polygon which at occurs at the corners also decreases as the number of sides
+   increases.
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 19064                                                                                 Page 10 of 18
+
+
+   Simulation results:
+
+   The results of a simulation to determine a degree of evenness in a region along the outer edge of a pan
+   is presented below.
+
+   The initial temperature distribution is obtained by simulating 5 seconds of heating.
+
+   Polygons considered with c = 0.8, n = 2 to 24
+
+   Various parameters that could be considered are Minimum temperature within the region, Maximum
+   temperature within the region of the pan, Std. deviation of Temperatures within the region, Average of
+   Temperatures within the region.
+
+
+
+
+                                                    Figure 4
+
+
+
+
+                                                    Figure 5
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 19064                                                                                 Page 11 of 18
+
+
+
+
+                                                    Figure 6
+
+
+
+
+                                                    Figure 7
+
+   Max temperature decreases with increasing number of sides. Min temperature increases with increasing
+   number of sides. Std. dev. of temperatures is decreases with increasing number of sides.
+
+   The trends observed are consistent with the expectations that uniformity of heat distribution increases
+   as number of sides increases. These observations also suggest that the parameters considered above
+   can be used to measure evenness. The average of temperatures is almost constant within the region
+   considered and is not considered for evenness.
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 19064                                                                                   Page 12 of 18
+
+
+
+
+                                                     Figure 8
+
+   After considering the various parameters, the measure of evenness H(n,c) is modeled sufficiently by the
+   inverse of std. dev. of temperatures. It is also possible to include the other parameter as min and max
+   temp also.
+
+   NOTE:
+
+   The region of the pan over which the preceding analysis is performed is a annular region along the outer
+   edge of fixed thickness 15mm for all shapes (n,c). The values of temperature are determined from
+   simulations of 5 seconds of heating of the pan.
+
+   Limitations
+          Considering the shapes as rectangles while packing and the algorithm used leads to a lot of
+           packing inefficiency. Considering only vertical and horizontal arrangements also leads to a lot of
+           the error.
+
+   References
+   E. G. Birgin, R. D. Lobato and R. Morabito. An effective recursive partitioning approach for the packing of
+   identical rectangles in a rectangle. Journal of the Operational Research Society, (2010) 61, 306–320.
+   (DOI: 10.1057/jors.2008.141)
+
+   F. Incropera, D. Dewitt, T. Bergman, A. Lavine. Fundamentals of Heat and Mass Transfer. 6th edition,
+   (2011) 201-340
+
+   http://lagrange.ime.usp.br/~lobato/packing/
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 19064                                         Page 13 of 18
+
+
+   Advertisement:
+
+
+
+
+   Advertisement for the Brownie Gourmet Magazine.
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 19064                      Page 14 of 18
+
+
+   Matlab Code:
+
+   %% Start
+   clc;
+   clear;
+   close all;
+
+   %% Dim
+   W=0.55;     % max b
+   L=0.55;     % max a
+
+   dx=0.005;
+   dy=0.005;
+
+   m=L/dx;
+   n=W/dy;
+
+   A=600/(dx*dy*100*100);
+   c=0.5;
+
+   step=4;
+   NN=20;      % max corners
+
+   TT=zeros(m+2,n+2,NN/step-3);
+   PP=zeros(m+2,n+2,NN/step-3);
+
+   %% Thermal
+
+   T0=30; % room temp
+   Tinf=200;
+
+   h=200;
+   k=50;
+   Bi=h*dx/k;
+   alpha=0.000120;
+   F=1/(4*(1+Bi));
+   dt=F*(dx*dy)/alpha;
+   dt=dt*0.99;
+
+   F=alpha*dt/(dx*dy);
+
+   t=dt;
+   tkon=5;
+
+   %% Corners loop
+   for nn=4:step:NN
+
+       T=ones(m+2,n+2)*T0;
+       T(1,:)=0;
+       T(m+2,:)=0;
+       T(:,1)=0;
+       T(:,n+2)=0;
+       T1=T*0;
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 19064                                                               Page 15 of 18
+
+
+       P=ones(size(T));
+
+       N=nn;
+       a=sqrt(A/(c*N*tan(pi/N)));
+       b=sqrt(A*c/(N*tan(pi/N)));
+
+       px=m+2;
+       py=n+2;
+
+       l=1:N;
+       Xm=a*cos((2*l-1)*pi/N)/cos(pi/N);
+       Ym=b*sin((2*l-1)*pi/N)/cos(pi/N);
+
+       %% Shape
+
+       for l=1:N
+           if(l==1)
+               f0=0-Ym(l)+Xm(l)*(Ym(l)-Ym(N))/(Xm(l)-Xm(N));
+
+                    for i=-px/2+1:px/2
+                        for j=-py/2+1:py/2
+                            xt=j;
+                            yt=i;
+                            fx=(yt-Ym(l))-(xt-Xm(l))*(Ym(l)-Ym(N))/(Xm(l)-Xm(N));
+                            if(fx*f0<0)
+                                P(i+px/2,j+py/2)=-1;
+                            end
+                        end
+                    end
+             else
+                    f0=0-Ym(l)+Xm(l)*(Ym(l)-Ym(l-1))/(Xm(l)-Xm(l-1));
+
+                    for i=-px/2+1:px/2
+                        for j=-py/2+1:py/2
+                            xt=j;
+                            yt=i;
+                            fx=(yt-Ym(l))-(xt-Xm(l))*(Ym(l)-Ym(l-1))/(Xm(l)-Xm(l-1));
+                            if(fx*f0<0)
+                                P(i+px/2,j+py/2)=-1;
+                            end
+                        end
+                    end
+             end
+       end
+
+       sum=P*0-8;
+       for i=2:px-1
+           for j=2:py-1
+               if(P(i,j)==1)
+                    sum(i,j)=P(i-1,j)+P(i+1,j)+...
+                            +P(i,j+1)+P(i,j-1)+...
+                            +P(i-1,j+1)+P(i-1,j-1)+...
+                            +P(i+1,j+1)+P(i+1,j-1);
+               end
+           end
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 19064                                                          Page 16 of 18
+
+
+       end
+
+       boundary=zeros(m*n,2);
+       bc=1;
+
+       P1=P;
+
+       %% Boundary
+       for i=2:px-1
+           for j=2:py-1
+               if(P(i,j)==1)
+                    if(sum(i,j)<=7&&sum(i,j)~=-2)
+                        P1(i,j)=0;
+                        boundary(bc,:)=[i j];
+                        bc=bc+1;
+
+                         elseif(sum(i,j)==-2&&P(i-1,j)+P(i+1,j)+...
+                             +P(i,j+1)+P(i,j-1)~=0)
+                             P1(i,j)=-1;
+                         elseif(sum(i,j)==-2&&P(i-1,j)+P(i+1,j)+...
+                             +P(i,j+1)+P(i,j-1)==0)
+                             P1(i,j)=0;
+                         end
+                   end
+             end
+       end
+       P=P1;
+       bc=bc-1;
+       boundary(1:bc,:);
+       PP(:,:,nn/step)=P;
+   %     figure;
+   %     pcolor(P)
+   %     colorbar
+
+   %     pause;
+       %% Model
+       V=T.*(P+1);
+
+       sum1=P*0;
+
+       px=m+2;
+       py=n+2;
+       for i=2:px-1
+           for j=2:py-1
+               sum1(i,j)=P(i-1,j)+P(i+1,j)+...
+                        +P(i,j+1)+P(i,j-1);
+           end
+       end
+
+       sum=0;
+
+       %% Time
+       t=dt;
+       while t<tkon
+           for i=1:m
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 19064                                                            Page 17 of 18
+
+
+                  for j=1:n
+                      py=j+1;
+                      px=i+1;
+
+                       sum=sum1(px,py);
+                       v=V(px-1,py)+V(px+1,py)+V(px,py+1)+V(px,py-1);
+
+                   if(P(px,py)==1)
+                           T1(px,py)=F*(T(px-
+   1,py)+T(px+1,py)+T(px,py+1)+T(px,py-1))+(1-4*F)*T(px,py);
+                   elseif(P(px,py)==0)
+                       switch (sum)
+                           case 2
+                               T1(px,py)=2/3*F*(v+2*Bi*Tinf)+(1-4*F-
+   4/3*Bi*F)*T(px,py);
+                           case 0
+                               T1(px,py)=F*(v+2*Bi*Tinf)+(1-4*F-
+   2*Bi*F)*T(px,py);
+                           case -2
+                               T1(px,py)=2*F*(v+2*Bi*Tinf)+(1-4*F-
+   4*Bi*F)*T(px,py);
+                       end
+                   end
+               end
+           end
+
+              T=T1;
+
+              V=T.*(P+1);
+
+              clc;
+              nn
+              t=t+dt
+
+   %            figure;
+   %        pcolor(T(1:m+1,1:n+1));
+   %        shading interp;
+   %        retazec=sprintf('Time=%g s',t);
+   %        title(retazec);
+   %        colorbar;
+   %        pause(0.002);
+          end
+
+          %     T
+          figure;
+          pcolor(T(1:m+1,1:n+1));
+          shading interp;
+          retazec=sprintf('Time=%g s',t);
+          title(retazec);
+          colorbar;
+   %        pause;
+
+         TT(:,:,nn/step)=T;
+   end
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 19064   Page 18 of 18

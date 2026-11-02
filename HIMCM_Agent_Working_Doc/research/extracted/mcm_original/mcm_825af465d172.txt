@@ -1,0 +1,1000 @@
+=== PHYSICAL PAGE 1 ===
+Lost and Found: Mathematically Locating Ocean
+               Downed Aircraft
+                            Control #38724
+
+                            February 9, 2015
+
+
+                                 Abstract
+       Given the vast size of the Earth's oceans, and the dynamics of their
+  currents, any attempt to give the exact location of a downed aircraft is
+  infinitely daunting. Instead of attempting the exact, what we propose
+  in this paper is an approach to the problem that maximizes search ef-
+  ficiency. Our approach will be developed over several steps: 1) develop
+  the disappearance interval and search radius, 2) model the trajec-
+  tory of the aircraft while still in the air using scenario and probabil-
+  ity analysis, 3) model the effects of the ocean's currents on the
+  fuselage at the crash site, and 4) apply Bayesian search methods to
+  maximize search efficiency. Using the aircraft's velocity, trajectory,
+  and location at time of last contact, we apply a modified version of the
+  equations of motion to determine the possible crash points within a
+  bounded region. Working within this region, we apply different prob-
+  ability distributions to the aircraft's location under varying scenarios
+  such as mechanical failure or bad weather conditions. We then analyze
+  the effects of ocean currents on the fuselage to determine a maximum
+  drift. Accordingly, our model will give us a series of estimates of the
+  aircraft's resting location on the seafloor. Each of these resting loca-
+  tions will be defined in a search area and assigned a probability so that
+  Bayesian search theory can be applied. Finally, we will address how to
+  test our model for accuracy and how our model might be improved by
+  available technology, such as advanced satellite tracking.
+
+
+
+
+                                     1
+
+
+=== PHYSICAL PAGE 2 ===
+2 of 21                                                          Control #38724
+
+
+     Contents
+     1 Introduction                                                         3
+       1.1 Outline of Our Approach . . . . . . . . . . . . . . . . .        3
+       1.2 Assumptions . . . . . . . . . . . . . . . . . . . . . . . .      4
+       1.3 Definition of Terms . . . . . . . . . . . . . . . . . . . . .    5
+
+     2 Probability Density of Mayday Indicators                             5
+       2.1 Storm Scenario . . . . . . . . . . . . . . . . . . . . . . .     5
+       2.2 Mechanical Failure Scenario . . . . . . . . . . . . . . . .      6
+
+     3 Modeling Crash Sites                                                 7
+       3.1 Known Values . . . . . . . . . . . . . . . . . . . . . . . .     7
+       3.2 Trajectory of Aircraft From Mayday Indicator . . . . . .         7
+       3.3 Determining Aircraft Crash Points . . . . . . . . . . . .        8
+
+     4 Modeling Aircraft Resting Location                                   9
+       4.1 Important Values . . . . . . . . . . . . . . . . . . . . . .     9
+           4.1.1 Weight of Fuselage . . . . . . . . . . . . . . . . .       9
+           4.1.2 Inertia of Fuselage . . . . . . . . . . . . . . . . .     10
+           4.1.3 Drag Force . . . . . . . . . . . . . . . . . . . . .      10
+       4.2 Possible Complications . . . . . . . . . . . . . . . . . . .    10
+           4.2.1 Ocean Currents . . . . . . . . . . . . . . . . . . .      10
+           4.2.2 Wind . . . . . . . . . . . . . . . . . . . . . . . .      11
+           4.2.3 Waves . . . . . . . . . . . . . . . . . . . . . . . .     12
+       4.3 Forecasting the Sinking Pattern . . . . . . . . . . . . . .     12
+           4.3.1 Sinking Upon Impact . . . . . . . . . . . . . . .         12
+           4.3.2 Drifting Before Sinking . . . . . . . . . . . . . .       13
+
+     5 Locating Aircraft in Search Areas                                   14
+       5.1 Application of Bayesian Search Theory . . . . . . . . . .       14
+       5.2 Recommended Search Vehicles . . . . . . . . . . . . . .         15
+           5.2.1 If Survivors are Found . . . . . . . . . . . . . . .      15
+           5.2.2 If No Survivors are Found . . . . . . . . . . . . .       15
+
+     6 Testing the Model                                                   15
+
+     7 Improving the Model                                              16
+       7.1 Recursive Tracking . . . . . . . . . . . . . . . . . . . . . 16
+       7.2 Application of Global Tracking Systems . . . . . . . . . 17
+
+     8 Conclusion                                                          17
+
+     9 Executive Summary                                                   19
+
+     References                                                            21
+
+
+
+                                        2
+
+
+=== PHYSICAL PAGE 3 ===
+3 of 21                                                             Control #38724
+
+
+     1        Introduction
+     Given recent events concerning ocean downed aircraft, we understand
+     that efficient methods and models are needed to aid search and rescue
+     efforts. The sheer size of the Earth's oceans render any search and
+     rescue efforts formidable and so we will utilize well-developed mathe-
+     matical principles to aid in these efforts.
+         In this paper we present a model for locating aircraft lost at sea
+     and presumed to be downed. Our model takes into account critical
+     factors such as location, trajectory, and velocity at point of last contact.
+     Additional factors considered in the model are aircraft mass as well as
+     prevailing weather and ocean currents. This information is used in
+     our model to determine the most likely crash and resting sites of the
+     aircraft. The model maximizes search efficiency by minimizing the
+     time it takes to locate the aircraft.
+
+     1.1       Outline of Our Approach
+     The beginning of our paper will focus on developing the necessary
+     framework for the model to work. Here we consider the reasons which
+     may have caused the aircraft to go down. Reasons due to mechanical
+     failure or severe weather have different implications on pilot reaction.
+     Additionally, we consider the possible scenarios once the aircraft hits
+     the ocean; it may sink or may drift for an undetermined amount of
+     time before sinking. These scenarios are all considered throughout the
+     development of the model. Our priorities are as follows:
+             Develop the model: Search Efficiency
+              Throughout the development of our model, we use a modified
+              versions of the equations of motion, probability distribution fit-
+              ting, and Bayesian search methods. The motivating idea is to
+              create efficient search techniques while working against a clock.
+              We identify the most probable crash sites and a maximum search
+              radius.
+             Probability Density Fitting
+              Different distress scenarios imply different pilot reactions. We
+              identify the most probable causes of an aircraft crash to be: ex-
+              treme weather conditions or mechanical/human failure. Under
+              this scenario analysis, we fit a probability density function cen-
+              tered on the most probable crash sites which are considered to
+              be random variables.
+             Bayesian Search Method
+              Given a bounded search region, we establish disjoint subregions
+              each with an assigned probability of containing the fuselage. Within
+              the sub regions, another probability of locating the plane is es-
+
+
+                                           3
+
+
+=== PHYSICAL PAGE 4 ===
+4 of 21                                                           Control #38724
+
+
+            tablished and is based on factors such as water depth, search
+            equipment, and technology. Using Bayesian statistics, the re-
+            sults are a decreased probability in areas searched and increased
+            probability in the other subregions. This may seem like common
+            sense, but having an organized and systematic search method
+            based on probability theory will aid any ocean search and rescue
+            effort. Bayesian search methods were successfully employed in
+            the location of Air France Flight 447 [2].
+           Analysis of Results: Suggestions for Improvement and
+
+            Implementation
+            Testing the model against unavailable real data proved difficult.
+            What we are confident in is the approach to the problem and the
+            modeling that we propose on maximizing the search efficiency.
+            We offer suggestions for further improvement and implementa-
+            tion of the model through simulation in ocean search and rescue
+            efforts.
+
+     1.2      Assumptions
+     Due to the complicated nature of locating missing aircraft, we will
+     introduce a few assumptions to our model.
+           Any aircraft must communicate with air traffic control (ATC)
+            every thirty minutes. With current technologies, communication
+            between aircraft and ATC is more frequent for many aircraft and
+            thirty minute intervals is standard for other aircraft following
+            protocol. The thirty minute limit assumption gives a definite time
+            frame to work within which the aircraft disappeared. Our model
+            can be applied similarly in situations where radar contact is lost
+            but the aircraft continues to send basic information (velocity,
+            altitude, latitude and longitude) to satellite receivers (as many
+            modern aircraft do).
+           The aircraft has crashed due to outside forces (weather) or a
+
+            mechanical error of some kind. Our model was not designed to
+            analyze a hijacking or intentional crash off-course.
+           When confronted with a storm, a pilot will fly above or through
+
+            the storm. They will not attempt to fly around the storm unless
+            given authorized permission from ATC. This is in line with pro-
+            tocol; a pilot will not alter course unless he is authorized to do
+            so by ATC.
+           The aircraft is not sending out any signals or information regard-
+
+            ing its location. If this were the case, our model would not be
+            necessary to locate the airplane.
+           The aircraft will sustain damage upon crashing. Specifically, we
+
+            will assume the fuselage has separated from the wings of the
+
+
+                                         4
+
+
+=== PHYSICAL PAGE 5 ===
+5 of 21                                                            Control #38724
+
+
+              aircraft. An aircraft is highly unlikely to undergo a major crash
+              and lose communication abilities if it has not sustained major
+              damage in some way.
+
+     1.3       Definition of Terms
+             Disappearance Interval: Time in between last point of con-
+              tact and scheduled point of contact. If scheduled contact is not
+              made, then the disappearance interval is the maximum of the
+              time elapsed between points of contact. Our assumption is that
+              the disappearance interval is thirty minutes.
+             Search Efficiency: Governing search principle; constant update
+              of high probability search areas through Bayesian analysis.
+             Mayday Indicator: The location that the aircraft begins to
+              lose control in the sky.
+             Crash Point: The location that the aircraft makes contact with
+              the water.
+             Resting Location: The final location of the aircraft once it
+              reaches the ocean floor.
+
+
+     2 Probability Density of Mayday Indica-
+     tors
+     In order to apply the Bayesian search method, we first develop a prob-
+     ability density function (PDF) that will aid in prioritizing search areas
+     within the established radius. We consider the two scenarios that mo-
+     tivate our model development whose characteristics prescribe distinct
+     PDFs.
+
+     2.1       Storm Scenario
+     Given our assumption that a pilot will fly above or into the middle of
+     a storm, we consider the probable location of the craft as it is being
+     taken down by the storm. In this sense, the mayday indicators are best
+     modeled by a positively skewed log normal density function [10]:
+
+                                             [ln(x) − µ]2
+                                                         
+                               1
+                     f (x) = √     x exp −                              (1)
+                               2πσ               2σ 2
+     with the mean, mode, variance and skewness defined:
+                                                    2
+                                   Mean:        eµ+σ /2                     (2)
+                                                        2
+                                    Mode:       eµ−σ                        (3)
+
+
+                                            5
+
+
+=== PHYSICAL PAGE 6 ===
+6 of 21                                                         Control #38724
+
+
+
+
+Figure 1: A sample PDF in a storm scenario with the aircraft represented
+by the black arrow. The red area highlights the highest probability locations
+for mayday indicators and thus the highest density of mayday indicators
+
+
+                                           2         2
+                          Variance:    (eσ − 1)e2µ+σ                     (4)
+                                         2
+                                              p
+                        Skewness:     (eσ + 2) eσ2 − 1                   (5)
+     where µ is the location parameter.
+         We will define the mode of our PDF to be the center of the storm.
+     We have chosen this designation as it is unlikely the aircraft will im-
+     mediately fall out of the sky once entering the storm (even though
+     it is possible) but will instead fly some undetermined distance before
+     crashing.
+
+     2.2    Mechanical Failure Scenario
+     The event of mechanical failure over the ocean expands the probable
+     search area. Under this scenario the location of the aircraft is best
+     modeled by a normal distribution with a higher probability of coasting
+     before hitting the water. The density function will have a negative
+     kurtosis to reflect this probability. The normal density function is
+     given by
+                                            −(x − µ)2
+                                                     
+                                  1
+                         f (x) = √ exp                                  (6)
+                                 2 π           σ2
+     with a typical mean (µ), a mode of µ, typical variance (σ 2 ) and no
+     skew.
+        It is important to note that the normal distribution, due to its
+     negative kurtosis, will have a larger standard deviation and a higher
+     probability of mayday indicators in extreme ranges when compared to
+
+
+                                       6
+
+
+=== PHYSICAL PAGE 7 ===
+7 of 21                                                           Control #38724
+
+
+     our log normal distribution. Thus the mayday indicator “hot spot”
+     will be larger for a mechanical failure scenario and our search area will
+     be expanded.
+
+
+     3     Modeling Crash Sites
+     3.1    Known Values
+     There is a thirty minute window between communications with pilots
+     and ATC in which the aircraft can disappear (the disappearance inter-
+     val). At each “check in” with ATC, a pilot must report their location,
+     altitude, velocity, and intended path. Thus, from the last point of
+     contact, we are aware of the aircraft's altitude and velocity. We can
+     assume in the following thirty minutes that these will be held near
+     constant as needless changes in velocity waste fuel.
+
+     3.2    Trajectory of Aircraft From Mayday Indicator
+     We will use the following equations of motion and their modifications
+     as outlined by Wilson [12] to represent aerodynamic objects falling to
+     Earth at an initial horizontal velocity.
+                                                       
+                      du       uV         dv         vV
+                          = −g 2 ,            =g 1− 2                   (7)
+                      dt        U         dt         U
+
+     and
+                      V2                              V2
+                                                          
+                           u           dV          v
+                         =g ,             =g         − 2                  (8)
+                      r    V           dt          V  U
+     Where U = terminal velocity, g = 9.8m/s2 , u = horizontal component
+     of velocity and v = vertical component of velocity.
+         Through manipulation and various substitutions we can conclude
+
+                                d2 y   g        2
+
+                                   2
+                                     = 2 e2gs/U                           (9)
+                                dx    u0
+
+     for an arc s. To approximate this curve we can enclose it between two
+     other curves, x < s < x + y. Thus we can model the trajectory as
+
+               d2 y   g       2
+                    = 2 e2gx/U , lies above the actual trajectory        (10)
+               dx2   u0
+
+               d2 y   g       2
+                    = 2 e2gy/U , lies above the actual trajectory        (11)
+               dx2   u0
+           d2 y   g           2
+                = 2 e2g(x+y)/U , lies below the actual trajectory        (12)
+           dx2   u0
+
+
+                                        7
+
+
+=== PHYSICAL PAGE 8 ===
+8 of 21                                                           Control #38724
+
+
+     It is simple to integrate (10) and (11), the solutions are
+
+                               U 4 2gx/U 2        U 2x
+                         y=         (e     − 1) −                        (13)
+                              4gu20               2u20
+     and
+                                    U2          gx
+                               y=      log sec                           (14)
+                                    g          u0 U
+     Each of these will provide upper bounds to the actual trajectory, with
+     (13) being most accurate for short trajectories and (14) being most
+     applicable in the case that initial altitude is large.
+        We can solve (12) given the substitution of
+
+                                dz   dy          d2 z   d2 y
+                     z =x+y        =    + 1,          =                  (15)
+                                dx   dx          dx2    dx2
+     and so the solution of (12), and the lower bound to our trajectory, is
+                   "              r                     !       r         #
+               U3             gx         u20        u 0               u 2
+       y+x=          log sec        1 − 2 + sin−1         + log 1 − 02
+                g            u0 U       U           U                 U
+                                                                         (16)
+     Depending upon the altitude of the flight, either (13) or (14) could be
+     averaged with (15) to determine a probable crash point.
+
+     3.3    Determining Aircraft Crash Points
+     At cruising speed, the average long-distance commercial airplane flies
+     at up to 900km/h. In our disappearance interval, this leaves 450km
+     as a maximum distance that the plane could have traveled. It is not
+     feasible to search this entire area or to test the probability at each
+     mayday indicator that the aircraft crashed.
+         Instead, we will test for ten probable mayday indicators based off
+     of the PDF. Within one standard deviation of the mean of our PDF
+     we will place seven probable mayday indicators (seventy percent of
+     mayday indicators), within two deviations we will place nine mayday
+     indicators (ninety percent) and within three deviations we will place
+     ten mayday indicators (one hundred percent). This approximately
+     parallels the 68 − 95 − 99.7 rule associated to normal distributions.
+     Mayday indicators will be placed such that the interval of the devi-
+     ation(s) is spanned but areas of highest probabilities will receive the
+     highest density of mayday indicators, see Figure 2.
+         We will then take each of these mayday indicators and apply our
+     modified trajectory equations to determine the crash point. The prob-
+     ability assigned to each mayday indicator that the aircraft lost control
+     at this point is now transfered to the crash site as the probability that
+     the aircraft made contact with the ocean at this point.
+
+
+                                        8
+
+
+=== PHYSICAL PAGE 9 ===
+9 of 21                                                          Control #38724
+
+
+
+
+Figure 2: An example of how mayday indicators (red dots) might be assigned
+in a storm scenario
+
+
+     4     Modeling Aircraft Resting Location
+     After the aircraft has crashed and broken apart on impact, the fuselage
+     and other debris will begin to move with the currents, wind and/or
+     waves as they sink. We will once again employ modified forms of our
+     trajectory equations from Section 3.2 to model the path of the fuselage
+     as it sinks. It is important to note that the horizontal component
+     of velocity is now dependent upon the outside factors such as ocean
+     currents.
+
+     4.1     Important Values
+     To determine how the aircraft might be moved once it is in the ocean,
+     we need to know some basic values.
+
+     4.1.1    Weight of Fuselage
+     The fuselage will immediately begin to lose pressurization after the
+     crash as pressurized air is no longer being pumped into the cabin.
+     Thus the weight of the fuselage [1],
+
+                       Wf use = (1.051 + .102xIf use )Vf use                (17)
+
+                                     I 2 +I 2
+     will be determined by If use = p2Ib b and its volume, Vf use , where
+     Ip = pressure index and Ib = bending index.
+
+
+
+
+                                          9
+
+
+=== PHYSICAL PAGE 10 ===
+10 of 21                                                         Control #38724
+
+
+     4.1.2    Inertia of Fuselage
+     The tendency for the fuselage not to move will be given by it’s inertia
+     [5]                                           !
+                                Xn               n
+                                                 X
+                                        2
+                         J=         mi xi − xsck                        (18)
+                                 i=1              i=1
+
+     where                 Pn
+                                 m i xi
+                     xsck = Pi=1
+                              n         = center of gravity             (19)
+                              i=1 mi
+          The fuselage will not be moved in any direction unless the inertia
+     is first overcome.
+
+     4.1.3    Drag Force
+     The drag force will be an important component in determining how
+     the aircraft moves in the water. Drag force is given by
+
+                               Fd = cd (1/2)ρv 2 A                      (20)
+
+     where Fd = drag force in Newtons, cd is the drag coefficient equal to
+     0.045 [9], ρ = density of fluid, v = flow velocity and A is the charac-
+     teristic frontal area of the body. It is important to note that our drag
+     force will be a function of the density of the water which depends upon
+     water temperature and salinity. Ocean water density can be averaged
+     to 1027kg/m3 at sea surface but the exact value should be calculated
+     for the body of water the aircraft crashed into.
+
+     4.2     Possible Complications
+     4.2.1    Ocean Currents
+     Surface currents pose an interesting obstacle in the search of aircraft
+     lost at sea. Once the aircraft has crashed, it can be carried away in
+     many directions and at varying speeds, depending upon the currents
+     present. Fortunately, currents are well documented and monitored
+     with ample information on their strength and direction, as seen in
+     Figure 3. To determine how far the fuselage is likely to travel on any
+     given current, you simply need to know the velocity of the current, the
+     weight of the fuselage and the drag in water (the latter two of which we
+     have just shown how to calculate and the former of which is available
+     from a variety of sources).
+
+
+
+
+                                       10
+
+
+=== PHYSICAL PAGE 11 ===
+11 of 21                                                        Control #38724
+
+
+
+
+       Figure 3: A visual representation of global ocean currents [8]
+
+
+
+
+                     Figure 4: Global wind patterns [6]
+
+
+     4.2.2   Wind
+     The force of wind on the fuselage will be given by
+
+                                   F = AP cd                           (21)
+
+     where A is the area of the object, P = 0.00256v 2 is the wind pressure,
+     cd is the drag coefficient and v is the velocity of the wind. If wind
+     were to affect fuselage movement in water, this wind force would need
+     to be greater than the inertia of the fuselage. Note however that the
+     wind should have a minimal effect as the fuselage is aerodynamically
+
+
+                                       11
+
+
+=== PHYSICAL PAGE 12 ===
+12 of 21                                                           Control #38724
+
+
+     designed and will not be moved like a sail boat. As such we will deal
+     specifically with the currents when determining fuselage movement.
+         However, debris movement in water can be affected by wind pat-
+     terns, this will play a large role in how to improve our model. It is
+     important to understand that as wind is the driving force behind sur-
+     face currents, the direction of the currents and wind are generally the
+     same, as can be seen in a quick comparison of Figures 3 and 4.
+
+     4.2.3    Waves
+     Waves, while seemingly important, are not a major role in the move-
+     ment of objects at sea. When a wave encounters an object on the
+     water, it appears to move it forward. However, when the wave falls
+     back, it takes the object with it back to its original location [11]. This
+     can be seen when examining buoys floating in the waves. Due to this,
+     the main role of waves in our model will be damaging the aircraft after
+     it has crashed into the water, leading to faster sinking of the fuselage.
+
+     4.3     Forecasting the Sinking Pattern
+     There are two scenarios to consider when the fuselage is sinking: one
+     in which the aircraft begins to sink immediately upon impact due to
+     previously sustained damage and another in which the aircraft drifts
+     with the currents before sinking. Note that in either scenario, the
+     fuselage will sink as if in a “nose dive”. This is due to the fact that as
+     the fuselage fills with water, it will naturally tip in whichever direction
+     is heavier and will sink in this manner. It is nearly impossible for the
+     fuselage to be perfectly balanced when hitting the water and to stay
+     in this equilibrium while filling with water and sinking, thus the case
+     will be ignored.
+
+     4.3.1    Sinking Upon Impact
+     Given Wilson’s modifications [12] of the equations of motion below we
+     want to analyze the effects of sinking in a “nose dive” position on an
+     aerodynamic object's horizontal and vertical trajectory.
+                                                        
+                     du        uV        dv           vV
+                        = −g 2 ,            =g 1− 2                    (22)
+                     dt        U         dt           U
+     and
+                       V2                               V2
+                                                            
+                            u           dV           v
+                          =g ,             =g          − 2                 (23)
+                       r    V           dt           V  U
+     where once again U = terminal velocity, g = 9.8m/s2 , u = horizontal
+     component of velocity, v = vertical component of velocity and r = ra-
+     dius of curvature of the path.
+
+
+                                         12
+
+
+=== PHYSICAL PAGE 13 ===
+13 of 21                                                           Control #38724
+
+
+           Rewriting the second portion of (23),
+
+                                              V2 V
+                                                  
+                                dV
+                              V     =g 1− 2                                (24)
+                                dy            U v
+     we can analyze the relation between the tangential and vertical veloc-
+     ities. It is easy to deduce that the increase in V with a vertical drop
+     from y, will be less than the increase in v with the same vertical drop;
+     the vertical velocity dominates the tangential velocity [12]. Hence, the
+     direction of a solid body in downward free-fall will be dominated by
+     the vertical velocity, minimizing the drag effects of the ocean current.
+         A further analysis considers the generalization to different mediums
+     with varying resistance. We start by considering the arc of drift with
+     respect to time. Noting that (22) may be integrated,
+                du   du ds    du         du    gu                 2
+                   =       =V    ,          = − 2 , u = u0 e−gs/U          (25)
+                dt   ds dt    ds         ds    U
+     reveals that horizontal velocity decreases exponentially with respect to
+     arc distance traveled and that
+                                 d2 y          d2 y   u 
+                       1         dx2         dx2
+                         =        dy 2 3/2
+                                           =   3 = g                       (26)
+                       r   [1 + ( dx ) ]     V
+                                             u3
+                                                      V3
+
+     This calculation shows that
+                                        d2 y   g
+                                           2
+                                             = 2                           (27)
+                                        dx    u
+     holds for all mediums of varying resistance [12].
+        Thus in this scenario, as the fuselage begins to sink immediately, it's
+     location can be approximated almost directly below the crash point.
+     We will define our search area as a circle of radius 3 nautical miles
+     (N M ) around this point.
+
+     4.3.2      Drifting Before Sinking
+     If the fuselage is intact enough to not immediately begin sinking and
+     the force provided by the currents is strong enough to overcome the
+     inertia, the fuselage will begin floating in the direction of the currents.
+     However, a fuselage can only float for a certain amount of time. Air-
+     craft are not built air- or watertight, instead they are sealed to keep
+     high pressure air inside the cabin with pressurized air being constantly
+     pumped in. In the event of a crash, the cabin becomes de-pressurized.
+     The seals are then forced to work to prevent higher pressure water from
+     entering, a task they were not designed to do and will ultimately fail
+     at. Even in a fuselage undamaged by the crash, water will immediately
+     begin to enter the cabin, affecting the buoyancy of the fuselage.
+
+
+                                          13
+
+
+=== PHYSICAL PAGE 14 ===
+14 of 21                                                                 Control #38724
+
+
+           Once the buoyant force is less than the force of gravity:
+
+                                      Fb = gρV < gm                           (28)
+
+     for ρ = water density, V = volume, g = gravity and m = mass, the
+     fuselage will begin to sink. Knowing this, we have calculated that
+     it is highly unlikely that an object will drift more than one nautical
+     mile from its original crash site before beginning to sink. It is simply
+     too improbable that the fuselage is in good enough condition after the
+     crash to maintain buoyancy longer than that. Thus the search radius
+     outlined above will encompass any possibility of drifting and will work
+     in either scenario.
+         Note we have ignored the possibility that a storm could be present
+     and altering the drifting path. While a powerful storm could carry
+     the fuselage farther than any currents might be able to in the same
+     amount of time, it will also damage the fuselage more dramatically.
+     This will lead to a more rapid loss of buoyancy and, ultimately, the
+     fuselage sinking even faster than if the storm were absent.
+
+
+     5       Locating Aircraft in Search Areas
+     5.1      Application of Bayesian Search Theory
+     To optimize our search for the missing aircraft we will apply Bayesian
+     search methods based on our probabilities determined in the above
+     sections.
+           Let S be the set of all of our search areas, bounded and disjoint.
+     We have assigned a probability, pi , of the aircraft being in any Si
+     using our probability density function. For each Si there exists another
+     probability, qi , of finding the aircraft. This qi is dependent upon many
+     factors, such as the depth of the water and the effectiveness of the
+     chosen search vehicle. Bayesian search theory states that if we check
+     any of our search areas and do not find the aircraft, the probability,
+     p0i , of it being in Si is now
+
+                                    pi (1 − qi )              1 − qi
+                       p0i =                            = pi                  (29)
+                               (1 − pi ) + pi (1 − qi )      1 − pi qi
+
+     and the updated probability, p0k , of the aircraft being in some other Sk
+     is
+                                              1
+                               p0k = pk                                   (30)
+                                          1 − pi qi
+     Note that 0 < p0i < pi < 1 and pk < p0k < 1. Hence the probability of
+     the aircraft being where we have already searched decreases (but does
+     not vanish) and the probability of the aircraft being where we haven’t
+
+
+                                              14
+
+
+=== PHYSICAL PAGE 15 ===
+15 of 21                                                           Control #38724
+
+
+     checked increases. Our probabilities will be constantly updated, giving
+     us the highest chance of locating the aircraft in the minimal amount
+     of time.
+
+     5.2     Recommended Search Vehicles
+     In any downed aircraft scenario, we recommend that unmanned aerial
+     vehicles (UAV) are immediately deployed to scout for potential sur-
+     vivor rafts and/or obvious debris. UAVs are fast and able to scour
+     large areas quickly without risk of human injury. The next course of
+     action we recommend depends upon if survivors are found or not.
+
+     5.2.1    If Survivors are Found
+     In the case that survivors are present, we recommend the tactic out-
+     lined by Furukawa et al in their paper on Bayesian search for multiple
+     targets [4]. In short, this paper tests the effectiveness of a combined
+     effort between UAVs and helicopters with rescue workers. The UAVs
+     fly ahead of the helicopters to locate the survivors and fly in circles
+     around the survivors, lighting the area and alerting the helicopters to
+     their location. The helicopters and rescue workers can then begin col-
+     lecting the survivors, bringing them back to a safe location. The paper
+     shows the combined efforts of UAVs and helicopter search and rescue
+     teams to be quite effective in the location and rescue of survivors. Once
+     each passenger has been found and brought to safety, we recommend
+     the search proceed as if no survivors are found.
+
+     5.2.2    If No Survivors are Found
+     In the case that no survivors are found, the main priority becomes
+     the location of the fuselage so that bodies of passengers and the black
+     box can be collected. In this scenario, we recommend that underwater
+     vehicles are deployed to search at least two areas of highest probability.
+     This allows for the timely search of multiple areas without requiring
+     the simultaneous search of all areas, which could become costly and
+     may not be feasible for the search team. If the fuselage is found,
+     searching is halted as bodies and important equipment are brought to
+     surface. Searching would continue with last calculated probabilities if
+     a passenger or some item of value is determined missing.
+
+
+     6     Testing the Model
+     Our model relies on specific information (wind speed, flight location,
+     storm locations, etc) available at the time of the crash and within a lim-
+     ited time frame after. As this data was not recorded, or at least is not
+
+
+                                        15
+
+
+=== PHYSICAL PAGE 16 ===
+16 of 21                                                            Control #38724
+
+
+     available to the public, for well documented cases (such as Malaysian
+     Airlines Flight MH370 and Air France Flight 447) we unfortunately
+     cannot apply our model to them.
+         With this in mind we attempted to simulate an aircraft crash so
+     that our model could be tested. However, due to a lack of tools and
+     advanced technology at our disposal, our simulations were reduced to
+     trivial problems that did not challenge our model. The simulations
+     were too predictable and did not accurately represent the variability
+     in an actual aircraft crash. We could not in good faith claim that these
+     simulations truly tested our model.
+         Having said this, we firmly believe in the approach our model em-
+     ploys. We are confident that, given the right tools and technology, a
+     simulation could be constructed that mirrors realistic circumstances
+     that could then test our model for accuracy. In this scenario, we rec-
+     ommend the following course of action:
+              Construct a probability density function based on the chance of
+               mechanical error or storm interference as outlined in Section 2.
+              Using this PDF, determine potential mayday indicators.
+              From each of these determined crash locations, apply our modi-
+               fied trajectory equations from Section 3.2 to determine the crash
+               points.
+              Define a search area around each of these points of radius 3N M .
+     We are confident that, when tested under realistic circumstances, our
+     model will prove to accurately predict resting location of the aircraft.
+
+
+     7         Improving the Model
+     No model will be able to accurately describe the exact location of
+     an aircraft’s crash in the ocean, there are too many moving variables.
+     However, we have outlined a few ways in which our model could be im-
+     proved and how technology could be improved for a better application
+     of our model.
+
+     7.1        Recursive Tracking
+     Often, an aircraft crashes into the sea and, for one reason or another,
+     cannot be located for a long period of time. Perhaps the most famous
+     cases would be of Malaysian Airlines Flight MH370 and Air France
+     Flight 447. While Flight MH370 is still missing, Flight 447 was found
+     two years after the crash by a team who developed and employed a
+     recursive tracking method [2]. In short, the movement of bodies and
+     debris were traced backwards in time. This was done through the use
+
+
+
+                                           16
+
+
+=== PHYSICAL PAGE 17 ===
+17 of 21                                                                  Control #38724
+
+
+     of a three-dimensional Lagrangian tracking program
+                                         Z t−∆t
+              Pn (x̄t−∆t , t − ∆t) = −            (v̄ + αw̄)dt + Pn (x̄t , t)   (31)
+                                          t
+
+     where Pn (x̄t−∆t , t−∆t) and Pn (x̄t , t) are the locations of the nth object
+     at time t − ∆t and t, v̄ is the velocity vector, w̄ is the wind velocity
+     vector and α is the wind drag factor.
+         The application of this technique to our model would help with
+     creating even more accurate representations of probabilities of crash
+     sites, leading to the even faster location of the aircraft. This method
+     would also allow our model to be used in cases it was not designed for,
+     such as in a plane hijacking or intentional crash.
+
+     7.2    Application of Global Tracking Systems
+     It will come as no surprise that the accuracy of our model is dependent
+     upon accurate tracking systems. Radar, while common, is no longer
+     the best method for tracking aircraft, especially over the ocean. In-
+     stead, we recommend the application of improved tracking systems. A
+     promising system, the NextGen satellite system, tracks aircraft using
+     Automatic Dependent Surveillance-Broadcast (ADS-B). The NextGen
+     system has already been employed by several aviation administrations,
+     with the Federal Aviation Administration (FAA) deploying it nation-
+     wide in 2013 [3]. The NextGen system was combined with other track-
+     ing systems by Liu et al. in an attempt to improve aircraft tracking
+     through data fusion. [7]. The multiple data sources and algorithms run
+     created a highly accurate system with a low sensor fault. Applications
+     of either of these two tracking systems, or another promising tracking
+     system, would not only increase the accuracy of our model but reduce
+     the probability of crash in the first place.
+
+
+     8     Conclusion
+     Locating an ocean downed aircraft to a precise point is unrealistic.
+     Therefore, the task becomes one of maximizing search efficiency. We
+     propose a model based on the assumption that pilots make contact
+     within specified time intervals. Our model then calculates a maximum
+     search area given data retrieved from the plane at point of last con-
+     tact: velocity, trajectory, and weather conditions. We then use scenario
+     analysis to model the distributions of the possible crash sites finding
+     that different scenarios would suggest different probability distribu-
+     tions. Our model uses Bayesian search methods to maximize search
+     efficiency after having established the hypotheses and assigning a dis-
+     tribution function to the search area. Lack of sufficient data has made
+
+
+                                          17
+
+
+=== PHYSICAL PAGE 18 ===
+18 of 21                                                        Control #38724
+
+
+     testing the model challenging and final results are inconclusive. How-
+     ever, we would like to stress our confidence in the approach that the
+     model employs and emphasize our belief that further testing will reveal
+     positive results.
+
+
+
+
+                                       18
+
+
+=== PHYSICAL PAGE 19 ===
+19 of 21                                                               Control #38724
+
+
+     9         Executive Summary
+     As is understood, the priority in any downed aircraft scenario is sal-
+     vaging human life. Due to the nature of aircraft crashes, often this
+     is not a possibility and the next priority becomes locating the bod-
+     ies of the passengers. With this in mind, after an aircraft is presumed
+     downed in the ocean, the most critical success factor is time. In view of
+     recent cases of ocean downed aircraft, it is understood in our industry
+     that there is a dire need for more precise and efficient search methods.
+     Our team has developed a method that maximizes the efficiency of
+     search and rescue efforts.
+         Our method is based on universal principles of motion which have
+     been tested and proven over centuries. Our research and development
+     team has developed a model based on search efficiency that will
+     greatly narrow ocean search areas. We have outlined an implemen-
+     tation strategy that can be followed and used by anyone in charge of
+     search and rescue. In this report we outline the methods we will under-
+     take to maximize search efficiency in locating ocean downed aircraft.
+     We outline this method as follows:
+              Identifying a maximum crash site area: International flight
+               protocol mandates that pilots make periodic contact. Utilizing
+               universal laws of motion, our model forecasts a crash site lo-
+               cated within a bounded region. This increased precision increases
+               search productivity by eliminating areas that have no probability
+               of containing the aircraft.
+              Prevailing ocean patterns: The most difficult task in forecast-
+               ing the location of ocean downed aircraft is the dynamic nature of
+               ocean currents. After the aircraft makes contact with the ocean,
+               we have to consider the effects of the currents to determine where
+               the craft is likely to be located. Although we know that this can't
+               be achieved with perfect precision, our model determines a max-
+               imum drift distance from the crash site. This allows us to apply
+               statistical search methods and increasing productivity of search
+               and rescue teams.
+              Implementation of the Model: As with any new method or
+               process, successful implementation is critical to the success of the
+               endeavor. As many new great ideas never succeed, implementa-
+               tion can be viewed as one of the most challenging components
+               of any new idea, much more so with complicated mathemati-
+               cal models. To this end, our model is designed with simplicity
+               and adaptability in mind. We make no attempts to reinvent the
+               wheel. Instead, we use proven methods that have been slightly
+               modified to fit the scenario of an ocean downed aircraft. Our
+               model works with known variables that can be input by anyone
+
+
+                                            19
+
+
+=== PHYSICAL PAGE 20 ===
+20 of 21                                                         Control #38724
+
+
+           trained in search and rescue. The model will be implemented in
+           search and rescue training procedures and will be used in simu-
+           lations effective immediately.
+     As recent events highlight the need for improvement in open ocean
+     search efficiency, we have developed this model and methods for our
+     clients. We are confident that with the application of the techniques
+     heretofore outlined, we will dramatically increase search efficiency for
+     ocean downed aircraft. Moreover, the overall task of salvaging human
+     life in such events is the ultimate goal; we are also looking at ways
+     of harnessing the wonders of technology to assist in our efforts. The
+     recursive techniques used in the case of Air France Flight 447 and con-
+     tinuous satellite tracking are innovations that we will also utilize in
+     our search and rescue efforts. Thank you for your trust, patience, and
+     support in our efforts to not only increase search efficiency and pro-
+     ductivity for ocean downed aircraft, but more importantly, in salvaging
+     human life.
+
+
+
+
+                                       20
+
+
+=== PHYSICAL PAGE 21 ===
+21 of 21                                                        Control #38724
+
+
+     References
+      [1] Alonso, Juan, and Ilan Kroo. “Component Weights”. Stanford
+          University, n.d. Web.
+      [2] Chen, Changsheng, et al. “FVCOM Model Estimate of the Loca-
+          tion of Air France 447”. Springer-Verlag, 2012. PDF.
+      [3] “FAA Gives Green Light to NextGen Satellite System”. Military
+          and Aerospace Electronics, Penn Well Publishing, 2009. Web
+      [4] Furukawa, T., et al. “Recursive Bayesian Search-and-Tracking Us-
+          ing Coordinated UAVs for Lost Targets”. Robotics and Automa-
+          tion, 2006. ICRA 2006. Proceedings 2006 IEEE International
+          Conference, pp.2521,2526, 15-19 May 2006.
+      [5] “Fuselage Loads”. Aircraft Design Department, Warsaw Univer-
+          sity of Technology, n.d. PDF.
+      [6] “Global Winds”. National Aeronautics and Space Administration,
+          n.d. Web.
+      [7] Liu, Weiyi, et al. “Multi-Sensor Fusion and Fault Detection us-
+          ing Hybrid Estimation for Air Traffic Surveillance”. Aerospace
+          and Electronic Systems, IEEE Transactions on, vol.49, no.4,
+          pp.2323,2339, OCTOBER 2013
+      [8] Schieber, Jurgen. “Global Energy Transfer, Atmosphere and
+          Ocean Circulation, Climate”. Indiana University, n.d. Web.
+      [9] “Shape Effects on Drag”. Glenn Research Center, National Aero-
+          nautics and Space Administration, 2014. Web.
+     [10] Siegrist, Kyle et al. “The Lognormal Distribution”. Virtual Labo-
+          ratories in Probability and Statistics, Department of Mathematical
+          Sciences, University of Alabama, 1997-2014.
+     [11] “Waves are Caused by Energy Passing through the Water”. Na-
+          tional Oceanic and Atmospheric Administration, U.S. Department
+          of Commerce, 2013. Web.
+     [12] Wilson, Edwin. “Report 79: Bomb Trajectories”. National Advi-
+          sory Committee for Aeronautics, 1920. PDF.
+
+
+
+
+                                       21

@@ -1,0 +1,30 @@
+# Review [Q-ID]
+
+- Reviewer / session:
+- Target artifact and pinned version/hash:
+- Review question and scope:
+- Reviewer independence: independent / author self-check / limited:
+- Inputs actually inspected:
+- Checks not performed:
+- Numerical reproduction: none / selected calculations / full specified experiment:
+
+## Findings
+
+| ID | Severity: blocking / consequential / editorial | Exact location | Evidence and consequence | Requested repair or experiment | Owner | Recheck result |
+|---|---|---|---|---|---|---|
+| Q01 | | | | | | |
+
+## Checks
+
+- Requirement coverage:
+- Data definitions and provenance:
+- Assumptions and choice justification:
+- Formula/code correspondence:
+- Feasibility, numerical status and reproducibility:
+- Appropriate validation and claim strength:
+- Cross-module and summary/body consistency:
+- Remaining limitations:
+
+## Verdict
+
+ACCEPTED_FOR_SCOPE / CHANGES_REQUESTED / INSUFFICIENT_EVIDENCE. State the scope and version explicitly. A successful command, complete JSON file or another agent's approval is not a substitute for checking the claim.

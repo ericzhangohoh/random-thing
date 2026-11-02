@@ -1,0 +1,2116 @@
+=== PHYSICAL PAGE 1 ===
+          Problem Chosen
+                  C
+                                                   微信公众号：数学模型
+                                                2021
+                                              MCM/ICM
+                                                       Team Control Number
+                                                           #2109298
+                                            Summary Sheet
+                                               summary
+     The Asian giant hornet (AGH, Vespa mandarinia) is one of the largest hornet species in the world.
+ Native to the Indomalayan region, AGH is a voracious predator of various insects, including honey
+ bees. On September 19th, 2019, a nest of AGH was found outside of Vancouver. Although the nest
+ was destroyed onsite, a swarm of surviving hornets continue to roam through nearby areas, agitating
+ significant public anxiety. An invading AGH population in North America could disrupt biodiversity
+
+                                                                               型
+ and threaten public health [8]. It is therefore an urgent task to contain the spread of AGH, where
+ we identify three important objectives: estimate AGH population dynamics, build an effective report
+
+
+                                                              学
+ classification system, form a set of strategies to allocate hornet-controlling personnel.
+     We address the first problem by building a powerful cellular automata (CA) model with a set
+
+
+                                                               模
+ of self-defined update rules. We first divide Washington State and its surrounding area into 2925
+ regions (or cells), each spanning an area of size 12km * 12km. To increase the accuracy of CA, we
+ introduce an index that captures seasonal variation in the reproductive and active level of AGH and
+ a suitability measure of each cell’s habitability for AGH. These indices then collectively determine
+
+                                                      数
+ update rules for CA. The simulation given by CA depicts the following invasion dynamics: 1) Strait
+ of Georgia will prevent the spread of AGH colony to the west, specifically, to the Vancouver Island;
+
+
+                                      号
+ 2) A proportion of AGH will first move toward the east, and then head south, most likely entering the
+
+
+                                                                m
+ Okanogan-Wenatchee National Forest. 3) Another group of AGH will approach the border of Canada
+
+
+                                       ：
+ where the suitability index is high. In the long run, CA simulation indicates that AGH colony will
+
+                                                                 od
+ mainly converge towards the National Forest region. To investigate the sensitivity of our model to
+ initial conditions, we perturb several key parameters of CA. We then calculate the distance between
+
+                                                                   els
+ output population distribution of different initialization by Kullback-Leibler divergence metric, and
+
+                              众
+ construct a 95% confidence interval of AGH population for each cell region at each time step. Results
+ show that our CA model is insensitive to considerable change in parameters.
+
+                      公
+     Civilian reports are vital for AGH containment. For textual data analysis, we apply Latent Dirichlet
+
+                                                AT
+ Allocation to extract crucial semantics from texts. Model output indicates that most textual data are
+ unrelated to the classification task at hand, thus they add little value to this investigation. For image
+
+     微                                             H
+ data analysis, we construct a two-stage image classification model based on a pre-trained VGG-11
+ architecture followed by an SVM classifier. To deal with an extremely imbalanced dataset, we augment
+
+
+      信
+ images with positive labels by rotation, cropping, and Gaussian blurring. We then train our model
+                                         M
+ on image data from 2019-09-19 to 2020-05-15 and test it on 2020-05-15 and onwards, obtaining a
+ mean testing accuracy of 90.2% and AUROC score of 94.4%. The model also proves robust under
+
+                                ：
+ adversarial attacks. For regional information, we design a measure of regional report credibility over
+ space and time, which is crucial in the Bayesian analysis that follows. We then feed a fine-tuned version
+ of the obtained quantities into a Naïve Bayes inference model that outputs the likelihood of correct
+
+                       号
+ classification of a given report, and can thus be used to prioritize report processing.
+     To further improve our model, we design a reliable update routine for incoming reports. We draw
+
+
+               信
+ insight from Baum-Welch algorithm and propose a novel Bayesian update method for our cellular
+ automata. This method makes use of Monte Carlo Sampling to calculate posterior probability of
+ different sets of parameters, and can extract information out of both positive and negative report.
+
+       微
+     Finally, based on the prediction of CA and the update routine, we propose a set of rules to decide
+ whether AGH are eradicated in Washington State. We also write a memo to the Washington State
+ Department of Agriculture, addressing the severity of AGH invasion and provide suggestions on
+ detecting AGH colonies and processing sighting reports.
+     Key Words: cellula automata, Naïve Bayes inference, Baum-Welch algorithm, AUROC score
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 2 ===
+ Team #2109298                                     微信公众号：数学模型
+ Contents
+ 1   Introduction                                                                                       3
+     1.1 Restatement of the Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     3
+     1.2 Our Approach . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     4
+
+ 2
+
+ 3
+     Global Assumptions
+
+     Data Exploration
+                                                                               型                         4
+
+                                                                                                         4
+
+
+                                                              学
+     3.1 Data Cleaning . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+     3.2 Textual Data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                         4
+                                                                                                         4
+
+
+ 4                                                             模
+     3.3 Geographical Data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+     Spread of AGH based on Cellular Automata                                                        6
+                                                                                                         6
+
+
+
+
+                                                      数
+     4.1 Defining the Cellular Automata Model . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+          4.1.1 Introduction and Motivation of CA . . . . . . . . . . . . . . . . . . . . . . . 6
+          4.1.2 Cells Setup . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+
+
+                                      号
+          4.1.3 Update Rules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+
+                                                                m
+          4.1.4 Parameters Setting . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+
+
+                                       ：                         od
+     4.2 Results and Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+     4.3 Sensitivity Analysis of CA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+
+                                                                   els
+ 5
+                              众
+     Identification of Mistaken Classification
+     5.1 Plan of Attack Based on Naive Bayes Inference . . . . . . . . . . . . . . . . . . . . .
+     5.2 Part II: Image Identification (Estimating P(𝐻|𝐼)) . . . . . . . . . . . . . . . . . . . .
+                                                                                                        13
+                                                                                                        14
+                                                                                                        16
+
+                      公                         AT
+          5.2.1 Data Augmentation and Model Construction . . . . . . . . . . . . . . . . . .
+          5.2.2 Training and Testing Results . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                        16
+                                                                                                        17
+
+
+      微
+          5.2.3 Estimating P(𝐻|𝐼) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       18
+
+                                                   H
+     5.3 Estimate 𝑞 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   18
+
+
+       信
+     5.4 Results and Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     19
+
+ 6   Further Improvements
+                                         M
+     6.1 Baum-Welch Update for CA . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+                                                                                                     21
+
+
+
+ 7
+                                ：
+     6.2 Evidence of Eradication . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 22
+
+     Strengths and Weakness                                                                             22
+
+ 8   Conclusions        号                                                                               23
+
+ 9   Memo
+               信                                                                                        24
+
+
+
+       微
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 3 ===
+ Team #2109298                                       微信公众号：数学模型
+                                                            Page 3 of 25
+
+
+ 1      Introduction
+ 1.1     Restatement of the Problem
+ Vespa mandarinia, commonly known as the Asian Giant Hornet (AGH), is native to temperate and
+ tropical eastern Asia [2] and widely feared as a species of fierce predator of honey bees. In September
+
+                                                                                 型
+ 2019, a nest of AGH was discovered in Vancouver and later in Washington State, agitating significant
+ anxiety among civilians. In order to prevent AGH from wreaking havoc on local agriculture and
+
+
+                                                                 学
+ economies, it is imperative to track down the dynamics of AGH population. Currently, state officials
+ have collected a dataset of reports featuring public sightings of AGH. This is the starting point for our
+ exploration, in which we need to meet the following requirements:
+
+                                                                  模
+       • a model to predict the spread of AGH in the Washington State.
+
+       • a model that helps interpret public reports, by differentiating correct classification from mistaken
+         ones.
+                                                         数
+       • a strategy that prioritizes report investigation based on the probability to find a real AGH given
+         a particular report.
+                                        号                         m
+                                         ：                         od
+       • a method that regularly updates our model and a criterion which indicates eradication of the
+         AGH population in Washington State.
+
+                                                                     els
+                                众
+                        公                         AT
+       微                                             H
+        信                                  M
+                                  ：
+                         号
+                 信
+         微                               Figure 1: Model Framework
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 4 ===
+ Team #2109298                                      微信公众号：数学模型
+                                                           Page 4 of 25
+
+
+ 1.2    Our Approach
+ We propose a model framework as shown in Figure 1, consisting of two major components, the
+ cellular automata (CA) model and the Naïve Bayes Model, with several processes that prepare the
+ given dataset into inputs for the main model. Cellula automata simulate the dynamics of AGH colony,
+ whereas the Naïve Bayes Inference combine three quantities: the output distribution of cellula automata,
+
+                                                                                型
+ the estimates of spatial and temporal distribution of public reports frequency and the likelihood of a true
+ AGH report conditioned on the accompanying image data. The latter procedure allows us to provide a
+
+
+                                                                学
+ score for each report, which forms our strategy in allocating resources for report investigation. As an
+ improvement to this framework, we also introduce the Baum-Welch algorithm to regularly update CA
+ with each new observations. This would lead to more robust estimate given by CA.
+
+
+ 2     Global Assumptions                                        模
+                                                       数
+ In this section, we introduce the following global assumptions; assumptions specific to each model will
+ be stated and justified in their corresponding model introduction and setup.
+
+                                       号
+      Assumption 1 We assume every AGH individual is the same, disregarding the actual difference
+ between the workers, queens, and drones.
+                                                                 m
+                                        ：                         od
+      Assumption 2 We assume all the AGH in the Washington State are introduced by the effect of the
+ first colony discovered at Vancouver in Sep, 2019.
+
+                                                                    els
+      Assumption 3 We assume AGH is able to explore around its surrounding environments and tend
+
+                              众
+ to stay at a suitable location.
+      Assumption 4 We assume that all the geographical features and human footprint is uniform within
+
+
+                      公
+ each cell (geographical regions defined in Section 4.1.2).
+
+                                                AT
+      Assumption 5 We assume the reproduction and activity rate of AGH and other bees are seasonal;
+ the trend is the same for every year.
+
+
+ 3     微
+       Data Exploration                            H
+ 3.1    信
+        Data Cleaning                    M
+                                ：
+ Examining the data files (2021MCMProblemC_DataSet.xlsx, 2021MCMProblemC_Images_by_Global
+ ID.xlsx, 2021MCM_ProblemC_Files.rar), we find the dataset contains all numerical, textual, and visual
+ data. We merged the two excel tables based on the global ID; then, we drop the outliers and exception
+
+                        号
+ values, including 138 public reports before 2019 September since we are only concerned about the
+ situation after the first positive incidents. We also drop the submitted images with data type other than
+
+
+                信
+ "*.jpg", since they are difficult to process as pictures and their amount is insignificant. Some reports
+ have up to 11 images, while some has none. We keep both kinds of reports and handle them differently
+ in Section 5.
+
+ 3.2   微Textual Data
+ To gain statistical insights into the textual data, we proceed by first preprocessing it. We extract the
+ "Notes" and "Lab Comments" columns from the data frame, and drop rows with null values due to a
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 5 ===
+ Team #2109298                                      微信公众号：数学模型
+                                                           Page 5 of 25
+
+
+ lack of methods to interpolate strings. Next, We use the python nltk package to tokenize all sentences
+ into lowercase words. Spaces, punctuations, and stopwords are removed. We also lemmatize each
+ word to restore it back to its original forms.
+     Since there are numerous notes and lab comments that are grammatically and semantically com-
+ plicated, we want to extract the main topics from the notes and comments to identify whether the
+ information are valuable to our main model. To do this, we apply the Latent Dirichlet Allocation
+
+                                                                              型
+                                                              学
+                                                               模
+                                                      数
+                                       号                       m
+                                        ：                       od
+                                                                  els
+                              众
+                      公
+      (a) LDA model for notes from public reports
+                                                    AT         (b) LDA model for lab comments
+
+
+
+
+     微                                                 H
+      信                                   M
+                                ：
+                        号
+      (c) word-cloud of notes from public reports               (d) word-cloud of lab comments
+
+
+               信                Figure 2: Results of the LDA topic model
+
+ (LDA) model [3], capable of extracting topics and keywords from texts. Using gensim, a standard
+
+       微
+ NLP package in python, we obtain the results from the LDA model and visualize them with pyLDAvis
+ package, which are shown in Figure 2a and 2b. In those figures, each circle represents a topic, and it
+ is clearly shown that those topics have few intersections, so they are mostly unrelated. To get a more
+ intuitive understanding, we plot the word-cloud for the two sets of texts in Figure 2c and 2d.
+     Most frequent words from public reports include "found", "hornet", and "bee", which fail to identify
+
+
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                    关注数学模型
+
+                                                                                                    获取更多资讯
+
+
+=== PHYSICAL PAGE 6 ===
+ Team #2109298                                       微信公众号：数学模型
+                                                            Page 6 of 25
+
+
+ a set of unique characteristics of AGH. Other less frequent words are also generic and vague. There is
+ even one note that reads "scared the hell out of me". As for the lab comments, although some specific
+ species of bees different from AGH have been pinpointed, like "golden digger", "horntail sawfly", and
+ "cicada killer", this information is useless for image identification in Section 5.2 since we are mainly
+ interested in a binary classification between AGH and non-AGH. Considering all the analysis above,
+
+
+                                                                                 型
+ we conclude that the textual part of the dataset will not play a big role in our model.
+
+ 3.3     Geographical Data
+
+                                                                 学
+ In order to achieve optimal data visualization effect, we have researched some background geographical
+
+
+                                                                  模
+ information on the regions involved. All data presentation on maps are plotted using the built-in
+ functions in Tableau, a data visualization software which helps us correspond the longitude-latitude
+ coordinates to the locations on the map.
+
+
+ 4       Spread of AGH based on Cellular Automata        数
+ 4.1
+                                        号
+         Defining the Cellular Automata Model
+                                                                  m
+ 4.1.1
+                                         ：
+          Introduction and Motivation of CA
+                                                                   od
+                                                                     els
+ In order to predict the spread of AGH in Washington State, we utilize cellular automata(CA), a widely
+
+                                众
+ used dynamic model capable of modeling biological spread and evolution of complex systems. It
+ contains discrete grids called cells. Each cell records biological and sociological features as well as the
+ magnitude of AGH populations in the region it occupies. In addition, cells will be updated according
+
+                        公
+ to a set of pre-defined rules.
+                                                  AT
+     CA is chosen for this task because of the following reasons:
+
+
+       微                                             H
+       • With only a few initial values (as we have restricted to one starting location of the AGH invasion),
+         CA can simulate the spread after many time steps.
+
+
+        信                                  M
+       • The future spread of AGH depends solely on the evolution in the past, while the update of each
+         state depends only on the current state – a desirable Markov property.
+
+
+                                  ：
+       • The self-defined rules admit flexibility: they allow us to use biological information to simulate
+         the interaction of AGH with its surrounding environments at different time step (specifically,
+
+
+ 4.1.2
+                         号
+         winter and summer).
+
+          Cells Setup
+
+                 信
+ In our CA, each cell is represented by a square geographical region. To avoid boundary cases, we look
+ for the maximum and minimum latitude and longitude of the given reports and extend this range by 20%
+
+         微
+ as the boundary condition, between (45.09°N, 49.95°N) and (−124.65°W, −116.87°W). Theoretically,
+ the more cells, the more precise our model will be. With the maximum computational cost in mind,
+ we set the size of each cell to be 12 km * 12 km, with 45 * 65 = 2925 cells in total.
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 7 ===
+ Team #2109298                                      微信公众号：数学模型
+                                                           Page 7 of 25
+
+
+
+
+                                                                                型
+                                                               学
+                                                                模
+                                                       数
+                               Figure 3: The geographical region selected
+
+
+
+
+                                      号
+     At each time step, each cell records a single value – the expected number of AGH inside the region
+
+
+                                                                m
+ – which will later be propagated through the automaton based on a set of rules. The distribution of
+
+
+                                       ：
+ values across all cells forms our estimation of the distribution of AGH colonies throughout Washington
+ State.
+                                                                 od
+     To accurately simulate AGH behaviours and predict their spread, regional biological characteristics
+
+
+                              众                                    els
+ are also vital in our model. Habitat suitability is a crucial driver of species migration, for each
+ individual tends to settle down and reproduce in more habitable environments. To capture this feature,
+ we introduce the AGH Habitat Suitability Index Matrix, 𝑆, to all regions, which ensembles human
+
+                      公
+ footprint and geographic barriers:
+
+                                                AT
+                                            𝑆 = −𝑙𝑜𝑔(𝑃) + 𝐵,                                           (1)
+
+      微                                            H
+ where 𝑃 is the human population distribution matrix and 𝐵 is a matrix depicting geographic barriers.
+ The −𝑙𝑜𝑔(𝑃) term captures the idea that human activities reduce suitability of habitats for animals.
+
+       信                                 M
+ Matrix 𝐵 seek to locate areas that are neither suitable for human nor for AGH. If a region is inhabitable,
+ the corresponding entry in B has value 0; if a region is not inhabitable (e.g., ocean), the entry in B has
+ value −∞.
+
+                                ：
+     Besides human footprint and geographical barriers, many other regional factors also influence
+ species distribution in general (e.g., climate, food resources). Yet, none of them can be drawn from
+
+
+                        号
+ the data provided. Specifically, human population data is also not provided. Thus, we design a novel
+ model to estimate human population distribution 𝑃 based on accessible statistics.
+
+
+               信
+     Analysing Human Population from submitted reports
+     Among the 4389 sightings provided, only 14 are identified as positive; the remaining sightings are
+
+
+       微
+ either mistaken or unidentified, many of which even lack meaningful descriptions and feedback. These
+ unverified and negative sightings provide us with little information about the distribution of AGH. Yet,
+ they contain rich information about the distribution of human population.
+     Since only 0.3% sightings are positive, it is reasonable to assume the public do not possess
+ knowledge to differentiate AGH from other similar bees; their frequent negative reports of AGH
+ sightings more directly reflect their anxiety of an AGH invasion rather than the actual presence of
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 8 ===
+ Team #2109298                                             微信公众号：数学模型
+                                                                  Page 8 of 25
+
+
+ any AGH. This assumption leads to the conclusion that, in the regions where AGH population is
+ insignificant, the number of reports correlates strongly with the amount of people concerned about the
+ AGH invasion issue. The latter quantity can be assumed to be proportional to the regional population,
+ hence we derive the conclusion proposed. As we draw all the sightings on 4a, we find that regions with
+ frequent reports are often located in large cities, further proving our conclusion.
+     Thus, we can fit the human population distribution by the following formula:
+
+                                   𝑃(𝑥, 𝑦) =
+                                                  Õ
+                                                               √
+                                                                   1
+                                                                         𝑒
+                                                                             −
+                                                                                 ( 𝑥−𝑟 𝑥 ) 2 +( 𝑦−𝑟 𝑦 ) 2
+                                                                                          2𝜎 2
+                                                                                                              型                         (2)
+
+                                                                                   学
+                                               (𝑟 𝑥 ,𝑟 𝑦 )∈𝑅       2𝜋𝜎
+
+
+
+                                                                                    模
+ where 𝑅 is the set of coordinates of reports given by the dataset, (𝑟 𝑥 , 𝑟 𝑦 ) is the location of a report, and
+ 𝜎 is a parameter that one can tune. We have used a Gaussian distribution to capture the influence of (or
+ the posterior information carried by) a point mass of population on the total distribution of population.
+
+
+                                                                   数
+                                         号                                           m
+                                          ：                                           od
+                                                                                        els
+         (a) report distribution
+                                   众       (b) population distribution                                      (c) population statistics
+
+
+
+
+                        公
+     After fitting, we roughly compared our population distribution with the major cities and geographical
+
+                                                      AT
+ features in Washington State. Our distribution successfully indicates the location of Vancouver, Seattle,
+ Portland, the chain of three large cities in the west, occupied by large population. It also manages
+
+
+      微                                                  H
+ to identify the location of Spokane and Kennewick, two major cities in the east and the south. In
+ our population distribution, the middle-south of the state is especially empty. This phenomenon
+
+
+       信
+ corresponds well with the Yakama Indian Reservation, which locates on the east side of the Cascade
+
+                                           M
+ Mountains in southern Washington, where the population is sparse. Therefore, we draw conclusion
+ that the population distribution obtained from report is sufficiently accurate.
+
+ 4.1.3   Update Rules
+                                   ：
+                          号
+ To best predict the dynamics of AGH population, we design a set of suitable rules for CA in accordance
+ with reality. The simulation initializes at the Pacific Northwest where the first 5 positive sightings
+ occurred. At a given time step 𝑡, if a given region is occupied by AGH, its adjacent regions are likely
+
+                 信
+ to be visited by the species in the next time step 𝑡 + 𝛿𝑡, and if suitable for AGH reproduction, become
+ occupied. This transition behaviour can be modelled by Moore-type cells [6], where each cell interacts
+
+
+         微
+ with the eight adjacent cells as shown in Figure 5. Specifically, considering hornets movements are
+ continuous, we use cells where 𝑑 = 1.
+     Biological studies of AGH indicate that the hornets exhibit two sets of distinct action patterns in a
+ given year. In summer [2], AGH participate in active reproduction and various other activities including
+ scouting and hunting. In winter, worker AGH hornets decease and overwintering queens confine
+ themselves to a small region, and remain inactive until spring arrives. Based on this fact, we design two
+
+
+微信号：MATHmodels                                                                                                                   2
+
+                                                                                                                        MATHmodels
+                                                                                                                                     关注数学模型
+
+                                                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 9 ===
+ Team #2109298                                      微信公众号：数学模型
+                                                           Page 9 of 25
+
+
+
+
+                  Figure 5: The Moore neighborhood (red) of the blue cell, d = 1. [6]
+
+
+                                                                                  型
+ sets of CA update rules, corresponding to summer and winter activity respectively. In summer, AGH
+ enlarges in population based on a reproduction rate 𝑟 𝑠𝑢𝑚𝑚𝑒𝑟 , while nearby cells communicate more
+
+
+                                                                   学
+ frequently with an active level 𝑎 𝑠𝑢𝑚𝑚𝑒𝑟 . In winter, the population of AGH diminishes with rate 𝑟 𝑤𝑖𝑛𝑡𝑒𝑟 ,
+ while the surviving hornets remain inactive in their region with an active level 𝑎 𝑤𝑖𝑛𝑡𝑒𝑟 . Regardless
+
+
+                                                                    模
+ of season, any given AGH is more likely to move into nearby cell with larger suitability index. The
+ complete cell update procedure is shown in Figure 6.
+
+
+
+                                                       数
+                                       号                             m
+                                        ：                             od
+                                                                        els
+                              众
+                      公                         AT
+      微                                            H
+                                     Figure 6: Cell update procedure
+
+
+       信                                 M
+     Using the above set of parameters, we now propose the transition formula of a single cell 𝐶𝑐𝑢𝑟 . For
+ each neighbors of 𝐶𝑐𝑢𝑟 in the automaton (denoted by 𝐶𝑎𝑑 𝑗 ), the transition probability from 𝐶𝑐𝑢𝑟 to 𝐶𝑎𝑑 𝑗
+ is 𝑇𝑐𝑢𝑟,𝑎𝑑 𝑗 , where
+
+                                ：    𝑇𝑐𝑢𝑟,𝑎𝑑 𝑗 = softmax(𝑆 𝑎𝑑 𝑗 ) × 𝑎.                                 (3)
+    𝑎 is one of 𝑎 𝑠𝑢𝑚𝑚𝑒𝑟 and 𝑎 𝑤𝑖𝑛𝑡𝑒𝑟 depending on time, the softmax function is utilized to normalize the
+
+                        号
+ weight of transition probability with respect to adjacent cells:
+                                                          𝑒 𝑆 𝑎𝑑 𝑗 −𝑆 𝑐𝑢𝑟
+
+                信                   softmax(𝑆 𝑎𝑑 𝑗 ) = Í
+                                                         𝐶𝑎𝑑 𝑗 𝑒
+                                                                  𝑆 𝑎𝑑 𝑗 −𝑆 𝑐𝑢𝑟
+
+
+     where the summation is over the (2𝑑 + 1) × (2𝑑 + 1) Moore cells centered at 𝐶𝑐𝑢𝑟 . Note that this
+                                                                                                        (4)
+
+
+
+
+       微
+ formula includes the case 𝐶𝑎𝑑 𝑗 = 𝐶𝑐𝑢𝑟 . This means if AGH finds a suitable place (e.g., a region with
+ local maximal suitability index) for nesting, it is likely that they will stay there and stop migrating.
+ Thus, it is reasonable to consider 𝐶𝑐𝑢𝑟 itself as an adjacent cell.
+     Besides exploring around within a short distance, it is also vital to consider the dispersal of AGH
+ over long distance. This phenomenon is always caused by hitchhiking on human activity [1]. Although
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 10 ===
+ Team #2109298                                       微信公众号：数学模型
+                                                            Page 10 of 25
+
+
+ the possibility is small, this passive dispersal process is the major cause of many species invasions.
+ Thus, in our CA, we also add a small transition probability that a small group of AGH can be carried
+ away to further cells.
+     The states of all cells are updated concurrently. Let the state of a cell 𝐶𝑐𝑢𝑟 at this moment be
+ 𝑁𝑐𝑢𝑟 (𝑡). We obtain the next state 𝑁𝑐𝑢𝑟 (𝑡 + 1) for all cells by three steps. First, we perform the AGH
+ reproduction step:
+                                           𝑁𝑐𝑢𝑟 (𝑡) = 𝑁𝑐𝑢𝑟 (𝑡) × 𝑟.
+                                                                                   型                  (5)
+    where 𝑟 is one of 𝑟 𝑠𝑢𝑚𝑚𝑒𝑟 and 𝑟 𝑤𝑖𝑛𝑡𝑒𝑟 depending on the current time step. Then, each cell is updated
+
+                                                                 学
+ according to its activity degree. This accounts for the AGH that still stays inside its previous cell:
+
+
+
+                                                                  模
+                                      𝑁𝑐𝑢𝑟 (𝑡 + 1) = 𝑁𝑐𝑢𝑟 (𝑡) × (1 − 𝑎).                                   (6)
+
+     Finally, we simulate the interaction of AGH with its surroundings using the transition probability
+ 𝑇𝑐𝑢𝑟,𝑎𝑑 𝑗 :
+
+                                                         数
+                           𝑁𝑎𝑑 𝑗 (𝑡 + 1) := 𝑁𝑎𝑑 𝑗 (𝑡 + 1) + 𝑁𝑐𝑢𝑟 (𝑡 + 1) × 𝑇𝑐𝑢𝑟,𝑎𝑑 𝑗 .              (7)
+     where := means updating the value on the left by one on the right. In addition, we have to specifically
+
+                                        号
+ take care of the situation at the boundaries of our cells. For the North, South, and East boundaries, we
+
+                                                                   m
+ assume the AGH will never go back once it has gone out, since those AGH would continue moving at
+
+
+                                         ：                          od
+ those directions if all the cells outside the boundaries are just the same as the ones on the boundaries.
+ As for the west boundary, the presence of the sea is handled by the suitability index.
+
+                                                                      els
+ 4.1.4   Parameters Setting
+                               众
+ To better simulate the reality, we use biological background information to set our parameters. The
+
+                       公                          AT
+ behavior of AGH is significantly different between fall and winter, and spring and summer. Since the
+ first outbreak of the AGH is in September, we define fall and winter as months from September to
+
+
+       微
+ February, and spring and summer from March to August.
+
+                                                     H
+      We interpret each consecutive time steps 𝛿𝑡 as one day, meaning the one CA update represents the
+
+
+        信
+ behaviour of AGH in one day. Since the AGH can fly up to 100 km in a single day [2], it is reasonable
+
+                                          M
+ to assume its daily activity range is about 10-20 km when optimizing location for nesting, roughly the
+ size of a cell. Also, this value is adjusted according to the activity degree 𝑎 during different time of the
+ year. In our model, we set 𝑎 𝑠𝑢𝑚𝑚𝑒𝑟 = 0.3, 𝑎 𝑤𝑖𝑛𝑡𝑒𝑟 = 0.1.
+
+                                 ：
+      According to information in [2], we simulate the life cycles of AGH by setting different reproduction
+ rate 𝑟 for different seasons. We set 𝑟 𝑠𝑢𝑚𝑚𝑒𝑟 = 1.05, corresponding to the fact that the peak of a new AGH
+
+
+                         号
+ colony is roughly triple of its initial amount at the beginning of the year; then, we set 𝑟 𝑤𝑖𝑛𝑡𝑒𝑟 = 0.995, so
+ that the AGH workers and unfertilized queens (roughly two thirds of the total population) all eventually
+ die during fall and winter.
+
+                信
+      The initial conditions are also crucial to the result of CA. As we have few data about the real
+ distribution of the AGH, we set the cell of the first incident of the AGH as our initial location, and
+
+
+         微
+ September as the initial time. We set the initial AGH colony to be 1000.
+
+ 4.2     Results and Analysis
+ Using the set parameters, we simulate the AGH colony evolution for 10 years, and the result is shown
+ in Figure 9. We examine both short-term (within two years) trends and long-term trends (over five
+
+
+微信号：MATHmodels                                                                                       2
+
+                                                                                            MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 11 ===
+ Team #2109298                                    微信公众号：数学模型
+                                                         Page 11 of 25
+
+
+
+
+                                                                             型
+                                                             学
+  Figure 7: Population of British Columbia [7]
+
+                                                              模
+                                                      Figure 8: Growth of total AGH population
+
+
+
+
+                                                     数
+ years). Figure 9a to 9c is the evolution from 2019/09 to 2020/7. The AGH colony starts from cells
+ around Vancouver, and we assume the initial AGH colony size is 1000, an estimate for at least the size
+ of one nest. Comparing with the human population distribution of each cell shown in Figure 4b, we
+
+
+                                     号
+ summarize characteristics of the simulation and the reasons as the following:
+
+
+                                                              m
+     • The presence of the Strait of Georgia constricts the spread of AGH colony to the west.
+
+                                      ：                        od
+     • The main trend of the AGH colony is toward the north and east, where the low population density
+       leads to a high suitability index.
+
+                             众                                   els
+     • A proportion of AGH passes through the northern boundary of our cells, entering Canada, where
+       we cannot model precisely due to lack of data. However, this will not significantly influence our
+
+                     公                         AT
+       simulation of the AGH spread in the Washington State, since the Canadian province adjacent to
+       Washington state is British Columbia, whose main population is densely centered at Vancouver
+
+
+     微
+       and the rest are mostly mountains and forests, as shown in Figure 7. So by our rules the AGH
+
+                                                  H
+       would indeed tend to spread in this direction.
+
+
+
+      信
+     • Another proportion of the AGH colony moves toward east first, then spread to the south, mean-
+
+                                        M
+       while avoiding the high population cells along the Interstate 5 (I-5), the main highway on the
+       west coast of the US. The AGH colonies toward the south are smaller than those toward the north,
+
+
+                               ：
+       due to the fact that the suitability index is very high in the north.
+
+     • Over the first year, the AGH is still centered around Vancouver, matching the pattern we see from
+
+
+                       号
+       the public reports: almost all the reports are from places very close to the initial start.
+
+     As for the long-term spread of the AGH colony, the results are shown from Figure 9d to 9e. After
+
+               信
+ five years (t=1800), the AGH colony spreads further into the south and is seperated into two branches,
+ mainly along the national parks consisting of mountains and forests. After ten years (t=3600), the
+ dynamic of the AGH colony is stabilized. The distribution of the AGH colony will not be changed
+
+       微
+ significantly any more, and it is only the absolute number of the AGH that increases. The total AGH
+ population is shown in Figure 8, where the growth shows an oscillating exponential growth, reaching
+ 10000 in the summmer 10 years later. If we were to model the quantity of AGH after 10 years, we could
+ just use the spatial distribution at year 10 and model the temporal changes through logistic equations.
+ We overlapped the human population distribution (the blue regions) with the AGH distribution result
+
+
+微信号：MATHmodels                                                                                 2
+
+                                                                                      MATHmodels
+                                                                                                   关注数学模型
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 12 ===
+ Team #2109298                                       微信公众号：数学模型
+                                                            Page 12 of 25
+
+
+ together in Figure 9e. The two distributions complement each other, reflecting our assumption that the
+ AGH tends to move to places with fewer humans. From our results, we notice that the Gifford Pinchot
+ National Forest will become the cluster of future AGH colony, and special care and precautions should
+ be taken.
+
+
+
+                                                                                  型
+                                                                 学
+             (a) t=150
+                                                                  模
+                                                        数
+                                                  (b) t=300                             (c) t=600
+
+
+
+
+                                       号                          m
+                                        ：                          od
+                                                                     els
+                               众
+                         公                       AT
+       微
+                      (d) t=1800                          (e) t=3600 (overlapped with human population)
+
+                                                    H
+                                    Figure 9: Results of the CA model
+
+        信                                 M
+ 4.3    Sensitivity Analysis of CA
+                                   ：
+ As there are various parameters associated with CA that is tunable, including the initial distribution of
+
+
+                         号
+ AGH population, the suitability index of each region, and size of the grid, it is critical that we assess
+ the sensitivity of CA with respect to each of them. We will randomly perturb one set of parameters
+ each time, implement CA evolution and evaluate the level of variation in model outputs: distribution
+
+                信
+ of hornet population over space and time.
+     We first investigate sensitivity with respect to suitability values. Note that by perturbing suitability,
+
+
+       微
+ we adjust both our beliefs in a region’s habitability and the set of transition probabilities applied during
+ updates. At each initialization, we perturb each suitability value by multiplying a Gaussian random
+ variable with mean 1 and variance 𝜎 2 = 0.2. At a selected time step, we compare 2 sets of initialization
+ by calculating the Kullback-Leibler (KL) divergence distance between the probability distributions of
+ AGH population associated with each initialization, the end result is displayed in Figure 10. Then, for
+
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 13 ===
+ Team #2109298                                        微信公众号：数学模型
+                                                             Page 13 of 25
+
+
+ each region at a selected time step, we constructs a 95% confidence interval of CA-predicted population
+ upon multiple random initializations. This statistics is summarized in Figure 11.
+
+
+
+
+                                                                                 型
+     (a) 300-th time step      (b) 600-th time step
+                                                                学
+                                                         (c) 1800-th time step     (d) 3600-th time step
+
+
+
+                                                                 模
+ Figure 10: We sample 9 different possible initial distributions of AGH population, simulate population
+ dynamics and record AGH population distribution for each initialization at 4 different time steps (300,
+ 600, 1800, 3600). We then calculate the Kullback-Leibler (KL) divergence distance between any pair
+ of initializations.
+                                                       数
+                                       号                         m
+                                        ：                         od
+                                                                    els
+     (a) 150-th time step
+                              众(b) 600-th time step      (c) 1800-th time step     (d) 3600-th time step
+
+
+
+                      公
+ Figure 11: We sample 9 different possible initial distributions of AGH population, and at a certain time
+
+                                                 AT
+ step record 9 sets of probability for a single region. These 9 values provide a confidence interval for
+ each of the region at a certain time step. We plot the distribution of the longest 100 95% confidence
+
+
+      微
+ intervals.
+                                                    H
+       信
+     We then investigate sensitivity with respect to initial distribution. Again, we first compare the
+
+                                         M
+ spatial distribution of AGH population by KL divergence metric in Figure 12. Then, we select a number
+ of particular regions to evaluate the dispersion of population value predicted by several initialization,
+
+
+                                ：
+ which then provides a 95% confidence interval of the actual population in the region in Figure 13.
+ Result shows that our model is robust against disturbance, and the 95% confident interval tends to
+ become even smaller as the evolution continues.
+
+
+ 5
+                        号
+      Identification of Mistaken Classification
+                信
+ In this section we aim to calculate the the likelihood of a mistaken sighting 𝑠 in a certain grid 𝑟 at time
+
+
+       微
+ 𝑡. This likelihood consists of multiple contributing factors, including hornet distribution at time 𝑡, the
+ frequency at which reports are filed in the region 𝑟 and the information conveyed by the images/texts
+ data accompanying the report. To combine these three factors, we proceed in a step-by-step fashion.
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 14 ===
+ Team #2109298                                          微信公众号：数学模型
+                                                               Page 14 of 25
+
+
+
+
+       (a) 150-th time step      (b) 600-th time step      (c) 1800-th time step
+                                                                                   型(d) 3600-th time step
+
+ Figure 12: We sample 9 different possible initial distributions of AGH population, simulate population
+
+
+                                                                  学
+ dynamics and record population distribution of each initialization at 4 different time steps. We then
+ calculate the Kullback-Leibler (KL) divergence between AGH probability distributions of any pair of
+ initializations.
+
+                                                                   模
+                                                           数
+                                         号                         m
+                                          ：
+       (a) 150-th time step      (b) 600-th time step      (c) 1800-th time step    (d) 3600-th time step
+
+                                                                    od
+ Figure 13: We sample 9 different possible initial distributions of AGH population, and at a certain
+
+                                                                      els
+ time step record 9 sets of probability for a single region. These 9 values provide a confidence interval
+
+                                众
+ for each of the region at a certain time step. We plot a histogram recording the longest 100 95%
+ confidence intervals.
+
+
+ 5.1                    公                          AT
+         Plan of Attack Based on Naive Bayes Inference
+
+
+       微                                              H
+ Given a sighting of a creature which may or may not be an AGH in a particular region 𝑟 at time 𝑡 we
+ denote the probability event as follows:
+
+
+        信
+       • R: the event that the sighting seen is reported
+                                           M
+       • H: the event that the sighting is associated with an AGH
+
+                                  ：
+       • I: the event that a particular set of image and text (could be empty) information is included in the
+         report
+
+                          号
+    We are interested in the quantity 1 − P(𝐻|𝑅, 𝐼) as this is the probability that a report mistakenly
+
+
+                 信
+ identifies an AGH. By conditional Bayes Theorem we yield:
+    If in the report information such as image and text is given, it is then the case that 𝑅 ∩ 𝐼 = 𝐼 and we
+ have:
+
+         微                              P(𝐻|𝑅, 𝐼) =
+                                                      P(𝑅|𝐻, 𝐼)P(𝐻|𝐼)
+                                                          P(𝑅|𝐼)
+                                                    = P(𝐻|𝐼)
+                                                                                                            (8)
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 15 ===
+ Team #2109298                                       微信公众号：数学模型
+                                                            Page 15 of 25
+
+
+     Note that in the process we assume that P(𝑅|𝐻, 𝐼) = 1 because AGH is visually intimidating and
+ upon sighting, a person always chooses to report the dangerous-looking species to local authority. If
+ no image or useful text information is given, we instead get:
+
+                               P(𝐻|𝑅, 𝐼) = P(𝐻|𝑅)
+
+
+                                                                                型
+                                           P(𝑅|𝐻)P(𝐻)
+                                         =
+                                              P(𝑅)
+                                                   P(𝑅|𝐻)P(𝐻)                                           (9)
+                                         =
+
+                                         =                      学
+                                           P(𝑅|𝐻)P(𝐻) + P(𝑅|𝐻 𝑐 )P(𝐻 𝑐 )
+                                                     P(𝐻)
+
+
+                                                                 模
+                                           P(𝐻) + P(𝑅|𝐻 𝑐 )(1 − P(𝐻))
+    where 𝐻 𝑐 is the complement of the probability event 𝐻. We also used the assumption that
+ P(𝑅|𝐻) = 1 due to the same reason given in the first derivation. It is also safe to assume here that
+
+                                                       数
+ P(𝐻)  1 due to the rareness of discovering an escaping AGH demonstrated by the dataset and based
+ on common sense. Rewriting Equation 9 yields:
+
+
+                                       号
+                                      P(𝐻|𝑅, 𝐼) =
+                                                            P(𝐻)
+                                                           1−P(𝐻)
+
+                                                                    m
+                                        ：
+                                                    P(𝐻)
+                                                   1−P(𝐻) + P(𝑅|𝐻 )
+                                                                 𝑐
+                                                         𝑝
+                                                         𝑀           od                                (10)
+
+
+                              众
+                                                 ≈ 𝑝
+
+                                                 =
+                                                   𝑀 + P(𝑅|𝐻 )
+                                                      𝑝
+                                                     𝑝+𝑞
+                                                              𝑐
+                                                                       els
+                      公                         AT
+     where 𝑝 is the expected amount of AGH population in 𝑟 at time 𝑡, 𝑀 is the expected amount of
+ reported bug sightings in 𝑟 at time 𝑡 and 𝑞 = P(𝑅|𝐻 𝑐 )𝑀.
+
+
+      微
+     Note that the above calculations provide two sets of probabilities for mistaken classification, one
+
+                                                   H
+ based on the image and text involved, the other does not. It is then left for us to estimate the quantities
+
+
+       信
+ involved in Equation 8 and 10. In particular, the remaining parts of the section will be dedicated to
+ estimating each quantity, in particular:
+                                         M
+     • 𝑝: this is calculated by the distribution of AGH population simulated by CA in Section 4.2.
+
+                                ：
+     • P(𝐻|𝐼): this will be calculated as a result of the image classification task and text sentiment
+       analysis probability in Section 5.2. Since we have concluded in 3.2 that textual data provides little
+
+                        号
+       to no information for classification purposes, we rely mainly on images in this approximation.
+
+     • 𝑞: this is quantity will be fitted based on existing report number given in the dataset.
+
+                信
+    This would also solve the third question we post in the beginning, asking for a strategy to deploy
+
+
+       微
+ hornet hunters. In fact, at region 𝑟 at time 𝑡, we give 𝑟 a score 𝑠 which is defined as the maximum
+ probability of correct identification across all reports in 𝑟 at 𝑡.
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 16 ===
+ Team #2109298                                    微信公众号：数学模型
+                                                         Page 16 of 25
+
+
+ 5.2     Part II: Image Identification (Estimating P(𝐻|𝐼))
+ Upon exploring the image dataset given, we notice a strong imbalance between positive training data
+ (13 images in total) and negative training data. We construct a two-stage image classification based on
+ a pretrained VGG-11 architecture followed by a SVM classifier. We also utilized data augmentation
+ technique to improve model generalization ability.
+
+                                                                             型
+                                                             学
+                                                              模
+                                                     数
+                                     号                        m
+                                      ：                        od
+                                                                 els
+                             众
+                     公                         AT
+                     Figure 14: VGG-11 + SVM pipeline for image classification
+
+
+ 5.2.1 微 Data Augmentation and Model Construction H
+        信                               M
+ To attain better generalization, we first augment the given positive ID images using transformations
+ including: rotation, Gaussian blurring, cropping and affine shifting, all of which have corresponding
+
+
+                               ：
+ implementations in the Pytorch library. We also make sure that all such obtained images contain visible
+ AGH. This process addresses the problem of lacking positive labeled data, and significantly increases
+ the accuracy of our Machine Learning model. A particular example of such augmentation is given
+ below.
+                       号
+     By augmentation, we are able to extend the original 13 data images to a total of 87.
+     Then, we propose a two-stage pipeline consisting of a dimension reduction treatment followed by
+
+               信
+ a classifier. There are many alternatives for both parts of the model – we survey PCA analysis and
+ various pretrained image encoding models on large image classification tasks for dimension reduction
+
+
+         微
+ techniques; we always implemented K-Nearest Neighbour (kNN) and Support Vector Machine (SVM)
+ for robust classifier under heavily imbalanced datasets. By cross examining several models, we decide
+ on a VGG-11 + SVM model pipeline which achieves desirable performance under both the mean
+ accuracy and AUROC metric, the latter we will thoroughly introduce later.
+
+
+
+
+微信号：MATHmodels                                                                                 2
+
+                                                                                      MATHmodels
+                                                                                                   关注数学模型
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 17 ===
+ Team #2109298                                       微信公众号：数学模型
+                                                            Page 17 of 25
+
+
+
+
+         (a) Original Image
+                                 (b) Cropped Image   (c) Affine-Transform Image
+                                                                                  型
+                                                                                  (d) Rotated Image
+
+
+
+                                                                学
+                              Figure 15: Examples of data augmentation results.
+
+                           Model Pipeline
+                          VGG16-bn + k-NN
+                          VGG11-bn + k-NN
+                                                 Mean Accuracy
+                                                    77.1%
+                                                    84.1%        模  AUROC Score
+                                                                      84.3%
+                                                                      92.1%
+                          VGG16-bn + SVM
+                          VGG11-bn + SVM                数
+                                                    90.3%
+                                                    90.2%
+                                                                      94.4%
+                                                                      95.4%
+
+
+
+                                        号
+ Table 1: Accuracy and AUROC score of various model pipeline designs. Each row is composed of
+
+                                                                  m
+ two probability score, the first is mean accuracy on test dataset, and the second term records AUROC
+ score.
+
+
+ 5.2.2   Training and Testing Results
+                                         ：                         od
+                                                                     els
+                                众
+ To further enhance the reliability of our testings and capability of our model, we split all images by
+ "before and after a certain moment", and conduct all testings strictly based on time.
+
+                       公                         AT
+     For training, we select all image data from 2019-09-19 to 2020-05-15 as training dataset, consisting
+ in total of 60 images corresponding to positive ID and 300 images corresponding to negative ID. Upon
+
+
+     微
+ conducting compression via VGG-11 network, we couple each feature vector with its corresponding
+
+                                                    H
+ label and train a SVM model using the Python sklearn package.
+
+
+      信
+     For testing, we select all image data from 2019-05-16 to 2020-10-01 as testing dataset, consisting
+
+                                          M
+ in total of 27 images corresponding to positive ID and remaining 500 corresponding to negative ID. We
+ record both test accuracy and AUROC score in Table 1. AUROC (Area Under ROC Curve) score
+ is an evaluation metric that captures model prediction accuracy under imbalanced inference dataset
+
+                                  ：
+ scenarios. Given an unbalanced test dataset 𝑇, the ROC curve is created by plotting the true positive
+ rate (TPR) of the trained model in 𝑇 against the false positive rate (FPR) at various threshold settings.
+
+
+                        号
+ AUROC is calculated by finding the area under the ROC curve, which is typically a value between 0
+ and 1. Higher AUROC indicates better predictive ability.
+     We also test the robustness of our model under Adversarial Attacks. We use mainly the images of
+
+                信
+ European hornets and Eastern cicada killers (Sphecius speciosus) which are visually similar to AGH
+ according to [2]. The images are also collected from [2]. We display one such images in Figure 16.
+
+
+         微
+     Our model successfully classifies both European hornets and Sphecius speciosus as negative ID,
+ an illustration of our model’s accuracy in the adversarial regime.
+
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 18 ===
+ Team #2109298                                                微信公众号：数学模型
+                                                                     Page 18 of 25
+
+
+
+
+                                                                                                     型
+                                                                                学
+                                                                                 模
+                                                                  数
+                   Figure 16: European Hornet: Highly similar to AGH in appearance.
+
+
+ 5.2.3   Estimating P(𝐻|𝐼)
+                                         号                                         m
+                                          ：                                         od
+ At time 𝑡, given a report in region 𝑟 equipped with image data 𝐼, a trained classifier takes in the
+ image/images, and for each image 𝑖 provides a probability 𝑝𝑖 that 𝑖 identifies an AGH. The prob-
+
+
+                                                                                      els
+ ability calculation of an SVM classifier is implemented using the ’predict_proba’ function in the
+
+                                众
+ sklearn.svm.SVC package. If a single image is provided, we simply uses the probability given by the
+ classifier. If multiple images are given, we take the maximum of all 𝑝𝑖 , 𝑖 ∈ 𝐼. This concludes our
+ method of approximation.
+
+ 5.3     Estimate 𝑞     公                              AT
+       微                                                  H
+ 𝑞 = P(𝑅|𝐻 𝑐 )𝑀 is a quantity in the formula for the probability of mistaken sighting, 𝑞 is not related to
+
+
+        信
+ AGH distribution at all, but represents "the likelihood of a false report appearing in certain regions",
+ in other words, the "discredibility" of the report from certain regions. The meaning of P(𝑅|𝐻 𝑐 )
+                                             M
+ component is: the probability of a person reporting an insect other than AGH upon seeing it. Though
+ this quantity largely varies among person to person, it doesn’t correlate with region or time. Therefore,
+
+                                  ：
+ it is reasonable to assume the average P(𝑅|𝐻 𝑐 ) is constant in all regions. Next, we also need a regional
+ quantity 𝑀𝑟 , denoting the expected bug sightings in a region. This quantity, together with the universal
+
+
+                         号
+ constant P(𝑅|𝐻 𝑐 ), calculates 𝑞 in a given region, thus directly relates to discredibility.
+      The ideal way to obtain 𝑀𝑟 is to draw from historical report frequency. Higher frequency in the
+ past implies larger 𝑀𝑟 , and lower historical frequency implies lower 𝑀𝑟 . Due to the lack of data points
+
+                 信
+ in many regions, we again apply Gaussian Distribution to approximate geographic information carried
+ by each report:
+
+
+         微                            𝑀𝑟 =
+                                                Õ
+
+                                             (𝑟 𝑥 ,𝑟 𝑦 )∈𝑅
+                                                             √
+                                                              1
+                                                              2𝜋𝜎
+                                                                  𝑒
+                                                                      −
+                                                                          ( 𝑥−𝑟 𝑥 ) 2 +( 𝑦−𝑟 𝑦 ) 2
+                                                                                   2𝜎 2
+
+
+
+
+    where (𝑟 𝑥 , 𝑟 𝑦 ) is the location of a historical report and (x, y) is the center of region 𝑟. Fitting in this
+                                                                                                                   (11)
+
+
+ way, we can obtain 𝑀 for each region, representing the discredibility of the report from certain region.
+
+
+微信号：MATHmodels                                                                                                2
+
+                                                                                                     MATHmodels
+                                                                                                                  关注数学模型
+
+                                                                                                                  获取更多资讯
+
+
+=== PHYSICAL PAGE 19 ===
+ Team #2109298                                             微信公众号：数学模型
+                                                                  Page 19 of 25
+
+
+     While 𝑀𝑟 addresses the discredibility distribution among space, it is also noticeable that the
+ frequency of reports vary dramatically among seasons. Specifically, in some regions, the frequency
+ of reports in summer could be 20 times larger than in winter, resulting in credibility of reports in
+ summer and winter. This phenomenon generally correspond with the general activity and reproduction
+ patterns of insects. To address this seasonal influence, we define another quantity, 𝑁 (𝑡), that captures
+ the seasonal change of report amounts in time.
+
+                                                                                                   型
+     Since the pattern of insect activity can be seen as a periodic function, we applied a simple trigono-
+ metric function, combined with ReLU function, to fit this pattern:
+                                    𝑁 (𝑡) = 𝑅𝑒𝐿𝑈 ( 𝑝 sin(𝑞𝑡 + 𝑟) + 𝑐)
+                                                                          学                                                     (12)
+
+
+
+                                                                           模
+ where t denotes the number of months on a year, and N(t) is the predicted number of reports found in
+ that month. We implemented the fitting process by Sklearn and obtained the following result:
+                 𝑝 = −0.18054375, 𝑞 = 0.53359878, 𝑟 = 7.07317231, 𝑐 = 0.04970395                                                (13)
+
+                                                               数
+                                      号                                    m
+                                       ：                                    od
+                                                                              els
+                              众
+                      公                              AT
+                       Figure 17: Prediction curve of request distribution in time
+
+
+
+       微                                                H
+     Finally, we superpose the spatial discredibility distribution 𝑀𝑟 and the seasonal request periodic
+ function, we can obtain the spatial-time credibility index, 𝑀 (𝑟), that comprehensively evaluate the
+
+        信
+ discredibility of a request from spatial and time perspective. Given a report , we can obtain 𝑞𝑟 by the
+ following formula:
+                                          M
+                                         𝑞𝑟 = 𝑀 (𝑟) = 𝑀𝑟 ∗ 𝑁 (𝑡𝑟 )                                  (14)
+
+ 5.4   Results and Analysis     ：
+                       号
+ Using various estimates given in the previous sections, we evaluate two probabilities given a report:
+ P(𝑅|𝐻, 𝐼) = P(𝐻|𝐼) when image data accompanies the report, and P(𝑅|𝐻) = 𝑝+𝑞    𝑝
+                                                                                    when image data is
+
+
+               信
+ not provided. Notice that even if some images is provided in a report, the quality of the image might
+ be doubtful due to human-induced corruptions. Therefore, we consider both probabilities when image
+ data is provided. In addition, as argued in the previous section, we need to modify P(𝑅|𝐻) as 𝑝+𝑐𝑞𝑝
+                                                                                                     ,
+
+       微
+ where 𝑐 is a tunable parameter. We apply Maximum Likelihood Estimation (MLE) of 𝑐 using historic
+ data to maximise the quantity:
+                                           Õ                   𝑝𝑟(𝑡)             Õ                  𝑐𝑞𝑟(𝑡)
+                  log(P(data| 𝑝, 𝑞)) =               log                   +               log                                  (15)
+                                         (𝑟,𝑡)∈Pos         𝑝𝑟(𝑡) + 𝑐𝑞𝑟 (𝑡)
+                                                                               (𝑟,𝑡)∈Neg         𝑝𝑟(𝑡) + 𝑐𝑞𝑟(𝑡)
+
+
+微信号：MATHmodels                                                                                                             2
+
+                                                                                                                  MATHmodels
+                                                                                                                               关注数学模型
+
+                                                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 20 ===
+ Team #2109298                                        微信公众号：数学模型
+                                                             Page 20 of 25
+
+
+     Note the sum is over all positive identification reports and all negative identification reports, indexed
+ by region 𝑟 and time step 𝑡. 𝑝𝑟(𝑡) and 𝑞𝑟(𝑡) are estimates of 𝑝 and 𝑞 in the region 𝑟 at time 𝑡. Differentiating
+ right hand side and set it equal to zero, we obtain 𝑐 ≈ 0.05990657. The variance of 𝑐 depends on the
+ variance of estimates of 𝑝, 𝑞. Since there is no explicit way of writing 𝑐 in terms of 𝑝, 𝑞, we convince
+ ourselves that 𝑐 is a reasonably accurate estimate as 𝑝, 𝑞 have small variance as shown previously.
+
+
+                                                                                    型
+     After obtaining the scaling factor 𝑐, we calculate probabilities derived from image and Bayesian
+ inference for each report starting from 2019-05-16 to 2020-10-01, note this is in accordance with
+ the testing set we used in Section 5.2. We first provide some summary statistics of the two sets of
+
+
+                                                                   学
+ probabilities for negative reports and positive reports respectively in Table 2.
+
+
+
+                                                                    模
+                                            Mean         Standard Deviation      25% percentile           75% percentile
+     probability without image            15% / 5%           0.15 / 0.1           8.8% / 0.05%             16.6% / 2%
+  probability conditioned on image       10.4% / 4%          0.1 / 0.09             1% / 0.4%               10% / 2%
+
+
+                                                          数
+ Table 2: Bayesian probability of positive report with no visual knowledge and probability of positive
+ reports conditioned on images for positive and negative classes of reports given in the dataset. Each
+
+
+                                         号
+ entry is of the form pos% / neg% corresponding to positive reports and negative reports.
+
+
+
+                                          ：                         m
+     We observe that probability without image differentiates positive reports from their negative coun-
+
+                                                                     od
+ terparts better than pure image classification. We attribute this to a lack of training example for image
+ classification task and a lack of visibility of images provided by civilians. We also notice that Bayesian
+
+
+                                众                                      els
+ probability without visual clues becomes less performant as time moves on. This is most likely the
+ result of a lack of updates in cellular automata designed in Section 4. We address this problem in the
+ Section 6. We also design and evaluate strategies based on two sets of probabilities: each strategy
+
+                       公                           AT
+      微                                               H
+       信                                   M
+                                  ：
+                         号
+                      (a) tuning alpha                                (b) performance on test set
+
+                信
+  Figure 18: We tune 𝛼 to achieve best performance on training datset, and validate it on test dataset.
+
+
+        微
+ can be parametrized by 𝑎 ∈ [0, 1], which weights of two probabilities: Bayesian probability P𝑏𝑎𝑦𝑒𝑠
+ without image information and P𝑖𝑚𝑎𝑔𝑒 conditioned on image. Given a report with image, we calculate
+ a credibility score of the report by 𝑎P𝑏𝑎𝑦𝑒𝑠 + (1 − 𝑎)P𝑖𝑚𝑎𝑔𝑒 . Given a report without image data, we
+ calculate a credibility score by P𝑏𝑎𝑦𝑒𝑠 . At each time step, we sort all report scores in decreasing order,
+ and then prioritize reports with higher marks. In fact, each report can then be given a normalized
+
+
+微信号：MATHmodels                                                                                        2
+
+                                                                                             MATHmodels
+                                                                                                            关注数学模型
+
+                                                                                                            获取更多资讯
+
+
+=== PHYSICAL PAGE 21 ===
+ Team #2109298                                          微信公众号：数学模型
+                                                               Page 21 of 25
+
+
+ probability score. We can then vary threshold for verifying the report from 0 to 1 while recording
+ false positive and true negative rates. The imbalanced nature of the dataset again allows us to evaluate
+ model performance, by the AUROC metric. We chooses dataset from 2020-05-16 to 2020-08-13 as
+ training dataset for tuning 𝑎, and remaining dataset from 2020-08-13 to 2020-10-01 as testing dataset.
+ AUROC for train set and test set is summarized in Figure 18.
+
+
+                                                                                     型
+     It could be concluded that as a sound strategy, we could assign a value for each report using the
+ weighting scheme with parameter 𝑎 = 0.1. This is a reasonable parameter as the image encompasses
+ more uncertainty and the model used for inference based on images is not as robust as CA. Given the
+
+
+                                                                    学
+ score, government officials could then deploy personnel to deal with possible AGH sightings associated
+ with the reports. Good luck!
+
+
+ 6      Further Improvements                                         模
+ 6.1     Baum-Welch Update for CA
+                                                           数
+                                          号
+ Although previously described models produce fruitful results in report classification, a reliable update
+ routine for our Cellular Automata is yet to be designed. We draw insights from Baum Welch algorithm, a
+
+                                                                     m
+ model commonly used to estimate the parameters of a Hidden Markov Model given a set of observations.
+
+                                           ：                          od
+ In the scenario we are working with, the transition of bees can be modelled by a Markov Process,
+ whose parameter is unknown. However, we observe a series of reports, some of which are designated
+
+                                                                        els
+ as successfully identifying AGH. Taken together, one can describe the setup as a hidden Markov
+
+                                 众
+ Model tracing the travel of AGH, as well as a Bernoulli random variable with parameter depending
+ on the quantities given in Section 5.3, that generates a series of report in some regions. Recognising
+
+
+                         公
+ this similarity, we propose a novel paradigm that seeks to update the parameters of CA using fresh
+ observations.
+                                                    AT
+     Recall that in the previous section, a set of transition rules for CA depends on the setting of a
+
+
+       微                                               H
+ suitability measure for each region given. At each initialization of CA, the suitability measure is drawn
+ from a prior distribution 𝑝(𝑆) of suitability values for each region, and the model evolves based on the
+
+
+        信
+ drawn set of parameters. Once we encounter an observation 𝑜𝑡 at time 𝑡, we need to update the prior
+
+                                             M
+ by a posterior probability distribution given by:
+                                        P(𝑜𝑡 |𝑆 = 𝑠)P(𝑆 = 𝑠)    P(𝑜𝑡 |𝑆 = 𝑠)P(𝑆 = 𝑠)
+
+                                   ：
+                       P(𝑆 = 𝑠|𝑜𝑡 ) =
+                                                P(𝑜𝑡 )
+                                                             =∫
+                                                                P(𝑜𝑡 |𝑆 = 𝑠)P(𝑆 = 𝑠)𝑑𝑠
+ We could approximate the intractable integral in Equation 16 by Monte Carlo sampling. In fact,
+                                                                                                             (16)
+
+
+
+                          号
+ following [5], we propose the following procedure for Bayesian update, which is termed sequential
+ importance resampling (SIR) in the article:
+
+
+                  信
+       • Step 1: Draw 𝑁 unique samples from the initial probability distribution 𝑝(𝑠), suppose the unique
+         samples are {𝑠1 , ..., 𝑠 𝑁 } with corresponding probability 𝑝𝑖 = P(𝑆 = 𝑠𝑖 ), 𝑖 = 1, ..., 𝑁;
+
+         微
+       • Step 2: Evolve the model for a fixed time step 𝑡, collect all reports that are filed during this
+         period, denote this collection 𝑜𝑡 . Calculate P(𝑜𝑡 |𝑆 = 𝑠𝑖 ) for each 𝑠𝑖 , 𝑖 = 1, .., 𝑁. Update 𝑝𝑖 to 𝑝0𝑖
+         such that 𝑝0𝑖 /𝑝0𝑗 = P(𝑜𝑡 |𝑠𝑖 ) 𝑝𝑖 /P(𝑜𝑡 |𝑠 𝑗 ) 𝑝 𝑗 for any 𝑖, 𝑗.
+
+       • Step 3: iterate this process until the next time step and make similar updates.
+
+
+微信号：MATHmodels                                                                                          2
+
+                                                                                               MATHmodels
+                                                                                                            关注数学模型
+
+                                                                                                            获取更多资讯
+
+
+=== PHYSICAL PAGE 22 ===
+ Team #2109298                                      微信公众号：数学模型
+                                                           Page 22 of 25
+
+
+     This procedure is reminiscent of the forward-backward algorithm given in the Baum-Welch algo-
+ rithm. We also attempted to update probability transition matrix based on observed data using B-W
+ algorithm. Yet, due to the lack of observations and sparseness of the correlation matrix, the update is
+ unsuccessful. However, in the SIR model we described, we have implicitly conducted this forward-
+ backward propagation directly on the initial distribution of transition probability, without needing to
+ calculate the intermediary steps described in the Baum-Welch algorithm.
+
+                                                                               型
+     We believe that this framework allows for frequent updates based on fresh observations. However,
+ due to computation restrictions our model is not implemented fully, but based on preliminary results,
+
+
+                                                               学
+ this routine is more robust to temporal changes, and provide useful information on species eradication
+ discussed in the following section.
+
+ 6.2     Evidence of Eradication
+                                                                模
+                                                       数
+ With the above-described update routine, our CA model is able to utilize all report information and
+ simulate the distribution of AGH stably in the long term, so it is a reasonable metric to predict
+ eradication. Based on scientific features of AGH and our CA model, we propose the following set of
+
+
+                                       号
+ rules to determine whether AGH eradicates in Washington State:
+
+                                                                m
+       • If the most recent positive sighting occurred later than last winter, then there’s no sign of
+         eradication.
+                                        ：                        od
+                                                                   els
+         Explanation: Due to recent studies [4], AGH tends to spread rapidly and has much higher
+
+
+                               众
+         reproduction rate in summer. Thus, it’s highly unlikely that a AGH colony is spotted but die out
+         before winter.
+       • If the most recent positive sighting occurred before last winter, we run the updated CA model for
+                       公                         AT
+         one more year, and examine the resulting distribution.
+
+
+
+       微
+            – If result indicates that AGH population will fluctuate or increase, then there’s no sign of
+              eradication.
+                                                    H
+        信   – If result indicates that AGH population will diminish steadily, then AGH will possibly die
+
+                                          M
+              out in Washington State during the next year.
+       • No conclusion should be drawn before long-term observation and thorough detection. Especially,
+
+                                 ：
+         previous CA simulation results suggest it is highly likely that AGH establishes colonies in the
+         national park or Reservation, where human contacts are rare. Thus, we should always actively
+
+
+                         号
+         detect these regions before claiming eradication.
+
+
+ 7
+                 信
+        Strengths and Weakness
+ Strengths:
+
+         微
+       • Our model is robust under the sensitivity tests, indicating that small change in parameters won’t
+         lead to huge differences in results.
+       • Using the Bayesian theorem, we convert a complex probability into independently calculable
+         parts obtained through CA, image classifier, and the spatial-time credibility index.
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 23 ===
+ Team #2109298                                     微信公众号：数学模型
+                                                          Page 23 of 25
+
+
+     • In every procedures relating to data, we take special care of the small and unbalanced dataset
+       in this problem. For example, our image classifier uses pre-trained model fine-tuned by our
+       augmented training set.
+
+     • Using the Baum-Welch algorithm, we improve the traditional cellular automata by enabling it to
+       carry the future information and go back in time to re-evolve.
+
+ Weakness:
+                                                                               型
+                                                              学
+     • Due to the constraints on dataset, there are many data that we could have considered in our CA
+       model to get a better measurement of the suitability index for simulation, such as the direct data
+
+
+                                                               模
+       of population distribution, the temperature, altitude, topography.
+
+     • The long-term prediction of our model may not be precise enough, considering the fact that we
+
+
+                                                      数
+       don’t have long-term data to validate the long-term predictions.
+
+     • To simplify our model, we have made some assumptions that are not close enough to the reality,
+
+
+                                      号
+       which would also lead to errors in the results.
+
+
+ 8    Conclusions
+                                       ：                        mod
+                                                                   els
+ In this paper, we build a comprehensive model to simulate the evolution of AGH population in Wash-
+
+                              众
+ ington State. This model is achieved by considering the influence of human population, geographical
+ barriers, AGH activity patterns, and AGH dispersal methods into a powerful Cellular Automaton model
+ that propagates the expected number of AGH in each region. Human population distribution is ob-
+
+                      公                         AT
+ tained by fitting the spatial density function of sighting reports. Our CA model is far different from a
+ typical one, since it gives each cell great freedom to decide the transformation procedure and involves
+
+
+     微
+ stochasticity to ensure accuracy. Based on the result, we analyzed the short-term patterns of AGH
+
+                                                   H
+ dynamics, and gave prediction to the long-term distribution and population as well. We also prove the
+
+
+      信
+ robustness of our model by sensitivity tests.
+
+                                         M
+     Then, we consider the textual, visual, and regional information provided by each report, in hope of
+ building a superposed model to evaluate the likelihood of positive reports. First, by topic correlation
+ analysis, we found that texts’ topics are diverse and unrelated, hardly contribute to our classification.
+
+                                ：
+ Secondly, we build a VGG + SVM model to perform image classification, with several techniques to
+ deal with unbalanced data. Thirdly, we manage to find a regional distribution and time distribution
+
+
+                       号
+ of "report credibility". Finally, we use a Bayes Model to combine all factors and achieved a model to
+ evaluate reports. Based on the score outputted, we are able to assign an optical detection strategy.
+     We also come up with a method to update the state of CA by positive and negative reports. This
+
+               信
+ method is done by rewinding the cells by certain steps, adjust the transformation parameters, and evolve
+ back to the current state. The update method allows us to make the maximum use of all detection
+
+
+       微
+ results, and keep the result of our CA accurate for a longer period of time. In addition, we designed a
+ step-wise process to determine eradication, and wrote a memo to the Washington State Department of
+ Agriculture, with the best hope of helping them control the invasion of AGH.
+
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 24 ===
+ Team #2109298                                        微信公众号：数学模型
+                                                             Page 24 of 25
+
+
+ 9    Memo
+ To: Washington State Department of Agriculture
+ From: MCM Team #2109298
+ Date: Feb 8th, 2021
+ Subject: Strategies to deal with the Asian Giant Hornet
+
+ Dear Officer of the Department of Agriculture,                                    型
+                                                                  学
+     Please be alarmed! In order to address the newly found Asian Giant Hornet (AGH) around and
+ within your State, we have modeled the dynamics of AGH and successfully simulated its trends for the
+
+
+                                                                   模
+ next decade. We have also analyzed all historical public reports of sightings, with which we built a
+ model to prioritize future reports and decide whether the State should spend efforts investigating each
+ one.
+
+
+                                                         数
+     First of all, unfortunately, we have to tell you that the current situation is not optimistic: At least two
+ incidents of positive AGH sightings are recorded: one in September 2019, and the other in March 2020.
+ This means that some AGH individuals have successfully overcome the winter in Washington States.
+
+
+                                        号
+ Those individuals are highly likely to be fertilized queens that have nested in the spring of 2020. Based
+
+                                                                   m
+ on this initial information, our model predicted that the total number of AGH will fluctuate around its
+
+
+                                         ：
+ initial value 1000 for the first five years. Even though the number won’t change significantly, our model
+
+                                                                    od
+ indicates that AGH are actively finding suitable locations to stay and grow. Once they have found some
+ suitable locations, they will reside and grow exponentially, which will only reach a limit when the local
+
+
+                                众                                     els
+ honeybees are eaten out so that the environment is no longer suitable for the AGH. Based on multiple
+ simulations of our model, we estimate the "finding" process will take up about 8 years. After that, the
+ population will start to grow exponentially, reaching 10,000 in the 10th year. As for the dynamics,
+
+                       公                          AT
+ our model predicts that AGH colonies will move from Vancouver to the north first, with some portion
+ of the AGH entering Canada, and the rest spread gradually toward the south along places with little
+
+
+      微
+ human activity. Several locations the AGH may eventually converge at are listed below (ordered by
+ severity):
+                                                     H
+       信                                   M region
+                                Gifford Pincohot National Forest
+                                 Mount Rainier Natinoal Park
+                                                                       severity
+                                                                       193.01
+                                                                       153.17
+
+
+                                 ：Yakama Indian Reservation
+                                     Granby Provincial Park
+                                North Casacades National Park
+                                                                       144.25
+                                                                       120.62
+                                                                        51.26
+
+                         号
+     Special cautions should be taken with respect to these locations before the AGH colony gets
+ uncontrollably large in these regions.
+
+                信
+     Next, our model combined these predictions of AGH population distribution and the information
+ from each report to help prioritize the State’s resources. Our model assigns a score for each report, and
+
+
+        微
+ based on the level of resources available, we recommend different strategies. This is accomplished by
+ changing the threshold value in the model, which you can adjust by yourself according to the current
+ resource availability.
+
+     • High level: Immediately investigate every report whose score is higher than the threshold value.
+
+
+
+微信号：MATHmodels                                                                                        2
+
+                                                                                             MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 25 ===
+ Team #2109298                                     微信公众号：数学模型
+                                                          Page 25 of 25
+
+
+     • Low level: For every period of report accumulations (e.g a month’s reports), investigate reports
+       that are close in space.
+     In addition, to further increase the accuracy of our model and reduce human labour, please encourage
+ the public to submit their report with clear photos of the hornets. In this way, our image classifier can
+ get more and more proficient (current accuracy is 90%), and they can exclude some reports directly,
+ without the need to be processed by human labour.
+                                                                               型
+     Last but not least, don’t just regard the AGH is dieing out based on short-term observations or
+ predictions. Please remember the criterion of eradication of AGH: If the most recent positive sighting
+
+                                                              学
+ occurred before last winter, run the updated CA model for one more year and examine the result. If
+ result indicates that AGH population will diminish steadily, then AGH will possibly die our in Wash-
+
+                                                               模
+ ington State during the next year. No conclusion should be drawn before long-term observation and
+ thorough detection.
+
+ Best,
+ MCM Team #2109298                                    数
+ References                           号                         m
+                                       ：                         od
+ [1] Robin Engler, Wim Hordĳk, and Antoine Guisan. “The MIGCLIM R package–seamless integra-
+
+                                                                   els
+     tion of dispersal constraints into projections of species distribution models”. In: Ecography 35.10
+     (2012), pp. 872–878.
+                              众
+ [2] Penn State Extension. “Asian Giant Hornets”. In: https://extension.psu.edu/asian-giant-hornets
+     (2020).
+                      公                         AT
+ [3] Shashank Kapadia. Topic Modeling in Python: Latent Dirichlet Allocation (LDA). url: https:
+     / / towardsdatascience . com / end - to - end - topic - modeling - in - python - latent -
+
+     微
+     dirichlet-allocation-lda-35ce4ed6b3e0.
+                                                   H
+      信
+ [4] Claudia Nuñez-Penichet et al. “Geographic potential of the world’s largest hornet, Vespa man-
+     darinia Smith (Hymenoptera: Vespidae), worldwide and particularly in North America”. In: PeerJ
+     9 (2021), e10690.                   M
+                                ：
+ [5] Judith A. Verstegen et al. “Identifying a land use change cellular automaton by Bayesian data
+     assimilation”. In: Environmental Modelling Software 53 (2014), pp. 121–136. issn: 1364-8152.
+     doi: https : / / doi . org / 10 . 1016 / j . envsoft . 2013 . 11 . 009. url: https : / / www .
+
+                       号
+     sciencedirect.com/science/article/pii/S1364815213002909.
+ [6] Wikipedia. Cellular automaton. url: https : / / en . wikipedia . org / wiki / Cellular _
+     automaton.
+               信
+ [7] Wikipedia. File:Canada British Columbia Density 2016.png. [Online; accessed Feb 8, 2021].
+     2016. url: https : / / en . wikipedia . org / wiki / File : Canada _ British _ Columbia _
+
+       微
+     Density_2016.png.
+ [8] Aya Yanagawa, Fumio Yokohari, and Susumu Shimizu. “Defense mechanism of the termite, Cop-
+     totermes formosanus Shiraki, to entomopathogenic fungi”. In: Journal of invertebrate pathology
+     97.2 (2008), pp. 165–170.
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯

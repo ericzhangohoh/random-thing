@@ -1,0 +1,1435 @@
+=== PHYSICAL PAGE 1 ===
+                                     Team Control Number
+ For office use only                                                    For office use only
+ T1
+ T2                               1900007                               F1
+                                                                        F2
+ T3                                      Problem Chosen                 F3
+ T4                                                                     F4
+                                                 D
+
+                                         2019 2019
+                                          MCM/ICM
+                                       Summary Sheet
+
+
+   Analysis of the Optimal Evacuation Plan Based on 2D
+                      and 3D Models
+                                          Summary
+    We are tasked to analyze the optimal evacuation plan for the Louvre. To this end, we con-
+struct both the 2D model and the 3D model to derive the optimal plan. We successfully utilize
+our models to determine the potential bottlenecks, plan the use of additional exits and let the
+emergency personnel enter. We take three dimensions of factors into account: the diversity of
+evacuees (e.g. the disabled, the elderly, etc.), people’s behaviors and the attributes of the build-
+ing. We provide sufficient visualized results in order to explain our model intuitively.
+
+    In the 2D Island-Bridge Model, we reasonably planarize the building and discretize the
+space into dense nodes. Then, we construct the Basic Searching Submodel to calculate the
+optimal evacuation route and time for different varieties of people. We also form a method to
+solve the unbalanced usage of each exit. Then, we form the Danger Index Submodel, which
+gives insight to the real-time distribution of Danger Index in the building. Furthermore, we
+utilize these submodels to answer how to take advantage of additional exits and how to let
+the emergency personnel enter. Finally, we carry out the sensitivity analysis by operating our
+2D model under different density of people and different influential range of danger. The re-
+sult is stable despite these differences, which proves the robustness of the 2D model. Since
+the methodology of this model always holds true, it can be adapted to different buildings with
+only slight adjustments.
+
+    In the 3D Celluar Automata Model, we precisely construct a 3D copy of the Louvre using
+AutoCAD, which makes our simulation resemble the real-world situation. We implement the
+model in Pathfinder software and carry out 3D simulation. The results clearly demonstrate that
+the bottlenecks are all around exits or stairs. We also give a heat map of the evacuation time in
+different places of each floor.
+
+    As a conclusion, we write a letter of advice to the emergency manager, offering some prac-
+tical suggestions about the evacuation plan.
+
+
+=== PHYSICAL PAGE 2 ===
+                                        Contents
+1   Introduction                                                                               1
+    1.1 Restatement of the Problem . . . . . . . . . . . . . . . . . . . . . . . . . .         1
+    1.2 Literature Review . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      1
+    1.3 Our work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     1
+
+2   Preparation of the Models                                                                  3
+    2.1 Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      3
+    2.2 Notation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     4
+
+3   The 2D Island-Bridge Model (2D-IBM)                                                        4
+    3.1 Basic Structure of the Model . . . . . . . . . . . . . . . . . . . . . . . . . .       4
+    3.2 Dimensionality Reduction Method . . . . . . . . . . . . . . . . . . . . . .            6
+    3.3 Spacial Discretization Method . . . . . . . . . . . . . . . . . . . . . . . . .        7
+    3.4 Basic Searching Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        8
+    3.5 Danger Index Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        11
+    3.6 How to Utilize Additional Exits? . . . . . . . . . . . . . . . . . . . . . . .        13
+    3.7 How to Let Emergency Personnel Enter? . . . . . . . . . . . . . . . . . . .           13
+    3.8 Model Evaluation and Sensitivity Analysis . . . . . . . . . . . . . . . . .           14
+
+4   The 3D Cellular Automata Model (3D-CAM)                                                   15
+    4.1 The Mechanism of the Model . . . . . . . . . . . . . . . . . . . . . . . . .          15
+    4.2 Visualized Result of the Model . . . . . . . . . . . . . . . . . . . . . . . .        16
+    4.3 Determining the Potential Bottleneck . . . . . . . . . . . . . . . . . . . . .        17
+
+5   Strengths and Weaknesses                                                                  18
+    5.1 Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   18
+    5.2 Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      18
+
+6   Conclusion: A Letter of Advice to the Emergency Manager                                   18
+
+References                                                                                    19
+
+Appendices                                                                                    20
+
+A Our Simulation Codes Written in MATLAB                                                      20
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 1900007                                                                 Page 1 of 26
+
+
+
+1    Introduction
+
+1.1 Restatement of the Problem
+
+    In France alone, there have been at least 12 major terror-related incidents since 2012,
+and the number is still increasing. In face of an emergency, panic-stricken people, if
+not properly guided, tend to flee around like headless chickens, causing massive chaos
+at the scene. The mayhem could hurt even more than the attack itself, especially in
+crowded space such as indoor museums like the Louvre. Therefore, establishing an
+effecitve emergency evacuation plan is critical as to eliminate unnecessary disorder
+and casualties. Here, we are required to design a model to guide evacuation from the
+Louvre or other multi-storey buildings.
+
+    There are three major objectives:
+
+    • Find the optimal evacuation plan, which means enabling people to evacuate the
+      buliding in the fastest and safest manner, as well as allowing emergency per-
+      sonnel to enter as quickly as possible.
+    • Determine the potential bottlenecks that may cause congestion and stagnation.
+      In our model, a bottleneck is defined as a particular location where the passing
+      speed is extremely slow.
+    • Universalize the model, that is, adjust our model so that it can be adapted to a
+      broad set of potential threats.
+
+
+1.2 Literature Review
+
+   Based on the differences in mechanisms of spacial movement, current models of
+indoor emergency evacuation can be divided into four catagories[1]: network-based
+models, particle-based models, cellular-based models and ant-based models.
+
+   The network-based model simplified evacuation as a flow of people moving at a
+certain speed in the network[2]. The particle-based model considered people as self-
+driving particles controlled by various internal and external forces[3]. The cellular-
+based model employed cellular automata theory to simulate the evacuation process
+by the spatio-temporal modeling method[4]. The ant-based model utilized ant colony
+algorithm, to perceive the real-time change and find the optimal path in a dynamic
+way[5].
+
+
+1.3 Our work
+
+   We construct two distinctive models: the 2D Island-Bridge Model (2D-IBM) and
+the 3D Cellular Automata Model (3D-CAM).
+
+   In the 2D Island-Bridge Model (2D-IBM), we develop the following methods or
+submodels in four steps.
+
+
+=== PHYSICAL PAGE 4 ===
+Team # 1900007                                                               Page 2 of 26
+
+
+    First, we develop a Dimensionality Reduction Method, which planarizes the move-
+ment on 3D multi-storey building as equivalent 2D horizontal motion. Secondly, we
+establish the Spacial Discretization Method. We discretize the space of the 2D "build-
+ing" into dense nodes with certain coordinates. People are designed to move from
+one node to the other. Thirdly, we form a Basic Searching Model, which bases the
+evacuees’ route choice on three factors: their distance from each exit, their distance
+from the source of danger and the maximum capacity of each exit. We use it to solve
+the problem of congestion around exits, which is a potential bottleneck. The Dijkstra
+Searching Algorithm is utilized in this model. Fourthly, we form the Danger Index
+Model, which can provide the real-time distribution of Danger Index in the buiding.
+Thus, the emergency manager can have a direct understanding of emergency. In this
+model, the density of evacuees in each mesh are also included, thus adding the degree
+of congestion and stagnation into consideration.
+
+   After completing the construction of the 2D-IBM Model, we employ it to discuss
+problems of how to utilize additional exits and how to let emergency personnel enter.
+Finally, we carry out the sensitivity analysis and validate that our 2D-IBM Model stays
+robust despite the changes of the attributes of the building, the location of the danger
+source, the influence range of danger and the density of people.
+
+    In the the 3D Celluar Automata Model, we construct a 3D model of the Louvre
+using AutoCAD, and then implement it into Pathfinder, a professional and mature
+software, to simulate the evacuation process based on Celluar Automata Method. The
+3D simulation clearly demonstrates the bottlenecks of evacuation and provide some
+other useful data.
+
+    All in all, we take a wide varieties of factors into consideration, including the di-
+versity of evacuees, human behavior patterns, and building information. The specific
+factors we consider are shown in Figure 1.
+
+
+
+
+                     Figure 1: The Factors that We Take into Account
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 1900007                                                                   Page 3 of 26
+
+
+
+2     Preparation of the Models
+
+2.1 Assumptions
+
+    It is difficult to study the actual situation in the Louvre because of the irregular
+shape of the building, the extreme complication of interior structure and the unpre-
+dictability of human behavior. In order to simplify the problem and to hold the cor-
+rectness of results at the same time, we make the assumptions below:
+
+   (If there is no special explanation, the assumptions below are applied to both the
+2D-IBM and the 3D-CAM Model. )
+
+
+    1. We simplify the shape of the Louvre museum, viewing each storey as a stan-
+       dard, two-dimensional ’U’ shape composed of three rectangles (the grey area).
+       [Only Applicable in the 2D-IBM Model]
+       The exact data are labeled in Figure 2. With careful calculation, we set the total
+       area of the simplified storey almost the same as that of the real-world condition.
+       Therefore, the range of movement holds the same.
+
+
+
+
+                         Figure 2: The Simplified Storey in the Louvre
+
+
+    2. We assume that EVERY place of the simplified storey is walkable.
+       That is to say, we ignore the physical barriers (e.g. exhibits) in the way, because we
+       can hardly know the exact distribution of exhibits and other facilities. The only
+       barrier of movement we consider is the boundaries and the source of danger.
+
+    3. We treat every staircase and every escalator as identical, and suppose that they
+       both function as two-way stairs in case of emergency.
+       First, it is understandable that escalators will be shut down in case of emergency,
+       made to function the same as staircases. Therefore, staircases and escalators are
+       treated equally as passageways between two storeys. Plus, we assume that pas-
+       sageways between two storeys share completely identical attributes for simplicity.
+
+    4. We regard the initial distribution of evacuees as random.
+       Though there might be more people piling up in front of some world-renowned
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 1900007                                                                Page 4 of 26
+
+
+      masterpiece (e.g. the Mona Lisa), the cumulative effect is localized and small-
+      scale. Compared to a total of 400,000 art works in the Louvre, the masterpiece
+      which may cause cumulative effect resembles a drop in the ocean. Thus, random
+      initial distribution of people is a reasonable assumption.
+
+    5. We suppose that evacuees become aware of the emergency and start escaping
+       simultaneously. Plus, they will follow the guidance.
+       That is, first, we ignore the time lag of knowing the emergency, because it is tiny
+       compared to the whole evacuation process. Second, if evacuees do not follow the
+       guidance, their behavior will become unpredictable, and the evacuation plan will
+       be of little use.
+
+    6. We regard different evacuees as points with different attributes moving in the
+       two-dimensional space. [Only Applicable in the 2D-IBM Model]
+       This assumption is a complement of the "simplified storey assumption" (assump-
+       tion 1) discussed above. It should be stressed that, each point of evacuee, though
+       abstracted, still has its distinctive human characteristics. For example, the maxi-
+       mum speed of the point representing the elderly is slower than that of the young
+       "point".
+
+    7. The data provided by the Louvre are representative.
+       Though the most recent annual report of the Louvre[6] was updated in 2014, we
+       still assume these data are representative and ignore the potential errors related
+       to them. Some important data we will use are listed in Table 1.
+
+                       Table 1: Some Important Data about the Louvre
+
+                                    Item                         Data
+                              Visitors per Year            9.3 million
+                  Ratio of Young and not Disabled Visitors    72.1%
+                   Ratio of Old and not Disabled Visitors     21.1%
+                          Ratio of Disabled Visitors           6.8%
+
+
+
+
+2.2 Notation
+
+   The primary notations in our paper are listed in Table 2. There can be some other
+notations to be defined later.
+
+
+
+3     The 2D Island-Bridge Model (2D-IBM)
+
+3.1 Basic Structure of the Model
+
+   In the 2D Island-Bridge Model (2D-IBM), we develop the following methods and
+submodels subsequently.
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 1900007                                                                 Page 5 of 26
+
+
+                                    Table 2: Notation
+
+         Symbol                                  Definition
+         dis(i, j)                 the distance between node i and node j
+           e(i,j)             the weight of edge between node i and node j
+          Rdead             the radius of deadly area which can not be entered
+          Snode                                the sum of nodes
+          Speople           the sum of people indoor in the case of emergency
+          ρpeople         the density of people indoor in the case of emergency
+           Sdis                the sum of distance travelled by all evacuees
+          Vrange                the maximum visual range of an individual
+            (s)
+           αexit             the maximum ratio of people exiting from exit s
+                        (an independent variable reflecting the attribute of exit s)
+            (s)
+           Sexit                  the number of people exiting from exit s
+        tindividual          the average time for each individual to evacuate
+          telderly               the average time for each elder to evacuate
+           tyouth          the average time for each young people to evacuate
+         tdisabled        the average time for each disabled people to evacuate
+          Rmesh                         the radius of each single mesh
+              (i)
+          Nmesh                        the number of people in mesh i
+            (i)
+         wdensity                        the density weight of mesh i
+         (i)
+        wemergency                     the emergency weight of mesh i
+              (i)
+           wexit                           the exit weight of mesh i
+           DI (i)                         the danger index of mesh i
+
+
+
+   • Step 1: We develop a Dimensionality Reduction Method, which planarizes
+     the movement on staircases as equivalent 2D horizontal motion. Based on this
+     method, we substitute the multi-storey building into a 2D planar space. Each
+     storey resembles an "island", and each staircase resembles a "bridge" connecting
+     two islands. See Figure 3.
+
+   • Step 2: We establish the Spacial Discretization Method. We discretize the space
+     of the "island" into dense nodes, and then place the "island" in a rectangular co-
+     ordinate system to get the coordinate of each node. We save these nodes’ coordi-
+     nates in the form of matrix for the sake of programming. People are designed to
+     move from one node to the other.
+
+   • Step 3: We build a Basic Searching Model, which bases the evacuees’ route
+     choice on three factors: their distance from each exit, their distance from the
+     source of danger and the maximum capacity of each exit. We also take into ac-
+     count the diversity of visitors, such as the elderly, the disabled, etc. Then, we uti-
+     lize Dijkstra Searching Algorithm to implement the model in MATLAB. After
+     randomly distributing people in the "building" and selecting a source of danger,
+     we simulate the optimal evacuation route for every individual, and visualize the
+     result.
+
+   • Step 4: We optimize the Basic Searching Model and form the Field-based Model
+     In this refined model, we add the degree of congestion and stagnation into con-
+     sideration by measuring the density of evacuees in each mesh. Then, We calculate
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 1900007                                                                Page 6 of 26
+
+
+
+
+Figure 3: Schematic Diagram of the Dimensionality Reduction Method. Each storey resembles
+an island, and each staircase resembles a bridge connecting two "island"s.
+
+
+     the weight of each mesh in terms of the influence exerted by density of people,
+     distance from danger and distance from exits. After that, we combine the three
+     kind of weight to form Danger Index (DI) of each mesh, and calculate it. Finally,
+     we visualize the result with a heat map.
+
+
+3.2 Dimensionality Reduction Method
+
+    The philosophy of the 2D Island-Bridge Model (2D-IBM) is dimensionality reduc-
+tion. Dimensionality reduction is the process of reducing the number of irrelevant
+variables in order to obtain a set of principal variables which can reflect the attributes
+of the high dimensional object. For example, the sun shines through leaves (high dimen-
+sion, 3D), casting shadow (low dimension, 2D) on the ground. Despite the dimension of
+shadow is lower than that of leaves, you can still have a rough idea of the leaves’ shape.
+In other words, it is feasible to simulate the core attributes of high-dimensional objects
+with low-dimentional ones.
+
+  Back to our problem, evacuees move both horizontally and vertically on stairs,
+which is a 3D motion. Our Dimensionality Reduction Method seeks to planarize the
+movement on stairs as 2D horizontal motion.
+
+    We abstract all the stairs between two storeys as "bound-together", and then choose
+a "junction point" on either storey. We take the distance between each stair and "junc-
+tion point" into account. Then we calculate the equivalent length and width of the
+planarized "bound-together" stair with the equations below:
+
+                                        dis(i, junc)
+                                 ηi = Pn                                               (1)
+                                       i=1 dis(i, junc)
+
+                                          n
+                                       1 X
+                           (Length)eq = ·    [ηi · (length)i ]
+                                       n i=1
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 1900007                                                                  Page 7 of 26
+
+
+                                  (W idth)eq = (width)i                                  (3)
+where n is the number of stairs between two neighbouring storeys, i is the serial num-
+ber of a stair, and dis(i, junc) is the distance between the "junction point" and stair # i,
+(length)i and (width)i are the original length and width of stair # i.
+
+   In Equation (1), ηi ∈ [0, 1] is the normalized distribution coefficient, which has
+a positive correlation with the equivalent length. And ηi · (length)i represents the
+weighed length of each stair. Therefore, Equation (2) represents the ultimate equiv-
+alent length between two storeys.
+
+   According to Assumption 3, we treat every staircase as identical, so the equations
+can be simplified as below.
+                                              n
+                                           L X        L
+                               (Length)eq = ·    ηi =                                    (4)
+                                           n i=1      n
+
+                                     (W idth)eq = W                                      (5)
+Then, we substitute the data into the equations above (L = 100m, W = 20m, n =
+3(−2F, −1F ), 13(−1F, 0F ), 28(0F, 1F ), 14(1F, 2F )) and get the exact shape of the equiv-
+alent 2D "building". See Figure 4.
+
+
+
+
+                      Figure 4: The Dimensionality-reduction Building
+
+
+
+3.3 Spacial Discretization Method
+
+   We discretize the space of the 2D "building" into dense nodes, and then place the
+"building" in a rectangular coordinate system to get the coordinate of each node. We
+save these nodes’ coordinates in the form of matrix for the sake of programming. (The
+four blue circle in Figure 5 respectively represent one of the four frequently-used exits.)
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 1900007                                                                  Page 8 of 26
+
+
+
+
+                        Figure 5: Node Distribution of the 2D Model
+
+
+3.4 Basic Searching Model
+
+    We base the Basic Searching Model on Dijkstra Searching Algorithm (DSA), which
+can figure out the optimal route from a given origin to an appointed destination. In our
+model, each evacuee is considered as an origin, and the closest exit for him/her is the
+corresponding destination. The Dijkstra Searching Algorithm can only find the short-
+est path to a single destination at a time, but the evacuee has 4 potential destinations (4
+different exits). So in order to figure out the optimal exit, we separatedly set the 4 exits
+as the destination and carry out Dijkstra Searching Algorithm. Certainly, we will find
+four different "short route". The optimal exit for that evacuee is the exit of the shortest
+route among the four.
+
+   In a traditional Dijkstra Searching Algorithm, the weight of an edge is defined as
+the geometric distance between the two nodes.
+
+     However, we make some adjustions based on real-world conditions. First, evac-
+uees can only assess the condition within their visual threshold and choose to head
+towards one place. So in our model, only the weight between adjacent nodes within
+an evacuee’s visual threshold can be set in the traditonal way: dis(i, j). Plus, it is ap-
+parent that evacuees should not choose the nodes located in the deadly zone, even if
+it is close to both of the exit and the current node. Therefore, the weight of all edges
+within the deadly zone should be set as infinity.
+
+    To sum up, in our model, weight of the edge between Node #i and Node #j is de-
+fined by the equation below.
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 1900007                                                                     Page 9 of 26
+
+
+
+
+          
+          dis(i, j)
+                      i 6= j, dis(i, j) ≤ Vrange , and Node #j is not in the danger zone
+  e(i,j) = 0           i = j,                                                             (6)
+          
+            ∞          otherwise.
+          
+
+where
+
+
+   • e(i, j) is the weight of edge between Node #i and Node #j,
+
+   • dis(i, j) is the geometric distance between Node #i and Node #j,
+
+   • Rdead is the radius of the deadly zone,
+
+   • Vrange is an individual’s maximum visual threshold.
+
+
+   We draw a flow chart to illustrate our Basic Searching Model. See Figure 6.
+
+
+
+
+                 Figure 6: The Flow Chart Describing the Basic Search Model
+
+
+    After implementing the model in MATLAB, we can figure out the optimal evac-
+uation route for each individual and its length. Given the speed and proportion of
+different kinds of people (e.g. the elderly, the disabled), we can calculate the average
+evacuation time using the equations below.
+
+                                      Sdis
+              tindividual =            P        ,   k ∈ {elder, young, disabled}
+                              Speople · Pk · vk
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 1900007                                                                 Page 10 of 26
+
+
+
+                               Sdis
+                     tk =                ,   k ∈ {elder, young, disabled}                    (8)
+                            Speople · vk
+
+   We also establish a method to avoid congestion around exits, which may become
+the potential bottleneck. If we do not control the maximum ratio of people passing
+through a certain exit, chances are that the majority of evacuees are allocated to the
+same exit because of the limited number and uneven distribution of the exits, just as
+the following figure illustrates. See Figure 7.
+
+    Part(I) of Figure 7 shows optimal evacuation routes(the lines). Part(II) illustrates the
+ratio of people passing through each exit. We can clearly see that 90% of the evacuees
+leave the building from Exit #1, making this exit extremely overloaded. The overused
+exit will be jammed and may become the potential bottleneck.
+
+
+
+
+  Figure 7: The Result Without Setting the Ratio of People Passing Through a Certain Exit.
+
+
+    To solve the congestion around exits, all exits should be utilized in a balanced way.
+                                                               (s)
+We can adjust the maximum ratio of people using exit #s (αexit ) to disperse the pressure
+                            (s)
+of it. For example, we set αexit as 50% for the four exits, and carry out simulation again.
+The results are shown in Figure 8. It is clear that the overuse and congestion of Exit #1
+are greatly relieved.
+
+
+
+
+                                                            (s)
+                       Figure 8: The Result after Setting αexit as 50%.
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 1900007                                                              Page 11 of 26
+
+
+   Utilizing the equations discussed above, we plug in a set of reasonable data listed in
+Table 3, and calculate the average time to leave the Louvre for the elderly, the youth,
+the disabled, and all the evacuees respectively.
+
+                 Table 3: Some Data we Use in the Basic Searching Model
+
+                              Item            Plug-in Data
+                              Vrange              21 m
+                              Rdead               30 m
+                               Exy           (580 m, 550 m)
+                             Speople               1471
+                              Pyouth              72.1%
+                             Pelderly             21.1%
+                             Pdisabled            6.8%
+                              vyouth            1.28 m/s
+                             velderly           1.03 m/s
+                             vdisabled          0.78 m/s
+                              ρpeople     0.4 people per node
+                                s
+                               αexit                0.5
+
+
+
+   The result of the average evacuation time and distance are listed in Table 4
+
+                 Table 4: Some Data we Use in the Basic Searching Model
+
+                                   Item          Result
+                                   Sdis       6.33 × 105 m
+                                tindividual      364.85 s
+                                  telderly       413.98 s
+                                   tyouth        336.35 s
+                                 tdisabled       551.95 s
+
+
+
+
+3.5 Danger Index Model
+
+    In order to have a good command of the real-time change of emergency, we estab-
+lish the Danger Index Model. In this model, we introduce a new concept–"mesh" as
+the smallest unit of our study, which is the circular area with a node as its centre.
+
+   We add the the density of evacuees in each mesh into consideration. Then, We cal-
+culate the weight of each mesh in terms of the influence exerted by density of people,
+distance from danger and distance from exits. After that, we combine the three kind of
+weight to form Danger Index (DI) of each mesh, and calculate it. Finally, we visualize
+the result with a heat map.
+
+   The weight of a mesh can be calculated in terms of the influence exerted by the
+density of people, the distance from exits and the distance from the source of danger.
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 1900007                                                             Page 12 of 26
+
+
+   • Density Weight: High density of people surrounding an evacuee will cause con-
+     gestion and lower the speed, so the density weight of mesh #i can be calculated
+     using the following equation:
+                                                     (i)
+                                        (i)        Nmesh
+                                    wdensity =        2
+                                                                                     (9)
+                                                 π × Rmesh
+                 (i)
+     where Nmesh is the number of people in mesh #i, and Rmesh is the radius of mesh
+     #i.
+
+
+   • Emergency Weight: It is widely accepted that the degree of danger is inversely
+     proportional to the distance from it. Thus, the emergency weight of mesh #i can
+     be defined by the following equation:
+
+                                    (i)                1
+                                   wemergency =                                     (10)
+                                                  dis(i, Exy )
+
+     where Exy is the source of danger, and dis(i, Exy ) stands for the distance between
+     mesh #i and the source of danger.
+
+
+   • Exit Weight: The weight of exit is defined as
+                                  (i)
+                                 wexit = min{dis(i, Exit(s) )}                      (11)
+
+     where dis(i, Exit(s) ) refers to the distance from mesh #i to exit #s, because the
+     more distant from the exit, the more time-consuming the evacuation process will
+     be.
+
+
+
+   The overall degree of danger depends on all of the three factors. Thus, we define
+the Danger Index (DI) by calculating the weighed sum of these three kinds of weight,
+as
+                                    (i)            (i)           (i)
+                      DI (i) = a · wdensity + b · wdanger + c · wexit           (12)
+where a,b and c are the ratios of the three weight components. In different cases, the
+significance of each component varies, so we should adjust these ratios to fit different
+conditions.
+
+   For example, we use two different sets of ratios, and visualize the real-time distri-
+bution Danger Index of every place using the 3D heat map. At the beginning of an
+emergency, the source of danger is very influential, so we set a high ratio for Emer-
+gency Weight, and the result is shown in Part(I) of Figure 9. However, after some time,
+the source of danger alleviates, so we can lower the ratio of emergency, and figure out
+the up-to-date distribution of Danger Index like Part(II) of Figure 9.
+
+   The emergency manager can adjust the ratio of the current key influence, and have
+an understanding of the real-time Danger Index in the building.
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 1900007                                                                     Page 13 of 26
+
+
+
+
+            Figure 9: Distribution of Danger Index with Different Sets of Ratios
+
+
+3.6 How to Utilize Additional Exits?
+
+    Utilizing the Danger Index Model, we can easily take advantage of the additional
+exits. Here is our plan.
+
+   First, all of the four main exits should be used for evacuation purpose, since they
+are more familiar to the evacuees and can be monitored by the app "Affluences".
+
+   Plus, based on the real-time Danger Index (DI) distribution, we can calculate the
+proportion of the additional exits that should be open for evacuation purpose. We set
+a danger threshold. When the emergency happens, we count the number of evacuees
+located in meshes whose DI is above the security threshold, and define the number
+as Pdanger . Suppose we have n additional exits, and i of them are open for evacuation
+purpose, we can adjust i according to Pdanger . The specific relationship between them
+can be described by Equation (13).
+
+                                
+                                
+                                 n          Pdanger > a,
+                                
+                                n − 1      b < Pdanger ≤ a,
+                                
+                                
+                                
+                              i= n−2        c < Pdanger ≤ b,                               (13)
+                                 ..        ..
+                                   .         .
+                                
+                                
+                                
+                                
+                                
+                                   0        Pdanger ≈ 0.
+                                
+
+
+  a, b, c. . . in the equation can be determined by Fuzzy Sets or Monte Carlo method.
+However, due to the lack of specific data, we will not detail it here.
+
+
+3.7 How to Let Emergency Personnel Enter?
+
+   To assist the emergency personnel, we can utilize our Basic Searching Model and
+Danger Index Model to determine the best doors to enter and optimal routes in the
+building.
+
+   First, emergency personnel should enter from the underused main exits and the
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 1900007                                                                Page 14 of 26
+
+
+additional exits that are not open for evacuation. As for the former, the ratio of evac-
+uees passing through a certain main exit can be adjusted by our Basic Searching Model.
+Therefore, we can decrease the ratio of an exit to make way for the emergency person-
+nel. As for the latter, the additional exits that are not open for evacuation can all be
+used to enter the building.
+
+    Second,upon entering the building, emergency personnel should travel from places
+with low Danger Index to the ones with high Danger Index, which is just the contrary
+to evacuees. (The real-time distribution of Danger Index can be calculated by our Dan-
+ger Index Model.) In this way, they can quickly cope with the source of danger or
+dredge the crowd with high density.
+
+
+3.8 Model Evaluation and Sensitivity Analysis
+
+    To test the sensitivity, we operate the model under several different conditions.
+We change the density of people (ρpeople ), the radius of the deadly zone (Rdead ), the
+                                     (i)
+maximum ratio of usage of exit #i (αexit ), and calculate the corresponding average time
+of evacuation for each kind of people. Then, we visualize our results with the figures
+below.
+
+
+
+
+          Figure 10: The Framewok of the 3D Cellular Automata Model(3D-CAM)
+
+
+    The first and second part of Figure 10 tell us that the evacuation time for each kind
+of people is almost same despite the difference of the density of people (ρpeople ) and
+the varied radius of the deadly zone (Rdead ). This means our model is not sensitive to
+these varibles. Thus, we can apply the 2D-IBM Model to analyze emergency events of
+different severity and different number of influenced people. Therefore, though the
+number of guests in the museum varies throughout the day and year, the results are
+stable.
+
+    The third part of Figure 10 shows that the time of evacuation is not that stable
+        (i)                             (i)
+when αexit is smaller than 0.5. But if αexit varies between 0.5 to 0.7, the evacuation time
+is nearly constant. We can conclude that our model is robust when the capacity of the
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 1900007                                                                Page 15 of 26
+
+
+exits is enough. However, if the capacity of each door becomes too small, evacuees
+have to wind their way to avoid potential congestion. Thus our model becomes a little
+unstable under such condition.
+
+    The fourth part of Figure 10 reflects that the sum of people passing through exit #1
+or #2 of the Louvre increases greatly as the density of people rises, while that of exit #3
+or #4 is hardly affected. This diagram shows that the usage of exit #1 and #2 is near the
+saturation state, as apposed to exit #3 and exit #4, which are usually underused.
+
+
+
+4    The 3D Cellular Automata Model (3D-CAM)
+
+4.1 The Mechanism of the Model
+
+   The 2D-IBM Model is concise, but somehow too abstract. In order to simulate the
+evacuation process in an intuitive way, we build the 3D Cellular Automata Model (3D-
+CAM). In this model, we construct a 3D copy of the Louvre using AutoCAD, and then
+implement it into Pathfinder, a professional and mature software which simulates the
+evacuation process based on Celluar Automata Method. The 3D simulation clearly
+demonstrates the bottlenecks of evacuation on each floor and gives the heat map of the
+evacuation time in different places of each floor.
+
+
+
+
+          Figure 11: The Framewok of the 3D Cellular Automata Model(3D-CAM)
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 1900007                                                                 Page 16 of 26
+
+
+    The framework of the 3D-CAM Model is illustrated in Figure 11. As shown in this
+figure, the floor plan of the Louvre, location of staircases and exits and human behavior
+patterns are integrated to guide the evacuation. The 3D indoor space is divided into
+triangular cellular space[9], like Figure 12.
+
+
+
+
+                           Figure 12: Triangular Cellular Space[9]
+
+
+    The search of evacuation routes for each individual is divided into two different
+modes, the SFPE Mode and the Steering Mode. Attributes of the two modes are shown
+in the figure. The mechanism of the former resembles our Basic Searching Model and
+the latter is like our Danger Index Model. After implementing the data and selecting
+a simulation mode, the Pathfinder software can provide visualized real-time condition
+of the evacuation process.
+
+
+4.2 Visualized Result of the Model
+
+
+
+
+        Figure 13: The Heat Map of Evacuation Time in Different Places of Each Floor
+
+    After running the simulation, we can get the heat map of evacuation time in dif-
+ferent places of each floor. See Figure 13. The "hotter" a spot is, the longer it will take
+an individual to evacuate from that spot. Different colors in the heat map is of simi-
+lar meaning to the different "Danger Index" in our 2D-IBM Model. Comparing Figure
+13 with Figure 9, we notice that the distribute of color is of the same trend, which
+indirectly proves that our Danger Index Model is reasonable.
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 1900007                                                               Page 17 of 26
+
+
+4.3 Determining the Potential Bottleneck
+
+    The Pathfinder simulation dynamically shows the real-time density of evacuees in
+a certain place, and forms the heat map of density on each floor. With the aid of it, we
+can easily figure out the bottlenecks on each floor, which are clearly shown in Figure
+14, 15.
+
+    These bottlenecks are located either near staircases or close to exits, which makes
+sense. However, due to the difference of locations, not all the stairs or exits can be the
+potential bottleneck. For example, only a few evacuees choose to leave from distant
+exits.
+
+
+
+
+                     Figure 14: The Potential Bottlenecks on each Floor
+
+
+
+
+                        Figure 15: The Potential Bottlenecks–Focus
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 1900007                                                                  Page 18 of 26
+
+
+
+5     Strengths and Weaknesses
+
+5.1 Strengths
+
+    1. Our Dimensionality Reduction Method successfully planarizes the building, thus
+       simplifying the calculation greatly.
+
+    2. Our Basic Searching Model and Danger Index Model take the attributes of the
+       building into consideration (e.g. the capacity of exits, the distribution of stair-
+       cases, etc.), so it can be adapted to other large and crowded structures easily.
+
+    3. Our Basic Searching Model and Danger Index Model consider many hominine
+       factors (e.g. the diversity of evacuees, the density of evacuees, etc.), so our routes
+       can guarantee the evacuees’ security to a large extent.
+
+    4. Our model is not sensitive to the density of people and the severity of the emer-
+       gency, which gurantees its robustness.
+
+    5. Our 3D Cellular Automata Model successfully constructs a well-designed 3D
+       model of Louvre, allowing the simulation to resemble the real-world situation.
+
+
+5.2 Weaknesses
+
+    1. The Dijkstra Searching Method needs to call the searching function repeatedly,
+       leading to a comparatively high Time Complexity of the algorithm.
+
+    2. Our 2D Island-Bridge Model discretizes the spaces into nodes. The discretization
+       method replace the continuous movement of people with the leap between two
+       adjacent nodes. This method deserves further justification.
+
+
+
+6     Conclusion: A Letter of Advice to the Emergency Man-
+      ager
+
+     Dear Sir/Madam,
+
+   We are a group of students participating in the 2019 ICM contest who chose the
+"Time to Leave the Louvre" problem. We would like to give some advice based on our
+work to better your evacuation plan.
+
+    First of all, we think it’s crucial to add more dectectors and sensors in the mu-
+seum to monitor the density of evacuees and collect some other information. Plus, you
+should also suggest the visitors to utilize the positioning function of their smartphones
+to help you calculate their distance to each exit and the danger source. With these data
+in hand, you can have a good command of the real-time distribution of Danger Index
+in the building by our Danger Index Model. Then, you can work out the optimal evac-
+uation route for people in different places of the museum. It’s necessary to implement
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 1900007                                                              Page 19 of 26
+
+
+an evacuation navigation function in the "Affluences" APP, so that everyone can get to
+know their own optimal route.
+
+   Secondly, we strongly advice you to guarantee that the exits and stairs are not oc-
+cupied or stuck. Stairs and Exits play key roles in the evacuation process, and they are
+very likely to cause congestion or stagnation and become bottlenecks of evacuation.
+
+   Finally, we will be very glad if you can take time to read our paper and we hope
+our advice will be of help to you. If you have any questions, please feel free to ask us.
+
+   Sincerely,
+
+   Members of Team #1900007
+
+
+
+References
+
+ [1] Xiong, Q.; Zhu, Q.; Du, Z.; Zhu, X.; Zhang, Y.; Niu, L.; Li, Y.; Zhou, Y. A Dy-
+     namic Indoor Field Model for Emergency Evacuation Simulation. ISPRS Interna-
+     tional Journal of Geo-Information, 2017, 6, 104.
+
+ [2] Lo, S.M.; Fang, Z.; Chen, D.H. Use of a modified network model for analyzing
+     evacuation patterns in high-rise buildings. J. Archit. Eng, 2001, 7, 21–29.
+
+ [3] Helbing, D.; Farkas, I.; Vicsek, T. Simulating dynamical features of escape panic.
+     Nature, 2000, 407, 487–490.
+
+ [4] Kirchner, A.; Schadschneider, A. Simulation of evacuation processes using a
+     bionics-inspired cellular automaton model for pedestrian dynamics. Phys. A Stat.
+     Mech. Appl., 2002, 312, 260–276.
+
+ [5] FENG Weiwei; QIU Jiong. Application of Ant Colony Algorithm in Fire Evacua-
+     tion Platform(in Chinese). Electronic Science and Technology., 2015, 4, 13-16.
+
+ [6] Louvre 2014 Annual Report.pdf.
+     https://www.louvre.fr/sites/default/files/rapport_activite/
+     fichiers/PDF/louvre-2014-annual-report.pdf
+
+ [7] Louvre Plan Visitors Mobility Impairments.pdf.
+     https://www.louvre.fr/sites/default/files/medias/
+     medias_fichiers/fichiers/pdf/louvre-plan-visitors-
+     mobility-impairments.pdf
+
+ [8] Louvre Interactive Floor Plans.
+     https://www.louvre.fr/en/plan
+
+ [9] Pathfinder 2012 Technical Reference.pdf.
+
+
+=== PHYSICAL PAGE 22 ===
+     Team # 1900007                                                                                   Page 20 of 26
+
+
+
+     Appendices
+
+     A Our Simulation Codes Written in MATLAB
+
+
+                                                           DijkstraMain.m
+ 1 clear all
+ 2 clc
+ 3 load ( ’ node . mat ’ ) ;
+
+ 4 C=X ;
+ 5 n= s i z e (C , 1 ) ;
+ 6 D= z e r o s ( n , n ) ;
+ 7
+ 8 viewpoint = 2 1 ;
+ 9 emerg = [ 5 8 0 , 5 5 0 ] ;
+10 s c a t t e r ( emerg ( 1 , 1 ) , emerg ( 1 , 2 ) , 1 0 0 , ’ r ’ , ’ f i l l e d ’ ) ;
+11 hold on
+12 t h r e a d = 3 0 ;
+13 t o t a l p e o p l e = 0 ;
+14 t o t a l d i s t a n c e = 0 ;
+15 e = [ 0 , 0 , 0 , 0 ] ;
+
+16 a l p h a e x i t = 0 . 3 5 ;
+17 dens = 0 . 4 ;
+18 Contain= a l p h a e x i t ∗3700∗ dens ;
+19 f o r i = 1 : n
+20 f o r    j =1:n
+21 i f    i ~= j
+22 D( i , j ) = s q r t ( ( C( i , 1 )−C( j , 1 ) ) ^2+(C( i , 2 )−C( j , 2 ) ) ^2) ;
+23 e l s e
+24 D( i , j ) = 0 ;
+25 end
+26 D( j , i ) =D( i , j ) ;
+27 end
+
+28 end
+29
+30 for i =1:n
+31 for j =1:n
+32 i f D( i , j ) >viewpoint|| s q r t ( ( C( i , 1 )−emerg ( 1 , 1 ) ) ^2+(C( i , 2 )−emerg ( 1 , 2 ) ) ^2)<=
+         thread
+33 D( i , j ) = i n f ;
+34 end
+35 end
+36 end
+37
+38
+
+39 for i i =1:3700
+40 i f rand <=dens&&( s q r t ( ( C( i i , 1 )−emerg ( 1 , 1 ) ) ^2+(C( i i , 2 )−emerg ( 1 , 2 ) ) ^2)>t h r e a d )
+41 s t a r t = i i ;
+42 t o t a l p e o p l e = t o t a l p e o p l e + 1 ;
+43 e x i t =X ( 3 7 0 1 : 3 7 0 4 , : ) ;
+44
+
+45 i f e ( 1 , 1 ) <=Contain
+46 [ mydistance1 , mypath1 ]= Djsk (D, s t a r t , 3 7 0 1 ) ;
+47 e l s e
+48 mydistance1= i n f ;
+
+
+=== PHYSICAL PAGE 23 ===
+     Team # 1900007                                                                                                Page 21 of 26
+
+
+49   end
+50
+51 i f e ( 1 , 2 ) <=Contain
+52 [ mydistance2 , mypath2 ]= Djsk (D, s t a r t , 3 7 0 2 ) ;
+53 e l s e
+54 mydistance2= i n f ;
+55 end
+
+56
+57 i f e ( 1 , 3 ) <=Contain
+58 [ mydistance3 , mypath3 ]= Djsk (D, s t a r t , 3 7 0 3 ) ;
+59 e l s e
+60 mydistance3= i n f ;
+61 end
+
+62
+63 i f e ( 1 , 4 ) <=Contain
+64 [ mydistance4 , mypath4 ]= Djsk (D, s t a r t , 3 7 0 4 ) ;
+65 e l s e
+66 mydistance4= i n f ;
+67 end
+
+68 Pd=[ mydistance1 , mydistance2 , mydistance3 , mydistance4 ] ;
+69 [ value , index ]=min ( Pd ) ;
+70 [ mydistance , mypath ]= Djsk (D, s t a r t , 3 7 0 0 + index ) ;
+71 e ( 1 , index ) =e ( 1 , index ) + 1 ;
+72 t o t a l d i s t a n c e = t o t a l d i s t a n c e +value ;
+73 Xp = [ ] ; Yp = [ ] ;
+
+74 f o r i = 1 : s i z e ( mypath , 2 )
+75 Xp=[Xp , C( mypath ( i ) , 1 ) ] ;
+76 Yp=[Yp , C( mypath ( i ) , 2 ) ] ;
+77 end
+78 s c a t t e r (C ( : , 1 ) ,C ( : , 2 ) , ’ b . ’ ) ;
+79 hold on
+
+80 s c a t t e r ( e x i t ( : , 1 ) , e x i t ( : , 2 ) , 1 0 0 , ’ p ’ , ’ f i l l e d ’ ) ;
+81 hold on
+82 p l o t ( Xp , Yp ) ;
+83 hold on
+84 end
+85 x l a b e l ( ’ x/m’ ) ;
+
+86 y l a b e l ( ’ y/m’ ) ;
+87 end
+
+
+
+
+                                                               Djsk.m
+ 1    f u n c t i o n [ r e s , index ] = Djsk (mp, s t a t , ends )
+ 2    n= s i z e (mp, 1 ) ;
+ 3    bj=zeros (n , 1 ) ;
+ 4    d i s =mp( s t a t , : ) ;
+ 5    path=ones ( n , 1 ) ; path=path . ∗ s t a t ;
+ 6    dis ( s t a t ) =0; bj ( s t a t ) =1;
+ 7    for i =1:n
+ 8    min= I n f ; k = 1 ;
+ 9    for j =1:n
+10    i f ( b j ( j ) ~=1)&&(d i s ( j ) <min ) , min= d i s ( j ) ; k= j ; end
+11    end
+12    bj ( k ) =1;
+13    for j =1:n
+14    i f ( b j ( j ) ~=1)&&(d i s ( j ) >( d i s ( k ) +mp( k , j ) ) ) , d i s ( j ) = d i s ( k ) +mp( k , j ) ; path ( j ) =k ;
+          end
+15    end
+16    end
+
+
+=== PHYSICAL PAGE 24 ===
+     Team # 1900007                                                                                        Page 22 of 26
+
+
+17    tem=ends ; index ( 1 ) =ends ; i = 2 ;
+18    while path ( tem ) ~= s t a t
+19    index ( i ) =path ( tem ) ;
+20    tem=path ( tem ) ;
+21    i = i +1;
+22    end
+23    index ( i ) = s t a t ; index=index ( l e n g t h ( index ) : − 1 : 1 ) ; r e s = d i s ( ends ) ;
+24    end
+
+
+
+
+                                                        DangerIndex.m
+ 1 clear all
+ 2 clc
+ 3 load ( ’ node . mat ’ ) ;
+ 4 emerg = [ 5 8 0 , 5 5 0 ] ;
+ 5 X=[X ; emerg ] ;
+ 6 C=X ;
+ 7 n= s i z e (C , 1 ) ;
+ 8 totaldens =0.4;
+
+ 9 viewpoint = 2 1 ;
+10 C=[C , z e r o s ( n , 1 ) ] ;
+11 hold on
+12 t h r e a d = 0 ;
+13 e = [ 0 , 0 , 0 , 0 ] ;
+14 R f i e l d = 2 1 ;
+
+15 N f i e l d = z e r o s ( n , 1 ) ;
+16
+17 rho= z e r o s ( 3 7 0 0 , 1 ) ;
+18 Wemerg= z e r o s ( 3 7 0 0 , 1 ) ;
+19 Wexit= z e r o s ( 3 7 0 0 , 1 ) ;
+20 Neg= z e r o s ( 3 7 0 0 , 1 ) ;
+
+21
+22
+23 for i =1:n
+24 for j =1:n
+25 i f   i ~= j
+26 D( i , j ) = s q r t ( ( C( i , 1 )−C( j , 1 ) ) ^2+(C( i , 2 )−C( j , 2 ) ) ^2) ;
+
+27 e l s e
+28 D( i , j ) = 0 ;
+29 end
+30 D( j , i ) =D( i , j ) ;
+31 end
+32 end
+
+33
+34 for i =1:n
+35 for j =1:n
+36 i f D( i , j ) >viewpoint|| s q r t ( ( C( i , 1 )−emerg ( 1 , 1 ) ) ^2+(C( i , 2 )−emerg ( 1 , 2 ) ) ^2)<=
+         thread
+37 D( i , j ) = i n f ;
+
+38 end
+39 end
+40 end
+41
+42 for i =1:3700
+43 i f rand <= t o t a l d e n s &&( s q r t ( ( C( i , 1 )−emerg ( 1 , 1 ) ) ^2+(C( i , 2 )−emerg ( 1 , 2 ) ) ^2)>
+        thread )
+44 C( i , 3 ) = 1 ;
+45 end
+46 end
+
+
+=== PHYSICAL PAGE 25 ===
+     Team # 1900007                                                                                      Page 23 of 26
+
+
+47
+
+48 for i =1:3700
+49 f o r j =max ( 1 , i −64) : min ( i + 6 4 , 3 7 0 0 )
+50 i f   ( s q r t ( ( C( i , 1 )−C( j , 1 ) ) ^2+(C( i , 2 )−C( j , 2 ) ) ^2) <=21)&&(C( j , 3 ) ==1)
+51 N f i e l d ( i , 1 ) = N f i e l d ( i , 1 ) + 1 ;
+52 end
+53 end
+
+54 end
+55 f o r i = 1 : 3 7 0 0
+56 s t a r t = i ;
+57 e x i t =X ( 3 7 0 1 : 3 7 0 4 , : ) ;
+58 [ mydistance1 , mypath1 ]= Djsk (D, s t a r t , 3 7 0 1 ) ;
+59 [ mydistance2 , mypath2 ]= Djsk (D, s t a r t , 3 7 0 2 ) ;
+
+60 [ mydistance3 , mypath3 ]= Djsk (D, s t a r t , 3 7 0 3 ) ;
+61 [ mydistance4 , mypath4 ]= Djsk (D, s t a r t , 3 7 0 4 ) ;
+62 Pd=[ mydistance1 , mydistance2 , mydistance3 , mydistance4 ] ;
+63 [ value , index ]=min ( Pd ) ;
+64 Wexit ( i , 1 ) =value ;
+65 disemerg= s q r t ( ( C( i , 1 )−emerg ( 1 , 1 ) ) ^2+(C( i , 2 )−emerg ( 1 , 2 ) ) ^2) ;
+
+66 Wemerg ( i , 1 ) =1/disemerg ;
+67
+68
+69   end
+70
+71 for i =1:3700
+72 rho ( i , 1 ) = N f i e l d ( i , 1 ) /( p i ∗ R f i e l d ^2) ;
+73 end
+74
+75 a =10^2;
+76 b =10^4;
+77 c = 1 ;
+
+78
+79 for i =1:3700
+80 Neg ( i , 1 ) =a∗ rho ( i , 1 ) +b∗Wemerg ( i , 1 ) +c ∗ Wexit ( i , 1 ) ;
+81 end
+82
+83 f1 =1:600;
+84 f2 =1:1000;
+85 [ F1 , F2 ]= meshgrid ( f1 , f 2 ) ;
+86 F3= z e r o s ( 6 0 0 , 1 0 0 0 ) ;
+87 F1=F1 ’ ; F2=F2 ’ ;
+88 f o r i = 1 : 6 0 0
+89 f o r   j =1:1000
+90 f o r   i i =1:3700
+91 i f   i ==X ( i i , 1 )&&j ==X ( i i , 2 )
+92 F3 ( i , j ) =Neg ( i i , 1 ) ;
+93 end
+94 end
+95 end
+
+96 end
+97
+98   mesh ( F1 , F2 , F3 ) ;
+
+
+
+
+                                                           NodeFormation.m
+ 1 cnt =1;
+ 2 X=[];
+ 3 for i =1:64
+ 4 for  j =1:5
+
+
+=== PHYSICAL PAGE 26 ===
+    Team # 1900007                       Page 24 of 26
+
+
+5  X ( cnt , 1 ) =10∗( i −1) + 5 ;
+6  X ( cnt , 2 ) =10∗( j −1) + 5 ;
+ 7 cnt=cnt +1;
+ 8 end
+ 9 end
+10 f o r i = 1 : 2 3
+11 f o r   j =1:6
+12 X ( cnt , 1 ) =10∗( i −1) + 4 2 0 ;
+13 X ( cnt , 2 ) =10∗( j −1) + 6 0 ;
+14 c n t = c n t + 1 ;
+15 end
+16 end
+17 f o r i = 1 : 6 4
+
+18 f o r   j =1:4
+19 X ( cnt , 1 ) =10∗( i −1) + 5 ;
+20 X ( cnt , 2 ) =10∗( j −1) + 1 3 0 ;
+21 c n t = c n t + 1 ;
+22 end
+23 end
+
+24 f o r i = 1 : 4
+25 f o r   j =1:18
+26 X ( cnt , 1 ) =5∗( i −1) + 5 5 3 ;
+27 X ( cnt , 2 ) =5∗( j −1) + 1 7 5 ;
+28 c n t = c n t + 1 ;
+29 end
+
+30 end
+31 f o r i = 1 : 6 4
+32 f o r   j =1:5
+33 X ( cnt , 1 ) =10∗( i −1) + 5 ;
+34 X ( cnt , 2 ) =10∗( j −1) + 2 7 0 ;
+35 c n t = c n t + 1 ;
+
+36 end
+37 end
+38 f o r i = 1 : 1 7
+39 f o r   j =1:6
+40 X ( cnt , 1 ) =10∗( i −1) + 4 8 0 ;
+41 X ( cnt , 2 ) =10∗( j −1) + 3 2 0 ;
+
+42 c n t = c n t + 1 ;
+43 end
+44 end
+45 f o r i = 1 : 6 4
+46 f o r   j =1:5
+47 X ( cnt , 1 ) =10∗( i −1) + 5 ;
+
+48 X ( cnt , 2 ) =10∗( j −1) + 3 9 0 ;
+49 c n t = c n t + 1 ;
+50 end
+51 end
+52 f o r i = 1 : 4
+53 f o r   j =1:4
+54 X ( cnt , 1 ) =5∗( i −1) + 5 5 3 ;
+55 X ( cnt , 2 ) =5∗( j −1) + 4 3 5 ;
+56 c n t = c n t + 1 ;
+57 end
+58 end
+59 f o r i = 1 : 6 4
+
+60 f o r   j =1:5
+61 X ( cnt , 1 ) =10∗( i −1) + 5 ;
+62 X ( cnt , 2 ) =10∗( j −1) + 4 6 0 ;
+63 c n t = c n t + 1 ;
+64 end
+
+
+=== PHYSICAL PAGE 27 ===
+     Team # 1900007                       Page 25 of 26
+
+
+65  end
+66  for i =1:17
+ 67 f o r   j =1:7
+ 68 X ( cnt , 1 ) =10∗( i −1) + 4 8 0 ;
+ 69 X ( cnt , 2 ) =10∗( j −1) + 5 1 0 ;
+ 70 c n t = c n t + 1 ;
+ 71 end
+
+ 72 end
+ 73 f o r i = 1 : 6 4
+ 74 f o r   j =1:4
+ 75 X ( cnt , 1 ) =10∗( i −1) + 5 ;
+ 76 X ( cnt , 2 ) =10∗( j −1) + 5 8 0 ;
+ 77 c n t = c n t + 1 ;
+
+ 78 end
+ 79 end
+ 80 f o r i = 1 : 4
+ 81 f o r   j =1:2
+ 82 X ( cnt , 1 ) =5∗( i −1) + 5 5 3 ;
+ 83 X ( cnt , 2 ) =5∗( j −1) + 6 2 5 ;
+
+ 84 c n t = c n t + 1 ;
+ 85 end
+ 86 end
+ 87 f o r i = 1 : 6 4
+ 88 f o r   j =1:4
+ 89 X ( cnt , 1 ) =10∗( i −1) + 5 ;
+
+ 90 X ( cnt , 2 ) =10∗( j −1) + 6 4 0 ;
+ 91 c n t = c n t + 1 ;
+ 92 end
+ 93 end
+ 94 f o r i = 1 : 1 7
+ 95 f o r   j =1:6
+ 96 X ( cnt , 1 ) =10∗( i −1) + 4 8 0 ;
+ 97 X ( cnt , 2 ) =10∗( j −1) + 6 9 0 ;
+ 98 c n t = c n t + 1 ;
+ 99 end
+100 end
+101 f o r i = 1 : 6 4
+
+102 f o r   j =1:5
+103 X ( cnt , 1 ) =10∗( i −1) + 5 ;
+104 X ( cnt , 2 ) =10∗( j −1) + 7 5 5 ;
+105 c n t = c n t + 1 ;
+106 end
+107 end
+
+108 f o r i = 1 : 4
+109 f o r   j =1:4
+110 X ( cnt , 1 ) =5∗( i −1) + 5 5 3 ;
+111 X ( cnt , 2 ) =5∗( j −1) + 8 0 5 ;
+112 c n t = c n t + 1 ;
+113 end
+
+114 end
+115 f o r i = 1 : 6 4
+116 f o r   j =1:5
+117 X ( cnt , 1 ) =10∗( i −1) + 5 ;
+118 X ( cnt , 2 ) =10∗( j −1) + 8 2 5 ;
+119 c n t = c n t + 1 ;
+
+120 end
+121 end
+122 f o r i = 1 : 1 7
+123 f o r   j =1:7
+124 X ( cnt , 1 ) =10∗( i −1) + 4 8 0 ;
+
+
+=== PHYSICAL PAGE 28 ===
+      Team # 1900007                          Page 26 of 26
+
+
+125 X ( cnt , 2 ) =10∗( j −1) + 8 7 5 ;
+126 cnt=cnt +1;
+127 end
+128 end
+129 f o r i = 1 : 6 4
+130 f o r   j =1:5
+131 X ( cnt , 1 ) =10∗( i −1) + 5 ;
+
+132 X ( cnt , 2 ) =10∗( j −1) + 9 4 5 ;
+133 c n t = c n t + 1 ;
+134 end
+135 end
+136 X ( 3 7 0 1 , : ) = [ 4 7 8 , 5 3 6 ] ;
+137 X ( 3 7 0 2 , : ) = [ 4 0 4 , 6 2 2 ] ;
+
+138 X ( 3 7 0 3 , : ) = [ 3 2 4 , 6 2 3 ] ;
+139 X ( 3 7 0 4 , : ) = [ 1 1 3 , 4 5 4 ] ;

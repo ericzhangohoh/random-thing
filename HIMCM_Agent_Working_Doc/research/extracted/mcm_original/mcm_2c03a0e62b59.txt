@@ -1,0 +1,827 @@
+=== PHYSICAL PAGE 1 ===
+                       Fe-Fi-Fo-Thumb
+
+
+                          February 9, 2004
+
+
+                                Abstract
+    Fingerprinting is one of the oldest techniques for identification, and
+it is still used by many agencies today. The primary motivation for this
+is that fingerprints are believed to be unique. This claim has been sup-
+ported by empirical evidence, but there has been no scientific proof that
+it should be true. We provide a mathematical foundation to analyze the
+existence of such a phenomenon. This is accomplished by considering
+the physical limitations involved in recording a fingerprint, as well as the
+theoretical implications of defining a metric on the space of fingerprints.
+We pose a possible interpretation of fingerprint enumeration in terms of
+sphere packing. We also develop two concrete models to estimate the
+number of distinct fingerprints in existence and the likelihood that no two
+human beings in history have had the same fingerprint. The first model
+is a graph-theoretic approach based on the Voronoi diagram of minutiae
+distribution. This method is invariant under rotation, scaling, and trans-
+lation. However, it appears to be too sensitive to perturbations caused
+by experimental error. As a result, it is unrealistic to consider this model
+for practical use. We produce an estimate of 1.11 × 1021 distinct finger-
+prints for a uniform distribution of 36 minutiae, and therefore find the
+probability that no two people in history have had the same fingerprint to
+be 0.00011. The second model we consider is based on correlating minu-
+tiae between two fingerprints that are sufficiently similar. We look at the
+probability that two independently generated thumbs will have a specified
+number of matching minutiae. We then consider the effect of perturbing
+each minutia by a normally distributed amount. By looking at the corre-
+lation between a given fingerprint and its perturbed counterpart, we are
+able determine a reasonable number of matching minutiae to expect when
+comparing any two fingerprints. This allows us to estimate the probabil-
+ity that two randomly generated fingerprints will be identified as coming
+from the same person. With this model we find values of 1.95 × 1036 and
+ −   1
+e 2×1015 for the number of distinct fingerprints with 36 minutiae and the
+probability that no two people have ever had the same fingerprint.
+
+
+
+
+                                     1
+
+
+=== PHYSICAL PAGE 2 ===
+Page 2 of 18                                                        Control #28
+
+
+Contents
+1 Introduction                                                                 3
+  1.1 A Mathematical Theory of Fingerprint Identification . . . . . . .        3
+  1.2 Fingerprint Uniqueness via Spheres . . . . . . . . . . . . . . . . .     4
+
+2 Basic Information about Fingerprints and Thumbs                              4
+  2.1 The Information Contained in a Fingerprint . . . . . . . . . . . .       5
+  2.2 Facts About Fingerprints . . . . . . . . . . . . . . . . . . . . . .     6
+  2.3 Assumptions about Fingerprints . . . . . . . . . . . . . . . . . .       6
+
+3 Model I: A Discrete Similarity Metric                                        6
+  3.1 Minutiae and Voronoi Diagrams . . . . . . . . . . . . . . . . . . .      7
+  3.2 The Role of Graph Theory in this Model . . . . . . . . . . . . . .       8
+  3.3 Sensitivity of Minutiae Point Perturbation . . . . . . . . . . . . .     9
+  3.4 Estimating the Total Number of Distinct Fingerprints . . . . . .        10
+
+4 Model II: A Continuous Similarity Metric                                     11
+  4.1 Statistical Analysis . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+  4.2 Error Analysis and Sensitivity . . . . . . . . . . . . . . . . . . . . 15
+
+5 The Probability of Fingerprint Uniqueness                                   16
+
+6 Conclusion                                                           16
+  6.1 Fingerprint vs DNA Evidence – A Final Test . . . . . . . . . . . 17
+
+
+
+
+                                       2
+
+
+=== PHYSICAL PAGE 3 ===
+Page 3 of 18                                                         Control #28
+
+
+1     Introduction
+The process of identifying individuals based on various biometrics is a rapidly
+growing field. Having been studied for well over a century, the most traditional
+biometric used to for identification is the fingerprint. It is a common belief that
+fingerprints are unique to each human being; however, this biological occurrence
+has never been scientifically proven. To begin investigating the likelihood of this
+phenomenon, we state some rudimentary assumptions:
+
+    • By the term fingerprint we mean a 2-dimensional grayscale image repre-
+      senting the ridge structure of a person’s finger.
+    • In deciding how many unique fingerprints exist, we acknowledge that mul-
+      tiple acquisitions of a particular fingerprint must not be counted more than
+      once.
+
+    In order to decide what it means to count the number of possible fingerprints,
+we feel it is necessary to develop a brief mathematical framework for the theory
+of fingerprint matching.
+
+1.1    A Mathematical Theory of Fingerprint Identification
+The first concept we need is that of a similarity metric. This is a tool for
+measuring the apparent ‘distance’ between two fingerprints. Each similarity
+metric falls into one of two categories:
+
+    • Continuous – Associated with any two fingerprints is a real number
+      representing the dissimilarity between them.
+    • Discrete – Any two fingerprints are considered distinct or equivalent.
+
+    We denote by d(X, Y ) the distance between two fingerprints X and Y .
+
+    Notice that the discrete metric may be derived from the continuous one by
+setting a threshold. That is, if d(X, Y ) ≤ c, for a specified constant c, then the
+fingerprints X and Y are determined to be equivalent.
+
+    Defining a similarity metric allows us to be more precise when discussing
+the error involved in repeat fingerprint acquisition. One can imagine taking
+many images of a particular person’s finger and then determining the maximum
+distance between any two of these fingerprints. This gives us an estimate of how
+different two fingerprints must be so that they are detectably distinct. We are
+lead to the following definition:
+      Definition: Let X1 , . . . , Xn represent n fingerprints taken from the same
+      finger. Then for a continuous similarity metric we define the detectabil-
+      ity radius Rdetect by
+
+
+
+                                        3
+
+
+=== PHYSICAL PAGE 4 ===
+Page 4 of 18                                                              Control #28
+
+
+                        Rdetect = max{d(Xi , Xj ) | for all i 6= j}
+
+   Note that the detectability radius is dependent on both the apparatus for
+acquiring fingerprints and the metric for comparing them.
+
+
+1.2     Fingerprint Uniqueness via Spheres
+One can interpret the question of fingerprint distinction in terms of sphere pack-
+ing. The sphere of radius r about a fingerprint X is the set of all fingerprints
+Y whose distance to X is no greater than r:
+                           S(X, r) = {Y | d(X, Y ) ≤ r}
+
+    Suppose one were to record the fingerprint of every individual on the planet.
+If the distance between any two of these fingerprints is less than the detectability
+radius (Rdetect ), then the fingerprints will be within the margin of experimental
+error and they must be considered equivalent. Therefore, if the union of all
+spheres centered around these fingerprints with radius 2Rdetect forms a disjoint
+set, then we will have determined that no two people have the same fingerprint.
+Formally,
+       Let X1 , . . . , Xn represent the fingerprints of every individual in a given
+       population. Then
+
+                                                           T
+                                                           n
+         No two people have the same fingerprint ⇐⇒              S(Xi , 2Rdetect ) = ∅
+                                                           i=1
+
+    This suggests a method for determining the number of unique fingerprints:
+
+    1. Define a metric on the space of all fingerprints.
+    2. Determine a reasonable value for Rdetect .
+
+    3. Estimate the number of non-overlapping spheres with radius Rdetect that
+       can be packed into the space of all possible fingerprints.
+   Unfortunately, as will be shown, this approach is not especially practical.
+However, the concepts underlying it will be useful for analyzing the models we
+develop in this paper.
+
+
+2     Basic Information about Fingerprints and Thumbs
+Throughout this paper we will be using some specific vocabulary to describe
+thumbprints. We provide the definitions here:
+
+       Pattern area – the primary region of a fingerprint.
+
+
+
+                                         4
+
+
+=== PHYSICAL PAGE 5 ===
+Page 5 of 18                                                        Control #28
+
+
+
+Figure 1: The six basic types of fingerprints [1]: (a) arch, (b) tented arch, (c)
+right loop, (d) left loop, (e) whorl, and (f) twinloop.
+
+
+
+
+      Fingerprint type – The basic classification of a fingerprint: arch, tented
+      arch, right loop, left loop, whorl, and twinloop. See Figure 1.
+      Ridge – A path of raised skin on the pad of a finger.
+
+      Core – The approximate center of a fingerprint.
+      Delta – A reference point on a fingerprint which, together with the core,
+      is used to orient a fingerprint (see Figure 1c).
+      Bifurcation – A single ridge that divides into two ridges.
+      Ridge ending – A ridge that ends abruptly.
+      Minutia – A characteristic singularity in the ridge pattern of a finger.
+      Minutia type – A classification of minutiae. The most common types are
+      bifurcations and ridge endings.
+      Minutia direction – A vector that characterizes the minutia’s orientation.
+
+2.1    The Information Contained in a Fingerprint
+Human skin is fairly elastic. Accordingly, anomalies such as translation, rota-
+tion, scaling, and local perturbations sometimes occur while producing a finger-
+print. The crucial features to consider when comparing fingerprints are those
+
+
+                                        5
+
+
+=== PHYSICAL PAGE 6 ===
+Page 6 of 18                                                         Control #28
+
+
+which do not vary much between successive prints from the same source. There
+are other details discernable in fingerprints, such as skin pores, curvature of
+ridges, and spacing of ridges. However, these information sources are less reli-
+able and ignored in many widely accepted fingerprint identification procedures.
+
+2.2     Facts About Fingerprints
+    • The typical pattern area recorded in a fingerprint is 72mm2 [3].
+    • The number of discernible minutiae in most fingerprints is between 20 and
+      70 [5]. In our models we assume an average of 36 minutiae, as done by [3].
+    One more fact [3] that we use extensively in our models is the followings:
+
+   Upon repeated printing of the same finger, there is a %97.5 chance that the
+minutiae will be within 0.69mm of the original location.
+
+2.3     Assumptions about Fingerprints
+To determine the number of unique fingerprints and the probability that no two
+people in history have had the same thumbprint we need to make a few general
+assumptions. Most of these have been supported by the literature available on
+fingerprinting.
+    1. People’s fingerprints do not change over time [3].
+    2. When comparing fingerprints it is sufficient to consider only overall print
+       type and attributes pertaining to the minutiae [2].
+    3. The basic structure of the human fingerprint has not changed drastically
+       throughout history [4].
+    4. Thumbprints exhibit the same characteristics as prints taken from other
+       fingers of the hand.
+    5. Minutiae are uniformly distributed throughout the pattern area of the
+       finger [9].
+
+
+3     Model I: A Discrete Similarity Metric
+One of the most desirable features of a fingerprint comparison algorithm is
+invariance under translation, rotation, and scaling. This seems to indicate that
+the problem of identifying fingerprints is of a topological nature, rather than
+geometrical. In this model we develop a graph-theoretic approach to analyze
+the process of fingerprint comparison and use it to produce a lower bound on
+the number of detectably distinct fingerprints.
+    We would like to understand the topology of a given minutiae distribution.
+For this reason we consider a spatial tessellation derived from the relative loca-
+tions of the minutiae.
+
+                                        6
+
+
+=== PHYSICAL PAGE 7 ===
+Page 7 of 18                                                        Control #28
+
+
+
+ Figure 2: The minutiae Voronoi diagram of an image-enhanced fingerprint.
+
+
+
+
+3.1    Minutiae and Voronoi Diagrams
+A 2-dimensional tessellation, known as a Voronoi diagram, may be produced
+from any planar region by the following method [8]:
+
+  1. A finite collection of seed points is produced. These points may either
+     be generated by a stochastic process, or acquired from a preexisting data
+     source.
+
+  2. To each seed point is associated a planar sub-region known as a cell. Each
+     cell consists of all points which are closer to the given seed point than any
+     other seed point in the collection.
+
+   This tessellation is uniquely determined by the seed points.
+
+   Our model considers the Voronoi diagram obtained from the minutiae of a
+given thumbprint, which we refer to as a minutiae Voronoi diagram.
+
+    We produced a minutiae Voronoi diagram (using the Qhull [6] algorithm)
+for a real fingerprint. The result is pictured in Figure 2. The original finger-
+print image with minutiae identified by small boxes is seen in Figure 3. The
+thumbprint data and minutiae extraction were provided by [7].
+
+
+
+
+                                       7
+
+
+=== PHYSICAL PAGE 8 ===
+Page 8 of 18                                                        Control #28
+
+
+
+Figure 3: The original fingerprint from Figure 2 with minutiae represented by
+small boxes.
+
+
+
+
+3.2    The Role of Graph Theory in this Model
+We are interested in enumerating the possible configurations of minutiae in
+fingerprints. However, there is a constraint that two fingerprints which are
+sufficiently similar (i.e. within Rdetect ) must be matched correctly. Therefore,
+we would like a way to compare Voronoi diagrams such that small perturbations
+in the position of seed points will not affect the comparison. To accomplish this,
+we consider the graph obtained from the minutiae Voronoi diagram.
+
+  We refer to the graph obtained from the minutiae Voronoi diagram as the
+                             minutiae graph.
+
+    This graph contains all the topological properties of the Voronoi diagram.
+It tells it which vertices are connected, but it does not contain any geometric
+measures, such as the lengths of the edges and the angles they form at each
+vertex.
+
+   We are now ready to define the fingerprint similarity metric for this model.
+      Definition:
+      We consider two fingerprints X and Y to be equivalent, d(X, Y ) = 0, if
+      their respective minutiae graphs are isomorphic, and distinct, d(X, Y ) = 1,
+      otherwise.
+
+    Since we are attempting to estimate the number of distinct fingerprints in
+existence, it is important to be able to determine the number of isomorphism
+classes of a large collection of graphs very quickly. We use the Nauty software
+package [10] to produce a standard representation of each graph, known as a
+canonical label. Having done so, the two graphs may be tested for isomorphism
+
+
+                                        8
+
+
+=== PHYSICAL PAGE 9 ===
+Page 9 of 18                                                          Control #28
+
+
+by seeing if their canonical labels are equal.
+
+   Using isomorphism classes of minutiae graphs to compare finger-
+prints has the following advantages:
+  1. Any unintentional rotation, translation, or scaling factor when recording
+     a fingerprint will have absolutely no effect on the comparison.
+  2. A slight perturbation in the location of minutiae points will result in a
+     topologically equivalent minutiae graph.
+  3. The complete graphic information in a Voronoi diagram generated by n
+     points can usually be stored in 4n2 bits.
+   The last assertion is based on the average number of vertices in a Voronoi
+diagram generated by n seed points [8].
+
+3.3    Sensitivity of Minutiae Point Perturbation
+In this section we investigate the sensitivity of this model to slight perturbations
+in the location of minutiae points. The similarity metric we are using here is
+the discrete one. Namely, graphs are either isomorphic or non-isomorphic. As a
+result, we are unable to directly measure Rdetect . We know that minutiae graphs
+generated by sufficiently similar minutiae point distributions are isomorphic,
+but we would like to relate this vague statement to the more precise language
+of detectability radii. One possible interpretation is the following:
+ The inherent metric involved in this model is not really the discrete one, but
+  rather a much more complicated metric which is then transformed into a
+       discrete metric according to some sort of thresholding process.
+
+    In order to develop an understanding of how slight changes in the seed point
+distribution affect a Voronoi diagram, we perform the following experiment:
+
+   • Randomly distribute 36 minutiae.
+   • Generate the minutiae graph corresponding to that particular configura-
+     tion of seed points.
+   • For each seed point, adjust its x and y coordinate by a random amount
+     given by a normal distribution.
+   • Generate a new minutiae graph from these perturbed seed points.
+   • Determine if these two graphs are isomorphic.
+
+   In Figure 4 we see the result of this experiment for two different pertur-
+bations of an initial minutiae point distribution. All three graphs look similar,
+but in fact have topological differences and are therefore not isomorphic.
+
+
+                                         9
+
+
+=== PHYSICAL PAGE 10 ===
+Page 10 of 18                                                       Control #28
+
+
+
+         Figure 4: Three similar but non-isomorphic minutiae graphs.
+
+
+
+
+    To estimate how much the minutiae can be perturbed before the graph
+changes topologically, we produce 10 initial minutiae distributions, perturb each
+one 100 times, record the number of isomorphism classes that occur, and then
+average this number over the 10 distributions. The result is depicted in Figure
+5.
+    We see that for a standard deviation less than 0.005mm, only 5 different
+isomorphism classes were observed. Recall there is a %97.5 chance that a given
+minutia will remain within 0.69mm of its initial location upon repeated fin-
+gerprinting. From this we can assume a normal distribution with standard
+deviation of 0.2mm, which is 40 times greater than 0.005mm. This shows
+that the similarity metric in this model is hyper-sensitive. Therefore, this al-
+gorithm would probably not work very well as a practical means of comparing
+fingerprints. However, it is still applicable to estimate the number of distinct
+fingerprints in the human race from a theoretical standpoint. The technology
+for acquiring fingerprints has been steadily increasing in recent years, so in the
+near future it is quite plausible that the location of minutiae will be determined
+with a much greater accuracy.
+
+3.4    Estimating the Total Number of Distinct Fingerprints
+Given n minutiae, we produced m = 50, 000 uniformly distributed configura-
+tions of these points and their corresponding minutiae graphs. The number
+N of isomorphism classes that occurred is shown in Figure 6 for values of n
+ranging between 1 and 20. This plot closely resembles the logistic equation:
+                                dN
+                                dn = N (a − bN ),
+
+where ab = m is the carrying capacity of the system. The explanation for this
+behavior is that the number of distinct graphs observed for a given number
+of minutiae is limited by the total number of graphs generated (50,000 in this
+case). This imposes an artificial bound on the population growth of isomor-
+phism classes. By considering only small values of n, so that the growth is
+
+                                       10
+
+
+=== PHYSICAL PAGE 11 ===
+Page 11 of 18                                                       Control #28
+
+
+
+Figure 5: The number of isomorphism classes observed when perturbing the
+seed point distribution according to a normal distribution N (0, σ 2 ) for various
+values of sigma.
+
+
+
+
+approximately exponential, we estimate the number N of isomorphism classes
+for a given value of n minutiae to be
+
+                                N = 14e0.8(n−6)
+    This extrapolates to a value of N = 3.7 × 1011 for n = 36 minutiae.
+
+    This value of N represents the number of distinct fingerprints possible based
+solely on a uniform distribution of 36 points. We can make this estimate more
+realistic by taking into account the various fingerprint types and distinguishing
+between bifurcations and ridge endings in minutiae. The approximate distribu-
+tion of these traits is listed in Table 1.
+    From this data we see that each fingerprint of 36 minutiae contains on aver-
+age 25 bifurcations and 11 ridge endings. Based on this we produce the following
+estimate:
+     The number of distinct fingerprints
+                                   ¡ ¢ with 36 minutiae  is approximately
+                      (3.7 × 1011 ) 36
+                                    11 (5) = 1.11 × 1021
+
+
+
+
+4     Model II: A Continuous Similarity Metric
+Given two fingerprints, we would like to determine the number of minutiae that
+lie in corresponding locations. To do this, we need a standardized coordinate
+
+
+                                       11
+
+
+=== PHYSICAL PAGE 12 ===
+Page 12 of 18                                                     Control #28
+
+
+
+
+Figure 6: The number of isomorphism classes observed as a function of the
+number of minutiae considered.
+
+
+
+
+         Table 1: Distribution of fingerprint and minutia types [11].
+
+                Fingerprint Type    Probability of occurrence
+                    Left loop                 0.338
+                   Right loop                 0.317
+                     Whorl                    0.279
+                      Arch                    0.037
+                  Tented arch                 0.029
+                   Twin loop                   rare
+                 Minutia Type       Probability of occurrence
+                   Bifurcation                  0.7
+                  Ridge ending                  0.3
+
+
+
+                                     12
+
+
+=== PHYSICAL PAGE 13 ===
+Page 13 of 18                                                       Control #28
+
+
+system. We must assume that the fingerprints we are working with have already
+been aligned. This is usually accomplished by locating the core and delta of the
+two fingerprints.
+   In this model we perform the following procedure:
+  1. Randomly select a fingerprint type from among the basic five according
+     to their relative proportions (see Table 1).
+  2. Uniformly distribute 36 minutiae on a square region representing a finger’s
+     pattern area.
+  3. To each point, randomly associate a minutia type and direction (a real
+     number between 0 and 360 degrees).
+  4. Repeat this process to create another fingerprint so that the two may be
+     compared.
+    For any two minutiae from two different fingerprints, we say that they match
+if they are within 0.69mm of each other. We also stipulate that the minutiae
+directions must be within 22.5 degrees for them to be considered a match. This
+is based on empirical data of experimental error [3].
+
+   To determine the distribution for the number of minutiae matches from two
+randomly generated fingerprints, we first see if the fingerprints are of the same
+type. Next, we compare the type of each corresponding minutia in the two fin-
+gerprints. Finally, we see if the location and direction of each minutia is within
+the specified bounds.
+
+   We generate two independent fingerprints 50,000 times and produce a distri-
+bution for the number of minutiae matches. See Figure 7. We then reproduce
+the perturbation simulation from Model I, this time incorporating a pertur-
+bation in minutiae direction. We perform 50,000 repetitions of this experiment,
+producing the distribution for the number of matching minutiae seen in Figure
+8.
+
+4.1    Statistical Analysis
+We want to find the probability that two independent fingerprints have at least
+27 minutiae matches. This will be our estimate for the minimum number of
+minutiae matches required so that two fingerprints are considered equivalent.
+In other words, this is the thresholding number for our similarity metric. In or-
+der to estimate this probability, we need the complete probability distribution
+of matches from different prints. We only completed 50,000 repetitions, so we
+are forced to extrapolate from our data. There are two ways to do this.
+
+    The first approach is to approximate the number of matches with a normal
+distribution. By looking at a normal QQ plot, this seems like a reasonable
+approximation. To find the mean of this normal distribution, we first look at
+
+                                       13
+
+
+=== PHYSICAL PAGE 14 ===
+Page 14 of 18                                                                               Control #28
+
+
+
+                                                 Figure 7:
+                                 Distribution of Matches From Two Different Fingerprints
+
+
+
+                      0.8
+
+
+
+
+                      0.6
+
+
+
+
+            Density   0.4
+
+
+
+
+                      0.2
+
+
+
+
+                      0.0
+
+                             0               2                4           6                8
+
+                                                      Number of Matches
+
+
+
+
+                                                 Figure 8:
+                                 Distribution of Matches From Repeated Finger Printing
+
+
+                      0.30
+
+
+
+                      0.25
+
+
+
+                      0.20
+
+
+
+
+           Density    0.15
+
+
+
+                      0.10
+
+
+
+                      0.05
+
+
+
+                      0.00
+
+                                    28           30               32       34              36
+
+                                                      Number of Matches
+
+
+
+
+                                                       14
+
+
+=== PHYSICAL PAGE 15 ===
+Page 15 of 18                                                       Control #28
+
+
+the expected number of matches from the distribution in Figure 7, which we
+determine to be .504. To find the variance of this normal distribution, we look
+at the probability of seeing 4 or more matches.
+                                                1449
+                   P (number of matches ≥ 4) = 50000 = .029
+
+    We know that x−µσ is N (0, 1), and that the Z value for .029 is 1.9. Hence we
+find that σ = 1.83.
+
+    To find the probability that 27 or more minutiae match, we look at the prob-
+ability of seeing a Z-Score of 27−µ
+                                 σ   = 14.5. Under the normal distribution, this
+probability is 2.03×e−46 . However, we think a more appropriate approximation
+can be achieved with an alternate method.
+
+   The second approach for determining this probability is by looking at the
+Poisson distribution. We can assume that there is some rate at which matches
+occur. This rate is the number of matches divided by the number of trials
+simulated, which in this case equals .504. Using the Poisson approximation
+formula, we calculate that
+                                   −.504
+                                        (.50427 )
+                      P (27) = e       27!        = 5.12 × 10−37
+This is an upper bound on the probability of seeing at least 27 minutiae matches,
+and hence matching two randomly generated fingerprints.
+
+   We can estimate the number of distinct fingerprints in existence simply by
+taking the inverse of this probability:
+
+      The number of distinct fingerprints with 36 minutiae is approximately
+                                 1                 36
+                            5.12×10−37 = 1.95 × 10
+
+
+4.2     Error Analysis and Sensitivity
+This model was run with 36 uniformly distributed minutiae, an error-radius
+                               0.69
+of 0.69mm, and σ equal to √2Z          . We ran the same simulations with varied
+                                  .975
+parameters to determine how much our overall results would be affected. We
+first tried doubling the error-radius. This resulted in more minutiae matches
+when comparing two random fingerprints. The histogram had upwards of 10
+matching minutiae for the two random fingerprints. Of the times that there
+were matches, the average number was closer to 5. Since 10 matches are oc-
+curred approximately one ten-thousandth of the time, this model is no longer
+realistic. The FBI considers 10 matching features to be sufficient to identify the
+fingerprints [2].
+    Changing the number of minutiae resulted in a smaller proportion of minu-
+tiae matches between random fingerprints, whereas the proportion of matches
+in the same fingerprint stayed about the same. We looked at distributing 20
+and 28 minutiae. The probability of two random minutiae matching when using
+
+
+                                           15
+
+
+=== PHYSICAL PAGE 16 ===
+Page 16 of 18                                                         Control #28
+
+
+20 minutiae was 3.68 × 10−34 . This does not differ drastically from our previous
+estimate.
+    This leads us to our last two potentially influential parameters for this model.
+These are the distribution of minutiae over a fingerprint, and the N (0, σ 2 ) error
+term. Beginning with σ, we look at what would happen if its value were doubled.
+That is, comparing two fingerprints from the same finger, we vary the minutiae
+coordinates by N (0, (2σ)2 ). This results in the average number of matches
+between fingerprints from the same finger going down from 34 to 29. The
+spread of this distribution is larger than before. This tells us that with more
+variation in the coordinates, the number of minutiae required for a match goes
+down.
+    Through our own observations we have noticed that the minutiae might not
+be distributed uniformly. We test the effect of clumping 6 to 10 minutiae on
+either side of the core. With this as our distribution we find that the number of
+matches between random prints goes down. This means that our assumption of
+a uniform distribution might be leading to a slight overestimate of the number
+of matches.
+
+
+5    The Probability of Fingerprint Uniqueness
+The total population of the human race is estimated to be about 100 billion [12].
+Let M denote the number of distinct fingerprints and N = 1011 the number of
+people who have ever lived. Then the probability that all fingerprints are unique
+is given by:
+                   M  M −1      M −N           M!
+                   M × M × ··· × M   = M N +1 (M −N −1)!
+
+    This formulation is valid, but we do not have sufficient computing power to
+get a reasonable estimate from it. We can avoid this problem by making an
+estimate using the Poisson distribution. We do this under the assumption that
+two different fingers are matched to the same fingerprint at the rate λ. With
+this approximation we get that:
+                             1022
+                         − 1.1×10
+    • Model I: e−λ = e            21
+                                       = 0.00011
+                             1022            1
+                          − 2×10         − 2×10
+    • Model II: e−λ = e          37
+                                       =e       15
+
+
+
+
+6    Conclusion
+Either all human beings throughout history have had unique fingerprints or they
+have not. If we were to generate a population of 100 billion, the probability
+that it would have unique fingerprints, according to our first model, is 0.00011.
+                                                          1
+                                                      −
+According to our second model, this probability is e 2×1015 ≈ 1. With either
+estimate, it seems quite conclusive that the fingerprint uniqueness is a reality,
+not just a myth.
+
+
+                                            16
+
+
+=== PHYSICAL PAGE 17 ===
+Page 17 of 18                                                        Control #28
+
+
+6.1    Fingerprint vs DNA Evidence – A Final Test
+According to the State of Wisconsin Department of Justice [13], the probability
+of DNA misidentification is of order one in a billion. Our second model, the
+probability of misidentification from fingerprinting is 10−37 . This indicates that
+fingerprinting is substantially more reliable than DNA testing.
+
+
+
+
+                                        17
+
+
+=== PHYSICAL PAGE 18 ===
+Page 18 of 18                                                      Control #28
+
+
+References
+ [1] Jain, Hong, Pankanti, and Bolle, “An Identity Authentication System Us-
+     ing Fingerprints,” Proc. IEEE, Vol. 85, No. 9, pp. 1365-1388, 1997.
+ [2] U.S. Department of Justice, “The Science of Fingerprints,” Washington:
+     U.S. Government Printing Office, 1984.
+ [3] Pankanti and Prabhakar, “On the Individuality of Fingerprints,”
+     http://biometrics.cse.msu.edu/cvpr230.pdf. Accessed 2/7/04.
+ [4] NWS Police Service Website,           “History Of Fingerprinting,”
+     http://www.policensw.com/info/fingerprints/finger01.html. Accessed
+     2/8/04.
+ [5] Amengual, Juan, and Perez, “Real-Time Minutiae Extraction in Fin-
+     gerprint Images,” Instituto Tecnologico de Informatic (ITI), Spain,
+     http://ccrma-www.stanford.edu/ jhw/bioauth/fingerprints/00615653.pdf.
+     Accessed 2/8/04
+ [6] The Geometry Center, http://www.geom.uiuc.edu/. Accessed 2/8/04.
+
+ [7] Thai, “Fingerprint Image Enhancement and Minutiae Extraction,”
+     http://www.cs.uwa.edu.au/ pk/studentprojects/raymondthai/RaymondThai.pdf.
+     Accessed 2/8/04.
+ [8] Okabe, Boots, Sugihara, and Chiu. 2000. Spatial Tessellation. West Sussex:
+     Wiley.
+ [9] Osterburg, Parthasarathy, Raghavan, and Sclove, “Development of a Math-
+     ematical Formula for the Calculation of Fingerprint Probabilities Bases on
+     Individual Characteristics,” J. Am. Statistical Assoc., vol 72, no 360, pp.
+     772-772, 1977.
+[10] McKay, “Practical Graph Isomorphism,” Congressus Numerantium, 30,
+     45-87, 1981.
+[11] Halici, Jain, and Erol, “Introduction to Fingerprint Recognition,” CRC
+     Press, 1999.
+[12] Population Reference Bureau, http://prb.org/Content/NavigationMenu/PRB/QuickFacts/QuickFacts
+     Accessed 2/9/04.
+[13] State     of        Wisconsin        Department         of         Justice,
+     http://www.doj.state.wi.us/dles/crimelabs/sero-dna.asp.           Accessed
+     2/9/04.
+
+
+
+
+                                      18

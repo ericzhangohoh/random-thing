@@ -1,0 +1,875 @@
+=== PHYSICAL PAGE 1 ===
+Piping Hot Weather
+
+  M.C.M. Team 666
+
+    March 2, 2006
+
+
+
+
+          1
+
+
+=== PHYSICAL PAGE 2 ===
+Team 666                                                                       2
+
+
+  Ap      Cross sectional area of the pipe
+ Asn      Cross sectional area of the sprinkler nozzle
+  C       Drag coefficient on a moving sphere
+   γ      Drag force on the water droplet
+   ρ      Density of water
+ rdrop    Radius of water droplet
+   ξ      Flowrate in the pipe
+  m       Mass of a water droplet
+   n      Number of nozzles
+   g      Acceleration due to gravity
+  vp      Velocity of water in the pipe
+   v      Exit velocity of the water out a nozzle
+ Sx (t) Horizontal distance of a projected droplet at time t
+ Sy (t)   Vertical distance of a projected droplet at time t
+   s      Maximum horizontal distance from a nozzle reached by a droplet
+ σ(r)     Height of water per unit time at a radial distance from the nozzle
+  K       Parameter of σ
+   λ      Parameter of σ
+ Σ̃(r)    Sum of contributions of watering from two nozzles
+ Σ(r)     Σ̃(r) expressed in centimeters per hour
+  re      Effective radius of water jet
+  H       Cut-off parameter
+   d      Distance between sprinklers
+  dp      Distance between sprinklers on pipe
+  fr      Fraction of hour that water is switched on
+  sh      Number of shifts to fill a rectangle
+   T      Time that pipe is in each position
+ Tmin     Cumulative time to satisfy minimum water conditions
+
+
+=== PHYSICAL PAGE 3 ===
+Team 666                                                                       3
+
+
+Contents
+1 Introduction                                                                 5
+
+2 Problem Analysis                                                             5
+
+3 Assumptions                                                                  6
+
+4 Model                                                                        8
+  4.1   Fluid Through Pipe . . . . . . . . . . . . . . . . . . . . . . . .     8
+  4.2   A Projectile Problem . . . . . . . . . . . . . . . . . . . . . . .     8
+  4.3   Distribution of Water . . . . . . . . . . . . . . . . . . . . . . .    9
+        4.3.1   Height per unit time . . . . . . . . . . . . . . . . . . .     9
+        4.3.2   Function . . . . . . . . . . . . . . . . . . . . . . . . . .   9
+        4.3.3   Scaling along r . . . . . . . . . . . . . . . . . . . . . . 10
+        4.3.4   Scaling of height . . . . . . . . . . . . . . . . . . . . . 11
+        4.3.5   Cut-off point . . . . . . . . . . . . . . . . . . . . . . . 11
+        4.3.6   Sum of contributions (overlap) . . . . . . . . . . . . . . 11
+  4.4   Condition for Minimum Sprinkler Separation . . . . . . . . . . 12
+  4.5   Restriction for Number of Sprinklers on Pipe . . . . . . . . . . 12
+  4.6   Filling The Field . . . . . . . . . . . . . . . . . . . . . . . . . 13
+        4.6.1   Pipe . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+        4.6.2   Rectangle . . . . . . . . . . . . . . . . . . . . . . . . . 14
+        4.6.3   Filling a field . . . . . . . . . . . . . . . . . . . . . . . 15
+        4.6.4   Adjusting for overlapping . . . . . . . . . . . . . . . . 15
+  4.7   Timing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+        4.7.1   Distances between sprinklers . . . . . . . . . . . . . . . 15
+        4.7.2   Avoiding saturation . . . . . . . . . . . . . . . . . . . . 16
+
+
+=== PHYSICAL PAGE 4 ===
+Team 666                                                                      4
+
+
+5 Results and Algorithm                                                      17
+  5.1   Numerical Results . . . . . . . . . . . . . . . . . . . . . . . . . 17
+        5.1.1   The Projectile . . . . . . . . . . . . . . . . . . . . . . . 17
+  5.2   Valid Values of n . . . . . . . . . . . . . . . . . . . . . . . . . 18
+  5.3   n = 3, 4, 5 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+        5.3.1   Field positions for n = 5 . . . . . . . . . . . . . . . . . 19
+        5.3.2   Timing for n = 5 . . . . . . . . . . . . . . . . . . . . . 20
+  5.4   Algorithm . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 21
+
+6 Strengths, Weaknesses and Possible Improvements                            24
+
+7 Conclusion                                                                 26
+
+
+=== PHYSICAL PAGE 5 ===
+Team 666                                                                       5
+
+
+1     Introduction
+Irrigation is a fundamental concern for farmers in regions with a low annual
+rainfall. So important is it that the California Irrigation Institute ([1]) lists
+as one of its objectives the ‘increased appreciation by the California public
+of the importance of irrigation to California’s economy’. The Department of
+Water Resources in California ([2]) urges people to be constantly planning
+for drought.
+    Numerous irrigation systems are available. An analysis of some of these
+is given by [3]. One involves positioning sprinkler heads on a long aluminium
+pipe, which is moved periodically so as to cover the entire field with sufficient
+water. This method is relatively cheap and straightforward to apply and so
+is suitable for smaller farms. However this can be labour intensive as the
+farmer has to move the equipment around the field. Our aim in this report
+was to find an optimum configuration for the number of sprinklers on the
+pipe so that the effort required by the farmer could be minimized.
+
+
+
+2     Problem Analysis
+An 80 by 30 metre field is to be irrigated using a 20 metre pipe. The number
+of sprinklers and pipe movements are to be decided so as to minimize the
+work needed to be carried out by the farmer. This optimisation problem
+is subject to the constraints that every part of the field requires at least 2
+centimetres of water every 4 days, while no part should receive more that
+0.75 centimetres per hour.
+    The first task was to model the sprinkler and the resulting distribution of
+water. This distribution should be as uniform as possible to avoid watering
+too much or too little, and also because it is desirable to have an even irriga-
+
+
+=== PHYSICAL PAGE 6 ===
+Team 666                                                                      6
+
+
+tion over the field. A rotating spray nozzle will send out a circular ‘umbrella’
+of water when considered over a period of rotation. Since the optimisation
+then essentially involves packing circles into a rectangle, overlap is unavoid-
+able and this had to be taken into account and incorporated into the model
+for the watering.
+    Once this model was completed, we would be left with a situation looking
+roughly as shown below: The number of sprinkler nozzles could be then
+
+
+
+
+Figure 1: Example with 4 sprinklers on the pipe, each emitting a circular
+spread of water
+
+varied subject to conditions from our model, and the resulting distribution
+of water could be determined. With this information, an algorithm for an
+efficient watering can be devised, in which the farmer can be given step-by-
+step instructions on where to place the pipe and how long to leave the water
+flowing.
+
+
+
+3     Assumptions
+    • We do not consider the time taken to move and set up the pipe and
+      water source. Instead we define an optimum efficient algorithm to be
+      the one which minimizes the number of moves needed to water every
+      part of the field with the required amount.
+
+
+=== PHYSICAL PAGE 7 ===
+Team 666                                                                   7
+
+
+  • We assume the sprinkler nozzle sends out a jet of water which can be
+    modelled as a projectile. The nozzle head rotates so that in one period
+    of rotation, a circular area is watered.
+
+  • We then ignore the actual design of the sprinkler head and model the
+    system as a pipe with the sprinklers acting as smaller branches off the
+    main pipe, as shown below:
+
+
+
+
+               Figure 2: Design of the pipe and sprinklers
+
+
+  • As can be seen from the diagram, we aren’t concerned with how the
+    pipe is connected to the water source and this also means that we are
+    free to move the 20m pipe around the field without physical restrictions.
+    We take the flow rate of 150 liters per minute to be the rate entering
+    the pipe. We keep the other end closed and it is then reasonable to
+    approximate a constant pressure through the pipe.
+
+  • When modelling the water flow and the water leaving the sprinkler, we
+    ignore viscosity and turbulence and assume that no wind is blowing.
+
+  • So as to design our algorithm for getting the correct amount of water
+    to every part of the field, we presume that no rain falls.
+
+  • We assume that the pipe is equipped with a timer control, which can
+    stop and start the flow of water at preprogrammed times.
+
+
+=== PHYSICAL PAGE 8 ===
+Team 666                                                                    8
+
+
+4     Model
+
+4.1    Fluid Through Pipe
+
+As mentioned earlier, we are supposing that the pressure remains constant.
+We use a standard continuity equation, which can be found in [4] for example:
+
+                                Ap vp = Asn v                             (1)
+
+where Ap and Asn are the cross-sectional areas of the pipe and the spray
+nozzles respectively and vp and v are, respectively, the velocity of the flow
+through the pipe and at the nozzle. By assuming that the flowrate ξ would
+be equally distributed among the n nozzles, equation (1) becomes
+
+                                     ξ      ξ
+                           Asn v =     ⇒v=                                (2)
+                                     n     nAsn
+
+This gave us v, the exit velocity of the water out of any nozzle.
+
+
+4.2    A Projectile Problem
+
+We next model the emerging jet of water as a projectile of water droplets.
+By focusing on a single droplet with radius rdrop and mass m, we obtained
+the following differential equations for the distance travelled by the droplet
+along the x and y axes respectively, where the nozzle is at the origin:
+
+                            mSx00 (t) + γSx0 (t) = 0                      (3)
+
+                          mSy00 (t) + γSy0 (t) + g = 0
+
+The γ parameter represents drag on the droplet, given in terms of the density
+rho, drag coefficient C and the surface area of the droplet A, by
+
+                                    1
+                                 γ = ρCA2                                 (4)
+                                    2
+
+
+=== PHYSICAL PAGE 9 ===
+Team 666                                                                   9
+
+
+More details on this equation can be found in [5]. We were interested in
+finding s, the maximum horizontal distance travelled from the nozzle by a
+droplet. For this maximum, the launch angle is π4 . Therefore the initial
+conditions for the equations are as follows, using the exit velocity v from
+equation (2):
+                                                  v
+                        Sx (0) = 0 and Sx0 (0) = √                        (5)
+                                                   2
+                                                 v
+                        Sy (0) = 0 and Sy0 (0) = √
+                                                   2
+
+4.3     Distribution of Water
+
+4.3.1   Height per unit time
+
+The water from the sprinkler is distributed by a rotating nozzle. Ignoring
+the rotation of the nozzle momentarily, the volume of water per unit time,
+through the nozzle, is spread with a certain function of height σ(r, w) at a
+position along the radius r and along the width w (between −∆w and ∆w)
+of the spray.
+   As rotation is taken into account, and the system is considered in time
+spans of whole periods, the width w becomes the circle with radius r, i.e.
+w → 2πr, a function of the radius r. This means that the height per unit
+time at a particular point is a function of the variable r only: σ(r).
+
+
+4.3.2   Function
+
+For the function σ(r), we have decided to take an arbitrary function of r and
+adjust the shape to match an expected output of water.
+   We feel intuitively that σ(r) would have a rounded peak after which it
+would decay exponentially, to avoid too much loss of water due to evaporation
+
+
+=== PHYSICAL PAGE 10 ===
+Team 666                                                                   10
+
+
+, mist effects, etc. This suggested the equation:
+
+                               σ(r) = Kre−λr
+
+   To avoid a zero value at r = 0, we then shifted the function to the left,
+by an amount a fifth of the position of the inflection point giving:
+
+                                         2 −λ(r+ 2 )
+                         σ(r) = K(r +      )e   5λ
+                                        5λ
+
+The output of water now looks as follows:
+
+
+
+
+                          Figure 3: Graph of σ(r)
+
+
+
+4.3.3   Scaling along r
+
+To scale our new function σ(r) along r, we use the result of the ‘Projectile
+Problem’ from earlier. Since the maximum range of a water droplet has quite
+a high arc to follow, we decided that the sprinkler would now be designed
+to spray much of the water this far and chose to set the distance roughly
+twice the distance that σ(r) seems to drop off at. Keeping the figures easy to
+work with, we decided on a value giving an exponential constant of λ = 8/s,
+
+
+=== PHYSICAL PAGE 11 ===
+Team 666                                                                       11
+
+
+giving:
+                                            s − 8 (r+ s )
+                          σ(r) = K(r +        )e s 20                         (6)
+                                           20
+
+4.3.4     Scaling of height
+
+To find the multiplicative constant K, giving the vertical scaling, we need
+the total volume of water per unit time within the circle of radius s. This is
+found by integrating σ(r)dθdr, over the whole circle and between r = 0 and
+r = s, i.e.:                   Z s Z 2π
+                                          σ(r)dθdr
+                                 0    0
+    This should then be equal to the flow rate exiting the sprinkler nξ :
+                        Z s Z 2π
+                   ξ                      s   8      s
+                      =          K(r + )e− s (r+ 20 ) dθdr                    (7)
+                   n     0   0           20
+                             Z s
+                                       s    8    s
+                      = 2πK      (r + )e− s (r+ 20 ) dr                       (8)
+                               0      20
+
+4.3.5     Cut-off point
+
+In reality, there is a distance from the sprinkler, beyond which the majority
+of the water is unlikely to reach the ground at all, a fact which was men-
+tioned earlier. As a result we have decided to define a cut-off point, beyond
+which the height of water per unit time actually hitting the ground may be
+considered negligible. This cut-off point gives an ‘effective radius’ re , defined
+by a normalized σ(r):
+                                     σ(re )
+                                            =H                                (9)
+                                      re
+where H is an arbitrary number chosen to give a reasonable solution.
+
+
+4.3.6     Sum of contributions (overlap)
+
+Since overlapping will be necessary to ensure that every part of the field
+receives the minimum required amount of water, we need a method of finding
+
+
+=== PHYSICAL PAGE 12 ===
+Team 666                                                                       12
+
+
+the contributions of two consecutive sprinklers to the ground between them.
+   To simplify matters, we have assumed that a sum of the two contributions
+along the line joining the two sprinklers would be a close enough approxima-
+tion to the rest of the overlapping area.
+   Since we are assuming the sprinklers to be equivalent in they’re output
+of water, the functions σ(r) are the same for each, however, setting one
+sprinkler at r = 0, the effect of the other has to be reversed and translated
+by the distance between the two sprinklers d. This gives the sum:
+
+                           Σ̃(r) = σ(r) + σ(d − r)
+
+   Multiplying this by a conversion factor, to get our answer in terms of cm
+per hour, we get:
+
+                     Σ(r) = (3.6 x 105 )(σ(r) + σ(d − r))                  (10)
+
+
+4.4    Condition for Minimum Sprinkler Separation
+
+Intuitively, if the system is to be efficient, for every pair consecutive sprin-
+klers there should not be a significant amount of water being spread from
+one sprinkler beyond the other. Since we have already defined an ‘effective
+radius’ re , beyond which the water is unlikely to reach the ground, this is a
+natural condition to take for the minimum distance between two consecutive
+sprinklers.
+
+
+4.5    Restriction for Number of Sprinklers on Pipe
+
+Since the pipe given is 20 metres long and there are n sprinklers spread across
+the pipe, by the Pigeon-Hole Principle, at least one of the distances between
+                                                     20
+two of the sprinklers will be greater than or equal n−1 , which we call dp .
+
+
+=== PHYSICAL PAGE 13 ===
+Team 666                                                                        13
+
+
+   From the previous section, we have a condition for the minimum distance
+between two sprinklers. Therefore, if this minimum distance re is greater
+than the distance from the pipe, then this configuration cannot be allowed.
+   This gives us a condition for whether or not a system with n sprinklers
+on the pipe is effective or not:
+
+                                           20
+                                   re ≤                                       (11)
+                                          n−1
+
+4.6     Filling The Field
+
+In finding the best way to position the pipe at every move, for a chosen value
+of n, the problem was reduced initially to filling the field with circles of radius
+re , under the conditions:
+
+   1. Every point must be contained in a circle,
+
+   2. No circle should contain the centre of another,
+
+   3. Circles must be grouped linearly, with n circles in each group,
+
+   4. Overlapping is allowed at the field edges.
+
+   The first and third conditions are obvious, the second comes from the
+condition for the minimum distance between two sprinklers and the last is a
+requirement for the edges of the field to get enough water.
+
+
+4.6.1   Pipe
+
+To begin with, the n sprinklers were assumed to be spread evenly along the
+pipe, with sprinklers at each end. If there is not overlapping between the
+sprinklers, then the pipe will need to be moved along its length, a fraction of
+the distance between the sprinklers to fill the gap. To find how many times
+
+
+=== PHYSICAL PAGE 14 ===
+Team 666                                                                      14
+
+
+this must be done, we need to divide dp by re and take the ceiling, which
+we’re calling the shift of n:
+                                                 dp
+                                     sh(n) = p      q
+                                                 re
+(For values of n where there is overlapping already, the shift is equal to 1).The
+                                           dp
+fraction the pipe will have to be moved is sh . For values of n where there is
+overlapping already, the shift is equal to 1.
+
+
+4.6.2   Rectangle
+
+Next, we want to find the rectangle around the pipe within which every point
+is covered by a circle (i.e. being watered). To find the dimensions of this
+rectangle, we need to find two parameters: x which represents the half the
+distance between two sprinklers and y the perpendicular distance from the
+pipe to the edge of the rectangle. We can obtain y easily from Pythagoras
+theorem, giving:
+                                     1 dp      10
+                                x=        =
+                                     2 sh   sh(n − 1)
+                                          s
+                         p                                 10
+                    y=       re 2 − x 2 =   re 2 − (              )2
+                                                        sh(n − 1)
+   It can be seen easily from the diagram that for a shift of 1, the length of
+the rectangle is x metres extra at each end of the pipe and so is (20 + 2x)
+metres. It should also be clear that the height of the rectangle is 2y metres.
+The dimensions of the rectangle are then for a shift of 1 are then:
+
+                                   (20 + 2x)x(2y)
+
+   If the shift is greater than 1, the length of the rectangle is simply (20 +
+ 20
+n−1
+    ), giving a rectangle of dimensions:
+                                          20
+                                 (20 +       )x(2y)
+                                         n−1
+
+
+=== PHYSICAL PAGE 15 ===
+Team 666                                                                     15
+
+
+4.6.3   Filling a field
+
+To find the minimum amount of moves needed to water the whole field, the
+most efficient way of covering every part of the field with rectangles of these
+dimensions must be found. Due to the fact that the effort required by the
+rancher is to be minimized, we have ignored configurations where the pipe is
+not aligned parallel to one of the sides and also tried to reduce the number
+of times that the direction of the pipe was changed. Also, by the fourth
+condition above, the rectangles are allowed to run over the edges of the field.
+In practice this was just a matter of trial and error, under these conditions.
+
+
+4.6.4   Adjusting for overlapping
+
+To spread the ”overlapping” over the whole field, the rectangles are reduced
+in size and. Since the length of these new rectangles involves the fixed dis-
+tance between the sprinklers on the pipe, this has to be fixed for all of the
+rectangles in the field. The heights of these new rectangles however, simply
+represents the distance between different positions of the pipe, and so may
+have a number of different values for different rectangles.
+   These rectangles then define where on the field the pipe has to be posi-
+tioned as well as the distance between the sprinklers on the pipe.
+
+
+4.7     Timing
+
+4.7.1   Distances between sprinklers
+
+To find the amount of time that the sprinklers need to be left in each position,
+we need to know the different distances between the consecutive sprinkler
+positions. These distances can be calculated from the adjusted rectangles
+from the previous section.
+
+
+=== PHYSICAL PAGE 16 ===
+Team 666                                                                    16
+
+
+   Firstly, the distance between the sprinklers on the pipe needs to be
+recorded.
+   For two rectangles lying side by side, the distance is half the sum of the
+rectangle heights.
+   For rectangles lying perpendicular to each other, the distance is half the
+sum of the distance between the sprinklers on the pipe and the height of the
+rectangle whose side is touching the top of the other.
+
+
+4.7.2   Avoiding saturation
+
+The sum Σ(r) must be plotted with respect to r for each of the distances d
+and the overall minimum Σmin and maximum Σmax values found.
+   If the maximum value is greater than 0.75 cm per hour, then the water
+can only be left on for a fraction of an hour, each hour. This fraction f r is
+found by dividing 0.75 by the maximum value:
+                                        0.75
+                                 fr =
+                                        Σmax
+   To find the amount of time the pipe must stay in each location, the
+minimum watering of 2cm in 4 days must be satisfied. This time Tmin is
+found by dividing 2mm by Σmin :
+                                          2
+                                Tmin =
+                                         Σmin
+   However, if f r < 1 then the time that the sprinklers are left in each
+position must be:
+                                 T = Tmin .f r
+
+   The total time for irrigating the whole field can then be found by multi-
+plying the number of moves by the time the sprinklers are left in each position
+T . This, obviously, must be less than 96 hours (4 days) for the irrigation to
+be successful.
+
+
+=== PHYSICAL PAGE 17 ===
+Team 666                                                                  17
+
+
+5       Results and Algorithm
+
+5.1     Numerical Results
+
+5.1.1    The Projectile
+
+From our projectile model of a single droplet of water being emitted from a
+spray nozzle with a 0.6 cm inner diameter we obtained the following solutions
+to the differential equations given by (3):
+    Along the x direction, the trajectory of the water droplet was
+
+                                                  γ
+                             Sx (t) = C1 + C2 e− m t
+
+    Along the y direction, the trajectory of the water droplet was
+
+                                              γ       mg
+                         Sy (t) = C3 + C4 e− m t −       t
+                                                      γ
+
+    From the initial conditions (5), the constants Ci were found to be
+
+                                       mv
+                                  C1 = √
+                                      γ 2
+
+                                   C2 = −C1
+                                    m v    mg
+                             C3 =     (√ +    )
+                                    γ   2  γ
+                                   C4 = −C3
+
+    The velocity v is calculated from equation (2). The mass of a water
+droplet is m = 43 πρrdrop
+                     3
+                          . The constant γ was given by equation (4). The
+value for the drag coefficient of a sphere was taken from [6] to be C = 0.47.
+Finally, g is the acceleration due to gravity.
+    Using these equations we solved Sy (t) = 0 to determine the time t at
+which the water droplet would reach the ground. It was assumed that the
+spray nozzle was at ground level. Taking the flow rate ξ = 0.0025 m3 s−1 ,
+
+
+=== PHYSICAL PAGE 18 ===
+Team 666                                                                   18
+
+
+Asn = 2.85 × 10−5 m2 , g = 9.81 m s−2 , ρ = 1000 kg m−3 , rdrop = 0.0003 m,
+it was found that the droplet reached the ground after t = 2.54682 s. Using
+this value for t the range of the water droplet was estimated by evaluating
+Sx (t) at t = 2.54682 s. The range of the water droplet was then found to be
+s = 31.8109 m.
+
+
+5.2    Valid Values of n
+
+To find which values of n are valid, a programme was constructed. The
+programme also calculated the values of re for the values of n which are
+valid. The results from this programme are shown below:
+
+                             n                   re
+                             2   invalid
+                             3   valid     0.563074
+                             4   valid      1.57976
+                             5   valid      3.26629
+                             6   invalid
+                             7   invalid
+                             8   invalid
+                             9   invalid
+                             10 invalid
+
+5.3    n = 3, 4, 5
+
+The shift sh and the dimensions of the initial rectangles were then calculated
+for the three values of n:
+
+
+=== PHYSICAL PAGE 19 ===
+Team 666                                                                      19
+
+
+                        n   sh    rectangle dimensions
+                        3   18   20.356 x 0.480 metres
+                        4   5    21.333 x 2.864 metres
+                        5   1    25.000 x 4.202 metres
+
+   Since the n = 4 and n = 3 cases take 5 and 18 moves respectively, to fill
+a rectangles which are smaller then that of the rectangle for 1 move of the
+n = 5 case, the total number of moves are going to be much greater then
+that of the n = 5 case. As a result, these cases were dismissed at this stage.
+
+
+5.3.1   Field positions for n = 5
+
+The most effective way of filling the field with the initial rectangles for n = 5
+was found, by trial and error, to be the configuration shown below.
+
+
+
+
+                      Figure 4: Optimum configuration
+
+   The sizes of the rectangles was then adjusted to fit into the field, giving
+the following positions of the pipes:
+
+
+=== PHYSICAL PAGE 20 ===
+Team 666                                                                20
+
+
+
+
+           Figure 5: Position of the pipes for the watering scheme
+
+5.3.2   Timing for n = 5
+
+There were three different values of d found:
+
+                                d1 = 3.75m
+
+                                d2 = 4.00m
+
+                                d3 = 4.83m
+
+   A plot was then made of Σ(r) for these three values of d:
+
+
+   The maximum and minimum values were found for each d and the overall
+maximum and minimum values determined:
+
+                           Σmax = 0.84 per hour
+
+                           Σmin = 0.67 per hour
+
+   From these, it was found that the water could only be switched on for
+53 minutes each hour and that the pipe had to remain in each position for 3
+hours and 20 minutes.
+
+
+=== PHYSICAL PAGE 21 ===
+Team 666                                                                 21
+
+
+
+
+                  Figure 6: Values of Σ for the different di
+
+5.4    Algorithm
+
+The figures included here show how the pipes should be laid out in the field
+for maximum efficiency with respect to water coverage, number of moves and
+time for watering. For this configuration the 20 m section of pipe must be
+moved only 28 times every 4 days. The figure below shows the 28 positions,
+in which there are two overlaps on the left side of the arrangement.
+ The two graphs at the end of this section show the distances between the
+
+
+
+
+           Figure 7: Position of the pipes for the watering scheme
+
+
+=== PHYSICAL PAGE 22 ===
+Team 666                                                                  22
+
+
+pipe positions and the order and direction of the moves.
+   The water must be switched on only for 53 minutes of every hour which
+gives the most efficient use of water and delivers the maximum amount of
+water to the crops. In what follows we assume that the time taken to move
+the pipe is negligible compared to the time the water is switched on.
+   To utilize this excellent system the farmer must proceed as follows:
+
+   • Set up the pipe with the hose at the first point, as indicated on the
+     diagram.
+
+   • Set up a timer such that water is being emitted from the pipe for only
+     53 minutes of every hour.
+
+   • Leave the pipe in place for three hours and 20 minutes.
+
+   • After three hours and 20 minutes move the pipe to the next position
+     as indicated on the diagram.
+
+   • Repeat until all 28 positions have been visited and the field has been
+     watered satisfactorily.
+
+   The idea is that the farmer, given the spacings between the pipes, would
+be able to follow the arrows on the diagram, and apply the watering schedule
+to obtain maximum watering efficiency.
+
+
+=== PHYSICAL PAGE 23 ===
+Team 666                                                    23
+
+
+
+
+           Figure 8: Distances between the pipe positions
+
+
+
+
+           Figure 9: Order for the positions of the pipes
+
+
+=== PHYSICAL PAGE 24 ===
+Team 666                                                                     24
+
+
+6     Strengths, Weaknesses and Possible Improve-
+      ments
+    • In taking part in this competition one must be realistic of what can
+      be achieved in the allowed time. However, one must also realize that a
+      model of a highly complex system created in four days will not represent
+      the physical situation in its entirety. To this unfortunate end we declare
+      that our model is not the most general. However, it is possible that it
+      can be generalized with further work.
+
+    • One of the key points of our model is that it yields a very straightfor-
+      ward algorithm. We give unambiguous instructions to the rancher on
+      how to efficiently irrigate the field. The process is simple and easy to
+      carry out, since it only involves moving a pipe a fixed distance in one
+      direction.
+
+    • We also take into account the overlap of the water from different sprin-
+      klers and thus ensures that the water is evenly distributed and that no
+      part of the field is over-watered or under-watered.
+
+    • The calculations we have performed are simple and easily implemented
+      in any number of computer languages. We have included, for your pe-
+      rusal, the code we implemented on the Mathematica computer package
+      as an appendix.
+
+    • Given the simplistic nature of our model concessions had to be made to
+      describe the behaviour of the flow at the sprinklers and inside the pipe.
+      In reality it cannot be assumed that the pressure would stay at a fixed
+      constant value all the way along the pipe for an extended period of
+
+
+=== PHYSICAL PAGE 25 ===
+Team 666                                                                 25
+
+
+    time. This assumption then gives us an unrealistic view of the velocity
+    of the water as it leaves the sprinklers.
+
+  • One improvement that could be made to this model is an analysis
+    of how the pressure would vary along the pipe. In particular we could
+    analyse how the pressure would be affected by the number of sprinklers
+    along the pipe. How would the pressure vary at the sprinkler-pipe inter-
+    face? These are very complicated problems and in reality their analysis
+    would require a detailed numerical solution of the Navier-Stokes equa-
+    tions.
+
+  • Another improvement that could be made is an analysis of the velocity
+    of the water after it leaves the sprinkler. Given that the pressure and
+    the flow rate are both very large this would mean that we are in the
+    domain of turbulent flows. A highly complex and highly specialised
+    area of research.
+
+
+=== PHYSICAL PAGE 26 ===
+Team 666                                                                    26
+
+
+7     Conclusion
+At the outset we were asked to invent a scheme to irrigate a field 80 metres by
+30 metres subject to the constraints that no part of the field would get more
+than 0.75 cm of water per hour and also that every part of the field should
+get at least 2 cm of water every four days. We were also asked to determine
+the number of sprinklers that would be needed to fulfil these restraints as
+well as the spacing between the sprinklers. Also it would be advantageous if
+the scheme did not require too much labour for the rancher.
+    In the course of our analysis we have found that for 5 sprinklers spaced
+4.83 metres apart we satisfy the requirements of the problem. We have shown
+that by turning the water on for 53 minutes of every hour in 3 hour 20 minute
+sessions, as explained by our algorithm, each section of the field gets no more
+than 0.75 cm of water per hour and that every part of the field gets at least
+2 cm of water every 4 days.
+    Given that the rancher only has to move the pipe once every 3 hours and
+20 minutes, and he need only do it 28 times, then it can be assumed that
+the process we have designed is not labour intensive and therefore satisfies
+all the requirements set forth by the problem at the outset.
+
+
+=== PHYSICAL PAGE 27 ===
+Team 666                                                                  27
+
+
+References
+[1] http://www.caii.org/
+
+[2] http://watersupplyconditions.water.ca.gov/background.cfm
+
+[3] http://www.ext.nodak.edu/extpubs/ageng/irrigate/ae91w.htm
+
+[4] Mansfield M., O’ Sullivan C. (1998),Understanding Physics, John Wiley
+   and Sons, Chichester
+
+[5] Fulford G., Forrester P., Jones A. (1997),Modelling with Differential and
+   Difference Equations,University Press, Cambridge
+
+[6] http://www.aerodyn.org/Drag/tables.html#stream

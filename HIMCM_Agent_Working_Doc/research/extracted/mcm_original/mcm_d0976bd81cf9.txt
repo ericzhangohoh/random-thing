@@ -1,0 +1,1275 @@
+=== PHYSICAL PAGE 1 ===
+Matthew Fischer, Brandon Levin, Nikifor Bliznashki
+Duke University
+2006 Outstanding Winner
+
+数学中国提供
+http://www.madio.net
+
+
+
+
+                                          Fastidious Farmer Algorithms (FFA)
+
+                                      Matthew Fischer, Nikifor Bliznashki and Brandon Levin
+
+
+                                                             March 9, 2006
+
+
+
+
+             1      Introduction
+             Approximently 10,000 years ago, civilization began in the Fertile Crescent of Mesopotamia around the river
+             valleys of the Euphrates and the Tiger rivers. It was agriculture that allowed these civilizations to prosper
+             and the river water that allowed agriculture.     The number of people in the world has grown signicantly
+             since then increasing the demand for food production. Agriculture has been forced to move away from water
+             sources like rivers and valleys into the dryer regions across the globe. Articial irrigation has thus become
+             an essential element of any successful farming enterprise. For example, in Afghanistan, where 80 % of the
+             population works in agriculture, good irrigation techniques can decrease costs and increase yields bolstering
+             a growing economy.        In this study, we consider hand move irrigation system which can be made cheap
+             and eective for small farm plots.      We consider the important sensitivities of the crops to both over and
+             underwatering. Careful application is required in some soils where only a limited amount of water can be
+             absorbed before runo becomes a problem. All these consideration must be taken into account in developing
+             a succesful irrigation procedure.
+
+
+
+             2      Abstract
+             An eective irrigation algorithm is crucial to hand move irrigation systems. Hand move systems consist
+             of easily movable aluminum pipes and sprinklers, and are typically used as a low-cost, low-scale watering
+             system. However, without an eective design algorithm, the crops will either be watered improperly, resulting
+             in a damaged harvest, or watered ineciently, using up too much of the precious resources. Therefore, in this
+             paper we focus on determining an algorithm for hand move irrigation systems that irrigates as uniformly as
+             possible in the least amount of time. We analyzed this problem in three steps: physically characterizing the
+             system, determining a method of evaluating various irrigation algorithms and testing the proposed irrigation
+             algorithms to determine the most eective strategy.
+                 Using uid mechanics, we were able to determine that we could have at most three nozzles on the 20
+             meter pipe while maintaining water pressure. We modeled our sprinkler system after the Rain Bird 70H 1
+             impact sprinkler which works at the desired pressure and has approximately a .6 cm diameter. Combining
+             experimentally determined data and dynamical analysis, we determine the radius of the sprinkler to be 19.5
+             meters.    Researchers have proposed several dierent methods of modeling the water distribution pattern
+             about a sprinkler. For our purposes, we consider a Triangular Distribution and an Exponential Distribution.
+             We discuss the strengths and weaknesses of these models.
+                 The farmer will be weighing costs of labor, time, stability, and uniformity in choosing an irrigation
+             method.     We did not consider any schemes which did not water all areas of the eld at least 2 cm/hr or
+
+
+
+                                                                     1
+
+
+=== PHYSICAL PAGE 2 ===
+watered areas more than .75 cm/hr.       The largest cost in terms of time and labor will be in moving the
+pipe. Thus, we looked for small number of moves, which still gave the desired time and stability. Of these
+congurations, a computer analysis would tell us which one was most uniform.
+    For various situations, we propose our optimal solutions. The basis of all the patterns were triangular
+and rectangular lattices which were analyzed in generality in a paper. We then crafted three patterns to t
+carefully on the eld to maximize application to the dicult edges and corners. For perfectly calm conditions
+and a perfectly level eld, it is possible to water the eld with only a couple of moves, the Lazy Farmer
+conguration. However, this approach is very unstable, and even weak wind would leave parts of the eld
+dry. We show that with three moves, you gain little in stability and so feel that four positions will be the best
+for those concerned with variable conditions. The Creative Farmer triangular lattice gives both stability
+and uniformity.   The extra time will be warranted because of its ability to adapt.       We obtain even more
+stability using the Conservative Farmer model, but this comes at the price of decrease in uniformity. These
+three patterns provide a suitable solution for most real-world congurations.
+
+
+
+3     Description of Problem
+In this problem, we consider a cheap but eective means of agricultural irrigation, the hand move system.
+The goal is to irrigate a eld which is 30 m by 80 m as uniformly as possible while minimizing labor/time
+required. We are given the following basic equipment:
+
+
+    • Pipes of 10 cm diameter with rotating spray nozzles of .6 cm diameter
+    • Nozzles are raised about 1 meter from the pipe and can spray at angles ranging from 20 to 30 degrees
+    • Total length of the pipe is 20 meters
+    • A water source with a pressure of 420 kilo-Pascal's and a ow rate of 150 L/min
+
+Dierent crops and dierent soils respond best to certain application rates and total water application. In
+this problem, we consider the following guidelines:
+
+
+    • No part of the eld should receive more than .75 cm/hour
+    • Every part of the eld should recieve at least 2 cm every four days
+    • Signicant over-watering from non-uniform distributions should be avoided
+
+The real world has many complicated variables to consider.        In order to simplify the problem, we make
+some basic assumptions about conditions. In general, we feel these assumptions are justied in the common
+farming experience.
+
+
+    • Sprinklers are in working order and standard production. They rotate 360 degrees spraying uniformly
+      with respect to rotational symmetry.
+
+
+    • The soil is approximately uniform and the terrain at.
+    • Wind is considered only inte terms of stability.     We will explore this in more detail after the basic
+      models have been established.
+
+
+
+
+                                                       2
+
+
+=== PHYSICAL PAGE 3 ===
+    • We assume that we can place a water supply pipe through the eld either along its width or length
+      that will have multiple connection spots for the movable pipes.
+
+
+    • For such a small eld, we assume that any move will require approximately equal time so we need only
+      minimize the total number of moves MT .
+
+
+    • We recognize that in particularly arid areas evaporation will take place reducing the total water appli-
+      cation, but assume this will result in no more than a 5 % loss.
+
+
+    • We also ignore rainfall aects assuming those can be accounted for by delaying the scheduled waterings.
+
+Denitions and Notation
+Let D be a distribution of sprinklers. This includes placement of sprinklers on the pipe and the arrangement
+throughout the eld. We often want to consider the rate of accumulation over a region R. In evaluating a
+set-up, we will be interested in a couple important quantities
+    MT (D) = # of total moves required by the farmer for a distribution
+    Aver(D, R) = the average application rate over the region R
+    Std(D, R) = the deviation from the mean rate of application over a region
+    M ax(D, R) = the maximum rate of application over the region R
+    M in(D, R) = the minimum rate of application over the region R
+
+
+4     Capacity of Pipe and Resulting Pressure/Radii
+Watch out for the Rain Bird
+Congratulations! You just purchased a set of Rain Bird 70H 1 Brass Impact Sprinklers. The 6 mm nozzle
+will work nicely with your shiny new 20 m Aluminium tube. The pressure range of your water source ts in
+the recommended range for the 70H sprinkler. Now let's see what this baby can do.
+    We will derive the exit velocity, ow and radius for a sprinkler in our conditions and show it agrees with
+the Rain Bird model. We will assume laminar ow and use Bernoulli's equation:
+
+                                        1                  1
+                                    P1 + ρv12 + ρgy1 = P2 + ρv22 + ρgy2 .
+                                        2                  2
+where Pi is the absolute pressure, ρ is the density of water, vi is velocity, g is gravitational constant and yi
+is height. Because we assumed our eld is at, y1 = y2 so the height of our source relative to our sprinklers
+does not aect the exit velocity. Solving for the exit velocity from the sprinkler v2 we obtain:
+
+                                                      r
+                                                          2
+                                               v2 =         P + v12
+                                                          ρ
+where P is the relative pressure. We must rst nd the velocity of water at our source.
+
+
+                                    150L 1min    1m3      1      1
+                             v1 =       ×     ×      ×      2 2
+                                                                = m/s
+                                    min   60s   1000L π(.05) m   π
+
+Plugging in the velocity of our source we obtain the exit velocity from our sprinkler
+
+
+
+
+                                                       3
+
+
+=== PHYSICAL PAGE 4 ===
+                                                  r
+                                                         2                1
+                                           v2 =              420 ∗ 1000 + 2
+                                                        1000             π
+                                                        √
+                                              v2 ≈          840 ≈ 28.98m/s
+That's fast! It actually may be a little too fast. This exit velocity does not take into account friction in the
+pipes. We propose a sprinkler constant to take friction into account. The volume out of the sprinkler per
+second will be the velocity multiplied by the cross-sectional area of the sprinkler and a sprinkler constant.
+The formula for this relationship is the following:
+                                                                   r
+                                                                       2
+                                                   Q = Cs Ac             P
+                                                                       ρ
+where Q is the discharge in cubic meters per second, Cs is the sprinkler constant and Ac is the cross-sectional
+area in meters squared. Using some pressure and discharge data from the Rain Bird website you nd your
+sprinkler constant to be
+
+                                                                        1
+                                              Q                3.17 ∗ 3600
+                                  Cs =        q         =                √  ≈ .983.
+                                         Ac        2        π(.003175)2 800
+                                                  ρP
+
+This value is acceptable and shows a very small loss due to friction in the system. This farmer probably
+reads a lot of message boards about sprinklers and irrigation systems and made an informed purchase. Now
+we can nd our escape velocity with friction:
+
+                                           v = .983 × 28.93 ≈ 28.5m/s
+Next we determine how many liters ow out of each sprinkler per minute. This will simply be the velocity
+multiplied by the area and then conversion to liters per minute:
+
+                                                               1000L   60s
+                           V olume = 28.5 × π(.003)2 ×               ×     = 48.35L/min
+                                                                m3     min
+We can therefore use up to three sprinklers without using more than 150L/min and dropping the pressure.
+If we use more than 3 sprinklers, the pressure will drop. To nd the new pressure we will use the continuity
+principle which states that the volume of water owing in equals the volume of water owing out:
+
+                                                       As vs = nAN vN
+where As is the cross-sectional area of our source, vs is the velocity of water at our source, n is the number
+of sprinklers, AN is the cross-sectional area of the sprinkler nozzle, and vN is the velocity out of the sprinkler
+nozzle. Solving for vN we obtain:
+
+                                            rs2      (5 × 10−2 )2     88m/s
+                                    vN =        2 =          −3   2
+                                                                    ≈
+                                           nπrN     nπ(3 × 10 )         n
+where n > 3, rs is the radius of the pipe at the source and rN is the radius of the sprinkler nozzle.
+   If we were to use four sprinklers, the exit velocity would be 22 m/s and there would be a pressure drop.
+Using our previous equation for discharge, we nd that the pressure for four sprinklers is 251.99 kPa. The
+Rain Bird website states that the pressure needs to be above 280 kPa. Out of respect for the people who
+maintain the Rain Bird website and the fact that too low of a pressure will result in a low degree of uniformity,
+we will say that we can operate a maximum of 3 sprinklers from our pipe at once.
+
+
+
+                                                               4
+
+
+=== PHYSICAL PAGE 5 ===
+Kinematics Equations
+Now that we have the exit velocity, our inquisitive farmer would like to understand what eects go into
+determining the radius of the water jet emitted from our sprinkler. Because water droplets are small and
+the escape velocity of our water droplets are above the terminal velocity of a reasonably sized water droplet,
+drag eects will have to be taken into account. Therefore, we will have the following dierential equations
+for velocity in the x and y directions, respectively:
+
+                                                    dvx
+                                                        = −kvx
+                                                     dt
+
+                                                   dvy
+                                                       = −g − kvy
+                                                    dt
+Solving these dierential equations we obtain:
+
+                                          −g     v0 ksinθ + g
+                                 y(t) =      t+(              )(1 − e−kt ) + y0
+                                          k           k2
+
+                                                   v0 cosθ
+                                          x(t) =           (1 − e−kt ) + x0
+                                                      k
+We will use the following initial conditions in our model obtained from the Rain Bird website and from our
+calculations to determine the drag constant:
+
+
+                                                      y0 = 1m
+
+
+                                                        x0 = 0
+
+
+                                                      v0 = 1m
+
+
+                                                      θ = 21◦
+
+On the Rain Bird website, our farmer determined that the radius for our system will be approximately 19.5
+m. Using this distance and the above initial conditions, we determined the drag constant numerically to be:
+
+
+                                                    k = 1.20314
+
+Using this drag constant, our farmer has an equation to understand how the radius of the water emitted
+by the sprinkler will be determined by the height and angle of the sprinkler.       Although we will keep our
+sprinkler in its factory designed settings, our farmer could modify the sprinkler to adjust the radius if needed.
+Changing the angle or height too much, however, would likely lead to an nonuniform distribution due to
+the fact that the sprinkler was designed to spray properly with its factory settings. Thus we conclude this
+section by noting that we have a little exibility in our 19.5 m radius.
+
+
+
+
+                                                          5
+
+
+=== PHYSICAL PAGE 6 ===
+5       Distribution of Water from Standard Rotational Sprinkler
+While the sprinklers under consideration will cover a disk of radius 19.5 meters, the distribution over that
+area will not be uniform.    Large droplets tend to travel farther, but the area near the perimeter is much
+larger than near the sprinkler head. Below, we discuss various models for this behavior based on empirical
+data.
+
+
+
+Triangular Model
+In an article by Smajstrla et al., this group at the University of Florida proposed that the water distribution
+can be modeled approximately as a triangle.       That is, the application rate falls linearly as a function of
+distance from the sprinkler head, disappearing outside the radius.
+    In three dimensions, this distribution becomes cone-shaped about the sprinkler. When we analyze the
+grid patterns, we will sum over numerous cones and analyze the resulting surface. At rst, this model seems
+a bit naive but it has its merits. The fact that the highest application rate is at that sprinkler head makes
+sense based on the area underneath. For example, the amount of time the sprinkler spends shooting in the
+                       2                                                              2
+direction of say a 1 cm    square near the perimeter is very small whereas a 1 cm next to the sprinkler head
+could be recieving water almost a fourth of the time. The smooth slope approximates, based on the fact that
+the water will spread once it hits the ground, by evening out to some extent what might have been initially
+non-uniform.
+
+
+
+Experimental/Exponential Decay Model
+In the Journal of Irrigation and Drainage Engineering, Louie and Selker experimental test the performance
+of a Rain Bird 4.37-mm Nozzle. Noticeably, the distribution spikes within 2 meters of the sprinkler head, then
+maintains an approximately uniform rate before decaying near the edge of the radius. We used exponentials
+to t a curve to this graph. We then scaled the width and the height of this function to correspond to the
+radius and water ow of our larger sprinkler. The equation and graph of the normalized function are given
+below:
+                                                                                20
+                               f (r) = (3 ∗ .00267 ∗ e−.7x + .00267) ∗ e−(x/19.5) .
+    Graph 2- Exponential Water Distribution
+
+
+
+
+                                                        6
+
+
+=== PHYSICAL PAGE 7 ===
+    RateHmhrL
+     0.01
+
+
+   0.008
+
+
+   0.006
+
+
+   0.004
+
+
+   0.002
+
+
+                                                                               DistanceHmL
+                             5             10                15           20
+
+
+   To get the three-dimensional distribution, we then rotate the function about the z -axis by replacing r
+       p
+with       (x − a)2 + (y − b)2 which give you a sprinkler centered at (a, b). We will use this function to aid in
+testing congurations.     In some ways, this distribution is a worst case scenario because of the large peak
+about the sprinkler. The curve is based experimentally on where drops landed but does not take into account
+possible spread on landing.
+
+
+
+Comparison of Models
+The Exponential Decay Model is certainly the more realistic of the two models. As we will show, it forces
+careful consideration of how long a sprinkler can be left on during the hour.        Any conguration which is
+acceptable for this model will most likely work under the Triangular Model.           When we work under the
+Triangle Model, we are given more exibility in our arrangements. For crops which are sensitive to over-
+watering, one may want to carefully consider the Exponential Decay Model. If you are less worried about
+these consideration, the Triangular Model can be useful tool for evaluating uniformity. Of course, it would
+not be a bad idea to test actual individual sprinkler to determine what best ts the particular situation.
+
+
+
+Conclusions
+Two important considerations arise out of these models which aect future analysis. Under the Exponential
+Model, notice that near the sprinkler head the application rate goes up to .01m/hr which is 10 cm/hr. In the
+problem, we constrained our rate of application to 7.5 cm/hr to avoid damage to the soil and crops. Thus, if
+we are to use the Exponential Model we will be constrained to set-ups where sprinklers run for less than the
+full 60 minutes every hour. In our methods section, we discuss several algorithms for minimizing the amount
+of inconvenience this constraint causes the farmer. A similar diculty arises for the Triangular Model if we
+attempt to run three sprinklers at the same time. The best we can do for the sprinkler in the middle is to
+evenly space the sprinkler heads with two at the end. The distance of separation is then 10 meters. Scaling
+                                                        3
+the triangle for the values of the Rain Bird (3.2 m /hr , 19.5m radius), we get a peak height of about 8
+
+
+
+                                                         7
+
+
+=== PHYSICAL PAGE 8 ===
+cm/hr so at 10 meters you get 4 cm/hr. Then the middle sprinkler head would be recieving 16 cm/hr which
+is over twice as much as allowed. For either model, three sprinklers can only be run for a limited time every
+hour. Thus, most of our proposed solutions focus on two sprinklers running at a time separated by close to
+one radius distance.
+
+
+
+6    Analysis of Standard Grid Patterns
+We have so far determined that the radius will be between 19.5 meters and that we can put at most
+three sprinklers on the pipe without a loss of presssure and subsequent loss of standard distribution.        In
+the nal analysis, we will consider 19.5 meter radius.         Here we analyze standard grid patterns using a
+distribution of height one and radius one.    To maximize area covered, a single sprinkler is not advisable.
+To conteract the eects of varying distributions either triangular or exponential, all patterns will invoke
+overlapping sprinkler patterns.   In most cases, researchers recommend 40-60% overlap of radii to obtain
+the most uniform distribution which also tend to be the most stable under windy conditions (Eisenhauer).
+Symmetric designs which could cover our rectangular eld include squares, rectangles and squares. We use
+the Triangular Distribution to evaluate the standard grid patterns with the goal of nding the ideal side
+lengths as a ratio of the radius. Under this model, the ideal rectangle is a square with side length 1.1(radius)
+in terms of uniformity. A triangle grid pattern is shown to obtain better uniformity though with smaller
+spacing (.85(radius)).
+
+
+
+Evaluation Methods
+We have two primary concerns in evaluating the value of a grid pattern. The minimum value within the
+shape will determine the number of hours required to water the eld so we must watch for too low a minimum
+value. We measure uniformity using a variation on the standard deviation of a distribution. In each case we
+consider a unit of the grid, that is, one square and one triangle and plot the distributions of all sprinklers
+that water that square. The average rate is dened by the following integral:
+                                                    Z
+                                     Aver(D, R) =         (D(x, y))/Area(R)
+                                                      R
+
+where D(x, y) is the distribution and R is the unit region. We can then dene the standard deviation to be
+
+                                                      Z
+                                               1
+                             Std(D, R) =                    (D(x, y) − Aver(D, R))2 .
+                                            Area(R)     R
+
+    This parameter measures the amount of uctuation towards extremese on the region. A large Std(D, R)
+means water will be applied non-uniformly and could result in poor growth. To aid in assessing the extreme
+of the variation we also calculate the M ax(D, R). The dierence between M ax(D, R) and M in(D, R) gives
+us a measure of how large the variation could be. At this point, we exclude the number of moves from the
+analysis. This factor will be brought in when we consider patterns on the eld.
+
+
+
+Rectangular Grids
+For each vertical separation {.8, . . . , 1.2}within a reasonable range as recommended in research, we considered
+a range of possible horizontal separations. Generally, the standard deviation would go down and then back up
+dening a clear minimum value which for all congurations was around 1.1 along the horizontal. Table 2 in
+
+
+
+                                                          8
+
+
+=== PHYSICAL PAGE 9 ===
+the Appendix shows the optimal lengths based on standard deviation. The best rectangular congurations
+turns out to be a square of sidelength 1.1(radius).    The dierence in maximum and minimum correlates
+closely with the standard deviation so there was no point in considering both.
+
+
+
+Triangular Grids
+For the triangular lattice, it was important that we also model the surrounding triangles because the altitude
+of the triangle is smaller than the sidelength so these other sprinklers have a signicant eect. Below is a
+graph of the standard deviation as a function of sidelength:
+    Triangle Lattice
+
+
+
+
+                        STD
+                    0.004
+                   0.0035
+                    0.003
+                   0.0025
+                    0.002
+                   0.0015
+                    0.001
+                   0.0005
+                                                    Separation Distance HradiiL
+    0.8         0.9                 1.1       1.2
+
+
+
+
+    We do not consider distances less then .8(radii) because signicant overwatering would take place. Thus,
+the most uniform conguration is at the .85(radii) mark.       This deviation beats that of the rectangular
+conguration.    The Exponential Distribution gave similar results on the tests indicating that if possible
+triangular set-ups will yield better uniformity.
+
+
+
+7     Proposed Irrigation Methods
+Knowing how the sprinklers operate and what the resulting distribution of water is, we can proceed with
+the dicult task of designing our pipe network and watering schemes. We make the following assumptions:
+
+
+    • Water is distributed according to the exponential water distribution derived earlier.
+    • No modications to the sprinklers are permitted, and we would not have more than three sprinklers
+      operational at the same time.
+
+
+    • The eciency of the sprinkler irrigation is at least 95%, meaning that 95% of the water reaches the
+      ground and no more than 5% are lost due to evaporation and other factors.
+
+
+
+
+                                                      9
+
+
+=== PHYSICAL PAGE 10 ===
+   • There exists infrastructure that can supply water along the center of the eld.
+
+Our goal would be to design a system that provides at least 2cm of water at every point of the eld every
+4 days, and no more than 0.75 cm of water during an hour at any point. In addition, we would like the
+pattern of watering to be periodic with period of four days. We would compare the dierent systems using
+the following criteria
+
+
+   • Required number of movings of the pipes MT
+   • Hours of operation of the system
+   • Stability with respect to factors like wind and equipement malfunctions
+   • Uniformity of the irrigation
+
+We begin with the following rather unpleasant observation that the ammount of water falling right next to
+the sprinkler is 1 cm per hour, which means we cannot have a sprinkler operational for more that 45 minutes
+every hour. This implies that someone would have to come and stop the sprinklers 45 minutes after they
+have been turned on, and to turn them on again 15 minutes later. Since the pipes are equiped with valves
+that can easily be closed and opened, even under pressure, doing that would be an easy task that would
+consume no more than a few minutes. In addition, if a sprinkler is within the radius of another one, this
+will severely reduce the amount of time they can be operational, and thus we want to avoid it by positioning
+them at the ends on the 20 meter pipe.
+   Let us rst take a look at the eld:
+
+
+
+
+    A’              B’
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    11111111
+                   C’       00000000
+                            11111111
+                           D’      E’
+    00000000
+    11111111
+           000000000
+           111111111
+    00000000
+           00000000000000000
+                    11111111
+                    0000000000000000
+                            11111111
+                            00000000
+    11111111
+           111111111
+    00000000
+           00000000011111111
+                    0000000011111111
+                            00000000
+    11111111
+           111111111
+    00000000
+    11111111
+           000000000
+           11111111111111111
+                    00000000
+                    1111111111111111
+                            00000000
+                            11111111
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    1111111100000000
+                            11111111
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    1111111100000000
+                            11111111
+    00000000
+    11111111
+           000000000
+           111111111
+    00000000
+           00000000000000000
+                    11111111
+                    0000000000000000
+                            11111111
+                            00000000
+    11111111
+           111111111
+    00000000
+    11111111
+           000000000
+           11111111111111111
+                    00000000
+                    1111111111111111
+                            00000000
+                            11111111
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    1111111100000000
+                            11111111
+    00000000
+    11111111
+           000000000
+           111111111
+    00000000
+    11111111
+           000000000
+           11111111100000000
+                    11111111
+                    11111111
+                    0000000000000000
+                            11111111
+                            11111111
+                            00000000
+    00000000
+           000000000
+    11111111
+           111111111
+              N     00000000
+                    1111111100000000
+                            11111111
+    00000000
+    11111111
+      M
+           000000000
+           111111111
+    00000000
+           00000000000000000
+                    11111111
+                      P
+                    0000000000000000
+                            11111111
+                               Q
+                            00000000
+    11111111
+           111111111
+    00000000
+    11111111
+           000000000
+           11111111111111111
+                    00000000
+                    1111111111111111
+                            00000000
+                            11111111
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    1111111100000000
+                            11111111
+    00000000
+    11111111
+           000000000
+           111111111
+    11111111
+    00000000
+           111111111
+           00000000000000000
+                    11111111
+                    11111111
+                    0000000011111111
+                            00000000
+                            11111111
+                            00000000
+    11111111
+    00000000
+           111111111
+           000000000
+    11111111
+    00000000
+           111111111
+           00000000011111111
+                    00000000
+                    11111111
+                    0000000011111111
+                            00000000
+                            00000000
+                            11111111
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    1111111100000000
+                            11111111
+    00000000
+    11111111
+           000000000
+           111111111
+    00000000
+           00000000000000000
+                    11111111
+                    0000000000000000
+                            11111111
+                            00000000
+    11111111
+           111111111
+    00000000
+    11111111
+           000000000
+           11111111111111111
+                    00000000
+                    1111111111111111
+                            11111111
+                            00000000
+   A                B                C               D               E
+   Figure 7.1 Outlook of the eld
+
+
+
+
+   Here we have divided the eld into four 20m by 30m rectangular pieces, each of which is further subdivided
+into triangles by the two diagonals. It is clearly impossible to water the whole 30m by 80m using our pipe of
+length of 20 m and with radius of irrigation of 19.5 m, since we cannot water two points separated by more
+than 19.5m+20m+19.5m=59m. Therefore, we would have to move the pipe at least once, and since after 4
+days the pipe should be in its initial possition, we would have to move it twice per period. Therefore, our
+lower bound on MT is 2. It certainly would be nice to be able to achieve this minimum. Some insight of how
+
+
+
+
+                                                     10
+
+
+=== PHYSICAL PAGE 11 ===
+                                                                                               0   0       0
+this could be done can be obtained by drawing circles with radius 19.5 at the points A, C, E, A , C , and E ,
+which can be seen at Figure 7.2
+
+
+
+
+   Figure 7.2 Covering the edges
+
+
+
+
+   We have to position the sprinklers in such a manner that in each circle there is at least one. This leads
+to the following line scheme with two movings:
+
+
+
+7.1 The Case MT = 2
+Suppose we possition the pipe in the following two places:
+
+
+
+
+     10m         20m              20m              20m            10m
+
+
+
+                                                     11
+
+
+=== PHYSICAL PAGE 12 ===
+   Figure 7.3 The Lazy Farmer conguration
+
+
+
+                                                                                      √
+   The furthest a point is from a sprinkler (denoted by a dot on the gure) is            102 + 152 = 18.02 meters,
+                                            0    0        0
+and these points are precisely A, C, E, A , C , and E         on Figure 7.1. As we could see from our exponential
+water distribution graph, the ammount of water falling at them would be 2.25mm/h , but since we operate
+a sprinkler for at most 45 minutes, the actual value would be 1.68mm/h. Thus, if we operate the system
+for 13 hours at each location, we would get a minimum of 2.18cm of water at every point, which accounts
+for more than 2cm of water everywhere when we subtract the water lost due to evaporation.                Therefore,
+the total time the system would be operational is 26 hours, the pipes would have to be moved twice, and
+the amount of water used would be (2)(26h)(45min/h)(48.35l/min) = 113139l per period. If the watering
+was optimal, the required amount of water would be (30m)(80m)(2cm) = 48000l of water. Therefore, the
+water eciency of our system would be 42%. As for uniformity, with methods developed earlier we calculate
+                                          −6
+that the standart deviation is 1.7 × 10        , which corresponds to a high degree of uniformity. However, this
+conguration has one major disadvantage: even a small change of 2 meters in the area covered (for instance
+due to wind, or decrease in pressure in the pipes) can result in distant points like A receiving no water.
+Therefore, this conguration, although very uniform and with minimal MT is not very stable. In order to
+deal with this, we consider the next conguration.
+
+
+
+7.2 The case MT = 3
+The best we can do after MT = 2 is to consider a conguration with three movings of the pipes. In addition,
+we want to have a smaller maximum distance between a point of the eld and the nearest sprinkler, which we
+will denote by dmax . Using a similar argument to the one from the previous case, the resulting conguration
+should look something like this:
+
+
+
+
+    A’             B’
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    11111111
+                   C’       00000000
+                            11111111
+                           D’      E’
+    00000000
+    11111111
+           000000000
+           111111111
+    00000000
+    11111111
+           000000000
+           11111111100000000
+                    11111111
+                    00000000
+                    1111111100000000
+                            11111111
+                            00000000
+                            11111111
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    1111111100000000
+                            11111111
+                        0000000
+                        1111111
+    11111111
+    00000000
+           111111111
+           000000000
+    00000000
+           00000000011111111
+                    00000000
+                        1
+                        0
+                    0000000011111111
+                            00000000
+                                 1
+                                 0
+                            00000000
+    11111111
+           111111111
+    00000000
+    11111111
+           000000000
+           11111111111111111
+                        1
+                        0
+                    00000000
+                    1111111111111111
+                                 1
+                                 0
+                            00000000
+                            11111111
+    00000000
+    11111111
+           111111111
+           000000000
+    00000000
+           00000000011111111
+                    00000000
+                    0000000011111111
+                            00000000
+                            00000000
+    11111111
+           111111111
+    11111111
+    00000000
+           111111111
+           00000000011111111
+                    11111111
+                    0000000011111111
+                            00000000
+                            11111111
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    1111111100000000
+                            11111111
+    00000000
+    11111111
+           000000000
+           111111111
+    11111111
+    00000000
+           111111111
+           00000000011111111
+                    00000000
+                    11111111
+                    0000000000000000
+                            11111111
+                            11111111
+                            00000000
+       1111111
+       0000000
+      M0
+       1
+    00000000  1
+              0
+           000000000
+    11111111
+           111111111
+              N     00000000
+                    1111111100000000
+                            11111111
+       1
+       0
+    00000000
+    11111111  0
+              1
+           000000000
+           11111111111111111
+                    00000000
+                      P
+                            00000000
+                            11111111
+                               Q
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    1111111100000000
+                            11111111
+    00000000
+    11111111
+           000000000
+           111111111
+    00000000
+           00000000000000000
+                    11111111
+                    0000000000000000
+                            11111111
+                            00000000
+    11111111
+           111111111
+    00000000
+    11111111
+           000000000
+           11111111111111111
+                    00000000
+                    1111111111111111
+                            11111111
+                            00000000
+    00000000
+    11111111
+           000000000
+           11111111111111111
+                    0000000011111111
+                            00000000
+    11111111
+    00000000
+           111111111
+           000000000
+    11111111
+    00000000
+           111111111
+           00000000011111111
+                    00000000
+                    11111111
+                    0000000011111111
+                            00000000
+                            11111111
+                            00000000
+    00000000
+           000000000
+    11111111
+           111111111    0000000
+                        1111111
+                        0
+                        1
+                    00000000
+                    11111111     0
+                                 1
+                            00000000
+                            11111111
+    00000000
+    11111111
+           000000000
+           111111111    0
+                        1
+                    00000000
+                    11111111     0
+                                 1
+                            00000000
+                            11111111
+    00000000
+           000000000
+    11111111
+           11111111100000000
+                    1111111100000000
+                            11111111
+    00000000
+    11111111
+           000000000
+           11111111100000000
+                    1111111100000000
+                            11111111
+   A               B                  C                   D                 E
+   Figure 7.4 Conguration for     MT = 3
+
+
+   It can easily be shown that in a conguration like this one, dmax ≥ 16.5, and thus the gain when it comes
+to stability is very small. In addition, there is a huge increase in operational time and required amount of
+water: 39 hours and 169000l respectively. Therefore, the case MT = 3 results in bad congurations.
+
+
+
+
+                                                          12
+
+
+=== PHYSICAL PAGE 13 ===
+7.3 The case MT = 4
+With the increase of number of times we can move the pipes, the complexity of the problem of possitioning
+them in the best possible way increases very fast, making it nearly impossible to consider all congurations
+for MT   = 4. However, since we want to have a more stable conguration, we should have sprinklers close
+                    0          0
+to the points A, A , E, and E . In addition, in order to keep uniformity of the watering, we should preserve
+some symmetry in the way we possition the sprinklers. The earlier triangular and rectangular patterns can
+be successfully applied in this cae. The best way to reduce peaks in watering is to use a triangular pattern,
+like the one shown on Figure 7.5:
+
+
+
+
+   Figure 7.5 Creative Farmer Layout
+
+
+
+
+   For the shown triangular layout, the sprinklers are positioned in the vertices of equilateral triangles with
+side 20m. After that, in order to minimize the instability, the leftmost pipe is translated 5 meters to the
+right, and the rightmost 5 meters to the left. Then dmax ≤ 14, which implies that this scheme would work
+well provided that the wind does not result in more than 25% deviation, which is true unless the wind is
+                                                                                  −6
+really strong.   In addition, this layout has a standard deviation of 3.35 × 10        , period of operation of 52
+hours, and water consumption of 226000l per period.
+   Another way to minimize non-uniformity is to possition the sprinklers in a rectangular pattern. Here is
+how it can be done:
+
+
+
+
+   5m
+
+
+
+
+   20m
+
+
+
+
+   5m
+
+         6m         23m                  23m                  23m        5m
+
+
+
+                                                      13
+
+
+=== PHYSICAL PAGE 14 ===
+   Figure 7.6 Conservative Farmer Layout
+
+
+
+   In this case the distance from the sprinklers to the points on the sides are less than 12 meters, and the
+area between two pipe positions is within the radius of four sprinklers and thus would be watered no matter
+what the direction of the wind is. This implies that for this layout, the irrigation would be good provided
+that the wind doesn't alter the area covered by more than 7 meters, which is true unless there is a storm.
+                                              −6
+The layout's standard deviation is 4.17 × 10       , and the hours of operation and water consumption are the
+same as in the previous case.
+
+
+
+7.4 The case MT > 4
+Considering that we have obtained relatively good stability, we might be interested in considering a cong-
+uration with more than 4 movings only if it saves drastically time or leads to high uniformity.     However,
+since moving of the pipes takes a lot of time, and in addition we have observed how the standard deviation
+increases, even for the triangular conguration, we can conclude that the case MT > 4 would not lead to a
+good layout.
+                     MT       Uniformity       Stability       Hours of Operation   Water Used
+
+          Lazy        2          high               low               26              113000l
+       Creative       4      medium/high    medium/high               52              226000l
+    Conservative      4         medium             high               52              226000
+
+
+
+Numerical Analysis of Proposed Algorithms
+Using the same criteria used to evaluate the standard grid patterns, we diagnosed the algorithms previously
+preposed on our 30m by 80m test eld. We set up the eld on a grid with endpoints (0,0), (80,0), (0,30) and
+(80,30). This setup allows us to evaluate the entire eld and take into account edge eects. The following
+four algorithms are the best performers of several algorithms we analyzed.
+
+
+Lazy Farmer Algorithm
+
+For this algorithm we arranged the pipes in the following way. A diagram of this conguration is included
+in the appendix.
+    Pipe Setting    End of the Pipe      Other End of the Pipe
+
+           1st             (10,15)              (30,15)
+           2nd             (50,15)              (70,15)
+
+
+
+Our tests collected the following information about this algorithm:
+     µ        .0042m/h
+     σ2      1.68 × 10−6
+     min     .00217m/h
+    max       .0117m/h
+
+
+This algorithm is useful because it uses so few moves, has a high degree of uniformity (as denoted by the
+low variance) and can successfully irrigate the entire eld. This algorithm is perfect for farmers who would
+rather be shooting soda cans o of a fence post than lugging around a heavy aluminum tube.
+
+
+
+                                                          14
+
+
+=== PHYSICAL PAGE 15 ===
+The Passive-Aggressive Farmer Algorithm
+
+For this algorithm, we arranged the pipes in a pattern resembling an H. See appendix for a diagram of this
+conguration
+
+
+
+    Pipe Setting    End of the Pipe    Other End of the Pipe
+
+           1st             (16,5)              (16,25)
+           2nd             (30,15)             (50,15)
+           3rd             (64,5)              (64,25)
+
+
+
+Our tests collected the following information about this algorithm:
+
+
+
+     µ        .0057m/h
+     σ2      3.92 × 10−6
+     min     .00254m/h
+    max       .0161m/h
+
+
+   This algorithm neither improves much upon the stability of the system (as described in a previous
+section) nor saves time by using few pipe moves. Therefore, this algorithm would be perfect for an indecisive
+or passive-aggressive farmer.
+
+
+The Conservative Farmer Algorithm
+
+For this four step algorithm, we arranged the pipes in with a sqaure grid. See appendix for a diagram of this
+conguration
+
+
+
+    Pipe Setting    End of the Pipe    Other End of the Pipe
+
+           1st             (10,5)              (10,25)
+           2nd             (30,5)              (30,25)
+           3rd             (50,5)              (50,25)
+           4th             (70,5)              (70,25)
+
+
+
+Our tests collected the following information about this algorithm:
+
+
+
+     µ        .0064m/h
+     σ2      4.18 × 10−6
+     min     .00263m/h
+    max       .0107m/h
+
+
+This algorithm is very stable (as previously described). It is perfect for a farmer that is very careful and
+untrusting of the wind.
+
+
+
+                                                     15
+
+
+=== PHYSICAL PAGE 16 ===
+The Creative Farmer Algorithm
+
+For this three step algorithm, we arranged the pipes on a grid of equalateral triangles. See appendix for a
+diagram of this conguration
+
+
+
+     Pipe Setting     End of the Pipe     Other End of the Pipe
+
+            1st             (10,5)               (10,25)
+           2nd              (30,5)               (30,25)
+           3rd              (50,5)               (50,25)
+           4th              (70,5)               (70,25)
+
+
+
+Our tests collected the following information about this algorithm:
+
+
+
+      µ        .0065m/h
+      σ2      2.44 × 10−6
+     min      .00272m/h
+     max       .0102m/h
+
+This algorithm is the second most uniform and has the largest minimum of the algorithms proposed. The
+setup is somewhat complicated as the grid is an equilateral triangle. Some farmers may be up to the task.
+It is perfect for a farmer that regularly plays Sudoku and stopped watching MacGuyver because he claimed
+he lacked of ingenuity.
+
+
+
+8    Conclusion
+In this paper we proposed several fantastic algorithms for eld irrigation. Surely, the average farmer will
+have reason for jubilation after recieving a new Rain Bird irrigation system and implementing his or her
+favorite irrigation algorithm. Before throwing a sock hop at the local high school gymnasium, the farmer
+should read our conclusion as we outline what algorithms work better in what situations.      The following
+table serves as a summary:
+
+
+
+           Fastest Algorithm            The Lazy Farmer Algorithm        25 hours 22 minutes over 4 days
+
+     Most Uniform Algorithm             The Lazy Farmer Algorithm               σ 2 ≈ 1.68 × 10−6
+      Most Stable Algorithm          The Conservative Farmer Algorithm       Most resistent to wind
+
+
+
+    Thus, there are only two algorithms that a farmer should consider. The Conservative Farmer Algorithm
+should be used in windy conditions or if the level of the eld is somewhat nonuniform. The Lazy Farmer
+Algorithm should be used otherwise because it is the fastest, easiest and most uniform.
+    Although some specic parameters of our system may change, the methods we used to evaluate our
+proposal are general. We based our algorithms o of experimental data from the sprinkler manufacturer.
+We also looked at sprinklers from other manufacturers with specs similar to those given in the problem and
+found the radii do not change much. If a dierent setting were used, however, we could use our methods to
+analyze the system.
+
+
+
+                                                       16
+
+
+=== PHYSICAL PAGE 17 ===
+9    References
+Louie and Selker.    Sprinkler Head Maintenance Eects on Water Application Uniformity.        Journal of
+Irrigation and Drainage Engineering
+    May/June 2000
+Smajstrla et al. Lawn Sprinkler Selection and Layout for Uniform Water Application. University of Florida.
+<http://edis.ifas.u.edu/AE084/>
+Eisenhauer, Martin, and Homan.       Irrigation Principles and Management (Chapter 11).      University of
+Nebraska, Lincoln.
+Rain Bird Sprinkler information <http://rainbird.com/pdf/aq/imptmtrc70h.pdf>
+
+
+
+
+                                                    17

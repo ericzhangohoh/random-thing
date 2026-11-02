@@ -1,0 +1,2465 @@
+=== PHYSICAL PAGE 1 ===
+         Problem Chosen                            微信公众号：数学模型
+                                                2021
+                                              MCM/ICM
+                                                       Team Control Number
+
+                 E                          Summary Sheet                       2119031
+
+                               Less Hunger & More Peace
+                                             Summary
+        Today, the world’s food system is efficient and profitable in producing and distributing
+
+
+
+
+                         公
+  food, but it does not perform well in terms of food equity and sustainability. Specifically, there
+  are still a considerable number of hungry people in the world, and the damage to the ecosystem
+  is hard to ignore. Therefore, the creation and optimization of a good food system deserves our
+  attention.
+
+
+
+                          众
+        First, we built a food system model. We abstracted the food system into three links: pro-
+
+
+
+                   ：
+  duction, transportation and sales, and established models respectively. In the food production
+  process model, we considered the various sources of food and quantified the production of food.
+  At the same time, based on the correction amount, we quantified the calories in the food with
+
+
+
+                             号
+  reference to the production-calorie conversion. In the food transportation process model, we
+
+
+                     M
+  defined the concept of living areas and calculated the profit of the transporter. Then based on
+  the Transportation Selection Algorithm Driven by Profit Optimization, the transported
+
+
+
+                               ：
+  food is allocated. In the food sales process model, we use the differential equation of supply
+
+
+
+                       AT
+  and demand to measure fluctuating food prices. Taking the differences in individual income
+  into account, we simulated the purchase of food for each individual based on the People Food
+  Selection Algorithm, and used the calories contained in the food purchased to determine their
+
+
+
+                                  数
+  hunger situation.
+
+
+
+                         Hm
+        Then, we determined the indicators to evaluate our food system. According to the ecolog-
+  ical pollution caused by production in the food production, we chose the three indicators of
+
+
+
+
+                                    学
+        emissions, land resource usage, and water resource usage. We use the entropy method to
+  determine the weight                                    to quantify the sustainability indicator.
+  According to the proportion of people who are hungry in the sales process model, we have
+
+
+
+                            od       模
+  established equity indicator. According to three models in the food system, we have estab-
+  lished efficiency indicator for the income of farmers and transporters.
+
+
+  微     In order to determine how the food system is optimized for equity and sustainability, we
+  define a non-linear programming optimization model. We use Matlab to simulate and use
+
+
+                              els     型
+  genetic algorithms to find approximate optimal solutions.
+
+   信    The results show that when the equity and sustainable optimization efforts are the same,
+  France will complete the optimization goal in 43 months. The area of arable land will be re-
+  duced by 6.7%, and the number of hungry people will be reduced by 30,000; while India will
+  complete the optimization goal in 37 months, the area of arable land will increase by 11.1%,
+  and the number of hungry people will be reduced by 39.1 million. Beans are characterized by
+  high calories and its planting area increased. At the same time, we gradually increased the
+
+
+            信
+  priority of sustainability compared to equity in the optimization model. We found that the costs
+  in India and France are increasing, and the benefits are decreasing. For a specific priority, In-
+
+
+             号
+  dia's cost increase rate and benefit reduction rate are lower than those of France compared to
+  before optimization. We further applied our model to the remaining 10 developed and devel-
+  oping countries and verified this conclusion.
+        Finally, we discussed the migration on the larger food system and the smaller food system.
+
+    微
+  We believe that our model can be effectively applied to a smaller food system, but its applica-
+  tion to a larger food system is subject to the restrictions of different national policies. Besides,
+  we moved our model to another country—Somalia, and made corrections based on specific
+  circumstances.
+  Keywords: Food system; Nonlinear programming; Supply and demand differential equation
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 2 ===
+  Team # 2119031
+                                                                    微信公众号：数学模型                                     Page 2 of 25
+
+
+                                                           Contents
+  1 Introduction................................................................................................... 4
+     1.1 Problem Background ................................................................................................... 4
+     1.2 Restatement of the Problem ......................................................................................... 4
+
+
+
+
+                               公
+     1.3 Our Work..................................................................................................................... 4
+  2 Assumptions and Justifications .................................................................... 6
+
+
+
+                                众
+  3 Notations ........................................................................................................ 6
+
+
+
+                         ：
+  4 Model Ⅰ:Food Production Process Model .................................................... 7
+     4.1 Food Production Source Analysis Model ..................................................................... 7
+
+
+
+
+                           M       号
+          4.1.1 Plantation Source................................................................................................ 7
+          4.1.2 Animal Husbandry Sources................................................................................. 7
+
+
+
+
+                                     ：
+          4.1.3 Fishery Source.................................................................................................... 8
+
+
+
+                             AT
+     4.2 Food Calorie Model Based on Correction .................................................................... 8
+  5 Model Ⅱ: Food Transportation Process Model ........................................... 9
+
+
+                                        数
+     5.1 Model Introduction ...................................................................................................... 9
+
+
+
+                               Hm
+     5.2 Calculation of Carrier Profit ...................................................................................... 10
+
+
+
+
+                                          学
+          5.2.1 Calculation of The Total Cost of The Carrier .................................................... 10
+          5.2.2 Calculation of The Total Revenue of The Carrier .............................................. 11
+     5.3 Transportation Selection Algorithm Driven by Profit Optimization ............................ 11
+
+
+                                  od       模
+  6 Model Ⅲ: Food Sale Process Model Based on Market Price ................... 12
+
+  微  6.1 Food Price Fluctuation Model.................................................................................... 12
+
+
+
+                                    els     型
+     6.2 People Food Expenditure ........................................................................................... 13
+
+   信 6.3 People Food Selection Algorithm .............................................................................. 13
+  7 Indicator Definition..................................................................................... 14
+     7.1 Sustainability Indicator .............................................................................................. 14
+          7.1.1 Indicator Selection ............................................................................................ 14
+
+
+                信
+          7.1.2 Entropy method to determine indicator weight.................................................. 14
+     7.2 Equity Indicator ......................................................................................................... 15
+
+
+                 号
+     7.3 Profitability Indicator ................................................................................................ 15
+  8 Case Study: India and France .................................................................... 15
+
+    微8.1 National Current Food System Evaluation ................................................................. 16
+          8.1.1 Results of Model Ⅰ ............................................................................................ 16
+          8.1.2 Results of Model Ⅱ ........................................................................................... 17
+          8.1.3 Results of Model Ⅲ.......................................................................................... 17
+
+
+微信号：MATHmodels                                                                                                                     2
+
+                                                                                                                          MATHmodels
+                                                                                                                                           关注数学模型
+
+                                                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 3 ===
+  Team # 2119031
+                                                                    微信公众号：数学模型                               Page 3 of 25
+
+     8.2 Optimize for Equity and Sustainability ...................................................................... 18
+          8.2.1 Optimization Model Based on Multi-objective Programming ........................... 18
+          8.2.2 Optimized result ............................................................................................... 19
+     8.3 Policy Suggestion ...................................................................................................... 23
+  9 Scalability and Adaptability Analysis ........................................................ 23
+
+
+
+                               公
+  10 Model Evaluation ...................................................................................... 24
+     10.1 Strengths ................................................................................................................. 24
+
+
+
+
+                                众
+     10.2 Weaknesses.............................................................................................................. 24
+
+
+
+                         ：
+  11 Conclusion ................................................................................................. 24
+  References ...................................................................................................... 25
+
+
+
+                           M       号
+                             AT      ：
+                               Hm       数
+                                          学
+  微                               od       模
+   信                                els     型
+                信
+                 号
+    微
+微信号：MATHmodels                                                                                                                     2
+
+                                                                                                                          MATHmodels
+                                                                                                                                           关注数学模型
+
+                                                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 4 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                    Page 4 of 25
+
+
+  1 Introduction
+  1.1 Problem Background
+       The food system can be defined as a complete set
+  of people, institutions, activities, processes and infra-
+
+
+
+                         公
+  structure involved in the production and consumption
+  of food by a certain population[1][2]. Specifically, it
+  includes planting, harvesting, processing, packaging,
+
+
+
+                          众
+  transportation, and marketing activities related to the
+
+
+
+                   ：
+  food system, and any inputs required at each step
+  along the chain of activities, such as land, agricultural
+
+
+
+
+                             号
+  chemicals, labor, water, machinery, capital) and out-
+
+
+
+                     M
+  put.                                                      Figure 1: The cycle of food system
+       Most of the current national food systems prioritize efficiency and profitability, which
+
+
+
+
+                               ：
+  makes food production and distribution relatively cheap and effective. However, the United
+
+
+                       AT
+  Nations estimates that there are approximately 821 million hungry people in the world[3], im-
+  plying that we will have to consider more factors besides the economy in the face of the food
+
+
+
+
+                                  数
+  system. The balance of forest area and food planting area, equity considerations in the process
+
+
+
+
+                         Hm
+  of food transportation and distribution, food waste and other issues are all related to the details
+  of the food system. How to further improve the food system and its ability to meet the needs
+
+
+
+
+                                    学
+  of the poorest people, and how to balance the various aspects of the food system are challenging
+  but worthy of efforts.
+
+
+
+
+                            od       模
+  1.2 Restatement of the Problem
+
+
+  微    Considering the background information and restricted conditions identified in the prob-
+
+
+
+
+                              els
+  lem statement, we need to solve the following problems:
+
+
+   信                                  型
+        Problem 1: Establish a national food system model so that the efficiency, profitability,
+           sustainability, and equity of the food system can be evaluated.
+        Problem 2: Apply the established food system model to at least one of the developed
+           and developing countries. If a food system is optimized for equity and sustainability,
+           what will happen to the above system and how long will it take to implement.
+        Problem 3: Discuss the benefits and costs of changing the priorities of a food system,
+
+            信
+           and analyze the time of change.
+        Problem 4: Discuss the scalability and adaptability of the food system model.
+
+             号
+  1.3 Our Work
+
+
+    微  In 1.2, we have identified four problems that we are required to solve through problem
+  statements. In order to solve these problems, our work mainly includes the following:
+   Based on the understanding and definition of the food system, we have determined its main
+  three components: production, transportation and sales. For the production part, we established
+  the production model and calorie model of food by defining the source of food production. For
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 5 ===
+  Team # 2119031
+                                                  微信公众号：数学模型                    Page 5 of 25
+
+  the transportation part, we have established a profit model for the transporter. Based on the
+  production of each food, the profit of the transportation strategy of the transporter in different
+  regions is evaluated, and the transportation of food is carried out in accordance with the prin-
+  ciple of optimal profit. For the sales part, we established a price fluctuation model of food with
+  demand and supply. The supply comes from the transportation of some transporters, and the
+  demand depends on the local population and food prices. Then, based on the individual wage
+
+
+
+                         公
+  income, the people's food sale model was established. Measure the hungry population based
+  on the calories people get from food.
+   In the three specific models, we abstracted out the indicators to evaluate the quality of our
+
+
+
+                          众
+  model. First of all, according to the ecological pollution caused by production in the production
+
+
+
+                   ：
+  part, we have established sustainable indicators. Then, according to the number of hunger
+  people in the sales part, we have established equity indicators. Finally, in the production and
+
+
+
+                             号
+  transportation sales part, we use income of farmers and transporters to established efficiency
+
+
+
+                     M
+  indicators. We use these three indicators to evaluate our food system.
+   We chose India and France as our case study. We first substitute some specific data of these
+
+
+
+
+                       AT      ：
+  two countries into our food system model, and get data such as food production, food distribu-
+  tion, and hungry population. Then, we use the weighted values of the equity indicator and the
+  sustainable indicator as the objective function to plan the goal. We analyzed what happened to
+
+
+
+                                  数
+  the system, the difference between the system before and after optimization, and the time it
+
+
+
+                         Hm
+  took when we used the weights of the two indicators to be half each. We used two indicators
+  weights to change from 0 to 1, that is, to change the priority of equity and sustainability, and
+
+
+
+                                    学
+  got the benefits and costs of the food system and when it will occur.
+   We discussed model migration on a larger food system and a smaller food system. We
+  migrate our model to other country to verify the adaptability of our model.
+
+
+
+                            od       模
+        In summary, the whole modeling process can be shown as follows:
+
+
+  微
+   信                          els     型
+            信
+             号
+    微                               Figure 2: Model Overview
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 6 ===
+  Team # 2119031
+                                                  微信公众号：数学模型                     Page 6 of 25
+
+
+  2 Assumptions and Justifications
+  ➢ Assumption 1: In the Food Transportation Process Model, delimit living areas to con-
+       sider food transportation scenarios.
+        Justification: Considering that there may be tens of thousands of food transporters and
+  food production places in a country, it is unrealistic to model each transporter and each produc-
+
+
+
+                         公
+  tion place. We assume that the transportation cost of food in the same living area is 0. At the
+  same time, we abstract all transporters in a living area into one transporter.
+
+
+
+
+                          众
+  ➢ Assumption 2: The market price of the same food is unchanged in the same month.
+
+
+
+                   ：
+       Justification: Although food prices follow the supply and demand relationship and will
+  be affected by demand, a too small time unit will make the model difficult to quantify and
+
+
+
+
+                             号
+  estimate. At the same time, considering the actual life of the people, the price of the same food
+
+
+
+                     M
+  in the market remains stable for a period of time, so it is reasonable to consider that the price
+  of food changes on a monthly time scale.
+
+
+
+
+                       AT      ：
+  ➢ Assumption 3: Assume the research data is true and reliable.
+        Justification: We assume that the data from national statistical offices required for model
+  construction and scenario simulation are real and reliable. Based on this, we can simulate more
+
+
+
+                                  数
+  real scenarios and establish reasonable models.
+
+  3 Notations
+                         Hm
+                                    学
+       The key mathematical notations used in this paper are listed in Table 1.
+
+
+
+
+                            od       模
+                              Table 1: Notations used in this paper
+            Symbol                                 Description
+
+  微                        the total amount of food production in region in month
+
+
+
+                              els     型
+                              the region ’s total plantation production in month .
+
+   信                      the region ’s total animal husbandry production in month .
+                              the region ’s total fishery production in month .
+                         the profit of the transporter buying food in region and selling
+                                              food in area in month
+                         the supply of p-th food in the market of living area in month
+
+            信                                              .
+
+
+             号
+                              the demand of p-th food of living area in month .
+                             the sustainability indicator of a country in the month
+                                 the equity indicator of the country in month
+
+    微                                the country’s profit indicator in month t
+
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 7 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                    Page 7 of 25
+
+
+  4 Model Ⅰ:Food Production Process Model
+  4.1 Food Production Source Analysis Model
+       Before establishing the Food Production Process Model, we need to know the classifica-
+  tion and distribution of food. Refer to Wikipedia, the food sources of a country's food system
+
+
+
+                         公
+  include plantation sources, animal husbandry sources and fishery sources, which are also in
+  line with the food sources of most people in the world. Accordingly, we use the above three
+  sources to construct the food production source analysis model, as shown in Figure 3.
+
+
+
+
+                   ：      众
+      In our model, we will define the total
+  amount of food production      in region in
+
+
+
+
+                             号
+  month ,and the total amount of food produc-
+
+
+
+                     M
+  tion of the country, which are defined as fol-
+  lows:
+
+
+
+
+                       AT      ：
+                                  数
+       where                                        Figure 3: Food source composition map
+
+
+                         Hm
+            represents the region ’s total plantation production in month .
+
+
+
+
+                                    学
+            represents the region ’s total animal husbandry production in month .
+            represents the region ’s total fishery production in month .
+          represents the total number of regions of the country.
+
+  4.1.1 Plantation Source
+
+  微                         od       模
+       Planting is one of the main components of agriculture. It is an agricultural production
+
+
+
+                              els     型
+  department that cultivates various crops and obtains plant products. The crops cultivated by the
+
+
+   信
+  planting industry include the production of food crops, cash crops, vegetable crops, fodder
+  crops, pastures, flowers and other plants. Here, considering most of the developing countries
+  in the world, such as China, India, and countries in Southeast Asia, the main source of food for
+  the people is the food crops in the planting industry. We only consider the production of food
+  crops in the planting industry and define the total food production of the planting industry as
+      in region in month as follows:
+
+
+            信                                                                                          (1)
+       where
+       
+       
+             号    represents the yield per unit area of the p-th crop in region in month .
+                  represents the planting area of the p-th crop in region in month .
+
+    微       represents the total number of types of food crops in the plantation industry.
+
+  4.1.2 Animal Husbandry Sources
+       Animal husbandry is also one of the important sources of food. It mainly includes raising
+  animals to obtain their meat, fiber, milk, eggs or other products. It is mainly distributed in some
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                             关注数学模型
+
+                                                                                                             获取更多资讯
+
+
+=== PHYSICAL PAGE 8 ===
+  Team # 2119031
+                                                  微信公众号：数学模型                   Page 8 of 25
+
+  places with a lot of suitable land, such as South America, Great Plains, Australia, etc. Here, we
+  only consider meat, eggs, and milk from animal husbandry as food sources. We define the total
+  food production of the animal husbandry industry as       in region in month as follows:
+
+                                                                                                      (2)
+
+       where
+
+
+
+                         公
+                 represents the unit meat production of the p-th animal in region     in month .
+                 represents the unit milk production of the p-th animal in region    in month .
+               represents the unit egg production of the p-th animal in region in month .
+
+
+
+
+                   ：      众
+                represents the number of breeding of the p-th animal in region in month .
+           represents the total number of species of animals raised in animal husbandry.
+
+
+
+
+                             号
+  4.1.3 Fishery Source
+
+
+
+                     M
+       Fisheries are an important source of food in most coastal countries and lake-rich countries.
+  In some Nordic countries, such as Iceland and Norway, fishery has become one of the most
+
+
+
+
+                               ：
+  important sources of food due to the excessively high latitude and the unsuitable temperature
+
+
+
+                       AT
+  for the development of plantation. It mainly includes catching fish through aquaculture. We
+  define the total food production of the fishery industry as in region in month as follows:
+
+
+
+
+                                  数
+                                                                                                      (3)
+
+
+
+                         Hm
+       where
+
+
+
+
+                                    学
+               represents the unit fish production of the p-th fish in region in month .
+                    represents the aquaculture area of the p-th fish in region in month .
+          represents the total number of species of fishes raised in fishery husbandry.
+
+
+
+                            od       模
+  4.2 Food Calorie Model Based on Correction
+
+  微
+                              els
+       In the model established in 4.1, we considered the output of different crops or animals.
+
+
+   信                                  型
+  This production model will be used in subsequent transportation and sales models. At the same
+  time, when measuring people's hunger, we must not only consider the total amount of food
+  intake, but also the calorie intake of food. As shown in Table 1, 100g of rice and 100g of beef
+  can provide different calories. Therefore, our production-based model has certain limitations.
+  For this reason, we decided to modify the above model based on calorie properties.
+       We define the correction to measure the difference in calories of different types of food.
+
+            信
+  In this paper, the calorie per 100 grams of rice is used as the benchmark value 1 to compare
+  and measure the calories of other crops or animals. We have obtained the relative value of the
+
+             号
+  calories per unit calorie of all foods as follows:
+                      Table 2 Calories and ratios of different types of food
+                    Food Type              Calorie[kJ·(100g)−1]
+
+    微               Rice
+                   Maize
+                   Sorghum
+                   Chicken
+                                          1450.5
+                                        1463
+                                        1724.6
+                                        489
+                                                                     1
+                                                                      1.008617718
+                                                                      1.188969321
+                                                                      0.337125129
+                   Beef                 1628.29                       1.122571527
+
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                            关注数学模型
+
+                                                                                                            获取更多资讯
+
+
+=== PHYSICAL PAGE 9 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                   Page 9 of 25
+
+                    Pork                 1883.6                        1.298586694
+                   Silver carp          435.32                        0.300117201
+                   Shrimp               389.28                        0.268376422
+       After calorie correction, we can get the total calorie model formula:
+
+
+
+
+                          公
+                    ：      众
+                              号
+      where
+
+
+
+                      M
+           represents the total calories of food produced in region      in month .
+               represents the total calories produced by plantation industry in region in month .
+
+
+
+
+                                ：
+               represents the total calories produced by animal husbandry industry in region
+       in month .
+       
+                        AT
+                represents the total calories produced by fishery industry in region   in month .
+
+
+
+                                   数
+             represents the caloric value of rice per 100 grams.
+
+
+
+                          Hm
+             represents the correction amount
+
+
+
+
+                                     学
+  5 Model Ⅱ: Food Transportation Process Model
+  5.1 Model Introduction
+
+
+
+  微                          od       模
+        In the food system, transportation is an important way to redistribute food. We must admit
+  that food production is unfair in different countries, even in different regions within the same
+
+
+
+                               els
+  country. Taking Japan as an example, most of its population is concentrated in economically
+
+
+   信                                   型
+  developed areas of the country such as Tokyo and surrounding areas. However, rice, which is
+  Japan's main food crop, is concentrated in the northern coastal areas such as Hokkaido.
+
+
+
+
+              信
+               号
+    微
+           Figure 4: Comparison of Japan's calorie production and population density
+
+
+微信号：MATHmodels                                                                                    2
+
+                                                                                         MATHmodels
+                                                                                                      关注数学模型
+
+                                                                                                      获取更多资讯
+
+
+=== PHYSICAL PAGE 10 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                    Page 10 of 25
+
+        Taking the economic benefits and the impact of the market into account, the uneven food
+  production space in the country and the region does not correspond to the uneven population
+  distribution, which is bound to cause a large amount of food production to be redistributed.
+  Based on this idea, we define the food transportation process model here.
+
+
+
+
+                         公
+  5.2 Calculation of Carrier Profit
+       In actual problems, the transportation of food is done by food transporters. That is, food
+
+
+
+
+                          众
+  transporters buy food from producers (farmers) and then transport them to other places for sale.
+
+
+
+                   ：
+                     M       号
+                       AT      ：
+                                  数
+                               Figure 5: Transportation flow chart
+
+
+
+                         Hm
+        Based on the real situation, the total cost of the transporter in the transportation process
+  should include the freight and the purchase price of the goods from the manufacturer, and the
+
+
+
+                                    学
+  total revenue depends on the selling price of the food in each regional market.
+
+
+
+
+                            od
+  5.2.1 Calculation of The Total Cost of The Carrier
+
+
+
+                                     模
+        The transporter will have a certain freight cost when transporting across different areas. It
+
+
+  微
+  should include transportation fuel costs and labor costs. We assume that the fuel cost is propor-
+
+
+
+                              els
+  tional to the transportation distance, and should also be proportional to the weight of the goods
+
+
+   信                                  型
+  transported. The labor cost is directly proportional to the transportation time. We ignore possi-
+  ble traffic jams and traffic accidents on the transportation road, and believe that the transporta-
+  tion time is also proportional to the transportation distance. In summary, the freight can be
+  defined as follows
+                                                                                                  (4)
+        where
+       
+            信   represents the freight cost from region to region .
+       
+       
+             号
+             represents the weight of the transported goods.
+             represents the proportional coefficient of fuel cost to transportation distance and
+       cargo weight.
+
+
+    微  
+       
+             represents the labor cost required for unit distance transportation.
+              represents the transportation distance from region to region .
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 11 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                      Page 11 of 25
+
+  5.2.2 Calculation of The Total Revenue of The Carrier
+       We first calculate the acquisition cost of the transporter for one shipment of goods. In
+  general, the transporter only transport one type of goods at a time, and the acquisition volume
+  is equal to the production volume of the 4.1 model. Therefore, our acquisition cost defines the
+  acquisition cost of a single food.
+
+
+
+
+                         公
+                                                                                                        (5)
+
+       where
+              represents the acquisition cost of the acquisition goods in region in month .
+
+
+
+
+                   ：      众
+            represents the acquisition proportion of production food in region in month ..
+             represents the unit price of the acquisition cost of the p-th food.
+           represents the total number of food types.
+
+
+
+                             号
+       Then, we calculate the sales revenue of the transporter as shown below:
+
+
+
+                     M                                                                                  (6)
+
+
+
+
+                       AT      ：
+       where
+            represents the sales volume of p-th food in region          in month ..
+              represents the sale price of p-th food in region        in month .( The specific defi-
+
+
+
+                                  数
+       nition will be shown in model Ⅲ)
+
+
+
+                         Hm
+       Then the total profit of one transportation of the carrier is
+
+
+
+                                    学
+                                                                                                        (7)
+      where
+               represents the profit of the transporter buying food in region and selling food
+
+
+
+                            od       模
+      in area in month ..
+
+
+
+  微
+  5.3 Transportation Selection Algorithm Driven by Profit Optimization
+
+
+   信                          els     型
+        In most countries, food is distributed based on the market, which is in line with the current
+  national food system model that prioritizes efficiency and profitability. That is, the transporter
+  conducts food transportation on the principle of maximizing personal interests.
+        Considering that there may be tens of thousands of food transporters in a country, and
+  there are many food production places, it is unrealistic to model each transporter and each
+  production place. In the glossary, we define the living area. The transporters in the same living
+
+            信
+  area have the same freight when transporting to other living areas, and the prices for purchasing
+  and selling food in this living area are equal, so we can determine that their interests are com-
+
+             号
+  mon. Based on this idea, we abstracted each living area as a transporter for transportation, and
+  set up a transportation selection algorithm driven by profit optimization.
+        For the p-th food, the algorithm simulates the simulation scenario of food transportation
+
+    微
+  between transporters in various regions of the country. The output of the algorithm is a -by-
+     -dimensional matrix . Each row of the matrix represents the total amount of p-th food
+  allocated to a single area of the country as the time goes by. Assuming that the country has a
+  total of     living areas, the specific algorithm is as follows:
+
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                              关注数学模型
+
+                                                                                                              获取更多资讯
+
+
+=== PHYSICAL PAGE 12 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                     Page 12 of 25
+
+   Algorithm 1: Transportation Selection Algorithm Driven by Profit Optimization
+   Input:
+   Output:
+   for          to     do
+         for      to     do
+           Define        # Define area maximum profit value and area number.
+
+
+
+                           公
+           for        to    do
+             Calculate       based on the equation (7).
+             if
+
+
+
+         End
+                     ：      众    # Record area maximum profit value and area number.
+
+
+
+
+                               号
+         Update      based on the amount of food transported.
+
+
+
+                       M
+       End
+      Update the price of each food in each living area base on model Ⅲ.
+
+
+
+
+                         AT      ：
+   end
+
+  6 Model Ⅲ: Food Sale Process Model Based on Market Price
+
+
+
+                           Hm       数
+        As the last link in the food system, the main form of sale is the free circulation of food in
+  the market, which makes the food distribution process relatively convenient and efficient. At
+
+
+
+                                      学
+  the same time, the fluctuation of the market price of food also actually affects the residents'
+  ability to buy food, and plays a vital role in the evaluation of the number of hungry people in
+
+
+
+
+                              od
+  the region.
+
+
+
+                                       模
+  6.1 Food Price Fluctuation Model
+
+
+  微     In a market economy, prices are determined by the relationship between supply and de-
+
+
+
+                                els     型
+  mand. All the food will eventually flow into the market for sale after being transported.
+
+   信    According to the definition of living area in Model II, the price of the same food in a living
+  area is the same by default. According to the law of supply and demand and market equilibrium,
+  commodity prices fluctuate continuously. Generally speaking, when supply exceeds demand,
+  prices fall; when supply falls short of demand, prices rise. In order to quantify it, we visualized
+  the analogy supply and demand model and established the food differential equation as follows:
+
+
+              信
+      where
+              号     represents the supply of p-th food in the market of    living area in month
+
+
+    微    
+         
+                        represents the demand of p-th food of living area in month .
+                represents the influence coefficient of a supply-demand relationship on prices, usu-
+         ally related to national policies and stability.
+               represents the initial price of the p-th food in the living area .
+
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 13 ===
+  Team # 2119031
+                                                  微信公众号：数学模型                    Page 13 of 25
+
+        For supply, we have defined and quantified it in Model Ⅱ, which is determined based on
+  the cost and benefit of the transporter.
+        For the demand, it is obvious that this is positively related to the total population in the
+  current living area. At the same time, the higher the food market price, the more demand there
+  is a downward trend. Food is the necessities of life for residents. As the price increases, the
+  elasticity of the decrease in demand is low. Based on this logical relationship, we define the
+
+
+
+                         公
+  demand as follows:
+
+      where
+
+
+
+                          众
+                  represents the total population of the living area in month .
+
+
+
+                   ：
+                represents the scale factor.
+      In summary, we have established a price-time fluctuation model for a specific product in
+
+
+
+                             号
+  a specific living area.
+
+
+
+                     M
+  6.2 People Food Expenditure
+
+
+
+                       AT      ：
+      For every citizen, we believe that part of their income is used for food. Due to the differ-
+  ences in the incomes of different people, we believe that these incomes are independent and
+
+
+
+
+                                  数
+  identically distributed, and use the normal distribution to estimate the specific income of each
+  person.
+
+
+
+                         Hm
+      where
+                                    学
+                            od       模
+             represents the average income of people in area in month .
+           represents the fluctuation of income with the mean.
+
+
+  微
+                              els     型
+  6.3 People Food Selection Algorithm
+
+   信    In response to hunger, we refer to the United Nations Food and Agriculture Organization
+  (FAO) standard. An average daily calorie intake of 1,800 kcal is the minimum requirement for
+  personal health and effective life, while means people with an average daily calorie intake of
+  less than 1,800 kcal are hungry Population[6].
+        We set up the people food selection algorithm. The algorithm simulates the simulation
+
+
+             信
+  scenarios of people with different incomes buying food for all the population in the area. The
+  output of the algorithm is an -by- -dimensional matrix. Each row of the matrix represents
+
+
+              号
+  the number of hungry people in a single living area of the country as time goes by. Assuming
+  that the country has living areas, the specific algorithm is as follows:
+
+
+
+    微
+   Algorithm 2: People food selection algorithm
+   Input:
+   Output:
+   for        to      do
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 14 ===
+  Team # 2119031
+                                                 微信公众号：数学模型                   Page 14 of 25
+
+      for         to      do
+         for every individual in the area:
+          if this person is rich:
+            Randomly buy food until personal calorie needs are met.
+          if this person is poor
+            Prioritize the purchase of high-calorie foods until personal calorie needs are met
+      or the money runs out
+
+
+
+                          公
+         End
+       Determine whether the person meets the minimum calorie requirement. If not meet,
+      update .
+
+
+
+
+                           众
+      End
+
+
+
+                    ：
+      Update                      .
+
+
+
+
+                              号
+   end
+
+
+
+
+                      M
+  7 Indicator Definition
+
+
+
+                        AT      ：
+  7.1 Sustainability Indicator
+  7.1.1 Indicator Selection
+
+
+
+
+                                   数
+        Sustainable development, as Mrs. Brent famously said, it is "development that not only
+  satisfies the needs of contemporary people, but does not endanger the ability of future genera-
+
+
+
+                          Hm
+  tions to meet their needs." It generally includes economic sustainability, ecological sustaina-
+
+
+
+
+                                     学
+  bility and social sustainability [4][5]. For the food system, it is more embodied in ecological
+  sustainability, that is, to measure some of the environmental impacts caused by the food system.
+        We use greenhouse gas emissions, cultivated land area and water usage as indicators to
+
+
+
+                             od       模
+  quantify sustainability. The specific definitions are as follows:
+
+
+
+  微
+   信                           els     型
+         where
+               represents the total     output of the country’s food system in month .
+         
+              信represents the cultivated land area of the country’s food system in month .
+         
+
+               号 represents the total water usage of the country’s food system in month .
+  7.1.2 Entropy method to determine indicator weight
+       As an objective weighting method, the entropy method determines the weight of the indi-
+
+    微
+  cator based on the information provided by each indicator data.
+       Normalize and standardize all indicators to get            .
+       ➢ Calculate the probability of the -th sample under -th item.
+
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 15 ===
+  Team # 2119031
+                                                  微信公众号：数学模型                  Page 15 of 25
+
+
+
+
+       ➢ Calculate the information entropy of each indicator.
+
+
+
+
+                         公
+       ➢ Calculate the weight of each indicator.
+             The greater the information entropy, the less the information of the indicator has,
+         so the weight is also less. We define the information utility value to get the weight of
+
+
+
+
+                          众
+         each indicator.
+
+
+
+
+                   ：
+                     M       号
+      Based on the above weight determination, we can define the sustainability indicator of a
+  country in the month as
+
+
+
+
+                               ：
+                                                                                                    (8)
+  7.2 Equity Indicator
+
+                       AT
+      Regarding equity, we understand that every citizen can eat food fairly and will not be
+
+
+
+                                  数
+  hungry because of excessive prices or insufficient food supplies. According to Model Ⅲ, we
+
+
+
+                         Hm
+  have calculated the matrix , then the hungry population in all regions of a country in month
+   can be expressed as:
+
+
+
+                                    学
+                            od
+       Then the equity indicator        of the country in month   can be defined as:
+
+
+
+                                     模
+                                                                                                    (9)
+
+
+  微    where
+
+
+
+                              els
+               represents the total population of the country.
+
+
+   信                                  型
+  7.3 Profitability Indicator
+       In the food system we defined above, the profitability indicator can be quantified as the
+  difference between the total price of food sold in the market and the cost of food production.
+  We define the country’s profit in month t as follows:
+
+
+
+       where信                                                                                       (10)
+
+
+
+
+             号
+           represents the sales revenue of the p-th food in the country.
+           represents the production cost of the p-th food in the country.
+
+
+   微
+  8 Case Study: India and France
+       In order to verify our food system model and solve the problems raised, we chose two
+  typical countries to apply our model :India and France.
+
+
+
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 16 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                   Page 16 of 25
+
+  8.1 National Current Food System Evaluation
+       Before applying our food system to countries, we determine the meaning of living areas.
+  The living areas under the model establishment are determined here as the provinces of the
+  country. Because if the living area is defined in a smaller spatial scale, its data is difficult to
+  collect and cannot be modeled; if a larger spatial scale is selected, the error is too large.
+
+
+
+
+                         公
+       The data applied in the two countries are based on the data of 2019, and the corresponding
+  number of living areas are defined for the two countries according to the number of provinces
+  in the model.
+
+
+
+
+                          众
+  8.1.1 Results of Model Ⅰ
+
+
+
+                   ：
+       In order to obtain the distribution of food production and food calories in the two countries,
+  we found the common food sources in France and India. Here, we only count foods that account
+
+
+
+
+                             号
+  for more than 1%. As shown in Figure 6, French food mainly includes barley, wheat, and corn,
+
+
+
+                     M
+  while Indian food mainly includes rice, corn, barley, wheat, and sorghum.
+
+
+
+
+                       AT      ：
+                         Hm       数
+                                    学
+  微                         od       模
+                    Figure 6: National yield comparison of food production
+       It can be seen from the distribution of food production that both France and India have a
+
+
+
+                              els
+  large amount of wheat in their food production. And India also has nearly half of the total food
+
+
+   信                                  型
+  production of rice.
+
+
+
+
+            信
+             号
+    微
+                 Figure 7: Distribution of calorie production in two countries
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                       关注数学模型
+
+                                                                                                       获取更多资讯
+
+
+=== PHYSICAL PAGE 17 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                    Page 17 of 25
+
+        As shown in Figure 7, the main food calorie in France is concentrated in the north, where
+  the terrain is mostly plain and suitable for the development of animal husbandry and planting.
+  It also matches the information we have consulted. The distribution of food calorie in India is
+  concentrated in the northeastern plains suitable for growing food. However, in terms of per
+  capita calories, India and France have a certain degree of gap, because India has a much larger
+  population density than France.
+
+
+
+                         公
+  8.1.2 Results of Model Ⅱ
+        In order to clarify the distribution of food in the two countries, we first abstract the dis-
+  tance between the living areas as the straight-line distance between the capitals of different
+
+
+
+
+                          众
+  provinces. At the same time, for the acquisition price and sale price of the p-th food in living
+
+
+
+                   ：
+  area in month , we refer to the data of the National Bureau of Statistics of the two countries
+  in 2019[2][3]. For the parameters        , we also query the data to determine them accordingly.
+
+
+
+
+                             号
+        We substituted the data into Model 2, and obtained the food transportation situation in
+
+
+
+                     M
+  each living area of the two countries one year later. In order to make the display of food distri-
+  bution results more vivid, we use the difference between food calorie transport and production
+
+
+
+
+                               ：
+  in a living area as its annual net calorie input. The results are shown in the following table 3:
+
+
+
+                       AT
+               Table 3: net calorie input in different living areas in two countries
+
+
+
+
+                         Hm       数
+                                    学
+  微                         od       模
+   信                          els     型
+       It can be seen that India's food calorie inflow and outflow are significantly less (compared
+  to the huge food production). We believe that this is because India’s uneven food space is not
+  a serious problem. And on the other hand, India’s infrastructure is insufficient and the cost of
+  food space allocation is too high. In France, the net food calorie input value is even mostly
+  negative. We consulted the data and found that the self-sufficiency rate of food in France is too
+
+
+            信
+  high, and most of the food is used for export, which also confirms the match between our model
+  and reality.
+
+
+             号
+  8.1.3 Results of Model Ⅲ
+       In order to get the hungry population in the two countries in detail, we found the popula-
+
+
+    微
+  tion data of the provinces of the two countries[4][5]. Then, for each region, we obtained the
+  estimated value of the hungry population in each region through the supply-demand relation-
+  ship model and the food selection algorithm. The specific results are shown in the following
+  figure:
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 18 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                    Page 18 of 25
+
+
+
+
+                         公
+                   ：      众
+                             号
+                    Figure 8: Distribution of hungry people in two countries
+
+
+
+                     M
+        As shown in Figure 8, both countries have different levels of hungry people. The hungry
+  people in India are mainly concentrated in the central and northern regions. We speculate that
+
+
+
+
+                       AT      ：
+  this may be due to insufficient food production in these areas. Moreover, it is located in a
+  mountainous area, which causes the cost of food transportation is high. The transporters will
+  not tend to transport food to this place based on the choice of interests, which leads to an in-
+
+
+
+                                  数
+  crease in hungry people. The hungry population in France is mainly concentrated in the south-
+
+
+
+                         Hm
+  east. We believe that this is because it is close to Marseille, an important export port in France.
+  The income from exporting food may be much higher than selling locally, so most of the food
+
+
+
+                                    学
+  is exported. Exports lead to insufficient local food production, and the region is located in the
+  Alps. The cost of transporting to this region from other regions is too high, resulting in a short-
+  age of local food.
+
+
+
+                            od       模
+  8.2 Optimize for Equity and Sustainability
+
+
+  微    Here, based on our food system model, optimization models are established in France and
+
+
+
+                              els
+  India to optimize the food system in the direction of equity and sustainability.
+
+
+   信                                  型
+       First, we determine the weight parameters in the sustainability indicator. Based on the
+  sustainability indicator data of the last 10 years, we use the entropy weight method in 7.1.2 to
+  determine the weight of the indicator for evaluating the level of sustainability in France and
+  India as
+
+  8.2.1 Optimization Model Based on Multi-objective Programming
+
+            信
+       According to potential analysis, equity and sustainable optimization will inevitably harm
+  the profits of the food system. In order to prevent the unlimited optimization of equity and
+
+             号
+  sustainable indicators, we determined that the profit of the food system during the optimization
+  process should not be less than 0. At the same time, equity and sustainable optimization are in
+
+
+    微
+  conflict to a certain extent. For example, for sustainable optimization, it will tend to reduce the
+  production of food to improve the environment, but this will certainly further aggravate the
+  unfairness of food distribution in underdeveloped countries. In order to weigh the two aspects,
+  we set the objective function as:
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 19 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                     Page 19 of 25
+
+
+
+
+                          公
+       where
+                represents the average value of the equity indicator of each country in 5 years.
+                      represents the average value of the sustainability indicator of each country
+
+
+
+                           众
+       in 5 years.
+
+
+
+                    ：
+             represents the total number of living areas.
+             represents the total number of food types.
+
+
+
+
+                              号
+        Dividing by the average is the main method to remove dimensions and transform multi-
+
+
+
+                      M
+  objective optimization into single-objective optimization. At the same time,             represents
+  only sustainable-oriented optimization, and          represents only fair-oriented optimization.
+
+
+
+
+                        AT      ：
+  8.2.2 Optimized result
+        In order to make the model more universal, we traverse the value of        from 0 to 1, taking
+  0.1 as the interval. Since the value of the equity indicator depends on the hungry population,
+
+
+
+                                   数
+  and it cannot be expressed by a specific formula, which needs to be obtained through the sim-
+
+
+
+                          Hm
+  ulation operation of the food system through the Matlab code. We used genetic algorithm to
+  approximate the optimal solution of the model.
+
+
+
+                                     学
+        The parameters of our optimization model include cultivated land area, percentage of cul-
+  tivated land types, unit output, labor cost indicator, fuel cost indicator, market adjustment pa-
+  rameters, distribution income variance, and time. Although these are not quantified in the form
+
+
+
+                             od       模
+  of formulas in the above constraints, they are either components of sustainability indicators, or
+  parameters in the simulation model for calculating equity indicators, and need to be run in the
+
+  微
+  food system model.
+
+
+
+                               els     型
+        In this part, we will only show the results after the same degree of optimization for equity
+
+   信
+  and sustainability, and give our analysis.
+          Table 4: Change in sustainability indicators and the proportion of the poor
+
+
+
+
+            信
+             号
+    微
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 20 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                     Page 20 of 25
+
+        As shown in Table 4, for France, before and after the optimization, the country's overall
+  arable land area changed little, with only a slight decrease, reducing 6.7%. Because France's
+  current food production is very sufficient, the result of the optimization is not caused by the
+  reduction of food production. For India, as the optimization proceeds, the land area has in-
+  creased to a certain extent, increasing by 11.1%. We believe that the increase in equity indica-
+  tors brought about by the increase in land area is greater than the decline in sustainable indica-
+  tors.
+
+
+
+                          公
+        In terms of indicators for measuring environmental factors, both countries have declined
+  to varying degrees. Among them, France's decline was much larger than that of India. As shown
+  in the table 4,        in France has dropped from 3.7 million tons per month to 2.7 million tons
+
+
+
+
+                           众
+  per month, and water usage has dropped from 5.762 billion per month to 4 billion per
+
+
+
+                    ：
+  month. In India,          dropped from 2.4791 million tons per month to 2.307 million tons per
+  month, water usage has dropped from 40.33 billion          per month to 38 billion per month.
+
+
+
+                              号
+  In fact, this is because the current food level in France is sufficient for self-sufficiency. If the
+
+
+
+                      M
+  area of arable land and the number of livestock breeding are reduced to improve the environ-
+  mental level, it will not cause the increase of hungry people, but India is different. When im-
+
+
+
+
+                                ：
+  proving environmental factors, we must also take equity into account. Because of the consid-
+
+
+
+                        AT
+  eration of whether food production is sufficient for the domestic population, the increase should
+  be small.
+        As for the hungry people, we found that the total number of hungry people in France and
+
+
+
+                                   数
+  India has decreased to a certain extent. Due to the small base of hungry people in France, the
+
+
+
+                          Hm
+  reduction was not obvious, from 0.5 million to 0.47 million. The optimization effect in India is
+  very significant. The number of hungry people has been reduced from 189.6 million to 150.5
+
+
+
+                                     学
+  million, which has effectively improved the issue of food equity.
+
+
+
+
+  微                          od       模
+   信                           els     型
+            信
+       Figure 9: Changes of crop yield before and after optimization in two countries
+
+
+
+             号
+        As shown in Figure 9, in terms of land structure, French bean planting area has increased
+  substantially. For India, the land area of maize and barley has been greatly reduced, while the
+  land area of wheat has increased significantly. We speculate that the higher calories per unit
+
+    微
+  output of beans and wheat will make a greater contribution to promoting equity, that is, freeing
+  more people from hunger. At the same time, its unit area has less pollution than others, which
+  will increase the sustainability level.
+
+
+
+
+微信号：MATHmodels                                                                                      2
+
+                                                                                           MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 21 ===
+  Team # 2119031
+                                                 微信公众号：数学模型                   Page 21 of 25
+
+        The differences in food system optimization will be described below.
+       We decided to quantify the changes in specific parameters in the food system model. The
+  values of our model parameters before and after optimization are shown in the following table:
+                      Table 5: Model parameter change in two counties
+                 Before optimization                   After optimization
+
+
+
+       India
+                         公
+              37.26708 6.584
+       France 25.46583 6.128
+                                     5.591
+                                     5.272
+                                               3.76
+                                               2.11
+                                                        21.73913 5.923
+                                                        20.52795 5.762
+                                                                              4.821 3.761
+                                                                              4.837 1.11
+
+
+
+
+                   ：      众
+       In terms of market adjustment parameter , the changes in France are relatively small,
+  while the changes in India are relatively large. We believe that lowering the market adjustment
+
+
+
+                             号
+  parameter and slowing down the extent of changes in food prices with the relationship between
+
+
+
+                     M
+  supply and demand will help transporters not be inclined to transport food to one place at the
+  same time, thus avoiding food waste in a place.
+       In terms of the average labor cost parameter and fuel parameter , we found that the
+
+
+
+                       AT      ：
+  parameters of both countries have dropped to a certain extent. In fact, reducing labor cost pa-
+  rameter and fuel parameter will reduce the cost of long-distance transportation by transporters,
+  which will increase the willingness of transporters to transport food to long-distance areas and
+
+
+
+                                  数
+  promote the rational distribution of food.
+
+
+
+                         Hm
+       In the variance parameter of income distribution , we also found that both countries have
+  a certain degree of reduction. According to common sense, the smaller the variance, the smaller
+
+
+
+                                    学
+  the overall gap between rich and poor, and more poor people can have enough money to buy
+  food.
+
+
+
+
+                            od
+        The time need to spend in food system optimization will be described below.
+
+
+
+                                     模
+       We take the December 2019 data of
+
+
+  微
+  India and France as the starting point, and
+
+
+
+                              els
+  then use the parameters estimated by the
+
+
+   信                                  型
+  above model to substitute into the food
+  system. We get our objective function op-
+  timization value over time as shown in the
+  following figure 10:
+       As shown in Figure 10, we simulated
+  the situation in the next 5 years (70
+
+            信
+  months) and found that the value of France
+  began to rise in the 37th month. In the
+
+             号
+  same way, India has steadily increased in
+  the 43rd month.                          Figure 10: Change curve of objective function value
+       Of course, the time considers that all the above parameters (such as land structure, etc.)
+
+    微
+  can be completed instantaneously. In actual problems, the implementation of the corresponding
+  parameters may take a certain amount of time.
+
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 22 ===
+  Team # 2119031
+                                                 微信公众号：数学模型                   Page 22 of 25
+
+        The benefits and costs in food system optimization will be described below.
+       Based on the benefit indicators we determined in 7.3 and combined with the actual opera-
+  tion of the food system model, we substi-
+  tuted the parameters optimized for equity
+  and sustainability into the model, and ob-
+  tained the line chart of the profit and cost
+
+
+
+                         公
+  of France and India with the time of the
+  year.
+       As shown in Figure 11,after optimiza-
+
+
+
+                          众
+  tion, the profit of its food system has de-
+
+
+
+                   ：
+  clined. However, the rate of decline in In-
+  dia far exceeds that of France. In terms of
+
+
+
+                             号
+  cost increase, India also increased more
+
+
+
+                     M
+  than France. At the same time, according
+  to our model, they occured in the 19th and
+
+
+
+
+                       AT      ：
+  29th months respectively.                        Figure 11: Change curve of cost and benefit
+       In order to avoid the influence of errors caused by individual countries, we have selected
+  5 major developed countries and 5 major developing countries. According to our food system
+
+
+
+                                  数
+  model, we calculated their costs and profits before and after optimization. The change trend is
+
+
+
+                         Hm
+  shown in the figure below:
+
+
+
+
+                                    学
+  微                         od       模
+   信                          els     型
+          Figure 12 : Diagram of cost and benefit optimization in multiple countries
+
+
+            信
+       It can be seen that the upper left part of the figure 12 is some developed countries, such
+  as Germany, Japan, Canada, etc.; the lower right part is some developing countries such as
+
+
+             号
+  China and India. On the whole, it can be found that the profit decline and cost increase in
+  developed countries before and after the optimization are not large. But the profit decline and
+  cost increase in developing countries are much larger than those in developed countries. This
+
+    微
+  is because developing countries lag behind developed countries in terms of science and tech-
+  nology, and most of them have a large population, so sustainability and equity problems are
+  serious. For sustainable and equity optimization, it will inevitably bring some higher costs and
+  lower profits.
+
+
+
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 23 ===
+  Team # 2119031
+                                                    微信公众号：数学模型                     Page 23 of 25
+
+  8.3 Policy Suggestion
+       Provide subsidies for transportation and strengthen infrastructure.
+        From our model, we can see that the hungry population before and after the optimiza-
+        tion has dropped to a certain extent. This is largely due to the improvement of labor
+        cost and fuel cost parameters in the transportation process to reduce freight. We be-
+
+
+
+
+                          公
+        lieve that the government can effectively reduce transportation costs by subsidizing
+        transporters and strengthening infrastructure construction, thereby making transport-
+        ers more willing to transport to remote areas and alleviating the "last mile" problem.
+
+
+
+
+                           众
+       Adjust market fluctuations and income distribution.
+
+
+
+                    ：
+        In our model, the reduction of sensitive parameter of market food prices to supply
+        and demand can optimize the food system. We believe that lowering this parameter is
+        essentially a means of adjusting market price fluctuations. If market price fluctuations
+
+
+
+                              号
+        are made more stable, more poor people can have enough money to buy food, thereby
+
+
+
+                      M
+        alleviating hunger problem. At the same time, reducing the variance of income distri-
+        bution is essentially reducing the country's wealth gap. If the country’s gap between
+
+
+
+                                ：
+        the rich and the poor is too high, some particularly poor people cannot afford to buy
+
+
+
+                        AT
+        basic food.
+       Reduce the area of arable land.
+        In our optimization model, the optimization for India and France ultimately tends to
+
+
+
+                                   数
+        reduce the area of arable land. Although reducing the area of arable land may aggra-
+
+
+
+                          Hm
+        vate the problem of food inequity to a certain extent, we still believe that the increase
+        in sustainability brought by reducing the area of arable land is much higher than this.
+
+
+
+                                     学
+        Regarding the issue of food equity, we believe that this can be solved by improving
+        unit production through transportation and mechanization.
+       Improve the level of mechanization.
+
+
+
+                             od
+        Although the use of mechanization is not quantified in our model, we think this is a
+
+
+
+                                      模
+        very important point, especially for developing countries. By increasing the level of
+
+
+  微     mechanization in the food system, food production can be increased without increas-
+        ing the area of arable land, thereby improving equity while minimizing the impact on
+
+
+
+                               els     型
+        sustainable levels.
+
+   信
+  9 Scalability and Adaptability Analysis
+        First, we believe that our model will perform better on a smaller food system. Based on
+  the definition of the living area of our model, it will be more accurate if it is in a smaller spatial
+
+
+             信
+  dimension. We currently use a province as a living area, but in fact that the transportation cost
+  in the province is not negligible, and the price of the same food in the province is also difficult
+  to approximate the same. If the living area is applied to the spatial dimension such as the village,
+
+              号
+  the accuracy will be much improved. Of course, this may cause problems such as difficulty in
+  data collection and running models.
+
+
+    微   On larger food systems, our model can also perform well. If we apply our model to the
+  world, we can consider the exchanges and trade between countries in more detail. Of course,
+  there is a shortcoming in the larger food system, that is, our optimization is based on the sus-
+  tainability and equity of the entire world. However, in terms of specific countries, their sustain-
+  ability and equity levels may decline. The reality is not in their interests.
+
+
+微信号：MATHmodels                                                                                        2
+
+                                                                                             MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 24 ===
+  Team # 2119031
+                                                   微信公众号：数学模型                    Page 24 of 25
+
+       In terms of adaptability to other countries or regions, we believe that the model can be
+  suitable for most countries and regions. But for some extreme places, we need special consid-
+  eration.
+       We tried to apply our model to Somalia, but we got a series of data that are quite different
+  from the real data. We analyzed its internal reasons in depth and concluded that when food is
+  transported, the transportation cost is not only related to the long distance, but also to some
+
+
+
+                         公
+  special terrain.
+       Based on this, we believe that our model can be improved. For example, the transportation
+  cost in the process of food transportation must consider not only the transportation distance,
+
+
+
+                          众
+  but also the terrain and road smoothness to modify the transportation cost model.
+
+
+
+                   ：
+  10 Model Evaluation
+
+
+
+                     M       号
+  10.1 Strengths
+       ⚫   We model the food system separately according to the production, transportation, and
+
+
+
+                       AT      ：
+           sale links, and more fully identify the key links of the food system.
+       ⚫   We quantify indicators such as sustainability, equity, and profitability, and visualize
+           various scenarios of optimization, which intuitively reflect optimization phenomena.
+
+
+
+                                  数
+       ⚫   We design simulation algorithms to simulate the transportation scenarios of transport-
+
+
+
+                         Hm
+           ers and the shopping scenarios of people, which is close to real life and has certain
+           reference significance.
+
+
+
+                                    学
+  10.2 Weaknesses
+       ⚫   Considering the actual country’s transportation model, we regard each province as a
+
+
+
+                            od       模
+           living area for data reasons, which affects the simulation accuracy to a certain extent.
+       ⚫   The price of food in the market only considers the relationship between supply and
+
+  微        demand, without considering more factors.
+
+
+
+                              els     型
+       ⚫   The distance between different living areas is measured by straight-line distance,
+
+
+   信       without considering the actual terrain factors.
+
+  11 Conclusion
+        In summary, the food system is not a system that can be simply measured by a single
+  model. On the contrary, it needs to refine its food production, transportation, and sales pro-
+
+            信
+  cesses, and then build models separately. We separately modeled its production, transportation,
+  and sales in model Ⅰ, and analyzed various possible situations. Then, we established indicators
+
+             号
+  for evaluating this food system in indicator definition, including sustainability, equity and prof-
+  itability. Subsequently, we established a planning model to optimize the equity and sustaina-
+
+
+    微
+  bility of the food system. Finally, in case study, we substituted the conditions of two real coun-
+  tries-India and France, and optimized them according to the weight of equity and sustainability.
+  We got the conclusion in result presentation, including what happened, the difference of the
+  food system and how long it occur. We also optimized traversal when equity and sustainability
+
+
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                        关注数学模型
+
+                                                                                                        获取更多资讯
+
+
+=== PHYSICAL PAGE 25 ===
+  Team # 2119031
+                                                 微信公众号：数学模型                   Page 25 of 25
+
+  account for different weights, and obtained changes in the benefits and costs of different coun-
+  tries.
+         We applied model migration to larger or smaller systems, and it performed well. Moving
+  to some special countries, we made some corrections. In general, our model has a relatively
+  good performance in defining and evaluating the food system. Through our model, a country’s
+  food system can be effectively measured and optimized.
+
+
+
+  References
+                         公
+                   ：      众
+  [1] The 2021 Food Systems Summit, United Nations, 2020. Retrieved from:
+      ‘https://www.un.org/sustainabledevelopment/food-systems-summit-2021/’
+
+
+
+
+                             号
+  [2] Transforming Food Systems for Affordable Healthy Diets, United Nations, 2020. Re-
+
+
+
+                     M
+      trieved from: ‘http://www.fao.org/publications/sofi/en/’
+  [3] Food, United Nations. Retrieved from: ‘https://www.un.org/en/sections/issues-
+
+
+
+
+                               ：
+      depth/food/index.html’
+
+
+
+                       AT
+  [4] Marco Springmann. Options for keeping the food system within environmental limits[J].
+      NATURE, 2018, 33(562): 519-542.
+
+
+
+
+                                  数
+  [5] Abhishek Chaudhary, David Gustafson, Alexander Mathys. Multi-indicator sustainability
+      assessment of global food systems[J]. nature communications, 2018, 9: 1-13.
+
+
+                         Hm
+  [6] José Luis Vicente-Vicente, Annette Piorr. Can a shift to regional and organic diets reduce
+
+
+
+
+                                    学
+      greenhouse gas emissions from the food system? A case study from Qatar[J]. Carbon Bal-
+      ance and Management, 2021, 16(2): 2-19.
+
+
+
+
+  微                         od       模
+   信                          els     型
+            信
+             号
+    微
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯

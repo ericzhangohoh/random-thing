@@ -1,0 +1,1234 @@
+=== PHYSICAL PAGE 1 ===
+                                          Team Control Number
+
+     For office use only
+     T1 ________________
+     T2 ________________
+                                          46634                                For office use only
+                                                                               F1 ________________
+                                                                               F2 ________________
+     T3 ________________                                                       F3 ________________
+                                             Problem Chosen
+     T4 ________________                                                       F4 ________________
+                                                   F
+                                                2016
+                                              MCM/ICM
+                                           Summary Sheet
+         (Your team's summary should be included as the first page of your electronic submission.)
+
+                        Type a summary of your results on this page. Do not include
+                      the name of your school, advisor, or team members on this page.
+
+
+
+                   Modeling to Refugees Policies
+                                          Summary
+      With thousands of refugees moving across Europe and more arriving each day,
+considerable attention has been given to refugee integration policies and practices in many
+countries and regions. We build a series of models to explore the factors involved with
+facilitating the movement of refugees from their countries of origin into safe haven countries.
+     Firstly, we optimize the Control Variable algorithm to build a model to analyze the
+measures and parameters of the crisis. We set factors such as the psychological quality and
+faith of refugees, the resources and refugee policy of the refugee-receiving country, the
+refugees’ saturation of the refugee-receiving country and the natural disaster or terrorist.
+Finding out that every factor is of crucial importance, and the more favorable the conditions
+are, the more likely the refugees move to the safe countries.
+     Secondly, we use the index set above to analyze the flow of refugees. From the optimized
+Small World Network algorithm, we find that there are 637000 refugees arriving EU a year,
+among them, 311000 refugees will transfer via Eastern Mediterranean, 221000 refugees via
+West Mediterranean, 45000 refugees via West Balkans, 32000 refugees via Eastern Borders,
+18000 refugees from Albania to Greece, and 10000 refugees via Central Mediterranean. And
+the transfer rate should be controlled below 50187 per month.
+      Thirdly, we consider the parameters set in task 1 are dynamic, finding out that our model
+is also applicative while we should adjust the details in our model.
+     Finally, we make a report to discuss our model in detail and raise the needed policy
+support. We analyze the impact of exogenous events as well. Meanwhile, we state the
+scalability of our model. Then we believe that our model can solve most of the problems.
+     In the end, we analyze the stability and sensitivity of model. We also conclude the
+strengths and weaknesses of our model. Further, the accuracy of our model needs improving.
+
+
+=== PHYSICAL PAGE 2 ===
+Team#46634                                                                            page 1 of 22
+
+
+Introduction
+ Background
+     With hundreds of thousands of refugees moving across Europe and more arriving each
+day, considerable attention has been given to refugee integration policies and practices in
+many countries and regions. History has shown us that mass fleeing of populations occur as a
+result of major political and social unrest and warfare. These crises bring a set of unique
+challenges that must be managed carefully through effective policies. Events in the Middle
+East have caused a massive surge of refugees emigrating from the Middle East into safe
+haven countries in Europe and parts of Asia, often moving through the Mediterranean and
+into countries such as Turkey, Hungary, Germany, France, and UK. By the end of October
+2015, European countries had received over 715,000 asylum applications from refugees.
+Hungary topped the charts with nearly 1,450 applications per 100,000 inhabitants, but with
+only a small percentage of those requests granted (32% in 2014), leaving close to a thousand
+refugees homeless per every 100K residents of the country. Europe has established a quota
+system that each country has agreed to take in a particular number of refugees, with the
+majority of the resettlement burden lying with France and Germany.
+
+ Our Work
+     Firstly, we optimize the Control Variable algorithm to build a model to analyze the
+measures and parameters of the crisis. We set the psychological quality of refugees, the faith
+of the refugees, the material and financial resources of the refugee-receiving country, the
+refugee policy of the refugee-receiving country, the refugees saturation of the refugee-
+receiving country and the natural disaster, terrorist as factors, finding out that every factor is
+important to the crisis, and the more favorable the conditions are, the more likely the refugees
+move to the safe countries.
+     Secondly, we use the index set above to analyze the flow of refugees. From the optimized
+Small World Network algorithm, we find that there are 637000 refugees arriving EU a year,
+among them, 311000 refugees will transfer via Eastern Mediterranean, 221000 refugees via
+West Mediterranean, 45000 refugees via West Balkans, 32000 refugees via Eastern Borders,
+18000 refugees from Albania to Greece, and 10000 refugees via Central Mediterranean. And
+the transfer rate should be controlled below 50187 per month.
+      Thirdly, we consider the parameters set in task 1 are dynamic, finding out that our model
+is also applicable while we should adjust the details in our model.
+     Finally, we make a report to discuss our model in detail and raise the needed policy
+support. We analyze the impact of exogenous events as well. Meanwhile, we state the
+scalability of our model. Then we believe that our model can solve most of the problems.
+Assumptions
+     Ignore the slim refugees country. The countries that have few refugees or receive few
+refugees do not have much influence on our model.
+     Ignore the time of preparation for transfer. The time of preparation for transfer cannot
+determine its significance completely, and we take the time of preparation for transfer into
+consideration when we discuss the mutual reference of all work.
+
+
+=== PHYSICAL PAGE 3 ===
+Team#46634                                                                            page 2 of 22
+
+   Table 1 shows the definitions of the symbols.
+                          Table 1 Symbol definition instruction
+   Symbol                                             Meaning
+     F1           the success rate of refugees arriving in safe-haven countries
+    F (1)1                   refugees’ psychological diathesis of their own diathesis
+    F (2)1                      refugees’ physical diathesis of their own diathesis
+    F (3)1                  refugees’ cultural accomplishment of their own diathesis
+    F (4)1                       refugees’ choice of route of their own diathesis
+      F2            the influence that countries’ policy brings to refugees
+    F   (1)
+              2                         the religious policy of the country
+    F   (2)
+              2                   the number of refugees the country can feed
+    F (3) 2                      financial and material resources of the country
+    F (4) 2                         the policy of the country refugees passed
+      F3                              the impact of some emergency events
+    F (1)3                            the threat of the terrorist in the route
+    F (2)3                           the threat of nature disaster in the route
+    GSi , j       Flag whether country i and country j have the same religion
+      Sri                        the saturation rate of the refugees in country i
+     Spi                                the contribution rate for refugees
+     Dsij                                      the refugee mortality
+     Pkij                     the number of refugees from country i to country j
+     Gij                        the cost of refugees from country i to country j
+    Po(t ) j                       the instant resources of safe-haven country
+   PN (t ) j              the number of refugees that the safe-haven country can hold
+   PK (t ) j                the instant number of the safe-haven country j received
+                     The degree of discrepancy on environment and Climate between refugee-
+    Haij
+                                    exporting i and the safe-haven country j
+                    The degree of discrepancy on religion and law between exporting country
+     Hbij
+                                    economic i and the safe-haven country j
+                      The degree of discrepancy on economic and culture between refugee-
+    NGij
+                                    exporting i and the safe-haven country j
+    Hp ij       the transfer matrix of refugees from their country i to safe-haven country
+                   j
+                  the conflict between refugee-exporting country i and the safe-haven
+    Waij
+                  country j
+     Pdij                  The relationship between two safe-haven country( i and j )
+
+
+=== PHYSICAL PAGE 4 ===
+Team#46634                                                                             page 3 of 22
+
+
+
+Task 1: Metrics of refugee crises
+      We consider the influence factors of the movement of refugees from three aspects.
+Firstly, in order to arrive at the asylum safely, the diathesis, which includes psychological
+diathesis, physical diathesis, the cultural accomplishment of refugees and the refugees’ choice
+of routes, is significant. Being refugees is a cruel thing, which is a heavy blow. If refugees do
+not have great psychological diathesis, they might be breakdown during the movement.
+Therefore, they cannot arrive at the asylum safely. It will be hard for them to complete the
+migration as well if the refugees are not healthy enough since the movement always be hard
+and taking a long time. Moreover, In the process of movement, refugees will go through
+many different countries and regions, thus a better understanding of the countries’ language,
+customs and cultural characteristics will surely help to increase the probability of fleeing
+successfully. As for refugees, there is often more than one route. Therefore, the choice of
+route, which is made by refugees, influences the success rate of movement. Choosing a safe
+and suitable route will increase the success rate of movement. On the other hand, once the
+refugees chose an unsuitable dangerous route for themselves, it would reduce the success rate
+of movement. [1]
+
+                    F1  f  F (1)1  F (2)1  F (3)1  F (4)1  F (5)1                        (1)
+
+F (1)1 means psychological diathesis of refugees’ diathesis
+
+F (2)1 means physical diathesis of refugees’ diathesis
+
+F (3)1 means the cultural accomplishment of refugees’ diathesis
+
+F (4)1 means the refugees’ choice of route of refugees’ abilities
+
+F (5)1 means the wealth of refugee
+
+     We rank the five factors of the refugees with 1 to 10 representing capacity from low to
+high, then we have
+
+                  F1  11F (1)1  12 F (2)1  13 F (3)1  14 F (4)1  15 F (5)1           (2)
+
+     For the contribution of these five factors，we are in accordance with the actual situation，
+then we have
+
+                     F1  0.6F (1)1  0.8F (2)1  0.4F (3)1  0.3F (4)1  0.2F (5)1            (3)
+
+     Secondly, as for the influence of the countries and regions where they stopped over, we
+believe factors of refugees, including the religious policy of countries, the number of refugees
+the countries can accommodate, the country's financial and material resources, the national
+policies on refugee. Meanwhile, the religious policy of the country has a great influence,
+because a large part of refugees’ movement is for religious persecution. And the number of
+refugees the country can accommodate influences the movement of refugees as well[2]. For
+
+
+=== PHYSICAL PAGE 5 ===
+Team#46634                                                                              page 4 of 22
+
+
+the current situation of highly developed information technology, most of the refugees will
+choose the best escape route, which is the most popular route. In this case, the
+countries which are on the most popular route will undertake more pressure. If those
+countries can accommodate a large number of refugees, they will be bound to increase the
+success rate of refugees’ movement, which is on the contrary will have a negative impact on
+the refugees’ escape. For the country's financial and material resources, it can directly affect
+the process of refugees’ movement. As for refugees, they need to get funding from the
+country on the route, and this support is bound to affect the movement. Moreover, it is
+equally important for policies towards refugees in those countries. If the country is kind for
+refugees, then it will be beneficial to the refugees fleeing. On the contrary, if the country is
+against helping refugees, it will bring adverse effect to refugees fleeing[3].
+
+                            F2  g  F (1) 2  F (2) 2  F (3) 2  F (4) 2                     (4)
+
+F (1) 2 means the religious policy of the country
+
+F (2) 2 the number of refugees that the country can accommodate
+
+F (3) 2 means the country's financial and material resources
+
+F (4) 2 means the national policy on refugee
+
+    We rank the four factors of the via countries，with 1 to 10 representative capacity from
+low to high，then we have
+
+                            F2  21F (1) 2  22 F (2) 2  23 F (3) 2  24 F (4) 2            (5)
+
+    For the contribution of these four factors, we are in accordance with the actual situation，
+then we have
+
+                       F2  0.9F (1) 2  0.8F (2) 2  0.5F (3) 2  0.4F (4) 2                    (6)
+    Thirdly, several external factors also have a certain impact on refugees’ movement.
+Meanwhile, the illness, nature disaster and the threat of terrorist on the route are important as
+well. From the point of the refugees’ safety, the impact of these factors on the refugees is
+more obvious.
+
+                                        F3  h  F (1)3  F (2)3 
+                                                                                                 (7)
+
+F (1)3 means the threat of the terrorist in the route
+
+ F (2)3 means the illness, nature disaster in the route
+
+    We rank the two factors of the refugees with 10 to 1 representing capacity from low to
+high，then we have
+
+
+=== PHYSICAL PAGE 6 ===
+Team#46634                                                                                                                                                                                page 5 of 22
+
+                                                                                    F3  31F (1)3  32 F (2)3                                                                                      (8)
+
+     For the contribution of these two factors，we are in accordance with the actual situation，
+then we have
+
+                                                                            F3  0.8F (1)3  0.8F (2)3                                                                                               (9)
+     Among the factors that we have discussed above, the refugees’ diathesis is the most
+direct, the policy countries refugees transfer through is the most important, the refugees’
+movement in the route is the most intense. Then we have
+
+                                                                                F  v  F1  F2  F3 
+                                                                                                                                                                                                    (10)
+
+                                                                        F  1 F1   2 F2   3 F3
+                                                                                                                                                                                                    (11)
+
+                                                                        F  0.7 F1  0.8F2  0.9 F3
+                                                                                                                                                                                                    (12)
+
+                       10
+                                                                                                                                                                             Mentality
+                                                                                                                                                                             Physical
+                       9                                                                                                                                                     Culture
+                                                                                                                                                                             Choice Ability
+                                                                                                                                                                             Resource
+                       8
+
+
+
+                       7
+
+
+
+                       6
+
+
+           Degree/De
+                       5
+
+
+
+                       4
+
+
+
+                       3
+
+
+
+                       2
+
+
+
+                       1
+                            0                       1       2               3                4            5                         6           7           8            9                    10
+                                                                                                     Capacity/Ca
+
+
+
+
+                                                                    Figure 1 Different factor influence
+      As indicated in Figure 1, the optimization of all parameters will improve the transfer rate
+of the refugees. But,the degree of ascension is not exac tly the same. And as we can see, the
+physical quality is the first ,mentally quality is the second, the literacy is the third,the choise
+ability is the fourth,and the resource is the last.
+
+
+                                        20                                                                                     20
+
+
+                                        15                                                                                     15
+
+
+
+                            Influence                                                                              Influence
+                                        10                                                                                     10
+
+
+                                        5                                                                                      5
+
+
+                                         0                                                                                      0
+                                        10                                                                                     10
+                                                                                                     10                                                                                        10
+                                                                                                 8                                                                                  8
+                                                        5                                6                                                 5                                 6
+                                                                                4                                                                                   4
+                                                                        2                                                                                       2
+                                         Country Resource       0   0                                                                   Space       0   0
+                                                                                Region                                                                              Region
+
+
+=== PHYSICAL PAGE 7 ===
+Team#46634                                                                                                                             page 6 of 22
+
+      Figure 2 Different paremeter 1                                                           Figure 3 Different paremeter 2
+
+
+
+
+                                                                                      15
+                     15
+
+
+                                                                                      10
+                     10
+
+                                                                          Influence
+         Influence
+                                                                                      5
+                     5
+
+
+
+                      0                                                                0
+                     10                                                               10
+                                                                     10                                                                 10
+                                                                 8                                                                 8
+                             5                                                                      5                          6
+                                                             6
+                                                    4                                                                  4
+                                                2                                                                  2
+                                        0   0                                          Country Resource    0   0
+                          Policy                    Region                                                             Space
+
+
+
+
+      Figure 4 Different paremeter 3                                                          Figure 5 Different paremeter 4
+    To make a further study, we made Figure 2-Figure7 to observe the influence of different
+parameters. And from the results, we can find the slight difference.
+
+
+Task 2: Flow of refugees
+     According to the information given in the task, we find that the refugees are mainly
+from Syria, Afghanistan, Eritrea, Kosovo and other area s. Their destinations are mainly
+countries such as Greece, Bulgaria, Italy, Spain, Malta and Cyprus. In this task, we mainly
+aim at the evaluation factors and parameters given in task 1, given the total number of
+refugees can be assumed, as well as the entry rate for each country at the entrance. To begin
+with, we identify the geographical relations between the 4 main refugee -exporting countries
+and the six refugee-receiving countries, the relations between the religious belief of these
+countries and taking the process from the entrance of the country transferring to other
+countries as a second shift into account [4].
+      Firstly, we consider the religious belief relations among the main refugee-exporting
+countries, the main refugee-receiving countries and second shifting countries. According to
+our assumption, religion is the decisive factor of the refugees’ movement, which means if
+their religions are different, there will not be transfer among the countries.
+                                            Table 2 The religious belief of the countries.
+
+    Country                                  Region                                        Country                    Region
+    Greece                         The Orthodox Eastern Church                              Spain              The Catholicism (90%)
+     Italy                            The Catholicism (90%)                                 Malta                 The Catholicism
+                                   The Orthodox Eastern Church
+                                                                                                          The Orthodox Church (50%)
+     Bulgaria                                (90%)                                         Cyprus
+                                                                                                          The Mohammedanism (50%)
+                                   The Mohammedanism (10%)
+
+
+     Then we consider the main reason why the refugee countries have refugees. The main
+refugee countries are Syria, Afghanistan, Kosovo, Iraq, Albania, Pakistan, Eritrea, Nigeria,
+Serbia and Ukraine. Most of the countries which have experienced or are now enduring the
+war and conflict, and like the Eritrea become refugees exporter mainly because their citizen
+
+
+=== PHYSICAL PAGE 8 ===
+Team#46634                                                                           page 7 of 22
+
+suffering long-term abuse. For Kosovo, it is the war that led to the long-term poverty, in this
+case , the refugees’ mental are likely to exist some problems, and other qualities of refugees
+may not that important of the refugees’ movement[5].
+    Afterwards, the financial and material resources of the refugee-receiving countries
+should take into account. As for the six refugee-receiving countries, Greece and Italy can
+accommodate more refugees, but the financial and material resources of the Bulgaria, Malta
+and Cyprus are slightly weaker. For the second shifting countries, Germany, Sweden,
+Switzerland and other countries are great power. And we give the essential information in
+Table3 to Table 6.
+                    Table 3 The religious belief of the refugee-export countries.
+                                                     Countr
+      Country                   Region                                     Region
+                                                        y
+       Syria          The Mohammedanism(most)        Pakistan       The Mohammedanism
+     Afghanista
+                         The Mohammedanism           Kosovo         The Mohammedanism
+         n
+                                                                   The Mohammedanism
+                      The Mohammedanism (50%)
+       Eritrea                                       Nigeria              (50%)
+                        The Christianity (50%)
+                                                                   The Christianity (50%)
+                                                                   The Orthodox Eastern
+                      The Mohammedanism(most)
+        Iraq                                          Serbia              Church
+                           The Christianity
+                                                                      The Christianity
+                         The Orthodox Eastern
+                             Church(70%)
+      Ukraine                                                       The Mohammedanism
+                      The Mohammedanism (20%)
+                            The Buddhism
+
+
+                   Table 4 The religious belief of the refugee-receiving countries
+      Country                  Region              Country               Region
+       Austria              The Catholicism        Finland           The Christianity
+       Belgium              The Christianity        Malta            The Catholicism
+     Luxembourg        The Catholicism（90%）         Poland           The Catholicism
+      Germany               The Christianity       Portugal          The Christianity
+        Spain          The Catholicism（90%）        Sweden            The Christianity
+                     the Orthodox Eastern Church                The Orthodox Church (50%)
+       Bulgaria                                    Cyprus
+                     The Mohammedanism (10%)                    The Mohammedanism (50%)
+                            The Catholicism                       The Catholicism (90%)
+     Netherlands                                   Slovakia
+                            The Protestant                           The Christianity
+                            The Christianity
+        Latvia       the Orthodox Eastern Church   Romania      the Orthodox Eastern Church
+                         The Luther Protestant
+
+
+                         Table 5 the GDP and Population of nations
+      Country           ADGP       Population      Country         ADGP        Population
+        Italy           33115       59685227       Greece          22055        10815197
+        Spain           29289       47265321        Malta          20852         452515
+       Cyprus           26389        1117000       Bulgaria         7033        7364570
+
+
+=== PHYSICAL PAGE 9 ===
+Team#46634                                                                                            page 8 of 22
+
+                               Table 6 the GDP and Population of nations
+      Country             ADGP          Population         Country            ADGP                Population
+      Sweden              56956           9555893            Malta             20852                452515
+       Austria            47083           8032926           Portugal           20178               10487289
+     Netherlands          46142          16788973           Slovakia           16726               5410836
+       Finland            46098           5421827            Latvia            13899               2217000
+      Belgium             43686          11035948            Poland            13540               38186860
+      Germany             41513          80399300          Rumania             7934                20121641
+        Spain             29289          47265321           Bulgaria           7033                7364570
+       Cyprus             26389           1117000         Luxembourg          107206                537853
+
+
+      When it comes to the refugee policy of the refugee-receiving countries, for most of these
+countries are the members of EU, so most of their policies for refugees are loose. However,
+because some countries do not have a large population, receiving more refugees will
+inevitably lead to its population imbalance and brings some social problems, so there will be
+a certain number of restrictions on the number of refugees[6].
+
+
+                                                                                         Austria
+                                                                                       Luxembourg
+                      Syria                                                               Malta
+                                                                                         Poland
+                                               Greece                                     Spain
+                   Afghanistan
+
+                                                                                        Belgium
+                                                                                         Finland
+                     Kosovo                   Bulgaria                                  Germany
+                                                                                        Portugal
+                                                                                        Sweden
+                      Iraq
+
+                                                Italy
+                                                                                        Bulgaria
+                    Pakistan                                                            Cyprus
+
+                                               Spain
+                     Eritrea
+                                                                                        Slovakia
+
+                     Nigeria
+                                               Malta
+                                                                                          Latvi
+                     Serbia
+
+                                               Cyprus                                  Netherlands
+                    Ukraine
+
+
+                                                                                        Romania
+
+
+
+                                   Figure 6 Transfer Permission Situation
+     When considering external factors, we mainly think about refugees finish the transfer
+whether by land or by water. Because of the pirate and the stormy waves in the sea, the
+mortality of transferring by water is higher than by land.
+
+
+
+                                        GSi , j   (rei , re j )
+                                        
+                                        i  1, 2, ,10; j  1, 2, 25.                                    (13)
+                                        
+                                        
+GSi , j  1，means nation i and nation j have the same religion,
+
+
+=== PHYSICAL PAGE 10 ===
+Team#46634                                                                          page 9 of 22
+
+GSi , j  0 ，means nation i and nation j have different religion
+
+Define the saturation rate of the refugees:
+
+                                                       Max _ ri
+                                               Sri  Num
+                                                               i
+                                                                                            (14)
+                                                i  1, 2, ,10
+                                              
+
+Max _ ri means the maximum number of refugees accepted by the refugee-receiving country
+
+Numi means the population of the refugee-receiving country
+
+Define the contribution rate of refugees,
+
+                                          Spi  GDPi  pi
+                                                                                            (15)
+                                          i  1, 2, 25.
+GDPi means annual GDP of the refugee-receiving country i
+
+pi means the contribution rate of refugees of the refugee-receiving country i
+
+ pi is not only include economic strength of the refugee-receiving country i, but the refugee
+policy as well.
+
+Define the refugee mortality，
+
+                                             Dsij  Dr ij
+                                                                                            (16)
+                                  i  1, 2, ,10, j  1, 2, , 25.
+Drij only has two values，if the two countries i and j are connected by water , Dr ij =0.08
+
+Or they are connected by land, Drij =0.005.
+
+Therefore the total number of refugees can be accommodated is
+                                              10 25
+                                    As    GSij  Pk ij                                    (17)
+                                            i 1 j 1
+
+                                          6
+                              max As    GSij  Pkij
+                                         i 1 j 1
+
+                               25 Pk  25 Max _ r  25 Num  Sr
+                              j 1
+                                      ij   
+                                           j 1
+                                                   i 
+                                                     j 1
+                                                           i    i
+
+                               25                                                           (18)
+                               Pk  G  Sp
+                              j 1
+                                      ij     ij  i
+                              
+                              i  1, 2, ,10.
+                              
+                              
+
+
+=== PHYSICAL PAGE 11 ===
+Team#46634                                                                         page 10 of 22
+
+      Pkij means the number of refugees from the refugee-exporting country I to the refugee-
+receiving country j
+
+      Gij means the cost of the refugee-receiving country i receive one refugee from the
+refugee country j
+     We calculate the number of refugees that transfer from refugee- exporting country(i) to
+the refugee-receiving country(j) Rnij with formula
+
+                                                      Max _ ri
+                       Rnij  max As  Dsij  Spi Num  (GSi , j , pi )
+                                                           i
+                                                                                          (19)
+                      i  1, 2, ,10; j  1, 2, 25.
+                      
+
+And then we can get the results with the help of MATLAB
+                                Table 7 Number of Transfer
+                             Greece Bulgaria Italy Spain Malta Cyorys
+                  Syria       16788    34534      25 24546 45245 45234
+               Afghanistan 12456          0      642 43643 42364 23462
+                Kosovo          567      345     234 45643 45624 22346
+                  Iraq         1235     2456       0     12344 456      454
+                 Albania       2346       0        0      245      45    0
+                Pakistan         0       45        0     4524      44    0
+                 Eritrea         0       642      45      546       0   435
+                 Nigeria        123      234       0      464    4325    0
+                 Serbia         665       0      425      667    1245   345
+                 Ukraine         0        0        0       45     452    0
+     As reached from the 2004’s and 2005’s data, we can predict the transfer rate with the
+number of refugees and the refugees transferred from refugee-exporting country (i) to the
+refugee-receiving country(j).and the average result is 50187 per month.
+     To show the results in detail, we show the transfer graph with the help of pajek.
+
+
+=== PHYSICAL PAGE 12 ===
+Team#46634                                                                          page 11 of 22
+
+
+
+
+                                 Figure 7 Results of transfer
+     As we can see from the transfer graph, the transfer of refugees is a little sparse. And this
+can be explained plainly. Most of the transfer of refugees is influenced by the religion of the
+refugees, so it will be impossible for some refugees to transfer from a refugee-exporting
+country to a refugee-receiving country.
+
+
+
+Task 3: Dynamics of the Crisis
+     As time goes by, refugees themselves, the policy of the refugee-receiving countries or
+the external factors of the movement are not set in the stone. The refugees’ psychological
+diathesis, religious belief and wealth as well as the refugee-receiving countries’ financial and
+material resources and capability of refugees and the nature disaster will change over time.
+However, the refugees’ physical diathesis, the population and policy of the refugee-receiving
+country can be seen as fixed in a short time [7].
+      If the movement goes well, the refugees’ psychological diathesis will be better, but if it
+is not, their psychological diathesis will be worse. However, refugees’ wealth must be less
+during the movement. Also, their religious belief will be reformed gradually for necessity of
+themselves. Next, the refugee-receiving country’s financial and material resources and the
+capability of the refugee will change during the transfer time. If the refugees have gone to the
+so-called ideal destination, the ideal refugee-receiving country's financial and material
+resources, as well as the capacity to accommodate refugees will reduce. Besides, the impact
+of natural disasters, such as disease, weather and other natura l disasters, in the process of
+refugee transfer, is a stochastic process.
+     However, if the transportation, religion, policy and the financial and material resources
+of the refugee-receiving country suit the refugee country, it will increase the refugees’
+saturation capacity of the refugee-receiving country. Nevertheless, if the refugee-receiving
+country's financial and material resources are relatively adequate and the amount of refugees
+
+
+=== PHYSICAL PAGE 13 ===
+Team#46634                                                                                   page 12 of 22
+
+received is little, it can increase the resource consumption of the refugees in the country, on
+the contrary, it can reduce the resource consumption. Among them the saturation capacity of
+the refugee-receiving country needs to be priority considered.
+
+The GSi , j between refugee-exporting country i and the refugee-receiving country j will
+change
+
+                                              GSi , j   (rei , re j )   (rpi , rp j )
+                                              
+                                              i  1, 2, ,10, j  1, 2, , 25.                 (20)
+                                              
+                                              
+      where  (rei , re j ) has same definition in task 2.
+
+       (rpi , rp j ) means if the refugee-exporting country i is reformed by the refugee-
+receiving country j, so  (rpi , rp j )  1 ，or  (rpi , rp j )  0 .
+
+      Denote the refugee-receiving country's financial and material resources by
+Po j , j  1, 2, 25. the capability of the refugee-receiving country by PN j , j  1, 2, 25. and
+the amount of received refuges of the refugee-receiving country by PK j , j  1, 2, 25. then
+we have，
+
+                                               (t )                PK (t ) j
+                                               Po j  Po j 
+                                                               (0)
+
+                                                                  Max _ rj
+                                              
+                                               j  1, 2, , 25.
+                                              
+                                              
+Po(t ) j means the instant financial and material resources of the refugee-exporting country
+
+Po(t ) j means the instant financial and material resources of the refugee-exporting country
+
+Po(0) j means the financial and material resources of the refugee-exporting country
+
+Po(t ) j means the instant financial and material resources of the refugee-exporting country
+
+Po(0) j means the financial and material resources of the refugee-exporting country
+
+PK (t ) j means the instant amount of refugees that the refugee-exporting country recieived
+
+Max _ rj means the refugees’ saturation capacity of the refugee-exporting country
+
+PN (t ) j  PN (0) j  PK ( t ) j , j  1, 2, , 25
+
+PN (t ) j means the instant refugees’ capability of refugee-exporting country
+
+ Po(0) j means the refugees’ capability of the refugee-exporting country at the beginning
+
+
+=== PHYSICAL PAGE 14 ===
+Team#46634                                                                        page 13 of 22
+
+
+ PK (t ) j means the instant amount of refugees received by the refugee-exporting country
+
+
+
+      If we add the refugees from Canada, China and U.S, our model is applicable to a certain
+extent, since the factors that should be considered are the same. However, people in these
+three countries are relatively concentrated in their religious beliefs, and the traffic to the
+refugee-receiving countries in Europe is complex as well as they are all great nations of
+politics, economics and culture. As a result, their refugees’ movement is complicated[8].
+    With the help of pajek, we show the result modified in the Figure 8.
+
+
+
+
+                         Figure 8 Results of transfer in detail
+    The graph shows the results that adding more conditions , and the results can explain the
+phenomenon that is difficult to explain in task2.
+
+
+=== PHYSICAL PAGE 15 ===
+Team#46634                                                                                               page 13 of 22
+
+
+
+
+Task 4: Policy to Support Refugee Model
+     Since the United Nations Commission requires us to give priority to the health and
+safety of the refugees and the local people, to the optimal conditions for the optimal
+migration model in this case, we adopt the method of loop analysis.
+      First of all, our ultimate goal is to ensure the health and safety of the refugees and the
+local people, as a result, we should choose the safe route and suitable refugee-receiving
+country. In order to ensure the health and safety of local people, we should try to control the
+transfer of the refugees in a suitable range. Meanwhile, the received refugees should be on
+the same level of religious belief and cultural attainments with the local people. In this case,
+we use the Space-time analysis of algorithm analysis, to find a balance between the amount
+of the transfer of refugees and refugee-receiving countries. Also, the consulates between the
+refugee-exporting country and the refugee-receiving country plays an important role, if the
+refugee-receiving country has a perfect consulate which will lead the balance to the higher
+level. On the contrary, if its consulate is not that good, the balance will be low. Besides, some
+non-governmental organizations also play an important part. On one hand, these
+organizations can ensure the refugees’ safe and basic needs. On the other hand, they can
+protect the local people of the refugee-receiving country. In addition, we need to consider
+whether it is suitable for refugees to live in the receiving country, the conflict of weather,
+eating habit and life style between two countries should be taken into account [9].
+      Another factor that should be considered is the policy of the refugee-receiving country.
+Firstly, whether the refugees’ religious belief and habits are illegal in receiving country and
+whether there are conflicts of laws between two countries. Under the circumstances, for
+ensuring the safety of the refugees and local people is the most significant thing, the amount
+of refugees that can transfer to the receiving country will be smaller and the speed of the
+movement can be slower.
+      We define
+
+                                  Haij    h(1)ij , h(2)ij , h(3)ij , 
+                                 
+                                 i  1, 2, ,10, j  1, 2, , 25.                                           (22)
+                                 
+                                 
+      means eating habit, life style and weather of the refugee-exporting country i and the
+                                   0                                          (v)
+refugee-receiving country j Ha           ij   preset value is 1, for h                ij ，if   there is great conflict
+between refugee-exporting country i and the receiving country j，then h( v )ij  0.1 ，or
+h( v )ij  0                                                                                                 ，finally
+
+
+=== PHYSICAL PAGE 16 ===
+Team#46634                                                                                                    page 15 of 22
+
+                             Ha   h(1) , h(2) , h(3) ,   Ha  0  h( v )
+                                ij       ij ij ij                   ij  ij
+                                                                         v 1
+                            i  1, 2, ,10, j  1, 2, , 25.                                                      (23)
+                            
+                            
+                            
+if Haij  0 ，then Haij  0 .
+
+                                                             
+      Define Hbij   hb(1)ij , hb(2)ij , hb(3)ij ,  ，means the comparison of religion, laws and
+other points between refugee-exporting country i and the refugee-receiving country j. For
+random h ( v ) ij ，if there exist great conflict between refugee-exporting country i and refugee-
+receiving      country       j on this             factor,     then      Hbij    hb(1)ij , hb(2)ij , hb(3)ij ,   0 ，or
+
+Hbij    hb(1)ij , hb(2)ij , hb(3)ij ,   1.
+
+      We have the final transition probability matrix between i and j
+
+                                                             Hp11      Hp12  Hp1v 
+                                                             Hp        Hp22  Hp2 v 
+                                 Hp ij   Ha  Hb ij   21                                                        (24)
+                                                                                
+                                                                                       
+                                                             Hpv1      Hpv 2  Hpvv 
+      Then we consider the impact of non-governmental organizations
+
+                                       NGij    ng (1)ij , ng (2)ij , ng (3)ij , 
+                                      
+Define                                i  1, 2, ,10, j  1, 2, , 25.                                            (25)
+                                      
+                                      
+      means non-governmental organizations which include economy, culture, sports and so
+on.
+
+       ng  0ij preset value is 0，for ng ( v )ij ，if it has interest between i and j, then ng ( v )ij  0.01 ，
+or ng ( v )ij  0 ，final
+
+                            NG   ng (1) , ng (2) , ng (3) ,   NG  0  ng ( v )
+                                ij       ij            ij      ij        ij         ij
+                                                                              v 1
+                           i  1, 2, ,10, j  1, 2, , 25.                                                       (26)
+                           
+                           
+                           
+      Take       this factor into account in the transition probability matrix
+                            Hp11  NG11 Hp12  NG11  Hp1v  NG1v   Hp '11 Hp '12  Hp '1v 
+                            Hp  NG                                                                 
+                                        Hp22  NG22  Hp2 v  NG2 v   Hp '21 Hp '22  Hp '2 v 
+ Hp ij   Hp  NG ij                                               
+        '                      21     21
+
+                                                                                       
+                                                                         '                    ' 
+                            Hpv1  NGv1 Hpv 2  NGv 2  Hpvv  NGvv   Hp v1 Hp v 2  Hp vv 
+                                                                                      '
+
+
+
+
+      With the help of MATLAB, we can calculate the matrix, and the results are as follows,
+
+
+=== PHYSICAL PAGE 17 ===
+Team#46634                                                                                      page 16 of 22
+
+
+
+
+                                          0.78 0.11  0.23
+                                          0.44 0.12  0 
+                               Hp ij =                   
+                                      '
+                                                                                                          (27)
+                                                         
+                                                            
+                                          0.66 0.61  0.25
+      From the results, we can find out that cultural restraint and religion have important
+influence to our movement of refugees, so we suggest that give priority to the cultural
+restraint and religion.
+
+Task 5: Exogenous Events
+     Taking exogenous events into consideration, some of the parameters like index of
+policies and regulations in our model may be significantly changed for these events happen
+suddenly. For example, once conflict break out between the refugees-exporting countries and
+the refugees-receiving countries, even the refugee-exporting countries make war on their
+neighbours and partners. In this case, the transfer from the refugee-exporting countries to
+these countries would be completely closed, and at the same time the refugees which belongs
+to refugee-exporting in these countries must be resettled in other countries. So it is mainly
+affected the saturated of the refugees receiving countries to other refugees receiving
+countries, which can instantly drop to zero. Surely, the policies of the refugees-treatment
+would also change. Compared with other factors, the most direct one is the external factors
+we have set, which can cause the increase of the death rate on some routes [10].
+     For the neighbour of refugees receiving countries, if the war break out between the
+refugee-exporting country and the receiving country, it will be a new receiving country.
+That’s because the refugees coming from exporting countries won’t come back to their
+hometown, and most of them will go to the neighbours of their living country. But the
+contradiction appears in that condition, the living country may put pressure on their
+neighbours to refuse the refugees.
+Based on the above, we take more consideration of external factors in our model.
+
+                                       Waij   Wa (1)ij ,Wa (2)ij ,Wa (3)ij , 
+                                       
+     We define that                    i  1, 2, ,10, j  1, 2, , 25.                              (28)
+                                       
+                                       
+     means the war, conflict and cold violence among the refugee-exporting countries i and
+                                                           0
+the refugees receiving countries j, the preset value of Wa ij is 0. And for Wa ( v )ij , if a lot
+impact exists in this factor between i and j, then Wa ( v )ij  1 , otherwise Wa ( v )ij  0 . If there is
+                                                                        
+some Wa ( v )ij  1 , then, Waij   Wa (1)ij ,Wa (2)ij ,Wa (3)ij ,   1 , and if all Wa ( v )ij  0 , then,
+Waij   Wa(1)ij ,Wa(2)ij ,Wa(3)ij   ,   0                                                              .
+
+
+=== PHYSICAL PAGE 18 ===
+Team#46634                                                                                                                                               page 17 of 22
+
+We using the transfer matrix in task 4, like the foll
+                                  f  Hp '11 ,Wa11  f  Hp '12 ,Wa12                                                           f  Hp '13 ,Wa13  
+                                                                                                                                                         
+                                  f  Hp '21 ,Wa21  f  Hp ' 22 ,Wa22                                                          f  Hp ' 2v ,Wa2 v  
+                        
+ Hp ij  f  Hp ' ,Waij  ij                
+        ''                    ''
+                                                                                                                                                               (29)
+                                                                                                                                                     
+                                                                                                                                                         
+                                  f  Hp v1 ,Wav1  f  Hp v 2 ,Wav 3                                                            f  Hp 'vv ,Wavv  
+                                          '                  '
+
+
+
+
+                                                                                        
+                   Among them, if Waij  0 , f Hp 'ij ,Waij  Hp 'ij , if Waij  1 , f Hp 'ij ,Waij  0 .                                           
+
+     We define that the number of refugees in receiving country j who come from exporting
+country i is PKij , i  1, 2, ,10; j  1, 2, 25. .
+
+                   So, the amount of refugees which would be resettlement is
+                                                                         10 25
+                                                                           Waij  PKij .                                                                       (30)
+                                                                         i 1 j 1
+
+
+                   The pressure between the two exporting countries is: Pdij 1, 2, 10; j  1, 2, 25.
+
+                   Then we can lead to conclusion:
+
+                                                                                 1
+                                                                                             
+                                                                                             2
+                                                             Pdij  Waij   pd ij , pd ij , 
+                                                            
+                                                                                                                                                                (31)
+                                                             i  1, 2, ,10; j  1, 2, , 25.
+                                                            
+
+
+                              v
+among this pd ij means the connections of economic and diplomacy.
+
+                   With the help of MATLAB, we get the two figures below.
+
+
+              15                                                                        12
+
+                                                                                        10
+
+              10                                                                        8
+
+
+  Influence                                                                 Influence
+                                                                                        6
+
+              5                                                                         4
+
+                                                                                        2
+
+               0                                                                         0
+              10                                                                        10
+                                                                    10                                                                          10
+                                                                8                                                                          8
+                            5                               6                                       5                                6
+                                                    4                                                                        4
+                                            2                                                                            2
+                       Policy       0   0                                                        Policy      0   0
+                                                    Space                                                                    Country Resource
+
+
+
+
+                    Figure 9 Different paremeter 5                                                        Figure 10 Different paremeter 6
+     The comparison of the two figures indicates that our model fit the occurrence of
+exogenous events by the large, and if we adjust some parameters in our model, it will solve
+the problem more perfectly.
+
+Task 6: Scalability
+
+
+=== PHYSICAL PAGE 19 ===
+Team#46634                                                                              page 18 of 22
+
+     In our initial model, we have considered the factor of the size of refugee, so if the size of
+refugees is enlarged, our model can be satisfied overall. But if this happens, the size of
+refugees will become the major subject of consideration. Therefore, each refugee-receiving
+country’s saturability of receiving refugee will be correspondingly increase to an extreme
+value. And for refugees-exporting country, its economic strength will not change much in a
+short time, so the corresponding inputs for each refugee will inevitably reduce .
+    In order to improve our model’s ability to deal with this situation of large-scale refugee,
+we need to increase the corresponding control element on the basis of the original. And most
+important of which is the model of transportation for the refugee to transfer, and the basic
+   living security for refugee in the destination of transfer, besides the relationships with local
+residents. Because on the basis of existing public infrastructure, in order to meet the
+requirements of the transfer of refugees on a larger scale, we must consider transportation
+infrastructure.
+
+     We define that Trij , i  1, 2, ,10, j  1, 2, 25. ,which denote the amount of traffic form
+the refugee-exporting country(i) to the refugee-receiving country(j),that is how many
+refugees that it can meet transferring from the refugee-exporting country(i) to the refugee-
+receiving country(j).Also defining Lsij , i  1, 2, ,10, j  1, 2, 25. which denote the basic
+livelihood of refugees than refugee-receiving country(j) can provide to the refugee-exporting
+country(i),that is how many refugees that the refugee-receiving country(j) can meet the basic
+livelihood for the refugee-export country. Define the conflict factor of the refugees with the
+local residents Cfij , i  1, 2, ,10, j  1, 2, 25. among them 0  Cfij  1 .The greater the
+conflict factor the refugees with the local residents, the greater probability of conflict between
+the refugees and the local residents. And then the greater probability of conflict between the
+refugees and the local residents, the difficult that the refugee-receiving country(j) receive the
+refugees from the refugee-exploring country(i). So here planning the transfer route of the
+refugee rationally and making full use of the existing transport resources are becoming
+particularly important. In this case the competition for transfer of refugee is bound to
+produce, even conflict will be happened[11].
+      Finally, we define the existing number of refugees of refugee -exporting country(i) as
+Pni , i  1, 2, ,10 ,the existing transportation resources available as Rei , i  1, 2, ,10 ,the
+probability of conflict between refugees as Cpi , i  1, 2, ,10 .In this case:
+
+                                          Cpi   Pn i  Rei  i
+                                          
+                                          i  1, 2, ,10.                                     (32)
+                                          
+                                          
+
+     Among them,  i denote the the original quality of the citizens and nationals relations of
+refugee-exportING country(i).
+     Considering the threshold of time, we believe that to ensure the refugees to transfer
+before the collapse of the body or psychological breakdown is a threshold of time in this case.
+Of course, in order to control this threshold of time, we need to keep refugees psychological
+counseling and education, and arrange adequate medical resources to protect the basic
+
+
+=== PHYSICAL PAGE 20 ===
+Team#46634                                                                                                                              page 19 of 22
+
+medical needs of the refugees, and to strengthen their pease with the local population and
+refugees in distress with local ideas.
+     After analyzing the scalability of our model, we get the results that the stabilization
+change with the expansion of the scale.
+
+
+                                                          80
+
+
+
+                                                          70
+
+
+
+
+                 frequency distribution of degree value
+                                                          60
+
+
+
+                                                          50
+
+
+
+                                                          40
+
+
+
+                                                          30
+
+
+
+                                                          20
+
+
+
+                                                          10
+
+
+
+                                                          0
+                                                               0   5   10    15    20        25                30   35   40   45   50
+                                                                                        degree value of node
+
+
+
+
+                                                                        Figure 11 change of stabilization
+
+
+     It’s clear that our model is in point when the scale is less than then times, but when the
+scale is to 15 times, the stabilization is reduced to some extent.
+
+
+=== PHYSICAL PAGE 21 ===
+Team#46634                                                                           page 20 of 22
+
+
+Stability and Sensitivity
+      Judging from the overall effect of our model, it is not only fit for the environment and
+area mentioned in the paper but also suited to most fields related to refugees, that is, our
+model has relatively wide range of applicability. After building refugees transfer model and
+the relationship of refugee-receiving country and refugee-exporting country referring the data
+of the two fields, we use them to study the quantities of the relationships and the influence of
+the evaluation objects, and the results turn out to be reasonable. So our model is practical and
+reliable.
+     Moreover, our model doesn’t depend on some certain data. As what is shown in Task 4,
+when the original data changes, the result of our model changes to a new one corresponding
+to reality. Regardless of we add some data into the model or remove some out, the results of
+the model will not have large fluctuations, which indicates the good stability and weak
+sensitivity of our model.
+    According to the assumption, we do not take time of preparation for the transfer into
+account. However, the time of preparation for the transfer has effect on both of the refugee-
+receiving countries and the refugee-exporting countries. In order to test the sensitivity of our
+model, we decided to take time of preparation for the transfer as a criterion and add it into our
+model. Let t i to be the time of preparation for the transfer of refugee-exporting country.
+Taking t i as a new criterion, we change other criterion’s weight and calculate the weighted
+incidence degree of each author again. From our point of view on the new result, although
+every refugee-exporting country weighted incidence degree changes a little after adding the
+time of preparation for the transfer, the change of their relative influence is rather small,
+indicating that our model has good sensitivity.
+
+
+Strengths
+     After building the refugees transfer model, we calculate the influence of each of the
+evaluation object. Further, in order to ensure the stability of the model, we circulate the
+calculation process and weigh every evaluation object according to the weighted incidence
+degree determined. Then we use our model to evaluate all the evaluation objects again, thus
+giving the effective strategy of transfer.
+     When analyzing of the transfer of the refugees, we promote the model to different fields
+rather than keep it in one area so that the model is endowed with higher reliability and wider
+range of applications. Besides, after establishing the refugees transfer model, we solve the
+problems from different perspectives, thus giving a full description of our model from other
+points of view.
+
+Weaknesses
+      In terms of statistics of data, sometimes it is not accurate enough in our model due to the
+limitations of resources and lack of statistical techniques, so there may be errors in the result.
+     Since there are many evaluation objects in our refugees transfer model, the transfer
+diagram would be rather disordered and difficult to study if all the evaluation objects are
+
+
+=== PHYSICAL PAGE 22 ===
+Team#46634                                                                       page 21 of 22
+
+included in the refugees transfer model diagram. So we give schematic diagrams and
+uncompleted diagrams when analyzing as auxiliary description.
+      When discussing the scalability of the refugees transfer model, we find the number of
+the refugees is big while the cooperation between them is relatively little. As a consequence,
+the results of many evaluation objects are close under the evaluation index set in our model,
+lowering the persuasion of the results of our model.
+
+References
+[1] Lubomyr,Y. Luciuk, Unintended Consequences in Refugee Resettlement: Post-War
+Ukrainian Refugee Immigration to Canada, The International Migration Review,1986,20(2):
+467–482.
+[2] Geddes, A., Immigration and European integration: towards fortress Europe? , Refugee
+Survey Quarterly, 2001, 20(1): 229–229.
+[3] Gallya Lahav, Immigration and Politics in the New Europe, Reinventing Borders, 2004.
+
+[4] James Hollifield，Philip Martin，Pia Orrenius, Controlling Immigration: A Global
+Perspective (Third Edition),2014.
+[5] Liisa H. Malkki, Refugees and Exile: From "Refugee Studies" to the National Order of
+Things, Annual Review of Anthropology, 1995, 24: 495-523.
+[6] Eric Neumayer, Bogus Refugees? The Determinants of Asylum Migration to Western
+Europe , International Studies Quarterly, 2005, 49(3):389-410.
+[7] Roger Zetter, More Labels, Fewer Refugees: Remaking the Refugee Label in an Era of
+Globalization, Journal of Refugee Studies, 2007, 20(2):172-192.
+[8] Eleonore Kofman, Gender and International Migration in Europe: Employment, Welfare,
+and Politics, 2000
+[9] Alessandra Buonfinoa , Between unity and plurality: the politicization and securitization
+of the discourse of immigration in Europe, New Political Science, 2004, 26(1):23-49.
+[10] Anthony H. Richmond, Reactive Migration: Sociological Perspectives On Refugee
+Movements, Journal of Refugee Studies,1993,6(1):7-24.
+[11] Elizabeth Fussell, James R. Elliott, Introduction: Social Organization of Demographic
+Responses to Disaster: Studying Population—Environment Interactions in the Case of
+Hurricane Katrina, Organization & Environment,2014,22(4):379-394.
+
+
+=== PHYSICAL PAGE 23 ===
+Team#46634                                                                        page 22 of 22
+
+  Dear Sir or Madam,
+     It is my pleasure to give policy recommendation to UN. As the factors that we have
+discussed, we find the refugees’ diathesis, country’s policy and external factors influence the
+movement of the refugees. Since the UN requires us to give priority to the health and safety
+of the refugees and the local people, we synthesize our result above and give our advice on
+policy about refugees.
+    Firstly, we suggest that give priority to the cultural restraint and religion, so we could
+have a policy that the receiving country should accept prior the refugees who have similar
+cultures and religious beliefs.
+    Secondly, we advise UN to establish a ‘safe zone’ as a buffer if there is a war between the
+refugee-exporting country and the refugee-receiving country. The ‘safe zone’ should be built
+at the boundary between the receiving country and its neighboring country (except the
+refugee country). During that time, UN should provide necessaries to the refugees.
+    Finally, doctors and psychologists should be dispatched by UN. For the refugees suffer
+much pressure both on their mental and physical and this kind of pressure can not be stay
+long time.
+  The policy recommendations above combine our results, we hope it sincerely that the
+advice can help refugees to come through the tough days!
+
+
+
+
+                                                                                Yours sincerely

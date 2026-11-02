@@ -1,0 +1,1279 @@
+=== PHYSICAL PAGE 1 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+
+
+                                              Team Control Number
+        For office use only                                                      For office use only
+        T1
+        T2
+                                              82794                              F1
+                                                                                 F2
+        T3                                       Problem Chosen                  F3
+        T4                                                                       F4
+                                                        D
+                2018 Mathematical Contest in Modeling (MCM/ICM) Summary Sheet
+
+                  How to achieve the full adoption of all-electric vehicles
+                                                   Summary
+             We construct two models to facilitate the construction of the Tesla network from a macro
+       perspective, a double-layer complex network to measure the network topology and a SI epi-
+       demic model based on the evaluation index system(SI-EI)to identify the key factors in the
+       building process.
+
+             The double-layer complex network can be used to determine the number, location and
+       distribution of chargeing stations. People are divided into long-distance and short-distance
+       travelers. The number of charging stations are determined mainly by Vehicle Density, Daily
+       Mileage and Range Anxiety: (1) the outer layer is to study the demands of long-distance trav-
+       elers for supercharge stations,with introduced Weighted Betweenness to measure whether a
+       city is a traffic hub, which is the reference to arrange the location; (2) the inner layer is to study
+       the demands of the remaining three cases, and arrange location according to Vehicle Densi-
+       ty. The distribution is based on the number of the above four cases. We introduce Reachable
+       Level, Permeability and Long-distance travel demand rate into SI-EI model to measure daily
+       infection rate λ, and apply the traditional SI model to determine the key factors.
+
+             For problem 1, there are 8.08 million destination charging stations and 2.16 million super-
+       charge stations in the final network architecture. It takes 108 years to reach fully automobile
+       electrification for constructed networks while it takes 36 years to construct networks.
+
+             For problem 2, we choose Ireland. There are 78 thousand destination charging stations
+       and 20.8 thousand supercharge stations in the final network architecture. The optimal invest-
+       ment plan is to establish a 2: 1 ratio between the scale of the site and the present required
+       scale, and to establish charging stations by mixing the ratio of the city to the rural area to 3:
+       2. The conclusion is mainly building destination charging stations when Permeability is less
+       than 30%, and building supercharge stations in cities when Permeability is less than 50%but
+       more than 30%, otherwise building supercharge stations in roads.
+
+             For problem 3, we build a classification system to have a weak traffic network.
+
+             For problem 4, technology that would hinder EVs’spread include: car-share, ride-share
+       services and hyperloop. While technology that would boost EVs’spread include: self-driving
+       cars, rapid battery-swap stations for electric cars, and flying cars
+
+
+=== PHYSICAL PAGE 2 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+
+
+
+                                                                      Contents
+
+
+       1   Overview                                                                                                                                         1
+
+           1.1   Background..............................................................................................................................1
+
+           1.2   Restatement of Problem......................................................................................................... 1
+
+           1.3   Illustration................................................................................................................................2
+
+
+       2   Notations                                                                                                                                        2
+
+
+       3   Assumptions and Justification                                                                                                                    2
+
+
+       4   Double-Layer Complex Network                                                                                                                     3
+
+           4.1   Model Overview and Analysis............................................................................................. 3
+
+           4.2   Inner Layer: Distribution of Charging Stations over a County........................................ 4
+
+                 4.2.1      Distribution of Destination Charging Stations overa County............................. 4
+
+                 4.2.2      Distribution of Supercharging Stations overa County......................................... 5
+
+           4.3   Outer Layer: Distribution of Charging Stations from Countyto County....................... 7
+
+
+       5   SI epidemic model based on the evaluationindex system                                                                                            9
+
+           5.1   Model Overview and Analysis............................................................................................. 9
+
+           5.2   Establishment of Evaluation Index System......................................................................... 9
+
+                 5.2.1      Analysis of User’s Demands.....................................................................................9
+
+                 5.2.2      The Measure of Index.............................................................................................. 10
+
+           5.3   SI Epidemic Model................................................................................................................11
+
+
+       6   Application and Analysis                                                                                                                       12
+
+           6.1   Task 1:Explore the network of Tesla charging stations in theUnited States................. 12
+
+                 6.1.1      The number and distribution of charging stations.............................................. 12
+
+                 6.1.2      Prediction.................................................................................................................. 13
+
+           6.2   Task 2: Analysis the network of Tesla built in Ireland..................................................... 14
+
+                 6.2.1      2a: The number, placement and distribution of charging stations and key
+                            factors.........................................................................................................................14
+
+                 6.2.2      2b: Our proposed charging station plan............................................................... 16
+
+
+=== PHYSICAL PAGE 3 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+
+
+
+                 6.2.3      2c: Our proposed growth plan timeline................................................................17
+
+                 6.2.4      Analysis of key factors.............................................................................................17
+
+           6.3   Task 3: A weak traffic network classification system...................................................... 18
+
+           6.4   Task 4: The impact of technology on EVs’ spread............................................................19
+
+
+       7   Sensitivity Analysis                                                                                                                          19
+
+
+       8   Comment on Heavy Trucks                                                                                                                       20
+
+
+       9   Analysis of the Model                                                                                                                         20
+
+           9.1   Strengths.................................................................................................................................20
+
+           9.2   Weaknesses.............................................................................................................................20
+
+
+       10 Task 5: Handout                                                                                                                                21
+
+
+       Appendices                                                                                                                                        23
+
+
+=== PHYSICAL PAGE 4 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 1 of 24
+
+
+       1      Overview
+
+       1.1     Background
+
+              The world is fascinated by reducing the use of fossil fuels, including gasoline for vehicles.
+       Whether motivated by the environment or by the economics, consumers are starting to migrate
+       to electric vehicles. The migration from gasoline and diesel vehicles to electric vehicles is not
+       simple and can’t happen overnight. The location and convenience of charging stations is critical
+       as early adopters and eventually mainstream consumers volunteer to switch. When nations
+       plan this transition, they need to do:
+
+             • Build a sufficient number of vehicle charging stations in all the right places;
+
+             • Consider the final network of charging stations
+
+             • Consider the growth and evolution of the network of charging stations over time.
+
+              As nations seek to develop policies that promote the migration towards electric vehicles,
+       they will need to design a plan that works best for their individual country.
+
+
+       1.2     Restatement of Problem
+
+              We need to determine the final architecture of the charging network to support the full
+       adoption of all-electric vehicles. And we will identify the key factors that will be important
+       as they plan their timeline for an eventual ban or dramatic reduction of gasoline and diesel
+       vehicles.
+
+              Our specific tasks are the following:
+
+             • Explore the current and growing network of Tesla charging stations in the UnitedStates.
+
+             • Select one of the following nations(South Korea, Ireland, or Uruguay). Build the network
+               considering the number and distribution of charging stations, determine the growth plan
+               and propose the timeline for the full evolution to electric vehicles in this country. And
+               identify the key factors.
+
+             • Identify the key factors that trigger the selection of different approaches to growing the
+               network in different countries. Discuss the feasibility of creating a classification system
+               that would help a nation determine the general growth model.
+
+             • Comment on how other transportation options might impact our analyses of the increas-
+               ing use of electric vehicles with the development of technology.
+
+             • Prepare a one-page handout written for the leaders of a wide range of countries who are
+               attending an international energy summit.
+
+
+=== PHYSICAL PAGE 5 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 2 of 24
+
+
+       1.3     Illustration
+
+             • Two types of charging stations
+               Tesla currently offers two types of charging stations: (1) destination charging and (2) su-
+               percharging. Supercharging stations are usually built along the main road. Supercharg-
+               ing can quickly charge the vehicle while people take a quick break. Destination charging
+               stations are built at places, including nearby company, shopping center and parking lots.
+
+             • Distribution of charging stations
+               The meaning of the distribution of charging stations is the differences in the distribution
+               of rural areas, suburban areas, and urban areas. The differences include the number of
+               charging stations, distribution of two types of charging stations and so on.
+
+             • Explanations for county
+               There are two explanations for county[6], one is that the county is composed of city[7] and
+               country side, the other is that the county is composed of urban, suburban and rural areas.
+
+             • A charging station contains only one charger
+               Because our model calculates the number of chargers needed, while the number of charg-
+               ing stations depends on how many chargers a site contains. The specific number of dis-
+               tribution involves the use of power networks and land resources, which we won’t take
+               into accounts too much about.
+
+
+
+       2      Notations
+
+              Here we list the symbols and notations used in this paper, as shown in Table 1. Some of
+       them will be defined later in the following sections.
+
+
+                                                Table 1: Notations
+                     Symbol         Description
+
+                         λ       The daily contact rate
+                         i       The current number of EVs
+                      Msum       The total number of traditional vehicles and EVs
+                        D        The total satisfaction
+
+
+
+       3      Assumptions and Justification
+
+             • Focus only on personal passenger vehicles.
+
+
+=== PHYSICAL PAGE 6 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 3 of 24
+
+
+             • a complete switch to all-electric happens, the system is stable and neither will people
+               convert to gasoline vehicle users nor will people convert to EV users.
+
+             • A charging station contains only one charger
+
+
+
+       4      Double-Layer Complex Network
+
+       4.1     Model Overview and Analysis
+
+              Sincewe are building a network of charging stations for a country,we should stand on the
+       nation’s point to consider this problem. There are many differences between the counties in
+       a country, including topography, folk customs and so on. Existing papers [1 − 3] did research
+       on specific city, including the number of charging stations per street and so on. Such method
+       of research does not apply to this problem. We should grasp the essence of the problem and
+       abstract the problem, so we come up with a double-layered complex network, which means
+       the global network of charging stations and the network of charging station’s distribution.
+
+              Take the United States for example, the structure of our double-layer complex network is
+       shown in Figure 1:
+
+
+
+
+                                        Figure 1: A double-layer Network
+
+
+              We have already discussed in the Illustration of the general location of the two charging
+       stations in the city. This article does not intend to discuss the specific location of the charging
+       station from a microscopic point of view, but to discuss the location from a macro perspective
+       where the location is understood as the number of charging stations allocated in different cities.
+
+
+=== PHYSICAL PAGE 7 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 4 of 24
+
+
+       4.2      Inner Layer: Distribution of Charging Stations over a County
+
+               The design of the inner layer is mainly for the people whose scope of activity is in a county.
+       They are characterized by a narrow range of activities, less power consumption per day, so it’s
+       reasonable to build destination charging stations primarily.
+
+               However, there are still two kinds of people need supercharging stations. One is that the
+       people whose scope of activity is in a county, but always forgets charging his vehicle. The other
+       are the long-distance travelers who pass the county.
+
+               Figure 2 is the summary of the text below.
+
+
+
+
+                                     Figure 2: The structure of this subsubsection
+
+
+
+       4.2.1     Distribution of Destination Charging Stations over a County
+
+          1. The number of destination charging stations:
+                We quantify the number of destination charging stations by introducing the total load of
+                charging formula [4]:
+
+                            L(Si, t, τ ) = f (Si, τ ) × ϕ(Si) × Nsum × µ((P, t, τ ) |Si ), i = 1, 2, ..., 6   (1)
+
+                                                          ∫ i)
+                                                         hl(S
+
+                                              ϕ(Si) =            g(D i)dD i, i = 1, 2, ..., 6                 (2)
+                                                        ll(Si)
+                                                                    Σ
+                                                   TL(t, τ ) =             (L(Si, t,τ ))                      (3)
+                                                                  Si∈ttτ
+
+                where
+
+
+=== PHYSICAL PAGE 8 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 5 of 24
+
+
+                  • Si is the ith user group, and the six user groups are divided according to the differ-
+                     ence of daily mileage of electric vehicles(EVs).
+                  • L(Si, t, τ ) is the total number of destination charging stations Si need in timet of
+                     workday τ .
+                  • f(Si, τ) is the probability distribution of the users in user group Si in workdays and
+                     is equal to the ratio of charging users to total users of user group Si during workday
+                     τ.
+                  • Nsum is the holding number of EVs in our researching area.
+                  • µ((P, t, τ ) |si ) is the expected value for a single user in user class Si charged during
+                     workday τ at timet.
+                  • ϕ(Si) is the ratio of the number of users in user group Si to Nsum.
+                  • g(Di) is the probability density function that daily driving distance of a single user
+                     in user group Si obeys.
+                  • ttτ is the set of user group that have charged during the workday τ .
+                  • TL(t, τ ) is the total number of destination charging stations needed in time t of
+                     workdayτ .
+                                                              Σ
+               There is no doubt that we should use DTL = max{ TL(t, τ )} as the required number
+               of destination charging stations.
+
+          2. The location of destination charging stations:
+               The number of destination charging stations assigned to each county is proportional to
+               the vehicle density in the county.
+
+                                                             DTL × CD i
+                                                    DTLi =    Σ CD                                         (4)
+                                                                        i
+
+               where DTLi is the number of charging stations required for the ith city, DTL is the num-
+               ber of charging stations required for the whole country, CDi is the traffic density of the
+               ith city.
+
+          3. Distribution between urban, suburban, and rural areas:
+               Our research on quantity and location is based on vehicle density, and the main difference
+               between urban, suburban, and rural areas is vehicle density as well, so it is reasonable to
+               allocate the number of destination charging stations based on the vehicle density ratio.
+
+
+       4.2.2    Distribution of Supercharging Stations over a County
+
+       For short-distance traveling people who always forget charging
+
+
+=== PHYSICAL PAGE 9 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 6 of 24
+
+
+         1. The number of supercharging stations:
+            Suppose that people with rate a always forget charging at home, then they need super-
+            charging stations. Range anxiety is defined as drivers’ concerns with being stranded with
+            a discharged EV battery and the associated delays to their journeys due to long recharg-
+            ing times [5]. Considering that the range anxiety of destination charging stations should
+            larger than that of fast-charge, so we introduce a Damage Factor rd, its meaning is the
+            maximum remaining capacity when people want to use the supercharging stations rela-
+            tive to that when they want to use the destination charging stations and the number of
+            supercharging stations. we need can be represented as:
+
+                                                STL = DTL × a × rd                                     (5)
+
+
+         2. The location of supercharging stations:
+            It’s similar to the location of destination charging stations, so we will not repeat them
+            here.
+
+         3. Distribution between urban, suburban, and rural areas:
+            It’s similar to the distribution of destination charging stations between urban, suburban,
+            and rural areas, so we will not repeat them here.
+
+       For long-distance traveling people
+
+           Since long-distance travelers tend to rest at the center of the counties along the way, it can
+       be predicted that important cities should have a large demand for supercharging stations. Thus
+       we need to set up the stations in such important cities to fit the demands.
+
+           The importance of cities can be measured by Betweenness.
+
+
+
+
+           where, njl (i) is the number of the shortest paths between vj and vl which also passes vi,
+       njl is the number of the shortest paths between vj and vl.
+
+           Given that the network we have constructed is a weighted graph, the attribute of a node is
+       its number of vehicles, and the attribute of an edge is the distance between two adjacent cities.
+       Now we introduce two coefficients to construct Weighted Betweenness. Thus, we get our final
+       Weighted Betweenness WB to measure the importance of cities.
+
+                                              WB i = Bi × η1 × η2                                      (7)
+
+       where η1 is the ratio of the sum of the population of the cities connected to the city to the total
+       population, η2 is the ratio of the sum of the length of the edge between the city and all of its
+
+
+=== PHYSICAL PAGE 10 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 7 of 24
+
+
+       surrounding cities to the total length of the edge.
+
+         1. The number of supercharging stations:
+               Let us estimate the number of supercharging stations needed for long-distance travelers.
+               We assume that long-distance travelers charge mainly during the twelve hoursdaytime,
+               charging thirty minutes each time and traveling an average of L miles per day. ρ is a
+               factor used to prevent the rush hour from being in short supply. The Range Anxiety, Er,
+               is set at 130 miles, which means that travelers are expected to charge when they spend
+               130 miles.
+                                                        w × Nsum × L × ρ
+                                               STL =                                                   (8)
+                                                               24ER
+         2. The location of supercharging stations:
+               Then we divide supercharging stations into two types, one around the city and the other
+               on the road between the two counties. We should try our best to put the supercharging
+               stations in the city, which not only meets the requirements of long-distance travelers but
+               also reduces the construction cost. Here we mainly consider the supercharging stations
+               around the city, and we will continue to discuss the supercharging station on the road
+               between the two counties later. We set the ratio of the supercharging stations on the road
+               to the overall supercharging stations as β.
+
+                                                        WBi
+                                          STL c i = Σ          × STL × (1 − β)                         (9)
+                                                        WB i
+
+         3. Distribution between urban, suburban, and rural areas:
+               We have discussed above that the supercharging station here is built in the urban area, as
+               for the supercharging stations built in the suburban and rural areas, they will be discussed
+               in the outer network.
+
+
+
+       4.3     Outer Layer: Distribution of Charging Stations from County to County
+
+              The main target of the chargers between counties is those who travel long distances, whose
+       EV may out of battery before they arrive at their destinations. Thus they need the charging
+       stations. However they wish they could arrive in a certain time, so compared with destination
+       charging stations, they need supercharging stations more. From this we know, stations between
+       counties should be supercharging stations.
+
+              There are three types of routes in the outer layer, as is shown in Figure 4:
+
+             • The direct route between cities in the same county.
+
+             • The direct route between cities in neighboring counties.
+
+
+=== PHYSICAL PAGE 11 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 8 of 24
+
+
+
+
+                                 Figure 3: the number of charging stations
+
+          • The route between cities that aren’t in adjacent counties passes through the big cities who
+            located between these cities.
+
+           It is worth mentioning that different countries have different standards for the classifica-
+       tion of cities. We will study the number and location of supercharging stations as follows.
+
+
+
+
+                                     Figure 4: the outer-layer Network
+
+
+         1. The number of supercharging stations:
+            The network of the outer layer is a complete graph. We test all the edges in the complete
+            graph. The calculation of the number of supercharging stations between two cities is as
+            follows:
+                                              ,  ,
+                                               L     Ni + Nj
+                                       K ij =      ×            × K sum × β                          (10)
+                                              ER       Nsum
+            where, L is the distance between two cities; ER is Range Anxiety; Ni(i = 1, 2, ...) is the
+
+
+=== PHYSICAL PAGE 12 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 9 of 24
+
+
+                number of EVs in the ith city; Nsum is the number of EVs in all cities; Kij is the number
+                of supercharging stations between the ith city and the jth city; Ksum is the number of
+                supercharging stations in all cities; β is the scale factor.
+
+           2. The location of supercharging stations:
+                According to the experience of life, people will choose the shortest path to reach their
+                destination. And based on the interpretation and analysis of ER, supercharging station
+                should be placed on the shortest path between the two cities and the distance to the
+                nearest supercharging station is 130 miles.
+
+
+
+       5      SI epidemic model based on the evaluation index system
+
+       5.1      Model Overview and Analysis
+
+               In life, people decide whether to use traditional vehicles or electric vehicles based on their
+       satisfaction with electric vehicles which is mainly measured by the number and location of
+       charging stations. Thus we established a evaluation index system to measure people’s satisfac-
+       tion.
+
+               When a person is very satisfied with electric vehicles, he will tell his friends and family
+       around the advantages of electric vehicles, so that people around him have a certain probability
+       of being convinced by him, that is, turning to the use of electric vehicles. According to the above
+       analysis, we have established a SI epidemic model based on the evaluation index system.
+
+
+       5.2      Establishment of Evaluation Index System
+
+               Before establishing evaluation index system, we need to analyse people’s specific demand-
+       s. In the following, we first classify people according to the length of their journey and analyse
+       the demands of different types of people. Then establish the evaluation index system according
+       to people’s demands.
+
+
+       5.2.1     Analysis of User’s Demands
+
+               Based on people’s preferences, people are divided into two types: those who prefer long-
+       distance travel (LT) and those who prefer short excursions (SE).
+
+             • Long trips often cross several counties and will definitely need supercharging station
+                during the travel, so it’s more important for LT that the number and location of super-
+                charging station along the way.
+
+             • SE’s basic necessities of life are mostly in their own county. SE is divided into people who
+                won’t forget to charge (NFC) and who will forget to charge (FC). NFC’s daily life does not
+
+
+=== PHYSICAL PAGE 13 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 10 of 24
+
+
+                require supercharging station, they only need a sufficient number of destination charging
+                stations to meet the daily charging demands. FC may require supercharging stations in
+                the city in case forgotten to charge EVs in time, so the number of supercharging stations
+                in the city is more important to FCs than NFCs.
+
+       According to the analysis above, the metrics in evaluation index system should include: the
+       number of destination charging stations; the number of supercharging stations in the city; the
+       number of supercharging stations in the road; the location of supercharging stations in the
+       road.
+
+
+
+
+                                 Figure 5: the metrics in evaluation index system
+
+
+
+       5.2.2     The Measure of Index
+
+               The measure of the level of satisfaction with the number of destination charging stations
+       is the following:
+                                                            DTLnow
+                                               DNL =                                                 (11)
+                                                        DTL × PT
+       where DNL is the satisfaction level with the number of destination charging stations, DTLnow
+       is the number of destination charging stations now, DTL is the total number of destination
+       charging stations when every gas vehicle has been replaced by an electric one and every gas
+       station has been replaced with a charging station, PT is the permeability.
+
+               To measure the level of satisfaction with the number of supercharging stations, we have
+       proposed the following formula:
+
+                                                         STL c_now
+                                                SNL =                                                (12)
+                                                        STL c × PT
+
+       where, SNL is the satisfaction level with the number of destination charging stations in city,
+       STL c_now is the number of supercharging stations in city now, STL c is the total number of
+       destination charging stations when every gas vehicle has been replaced by an electric one and
+       every gas station has been replaced with a charging station in city, also, PT is the permeability.
+
+
+=== PHYSICAL PAGE 14 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 11 of 24
+
+
+             Permeability is the current proportion of EVs to all vehicles which can be calculated as
+       follows:
+                                                            i
+                                                    PT =                                             (13)
+                                                           Msum
+       where, i is the current number of EVs while Msum is the total number of traditional vehicles
+       and EVs.
+
+             Satisfaction level with the location of a supercharging station on a long road is indicated
+       by RL, which means reachable level, that is the reachable probability of multiple counties to
+       county B from county A route. If County A and County B are far apart and there are not
+       enough supercharging stations on the road for charging, they are not reachable, otherwise they
+       are reachable.
+
+             Overall satisfaction can be measured as follows:
+                                                            STL c_now       DTL now
+                          D = w × PC + (1 − w) × (a ×                   +             )              (14)
+                                                           STL c × PT       DTL ×PT
+
+       Where, D is the total satisfaction, w is the percentage of the number of LT, a is the ratio of the
+       number of FC to SE, RL is the Reachable Level.
+
+
+       5.3    SI Epidemic Model
+
+             In the SI epidemic model, people who use EVs are equivalent to those patients in the SI
+       model. People who use traditional vehicles are equivalent to healthy people in the SI model,
+       and those who are healthy will use EVs because of the encouragement of the people around
+       them , that is, they will become patients.
+
+             As is shown in Figure 6 , the dots whose color is the deepest represent patients while the
+       dots whose color is the lightest represent healthy people. The depth of the dots’color on behalf
+       of people’s satisfaction to EVs. The ratio of the number of LT to that of overall w and the ratio
+
+
+
+
+                                  Figure 6: Network of SIS Epidemic Model
+
+
+=== PHYSICAL PAGE 15 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 12 of 24
+
+
+       of the number of CSE to that of SE a can be calculated as:
+
+                                                    w = PT × x                                          (15)
+
+                                                     a = PT × y                                         (16)
+
+       where PT is the permeability, x is the number of LT to all when every gas vehicle replaced by
+       an electric one and every gas station replaced with a charging station, y is the number of CSE
+       to that of SE when every gas vehicle replaced by an electric one and every gas station replaced
+       with a charging station. Then put formula (15) and formula (16) into (14).
+
+               In this epidemic model, λ is the number of people who own vehicles that make efficient
+       use of EVs (enough to convert people from a traditional vehicle user to an EV user) every day,
+       which can be referred to as the daily contact rate. The parameterλ can be calculated as:
+
+                                                       (D − X)P
+                                                  λ=                                                    (17)
+                                                           D
+
+               where X is a threshold value. When the total satisfaction level D = X, people are neutral
+       about EVs and traditional vehicles; When D > X, people tend to choose EVs; When D < X,
+       people tend to choose a traditional vehicle. P is the total number of people with vehicles that
+       come in contact with each person who uses the EVs every day.
+
+                                               di
+                                                  = λi(1 − i), i(0) = i0                                (18)
+                                               dt
+
+               where i is the current number of EVs, λ is the daily contact rate, i0 is the initial value of
+       EVs.
+
+
+
+       6     Application and Analysis
+
+       6.1      Task 1:Explore the network of Tesla charging stations in the United States
+
+       6.1.1     The number and distribution of charging stations
+
+           1. Destination charging stations
+
+                  • The number of destination charging stations
+                     We consulted for information and learned the current total population of the United
+                     States is 323.1 million, the per capita consumption of vehicle is 0.766 and the daily
+                     mileage expectation is 43.4. We regard these data as the value of parameters in the
+                     formula 1, and get the answer DTL = 8.08million.
+                  • The distribution of destination charging stations
+
+
+=== PHYSICAL PAGE 16 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 13 of 24
+
+
+                     Based on the model name, the distribution of destination charging stations is the
+                     same as the radio of urban, suburban, and rural areas. The result is as shown in
+                     Table 3.
+
+          2. Supercharging stations
+
+                  • The number of supercharging stations The number of supercharging stations is
+                     shown in Table 2.
+
+                                      Table 2: the number of charging stations
+                                              type                               number(million)
+                                 destination charging stations                         8.08
+                                              long-distance traveling people           1.62
+                   supercharging stations
+                                             short-distance traveling people           0.54
+
+
+                  • The distribution of supercharging stations
+                     According to the formula 9, when ß=0.3, we get the distribution as follows:
+
+
+
+
+       Figure 7: the comparison of distribution between destination charging stations and supercharg-
+       ing stations
+
+
+                                 Table 3: the distribution of supercharging stations
+                                 areas               urban areas   suburban areas      rural areas
+                    destination charging stations        0.8             0.15             0.05
+                       supercharging stations           0.725           0.1125           0.1625
+
+
+
+       6.1.2     Prediction
+
+               We can assume that when a complete switch to all-electric happens, the system is stable
+       and neither will people convert to gasoline vehicle users nor will people convert to EV users.
+
+               Assuming that the level of satisfaction D is the threshold at this time, this assumption is
+       reasonable because vehicle companies will surely pursue their own maximum profits under
+
+
+=== PHYSICAL PAGE 17 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 14 of 24
+
+
+       the premise of maintaining system stability which will keep the satisfaction at the lowest level
+       of satisfaction.
+
+                                 1
+                                          (36,1)       (108,1)
+                                                                                   the growing network of Tesla
+                                                                                   the current network of Tesla
+                                0.8
+
+
+
+                                0.6
+                            i
+
+                                0.4
+
+
+
+                                0.2
+
+
+
+                                 0
+                                      0     50       100         150         200      250         300         350
+                                                                        t
+
+
+
+                Figure 8: the comparison of the growing network and the current network of Tesla
+
+
+               We set w = 0.7, a = 0.3, PT = 0.002, resulting in a threshold of 1.85. It can be seen
+       from the Figure 8 that under the premise of ensuring that each future state is the same as
+       today, the current Tesla network can meet the requirements of an all-electric vehicle but requires
+       36. Compared with the growing Tesla network, the main change is the addition of 496 super-
+       charging stations, which can reduce the realization time to 108.
+
+
+       6.2      Task 2: Analysis the network of Tesla built in Ireland
+
+       6.2.1     2a: The number, placement and distribution of charging stations and key factors
+
+               The determination of the number and distribution of charging stations is consistent with
+       task 1, and we apply the collected data about Ireland to get the result:
+
+                             Table 4: the distribution of destination charging stations
+                                  areas                     urban areas            suburban areas                 rural areas
+                    destination charging stations                      0.7                   0.2                      0.1
+                       supercharging stations                          0.7                  0.125                    0.175
+
+
+
+                                          Table 5: the number of charging stations
+                                                   type                                              number(thousand)
+                                  destination charging stations                                                   78.0
+                                                   long-distance traveling people                                 15.6
+                  supercharging stations
+                                                   short-distance traveling people                                  5.2
+
+
+               We will focus on determining the location below.
+
+
+=== PHYSICAL PAGE 18 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 15 of 24
+
+
+           In order to simplify the problem, we have selected 27 big cities in Ireland, with a total
+       population of 80% of the total population of the country.
+
+         1. The location of destination charging stations
+            Apply the ratio of vehicle possession to equation 4 to get the number of distribution for
+            each city:
+
+
+
+
+                             Figure 9: the number of distribution for each city
+
+
+
+
+                                Figure 10: the distribution map of chargers
+
+
+            Based on the assume that the demographic difference in small cities is not obvious be-
+            cause of the small population, we randomly allocate the remaining destination chargers
+            to the more open areas of the map (the remaining small cities that we did not consider).
+
+         2. The location of super chargestations
+
+               • For short-distance travelers
+                 In equation 5, let a = 0.3, rd = 0.25 to get the number of distribution for each city.
+               • For long-distance travelers
+
+
+=== PHYSICAL PAGE 19 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 16 of 24
+
+
+                     We use weighted mediators to measure the importance of nodes in the network,
+                     according to the importance. By equation 9 and equation 10, we can get the number
+                     of distribution for each city and the number of distribution on each road as:
+
+
+
+
+                         Figure 11: mix map                Figure 12: distribution of supercharging sta-
+                                                           tions
+
+       Reasonableness Analysis:
+
+               Because the Tesla network in Ireland is in its infancy, it is difficult to verify the validity
+       of our results. We study the relatively more mature Tesla network in the United States. The
+       figure below is a mixture of the betweenness, the vehicle density and the shortest path based
+       on the 309 major metropolitan areas in the United States. The lighter places indicate the higher
+       proportion of the destination charging stations and the supercharging stations. We can easily
+       identify the coastal cities of Boston, Los Angeles, New York and Miami though not fortified
+       traffic but with a large population. We can speculate that the reason for their distribution is
+       primarily our study of vehicle density. While for Peoria, Las Cruces, Jackson, Little Rock and
+       other cities with relatively small population but the traffic fortress of the city, their distribution
+       is mainly due to our study of the weighted mediation.
+
+               Moreover, the main highlight in the picture is the best route to place super-charging sta-
+       tions for long-distance travelers. And we can observe that our highlight area distribution is
+       in good agreement with the current Tesla network density distribution in the United States,
+       proving that our model works well.
+
+
+       6.2.2     2b: Our proposed charging station plan
+
+          1. Chargers distribution ordering trade-off
+                Based on the second Model, we consider three cases: build all city-based chargers first,
+                or all rural chargers, or mix of both. The main difference among them is that different
+                locations affect λ in Eq (18). We consider λ change with the growth of PT according to
+                equation (17), and get the change of PT with time t in different situations, as is shown in
+                Figure 13.
+                Result Analysis: We can see that hybrid construction achieves the 100% permeability
+                rate the fastest, and even faster when the two are roughly proportional to 3: 2. This is
+
+
+=== PHYSICAL PAGE 20 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 17 of 24
+
+
+                consistent with the idea of using population density measures in our model. The collected
+                data show that the proportion of urbanization in Ireland is 63.2%, so the model results are
+                in line with real life.
+
+          2. Cars first or Stations first
+                The minimum number of charging stations to be built is such that λ is exactly equal to
+                the threshold, otherwise permeability of the EV (PT ) will continue to decrease. Wehave
+                changed the ratio of the number of charging stations in the case of building the chargers
+                first to that in the case of build chargers in response to vehicle purchases several times.
+                The result is shown in Figure 14.
+                              (47,1)
+                    1                                                                                             1 (30,1)
+                         (39,1)    (54,1)                                                            323,1                   (41,1)              108,1
+                   0.9                                                                                           0.9
+
+                   0.8                                                                                           0.8
+
+                   0.7                                                                                           0.7
+
+                   0.6                                                                                           0.6
+               i   0.5                                  rural area changer first                             i   0.5
+                                                        city-based changer first
+                   0.4                                  mix the ratio of the city to rural area to 3:1           0.4
+                                                        mix the ratio of the city to rural area to 3:2                             cars first
+                   0.3                                                                                           0.3
+                                                                                                                                   2:1 ratio between the scale of the site and the present required scale
+                   0.2                                                                                           0.2               3:1 ratio between the scale of the site and the present required scale
+                   0.1                                                                                           0.1
+
+
+                                  50        100   150           200           250           300                               50           100           150          200          250          300
+                                                        t                                                                                                      t
+
+
+
+
+        Figure 13: Chargers distribution ordering                                                                Figure 14: Cars first or Stations first
+        trade-off
+
+                Result Analysis: The main difference between the two cases is the rate of reaching 100%
+                permeability and the up-front capital wasted by building supercharging stations. We can
+                simply assume that the saving of capital is linear with the PT speed, so we concluded that
+                it is wise to build the chargers first, and that it is optimal to build a site size that is 2: 1 to
+                now. Therefore, we can draw the conclusion of the optimal investment plan: to establish
+                a 2: 1 ratio between the scale of the site and the present required scale, and to establish
+                charging stations by mixing the ratio of the city to the rural area to 3: 2.
+
+
+       6.2.3         2c: Our proposed growth plan timeline
+
+               Based on the analysis of the SI-EI model, the main task of different periods is changed, it
+       can be seen in the Figure 15.
+
+
+       6.2.4         Analysis of key factors
+
+               Based on the above analysis, now we study the key factors.
+
+          1. In Task 2a, we main explore the final Tesla network topology. The key factors that shaped
+                the development of our plan is the ratio of the total number of charging stations over the
+                country to that in each city.
+
+
+=== PHYSICAL PAGE 21 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 18 of 24
+
+
+
+
+                                 Figure 15: The main task of different periods
+
+
+          2. In Task 2b, we main explore the Tesla network establishment process. The key factors that
+              shaped our proposed charging station plan are the ratio of the simultaneous construction
+              of urban and rural areas.
+
+          3. In Task 2c, we mainly explore the different phases of the Tesla network establishment.
+              The key factors that shape your proposed growth plan timeline are the different main
+              influencing factors in different stages of establishment.
+
+
+       6.3    Task 3: A weak traffic network classification system
+
+             This question requires us to create a classification system that would help a nation deter-
+       mine the general growth model, we consider to create a classification system which include the
+       country who has a weak traffic network. The underdevelopment may be due to the special ge-
+       ography or underdeveloped economy, which makes it difficult to establish a nationwide road
+       system.
+
+             This question requires us to determine the general growth model, so we don’t consid-
+       er country-specific details, and the only difference between classification system with others is
+       that there is little need to consider the need to establish charging stations for long-distance trav-
+       elers. Building roadways between neighboring cities is the key factor that trigger the selection
+       of different approaches to growing the network.
+
+             Now our proposed plan for growing and evolving the network of chargers doesn’twork.
+       Therefore, we should greatly reduce the weight of betweenness index in the first model, which
+       will simplify the problem to mainly relying on the proportion of the number of vehicles in the
+       region to allocate charging stationso Considering people’s satisfaction with the EVs network,
+
+
+=== PHYSICAL PAGE 22 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 19 of 24
+
+
+       the satisfaction of long-haul travelers is relatively more difficult to meet previously. Now that
+       we don’t need to take them into consider, it is more simple and fast to migrate away from
+       gasoline and diesel vehicles to all EVs.
+
+
+       6.4    Task 4: The impact of technology on EVs’ spread
+
+           1. Technology that would hinder EVs’ spread: vehicle-share, ride-share services and hy-
+              perloop
+              As these three technologies evolve, the per-capita holding of vehicles will fall (that is,
+              some owners sell their EVs), but as more people use new technologies, some may find it
+              inconvenient to buy a vehicle again. These qualities are in line with the SIS model, so our
+              SI model becomes a SIS model. The phenomenon will lead to a decline in the popularity
+              rate of EVs. Therefore, it is necessary to dynamically adjust the construction of the EVs
+              network based on the decreasing proportion.
+
+           2. Technology that would boost EVs’ spread: self-driving cars, rapid battery-swap sta-
+              tions for EVs, and flying cars
+              These three technologies will increase the attractiveness of EVs. The λ in our SI model
+              willincrease, as wellas the penetration and popularity rate of EVs. They can also expand
+              the demand of charging stations and accelerate the conversion to full EVs.
+
+
+
+       7     Sensitivity Analysis
+
+             We have conducted a sensitivity analysis of the SI-EI model: setting i(0) = 0.01 and s-
+       tudying the change of the proportion of i when λ is 0.3, 0.27 and 0.33 respectively over time.
+
+
+                                1
+
+                               0.9                                                =0.3
+                                                                                  =0.33
+                               0.8                                                =0.27
+
+                               0.7
+
+                               0.6
+                           i   0.5
+
+                               0.4
+
+                               0.3
+
+                               0.2
+
+                               0.1
+
+                                0
+                                 0   5      10    15     20    25     30     35       40
+                                                          t
+
+
+
+       Figure 16: the change of the proportion of i when λ is 0.3, 0.27 and 0.33 respectively over time
+
+
+             We’vefound that the proportion ofi is less sensitive to λ when the system is in its early and
+
+
+=== PHYSICAL PAGE 23 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 20 of 24
+
+
+       late stages while it is sensitive in mid-term stage. For example, when t = 15, the proportion of
+       the three of i is about 0.4, 0.5 and 0.6. This discovery is of practical significance, which means
+       the mid-term stage is the rapid growth stage of permeability in which we can take steps to
+       increase people’s satisfaction level thus increase λ and speed up the rate of penetration.
+
+
+
+       8     Comment on Heavy Trucks
+
+             Heavy trucks generally need to travel a long way, as well as their huge traction, which
+       result in that their demand for supercharging stations is greater than that of personal vehicles
+       and they are not suitable for charging in cities. When a country’s road transport industry is
+       developed, attention should be given to improving the satisfaction of truck drivers and the
+       number of supercharging stations in rural areas and suburban areas.
+
+
+
+       9     Analysis of the Model
+
+       9.1    Strengths
+
+           1. The model of double-layer complex network appropriates problem’s requirements, Anal-
+              ysis network construction from a macroscopic perspective is different from a great deal of
+              analysis on the power and street layout or other micro perspective in the field and greatly
+              simplifies the problem.
+
+           2. The SI-EI model cleverly assimilated the idea of the traditional SI model and combined
+              with the evaluation index system to study the permeability from a novel perspective.
+
+           3. The selection of Weighted Betweeness is very appropriate, well identified a major traffic
+              hub city, so that the charging station distribution more reasonable.
+
+
+       9.2    Weaknesses
+
+             The layout of the charging stations is only accurate to the amount allocated to the city
+       because of the large differences among cities and the difficulty in collecting the data, and with
+       more detailed data we can get a more accurate distribution.
+
+
+=== PHYSICAL PAGE 24 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 21 of 24
+
+
+       10    Task 5: Handout
+
+            The world is fascinated by reducing the use of fossil fuels, including gasoline for cars.
+       Whether motivated by the environment or by the economics, consumers are starting to migrate
+       to electric vehicles. We should consider the key factors that affect our plan in order to build this
+       network faster and better.
+
+          1. From the perspective of the final network topology
+             We should have a more accurate prediction of the topology of the final network, which
+             mainly contains the consideration of the number, location and distribution of charging
+             stations. These metrics are the most important reference to measure whether the network
+             building process is better or not. A better prediction can boost the Permeability, save
+             more funding of network construction and get the most social benefits.
+
+          2. From the investment perspective of network establishment process
+             We should maintain the highest possible investment efficiency in the network con-
+             struction process. To decide the optimal ratio, the current ratio of charging stations in
+             urban and rural areas should be taken into account, combined with their own national
+             urbanization rate. Moreover, building ultra-scale charging stations in advance is extreme-
+             ly helpful in accelerating the penetration of electric vehicles. Although it brings a waste
+             of previous capital, but the latter part of the benefits of speed is far greater than the waste
+             here.
+
+          3. From the stage perspective of network establishment process
+             textbfWe should ensure that the establishment of the charging station to best meet peo-
+             ple’s needs. The leading crowd who influence the overall satisfaction levels is different
+             in different stages. We initially speculated that in general destination charging stations
+             should be built in the initial construction stage; supercharge stations for short-distance
+             travelers should be built in the mid-term stage; supercharge stations for long-distance
+             travelers should be built in the latter stage.
+
+       The above is the overall consideration of the key factors of network construction.We think it
+       would be most reasonable to set a gas vehicle-ban date at 40 years later. The leaders of all
+       countries should, according to the particular circumstances of their own country, determine
+       the ways that are best for themselves, I wish all of you early realization of full automobile
+       electrification!
+
+
+=== PHYSICAL PAGE 25 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 22 of 24
+
+
+       References
+
+        [1] Wu,Lixia.Research on the Layout Planning ofCharging Station for Electric Vehiclein the
+           City [D]. Chongqing Jiaotong UniVersity,Chongqing,China:Wu Lixia, 2017.
+
+        [2] Wu, Lian. Locating Electric Vehicles Refueling Stations Based On The Generalized Cover-
+           age[D]. Huazhong University of Science and Technology:Wu Lian, 2016.
+
+        [3] Fang, Lu. The location-sizing problem of electric vehicle charging station deployment
+           based on queuing theory[D]. Beijing Jiaotong University:Fang Lu, 2015.
+
+        [4] Xu, Hao. Studies on Optimal Charging Station Placing and Orderly Charging Strategy for
+           Large-Scale Electric Vehiclesinto Grid[D]. Huazhong University of Science and Technolo-
+           gy:Xu Hao, 2015.
+
+        [5] Fei, Wu, Ramteen, Sioshansi. A stochastic flow-capturing model to optimize the location
+           of fast-charging stations with uncertain electric vehicle flows[J]. Transportation Research,
+           2017, (53): 354-376.
+
+        [6] County
+           https://en.wikipedia.org/wiki/County
+
+        [7] City
+           https://en.wikipedia.org/wiki/City
+
+
+=== PHYSICAL PAGE 26 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 23 of 24
+
+
+
+       Appendices
+           Here are simulation programmes we used in our model as follow.
+
+           some more textInput C++ source:
+       #define N 307
+       #define INF 1000000
+       typedef struct
+       {
+           int from;
+           int to;
+           char *fromCity;
+           char *toCity;
+           int value;
+       } Data;
+       int *getPath(int *path[], int i, int j)
+       {
+           int *ret = (int *)malloc(sizeof(int));
+           for (int i = 0; i < 20; i++)
+           {
+                 ret[i] = -1;
+           }
+           if (i == j || path[i][j] == -1)
+           {
+                 return ret;
+           }
+           int temp = i;
+           int k = 0;
+           while (temp != j)
+           {
+                 ret[k++] = temp;
+                 temp = path[temp][j];
+           }
+           ret[k++] = temp;
+           return ret;
+       }
+
+
+       void Floyd(Data *matrix[], int *path[])
+       {
+           for (int k = 0; k < N; k++)
+           {
+                 for (int i = 0; i < N; i++)
+                 {
+                     for (int j = 0; j < N; j++)
+                     {
+                         if (
+                               matrix[i][k].value != INF &&
+                               matrix[k][j].value != INF &&
+
+
+=== PHYSICAL PAGE 27 ===
+精品数模资料，各类比赛优秀论文、学习教程、写作模板与经验技巧、matlab程序代码资料等，尽在淘宝店铺：闵大荒工科男的杂货铺！
+       Team # 82794                               Page 24 of 24
+
+
+                           matrix[i][j].value > matrix[i][k].value + matrix[k][j].value)
+                       {
+                           matrix[i][j].value = matrix[i][k].value + matrix[k][j].value;
+                           matrix[i][j].fromCity = matrix[i][k].fromCity;
+                           matrix[i][j].toCity = matrix[k][j].toCity;
+                           path[i][j] = path[i][k];
+                       }
+                   }
+               }
+           }
+       }

@@ -1,0 +1,890 @@
+=== PHYSICAL PAGE 1 ===
+      In this paper, we study the shape of a snowboard course and its influential factors
+under energetic view. The main idea is to measure the "vertical air" by final energy.
+Before calculation, several assumptions are made for simplicity.
+      The snowboarder is treated as a mass point;
+      The halfpipe is regarded as a perfectly rigid body;
+      Sliding friction, collision and air resistance are introduced step by step, while
+          other sources of energy loss are ignored.
+      With these assumptions, we build our basic model, which is simple but sufficient
+to offer a fundamental idea and reveal essential interactions among different factors.
+We make force analysis, set up kinematical equations and obtain the general form of
+final mechanical energy analytically.
+      After that, two specific types of transition curve, quarter circle and quarter ellipse,
+are introduced to calculate the optimal design. Various factors are systematically
+analyzed in both models. In quarter-circle model, we obtain analytical solutions and
+find the best radius R* of the circle. While in quarter-ellipse model, we use numerical
+simulation to get the optimal semi-major axis a* and semi-minor axis b*. Then we
+further develop the 2D quarter-ellipse model into a more actual and complex case,
+involving the third dimension of the halfpipe. Through numerical computation, we
+find the most suitable slope angle of the halfpipe.
+      Next, by introducing the sensitivity coefficient into these models, the sensitivities
+of different variables are analyzed both qualitatively and quantitatively. It helps us to
+compare the significance of these variables in building a best halfpipe.
+      At last, the tailors and tradeoffs to develop a "practical" course are discussed. To
+further optimize the shape of the halfpipe, we take various requirements into
+consideration, including construction difficulty, players' safety and their performance.
+After adjustment, our result becomes more practical.
+      In conclusion, through systematic and comprehensive analysis of various factors,
+we find a reasonable shape of the snowboard course, which fits the real data well.
+
+
+=== PHYSICAL PAGE 2 ===
+    Higher in the Air:
+Design of Snowboard Course
+
+          Team # 9159
+
+        February 15, 2011
+
+
+
+
+                1
+
+
+=== PHYSICAL PAGE 3 ===
+Contents
+
+1   Introduction ........................................................................ 4
+2   Symbols, Hypothesis and Explanations ............................... 5
+    2.1 Symbols Used in this Paper..................................................          5
+    2.2 Hypothesis .......................................................................    5
+    2.3 Some Explanations .............................................................       6
+
+3   Basic Model ........................................................................ 7
+4   Application in 2D Case ....................................................... 9
+    4.1 Quarter-Circle Type ...........................................................       9
+    4.2 Quarter Ellipse Type .......................................................... 11
+      4.2.1    Snow Friction Only . . . . . . . . . . . . . . . . . . . . . . .              12
+      4.2.2    Snow Friction and Collision . . . . . . . . . . . . . . . . . .               13
+      4.2.3    Snow Friction, Air Friction and Collision . . . . . . . . . . .               13
+    4.3 Sensitivity ........................................................................ 14
+
+5   Application in 3D Case ....................................................... 16
+6   Tailors and Tradeoffs........................................................... 18
+    6.1 Safety Analysis.................................................................. 19
+    6.2 The Construction............................................................... 19
+    6.3 The Twist ........................................................................ 19
+
+7   Strengths and Weaknesses................................................... 20
+    7.1 Strengths ......................................................................... 20
+    7.2 Weaknesses....................................................................... 20
+
+8   Conclusion .......................................................................... 21
+
+
+=== PHYSICAL PAGE 4 ===
+List of Figures
+  1    Snowboard competetion[1] . . . . . . . . . . . . . . . . . . . . . . .          4
+  2    Cross section of the halfpipe, perpendicular to the ground         . . . . .    5
+  3    R∗ -w curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      11
+  4    R∗ -µ curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    11
+  5    R∗ -hi curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     11
+        ∗
+  6    R -x0 curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      11
+  7    Left: Et -a curve under different b; Right: Et -b curve under different
+       a. Only the snow friction is considered . . . . . . . . . . . . . . . .        12
+  8    Left: Et -a curve under different b; Right: Et -b curve under different
+       a. The snow friction and collision are considered . . . . . . . . . . .        13
+  9    Left: Et -a curve under different b; Right: Et -b curve under different
+       a. The snow friction, wind friction and collision are considered . . .         14
+  10   a∗ -x0 curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     15
+  11   a∗ -hi curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   15
+  12   a∗ -α curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    15
+  13   a∗ -h0 curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     16
+  14   a∗ -µ curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    16
+  15   a∗ -Ei curve . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     16
+  16   3D halfpipe . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      16
+  17   Left: Et -a curve under different b; Right: Et -b curve under different
+       a. The snow friction and collision are considered . . . . . . . . . . .        17
+  18   Left: Et -a curve under different b; Right: Et -b curve under different
+       a. The snow friction and collision are considered . . . . . . . . . . .        18
+  19   Left: Et -a curve under different b; Right: Et -b curve under different
+       a. The snow friction and collision are considered . . . . . . . . . . .        18
+
+
+
+
+                                          3
+
+
+=== PHYSICAL PAGE 5 ===
+Team # 9159                                                               page4 of 22
+
+
+1     Introduction
+
+    Snowboarding is an adventurous and ex-
+citing sport that has been contested at the
+Winter Olympic Games since 1998.             Till
+now, the events are held in three speciali-
+ties: parallel giant slalom, snowboard cross
+and halfpipe.[2] What we are interested here
+is the halfpipe, in which competitors perform
+tricks while going from one side of a ditch to
+                                                    Fig 1: Snowboard competetion[1]
+the other. For both ornamental and safety
+purpose, the shape of the halfpipe is of vital importance.
+   In its most basic form, a halfpipe consists of two concave ramps (or quarter-
+pipes), topped by copings and decks, facing each other across a transition and an
+extended flat ground (the flat bottom) added between the quarterpipes. For snow-
+boarding, the plane of the transition is oriented downhill at a slight grade to allow
+riders to use gravity to develop speed and facilitate drainage of melt.
+    There are three main tasks in this paper as follows:
+
+    • Determine the shape of a snowboard course which can generate the highest
+      jump above the edge of the halfpipe.
+
+    • Optimize the shape to satisfy other requirements of the tricks.
+
+    • In practical, what properties of the halfpipe should be abandoned.
+
+    We analyze the problem from the viewpoint of energy translation. The compe-
+tition between the influx from gravitational potential energy and the loss caused
+by friction and collision determines the process of sliding. To study the energy
+change in this process, we firstly consider about the 2D case. We build a simple
+quarter circle-type model to study what factors involve in and what role they play.
+Next the sliding process is further simulated by introducing an elliptic-type trail.
+The energy loss is calculated numerically to obtain an ideal shape for 2D trail.
+    Then we take the third dimension into consideration. We work out the slope an-
+gle by balancing the energy gaining and losing in new 3D model, which is developed
+from former 2D case.
+
+                                         4
+
+
+=== PHYSICAL PAGE 6 ===
+Team # 9159                                                              page5 of 22
+
+
+    At last, to optimize the shape of the halfpipe, we take various requirements
+into consideration, including construction difficulty, players’ safety and their per-
+formance.
+
+
+2     Symbols, Hypothesis and Explanations
+
+2.1    Symbols Used in this Paper
+    We list the quantities we use as follows. Some are geometric parameters of
+the halfpipe, some are physical quantities in the sliding process. Symbols and
+corresponding parameters are shown in Tab. 1 and Fig. 2.
+
+
+
+
+         Fig 2: Cross section of the halfpipe, perpendicular to the ground
+
+
+
+
+2.2    Hypothesis
+    • We treat the snowboarder as a mass point with mass m, ignoring body twists
+      of snowboarder and other geometrical properties.
+
+    • The mass point moves right on the snowboard course rather than traveling
+      along the trajectory of the original gravity center of a snowboarder above the
+      snow surface.
+
+                                         5
+
+
+=== PHYSICAL PAGE 7 ===
+Team # 9159                                                                  page6 of 22
+
+
+ Symbol                                      Quantity
+    m                       Mass of snowboarder and the snowboard
+      µ                  Friction coefficient between snow and the board
+      N              Pressure on the snow surface caused by snowboarder
+      E                   Total mechanical energy of the snowboarder
+    h0                             The height of the halfpipe
+    x0          Horizontal distance between the landing point and the coping
+ hi & Ei                   Initial height & energy of the snowboarder
+ W &w                           Width and half width of the pipe
+      L                              Length of the half pipe
+
+                              Tab 1: Symbols used in this paper
+
+
+
+   • Only collision and sliding friction account for the mechanical energy loss,
+          ignoring other possible causes such as air friction.
+
+   • The halfpipe is treated as perfectly rigid body, which can be modeled just by
+          curve lines.
+
+   • The player does free falling from hi with initial velocity 0.
+
+   • We ignore the collision time and treat the collision between snowboarder and
+          halfpipe as perfect inelastic collision.
+
+
+2.3        Some Explanations
+   All the Hypothesis above are designed for simplifying the calculation. Qual-
+itative analysis can be made based on these assumptions. Because some of the
+Hypothesis may seem a little confusing at the first glance, we give some explana-
+tions here.
+
+   • The mass point is mainly used to simplify calculation. Since our aim is at first
+          to determine the shape of a snowboard course to maximize the production of
+          vertical air, all the geometrical properties such as body size, shape and body
+          twists of snowboarders can be regarded as irrelevant, at least not decisive. In
+          fact, since the body of a snowboarder is not rigid, deformation leads to an
+
+
+                                               6
+
+
+=== PHYSICAL PAGE 8 ===
+Team # 9159                                                               page7 of 22
+
+
+      increase in computation complexity and the uncertainty in centre-of-gravity
+      path, which covers up the essential aspects of this problem. Mass point
+      assumption enables us to focus on the essential interaction between course
+      shape and maximum of vertical air.
+
+    • In this problem, sliding friction, inelastic collision and air friction are three
+      main factors accountable for the energy loss. As for the most basic model,
+      we just take sliding friction and collision into consideration for simplicity. In
+      further sections, we will introduce air friction to give some more practical
+      results.
+
+    • According to the halfpipe standard released by International Ski Federation,
+      in order to build a halfpipe, one should frequently drive on the decks to
+      compact the snow before the pipe is stepped and wet new snow is preferable
+      for construction since it is easy to bond together well. Therefore, the hard
+      snow makes it feasible to assume that the halfpipe is a perfectly rigid body.
+
+
+3     Basic Model
+    We use curve φ(x), 0 ≤ x ≤ W to denote the halfpipe. According to our assump-
+tion, the energy decay after landing is due to the friction between the snowboard
+and the snow surfaces. Therefore, if we assume µ is a constant, then
+                                                 p
+                        dE = −µN ds = −µN         1 + (φ0 )2 dx.                   (1)
+
+    N has two parts in itself, one is the part against the vertical component of the
+gravity, the other is centripetal force. To make force analysis, we define θ the angle
+between the velocity of snowboarder and the ground, and ρ the radius of curvature.
+Then kinematical equation for the perpendicular direction is written as
+
+                                                   mv 2
+                                N = mg cos θ +          ,                          (2)
+                                                    ρ
+and ρ can be calculated as
+                                  1        φ00
+                                    =               3 .                            (3)
+                                  ρ   (1 + (φ0 )2 ) 2
+
+
+
+                                           7
+
+
+=== PHYSICAL PAGE 9 ===
+Team # 9159                                                                          page8 of 22
+
+
+According to the law of conservation of energy, the reduction in energy is equal to
+the energy loss caused by friction, then
+                                       1
+                                 E(x) = mv 2 + mgφ(x),                                         (4)
+                                       2
+where we assume the land surface is the zero point of the gravitational poten-
+tial energy. Substitute Eq. (2),(3),(4) into Eq. (1), we get an ordinary differential
+equation for E,
+
+                       d      2µφ00                   2φφ00
+                         E+            E = −µmg[1 −            ].                              (5)
+                      dx    1 + (φ0 )2              1 + (φ0 )2
+
+To get the initial condition for Eq. (5), notice that the collision happens at (x0 , φ(x0 )),
+where the collision angle is π2 + θ0 . The collision is assumed perfect inelastic, that
+is to say the slider loses his velocity perpendicular to the snow surface. Then we
+have                                     s
+                                               2m(h − y0 )
+                                 v0 =                      sin θ,                              (6)
+                                                   g
+and then the initial mechanical energy
+
+                                                              φ0 (x0 )2
+                       E0 [φ] = mgy0 + mg(h − y0 )                        .                    (7)
+                                                            1 + φ0 (x0 )2
+
+   Solution to Eq. (5) and (7) is written as
+                                     Z x
+            −2µ xx F [φ(s)]ds                             2µ t F [φ(s)]ds
+               R                                             R                      
+ E[φ, x] = e      0             −µmg     (1−2φ(t)F [φ(t)])e x0             dt+E0 [φ] , (8)
+                                          x0
+
+where functional F is defined as
+                                                     φ00 (x)
+                                   F [φ(x)] =                  .                               (9)
+                                                   1 + φ0 (x)2
+
+One part of Eq. (8) can be calculated analytically,
+            Z t
+                   φ00
+                       0 2
+                           ds = arctan φ0 |t − arctan φ0 |x0 = θ(t) − θ(x0 ).                 (10)
+             x0 1 + (φ )
+
+Then E[φ, W ], the mechanical energy at the other end becomes
+                                 Z W
+                      −2µθ(W )
+ E[φ, W ] = −µmge                      (1 − 2φ(t)F [φ(t)])e2µθ(t) dt + e−2µ[θ(W )−θ(x0 )] E0 [φ].
+                                 x0
+                                                                                              (11)
+
+
+                                                   8
+
+
+=== PHYSICAL PAGE 10 ===
+Team # 9159                                                                 page9 of 22
+
+
+Larger E[φ, W ] means more energy before the next jump, which is what we are
+pursuing.
+    Eq. (11) provides us a fundamental way to analyze the problem. However,
+E[φ, W ] is a functional of φ(x), containing its zero, first, second derivatives and
+their integrals, hence a direct variational method can hardly be directly applied to
+it. In order to avoid a variational problem in the function space, we limit some
+feature of φ(x) and reduce the problem to a lower dimensional space.
+
+
+4     Application in 2D Case
+
+4.1     Quarter-Circle Type
+    From a circle series expansion point of view, we can use a circle to simulate a
+curve as the first-order approximation. Thus in this issue we firstly assume the trail
+consists of a vertical wall, a horizontal path and a quarter circle. This is simple
+but can provide us much information about the interactions among the relevant
+factors. In this case, no energy is added to the snowboarder, therefore the player
+may not reach the other edge of the course. So we only study process in (x0 , w),
+where w is the midpoint of the path. Our goal here is to analyze how the related
+factors, µ, hi , x0 and w, influence the energy loss.
+    Notice that on the quarter circle, we have
+                                          φ00 (x)      1
+                           F [φ(x)] =          0  2
+                                                    =     ,                         (12)
+                                        1 + φ (x)     R−y
+where R is the radius. Then according to Eq. (11), we have
+
+            E(w) = e−2µθ(x0 ) E(x0 ) − µmg(w − R) − mgR(1 − e−2µθ(x0 ) )
+                    3µmg
+                 −        2
+                             [2µR − (x0 − R + 2µ(R − y0 ))e−2µθ(x0 ) ],             (13)
+                   1 + 4µ
+where
+                                                      x
+                               θ(x) = − arcsin(1 −      ).                           (14)
+                                                      R
+    Eq. (13) is a useful result to analyze the effect of w, x0 , hi , and µ. We calculate
+the energy E(w) for different radius to search for the best R, which we denote
+as R∗ . For most parameters, E(R) has a maximum inside the interval [x0 , W ],
+which is chosen as the R∗ . What we are interested here is the relationship between
+
+                                            9
+
+
+=== PHYSICAL PAGE 11 ===
+Team # 9159                                                               page10 of 22
+
+
+R∗ and (W, hi , x0 , µ). According to the halfpipe standard set by International Ski
+Federation [3], w is around 8.5m∼ 9m for 18 FT pipe and 9.5m∼ 10m for 22
+FT pipe. x0 and hi is related to the trick and the slider himself. µ is related to
+the quality of the snow, the temperature and the intensity of pressure between
+the board and snow. Usually, this value is between 0.08 and 0.11 [4]. Based on
+Eq. (13), we analyze the influence of pipe width W , friction coefficient µ, initial
+height hi and landing position x0 , respectively.
+
+   • Half width of the pipe w. According to Eq. (13), there is no w in ∂E/∂R.
+      Therefore, we expect that R∗ has nothing to do with w. For f = 9.0m,
+      µ = 0.1 and x0 = 0.5m, the result is in Fig. 3. R∗ is a constant equals to
+      3.83m.
+
+   • Friction coefficient µ. We calculate R∗ numerically to see of what role µ plays.
+      The result is in Fig. 4. Our results indicate that for a smaller µ, a larger R∗
+      is needed to reduce the energy loss.
+
+   • Initial height hi . Initial height hi is a parameter we couldn’t assume be-
+      forehand. A good halfpipe should be specified to satisfy all kinds of needs.
+      Therefore, hi -R∗ relationship is important in determining the shape. Our
+      result in Fig. 5 shows that hi and R∗ have a rough linear relationship with
+      gradient 0.16.
+
+   • Landing position x0 . Landing point x0 determines the collision energy loss.
+      Lower collision point and moderate slope means larger collision energy loss. A
+      larger radius will provide higher collision point but suffers from steep collision
+      surface, so R∗ is a balance between these two factors. According to our
+      numerical results in Fig. 6, when reducing x0 , R∗ accelerates to decrease.
+      While x0 tends to 0, R∗ also tends to zero. On the other hand, when x0 is
+      big enough, R∗ hits the boundary h0 , which means no verticals.
+
+   To sum up, a quarter circle path gives a direct access to the problem. If we
+assume the energy loss is due to the friction and collision loss, regard the slider as
+a mass point, then the total energy loss can be calculated analytically and provide
+us lots of information of the interactions among all kinds of influential factors.
+
+
+
+                                          10
+
+
+=== PHYSICAL PAGE 12 ===
+Team # 9159                                                           page11 of 22
+
+
+
+
+         Fig 3: R∗ -w curve                            Fig 4: R∗ -µ curve
+
+
+
+
+         Fig 5: R∗ -hi curve                           Fig 6: R∗ -x0 curve
+
+
+Within the quarter circle style, we claim that for hi = 9.0m, x0 = 0.5m, µ = 0.1
+and w = 9.0m, the best radius is 3.831m.
+   However, a quarter circle path is too simple for the real halfpipe. In addition,
+according to our computation, when x0 is large (> 0.5), E is approximately a
+constant if R ∈ [3, h0 ]. This implies that R no longer affects so much on E, thus
+other factors may be dominant. Therefore, in order to pursue better shape, we
+turn to look for more complicated curve.
+
+
+4.2    Quarter Ellipse Type
+   We now study the case in which the transition curve of the ramp is a quarter
+section of a ellipse with semi-major axis a and semi-minor axis b. For further
+calculation, here we specify some parameters defined before. According to the
+halfpipe size standard released by International Ski Federation[3], we set w equals
+
+
+                                        11
+
+
+=== PHYSICAL PAGE 13 ===
+Team # 9159                                                                page12 of 22
+
+
+to 9m, h0 equals to 5.4m. According to the pressure density on the snow and
+the sliding velocity, we assume µ = 0.1. h is set to be 9m, which is common for
+professional snowboarders. We assume m = 75kg, which brings 6.6kJ of the initial
+mechanical energy. It should be pointed out that these assumption is not essential
+for the following analysis.
+   We solve the Eq. (5) numerically using forward Euler’s method[5], the step is
+chosen to be 10−4 m. a∗ and b∗ , the best values of a and b, are obtained using
+bisection method.
+
+
+4.2.1   Snow Friction Only
+
+   Landing is a rapid but complex process. There will be deformation of board and
+snow, and temperature changes. For simplicity, we ignore the energy loss caused
+by collision first to see its effect. In this case, only sliding friction account for the
+energy loss. We fix b to find the best a and fix a to find the best b, respectively.
+
+
+
+
+Fig 7: Left: Et -a curve under different b; Right: Et -b curve under different a. Only
+                              the snow friction is considered
+
+
+   Define the final energy at x = w as Et , which is a gauge to measure the quality
+of the course. It is shown in Fig. 7 that, Et reaches its maximum when a tends
+to zero with b fixed or b tends to zero with a fixed. Therefore, we come to the
+conclusion that collision energy loss is essential in the whole process. Ignoring it
+will lead the trail to be a right angle, which is unreasonable.
+
+
+
+
+                                            12
+
+
+=== PHYSICAL PAGE 14 ===
+Team # 9159                                                                 page13 of 22
+
+
+4.2.2   Snow Friction and Collision
+
+   Now we take the collision into consideration. Here we fix the landing point
+x0 = 0.5. By re-conducting the calculation before, we get Fig. 8. It is shown that
+for each b, Et has a peak value in the interval [x0 , w], and the peak shifts to the
+right when b becomes larger. On the other hand, for each a in Fig. 8, Et ever
+increases as b gets larger. In this case, our conclusion is that the longer b is, the
+smaller the energy loss there will be, but the value for a is inside the interval [x0 , w]
+and is determined by related parameters.
+
+
+
+
+Fig 8: Left: Et -a curve under different b; Right: Et -b curve under different a. The
+                      snow friction and collision are considered
+
+
+   In this way, we vary a and compare the peak value for b, then a best (a∗ , b∗ ) is
+obtained.
+
+
+4.2.3   Snow Friction, Air Friction and Collision
+
+   Furthermore, we add air friction to make our model more practical and to ana-
+lyze the role wind plays. In this case, we assume the air resistance is proportional
+to the velocity since the speed is not fast. The damping coefficient α is defined as
+resistance force applied on unit area under unit velocity, which is affected by the
+velocity of the moving object. In the low speed case, the change of α due to the
+velocity can be ignored, thus we assume a constant α in the following calculation.
+   To study the influence of wind friction, we vary α from 0Ns/m3 to 1.5Ns/m3
+with other parameters fixed, and assume the windward area A is 0.5m2 .
+   In this case, the differential equation of E becomes
+
+                                           13
+
+
+=== PHYSICAL PAGE 15 ===
+Team # 9159                                                               page14 of 22
+
+
+          d        2µφ00                    2φφ00            p
+            E+              E = −µmg[1 −             ] − αAv  1 + (φ0 )2 .  (15)
+         dx      1 + (φ0 )2               1 + (φ0 )2
+   We calculate the influence on a∗ and b∗ by α. Our result in Fig. 9 shows that
+a∗ shifts to the right a little bit as α increases, and b∗ is still on the boundary.
+From now on, for simplicity, we use the average value of α under low speed, which,
+according to the Wind Scale Table [6], is about 0.75Ns/m3 .
+
+
+
+
+Fig 9: Left: Et -a curve under different b; Right: Et -b curve under different a. The
+              snow friction, wind friction and collision are considered
+
+
+   In conclusion, for given (µ, x0 , hi , α, w), we can provide the best value of a and
+b. In the common case, b∗ reaches to h0 and a∗ is between x0 and w. The existence
+of wind resistance will alter the final energy Et , on the other hand, the wind does
+not affect much of a∗ and b∗ , or the shape of the snow course. At the parameters
+(h0 , hi , x0 , µ, α) = (5.4, 9.0, 0.5, 0.1, 0.75), we claim that the best ellipse
+parameter is (a∗ , b∗ ) = (4.19, 5.4)
+
+
+4.3    Sensitivity
+   In the following section, we will analyze the sensitivity of shape-parameters a∗
+and b∗ , according to friction coefficient µ, landing position x0 , initial height hi ,
+halfpipe height h0 , damping coefficient α and initial energy Ei , respectively. In
+order to compare the influence of these factors, we introduce a non-dimensional
+variable s, the sensitivity coefficient. Sensitivity coefficient of two quantities A and
+B is defined as
+                                        ∂A A
+                                  s=      /       ,                                (16)
+                                        ∂B B B=B0
+
+                                          14
+
+
+=== PHYSICAL PAGE 16 ===
+Team # 9159                                                              page15 of 22
+
+
+where B0 is a fixed point and A is a function of B.
+   Cause b∗ always equals to the halfpipe height, we only estimate the sensitivity
+of a∗ according to the six factors mentioned above.
+
+   • x0 . To our surprise, there is a minimum in the a∗ -x0 curve at around x0 =
+     0.45m. This is approximately the value of common landing point. Longer or
+     shorter x0 will both lead to larger a∗ . The sensitivity coefficient s is 0.552 at
+     x0 = 0.5m. The result is shown in Fig. 10
+
+   • hi . A higher initial height means larger speed before collision, therefore we
+     expect steeper collision angle or higher collision height, which lead to larger
+     a∗ . The result is shown in Fig. 11. The sensitivity coefficient s is -2.110 at
+     h0 = 9.0m.
+
+   • α. As we talked in the last section, α effects little on a∗ . The corresponding
+     s is 0.011 at α = 0.75Ns/m3 . The result is shown in Fig. 12
+
+   • h0 . When h0 changes, so does b0 . Our result in Fig. 13 shows that a∗ is
+     sensitive to h0 , and s=2.374.
+
+   • µ. Changes of µ will affect the energy loss significantly as shown in Fig. 14.
+     For larger µ, a∗ needs to increase to reduce the energy loss caused by friction.
+     s = 0.993 at µ = 0.1.
+
+   • Ei . In the case where no rotation involves, the effect of Ei is equivalent to
+     hi . The result is shown in Fig. 15, and s = -2.110.
+
+
+
+
+   Fig 10: a∗ -x0 curve          Fig 11: a∗ -hi curve          Fig 12: a∗ -α curve
+
+
+
+
+                                         15
+
+
+=== PHYSICAL PAGE 17 ===
+Team # 9159                                                               page16 of 22
+
+
+
+
+    Fig 13: a∗ -h0 curve          Fig 14: a∗ -µ curve          Fig 15: a∗ -Ei curve
+
+
+
+5     Application in 3D Case
+    Now we move our study to a more reasonable and complex case involving the
+third dimension of the halfpipe. In fact, the halfpipe does not lie horizontally, but
+is oriented downhill with a slope angle ϕ. In this way, the sliding is not a pure
+energy loss process, but can gain energy from the gravity. Therefore, the third
+dimension will alter the velocity of the snowboarder, which will bring changes to
+a∗ and b∗ .
+    Fig. 16 is our sketch for a 3-dimensional halfpipe. For a standard 18 FT halfpipe,
+the length of the halfpipe L is about 100-150m, and for professional snowboarders,
+there will be 6-7 tricks in a round. Therefore, in a whole trick, the player will travel
+about 20m to the downhill direction, which is defined as l.
+
+
+
+
+                                 Fig 16: 3D halfpipe
+
+
+
+
+                                          16
+
+
+=== PHYSICAL PAGE 18 ===
+Team # 9159                                                             page17 of 22
+
+
+
+
+   We use (x0 , y 0 ) to describe the new course. It is the upper part of the curve
+edge trapezoid formed by a plane and the halfpipe. Under the coordinates trans-
+formation in Eq. (5), the problem changes to a 2-D case.
+                                      q
+                                  x0 = 1 + l2 x,
+                                                    W2
+                                  y 0 = y − x l sin ϕ.
+                                                W
+
+   By adopting Eq. (11), we can work out the corresponding a∗ and b∗ similarly.
+a∗ and b∗ are calculated numerically according to different slope angle ϕ, and the
+result is in Fig. 17.
+
+
+
+
+Fig 17: Left: Et -a curve under different b; Right: Et -b curve under different a. The
+                        snow friction and collision are considered
+
+
+   The conclusion we make in 2D case holds for the 3D case here. b∗ reaches h0
+and a∗ lies in [x0 , w].
+   Now we begin to analyze the influence brought by slope angle ϕ. With other
+parameters fixed, we calculate the a∗ and b∗ according to ϕ, respectively.
+   It turns out that a steeper slope requires smaller a∗ , which is shown in Fig. 18.
+Meanwhile, b∗ is always equal to h0 regardless of ϕ. The sensitivity coefficient of
+a∗ according to ϕ is -0.4605 at ϕ = 17.0o
+   Now it’s time for us to determine the suitable ϕ for a halfpipe. The calculation
+above only concerns half of the course, that is from the hanging to the nadir of
+the curve. Here we complete the whole curve for one trick to work out the best ϕ,
+denoted as ϕ∗ .
+
+                                           17
+
+
+=== PHYSICAL PAGE 19 ===
+Team # 9159                                                             page18 of 22
+
+
+
+
+Fig 18: Left: Et -a curve under differ-        Fig 19: Left: Et -a curve under differ-
+ent b; Right: Et -b curve under differ-        ent b; Right: Et -b curve under differ-
+ent a. The snow friction and collision         ent a. The snow friction and collision
+            are considered                                 are considered
+
+    We claim that a similar hanging height above the deck on each side of the
+halfpipe is a sign for good ϕ. The reason is as the follows. In a round of snowboard
+contest, the player will perform 6-7 tricks on both sides of the halfpipe. Thus small
+ϕ will result in the condition that the player never takes air. Also, too large ϕ
+will lead to higher and higher hanging height, which is dangerous for the player.
+Therefore, we look for ϕ∗ that makes the same hang height above the deck on both
+sides. The initial hang height above the ground hi is still assumed to be 9.0, cause
+the halfpipe is symmetric, ϕ∗ should make the final height above the ground hf
+equals to 9.0m. We calculate the hf − ϕ relationship in Fig. 19, fit the data by
+using cubic spline interpolation and finally get the point intersected by the hf − ϕ
+curve and the line hf = 9.0m. Thus ϕ∗ is captured, which is 17.1o .
+    The corresponding (a∗ , b∗ ) for ϕ∗ = 17.1o is (4.42m, 5.4m).
+
+
+6     Tailors and Tradeoffs
+    Above analysis is purely theoretical, based on some ideal assumptions. In the
+real game, the player is not a mass point without rotation, and the goal is not
+simply to reach the highest point. Practical situations are much more complicated
+and more factors should be taken into consideration. So we have to tailor the
+halfpipe to optimize various requirements.
+
+
+                                          18
+
+
+=== PHYSICAL PAGE 20 ===
+Team # 9159                                                             page19 of 22
+
+
+6.1    Safety Analysis
+   No one wants to get hurt in games. The safety requirements should always be
+put in the first place. Take the design of edge angle as an example. In theoretical
+halfpipe the slope angle near edges, named as θe , should be close to 90o . However,
+such large θe means less holding force from halfpipe to player, which will increase
+the possibility for player to fly away the track too early. At the same time, when
+the player falls onto the surface of the halfpipes edge from air, the shock is in
+proportional to cos θ. So small θe may increase the shock, hurting players or making
+them lose their balance. In conclusion, θe should neither be too large nor too small.
+Usually this is set from 83o to 88o [3].
+   The slope angle of the halfpipe, ϕ, is another factors related to safety. Larger
+ϕ means higher jump but also higher danger. Therefore, while adjusting ϕ in our
+design, we could only slightly increase it from the theoretical value 17.1o to about
+17.5o . This is also the actual slope angle used in regular game nowadays.
+   Besides, to minimize the energy loss caused by friction, the bottom part should
+be abandoned (in other words, a should equals w). However, we maintain this part,
+to give the player more time to prepare the next jump.
+
+
+6.2    The Construction
+   The shape of ellipse is not a big problem challenge in actual construction. The
+building of precipitous ramp may increase the difficulty, since the sharp cliff cannot
+hold the snow firmly on its surface. Therefore, decreasing θe from nearly 90o to 85o
+can also meet construction requirements.
+
+
+6.3    The Twist
+   In regulation games, players are demanded to play more twists in the air. The
+angular velocity for twists is obtained by wriggle the waist and stomp the ramp.
+To help players perform more twists, we should provide them more time in the air,
+and offer them a more safe side wall to step on. So on one hand, we could increase
+ϕ to speed the player up within the safe range. On the other hand, as mentioned
+above, the edge angle should be a little smaller than 90o .
+
+
+
+                                           19
+
+
+=== PHYSICAL PAGE 21 ===
+Team # 9159                                                                 page20 of 22
+
+
+7     Strengths and Weaknesses
+
+7.1    Strengths
+    • We do not construct a complex model with all the variables together. Instead,
+      we build a simple basic model first and then introduce corrections step by
+      step. Therefore, it is easier to analyze the effect of different factors separately.
+
+    • We have taken many kinds of different factors into consideration and made
+      all the analyses systematically and comprehensively.
+
+    • The halfpipe size and the slope angle obtained by our model fit the real data
+      well. That’s to say, our model is successful in application layer.
+
+    • A lot of figures are set to illustrate the relations between different variables
+      visually. This is more accessible and easier to analyze than those complicated
+      function expressions.
+
+    • We obtain the optimal size for elliptical half pipe, which is more general than
+      circle curve and still easy and quick to construct in reality.
+
+    • We analyze the sensitivities of the results to different variables not only qual-
+      itatively, but also quantitatively, by introducing the sensitivity coefficients.
+
+
+7.2    Weaknesses
+    • We ignore the influence of snowboarder’s movement on the height of vertical
+      air, which may reduce the computational accuracy. For example, twist and
+      jump may affect the mechanical energy, stand up and down postures may
+      affect the velocity.
+
+    • For simplicity, the direction of velocity is considered unchanging though out
+      the movement, while in fact, one skilled snowboarder may change his moving
+      direction to achieve some complex tricks, which may cause the moving path
+      not in one plane .
+
+    • We use ellipse as our final approximation, which may not be the best curve
+      to guarantee the highest vertical air.
+
+                                           20
+
+
+=== PHYSICAL PAGE 22 ===
+Team # 9159                                                               page21 of 22
+
+
+8     Conclusion
+    In this paper, we study the shape of a snowboard course and its influential
+factors under energetic view. The main idea is to measure the ”vertical air” by
+final energy. After making several assumptions, we build our basic model, which
+is simple but sufficient to offer a fundamental idea and reveal essential interactions
+among different factors. We make force analysis, set up kinematical equations and
+obtain the general form of final mechanical energy analytically.
+    After that, two specific types of transition curve are introduced to calculate the
+optimal design. In quarter-circle model, we obtain analytical solutions and find
+the best radius R∗ of the circle. While in quarter-ellipse model, we use numerical
+simulation to get the optimal semi-major axis a∗ and semi-minor axis b∗ . Then we
+further develop the 2D quarter-ellipse model into a more actual and complex case,
+involving the third dimension of the halfpipe. Through numerical computation, we
+find the most suitable slope angle of the halfpipe is 17.1o . Next, the sensitivities of
+different variables are analyzed both qualitatively and quantitatively. It helps us
+to compare the significance of these variables in building a best halfpipe.
+    At last, the tailors and tradeoffs to develop a ”practical” course are discussed.
+After taking construction difficulty, players’ safety and their performance into con-
+sideration, our result becomes more practical.
+    In conclusion, through systematic and comprehensive analysis of various factors,
+we find a reasonable shape of the snowboard course, with a = 4.42m, b = 5.4m and
+ϕ = 17.5o . Our results fit the real date well.
+
+
+References
+[1] http://www.stuff.co.nz/southland-times/sport/2705175/cardronas-halfpipe-
+    opens-for-season.
+
+[2] http://en.wikipedia.org/wiki/half-pipe.
+
+[3] International Ski Federation. Snowboard resort information sheet.
+
+
+
+
+                                          21
+
+
+=== PHYSICAL PAGE 23 ===
+Team # 9159                                                             page22 of 22
+
+
+[4] Zhiming Bai and Hailiang Yang. Study on several factors affecting the coefficient
+   of friction between snow and ski. Research and Exploration in Laboratory,
+   25(11):1360–1362, 2006.
+
+[5] Rainer Kress. Numerical analysis. Springer Press, 1998.
+
+[6] http://baike.weather.com.cn.
+
+
+
+
+                                         22

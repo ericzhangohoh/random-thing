@@ -1,0 +1,947 @@
+=== PHYSICAL PAGE 1 ===
+Team #21623                                                                           1
+
+
+                        Round or Browned?
+                  Heat Distribution and Packing Efficiency
+               in Brownie Pans between a Circle and a Square
+
+                                   Team #21623
+
+
+                                      Abstract
+         In this paper, we deal with packing efficiency and heat distribution
+    problems arising from cooking brownies in an oven. We seek a pan shape
+    that will maximize a combination of packing efficiency and even heat
+    distribution. We consider three types of shapes which are “between” a
+    circle and a square (regular polygon, squares with rounded corners, and
+    “squircles”) for latter analyzing. We model “browning” or “burning” at
+    the edge of the pan using the heat equation; we approximate results with
+    a random diffusion simulation. Then by applying algorithm from [3] and
+    [4], we assess the packing efficiency of different shapes. We gather data for
+    different types of shapes and fit a model to the data. Using this model, we
+    determine the best pan shape to maximize packing efficiency and minimize
+    browning when various weights are given to each criterion. If good heat
+    distribution is weighted heavily, the circle is still the best shape out of all
+    the ones we considered. In other cases, the hexagon is optimal according
+    to our model. Our study may improve the design or choice of pans under
+    different situations.
+
+
+=== PHYSICAL PAGE 2 ===
+Team #21623                                                                     2
+
+
+Contents
+1 Summary                                                                       3
+
+2 Introduction                                                                  3
+  2.1 Preliminary Assumptions . . . . . . . . . . . . . . . . . . . . . .       4
+  2.2 Shapes to Consider . . . . . . . . . . . . . . . . . . . . . . . . . .    4
+       2.2.1 Regular Polygons . . . . . . . . . . . . . . . . . . . . . . .     4
+       2.2.2 Squares with Rounded Corners . . . . . . . . . . . . . . .         5
+       2.2.3 “Squircles” . . . . . . . . . . . . . . . . . . . . . . . . . .    5
+
+3 Modeling Heat Distribution                                                    6
+  3.1 Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     6
+  3.2 Simulating Diffusion . . . . . . . . . . . . . . . . . . . . . . . . .    7
+  3.3 Results for Polygons, Rounded Squares, and Squircles . . . . . .          8
+
+4 Packing Pans                                                                  9
+  4.1 Optimal Nesting Algorithm . . . . . . . . . . . . . . . . . . . . .      11
+  4.2 Results for Polygons, Rounded Squares, and Squircles . . . . . .         13
+
+5 Optimizing Heat and Packing Simultaneously                                   13
+
+6 Conclusions                                                                   16
+  6.1 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+  6.2 Results . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+  6.3 Assessment of the Model . . . . . . . . . . . . . . . . . . . . . . . 18
+      6.3.1 Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+      6.3.2 Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+      6.3.3 Generalizability . . . . . . . . . . . . . . . . . . . . . . . . 18
+      6.3.4 Improvements . . . . . . . . . . . . . . . . . . . . . . . . . 19
+
+7 Advertisement for a Magazine                                                 19
+
+
+=== PHYSICAL PAGE 3 ===
+Team #21623                                                                     3
+
+
+1     Summary
+When cooking brownies in the rectangular pans, the corners tend to get over-
+heated. The circle has an even heat distribution, but it does not pack efficiently
+in an oven. We search for pan shape that combine even heat distribution and
+packing efficiency by considering shapes “in between” a square and a circle.
+    We develop models for heat distribution and packing efficiency in pans with
+different shapes. We apply our model to
+    1. regular polygons
+    2. squares with rounded corners
+    3. another square-circle hybrid we call a “squircle.”
+We collect data about each type of shape using each model and fit polynomial
+models to the data. Finally, we optimize a weighted average of heat distribution
+and packing efficiency. The structure of the paper is as follows.
+
+    • In Section 2, we explain our preliminary assumptions about the oven and
+      the pans. We describe the three types of shapes we consider out of the
+      very large search space of possible shapes.
+    • Section 3 discusses heat distribution. We use the heat equation to model
+      the amount of “browning” or “burning” at the edges of the pan. We
+      approximate the results of the heat equation in two dimensions using a
+      random diffusion simulation. We use the simulate the amount of browning
+      for various shapes.
+    • In Section 4, we model the packing efficiency of various shapes using an
+      optimal nesting algorithm developed by [3] and [4]. Given a many-sided
+      polygon, the algorithm circumscribes a hexagon which can tessellate the
+      plane; it minimizes the area of the circumscribed hexagon. We apply
+      the shape to regular polygons. We approximate the round shapes we
+      are considering by many-sided polygons, and then apply the algorithm to
+      them also.
+    • In Section 5, we combine the models in section 2 and 3 by introducing
+      an objective function and assigning relative weights to heat distribution
+      model and optimal nesting model. We find the best shapes out of the
+      three categories and the best overall.
+    • Section 6 summarizes the results, assesses the strengths and weaknesses
+      of our model, and makes suggestions for generalization and improvement.
+
+
+2     Introduction
+When cooking brownies, some people like square pans because they pack more
+efficiently in an oven, while others prefer circular pans because the brownies
+
+
+=== PHYSICAL PAGE 4 ===
+Team #21623                                                                               4
+
+
+are cooked more evenly on the edges. We want to find a “happy medium”–
+something between a circle and a square that maximizes some combination of
+packing efficiency and even heat distribution.
+
+2.1     Preliminary Assumptions
+We assume at the outset that heat distribution is even throughout the oven.
+This is actually true for convection ovens which circulate hot air with a fan [1].
+Conventional ovens distribute heat unevenly, but the unevenness is unrelated
+to pan shape, so we do not consider it in our model. An immediate consequence
+of this assumption is that the number and spacing of oven racks are irrelevant.
+They will only multiply the total number of pans by an integer.
+    Regarding the pans, we assume:
+   1. Pans cannot overlap in the oven.
+   2. All our pans are the same shape. It is possible to consider combinations
+      of shapes, but for simplicity, we assume the pans are the same.
+   3. The pans are convex. Concave pans have a significantly larger perimeter
+      than convex pans, and hence they are more susceptible to browning at the
+      edges. Many concave shapes do not pack well either.
+
+2.2     Shapes to Consider
+As it stands, the problem is still very broad because the search space of possible
+shapes is so large. It is not only infinite, but even infinite-dimensional. A pan
+shape can be given by parametrizing the boundary by any simple closed curve
+f : [0, 1] → R2 ; thus, we are looking for an optimum over a function space.1 The
+search space is still infinite-dimensional, even if we assume the enclosed shape
+has area 1 and its centroid is at the origin.
+     Rather than finding the best shape in general, we will consider three cate-
+gories of shapes which are “between” a circle and a square in some sense. We
+will optimize the solution for each category and compare the results.
+
+2.2.1    Regular Polygons
+First, we consider regular polygons (square, pentagon, hexagon, etc.). The for-
+mula for a regular n-gon with area 1 centered at the origin, in polar coordinates,
+is
+                                 1                 2π 
+                        r≤ p            sec   θ mod      .
+                               n tan nπ              n
+We will optimize heat distribution and packing efficiency as a function of n.
+   1 We cannot apply standard variational techniques here either because the function we are
+
+trying to minimize does not have a neat formula.
+
+
+=== PHYSICAL PAGE 5 ===
+Team #21623                                                                    5
+
+
+
+        Figure 1: Squares with rounded corners for k = 0.2, 0.4, 0.6, 0.8.
+
+
+
+
+2.2.2     Squares with Rounded Corners
+Second, we consider replacing the corners of a square with quarter-circles. We
+choose k ∈ [0, 1] to represent the fraction of one side of the square the remains
+straight; m represents half the width of the original square. Thus, k = 0 gives
+a cirlce and k = 1 gives a square. The portion of the square with x, y ≥ km is
+replaced by a quarter circle centered at (km, km) and similar replacements are
+made atpthe other corners.. To normalize the area of the figure to one, we let
+m = 1/ 4 − (4 − π)(1 − k)2 . Then the shape is given by
+          (
+            |y| ≤ m,                                    if |x| ≤ km
+                        p
+                                 2   2             2
+            |y| ≤ km + (1 − k) m − (|x| − km) , if km ≤ |x| ≤ m.
+
+We will optimize our objectives as functions of k.
+
+2.2.3     “Squircles”
+Third, we consider a shape, which we will call a “squircle,” which is a hybrid
+of a square and a circle. We obtained it by taking a weighted “average” of a
+square and circle in
+                   √ polar coordinates in the following way. A circle with area 1
+is given by r ≤ 1/ π. A square with area 1 is r ≤ 12 sec θ for −π/4 ≤ θ ≤ π/4,
+with similar formulae in the other sectors of the plane. The area computation
+for a quarter of each shape is
+                      Z π/4 Z 1/√π               Z π/4
+                                                      1        1
+                                     r dr dθ =          dθ =
+                       −π/4 0                    −π/4 π        4
+                  Z π/4 Z (1/2) sec θ           Z π/4
+                                                      1            1
+                                      r dr dθ =         sec2 θ dθ = .
+                   −π/4 0                        −π/4 4            4
+
+By taking a weighted average of the integrals on the right, we get another
+integral equal to 14 . That is, for 0 ≤ k ≤ 1,
+          Z π/4                   Z π/4 Z √(1−k)/π+(k/4) sec2 θ
+    1               1−k k   2
+      =                + sec θ dθ =                               r dr dθ.
+    4      −π/4      π  4            −π/4 0
+
+
+=== PHYSICAL PAGE 6 ===
+Team #21623                                                                               6
+
+
+
+                       Figure 2: Squircles for k = 0.2, 0.4, 0.6, 0.8.
+
+
+
+
+          p
+Thus, r ≤ (1 − k)/π + (k/4) sec2 θ for −π/4 ≤ θ ≤ π/4 (with similar formulae
+in the other sectors) gives a shape with area one, which is “between” a circle
+and a square; k = 0 gives a circle, k = 1 a square. In rectangular coordinates,
+the shape has the formula2
+                                   k          1−k
+                                           +             ≥ 1.
+                              4 max(x , y ) π(x2 + y 2 )
+                                     2   2
+
+
+We will optimize our objectives with respect to k.
+
+
+3      Modeling Heat Distribution
+3.1      Assumptions
+We model the amount of “browning” or “burning” at the edge of a pan during
+baking. Our earlier assumptions guarantee that the heat distribution is the
+same for each of the pans.
+    We assume further that the food has a uniform density throughout baking,
+so that the shape of the browned area can be modeled by the heat equation. In
+bread, baking and crust formation is complicated because it involves not only
+heat flows but also moisture flows and evaporation [10]. The crust shape cannot
+be modeled by only the heat equation. The crust (dry region) and crumb (moist
+region) change size because of evaporation, as the crust is compacted by the
+expanding crumb. Thus, the crust does not vary in thickness near the corners.
+    These effects, however, are much less significant for brownies. Brownies lose
+much less water by weight than bread. Their density is more uniform, and so
+the burned area can be modeled more accurately by the heat equation. We
+assume at this point we are dealing with brownies or something with similar
+properties.
+    According to the heat equation, the heat u(x, y, z, t) in a three-dimensional
+shape S satisfies
+
+                      ut = α(uxx + uyy + uzz ) for all (x, y, z) ∈ S.
+    2 The formula is for (x, y) 6= (0, 0). The point (0, 0) is always inside the shape.
+
+
+=== PHYSICAL PAGE 7 ===
+Team #21623                                                                            7
+
+
+When the object is surrounded by liquid or gas at a different temperature, the
+boundary conditions are given by the thermal transfer equation:
+
+                       ut = k(Text − u) for all (x, y, z) ∈ ∂S
+
+where Text is the external temperature and k is a heat transfer coefficient. This
+equation is still messy computationally, and it is difficult to find tools for solving
+it over a nonrectangular region.3 We make further simplifying assumptions for
+the sake of computation.
+    Specifically, we treat the equation in two dimensions rather than three. Since
+our model only deals with the two-dimensional profile of the brownie pan and we
+do not know its height, we cannot model in three dimensions accurately. Rather,
+we assume the pan has a uniform height and that horizontal and vertical effects
+of heat are roughly independent, that is, u(x, y, z, t) ≈ f (x, y, t) + g(z, t). We
+concentrate on the effects of the horizontal function f . Thus, we simulate the
+heat equation in two dimensions, with heat only entering from the edges.
+
+3.2    Simulating Diffusion
+Rather than solving the 2D heat equation directly, we model its behavior with a
+much simpler algorithm. The key insight to our model is that the heat equation
+governs more than just heat. It also describes diffusion of particles by random
+walking or more generally by Brownian motion–for example, the diffusion of
+gases, the spread of particles through a liquid, or the flow of liquid through a
+porous solid [9] [6].
+   For each type of pan under consideration, we generate a picture of a white
+shape on a black background. We allow the black pixels to diffuse throughout
+the shape like gas filling an empty space or a water filling a sponge. At each
+time step,
+   • We let each black particle choose a random horizontal or vertical direction.
+   • If the adjacent pixel in that direction is white, we move the black pixel;
+     otherwise, we leave it where it is.
+
+   • After we have iterated over the whole picture, we refill the original black
+     area (i.e. the part that was black at t = 0) with black pixels.
+This last action simulates gas or liquid coming from the outside to take the
+place of the particles that moved into the original white area. At the end of the
+simulation, the “burned” part of the shape is the portion of the original white
+area that has become black.
+   Because the movement of particles operates by the same physical laws and
+equations as the movement of heat, we can also view the algorithm as simulating
+   3 Even Wolfram Mathematica can only solve PDEs on a rectangle, and it cannot solve the
+
+heat equation with this type of boundary condition, even on a rectangle.
+
+
+=== PHYSICAL PAGE 8 ===
+Team #21623                                                                                 8
+
+
+
+Figure 3: Application of the diffusion algorithm to a pentagon at 300 × 300
+pixels, at t = 50, 100, 200, 300.
+
+
+
+
+heat. The heat is simply the concentration of black particles at each point. The
+white has a heat of 0 and the black a heat of 1.4
+    Up to this point, we have made many approximations, not all of which are
+justified theoretically, but the results of the algorithm are quite reasonable (see
+Figure 3). Notice, however, that although we chose to work in two dimensions,
+our diffusion model would work just as well in three dimensions.
+
+3.3     Results for Polygons, Rounded Squares, and Squircles
+For each n-gon we ran a set up a simulation with the following parameters:
+    • The resolution was 500 × 500 pixels.
+    • The area of the shape was 1, where the frame represented −1 ≤ x, y ≤ 1.
+    • We performed 25 time steps.5
+    • We recorded the fraction of the original white area that had become black,
+      taking the median over 19 simulations.
+    We plotted the results as a function of n and fit a model to the data. Since
+regular polygons approach a circle as n → ∞, we assume the browning of each
+polygon approaches the browning of a circle asymptotically. We assume they
+decrease toward that value as the shapes become less and less susceptible to heat
+from the perimeter. We wanted our interpolating function to have the same
+properties. Thus, instead of a polynomial model, we used a linear combination
+of n−1 and n−2 added to the value obtained for a circle. We fit the polynomial
+for n = 4 to 19 using Wolfram Mathematica’s least-squares algorithm. The
+error was less than 0.067 or 0.87% of the expected value.
+   4 Because the heat equation does not change if we scale or translate u and T
+                                                                               ext by the same
+constants, the specific temperature values do not affect the structure of the solution. The
+simulation also assumes k = 1 (which can be obtained analytically by scaling the time units)
+and some other constant value for α.
+   5 It is actually 50 iterations over the picture. Because we iterated over the image row
+
+by row, there were situations where a black pixel might move and then be considered for
+movement again. To prevent this flaw from skewing the results, we iterated forward and then
+backward at each time step.
+
+
+=== PHYSICAL PAGE 9 ===
+Team #21623                                                                          9
+
+
+
+Figure 4: Browning amounts for polygons; n is the number of side and b is the
+percent browned.
+
+           b
+                             b = 7.6902 − 0.7969n−1 + 17.1957n−2
+     8.8
+
+     8.6
+
+     8.4
+
+     8.2
+
+     8.0
+
+     7.8
+                                                                         b = 7.690
+     7.6
+           4      5      6       7      8      9     10     11      12     n
+
+
+
+    We applied the same procedure to squares with rounded corners, this time
+writing the results as functions of the parameter k. We sampled k at multiples
+of 0.1. We fit a quadratic model to the data; at each point the error was less
+than 0.5% of the value. We applied the same procedure to squircles; k was
+sampled at multiples of 0.1. The quadratic approximation was within 0.2% of
+the expected value. As we would expect, in each of the three categories,
+the circle optimized heat distribution.
+
+
+4     Packing Pans
+We measure the packing efficiency of polygons by how well they tessellate the
+plane. Of course, an arrangement which tessellates the plane well may not fill a
+finite oven well. If the oven is large enough, it will be a good approximation to
+the actual efficiency. If the oven is small, the tessellation will often be inefficient
+at the edges because the tessellation will not have smooth edges. However, in
+practice, most cooks do not place pans too near the edge of the oven because the
+oven walls may affect the heat distribution. But even if someone wants to fill
+the oven all the way to the edges, our results will still provide an upper bound
+for packing efficiency in a finite oven.
+
+
+=== PHYSICAL PAGE 10 ===
+Team #21623                                                                   10
+
+
+
+
+Figure 5: Browning amounts for squares with rounded corners; b is the percent
+browned. Recall k = 0 is a circle and k = 1 is a square.
+
+
+      b
+                                           b = 7.6550 + 0.2966k + 0.6853k 2
+8.8
+
+8.6
+
+8.4
+
+8.2
+
+8.0
+
+7.8
+                                                                         b = 7.69
+7.6
+      0.0   0.1   0.2    0.3   0.4   0.5    0.6    0.7   0.8    0.9   1.0     k
+
+
+
+
+      Figure 6: Browning amounts for squircles; b is the percent browned.
+
+
+      b
+                                           b = 7.7100 + 0.3309k + 0.5897k 2
+8.8
+
+8.6
+
+8.4
+
+8.2
+
+8.0
+
+7.8
+                                                                         b = 7.69
+7.6
+      0.0   0.1   0.2    0.3   0.4   0.5    0.6    0.7   0.8    0.9   1.0     k
+
+
+=== PHYSICAL PAGE 11 ===
+Team #21623                                                                          11
+
+
+4.1    Optimal Nesting Algorithm
+To measure the packing efficiency, we implement the optimal nesting algorithm
+described by Dori and Ben-Bassat in their papers [3] and [4], which produces
+a near-tessellation of the plane out of a given convex polygon with six or more
+sides. The algorithm circumscribes a tessellating or “paving” hexagon around
+the original figure with near-minimal added area. We use hexagons because
+they have enough sides to preserve area efficiently, and yet they can easily be
+adjusted to tessellate the plane.
+    The resulting hexagon P60 will tessellate the plane and provides a good ap-
+proximation to the optimal packing of the original polygon. After applying the
+algorithm, we measure the packing efficiency of the original shape by how much
+area the algorithm added. The packing efficiency the area ratio of the original
+polygon to the circumscribed hexagon, or
+                                               A(Pn )
+                                efficiency =           .
+                                               A(P60 )
+   We summarize the algorithm briefly here. For a detailed explanation and a
+proof of the correctness and efficiency of the results, see [3] and [4]. In explaining
+the algoithm we use the following notation:
+
+   • Pn : an n-sided convex polygon.
+   • P̄6 : a hexagon where opposite sides are parallel.
+   • P60 : a hexagon whose opposite sides are parallel and have equal length.
+   • Si : The sides of Pn is denoted by S1 , S2 , ..., Sn . Si is the i-th side of Pn .
+   • Vi : The vertices of Pn is denoted by V1 , V2 , ..., Vn in order as we proceed
+     around the edge of the polygon.
+   • Ai : The interior angles of Pn is denoted by A1 , A2 , ..., An , according to
+     the number of the vertices. Ai is the corresponding angle of Si
+   • Ri : The minimum adding area to replace Si , Si+1 in Pn by a new side Si0
+     crossing Vi . Sj0 is always out of Pn .
+   • BO(Pn ): the basic order of a Pn . Pn is of of basicorderk–denoted by
+     BO(Pn ) = k–if it has exactly k sides, Sj1 , Sj2 , ..., Sjk , such that
+
+                           Aj1 + Aji +1 < π for ji = 1, 2, , ..., k
+
+   By the notation above, the basic structure of the algorithm is as follows:
+   1. Given an n-sided polygon Pn , circumscribe a hexagon P6 with the smallest
+      area.
+         • Define the unit operation as circumscribing Pm by Pm−1 with mini-
+           mum of Rj for all j = 1, 2, ..., m.
+
+
+=== PHYSICAL PAGE 12 ===
+Team #21623                                                                          12
+
+
+
+Figure 7: Application of the minimum fit algorithm to an 11-gon. The first
+picture shows the hexagon P6 , the second the tessellating hexagon P60 .
+
+
+
+
+         • To obtain P6 from Pn , we proceed iteratively by reducing one side
+           each time. Begin with the unit operation. Every time when we
+           do a unit operation to Pm to get Pm−1 , if BO(Pm−1 ) ≤ BO(Pm )
+           (actually it’s never the case that BO(Pm−1 ) ≤ BO(Pm ) shown by
+           [4]), continue to do basic operation until we get P6 . Otherwise go to
+           the next step.
+         • When BO(Pm−1 ) > BO(Pm ), get Pm−2 by finding the minimum of
+           the minimum adding area when replacing all sides in Pn not in Pm−1
+           to a new side Sk0 . Then go back to the previous step.
+
+   2. Given the hexagon P6 , circumscribe a new hexagon P60 such that opposite
+      sides are parallel and have equal length. We find P60 in two steps:
+         • Circumscribe P6 with P̄6 .
+         • Circumscribe P̄6 with P60 .
+         • The P60 is what we want.
+
+   With this algorithm, we can easily deal with any convex polygon to produce
+the minimum circumscribed P60 to pave the plane.6 However, the algorithm
+above will not directly applicable to the rounded squares, squircles, or any
+rounded shape. We circumscribed rounded shapes with a many-sided polygon
+Pn and then applied the polygon packing algorithm to get an approximated
+result.
+   We circumscribe a convex shape with curve in it to Pn by first partitioning
+the curve into n pieces with equal length and then choosing the tangent line of
+   6 For P and P , the packing efficiency is perfect. For P , we determined an efficient
+          4      6                                         5
+arrangement by hand.
+
+
+=== PHYSICAL PAGE 13 ===
+Team #21623                                                                      13
+
+
+
+Figure 8: Packing efficiency for regular polygons; e stands for efficiency (%).
+The red line represents the packing efficiency of a circle.
+    e
+100
+
+ 96
+
+ 92                                                                                 π
+                                                                            e = 100 √
+                                                                                   2 3
+ 88
+
+ 84
+
+        4     6     8     10    12     14    16    18     20    22    24     n
+
+
+the middle point in the piece-curve to produce the circumscribed Pn . This is a
+naive approach which may not ensure the produced polygon Pn has minimum
+additional area (out of all possible n-gons that circumscribe the original figure).
+However if we make n large enough, the error is negligible. We used P128 to
+model rounded squares P100 for squircles.
+
+4.2    Results for Polygons, Rounded Squares, and Squircles
+The packing efficiencies of regular polygons are shown in Figure 8. The values
+are erratic, especially for low values of n. Indeed, the square and hexagon can
+tessellate the plane perfectly, but the pentagon in betwen them cannot. Even
+in an infinite plan, packing is fundamentally discrete. There is no hope for a
+smooth approximating curve as there was for heat distribution. However, if n
+is large enough, the n-gon is well-approximated by a circle, and so its packing
+efficiency will be close to that of the circle.
+     For squares with rounded corners, the data are well approximated by a
+quadratic (error less than 1.8, which is 1.9% of the expected value), although
+not as well as some of the other data sets. We interpolated the squircle data
+with a quadratic as well. The maximum error was 0.615, or 0.65%.
+
+
+5     Optimizing Heat and Packing Simultaneously
+We now combine our models to find the optimal shape in each category. Our
+objective function is a weighted average of packing efficiency (with weight p)
+and even heat distribution (with weight 1 − p).
+   Before calculating the function, we normalize our data by shifting and scaling
+the dependent variable so that the output for a circle becomes 0 and the output
+
+
+=== PHYSICAL PAGE 14 ===
+Team #21623                                                                    14
+
+
+
+
+Figure 9: Packing efficiency for rounded squares with interpolating quadratic;
+e stands for efficiency (%).
+      e                             e = 90.0212 + 8.3199k + 2.6370k 2
+
+100
+
+ 98
+
+ 96
+
+ 94
+
+ 92
+
+ 90
+
+ 88
+      0.0   0.1    0.2    0.3   0.4    0.5    0.6    0.7   0.8    0.9    1.0    k
+
+
+
+
+Figure 10: Packing efficiency for squircles with interpolating quadratic; e stands
+for efficiency (%).
+        e                            e = 90.7752 + 2.60976k + 6.5702k 2
+
+100
+
+ 98
+
+ 96
+
+ 94
+
+ 92
+
+ 90
+
+ 88
+      0.0   0.1    0.2    0.3   0.4    0.5    0.6    0.7   0.8    0.9    1.0    k
+
+
+=== PHYSICAL PAGE 15 ===
+Team #21623                                                                      15
+
+
+for a square 1. Thus, the browning data range from 0 (circle) to 1 (square), and
+so do the other data. Because we want to maximize one function and minimize
+the other, we subtract the browning equation from one. Thus, our objective is
+to maximize
+
+                objective = p(packing) + (1 − p)(1 − browning).
+
+    Because the amount of browning and packing efficiency was difficult to pre-
+dict for the polygons, we considered each polygon separately and wrote a formula
+for the objective function in terms of p in each case. For each value of p between
+0 and 1 at steps of 0.001, we found the polygon which maximized the objective
+function. We considered polygons with n = 4 to 19. The results were as follows:
+                               
+                               16, if 0.000 ≤ p ≤ 0.192
+                               
+                       nmax = 18, if 0.193 ≤ p ≤ 0.286
+                               
+                                 6,    if 0.287 ≤ p ≤ 1.000.
+                               
+
+In general, the hexagon is by far the best polygon according to our model. This
+is because only the hexagon and the square have optimum packing efficiency,
+and the hexagon has a smaller amount of browning than a square.
+    For the rounded squares, we wrote the objective function in terms of the
+quadratic polynomials we had fit to the data:
+
+  objective(k) = (1 − p)(1.0385 − 0.3249k − 0.7508k 2 )
+                                          + p(−0.0718 + 0.8936k + 0.2832k 2 ).
+
+On the interval [0, 1], the objective attained its maximum at 0 (the circle) for
+p ≤ 0.2666. For p ≥ 0.5557, the best shape was the square. Between 0.2666 and
+0.5557, the optimal value of k was given by
+                                   −1.2186p + 0.3249
+                          kmax =                     ,
+                                    2.0681p − 1.5016
+which was obtained by setting the derivative of the objective function to zero.
+The results are shown in Figure 11.
+   When we normalized the interpolating polynomials for the squircle data, the
+two equations were almost identical:
+
+                browning(k) = 0.02112 + 0.36246k + 0.646037k 2
+                 packing(k) = 0.00916 + 0.2803k + 0.70571k 2 .
+
+ The function p(packing(k)) + (1 − p)(1 − browning(k)) always achieves its max-
+imum over [0, 1] at one of the endpoints. That is, either the circle or the square
+is the best option. If a higher priority is placed on non-browning, the circle is
+best, and otherwise, the square is best. The squircle design is not effective for
+this optimization.
+
+
+=== PHYSICAL PAGE 16 ===
+Team #21623                                                                                  16
+
+
+
+     Figure 11: Optimal values of k for rounded squares as a function of p.
+    kmax
+1.0
+0.9
+0.8
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+0.0                                                                        p
+      0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.0
+
+
+    We now combine our data to find the optimal shape out of all the ones we
+considered, for various values of p. The results are shown in 12.7 The optimal
+shape according to our model depended on the value of p. For small p, the
+circle was best. For a brief interval from 2.666 to 0.2702, the rounded square
+was optimum. After that, the hexagon took the cake.
+                           
+                           circle,
+                                              0 ≤ p ≤ 0.2666
+             best shape = rounded square, 0.2666 ≤ p ≤ 0.2702
+                           
+                             hexagon,          0.2702 ≤ p ≤ 1.
+                           
+
+
+
+6     Conclusions
+6.1     Summary
+We divided the brownie pans problem into two subproblems:
+    • Modeling the heat distribution by a diffusion simulation: We simulated
+      the amount of burned material at the edge of the pan.
+    • Packing the shapes efficiently in the plane: We estimated how efficiently
+      shapes could pack by circumscribing them with a minimum-area tessellat-
+      ing hexagon.
+Then, we optimized the even heat distribution and efficient packing simultane-
+ously. Our objective function was a weighted average of packing efficiency and
+good heat distribution.
+   We applied our model to three types of shapes:
+   7 The blue curve for rounded squares should approach the red line for the square; in fact, at
+
+p = 0.5574, it is off by 0.481 because of experimental error (the packing data for the rounded
+squares differed the most from the expected results).
+
+
+=== PHYSICAL PAGE 17 ===
+Team #21623                                                                     17
+
+
+
+   Figure 12: Values of the objective function for various optimal shapes.
+objective
+      circle               hexagon        square
+
+
+
+
+                               rounded squares
+
+
+
+
+                                                  p
+
+
+  1. Polygons with n ≥ 4 sides.
+  2. Squares with rounded corners. The amount of rounding was specified by
+     a parameter k, where k = 0 gives a circle and k = 1 a square.
+  3. “Squircles”–a circle-square hybrid. The amount of rounding was specified
+     by a parameter k, where k = 0 gives a circle and k = 1 a square.
+
+6.2    Results
+We gathered data for packing efficiency and good heat distribution. We fit
+quadratic models to the data for rounded squares and squircles, but the data
+for polygons was too erratic. We normalized the data by scaling and translating
+the dependent variable so that the results fit in a range from 0 to 1. For packing,
+0 represented the circle (worst) and one the square (best). For heat distribution,
+0 represented the square (worst) and 1 the circle (best). We maximized a linear
+combination of packing efficiency (with weight p) and good heat distribution
+(with weight 1 − p) for each type of shape.
+    The results were as follows:
+   • Among the polygons, the hexagon was best for p ≥ 0.287. For smaller p,
+     many-sided polygons were most efficient.
+
+   • Among the rounded squares, the circle was best for p ≤ 2.666, the square
+     for p ≥ 0.5557. In between, the best rounded square was given by kmax =
+     (−1.2186p + 0.3249)(2.0681p − 1.5016).
+
+
+=== PHYSICAL PAGE 18 ===
+Team #21623                                                                    18
+
+
+   • Among the squircles, the maximum was always either the circle or the
+     square.
+   • Among all the shapes considered, the circle was best for small p and the
+     hexagon for large p.
+   For low values of p, the circle was the best shape, but in general, the hexagon
+took the cake.
+
+6.3     Assessment of the Model
+In the following subsections, we will discuss some general strengths and weak-
+nesses of our model, generalizability to other scenarios, and possible improve-
+ments to the model.
+
+6.3.1   Strengths
+  1. Our model accurately simulates the heat equation with very simple com-
+     putations.
+  2. It provides a good measure of how well a polygon fills space.
+  3. The packing algorithm is efficient by itself, taking linear time.
+
+6.3.2   Weaknesses
+  1. The nesting algorithm computes packing efficiency based on the assump-
+     tion of infinite plane. However, we use compute the efficiency over the
+     finite plane, which will contain some degree of error.
+  2. Our diffusion model does not take into account the third dimension–the
+     height of the pan.
+  3. The packing model does not handle non-convex shapes.
+  4. The model does not consider internal heat and moisture in the food could
+     effect the heat diffusion.
+  5. Our model would benefit from more accurate data.
+
+6.3.3   Generalizability
+Although we only considered three types of shapes, our approach can be applied
+more generally.
+  1. The diffusion simulation works for any shape.
+  2. The simulation could easily be extended to three dimensions.
+  3. The packing algorithm works for any convex polygon with 6 or more sides.
+  4. We can apply the packing algorithm to other convex shapes after approx-
+     imating them with polygons.
+
+
+=== PHYSICAL PAGE 19 ===
+Team #21623                                                                     19
+
+
+6.3.4    Improvements
+    1. Considering other types of shapes.
+    2. Simulating the heat equation in three dimensions, testing various values
+       for the height of the pan.
+
+    3. More precise algorithms for solving the heat equation over an irregular
+       region.
+    4. Simulation of both heat and moisture in the baked goods.
+    5. Calculating packing efficiency over a finite region rather than the infinite
+       plane.
+
+
+7       Advertisement for a Magazine
+                                  Pan Pan Pain
+
+     Imagine you are baking brownie for lots of people in a big party. It would be
+rude to ask guests to wait so long for your gourmet. So you might want to bake
+as much as you can. In front of you, there are different kinds of pans, saying
+circular, rectangular, or even hexagonal. You need to make some decisions. You
+may choose the rectangular pans to pack things very tightly in the oven to cook
+many at the same time, but you also know you might desperately find later that
+your food totally ruined by the burnt part at the corner. Or you may choose the
+circular pans as you usually cooked for yourself before, but in front of you, there
+might be a longer and longer line of people, waiting your food and complaining
+about how slow you did that. A little hard to choose, eh?
+     According to our recent research on packing efficiency and heat distribution
+of the pan in baking, you might find a reasonable way to get an optimized
+solution to your previous dilemma.
+     Pans usually come in circular or rectangular shapes, or rectangles with
+rounded corners. You could imagine all kinds of other shapes as well–for in-
+stance, why not use a pentagon or hexagon? Which pan is the best?
+     The packing problem, actually, is a space efficiency question; on the other
+hand, the quality of baked food is related to how evenly the heat is distributed
+in the pan. In our research, we modeled these two aspects separately and
+considered a weighted combination of them. These are our results.
+     Regarding packing efficiency, if we consider a large oven with small pans (so
+that the boundary will not influence the arrangement too much), the packing
+efficiency is related to the shape of the pans, as the picture shows. If we only
+consider space efficiency, its nice to choose rectangular and hexagonal pans.
+Also when the shape is closer and closer to a circle, we find that the packing
+efficiency approaches to a certain number.
+
+
+=== PHYSICAL PAGE 20 ===
+Team #21623                                                                      20
+
+
+
+      e
+100
+
+ 96
+
+ 92                                                                                 π
+                                                                            e = 100 √
+                                                                                   2 3
+ 88
+
+ 84
+
+          4   6     8     10    12     14    16    18     20    22    24     n
+
+    How about the square with round corners? We find a much easier rule. The
+packing efficiency always increases as the pan becomes more square.
+    In terms of heat distribution, a circle is always the best shape. It has least
+amount of edge to be burned.
+    If we weighted the two criteria, what will happen? Too get a easy conclusion,
+lets consider just three cases, which is you want to have highest space efficiency,
+most even heat distribution, or both of them (half and half).
+    From our research result, for highest space efficiency, you might choose the
+rectangular or hexagonal pans. If you want to cook food more delicious, circular
+pans must be your best choice. If we consider both, hexagons are the best
+polygonal pans in general. If you value even heat distribution very highly and if
+you HAPPENED to have those shapes on hand, 16-gon shape pan and 18-gon
+shape pan would be better. For a square pan with rounded corners, if we value
+good heat distribution and packing efficiency equally, the best shape is when
+the straight part of the side is 0.6 times the width of the pan.
+
+
+=== PHYSICAL PAGE 21 ===
+Team #21623                                                                 21
+
+
+References
+ [1] “FAQs    about     Convection    Oven     Cooking.”     overstock.com.
+     http://www.overstock.com/guides/faqs-about-convection-oven-cooking.
+ [2] Forman S. Acton. Numerical Methods that Work. Washington: Mathemat-
+     ical Association of America, 1990.
+ [3] Dov Dori and Moshe Ben-Bassat. ”Efficient Nesting of Congruent Convex
+     Figures.” Sciencedirect. N.p., Mar. 1984. Web. Feb. 2013.
+ [4] Dov Dori and Moshe Ben-Bassat. ”Circumscribing a Convex Polygon by a
+     Polygon of Fewer Sides with Minimal Area Addition.” Sciencedirect. N.p.,
+     Dec. 1982. Web. 2 Feb 2013.
+
+ [5] Lawrence C. Evans. Partial Differential Equations. Providence: American
+     Mathematical Society, 2010.
+ [6] Ulrich Hornung and Ralph E. Showalter. “Diffusion Models for Fractured
+     Media.” Journal of Mathematical Analysis and Applications. vol. 147, p.
+     69-80 (1990).
+
+ [7] “What’s the difference between a convection oven and a con-
+     ventional oven?”    American Pride Seafoods. Web. 1 Feb 2013.
+     http://www.americanprideseafoods.com/Consumers/convection
+ [8] William H. Press, Saul A. Teukolsky, William T. Vetterling, Brian P. Flan-
+     nery. Numerical Recipes: The Art of Scientific Computing, Third Edition.
+     New York: Cambridge University Press, 2007.
+ [9] Gregory Lawler. “Random Walk and the Heat Equation.” Department of
+     Mathematics, University of Chicago, n.d. Web.
+[10] B. Zanoni, S. Pierucci, and C. Peri. “Study of the Bread Baking Process:
+     II. Mathematical Modelling.” Journal of Food Engineering vol. 23 (1994),
+     p. 321-336. Web. 2 Feb. 2012.

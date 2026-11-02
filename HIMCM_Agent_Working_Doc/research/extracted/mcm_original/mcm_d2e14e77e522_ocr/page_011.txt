@@ -1,0 +1,53 @@
+Page 11 of 15 Control #31
+
+We develop two flood routing models based on numerical approximations of
+the Saint Venant Equations. Mathematically, our first model is based on the
+two step predictor-corrector MacCormack method for approximating hyperbolic
+partial differential equations. This model is accurate up to second order. The
+second model is a one step difference scheme of numerical approximation with
+first order accuracy.
+
+4.2.1 The Two Step Flood Model
+
+A classical finite difference numerical scheme suitable for the discretization of
+equation (6) is the explicit two step predictor-corrector MacCormack method,
+which uses the following equations [4].
+
+A
+The predictor step: U? = UP - SF —F?)+ AtG? (7)
+Cc P At 'P 'P P
+The corrector step: Uj = U?- ay Fi —F?_,) + AtG? (8)
+
+n- 1 nm Cc
+Up = 3 (Ui + Uj) (9)
+
+The reason that the MacCormack method is useful in treating unsteady dy-
+namics is that the behavior in time of one of the discrete nodes in the system
+depends on the spacial components on either side, thus it is a good model of
+fluid flow.
+eThe Error and (in)Accuracy of the Two Step Flood Model:
+
+The Two Step Flood model was highly sensitive to our time step interval. It
+worked reasonably well for time steps of 30 seconds. Unfortunately, due to the
+higher order of space-time dependence, in order to get data for the entire river
+model out of this method, we needed the number of spacial nodes beyond the
+confluence of the Congaree river to be in direct correspondence with the number
+of time steps we would need to run our model for 30 second time-steps for the
+large number of iterations necessary to model the dam breach on a time scale of
+hours. Because our river model essentially ended at the State Capitol building
+of Columbia, we could not propagate a flood with the existing river model. In
+order to compensate, we added a rectangular river modeled with the same area
+as our geometric river model to create an “infinite” river. This did give us data
+which showed the flow of the flood moving downstream to the point where Rawls
+Creek met the Saluda River. Unfortunately, due to the high accuracy required
+for this method to approximate well and the highly inaccurate initial conditions
+specified by our linearly interpolated geometric river and hydrographs, this flood
+model was not compatible with the spacial and temporal boundary conditions
+we modeled in order to implement it.
+
+4.2.2 The One Step Flood Model
+
+The idea of the One Step method is similar to the MacCormack model, but
+rather than use a two-sided difference, we used a one sided finite difference
+
+11

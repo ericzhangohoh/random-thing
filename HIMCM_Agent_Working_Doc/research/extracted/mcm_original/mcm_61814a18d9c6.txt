@@ -1,0 +1,584 @@
+=== PHYSICAL PAGE 1 ===
+Team #38722                                                         Page 1 of 12
+
+
+
+
+          Expediting the Eradication of Ebola
+                               Team #38722
+                             February 9, 2015
+
+
+Contents
+1 Introduction                                                                   2
+  1.1 Outline of Our Approach . . . . . . . . . . . . . . . . . . . . . .        2
+  1.2 Assumptions . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      2
+
+2 Estimating the Amount of Medicine Needed Using the SEIR
+  Model                                                                       3
+  2.1 Estimates on Current Interventions . . . . . . . . . . . . . . . . .    4
+  2.2 Fitting the model to data . . . . . . . . . . . . . . . . . . . . . .   4
+  2.3 Ceasing the Spread . . . . . . . . . . . . . . . . . . . . . . . . . .  5
+  2.4 Prioritizing the Distribution . . . . . . . . . . . . . . . . . . . . . 5
+
+3 Delivering the Medicine                                                        5
+  3.1 Route Optimization Using Prim’s Algorithm         . . . . . . . . . . .    6
+
+4 Case Study on Sierra Leone                                                     8
+  4.1 Model predictions for Sierra Leone . . . . . . . . . . . . . . . . .       8
+  4.2 Delivery Method . . . . . . . . . . . . . . . . . . . . . . . . . . .      9
+
+5 Weaknesses and Improvements of Our Model                                   10
+  5.1 Fruit Bats and Future Outbreaks . . . . . . . . . . . . . . . . . . 10
+  5.2 Effects of Population Mixing . . . . . . . . . . . . . . . . . . . . 10
+  5.3 If the Cure is a Vaccine . . . . . . . . . . . . . . . . . . . . . . . 10
+
+6 Conclusion                                                                    10
+
+7 Executive Summary                                                             10
+
+References                                                                      12
+
+
+
+
+                                       1
+
+
+=== PHYSICAL PAGE 2 ===
+Team #38722                                                             Page 2 of 12
+
+
+1     Introduction
+The Ebola outbreak in West Africa has been a problem for much of the last
+year. Now the world medical association has announced that there is a cure
+available for Ebola. In this paper, we present a computerized model to optimize
+the eradication of Ebola with a cure developed. Our goal is to present a model
+for the eradication of Ebola focusing on these points:
+
+    1. Cease the spread of Ebola.
+    2. Determine a minimum amount of the cure required to eradicate Ebola.
+    3. Choose reasonable locations to deliver the cure.
+    4. Develop a feasible and efficient delivery system for the cure.
+
+1.1     Outline of Our Approach
+The first part of our paper will devote on the theoretical framework of the model
+and the implementation on a computer. The remaining part of our paper will
+discuss the implication of our model on one of the major infected country Sierra
+Leone and will assess the validity of our model. In our case study, we will
+perform the followings:
+    • Calculate the minimum amount of medicine needed from the SEIR
+      Model in ceasing the spread of the disease. This will also give some in-
+      formation on severity of the infection throughout the districts in Sierra
+      Leone.
+    • Find a quickest path using Prim’s algorithm in distributing the medicine
+      to needed districts once the medicine arrives.
+    • Determine how the resources will be distributed accordingly with
+      the constraints such as the number of patients in each districts, quantity
+      of medicine produced, or number of available trucks.
+
+1.2     Assumptions
+Our relatively simple model relies on several reasonable assumptions that we
+believe will not change the result much:
+    • The new medication that the world medical association announced
+      is a treatment, not the vaccine. So the cure will only affect people
+      who are infected and showing symptoms of Ebola.
+
+    • Deceased people by Ebola are buried or cremate immediately
+      and safely. Thus the deceased does not affect the spread of Ebola.
+      Currently, there has been great efforts being taken to safely dispose of
+      corpses. [?]
+
+
+                                         2
+
+
+=== PHYSICAL PAGE 3 ===
+Team #38722                                                           Page 3 of 12
+
+
+    • People in infected areas are not allowed or able to travel outside
+      of West Africa. Anyone who contracts Ebola outside of Sierra Leone,
+      Guinea, and Liberia will be isolated and given medical care quickly such
+      that Ebola will not spread outside of the three countries listed. Until now,
+      only those three countries have shown a lack of ability to contain and
+      eradicate Ebola [?], so we do not need to worry about Ebola spreading
+      outside of those countries so long as the surrounding areas remain vigilant
+      for potential outbreaks.
+    • Curing one person requires one dose of medicine per day. Also,
+      the cure will increase patients’ recovery speed and chances of survival.
+      Quantifying these will let us make estimates for how much of the cure is
+      needed, how it will affect infection and fatality rates.
+
+
+2     Estimating the Amount of Medicine Needed
+      Using the SEIR Model
+The transmission of the Ebola virus follows a Susceptible-Exposed-Infectious-
+Recovered (SEIR) stages. The SEIR model is a deterministic compartmental
+model with its compartments providing an accurate abstraction of the various
+stages of some diseases. Ebola is one such disease amenable to the SEIR model.
+Those stages can be described through following set of ordinary differential
+equations: [1]
+                                 dS      βSI
+                                     =−       ,
+                                  dt      N
+                                 dE    βSI
+                                     =       − σE,
+                                 dt      N
+                                  dI
+                                     = σE − γI,
+                                  dt
+                                 dR
+                                     = (1 − f )γI.
+                                 dt
+where β is the transmissibility of a disease, N is the size of the total population
+under consideration, σ is 1 over the incubation period, γ is the recovery rate,
+and f is the fatality rate.
+    Once an individual contracts Ebola and eventually becomes infectious, all
+other population become susceptible S to catching the virus. The individual
+who contracts Ebola undergoes an incubation period E where symptoms are
+not apparent and he/she is not yet infectious. Then the individual enters a
+infectious stage I. Finally, the individual either recovers (R) and survives or
+dies. Individuals belong to the compartment R are no longer susceptible to the
+virus.
+    Unlike many compartmental models, Ebola has a strong potential to cause
+death. Thus, in many models N remains constant, but for Ebola N decreases
+at a rate of f γI. This is the death rate and can be written as dD/dt. The rate
+of change of cases of Ebola will be modeled by dC/dt = σE.
+
+
+                                        3
+
+
+=== PHYSICAL PAGE 4 ===
+Team #38722                                                                                                                   Page 4 of 12
+
+
+
+                               All of Sierra Leone, Trials                                           All of Sierra Leone, Best Fit
+
+                                    Model Pred                                                             Model Pred
+                                    Data                                                                   Data
+
+
+
+
+         2000 4000 6000 8000                                                   2000 4000 6000 8000
+ Cases                                                                 Cases
+
+
+
+
+         0                                                                     0
+
+                               0    50   100     150   200   250                                      0    50   100     150   200   250
+
+                                   Days Since May 27th                                                    Days Since May 27th
+
+
+
+                                    Figure 1: Best fit function of cases in Sierra Leone
+
+
+
+2.1                      Estimates on Current Interventions
+There has been quite an effort trying to contain the spread of Ebola in many
+countries. For those countries with interventions, it is known that the transmis-
+sion rate β for a disease decays exponentially. [2] Thus, we will assume the rate
+is of the form
+                                β(t) = β0 e−κ(t−τ )
+where β0 is an initial transmission rate, τ is the time that the intervention begins,
+and the decay rate κ scales the intensity and effectiveness of the intervention.
+
+2.2                      Fitting the model to data
+We used the statistical computing language R in solving above four ordinary
+differential equations and find a best fit for the parameters. First, we use the
+average duration of the incubation and infectious period from the paper with
+similar Ebola case in Congo in 1995: 1/σ = 5.3 days and 1/γ = 5.61 days. [7]
+Then, our model determines the parameters β0 , κ, and f .
+    We allowed β0 , κ, and f to vary depending on the specific population being
+modeled. To determine β0 and κ for a given population, we minimized the sum
+of the squares of the differences between our model and the data for the total
+number of cases of Ebola based on a large sample of different β0 and κ values to
+see which values gave the best fit. To get the value for f , we employed a similar
+minimization of the sum of squares, but compared to the data for the total
+number of deaths from Ebola. See figure 1, which shows the model estimation
+for data in Sierra Leone.
+
+
+                                                                   4
+
+
+=== PHYSICAL PAGE 5 ===
+Team #38722                                                            Page 5 of 12
+
+
+2.3     Ceasing the Spread
+From our SEIR model, in order to cease the spread of Ebola, we need to reduce
+the magnitude of
+                                  dS      βSI
+                                      =−       .
+                                   dt      N
+In other words, we would like to reduce the rate of susceptible people getting
+infected. In order to achieve this, we need to
+    1. decrease the β, the rate of infection, and
+    2. decrease the I, the number of infected people.
+   Increasing the intervention level such as more doctors and precise detection
+method in will decrease the β.
+   The effective way to decrease I is to make closer to
+                              dI
+                                 = σE − γI < 0,
+                              dt
+which we can achieve it by increasing γ, a recovery rate. However, notice that
+the recovery rate will naturally increase if we distribute the cure to infected
+people.
+       Therefore, the efficient methods in distributing the medicine
+       will solve the large part of problem of halting the spread.
+
+2.4     Prioritizing the Distribution
+The key parameter describing the spread of an infection is the effective repro-
+duction number
+                                      β S(0)    β
+                                Re =         ≈
+                                      γ N       γ
+which is defined as the average number of successful transmissions per infected
+person. [5] If Re < 1, the epidemic eventually stops. [6]
+   We can prioritize the cite of distribution accordingly by calculating each Re
+values separately and comparing. Higher Re value represent the higher average
+number of successful transmission, so if we have constraints on the supply of
+medicine, we need to prioritize the delivery to the places which have a higher
+Re value.
+
+
+3     Delivering the Medicine
+In this section, we will describe how the medicine will be distributed in a most
+efficient manner. We will assume that every Ebola treatment centers has a
+capacity to hold certain amount of medicine. Also, we will assume that there
+are roads connecting each districts and health facilities.
+     Sine we will not be able to deliver the cure individually, we will send the cure
+to existing Ebola treatment centers. These are typically located near existing
+Ebola outbreaks, so it is an excellent position to make use of the cure.
+
+
+                                         5
+
+
+=== PHYSICAL PAGE 6 ===
+Team #38722                                                          Page 6 of 12
+
+
+
+
+    Figure 2: The bold line is the route that minimize the cost of traveling
+
+
+3.1    Route Optimization Using Prim’s Algorithm
+The point of route optimization is to expedite distribution of the cure, get an
+estimate of the resources required to distribute the cure, and to make it cheap.
+Our primary resource for distribution is truck hours: the time spent driving for
+trucks distributing the cure. Due to differing road conditions between highways
+and the roads connecting district capitals to Ebola treatment centers, we decided
+to break the route up into those two components to make estimating the travel
+time. We assume that the cure is delivered to the district capitals via the
+highways, and from there the cure is distributed to the treatment centers.
+    Our chosen method of constructing a fast route for delivering the cure to
+the district capitals is to treat the target area as a graph, and make a minimum
+spanning tree of the graph that represents the route. The district capitals are
+treated as vertices and the roads between them as edges. The weighting of an
+edge is best done in truck hours required to drive along the edge as this is the
+prime resource we are considering. Minimum spanning trees have a couple of
+nice properties. See Billey for details.
+    The first is when the weights of the edges of the graph represent Euclidean
+distances between the vertices; the total weights of the edges of a minimum
+spanning tree form a lower bound for the fastest possible route through the
+graph. A full traversal of the minimum spanning tree starting from a certain
+vertex and returning to it is, at worst, half as fast as the best possible route
+through the graph. While in practice the roads between cities are not straight,
+the time it takes to travel between cities by truck are frequently approximately
+linearly related to the Euclidean distance between them. Because of this a
+minimum spanning tree makes a pretty good route for distribution.
+    The second property is that there exist algorithms that generate minimum
+spanning trees in polynomial time. We used Prims algorithm, and its worst case
+run time is O(N 2 ∗ log(N )) [Billey].
+    Due to a lack of good information on local roads in districts, getting an op-
+timized route to distribute the cure to the Ebola treatment centers within each
+district is not something we try. Instead, we aim to get a reasonable estimate of
+the truck hours needed to distribute the cure within the districts. To do this the
+
+
+                                        6
+
+
+=== PHYSICAL PAGE 7 ===
+Team #38722                                                          Page 7 of 12
+
+
+
+
+            Figure 3: Using Euclidean distances within the district
+
+
+locations of the treatment centers and district capitals are needed. It is easy to
+get the locations of the capitals from Google Maps. The locations of most of the
+treatment centers can be found from http://data.hdx.rwlabs.org/dataset/travel-
+distance-and-time-chart/. Our estimate of truck hours is based on the assump-
+tion that the average time it takes a truck to get from the district capital to a
+treatment center is based on the Euclidean distance separating them. Because
+the locations are given in latitude and longitude, the differences in these mea-
+surements between the individual treatment centers and district capitals are
+converted into kilometers, summed up, and multiplied by 2 because the roads
+will not be straight. To convert this distance into truck hours multiply the total
+estimated distance of treatment centers to district capitals by 2 times the aver-
+age hours required to travel one kilometer on highways by trucks. The factor of
+two is in there because the trucks probably will not be able to travel at high-
+way speeds along the roads that connect district capitals to Ebola treatment
+centers. This gives us the total truck hours needed to distribute the cure within
+the districts.
+    Combining twice the sum of the edges of the minimum spanning tree with
+the total truck hours needed to distribute the cure within the districts produces
+the total number of truck hours needed to fully distribute the cure. This can
+be used to calculate the number of trucks needed to distribute the cure.
+
+
+
+
+                                        7
+
+
+=== PHYSICAL PAGE 8 ===
+Team #38722                                                                                                                    Page 8 of 12
+
+
+
+                               All of Sierra Leone, Trials                                            All of Sierra Leone, Best Fit
+
+                                    Model Pred                                                              Model Pred
+                                    Data                                                                    Data
+
+
+
+
+         2000 4000 6000 8000                                                    2000 4000 6000 8000
+ Cases                                                                  Cases
+
+
+
+
+         0                                                                      0
+
+                               0    50   100     150   200   250                                       0    50    100    150   200    250
+
+                                   Days Since May 27th                                                     Days Since May 27th
+
+
+
+                               Figure 4: Best fit function of cases in Sierra Leone’s district
+
+
+4        Case Study on Sierra Leone
+In this section, we apply the models presented in previous sections to Sierra
+Leone which is one of the seriously affected country in the West Africa.
+
+4.1                      Model predictions for Sierra Leone
+We now suppose that we have a cure for Ebola. It would be foolish to assume
+that though this cures Ebola at a 100 percent efficiency rate, distrust of the
+government and other factors are still prevalent in Sierra Leone and hospital
+beds can be in limited supply. Thus, we assume the medicine has effectiveness
+c, which we incorporate into our model by adjusting the recovery rate γ → γ +c.
+We can then use our model and integrate the number of future infections out
+to infinity, obtaining the following results:
+
+ Model forecasts based on c-values (c = 0 assumes no cure is being
+                               used)
+
+         c-value:                                          0        0.1          0.2                        0.3     0.4         0.5
+         Expected future cases:                          3549      3194         2836                       2484    2129        1775
+    Thus, a medication that works only half the time, will reduce the total
+number of cases by half by the time the disease dies out.
+    Our model also predicts the effective reproductive number Re to be 0.6710
+in Sierra Leone. This would imply that Ebola is already on the decline. This
+means that our medication may not be necessary for the eradication of the
+disease, but would no doubt speed up the process and save many lives.
+
+
+                                                                    8
+
+
+=== PHYSICAL PAGE 9 ===
+Team #38722                                                            Page 9 of 12
+
+
+
+
+                                             Koinadugu
+                                  Bombali
+                         Kambia
+
+                         Port Loko    Tonkolili      Kono
+               Western Urban
+                 Western Rural
+                             Moyamba                 Kailahun
+                                             Bo Kenema
+
+                                  Bonthe
+                                           Pujehun
+
+
+
+
+         Figure 5: The optimal route between districts in Sierra Leone
+
+
+4.2    Delivery Method
+To determine an estimate for the number of truck hours required to make a full
+distribution of the cure for Sierra Leone we used the method described in the
+Route Optimization section. We were fortunate to have found a table of truck
+hours required to travel between the districts, as well as a corresponding table
+of distances [citation needed]. Using capitals in each districts as nodes on the
+graph and this data as weight on the vertices, we can find a minimum spanning
+tree using Prim’s algorithm described in Section 4. Double the sum of the truck
+hours corresponding to the edges gives us 49 truck hours needed to distribute the
+cure throughout the district capitals from Lungi International Airport. From
+the location data of the Ebola treatment centers and the district capitals we got
+an estimate of 207 truck hours needed to distribute the cure within the districts.
+Thus a total of 256 truck hours are required to fully distribute the cure to all
+the Ebola treatment centers in Sierra Leone.
+    A price estimate for total fuel cost of doing a full distribution is done by con-
+verting truck hours into kilometers, dividing by an estimated 35 kilometers per
+gallon of diesel, and multiplying by the price of diesel. The result is $1,107.31.
+Converting truck hours into kilometers was done by comparing the table of truck
+hours to the table of distance.
+
+
+
+
+                                         9
+
+
+=== PHYSICAL PAGE 10 ===
+Team #38722                                                        Page 10 of 12
+
+
+5     Weaknesses and Improvements of Our Model
+5.1    Fruit Bats and Future Outbreaks
+Fruit bats are thought to be a natural host for Ebola [www.who.int]. This
+means that future outbreaks can occur in human populations when there is
+contact with an infected bat instead of an infected human. Our model does not
+consider the possibility of a population being infected multiple times. This will
+not make a large difference in how the population is dealt with so long as people
+are alert to the possibility, and new cases are watched for. It will also help if
+people avoid contact with bats.
+
+5.2    Effects of Population Mixing
+Population mixing was something we wanted to use in our model, but did not
+due to a lack of data and time. Currently our model predicts the spread of Ebola
+within a population as a number of cases, but with a good model of population
+mixing we could predict where new cases are likely to appear. That would help
+by giving us a better idea as to where the cure should be sent.
+    Quarantines, border closures, and bad roads or lack of vehicles limit popu-
+lation mixing. All of these things are significant in West Africa. Although we
+did not use population mixing in our model, β from our model incorporates the
+effects of population mixing to some extent.
+
+5.3    If the Cure is a Vaccine
+It is possible that the cure may be a vaccine instead of a medicine used for
+treatment. If the cure is a vaccine we will leave γ alone, multiply the mortality
+rate by something less than 1 but great than zero, and take vaccinated people
+out of the S and E groups and put them into R. In English this means that
+using a vaccine will reduce the number of people getting Ebola by make people
+immune.
+
+
+6     Conclusion
+Modeling real world epidemiological data has proven to be a very difficult. It
+is impossible to account for all of the intricate interactions at the individual
+and community level. While we were able to fit the data reasonably well, the
+variability was too high to make confident predictions about the future.
+
+
+7     Executive Summary
+The Ebola outbreak in West Africa has been a newsworthy problem for much
+of the last year. Now the world medical association has announced that there is
+a cure available. In this paper, we present a model to optimize the eradication
+
+
+                                       10
+
+
+=== PHYSICAL PAGE 11 ===
+Team #38722                                                        Page 11 of 12
+
+
+of Ebola using the cure. The focus will be on: Halting the spread of Ebola.
+Determining a minimum number of the doses of the cure required to eradicate
+Ebola. Choose reasonable locations to deliver the cure. Develop a feasible and
+efficient system for delivering the cure.
+     Our model of choice for predicting the spread of Ebola is the SEIR model.
+It models a population by splitting it into Susceptible, Exposed, Infectious,
+and Recovered stages, and calculating how the individuals in the population
+move through these stages as time passes. The flux of the population through
+the stages depend strongly on how easily Ebola is transmitted, the rate people
+recover from being ill represented by , and how many people are infectious.
+     How the cure interacts with the SEIR model is an important assumption.
+We are assuming that the cure is a medicine that is used on a sick person to
+cure them of Ebola. It is not a vaccine, but a method of treatment that requires
+one dose per day that greatly improves recovery speed and strongly reduces the
+mortality rate. This means the cure will aid in the extermination of Ebola by
+rapidly reducing the proportion of the population that is infected so that fewer
+people will be exposed to Ebola.
+     Spatial spread of the disease is not something the SEIR model calculates.
+That would make it very hard to predict where Ebola will spread to. However,
+because Ebola is so widely spread in Guinea, Sierra Leone, and Liberia while
+the surrounding countries have managed to suppress and eradicate Ebola within
+their own borders, we will assume that most of the spread of Ebola will be within
+already infected areas. Thus, while being able to account for spatial aspects of
+spread such as population mixing would improve the model, it is good enough
+to make useful predictions as it is.
+     In our cases study of Sierra Leone our model we predict 3,549 future cases of
+Ebola when = 0.178, which is its baseline value without the cure. If we assume
+the cure increases the value of to 0.378 then our model predicts there will be
+2,836 future cases, and if becomes 0.678 with the cure there will be only 1,775
+future cases.
+     As for determining how to distribute the cure, we recommend using trucks
+to distribute the cure within afflicted countries. The truck routes can be made
+fast by creating a minimum spanning tree of the roads between distribution
+points. We recommend using currently existing Ebola treatment centers as the
+distribution points as they are typically near existing Ebola outbreaks.
+
+
+
+
+                                       11
+
+
+=== PHYSICAL PAGE 12 ===
+Team #38722                                                       Page 12 of 12
+
+
+References
+[1] Chowell G, Hengartner NW, Castillo-Chavez C, Fenimore PW, Hyman
+    JM. (2004)The basic reproductive number of Ebola and the effects of
+    public health measures: the cases of Congo and Uganda. J Theor Biol,
+    229(1):11926.
+[2] Lekone PE, Finkenstdt BF. (2006). Statistical inference in a stochastic epi-
+    demic SEIR model with control intervention: Ebola as a case study. Bio-
+    metrics, 62(4):1170 7.
+[3] Billey, Sara. Discrete Mathematical Modeling: Math 381 Course Notes, Uni-
+    versity of Washington, Winter Quarter, 2011.
+[4] http://www.cdc.gov/vaccines/programs/vfc/awardees/vaccine-
+    management/price-list/index.html
+[5] Vynnycky E, White RG (2010) An Introduction to Infectious Disease Mod-
+    elling. Oxford: Oxford University Press.
+[6] Althaus CL. Estimating the Reproduction Number of Ebola
+    Virus (EBOV) During the 2014 Outbreak in West Africa. PLOS
+    Currents Outbreaks. 2014 Sep 2. Edition 1. doi:   10.1371/cur-
+    rents.outbreaks.91afb5e0f279e7f29e7056095255b288.
+[7] Chowell G, Hengartner NW, Castillo-Chavez C, Fenimore PW, Hyman
+    JM. (2004)The basic reproductive number of Ebola and the effects of
+    public health measures: the cases of Congo and Uganda. J Theor Biol,
+    229(1):11926.
+
+
+
+
+                                      12

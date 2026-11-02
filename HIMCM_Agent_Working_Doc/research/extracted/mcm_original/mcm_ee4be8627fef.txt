@@ -1,0 +1,2827 @@
+=== PHYSICAL PAGE 1 ===
+Control Number: 11759                                                               Page 1 of 51
+
+
+
+
+                                           Abstract
+
+         We propose and evaluate two models to determine the minimum number of very
+     high frequency (VHF) repeaters necessary to accomodate a given geographic distru-
+     biton of users. By utilizing cluster analysis, each model uniquely designs a network
+     of open and “continuous tone-coded squelch system” (CTCSS) repeaters to simulta-
+     neously accomodate the desired user load. In addition, the models are mindful of
+     connectivity issues and seek to establish the best connectivity for the set of users.
+     Through the comparison of these two models, we seek to establish the minimum num-
+     ber of repeaters required.
+         In the “Bender” Snaking Model, a network is established by creating a “snake”
+     or chain of open repeaters across the area. The model determines the most effective
+     placement for each open repeater and is mindful to maintain channel availability cy
+     placing CTCSS repeaters when necessary.
+         In the Branching Model, a backbone network is established between the two most
+     populous areas and branch networks are subsequentially added to existing network.
+     After the branched network has been completed, CTCSS lines are placed to both
+     mitigate channel saturation and establish dedicated long-distance lines. This model
+     seeks to create the best connectivity for the users in the area with the minimum number
+     of repeaters used.
+         We test our models on two likely area distrubitions: a city/suburban-like user
+     distribution and a rural-like user distribution. We compare the results and propose
+     the minimum number of repeaters necessary for each scenario. By comparing the two
+     models, we are able to decide if the number is realistic and what the benefits of a
+     different network design may correlate to for the users.
+         Finally, we stress-test our models with 10,000 users in the same area and discuss
+     the defects of line-of-sight propagation caused by mountains in the area.
+
+
+=== PHYSICAL PAGE 2 ===
+ Optimizing VHF Repeater Coordination Using Cluster
+                    Analysis
+
+                           MCM Competition Problem B
+
+                                Control Number: 11759
+
+
+
+Contents
+
+1 Problem Restatement                                                                          4
+
+
+2 Assumptions and Justifications                                                               4
+
+
+3 Available Technology                                                                         5
+
+  3.1   Repeaters . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    5
+
+  3.2   Continuous Tone-Coded Squelch System . . . . . . . . . . . . . . . . . . . .           6
+
+
+4 The “Bender” Snake Model                                                                     6
+
+  4.1   Description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    7
+
+  4.2   Mathematical Interpretation . . . . . . . . . . . . . . . . . . . . . . . . . . .      7
+
+
+5 The Branching Model                                                                         11
+
+  5.1   Description . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   11
+
+  5.2   Mathematical Intepretation . . . . . . . . . . . . . . . . . . . . . . . . . . .      12
+
+
+6 Model Comparison Summary                                                                    14
+
+
+
+
+                                               2
+
+
+=== PHYSICAL PAGE 3 ===
+Control Number: 11759                                                               Page 3 of 51
+
+
+7 Case Studies                                                                                 15
+
+   7.1   City Distribution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   15
+
+   7.2   Rural Distrubition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    19
+
+
+8 10,000 Simultaneous Users                                                                    22
+
+
+9 Mountainous Terrain                                                                          23
+
+
+10 Sensitivity to Parameters                                                                   24
+
+
+11 Strengths & Weaknesses                                                                      25
+
+
+12 Conclusion                                                                                  26
+
+
+13 Appendix A: Full-Page Plots                                                                 29
+
+
+14 Appendix B: Source Code                                                                     36
+
+
+=== PHYSICAL PAGE 4 ===
+Control Number: 11759                                                             Page 4 of 51
+
+
+1     Problem Restatement
+
+Without the aid of repeaters, VHF radio would only permit low-power users to commu-
+nicate when direct line-of-sight could be established between the transmitter and receiver.
+Repeaters alleviate this restriction by amplifying and rebroadcasting these signals in order
+to make them available to a larger geographical area. By accounting for mutual repeater
+interference due to geographical proximity and utilizing a “continuous tone-coded squelch
+system” (CTCSS) or “private line” (PL), we seek to find the minimal number of repeaters
+required to support 1,000 simultaneous users. The users inhabit a 40 mile radius flat cir-
+cular area and are permitted to broadcast between 145-148 MHz. The repeaters transmit
+frequency is 600 kHz above or below the received frequency and 54 different CTCSS tones
+are available. We then examine how our model adapts to accommodate 10,000 users and
+consider the potential defects of line-of-sight propagation in the presence of mountainous
+areas.
+
+
+
+2     Assumptions and Justifications
+    • Geometry is Euclidean. Since the area is given to be flat, we assume that Euclidean
+      geometry may be used.
+
+    • The system is closed. We assume that all signals originate from within our system.
+      We also assume that there will be no outside interference in the system.
+
+    • Antennas are isotropic. Because the effective transmission area of each user and
+      each antenna is relatively small compared to the whole area, we assume that antennas
+      operate isotropically. This is a fundamental assumption made in modern network
+      design [4].
+
+    • Each user is a “low-power” user. Typical VHF radio transmitters are effective
+      across small towns without repeater support [8]. Since the area being considered is
+      over 5000 square miles, the area of a small town is negligible and we can assume that
+      users will not be able to communicate with one another without repeater support, i.e.
+      each user is a low-power user.
+
+    • Each user “plays nice.” In order to avoid users purposefully or accidentally drown-
+      ing out the signals of others, we require that all users have the same equipment, e.g.
+      all users broadcast at the same intensity and all users have the same range limitations.
+      As a result, the requirements to connect a single user will be static. Specifically, each
+      users will have to be within some fixed maximum distance from a repeater to connect
+      to the network.
+
+    • There are more than 1,000 (or 10,000) potential users. It would be unrealistic
+      for any company or group of individuals to place an appreciable number of repeaters in
+
+
+=== PHYSICAL PAGE 5 ===
+Control Number: 11759                                                           Page 5 of 51
+
+
+      order to accommodate one individual. We assume that the number of potential users
+      in the area exceeds the number that must be simultaneously accomodated.
+
+    • The geographic distribution of users is known. The geographical distribution of
+      users must be a known constraint before repeater requirements can be determined. The
+      demand for network connectivity will not exist unless there is a preexisting community
+      present.
+
+    • Users and repeaters are distinct entities. In reality, most VHF radio repeaters
+      are maintained by individual users or a localized group of users. These repeaters are
+      openly available and are typically not used as mobile stations [9]. Thus we assume
+      that users are not broadcasting from repeaters and that they may be treated as two
+      distinct entities.
+
+    • VHF signals are not affected by physical entities in the area. The physical
+      presence of users and antennas will not interfere with the propagation of waves in the
+      VHF spectrum. However, land features such as mountains will affect propagation [11].
+
+
+
+3     Available Technology
+
+The problem statement makes two different pieces of technology available: repeaters and
+continuous tone-coded squelch systems. We will now outline these technologies.
+
+
+3.1    Repeaters
+
+Repeaters are stationary devices that pick up weak signals (i.e. signals from users), amplify
+them, and retransmit them on a different frequency. This allows users to circumvent the line-
+of-sight limitation of VHF and broadcast their signal greater distances. To avoid inteference
+with the incoming (weak) signal, the repeater rebroadcasts the new (strong) signal 600 kHz
+above or below the received signal. To avoid repeaters interfering with one another the
+Metropolitan Coordination Association states that repeaters must be at least 10 miles
+apart [1]. Overlapping repeater “zones” will allow signals to pass from one repeater to
+another, allowing signals to travel significant distances.
+
+Note that the range of a repeater is directly correlated to its height. The  p line-of-sight
+calculation to determine the effectve distance is given by disance in miles = 1.5Af , where
+Af is the height of the antenna in feet [11].
+
+
+=== PHYSICAL PAGE 6 ===
+Control Number: 11759                                                              Page 6 of 51
+
+
+3.2     Continuous Tone-Coded Squelch System
+
+Continuous Tone-Coded Squelch Systems (CTCSS), often called Private Lines (PL), further
+mitigates interference by associating a subaudible tone with signals being received/transmit-
+ted by the repeater. In order to communicate through a private line repeater, users must
+also broadcast this tone. This allows users in a densely populated area to communicate on
+the same channel with minimal interference. Private line repeaters are not necessarily
+closed [2] as these CTCSS tones are often published. Since it is our intention to increase the
+number of available channels, CTCSS tones will be common knowledge to all users.
+
+
+
+4       The “Bender” Snake Model
+
+The “Bender1 ” Snake Model seeks to maximize the number of connected users by efficiently
+creating a snake-like chain of open repeaters across the area.
+
+Figure 1 describes this model without reclustering.
+
+                                                Create
+                                               and Score
+                                                Clusters
+
+
+
+
+                                               Place 1st
+                                               Repeater
+                                                (Open)
+
+
+
+
+                                                Enough     yes    End of
+                                                Users &
+                                                                  Method
+                                               Channels?
+
+                                                    no
+
+
+                                 Add                             Place New
+                               Repeater         Enough           Repeater
+                                          no   Channels?
+                                (PL)                              (Open)
+
+
+
+                                                    yes
+                                                                   Find
+                                                                 Optimal
+                                                                 Direction
+
+
+                      Figure 1: Flow Chart for “Bender” Snake Model
+    1
+    Named after Bender, a team member’s dog who has a habit of snaking around doors, corners and
+furniture.
+
+
+=== PHYSICAL PAGE 7 ===
+Control Number: 11759                                                            Page 7 of 51
+
+
+4.1    Description
+
+Using k-means clustering[10], we establish clusters of users to deterrmine the optimal initial
+open repeater placement. Optimal placement is determined by the greatest number of users
+we can cover when placing a single open repeater. This may also be referred to as “scoring” a
+cluster where a higher score correlates to coverage for more users. A second open repeater is
+optimally placed along the perimeter of the newly established network area. This process is
+repeated iteravely by placing a new open repeater along the permitter of the most recently
+established open repeater. The placement of the second open repeater is always in the
+direction of a cluster point, i.e. other high density locations. This ensures that a network
+is established between the most users using the least number of repeaters. The model is
+mindful of ensuring that enough channels are available to users by placing CTCSS repeaters
+accordingly.
+
+By design, network growth tends toward establishing connectivity near and between cluster
+points. As more users around each cluster are accomodated, the score associated with their
+respective cluster should reflect that change. To account for this, cluster scores may be
+reevaluated to encourage intelligent networking in the model. This is known as reclustering.
+
+
+4.2    Mathematical Interpretation
+
+The model is designed to be highly versatile and supports a number of different parameters
+that may be changed based on a given situation. They are:
+
+            Parameter                    Description
+                n              Number of users within 40 miles
+                k             Number of k-means cluster points
+                ds    Maximum distance for user-to-repeater communication
+               hr                 Height of repeater towers
+               dh                 Repeater output distance
+               ∆f           Frequency separation / channel width
+
+Before we begin, we must define a few additional terms. Let Nc be the number of people
+with network connectivity (i.e. within range of an open repeater) and let Nf be the number
+of people with access to an available frequency range. Let O denote the number of available
+channels. Initially, we will have Nc = 0, Nf = 0 and O = 0.
+
+So let n be the number of users within the 40 mile radius. For user i with 1 ≤ i ≤ n, let
+(xi , yi ) denote the user’s location in Cartesian coordinates. We arrange these coordinates
+into an n × 2 matrix M where
+
+
+                     Mj,1 = xj and Mj,2 = yj for all integers j ∈ [1, n].
+
+
+=== PHYSICAL PAGE 8 ===
+Control Number: 11759                                                          Page 8 of 51
+
+
+For each user, determine the number of users within the seperation distance ds . Recall that
+we are using Euclidean geometry, so when considering the jth user if
+
+                                 q
+                          ds ≥    (Mj,1 − Mk,1 )2 − (Mj,2 − Mk,2 )2
+
+then the kth user is within range of the jth user. We denote the user with the greatest
+number of additional users in range as the pth user.
+
+We place an open repeater at the location of the pth user and set R1 = (Mp,1 , Mp,2 ). The
+allowable frequency range is 3 MHz so there will be 3/∆f channels available. The action of
+placing the first repeater makes this many channels available. Now O = 3/∆f .
+
+Let N1 be the number of people who are within range of our first repeater. We must update
+our Nc and Nf values accordingly. Thus
+
+
+                              Nc = N1 and Nf = min(Nc , O)
+
+Now we calculate the metric by which this model determines Private Line (CTCSS) repeater
+placement. Let
+
+
+                                     D = max(Nc − O, 0)
+
+be the deficit of available channels (i.e. the number of users who do not have access to a
+repeater channel). We update our matrix M by removing the users who are within
+range of the repeater. Now M is a (n − Nc ) × 2 matrix. From here, if D > 0 we add
+CTCSS repeaters to mitigate this deficit and if D = 0, we continue to place open repeaters
+and expand the network.
+
+If D > 0, we will add a Private (CTCSS) Line. We calculate the optimal angle to place the
+CTCSS line a distance of dp from our first repeater. We then determine the location to place
+the CTCSS repeater.
+
+The explicit CTCSS algorithm is given below.
+
+
+=== PHYSICAL PAGE 9 ===
+Control Number: 11759                                                                Page 9 of 51
+
+
+   Data: Previously placed open repeater location, Ri−1
+   Result: The optimal location to place a new CTCSS Line Ri = (xi , yi )
+   Let P be a partition of [0, 360] (in our case studies |P | = 360);
+   for θ ∈ P do
+      Rθ = (xθ , yθ ) = Ri−1 + (dp cos(θ), dp sin(θ));
+      for j ∈ [1, n − Nc ] do
+          Letpxj = Mj,1 and yj = Mj,2 ;
+          if (xθ − xj )2 + (yθ − yj )2 ≤ ds then
+              uθ = uθ + 1;
+          end
+      end
+   end
+   Let θc be the θ for which uθ is maximum. Then Ri = Ri−1 + ( dp cos(θc ), dp sin(θc ) ) is
+   the optimal location for the new repeater.
+                     Algorithm 1: Finding CTCSS Repeater Location
+
+
+The addition of a CTCSS line corresponds to an additional 3/∆f channels. Therefore our
+new value for O is O = O0 + 3/∆f where O0 is the previous value of O. Now we recalculate
+Nc , Nf , and our deficit D using our updated matrix M (which does not include points
+already covered by repeaters).
+
+If D = 0 then all users who desire access have access. To increase the number of supported
+users, we will add an open repeater to expand our network. We use “k-means” cluster analysis
+to determine the most densly populated areas. After the cluster points are determined, we
+collect their locations and let {c1 , ..., ck } be that collection of coordinates. The model snakes
+around the map by adding repeaters to include more users in the network.
+
+The explicit open repeater placement algorithm is given below.
+
+   Data: Previously placed open repeater location, Ri−1
+   Result: The optimal location to place a new open repeater Ri = (xi , yi )
+   for t ∈ [0, k] do
+      Let θt be the angle from the current repeater Ri−1 to ct ;
+      Rt = (xt , yt ) = Ri−1 + (dh cos(θt ), dh sin(θt ));
+      for j ∈ [0, n − Nc ] do
+          Letpxj = Mj,1 and yj = Mj,2 ;
+          if (xt − xj )2 + (yt − yj )2 ≤ ds then
+               ut = ut + 1;
+          end
+      end
+   end
+   Let tc be the t for which ut is maximum. Then Ri = Ri−1 + (dh cos(θtc ), dh sin(θtc )) is
+   the optimal location for the new repeater.
+                      Algorithm 2: Finding Open Repeater Location
+
+
+=== PHYSICAL PAGE 10 ===
+Control Number: 11759                                                        Page 10 of 51
+
+
+The action of adding an open line did not add any new channels. We have, however, added
+new users to the network and must recalculate Nc , Nf , and our deficit D using our updated
+matrix M (which does not include points already covered by repeaters). If D > 0, then we
+apply Algorithm 1 again and if D = 0, we apply Algorithm 2.
+
+We repeat this process until Nf ≥ 1000. This would mean that there are at least 1,000
+simultaneously supported users on our network.
+
+
+=== PHYSICAL PAGE 11 ===
+Control Number: 11759                                                        Page 11 of 51
+
+
+5     The Branching Model
+
+The aptly named Branching Model creates a backbone network of open repeaters that sup-
+ports a number of branch connections. All open repeater branches are designed along the
+shortest distance possible. This model provides us with a point of comparison for the first
+model.
+
+Figure 2 describes the creation of the backbone and branches.
+
+                              Create
+                             and Score
+                              Clusters
+
+
+
+
+                               Create
+                              Backbone
+                              Network
+                               (Open)
+
+
+
+
+                              Recreate
+                                and
+                              Rescore
+                              Clusters
+                                               no
+
+
+
+                              Connect
+                              Highest         Enough
+                               Score          Users?
+                              Cluster
+                                                    yes
+
+
+                                Add
+                              Repeater         Enough yes   End of
+                                         no   Channels?     Method
+                               (PL)
+
+
+
+                        Figure 2: Flow Chart for Branching Model
+
+
+
+5.1    Description
+
+Akin to the first model, the Branching Method uses k-means cluster analysis and scoring
+to determine the optimal placement of repeaters. The difference, however, is the process
+in which this model creates the network. The model creates a backbone network of open
+repeaters between the two highest scoring clusters. After the backbone has been estab-
+lished, the model reclusters and rescores the remaining users and creates a branch of open
+repeaters between the existing network and the highest scoring cluster. This ensures that
+the fewest repeaters are used in branching out the network to high density locations. After
+the entire network has been established, the model places CTCSS repeaters to ensure chan-
+
+
+=== PHYSICAL PAGE 12 ===
+Control Number: 11759                                                               Page 12 of 51
+
+
+nel availability is not a concern in user-dense locations so that all users may be supported
+simultaneously.
+
+This model requires reclustering after every iteration.
+
+
+5.2    Mathematical Intepretation
+
+The Branching Model supports even more customization than the first model. The param-
+eters relevant to this model are listed below.
+
+            Parameter                    Description
+                n              Number of users within 40 miles
+                k             Number of k-means cluster points
+                ds    Maximum distance for user-to-repeater communication
+               hr                 Height of repeater towers
+               dh                 Repeater output distance
+               ∆f           Frequency separation/ channel width
+                ln             Number of Long Distance Lines
+                lc     Number of Locations in Long Distance Connections
+
+
+We will review a few definitions for consistency. Let Nc be the number of people with network
+connectivity (i.e. within range of a repeater) and Nf be the number of people with access
+to an available frequency range. The number of channels available will be denoted again by
+O. Initially, Nc = 0, Nf = 0 and O = 0.
+
+Let n be the number of users within a 40 mile radius. With k-means clustering, we identify
+and score clusters of users.. Letting {c1 , ..., ck } be the locations of the k cluster points, the
+model creates a backbone of repeaters between the two highest scoring cluster locations.
+
+For each cluster point ci , we calculate how many users are within ds of ci , i.e. how many
+users will benefit from the placement of a repeater there. We set R1 = ci for whichever i has
+the most people within range. Now calculate Nc as before. The algorithm continues until
+the desired number of users have been added (in our case this is 1000 users). This only
+means that users are within range of a repeater. This does not ensure that all
+users have available channels. This will be resolved after the branched network has been
+established.
+
+The explicit open repeater branching algorithm is given below.
+
+
+=== PHYSICAL PAGE 13 ===
+Control Number: 11759                                                          Page 13 of 51
+
+
+   Data: First open repeater location, R1 = (x, y)
+   Result: The locations of the repeaters
+   for i ∈ [1, k] do
+      Let (xi ,pyi ) = ci ;
+      φ(i) = (x − xi )2 + (y − yi )2 ;
+   end
+   Then T = (xi , yi ) st φ(i) = max(φ([1, k]));
+   θ = angle between R1 ,T ;
+   s = distance between R1 , T ;
+   Set j = 2;
+   while s > dh do
+      Rj = Rj−1 + (dh cos(θ), dh sin(θ));
+      Recalculate s;
+      j = j + 1;
+   end
+   while Nc < 1000 do
+      Rerun “k-means” cluster analysis to obtain new {c1 , ..., ck };
+      T = ci st ci has the most users in range;
+      Choose i st Ri is the existing repeater closest to T ;
+      Let s be the distance between RT and T ;
+      Let θ be the distance between RT and T ;
+      while s > dh do
+          Rj = Rj−1 + (dh cos(θ), dh sin(θ));
+          Recalculate s;
+          j = j + 1;
+      end
+   end
+              Algorithm 3: Branching Method Open Repeater Placement
+
+
+With the open network established, we must resolve the issue of channel availability. This
+is easily accomplished by placement of CTCSS repeaters in high user density areas. In
+our opinion, the method in which this model establishes long-distance CTCSS lines is out-
+standing. By specifying a different value for ln , one can change the number of CTCSS lines
+connecting the most highly populated areas. While this potentially increases the number
+of repeaters, it offers greater connectivity between regions. This is accomplished by first
+running k-means cluster analysis on the user data and choosing the lc clusters with the most
+users in range. Starting from the cluster with the most users, we create a chain of repeaters
+with a particular CTCSS channel, a distance of dh apart, until the next closest repeater is
+in range (similar to the second half of Algorithm 3). This creates a long distance connection
+on a specific CTCSS channel. This allows long distance users to communicate with more
+densely populated areas (e.g. rural or sub-urban users communicating with an urban user)
+without wasting an open frequency in the dense location.
+
+
+=== PHYSICAL PAGE 14 ===
+Control Number: 11759                                                           Page 14 of 51
+
+
+Once the specified number of long distance connections have been made, any deficits in
+channel demand are mitigated by placing local CTCSS repeaters in highly populated areas
+(again by k-means clustering).
+
+
+
+6     Model Comparison Summary
+
+The fundamental similarities and differences between the models are:
+
+
+Similarities
+
+    • k-means clustering is prevalant in both models. Both models make use of k-
+      means cluster analysis to identify large groups of users. By ranking these clusters in
+      terms of potential connected users, both models attempt to provide the most efficient
+      connectivity scheme possible.
+
+    • Variable-strength repeaters may be employed in both models. By accounting
+      for variable broadcasting strength, isolated users may be accomodated without fear of
+      channel interference or an inordinate use of additional repeaters in both models.
+
+    • The change of frequency from a repeater (±600 kHz) is resolved last in both
+      models. After the repeaters are configured, the “up” and “down” repeater broadcast
+      assignments may be made in both models to fit the specific configuration of the network.
+
+
+Differences
+
+    • The models generate the network differently. The “Bender” Snake Model places
+      open repeaters along a continuous trajectory as determined by cluster points. In con-
+      trast, The Branching Model creates a single backbone and allows for growth in any
+      direction toward a cluster point.
+
+    • Reclustering is required for the Branching Model. In order for branching to
+      occur, the optimum target location must be determined after every iteration. The
+      other model may utilize reclustering but does not require it.
+
+    • The method in which private lines are introduced differs between the mod-
+      els. The “Bender” Snake Model places private line repeaters as is necessary whereas
+      the Branching Model places private line repeaters after the entire network has been
+      established.
+
+
+=== PHYSICAL PAGE 15 ===
+Control Number: 11759                                                         Page 15 of 51
+
+
+7     Case Studies
+
+We developed two population distributions to test our models on. The two cases are: a city-
+like user distribution and a rural distribution with small towns of users. When we discuss
+“parity,” we refer to the ±600 kHz difference in the recieving and broadcast frequencies of
+the repeaters. The graphs that show these assignments represent each open line repeater as a
+node, each labeled with “+” or “-” accordingly. We assign parity to each repeater such that
+no one repeater is connected to the rest of the network solely through another repeater with
+identical parity. This prevents a signal being either stepped up or stepped down repeatedly
+such that it eventually falls outside the available frequency range and cannot be recieved.
+
+The parameters for these case studies were set to values we deemed reasonable based on our
+research from our referenced sources.
+
+
+7.1    City Distribution
+
+This distribution represents a city (located at the center of the area) with surrounding
+suburbs/neighborhoods.
+
+
+
+
+                              Figure 3: Surface Plot of Users
+
+
+=== PHYSICAL PAGE 16 ===
+Control Number: 11759                                                                                               Page 16 of 51
+
+
+Snaking Model
+
+            Parameter                     Description
+             n = 1400          The number of users within 40mi
+               k=5             Number of k-means cluster points
+            ds = 10mi Maximum distance for user to repeater communication
+            hr = 150f t      Height of repeater towers to be placed
+            dh = 15mi              Repeater output distance2 )
+            ∆f = .025                Frequency seperation
+              ln = 3            Number of Long Distance Lines
+               lc = 5   Number of Locations in Long Distance Connections
+
+
+The model places the first open repeater slightly north of the city to cover most of the
+users located there. This creates a large channel deficit and the model places two CTCSS
+repeaters on this iteration to compensate. Next, a repeater is placed to the northwest and
+the simulation proceeds to spiral counterclockwise around the city, placing CTCSS repeaters
+as necessary. The model also places two CTCSS repeaters on the fourth iteration. There
+are 9 open line repeaters and 8 CTCSS repeaters for a total of 17 repeaters.
+
+                                                    "Bender" Snaking Method Repeater Placement
+                                40
+
+
+
+
+                                30
+
+
+
+
+                                20
+
+
+
+
+                                10
+
+
+
+
+                       Miles     0
+
+
+
+
+                               −10
+
+
+
+
+                               −20
+
+
+
+
+                               −30
+
+
+                                       Potential User       Open Repeater        CTCSS Repeater   Cluster Pt
+                               −40
+                                −40   −30        −20       −10         0          10         20   30           40
+                                                                      Miles
+
+
+
+
+                      Figure 4: Repeater Placement (Snaking Model)
+
+The model creates a closed loop of 9 open line repeaters. Since this number is odd, the parity
+does not work bi-directionally around the loop. There will be some signal leakage when the
+two step-up repeaters communicate directly but the signal will travel in the opposite direction
+around the entire network and be recieved.
+
+
+=== PHYSICAL PAGE 17 ===
+Control Number: 11759                                                                                               Page 17 of 51
+
+
+
+                                                                                     +
+
+                                                  +                      -                            -
+
+                                                                         +
+                                        -                                                             +
+
+                                                             +
+                                                                                          -
+
+                        Figure 5: Repeater Parity (Snaking Model)
+
+Branching Model The model places the first open repeater in the city and creates three
+main branches to cover the surrounding suburbia. This web structure is highlighed with the
+black lines. The branching structure of open line repeaters is designed to efficiently cover
+the surface area rather than simply rushing from one population center to the next linearly.
+This structure is created first, and CTCSS lines are placed afterwords.
+                                                           Branching Method Repeater Placement
+                                  40
+
+
+
+                                  30
+
+
+
+                                  20
+
+
+
+                                  10
+
+
+
+
+                         Miles     0
+
+
+
+                                 −10
+
+
+
+                                 −20
+
+
+
+                                 −30
+
+
+                                                  Potential User         Open Repeater        CTCSS Repeater
+                                 −40
+                                  −40       −30      −20           −10        0      10          20       30   40
+                                                                             Miles
+
+
+
+
+                    Figure 6: Repeater Placement (Branching Model)
+
+The process of CTCSS repeater placement is designed to create higher connectivity than the
+Snaking model. In the Snaking model, CTCSS repeaters are used to provide more channels
+locally, but when the network is loaded to capacity not all users will be able to talk long-
+distance. In the Branching model, we assign one squelch tone as long distance, here denoted
+by 1 (blue circles). Each of these points has 3 CTCSS repeaters, denoted as types 1,2 and
+3. Tones 4-8 provide local lines in a manner similar to Snaking. This model creates 8 open
+
+
+=== PHYSICAL PAGE 18 ===
+Control Number: 11759                                                                                                     Page 18 of 51
+
+
+                                             Branching Method CTCSS Repeater Subaudible Channel Arrangment
+                                 40
+
+
+
+
+                                 30
+
+
+                                                                7
+                                 20
+
+
+                                                                      1
+                                 10
+                                                                                      5
+
+                                                                                  1 8
+                        Miles     0                                       1
+                                                                          4
+
+
+
+                                                                                          6
+                                −10                                                           1
+
+
+
+
+                                −20
+                                                                                                       1
+
+
+
+                                −30
+
+
+
+                                                             Potential User               CTCSS Repeater
+                                −40
+                                 −40   −30          −20         −10            0              10       20       30   40
+                                                                              Miles
+
+
+
+
+                  Figure 7: CTCSS Line Placement (Branching Model)
+
+
+repeaters and 17 CTCSS repeaters for a total of 26. This number is substantually higher
+than the “minimum number” of 17 that the Snaking model produced. These extra lines are
+necessitated by the long distance backbone. The aim of this model is to provide both the
+best connectivity with the fewest number of repeaters.
+
+The parity assignment is quite simple here.
+
+
+                                                +                                  +                        -
+                                                                -
+
+
+                                                                              +
+                                                                                               -
+                                                            -
+
+                                                                          +
+                                                                                                   -
+
+                      Figure 8: Repeater Parity (Branching Model)
+
+
+=== PHYSICAL PAGE 19 ===
+Control Number: 11759                                                            Page 19 of 51
+
+
+7.2    Rural Distrubition
+
+This distribution represents a rural area with eight small towns of concentrated population
+with approximately 100 people spread randomly throughout the area. The total user popu-
+lation is 1400. We attempt to provide connectivity to 1000 people using both the Snaking
+and Branching models.
+
+
+
+
+                               Figure 9: Surface Plot of Users
+
+
+
+Snaking Model The model starts near the northwestern-most town. We note that it
+places the open-line repeater so that it covers all of the targeted town but approximately
+half of the population in the second town. This coverage is optimal, however a connectivity
+deficit is created since more than 120 people lie within range and channel availability becomes
+an issue. The model then places a CTCSS repeater near the open repeater to provide more
+channels locally. This is not sufficient to cover the deficit, so the model places an additional
+CTCSS repeater on the same spot, this one with a different squelch tone. This resolves
+the deficit so it resumes placing open-line repeaters. The next placement is essentially due
+south of the previous, as it gravitates towards the two southern clusters that represent the
+two towns in the area. The placement of this new repeater does not create a channel deficit
+so there is no need for another CTCSS repeater. The model proceeds south again on the
+next iteration, then snakes around towards the southeastern town, and finally turns north,
+placing CTCSS repeaters as needed along the way. The open line repeater near the middle
+is placed last. Note that the 6th iteration (the southeastern most group) also places two
+CTCSS repeaters on the same spot for a total of 8 CTCSS repeaters and 10 open repeaters.
+The model uses 18 total repeaters to create a network that accomodates 1080 users.
+
+
+=== PHYSICAL PAGE 20 ===
+Control Number: 11759                                                                                                  Page 20 of 51
+
+
+                                                   "Bender" Snaking Method Repeater Placement
+                               40
+
+
+
+
+                               30
+
+
+
+
+                               20
+
+
+
+
+                               10
+
+
+
+
+                      Miles     0
+
+
+
+
+                              −10
+
+
+
+
+                              −20
+
+
+
+
+                              −30
+
+
+
+                                      Potential User       Open Repeater        CTCSS Repeater       Cluster Pt
+                              −40
+                               −40   −30        −20       −10         0            10           20   30           40
+                                                                     Miles
+
+
+
+                     Figure 10: Repeater Placement (Snaking Model)
+
+
+Repeater parity is assigned after the simulation is complete. This is generally a simple
+process for the Snaking model. However, note the southeastern node group where there are
+two step up repeaters connected. While this will result in some signal leakage outside of
+the available spectrum, the path that involves the step down node allows these two step up
+nodes to communicate without signal loss.
+
+                                                 +
+
+
+                                                  -           +
+                                                                               +
+
+                                                 +                                      -
+
+                                                              -
+                                                                                            +
+                                                                           +
+                                                                                            -
+
+                              Figure 11: Repeater Parity (Snaking Model)
+
+
+=== PHYSICAL PAGE 21 ===
+Control Number: 11759                                                                                                               Page 21 of 51
+
+
+Branching Method The branching structure is highlighted with the black lines. The
+four-long node line that connects the two biggest towns is the main spine, and all other node
+structures branch off of this. The branching structure of open line repeaters is designed to
+efficiently cover the surface area rather than simply rushing from one population center to
+the next linearly. This structure is created first, and CTCSS lines are placed afterwords.
+
+                                                                   Branching Method Repeater Placement
+                                       40
+
+
+
+                                       30
+
+
+
+                                       20
+
+
+
+                                       10
+
+
+
+
+                              Miles     0
+
+
+
+                                      −10
+
+
+
+                                      −20
+
+
+
+                                      −30
+
+
+                                                        Potential User             Open Repeater              CTCSS Repeater
+                                      −40
+                                       −40     −30           −20         −10          0              10           20    30     40
+                                                                                     Miles
+
+
+
+                    Figure 12: Repeater Placement (Branching Model)
+
+                                                              CTCSS Subaudible Channel Arrangement
+                               40
+
+
+
+
+                               30
+
+
+
+
+                               20
+                                                         7
+                                                   6           1
+
+                               10
+                                                                               1
+                                                                                             5
+
+
+                      Miles      0                                                               1
+
+
+
+                              −10
+
+                                                                                                      1
+
+                              −20
+
+
+                                                                                                              8
+                              −30                                                                         1
+                                                                                                          4
+
+
+
+                                                       Potential User          Open Repeater              CTCSS Repeater
+                              −40
+                               −40           −30        −20           −10           0            10               20    30     40
+                                                                                   Miles
+
+
+
+                  Figure 13: CTCSS Line Placement (Branching Model)
+
+
+=== PHYSICAL PAGE 22 ===
+Control Number: 11759                                                          Page 22 of 51
+
+
+The process of CTCSS repeater placement is designed to create higher connectivity than the
+Snaking model. In the Snaking model, CTCSS repeaters are used to provide more channels
+locally, but when the network is loaded to capacity not all users will be able to talk long-
+distance. In the Branching model, we assign one squelch tone as long distance, here denoted
+by 1 (blue circles). Each of these points has 3 CTCSS repeaters, one each of types: 1,
+2 and 3. Tones 4-8 provide local lines in a manner similar to the Snaking method. This
+model creates 8 open repeaters and 17 CTCSS repeaters for a total of 25. This number is
+substantually higher than the “minimum number” of 18 that the Snaking model produces.
+These extra lines are necessitated by the building of the long distance backbone. The aim of
+this model is to provide better connectivity, and not provide an absolute minimum repeater
+number.
+
+
+                                 +
+                                            +         -     +
+
+                                  -
+
+                                            +
+
+
+                                             -        +
+
+                       Figure 14: Repeater Parity (Branching Model)
+
+Parity assignment for this model is fairly trivial.
+
+
+
+8    10,000 Simultaneous Users
+
+Our model is highly adaptable to varying situations and stresses. As such, when considering
+repeater placement for a network capable of simulateously supporting 10,000 users, we simply
+run our models against a data set with a little over 10,000 users (we use 12,000). Our models
+work exactly as before when trying to support 1,000 users. An important point to note
+however, is that the frequency seperation must be lowered to accomodate more users. We
+choose the frequency separation to be 10 kHz for 10,000 users (whereas before we chose 25
+kHz for 1,000 users).
+
+The minimum number of repeaters necessary to simulateously support 10,000 users is 19
+open repeaters and 33 CTCSS repeaters all running on a different CTCSS tone for a total
+of 42 repeaters. We conclude that even with 10,000 users, an efficient network can be
+established within the constaints of the problem.
+
+
+=== PHYSICAL PAGE 23 ===
+Control Number: 11759                                                                                            Page 23 of 51
+
+
+                                                  Snaking Method Repeater Placement (10k users)
+                                40
+
+
+
+
+                                30
+
+
+
+
+                                20
+
+
+
+
+                                10
+
+
+
+
+                       Miles     0
+
+
+
+
+                               −10
+
+
+
+
+                               −20
+
+
+
+
+                               −30
+
+
+
+
+                               −40
+                                −40   −30   −20       −10              0              10          20   30   40
+                                                                      Miles
+
+
+
+
+                     Figure 15: Results for 10,000 Simultaneous Users
+
+
+9    Mountainous Terrain
+
+While VHF radio signals are blocked by large land structures, the line-of-sight propagation
+method also permits an increased effective range when the height of the antenna is increased.
+As a result, the mountains could be used to our advantage by placing repeaters on top of
+them rather than around them. This is not a completely trivial fix, however, as the new
+effective distance is proportional to the square root of the antenna’s height. This would
+provide diminishing returns.
+
+In the case where there is one large topographical peak (i.e. one large mountain peak), the
+obvious solution is to place one strong repeater on the mountain peak to provide the most
+coverage. However, now consider the case where this mountain does not have one discernable,
+well-defined peak and the area containing these peaks is relatively large and wide-spread (i.e.
+a mountain range). These numerous peaks may block the signal from a single repeater on the
+mountain and may not be accessible from all surrounding areas. The strength of the signal
+may vary with the angle due to an uneven distribution of peaks and valleys in the mountain
+range. In this situation, we would use a multiple-repeater network configured around the
+base and valleys that naturally occur in the mountain range. This would circumvent the
+mountain range and allow for connectivity. However, this also eliminates the line-of-sight
+advantage that the mountain could provide. There would most likely be ways to leverage
+the height advantage the mountains provide on a case-by-case basis.
+
+
+=== PHYSICAL PAGE 24 ===
+Control Number: 11759                                                                                                                                                            Page 24 of 51
+
+
+10     Sensitivity to Parameters
+
+Number of Cluster Points Since our model so heavily relies upon k-means cluster anal-
+ysis, it is natural to wonder how the number of cluster points affects model performance.
+By running our model with variable inital cluster points (k = 5, 10, 20) we are able to gauge
+whether this has a significant impact on performance. We chose to use the rural population
+distrubition since it provided a more interesting analysis.
+
+                                                                                                                        "Bender" Snaking Method Repeater Placement (k=20)
+                                "Bender" Snaking Method Repeater Placement (k=10)
+                    40                                                                                      40
+
+
+
+
+                    30                                                                                      30
+
+
+
+
+                    20                                                                                      20
+
+
+
+
+                    10                                                                                      10
+
+
+
+
+           Miles     0                                                                             Miles     0
+
+
+
+
+                   −10                                                                                     −10
+
+
+
+
+                   −20                                                                                     −20
+
+
+
+
+                   −30                                                                                     −30
+
+
+
+
+                   −40                                                                                     −40
+                    −40   −30   −20        −10         0          10         20     30   40                 −40   −30   −20        −10         0          10         20     30    40
+                                                      Miles                                                                                   Miles
+
+
+
+                                       (a) k = 10                                                                              (b) k = 20
+
+         Figure 16: “Bender” Snaking Model Cluster Point Sensitivity Rural Case
+
+When k = 5 or k = 10, the model determines that nine open line repeaters and eight CTCSS
+lines are necessary. When k = 20, the model requires eight open lines and eight CTCSS lines
+be available. We conclude that our model does not seem to be very sensitive to changes in
+the number of initial cluster points.
+
+
+Seperation Distance When determining optimal placement for repeaters, our model
+places each repeater a distance of dh apart so that repeater connectivity and communi-
+cation is guaranteed. The value we use for dh will have a large influence on the performance
+of the model. In our case studies, we set dh = 15. This is the distance that a 150 ft repeater
+would be able to transmit its signal. For dh = 10 and dh = 20, the height of the necessary
+repeater is 66 ft. 8 in. and 266 ft. 8 in. respectively.
+
+
+                                                                       dh           Tower Height (ft)             Open
+                                                                       10                  66’                     10
+                                                                       15                 150’                      8
+                                                                       20                 266’                      7
+
+
+Clearly, tower height (and hence seperation distance) has a significant impact on model
+performance. However, while increasing the tower height does decrease the minimum number
+
+
+=== PHYSICAL PAGE 25 ===
+Control Number: 11759                                                                                                                                                  Page 25 of 51
+
+
+                                  Branching Method Repeater Placement (d=10)                                        Branching Method Repeater Placement (d=20)
+                    40                                                                                40
+
+
+
+
+                    30                                                                                30
+
+
+
+
+                    20                                                                                20
+
+
+
+
+                    10                                                                                10
+
+
+
+
+           Miles     0
+                                                                                             Miles     0
+
+
+
+
+                   −10                                                                               −10
+
+
+
+                   −20                                                                               −20
+
+
+
+                   −30                                                                               −30
+
+
+
+                   −40                                                                               −40
+                    −40   −30   −20      −10         0          10         20   30   40               −40   −30   −20       −10        0          10         20   30    40
+                                                    Miles
+                                                                                                                                      Miles
+
+
+
+                                       (a) d = 10                                                                       (b) d = 20
+
+         Figure 17: Branching Model Seperation Distance Sensitivity Rural Case
+
+
+of repeaters necessary, it will increase the cost of each repeater. This is a choice the user
+will have to make.
+
+
+Initial Number of People Our algorithms run until the desired number of people are
+connected to the network and there are enough channels available to those people. Changing
+the starting population of users drastically impacts model performance. This is not surprising
+as a higher population would allow our model to capture the desired number of people faster.
+
+
+                                                                                  dh  Open   CTCSS
+                                                                                1400   10      8
+                                                                                3000   3       8
+                                                                                10000  1       8
+
+
+Therefore, the higher the initial number of potential users, the fewer repeaters are necessary
+to sustain 1000 simulateous users.
+
+
+
+11     Strengths & Weaknesses
+
+Strengths
+
+   • Versatility of the models. Both models are highly versatile and can account for
+     many changing parameters. We were very impressed that our model accomodates
+     10,000 users under the established requirements.
+
+
+=== PHYSICAL PAGE 26 ===
+Control Number: 11759                                                           Page 26 of 51
+
+
+   • Smart clustering. The fact that reclustering can be implemented (or is required)
+     in the models creates a smarter algorithm that targets the highest priority targets at
+     that moment. This allows for the “best” decision possible to be made at any given
+     iteration.
+
+   • Efficient use of CTCSS Lines. Both models, even with 10,000 users, do not exhaust
+     the use of private lines. These unused lines could accomodate more traffic if it were
+     desired.
+
+
+Weaknesses
+
+   • Large reliance on k-cluster analysis. Other clustering methods exist and our
+     choice to exclusively use k-clustering limits our model. Running the models with
+     different clustering methods would have been more illuminating to see if there were
+     more efficient ways to network and support the users.
+
+   • No use of Quality Threshold. Quality Threshold (QT) is a clustering method
+     for which a distance treshhold, not the number of clusters, is set. Implenenting this
+     method of clustering could have improved efficiency.
+
+   • Difficulty with populations close to target. We found that if only 1000 users
+     were present, the algorithm would circle around itself trying to hunt down the last
+     remaining user. We supplanted this concern with the assumption that there were more
+     users than we desired to connect. We felt this was a realistic liberty to take as the
+     problem did not state that there were precisely 1000 potential users in the area.
+
+
+
+12     Conclusion
+
+The absolute fewest number of repeaters required to support 1,000 users is 17.
+This number was created by the “Bender” Snaking Model with the city distribution of users.
+We felt this number was reasonable for the given area and user population. The Branching
+Model yielded a network of 26 repeaters but established connectivty for a significantly larger
+area.
+
+When considering the rural distribution, the “Bender” Snaking Model reported 18 necessary
+repeaters while the Branching Model reported 25. The difference in required repeaters (7)
+was consistent with the difference in repeaters for the city distribution (9).
+
+By comparing the two models, we were able to make a few fundamental conclusions:
+
+
+   • Better connectivity requires more repeaters. We can’t argue with the minimum
+     number of repreaters reported by our model but we did note that better connectivity
+
+
+=== PHYSICAL PAGE 27 ===
+Control Number: 11759                                                          Page 27 of 51
+
+
+     (which potentially correlates into better service) for the users required more repeaters.
+     This seems true to life as a more robust networks of any kind can support a greater
+     load.
+
+   • 54 CTCSS lines are not necessary. We never exhausted our pool of CTCSS lines.
+     Even with the 10,000 user load, 12 CTCSS tones were still available to use.
+
+   • CTCSS lines have multiple applications. While CTCSS lines are primarily used
+     to reduce interference problems in densely populated areas, they also may be used to
+     establish dedicated long-distance communication lines.
+
+
+=== PHYSICAL PAGE 28 ===
+Control Number: 11759                                                      Page 28 of 51
+
+
+References
+
+ [1] Metropolitan Coordination Association, Inc. Coordination Guidelines, February 2011.
+     http://www.metrocor.net/coordination guidelines.htm.
+
+ [2] Metropolitan Coordination Association, Inc. CTCSS (PL) Tones Frequencies, February
+     2011. http://www.metrocor.net/ctcss.htm.
+
+ [3] Institute for Telecommunication Sciences. High Frequency Propegation Models, Febru-
+     ary 2011. http://elbert.its.bldrdoc.gov/hf.html.
+
+ [4] Adrian W. Graham, Nicholas C. Kirkman, and Peter M. Paul. Mobile Radio Network
+     Design in the VHF and UHF Bands. John Wily & Sons, Ltd, West Sussex, England,
+     2007.
+
+ [5] Leif J. Harcke, Kenneth S. Dueker, and David B. Leeson. Frequency Coordination in
+     the Amateur Radio Emergency Service. ECJ, 1(1):31–36, 2004.
+
+ [6] Barry LcLarnon. Vhf/Uhf/Microwave Radio Propagation: A Primer for Digital Ex-
+     perimenters. A workship given at the 1997 TAPR/ARRL Digital Communications
+     Conference, February 2011. http://www.tapr.org/ve3jf.dcc97.html.
+
+ [7] The American Radio Relay League.                 Band    Plan,     February   2011.
+     http://www.arrl.org/band-plan-1#2m.
+
+ [8] Wikipedia. 2-Meter Band, February 2011. http://en.wikipedia.org/wiki/2-meter band.
+
+ [9] Wikipedia.           Amateur     Radio     Repeater,             February     2011.
+     http://en.wikipedia.org/wiki/Amateur radio repeater.
+
+[10] Wikipedia.               k-means      Clustering,             February        2011.
+     http://en.wikipedia.org/wiki/K-means clustering.
+
+[11] Wikipedia.             Very     High     Frequency,              February     2011.
+     http://en.wikipedia.org/wiki/Very high frequency.
+
+
+=== PHYSICAL PAGE 29 ===
+          Control Number: 11759                                                 Page 29 of 51
+
+
+          13    Appendix A: Full-Page Plots
+
+
+                                  "Bender" Snaking Method Repeater Placement
+         40
+
+
+
+
+         30
+
+
+
+
+         20
+
+
+
+
+         10
+
+
+
+
+Miles     0
+
+
+
+
+        −10
+
+
+
+
+        −20
+
+
+
+
+        −30
+
+
+                    Potential User        Open Repeater        CTCSS Repeater    Cluster Pt
+        −40
+         −40       −30        −20        −10         0          10         20   30            40
+                                                    Miles
+
+
+
+                              Figure 18: Repeater Placement (Snaking Model)
+
+
+=== PHYSICAL PAGE 30 ===
+         Control Number: 11759                                                Page 30 of 51
+
+
+
+
+                                   Branching Method Repeater Placement
+         40
+
+
+
+         30
+
+
+
+         20
+
+
+
+         10
+
+
+
+
+Miles     0
+
+
+
+        −10
+
+
+
+        −20
+
+
+
+        −30
+
+
+                         Potential User         Open Repeater         CTCSS Repeater
+        −40
+         −40      −30        −20          −10      0         10          20      30           40
+                                                  Miles
+
+                          Figure 19: Repeater Placement (Branching Model)
+
+
+=== PHYSICAL PAGE 31 ===
+              Control Number: 11759                                                    Page 31 of 51
+
+
+
+
+                           Branching Method CTCSS Repeater Subaudible Channel Arrangment
+         40
+
+
+
+
+         30
+
+
+                                             7
+         20
+
+
+                                                  1
+         10
+                                                                  5
+
+                                                             1 8
+Miles     0                                           1
+                                                      4
+
+
+
+                                                                      6
+        −10                                                               1
+
+
+
+
+        −20
+                                                                                  1
+
+
+
+        −30
+
+
+
+                                           Potential User             CTCSS Repeater
+        −40
+         −40         −30          −20       −10            0              10      20       30      40
+                                                          Miles
+
+                                Figure 20: CTCSS Line Placement (Branching Model)
+
+
+=== PHYSICAL PAGE 32 ===
+          Control Number: 11759                                                 Page 32 of 51
+
+
+
+
+                                  "Bender" Snaking Method Repeater Placement
+         40
+
+
+
+
+         30
+
+
+
+
+         20
+
+
+
+
+         10
+
+
+
+
+Miles     0
+
+
+
+
+        −10
+
+
+
+
+        −20
+
+
+
+
+        −30
+
+
+
+                    Potential User        Open Repeater        CTCSS Repeater      Cluster Pt
+        −40
+         −40      −30         −20        −10         0          10         20      30           40
+                                                    Miles
+
+                             Figure 21: Repeater Placement (Snaking Model)
+
+
+=== PHYSICAL PAGE 33 ===
+        Control Number: 11759                                                Page 33 of 51
+
+
+
+
+                                  Branching Method Repeater Placement
+         40
+
+
+
+         30
+
+
+
+         20
+
+
+
+         10
+
+
+
+
+Miles     0
+
+
+
+        −10
+
+
+
+        −20
+
+
+
+        −30
+
+
+                         Potential User         Open Repeater       CTCSS Repeater
+        −40
+         −40      −30       −20           −10      0        10          20      30           40
+                                                  Miles
+
+                         Figure 22: Repeater Placement (Branching Model)
+
+
+=== PHYSICAL PAGE 34 ===
+              Control Number: 11759                                                      Page 34 of 51
+
+
+
+
+                                      CTCSS Subaudible Channel Arrangement
+         40
+
+
+
+
+         30
+
+
+
+
+         20
+                                 7
+                           6          1
+
+         10
+                                                   1
+                                                               5
+
+
+Miles     0                                                        1
+
+
+
+        −10
+
+                                                                        1
+
+        −20
+
+
+                                                                                8
+        −30                                                                 1
+                                                                            4
+
+
+
+                               Potential User      Open Repeater            CTCSS Repeater
+        −40
+         −40         −30        −20         −10         0          10               20     30            40
+                                                       Miles
+
+                               Figure 23: CTCSS Line Placement (Branching Model)
+
+
+=== PHYSICAL PAGE 35 ===
+               Control Number: 11759                                                        Page 35 of 51
+
+
+
+
+                                       Snaking Method Repeater Placement (10k users)
+         40
+
+
+
+
+         30
+
+
+
+
+         20
+
+
+
+
+         10
+
+
+
+
+Miles     0
+
+
+
+
+        −10
+
+
+
+
+        −20
+
+
+
+
+        −30
+
+
+
+
+        −40
+         −40          −30       −20        −10              0              10          20    30             40
+                                                           Miles
+
+
+
+                                 Figure 24: Results for 10,000 Simultaneous Users
+
+
+=== PHYSICAL PAGE 36 ===
+     Control Number: 11759                                    Page 36 of 51
+
+
+     14    Appendix B: Source Code
+
+     “Bender” Snaking Model:
+
+ 1   load 'C:\Users\*****\Desktop\MCM 2011\townsdata3.txt';
+ 2   sepdist = 10; %seperation distance
+ 3   plsepdist =1; %Private line seperation distance
+ 4   xcor = townsdata3(:,2);
+ 5   ycor = townsdata3(:,3);
+ 6   totalnum = zeros(2000,2);
+ 7   connected = 0;
+ 8   n=zeros(2000,5);
+ 9   inrange = zeros(360);
+10   ply = zeros(360,1);
+11   plx = zeros(360,1);
+12   ind = 0;
+13   openchannels=0;
+14   ∆f = .025;
+15   cover = 0;
+16   it = 1;
+17   plit =0;
+18   rep=zeros(50,2);
+19   population = length(xcor);
+20   iteration=0;
+21   concat=horzcat(xcor,ycor);
+22   notcovered=zeros(population,2);
+23   numclus=10;
+24   [clusid,clusters]=kmeans(concat,numclus);
+25   clusscr=zeros(numclus);
+26
+27
+
+28   for i = 1:population
+29       for n = 1:numclus
+30       if clusid(i) == n
+31           clusscr(n) = clusscr(n) + 1;
+32       end
+33       end
+34   end
+35
+36   %Plot Users and clusters
+37   plot(concat(:,1),concat(:,2),'.','MarkerSize',1);
+38   hold on
+39   plot(clusters(:,1),clusters(:,2),'kx',...
+40        'MarkerSize',20,'LineWidth',2);
+41   hold on
+42   plot(clusters(:,1),clusters(:,2),'ko',...
+43        'MarkerSize',20,'LineWidth',2);
+44   hold off
+45
+46
+47
+48
+
+
+=== PHYSICAL PAGE 37 ===
+      Control Number: 11759                                                Page 37 of 51
+
+
+ 49   %Find inital repeater location
+ 50   for i=1:5,
+ 51       for j=1:population,
+ 52           n(i,j)=sqrt(((clusters(i,1)-xcor(j))ˆ2)+((clusters(i,2)-ycor(j))ˆ2));
+ 53           if n(i,j)≤sepdist
+ 54               totalnum(i,1)=totalnum(i,1)+1;
+ 55           end
+ 56       end
+ 57   end
+ 58
+
+ 59   [C,I]=max(totalnum);
+ 60   index=I(1);
+ 61   rep(1,1)=clusters(index,1);
+ 62   rep(1,2)=clusters(index,1);
+ 63   openchannels =3/∆f;
+ 64
+
+ 65   for i=1:population,
+ 66       if sqrt(((rep(1,1)-xcor(i))ˆ2)+((rep(1,2)-ycor(i))ˆ2))>sepdist
+ 67           ind = ind +1;
+ 68           notcovered(ind,1)=xcor(i);
+ 69           notcovered(ind,2)=ycor(i);
+ 70       end
+ 71   end
+ 72
+ 73   cover = totalnum(index,1);
+ 74   population = population-cover;
+ 75   connected = min(totalnum(index,1),openchannels);
+ 76   deficit = max(totalnum(index,1) - connected,0);
+ 77
+ 78
+ 79
+ 80   disp('the first repeater will be placed at'),disp('x='),disp(rep(1,1)),disp('y='), disp(rep
+ 81   disp('number connected'),disp(connected);
+ 82   disp('deficit'),disp(deficit);
+ 83   disp('under cover'),disp(cover);
+ 84   disp('open channels'),disp(openchannels);
+ 85   disp('population'),disp(population);
+ 86   dlmwrite('C:\Users\*****\Desktop\MCM 2011\winner.txt',I,'\t');
+ 87   dlmwrite('C:\Users\*****\Desktop\MCM 2011\distances.txt',n,'\t');
+ 88   dlmwrite('C:\Users\*****\Desktop\MCM 2011\proximity.txt',totalnum,'\t')
+ 89
+ 90   while connected<1000,
+ 91       iteration=iteration+1;
+ 92       inrange=zeros(1000);
+ 93       onrange=zeros(1000);
+ 94           if deficit >0
+ 95               plit=plit+1;
+ 96               for theta=1:360,
+ 97                   plx(theta) = rep(it,1)+plsepdist*cos((3.14159*theta)/180);
+ 98                   ply(theta) = rep(it,2)+plsepdist*sin((3.14159*theta)/180);
+ 99                   if ((plx(theta)≥-40) && (plx(theta)≤40))
+100                       if ((ply(theta)≥-40) && (ply(theta)≤40))
+101                            for i=1:population,
+102                                dist(i,1)=sqrt((plx(theta)-notcovered(i,2*iteration-1))ˆ2+(ply(
+
+
+=== PHYSICAL PAGE 38 ===
+      Control Number: 11759                                                   Page 38 of 51
+
+
+103                                     if dist(i,1)≤sepdist
+104                                         inrange(theta) = inrange(theta) +1;
+105                                     end
+106                               end
+107                         end
+108                     end
+109                 end
+110                 [C,I] = max(inrange);
+111                 angle = I(1);
+112                 reppl(plit,1)= rep(it,1)+plsepdist*cos((3.14159*angle)/180);
+113                 reppl(plit,2)= rep(it,2)+plsepdist*sin((3.14159*angle)/180);
+114                 added=0;
+115
+116                 openchannels = openchannels +(3/∆f);
+117
+118                 %%REMOVE ENTRIES WHICH HAVE BEEN USED
+119                 ind=0;
+120                 for i=1:population,
+121                     if sqrt(((rep(it,1)-notcovered(i,2*iteration-1))ˆ2)+((rep(it,2)-notcovered(
+122                          ind = ind +1;
+123                          notcovered(ind,2*iteration+1)=notcovered(i,2*iteration-1);
+124                          notcovered(ind,2*iteration+2)=notcovered(i,2*iteration);
+125                     else
+126                          added=added+1;
+127                     end
+128                 end
+129
+
+130                 cover = cover + added;
+131                 population = population - added;
+132                 connected = min(cover,openchannels);
+133                 deficit = max(cover - connected,0);
+134
+135                 disp('the PL repeater will be placed at'),disp('x='),disp(reppl(plit,1)),disp('
+136                 disp('added'),disp(added);
+137                 disp('cover'),disp(cover);
+138                 disp('people connected:'),disp(connected);
+139                 disp('deficit'),disp(deficit);
+140                 disp('open channels'),disp(openchannels);
+141                 disp('population'),disp(population);
+142           end
+143
+144       if deficit==0
+145               it = it+1;
+146               inrange=zeros(5);
+147               onrange = zeros(5);
+148               d = zeros(5);
+149               for clusterno=1:5,
+150
+151                    d(clusterno)=sqrt((rep(it-1,1)-clusters(clusterno,1))ˆ2+(rep(it-1,2)-cluste
+152                    if ((rep(it-1,1)≥clusters(clusterno,1))&&(rep(it-1,2)≤clusters(clusterno,2)
+153                        ang(clusterno)= acos((clusters(clusterno,1)-rep(it-1,1))/d(clusterno));
+154                    elseif ((rep(it-1,1)>clusters(clusterno,1))&&(rep(it-1,2)≥clusters(clustern
+155                        ang(clusterno)=2*pi-acos((clusters(clusterno,1)-rep(it-1,1))/d(clustern
+156                    elseif ((rep(it-1,1)≤clusters(clusterno,1))&&(rep(it-1,2)≥clusters(clustern
+
+
+=== PHYSICAL PAGE 39 ===
+      Control Number: 11759                                                   Page 39 of 51
+
+
+157                             ang(clusterno)=2*pi-acos((clusters(clusterno,1)-rep(it-1,1))/d(clustern
+158                      else
+159                             ang(clusterno)=acos((clusters(clusterno,1)-rep(1,1))/d(clusterno));
+160                      end
+161
+162
+163   %%
+164   %{
+165
+166                      if ((rep(it-1,1)≥clusters(clusterno,1))&&(rep(it-1,2)≤clusters(clusterno,2)
+167                           ang(clusterno)=pi-asin((clusters(clusterno,2)-rep(it-1,2))/d(clusterno)
+168                      elseif ((rep(it-1,1)≥clusters(clusterno,1))&&(rep(it-1,2)≥clusters(clustern
+169                           ang(clusterno)=pi+asin((rep(it-1,2)-clusters(clusterno,2))/d(clusterno)
+170                      elseif ((rep(it-1,1)≤clusters(clusterno,1))&&(rep(it-1,2)≥clusters(clustern
+171                           ang(clusterno)=2*pi-asin((rep(it-1,2)-clusters(clusterno,2))/d(clustern
+172                      else
+173                           ang(clusterno)=asin((clusters(clusterno,2)-rep(it-1,2))/d(clusterno))
+174                      end
+175
+176                      %}
+177   %%
+178                      x(clusterno)=rep(it-1,1)+sepdist*1.5*cos(ang(clusterno));
+179                      y(clusterno)=rep(it-1,2)+sepdist*1.5*sin(ang(clusterno));
+180                      if ((x(clusterno)≥-40) && (x(clusterno)≤40)&&(y(clusterno)≥-40)&&(y(cluster
+181                              for i=1:population,
+182                                  if sqrt((x(clusterno)-notcovered(i,2*iteration-1))ˆ2+(y(cluster
+183                                      inrange(clusterno) = inrange(clusterno) +1;
+184                                  end
+185                              end
+186                              for i=1:population,
+187                                  if sqrt((clusters(clusterno,1)-notcovered(i,2*iteration-1))ˆ2+(
+188                                      onrange(clusterno) = onrange(clusterno) +1;
+189                                  end
+190                              end
+191                       else
+192                              inrange(clusterno)=-100;
+193                       end
+194
+195                end
+196
+197               [C,I] = max(inrange);
+198
+199               angleid = I(1);
+200               rep(it,1)=rep(it-1,1)+sepdist*1.5*cos(ang(angleid));
+201               rep(it,2)=rep(it-1,2)+sepdist*1.5*sin(ang(angleid));
+202
+203               if ((rep(it,1)≥-40)&&(rep(it,1)≤40)&&(rep(it,2)≥-40)&&(rep(it,2)≤40))
+204                   ind=0;
+205                   added=0;
+206                   for i=1:population,
+207                       if sqrt(((rep(it,1)-notcovered(i,2*iteration-1))ˆ2)+((rep(it,2)-notcove
+208                            ind = ind +1;
+209                            notcovered(ind,2*iteration+1)=notcovered(i,2*iteration-1);
+210                            notcovered(ind,2*iteration+2)=notcovered(i,2*iteration);
+
+
+=== PHYSICAL PAGE 40 ===
+      Control Number: 11759                                               Page 40 of 51
+
+
+211                         else
+212                                added=added+1;
+213                         end
+214                   end
+215               else
+216                   theid=1;
+217
+218                     while ((rep(it,1)<-40)||(rep(it,1)>40)||(rep(it,2)<-40)||(rep(it,2)>40))
+219                         rep(it,1)=rep(it-1,1)+sepdist*1.5*cos(ang(theid));
+220                         rep(it,2)=rep(it-1,2)+sepdist*1.5*sin(ang(theid));
+221                         theid =theid +1;
+222                     end
+223
+224                     ind=0;
+225                     added=0;
+226                     for i=1:population,
+227                         if sqrt(((rep(it,1)-notcovered(i,2*iteration-1))ˆ2)+((rep(it,2)-notcove
+228                              ind = ind +1;
+229                              notcovered(ind,2*iteration+1)=notcovered(i,2*iteration-1);
+230                              notcovered(ind,2*iteration+2)=notcovered(i,2*iteration);
+231                         else
+232                              added=added+1;
+233                         end
+234                     end
+235               end
+236
+237               cover = cover + added;
+238               population = population - added;
+239               connected = min(cover,openchannels);
+240               deficit = max(cover - connected,0);
+241
+242               disp('the open repeater will be placed at'),disp('x='),disp(rep(it,1)),disp('y=
+243               disp('added'),disp(added);
+244               disp('cover'),disp(cover);
+245               disp('open channels'),disp(openchannels);
+246               disp('people connected:'),disp(connected);
+247               disp('deficit'),disp(deficit);
+248               disp('population'),disp(population);
+249         end
+250   end
+251
+252   disp('number of open repeaters'),disp(it);
+253   disp('number of PL repeaters'),disp(plit);
+254
+255   xplot=zeros(it,1);
+256   yplot=zeros(it,1);
+257   for i=1:it
+258       xplot(i,1)=rep(i,1);
+259       yplot(i,1)=rep(i,2);
+260   end
+261
+262   xplotpl=zeros(plit,1);
+263   yplotpl=zeros(plit,1);
+264   for i=1:plit
+
+
+=== PHYSICAL PAGE 41 ===
+      Control Number: 11759                                             Page 41 of 51
+
+
+265         xplotpl(i,1)=reppl(i,1);
+266         yplotpl(i,1)=reppl(i,2);
+267   end
+268
+
+269   %}
+270
+271   plot(xcor,ycor,'s','MarkerSize',4,'MarkerEdgeColor',[1 1 1]);
+272   xlabel('Miles');
+273   ylabel('Miles');
+274   title('Snaking Method Repeater Placement');
+275   hold on
+276
+277   plot(xplot,yplot,'o','MarkerFaceColor','r','MarkerEdgeColor','r','MarkerSize',10,'LineWidth
+278   hold on
+279
+280
+
+281   plot(xplotpl,yplotpl,'o','MarkerFaceColor','g','MarkerEdgeColor','g','MarkerSize',10,'LineW
+282   hold on
+283
+284   plot(clusters(:,1),clusters(:,2),'v',...
+285        'MarkerSize',10,'LineWidth',2,'MarkerEdgeColor','k');
+286   hold on
+287
+288
+289
+290
+291
+
+292    for i=1:it,
+293        h=rep(i,1); k=rep(i,2); r=15; N=256;
+294        t=(0:N)*2*pi/N;
+295        plot(r*cos(t)+h,r*sin(t)+k,'Color','r','LineStyle','--');
+296        hold on
+297    end
+298
+299
+300     for i=1:it,
+301       h=rep(i,1); k=rep(i,2); r=10; N=256;
+302       t=(0:N)*2*pi/N;
+303       plot(r*cos(t)+h,r*sin(t)+k,'Color','c','LineStyle',':');
+304       hold on
+305    end
+306
+307    for i=1:plit,
+308        h=reppl(i,1); k=reppl(i,2); r=15; N=256;
+309        t=(0:N)*2*pi/N;
+310        plot(r*cos(t)+h,r*sin(t)+k,'Color','g','LineStyle','-');
+311        hold on
+312    end
+313
+314
+
+315    axis([-40 40 -40 40]);
+316    axis('square')
+317
+318
+
+
+=== PHYSICAL PAGE 42 ===
+      Control Number: 11759                                               Page 42 of 51
+
+
+319    hold off
+
+
+      Branching Model:
+
+  1   load 'C:\Users\*****\Desktop\MCM 2011\newtestdata2.txt';
+  2   newx = newtestdata2(:,2); %x cor of data
+  3   newy = newtestdata2(:,3); %y cor of data
+  4   notcovered = horzcat(newx,newy);
+  5   surfsens=2;          %distance from point to include in surfscr
+  6   sepdist = 10;        %seperation distance of repeaters
+  7   scr=zeros(length(newx),1); %how many points are within surfsens
+  8   rep=zeros(40,2);     %repeater locations
+  9   numclus=5;           %number of clusters
+ 10   clusscr=zeros(numclus,3); %how many points are within sepdist of cluster point
+ 11   iteration=0;
+ 12   clf;
+ 13   numuncov=length(newx);
+ 14   it=0;
+ 15   connected = 0;
+ 16   newrepang = 0;
+ 17   numlongdist=10;
+ 18   actlongdist=5;
+ 19   plsepdist=15;
+ 20   numberoflongdistancelines=3;
+ 21   ∆f=.025;
+ 22   perline=3/∆f;
+ 23   openchannels=perline;
+ 24
+ 25   for i=1:length(newx),
+ 26       for j=1:length(newx)
+ 27           if sqrt((newx(i)-newx(j))ˆ2+(newy(i)-newy(j))ˆ2)≤surfsens
+ 28               scr(i)=scr(i)+1;
+ 29           end
+ 30       end
+ 31   end
+ 32
+ 33   concat = horzcat(newx,newy,scr); %% (xcor,ycor,zcor)
+ 34
+ 35   [¬,clusters]=kmeans(concat,numclus);
+ 36
+ 37   disp('initial uncovered'),disp(numuncov);
+ 38
+ 39
+ 40   %{
+ 41   %Plot Users and clusters
+ 42   plot(concat(:,1),concat(:,2),'.');
+ 43   hold on
+ 44   plot(clusters(:,1),clusters(:,2),'kx',...
+ 45        'MarkerSize',20,'LineWidth',2);
+ 46   hold on
+ 47   plot(clusters(:,1),clusters(:,2),'ko',...
+ 48        'MarkerSize',20,'LineWidth',2);
+
+
+=== PHYSICAL PAGE 43 ===
+      Control Number: 11759                                             Page 43 of 51
+
+
+ 49   hold off
+ 50   %}
+ 51
+ 52
+
+ 53   %Set first repeater locations
+ 54   for i=1:numclus,
+ 55       reptemp(i,1)=clusters(i,1);
+ 56       reptemp(i,2)=clusters(i,2);
+ 57   end
+ 58
+
+ 59   %Calculate score of each cluster and order by score
+ 60   for i=1:numclus,
+ 61       for j=1:length(newx),
+ 62           if sqrt((reptemp(i,1)-newx(j))ˆ2+(reptemp(i,2)-newy(j))ˆ2)≤sepdist
+ 63               clusscr(i,1)=reptemp(i,1);
+ 64               clusscr(i,2)=reptemp(i,2);
+ 65               clusscr(i,3)=clusscr(i,3)+1;
+ 66           end
+ 67       end
+ 68   end
+ 69
+ 70   srtclus = sortrows(clusscr,-3); %sorted clusters
+ 71
+ 72   %Set first repeater locations
+ 73   rep(1,1)=srtclus(1,1);
+ 74   rep(1,2)=srtclus(1,2);
+ 75
+
+ 76   added=0;
+ 77   i=0;
+ 78
+ 79   %Calculate added and remove covered entries
+ 80   for j=1:numuncov,
+ 81       if sqrt((rep(1,1)-notcovered(j,1))ˆ2+(rep(1,2)-notcovered(j,2))ˆ2)≤sepdist
+ 82           added=added+1;
+ 83       else
+ 84           i=i+1;
+ 85           notcovered(i,3)=notcovered(j,1);
+ 86           notcovered(i,4)=notcovered(j,2);
+ 87       end
+ 88   end
+ 89
+ 90   repcoverage(1)=added;
+ 91   numuncov=numuncov-added;
+ 92   connected = connected+added;
+ 93
+
+ 94   targetloc(1)=srtclus(2,1);
+ 95   targetloc(2)=srtclus(2,2);
+ 96
+ 97   newrepdist = sqrt((rep(1,1)-targetloc(1))ˆ2+(rep(1,2)-targetloc(2))ˆ2); %Distance from curr
+ 98
+
+ 99
+100
+101   if ((rep(1,1)≥targetloc(1))&&(rep(1,2)≤targetloc(2)))
+102       newrepang= acos((targetloc(1)-rep(1,1))/newrepdist);
+
+
+=== PHYSICAL PAGE 44 ===
+      Control Number: 11759                                                 Page 44 of 51
+
+
+103   elseif ((rep(1,1)≥targetloc(1))&&(rep(1,2)≥targetloc(2)))
+104        newrepang=2*pi-acos((targetloc(1)-rep(1,1))/newrepdist);
+105   elseif ((rep(1,1)≤targetloc(1))&&(rep(1,2)≥targetloc(2)))
+106        newrepang=2*pi-acos((targetloc(1)-rep(1,1))/newrepdist);
+107   else
+108        newrepang=acos((targetloc(1)-rep(1,1))/newrepdist);
+109   end
+110
+111   repno=1;
+112
+
+113   iteration=0;
+114   lastplaced=1;
+115
+116   %add repeater to make connection
+117   while connected<1000,
+118
+
+119       iteration=iteration+1;
+120       while newrepdist>sepdist,
+121           it=it+1;
+122           repno = repno+1;
+123           rep(repno,1)=rep(lastplaced,1)+sepdist*cos(newrepang);
+124           rep(repno,2)=rep(lastplaced,2)+sepdist*sin(newrepang);
+125           lastplaced=repno; %set the last placed to the current repeater
+126           newrepdist=sqrt((targetloc(1)-rep(repno,1))ˆ2+(targetloc(2)-rep(repno,2))ˆ2);
+127
+128              %Count covered and remove from dataset
+129              added=0;
+130              i=0;
+131              for j=1:numuncov,
+132                   if sqrt((rep(repno,1)-notcovered(j,2*it+1))ˆ2+(rep(repno,2)-notcovered(j,2*it+2
+133                       added=added+1;
+134                   else
+135                       i=i+1;
+136                       notcovered(i,2*it+3)=notcovered(j,2*it+1);
+137                       notcovered(i,2*it+4)=notcovered(j,2*it+2);
+138                   end
+139              end
+140
+141              coveragestat=0;
+142              for j=1:length(newx),
+143                  if sqrt((rep(repno,1)-newx(j))ˆ2+(rep(repno,2)-newy(j))ˆ2)≤sepdist
+144                      coveragestat=coveragestat+1;
+145                  end
+146              end
+147              repcoverage(repno)=coveragestat;
+148              numuncov=numuncov-added;
+149              connected = connected + added;
+150              disp('added'),disp(added);
+151              disp('adding another');
+152       end
+153       disp('iteration'),disp(iteration);
+154
+155
+156
+
+
+=== PHYSICAL PAGE 45 ===
+      Control Number: 11759                                             Page 45 of 51
+
+
+157
+158       %New targetloc
+159       concat = zeros(numuncov,2);
+160       for i=1:numuncov;
+161           concat(i,1) = notcovered(i,2*it+3);
+162           concat(i,2) = notcovered(i,2*it+4);
+163       end
+164
+165       [clusid,clusters]=kmeans(concat,numclus);
+166
+
+167       clusscr=zeros(numclus,3);
+168
+169
+170
+171       %Set temp repeater locations
+172       for i=1:numclus,
+173           reptemp(i,1)=clusters(i,1);
+174           reptemp(i,2)=clusters(i,2);
+175       end
+176       %Calculate score of each cluster and order by score
+177       for i=1:numclus,
+178           clusscr(i,1)=reptemp(i,1);
+179           clusscr(i,2)=reptemp(i,2);
+180           for j=1:numuncov,
+181               if sqrt((reptemp(i,1)-concat(j,1))ˆ2+(reptemp(i,2)-concat(j,2))ˆ2)≤sepdist
+182                   clusscr(i,3)=clusscr(i,3)+1;
+183               end
+184           end
+185       end
+186
+187       srtclus = sortrows(clusscr,-3); %sorted clusters
+188
+189       %Set new target location
+190       targetloc(1)=srtclus(1,1);
+191       targetloc(2)=srtclus(1,2);
+192       repdist=zeros(repno,1);
+193       for i=1:repno,
+194           repdist(i,1)=sqrt((targetloc(1)-rep(i,1))ˆ2+(targetloc(2)-rep(i,2))ˆ2);
+195       end
+196
+197       [C,I]=min(repdist);
+198       lastplaced=I(1);
+199       newrepdist = sqrt((rep(lastplaced,1)-targetloc(1))ˆ2+(rep(lastplaced,2)-targetloc(2))ˆ2
+200
+201
+
+202       if ((rep(lastplaced,1)≥targetloc(1))&&(rep(lastplaced,2)≤targetloc(2)))
+203            newrepang= acos((targetloc(1)-rep(lastplaced,1))/newrepdist);
+204       elseif ((rep(lastplaced,1)≥targetloc(1))&&(rep(lastplaced,2)≥targetloc(2)))
+205            newrepang=2*pi-acos((targetloc(1)-rep(lastplaced,1))/newrepdist);
+206       elseif ((rep(lastplaced,1)≤targetloc(1))&&(rep(lastplaced,2)≥targetloc(2)))
+207            newrepang=2*pi-acos((targetloc(1)-rep(lastplaced,1))/newrepdist);
+208       else
+209            newrepang=acos((targetloc(1)-rep(lastplaced,1))/newrepdist);
+210       end
+
+
+=== PHYSICAL PAGE 46 ===
+      Control Number: 11759                                             Page 46 of 51
+
+
+211
+212         disp('connected'),disp(connected);
+213
+214
+
+215   end
+216
+217   disp('number uncovered'),disp(numuncov);
+218
+219
+220   %%Plot Data
+221   xplot=zeros(repno,1);
+222   yplot=zeros(repno,1);
+223   for i=1:repno,
+224       xplot(i)=rep(i,1);
+225       yplot(i)=rep(i,2);
+226   end
+227
+228
+229
+230   %%
+231   concat = zeros(length(newx),2);
+232   for i=1:length(newx);
+233       concat(i,1) = newx(i);
+234       concat(i,2) = newy(i);
+235   end
+236
+237   concat=horzcat(newx,newy);
+238   [clusid,clusters]=kmeans(concat,numlongdist);
+239
+240   cluslongscr=zeros(numclus,2);
+241
+242   for i=1:length(clusters),
+243       for j=1:length(newx)
+244           if sqrt((clusters(i,1)-newx(j))ˆ2+(clusters(i,2)-newy(j))ˆ2)≤sepdist;
+245               cluslongscr(i,1)=i;
+246               cluslongscr(i,2)=cluslongscr(i,2)+1;
+247           end
+248       end
+249   end
+250
+251   cluslongsrt=sortrows(cluslongscr,-2);
+252   plplots=zeros(actlongdist,2);
+253
+254   for i=1:actlongdist,
+255       plplots(i,1)=clusters(cluslongsrt(i),1);
+256       plplots(i,2)=clusters(cluslongsrt(i),2);
+257   end
+258
+259   plrep=zeros(100,2);
+260
+
+261   longdistmat=zeros(actlongdist,2);
+262   currentlong=1;
+263   plrep(1,1)=plplots(1,1);
+264   plrep(1,2)=plplots(1,2);
+
+
+=== PHYSICAL PAGE 47 ===
+      Control Number: 11759                                             Page 47 of 51
+
+
+265   plrep(1,3)=1;
+266
+267   for j=1:actlongdist,
+268       longdistmat(j,1)=j;
+269       longdistmat(j,2)=sqrt((plrep(1,1)-plplots(j,1))ˆ2+(plrep(1,2)-plplots(j,2))ˆ2);
+270   end
+271
+272
+273   ldsort=sortrows(longdistmat,2);
+274   tar(1,1)=plplots(ldsort(2,1),1);
+275   tar(1,2)=plplots(ldsort(2,1),2);
+276   prevtarget=ldsort(2,1);
+277   d2tar=longdistmat(ldsort(2,1),2);
+278
+279   if ((plrep(1,1)≥tar(1,1))&&(plrep(1,2)≤tar(1,2)))
+280        angletotarget= acos((tar(1,1)-plrep(1,1))/d2tar);
+281   elseif ((plrep(1,1)≥tar(1,1))&&(plrep(1,2)≥tar(1,2)))
+282        angletotarget=2*pi-acos((tar(1,1)-plrep(1,1))/d2tar);
+283   elseif ((plrep(1,1)≤tar(1,1))&&(plrep(1,2)≥tar(1,2)))
+284        angletotarget=2*pi-acos((tar(1,1)-plrep(1,1))/d2tar);
+285   else
+286        angletotarget=acos((tar(1,1)-plrep(1,1))/d2tar);
+287   end
+288
+289   while d2tar>plsepdist,
+290       currentlong=currentlong+1;
+291       plrep(currentlong,1)=plrep(currentlong-1,1)+plsepdist*cos(angletotarget);
+292       plrep(currentlong,2)=plrep(currentlong-1,2)+plsepdist*sin(angletotarget);
+293       plrep(currentlong,3)=1;
+294       d2tar=sqrt((plrep(currentlong,1)-tar(1,1))ˆ2+(plrep(currentlong,2)-tar(1,2))ˆ2);
+295   end
+296
+297   for i=1:actlongdist,
+298       newzones(i,1)=plplots(i,1);
+299       newzones(i,2)=plplots(i,2);
+300   end
+301   newzones(prevtarget,:)=[];
+302   newzones(1,:)=[];
+303
+
+304   counter=1;
+305   while counter<actlongdist-1;
+306       counter=counter+1;
+307
+308       longdistmat=zeros(actlongdist-counter,2);
+309       for i=1:actlongdist-counter,
+310           longdistmat(i,1)=i;
+311           longdistmat(i,2)=sqrt((plrep(currentlong,1)-newzones(i,1))ˆ2+(plrep(currentlong,2)-
+312       end
+313
+314       ldsort=sortrows(longdistmat,2);
+315
+316       prevtarget=ldsort(1,1);
+317       tar(1,1)=newzones(prevtarget,1);
+318       tar(1,2)=newzones(prevtarget,2);
+
+
+=== PHYSICAL PAGE 48 ===
+      Control Number: 11759                                               Page 48 of 51
+
+
+319
+320         d2tar=longdistmat(prevtarget,2);
+321
+322
+
+323         if ((plrep(currentlong,1)≥tar(1,1))&&(plrep(currentlong,2)≤tar(1,2)))
+324             angletotarget= acos((tar(1,1)-plrep(currentlong,1))/d2tar);
+325         elseif ((plrep(currentlong,1)≥tar(1,1))&&(plrep(currentlong,2)≥tar(1,2)))
+326             angletotarget=2*pi-acos((tar(1,1)-plrep(currentlong,1))/d2tar);
+327         elseif ((plrep(currentlong,1)≤tar(1,1))&&(plrep(currentlong,2)≥tar(1,2)))
+328             angletotarget=2*pi-acos((tar(1,1)-plrep(currentlong,1))/d2tar);
+329         else
+330             angletotarget=acos((tar(1,1)-plrep(currentlong,1))/d2tar);
+331         end
+332
+333         while d2tar>plsepdist,
+334             currentlong=currentlong+1;
+335             plrep(currentlong,1)=plrep(currentlong-1,1)+plsepdist*cos(angletotarget);
+336             plrep(currentlong,2)=plrep(currentlong-1,2)+plsepdist*sin(angletotarget);
+337             plrep(currentlong,3)=1;
+338             d2tar=sqrt((plrep(currentlong,1)-tar(1,1))ˆ2+(plrep(currentlong,2)-tar(1,2))ˆ2);
+339         end
+340
+
+341         newzones(prevtarget,:)=[];
+342
+343
+344   end
+345
+
+346
+347   noplrep=currentlong;
+348   openchannels=openchannels+numberoflongdistancelines*perline;
+349   deficit=max(connected-openchannels,0);
+350
+351   indexnum=0;
+352   indexnum2=0;
+353   channelnumber=numberoflongdistancelines;
+354   plcolor(1:currentlong,1)=51;
+355   plcolor(1:currentlong,2)=51;
+356   plcolor(1:currentlong,3)=255;
+357   pluncovered=horzcat(newx,newy);
+358   numuncovered=length(newx);
+359   while deficit>0
+360      channelnumber=channelnumber+1;
+361      currentlong=currentlong+1;
+362      indexnum=indexnum+1;
+363      if indexnum==actlongdist
+364         indexnum=1;
+365         concat = zeros(numuncovered,2);
+366         for i=1:numuncovered;
+367             concat(i,1) = pluncovered(i,1);
+368             concat(i,2) = pluncovered(i,2);
+369         end
+370
+371           [clusid,clusters]=kmeans(pluncovered,numlongdist);
+372
+
+
+=== PHYSICAL PAGE 49 ===
+      Control Number: 11759                                                 Page 49 of 51
+
+
+373            cluslongscr=zeros(numlongdist,2);
+374
+375            for i=1:length(clusters),
+376                  for j=1:length(pluncovered)
+377                      if sqrt((clusters(i,1)-pluncovered(j,1))ˆ2+(clusters(i,2)-pluncovered(j,2))
+378                          cluslongscr(i,1)=i;
+379                          cluslongscr(i,2)=cluslongscr(i,2)+1;
+380                      end
+381                  end
+382            end
+383
+384              cluslongsrt=sortrows(cluslongscr,-2);
+385              plplots=zeros(actlongdist,2);
+386
+387              for i=1:actlongdist,
+388                  plplots(i,1)=clusters(cluslongsrt(i),1);
+389                  plplots(i,2)=clusters(cluslongsrt(i),2);
+390              end
+391         end
+392         plrep(currentlong,1)=plplots(indexnum,1);
+393         plrep(currentlong,2)=plplots(indexnum,2);
+394         plrep(currentlong,3)=channelnumber;
+395         index1=1;
+396         for i=1:numuncovered,
+397             if sqrt((plrep(currentlong,1)-pluncovered(i))ˆ2+(plrep(currentlong,2)-pluncovered(i))
+398                 pluncovered(index1,1)=pluncovered(i,1);
+399                 pluncovered(index1,2)=pluncovered(i,2);
+400                 index1=index1+1;
+401             else
+402                 numuncovered=numuncovered-1;
+403             end
+404         end
+405         plcolor(currentlong,1)=255-indexnum2*20;
+406         plcolor(currentlong,2)=40+indexnum2*20;
+407         plcolor(currentlong,3)=0;
+408         noplrep=noplrep+1;
+409         openchannels=openchannels+perline;
+410         deficit=max(connected-openchannels,0);
+411         indexnum2=indexnum2+1;
+412   end
+413
+414   plrepplot=zeros(currentlong,2);
+415   for i=1:currentlong,
+416       plrepplot(i,1)=plrep(i,1);
+417       plrepplot(i,2)=plrep(i,2);
+418   end
+419
+420
+421   %}
+422   %%
+423   plot(newx,newy,'s','MarkerSize',2,'MarkerEdgeColor',[1 1 1]);
+424
+425   hold on
+426   xlabel('Miles');
+
+
+=== PHYSICAL PAGE 50 ===
+      Control Number: 11759                                                Page 50 of 51
+
+
+427   ylabel('Miles');
+428   title('Random User Data');
+429   hold on
+430
+
+431   plot(xplot,yplot,'.','MarkerFaceColor','none','MarkerEdgeColor',[1 0 0],'MarkerSize',20,'Li
+432   hold on
+433
+434   %}
+435
+436   %{
+437   plot(plplots(:,1),plplots(:,2),'o','MarkerFaceColor','g','MarkerEdgeColor',g,'MarkerSize',1
+438   %}
+439
+440   for i=1:noplrep,
+441       plot(plrepplot(i,1),plrepplot(i,2),'.','MarkerFaceColor','g','MarkerEdgeColor','g','Mar
+442       hold on
+443   end
+444
+445
+446    for i=1:repno,
+447        h=rep(i,1); k=rep(i,2); r=10; N=256;
+448        t=(0:N)*2*pi/N;
+449        plot(r*cos(t)+h,r*sin(t)+k,'Color','r','LineStyle','--');
+450        hold on
+451    end
+452
+453
+
+454
+455
+456        for i=1:repno,
+457          h=rep(i,1); k=rep(i,2); r=10; N=256;
+458          t=(0:N)*2*pi/N;
+459          plot(r*cos(t)+h,r*sin(t)+k,'Color',[43/255 129/255 86/255],'LineStyle',':');
+460          hold on
+461        end
+462   %}
+463    %{
+464    for i=1:noplrep,
+465        h=plrep(i,1); k=plrep(i,2); r=15; N=256;
+466        t=(0:N)*2*pi/N;
+467        plot(r*cos(t)+h,r*sin(t)+k,'Color',[plcolor(i,1)/255 plcolor(i,2)/255 plcolor(i,3)/255]
+468        hold on
+469    end
+470
+471
+
+472
+473    for i=1:currentlong,
+474        if i==7,
+475           text(plrep(i,1)-2,plrep(i,2),num2str(plrep(i,3)));
+476        elseif i==8,
+477             text(plrep(i,1)+.5,plrep(i,2),num2str(plrep(i,3)));
+478        elseif i==12,
+479        else
+480             text(plrep(i,1)+.5,plrep(i,2),num2str(plrep(i,3)));
+
+
+=== PHYSICAL PAGE 51 ===
+      Control Number: 11759                                         Page 51 of 51
+
+
+481          end
+482    end
+483   %}
+484
+
+485
+486   %{
+487   h=plot(clusters(:,1),clusters(:,2),'v',...
+488         'MarkerSize',10,'LineWidth',2,'MarkerEdgeColor','k');
+489   axis([-40 40 -40 40]);
+490   set(h, 'Color', [.8 .8 .8]);
+491   get(h);
+492      %}
+493
+494   axis([-40 40 -40 40]);
+495   axis('square')
+496   hold off
+497   disp('number of repeaters'),disp(repno);
+498
+499   disp('number of PL repeaters'),disp(noplrep);
+500   disp('number of channels'),disp(openchannels);

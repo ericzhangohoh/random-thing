@@ -1,0 +1,1065 @@
+=== PHYSICAL PAGE 1 ===
+                                 Team Control Number
+
+
+
+                               15065
+For office use only                                             For office use only
+T1 ________________                                             F1 ________________
+T2 ________________                                             F2 ________________
+T3 ________________                                             F3 ________________
+                                    Problem Chosen
+T4 ________________                                             F4 ________________
+                                          A
+
+               2012 Mathematical Contest in Modeling (MCM) Summary Sheet
+In our paper, we construct a mathematical model for estimating total leaf mass of a
+tree and investigating the relationship between leaf shape and tree profile.
+
+Our approach consists of two main models.
+   The vector tree model uses vector and linear transformation to simulate the
+    geometrical structures of a tree, based on empirical and theoretical research on
+    tree structures. A key assumption for this model is that the branching structure
+    of a tree is paracladial.
+   The sunlight model simulates light irradiance inside the tree crown. It starts by
+    simulating the spiral motion of the sun in the course of a year using the
+    brightness function for the sky. Then, the sunlight irradiance inside the tree
+    crown is evaluated using a model based on the Monsi-Saeki equation.
+
+To investigate the relationship between leaf shape and tree profile. We use the
+vector tree model to generate different tree profiles. We change the leaf shape
+under the same branching structure and see whether the real world leaf shape
+maximizes sunlight exposure among different shapes. Projection of shadow is used to
+measure sunlight exposure. Spherical integration is used to calculate the weighted
+sunlight exposure rate based on the brightness function for the sky. For each tree
+branching structure, leaves of three different leaf shapes are tested for the total
+amount of exposure to the sunlight. Comparing the simulated data to real-life data,
+we found that leaf shapes generally maximize the total exposure. Furthermore, our
+algorithm is good for medium and small sized leafs, but tends to be unreliable and
+generate answers with large variance for large sized leaves.
+
+To estimate the total leaf mass of a tree, we incorporate the tree profile with the
+photosynthesis model, and use indexes like leaf mass per area (LMA) and leaf area
+index (LAI) to estimate the total leaf mass of a tree. Photosynthesis rates are
+assumed to be affected only by sunlight irradiance. We compute the leaf mass of
+Cinnamomum camphora using this proposed method. Comparing to the real-life data,
+our method is accurate enough with the limited amount of data.
+
+
+=== PHYSICAL PAGE 2 ===
+ Geometrical Tree
+Leaf mass & leaf-tree relationship
+             Team # 15065
+
+
+=== PHYSICAL PAGE 3 ===
+Content
+1.     Introduction ...................................................................................................................... 3
+
+     1.1      Outline of Our Approach ............................................................................................ 3
+
+     1.2      General Assumptions ................................................................................................. 4
+
+2      Vector Tree Model ............................................................................................................ 4
+
+     2.1      Leaf classification ....................................................................................................... 4
+
+     2.2      Branching Structure Model ........................................................................................ 6
+
+3      Sunlight Model ................................................................................................................ 10
+
+     3.1      Orbit of the sun & Brightness function for the sky .................................................. 10
+
+     3.2      Modeling the light irradiation at a certain position inside the tree crown.............. 11
+
+4      Leaf shape & tree profile/branching structure .............................................................. 12
+
+     4.1      Sunlight exposure rate ............................................................................................. 12
+
+     4.2      Matching leaf shape with tree profile/branching structure .................................... 14
+
+5      Leaf Mass of a Tree ......................................................................................................... 15
+
+     5.1      Computation of Leaf Mass per Area Ratio (LMA) .................................................... 16
+
+     5.2      Total leaf Area .......................................................................................................... 18
+
+     5.3      Case study: a real tree— Cinnamomum camphora ................................................. 19
+
+     5.4      Correlation between the leaf mass and the size characteristics of the tree ............... 21
+
+6      Improving the model ...................................................................................................... 23
+
+     6.1      Leaf classification ..................................................................................................... 23
+
+     6.2      Exposure area of leaves ........................................................................................... 23
+
+     6.3      Determinants of photosynthesis rate ...................................................................... 23
+
+7      Conclusion ....................................................................................................................... 23
+
+8      Letter to a scientific journal editor................................................................................. 24
+
+Reference ................................................................................................................................ 24
+
+Appendix: Matlab code for implementing our model............................................................. 26
+
+
+=== PHYSICAL PAGE 4 ===
+1. Introduction
+
+In this paper we present a mathematical model for investigating the relationship
+between tree profiles and leaf shapes and estimating the total leaf mass of a tree.
+Specifically, we created a tree profile using 3-dimensional coordinates and linear
+transformation. We simulate the sunlight irradiance in the tree crown using the
+brightness function of the sky and Monsi and Saeki equation (Monsi, 1953). We then
+incorporate the sunlight irradiance into different tree profiles to find a leaf shape
+that maximizes sunlight exposure. The chosen shapes match with real leaf shapes,
+suggesting a close relationship between leaf shape and tree profile: leaf shape
+maximizes the overall sunlight exposure under a given tree profile. We then
+incorporate the tree profile with the photosynthesis model (Tsukaya, 2006), and use
+indexes like leaf mass per area (LMA) and leaf area index (LAI) to estimate the total
+leaf mass of a tree.
+
+1.1 Outline of Our Approach
+
+We first introduce two models which will be useful in the latter applications:
+
+   Vector Tree Model: The first part of our paper will be devoted to presenting the
+    theoretical framework of this model. Our objective is to create a spatial structure
+    of the tree crown (branching structure and leaf distribution). We use vectors to
+    simulate leaf shape, distribution of leaves on branches, and the tree
+    profile/branching structure. Linear transformation of vectors is used to simulate
+    the relationship between daughter branch and parent branch.
+
+   Sunlight Model: The second part of the paper will introduce the sunlight model.
+    Our objective is to simulate solar irradiance across a year. Brightness function
+    over the celestial sphere is used to describe solar irradiance from different
+    directions, Monsi and Saeki equation is used to calculate the light attenuation in
+    a tree crown due to overlapping of leaf shadows.
+
+The latter sections present two applications of the models.
+
+   Investigating the Relationship between Leaf Shape and Tree Profile
+    We use the vector tree model to construct different tree profiles. Combining the
+    tree profile with the sunlight model, we are able to calculate the sunlight
+    exposure rate of the leaves. We then adopt different leaf shapes for the same
+    tree profile and find the one that maximizes the sunlight exposure. Comparing
+    this chosen leaf shape with the real leaf shape of the tree, if there is a match, we
+    may conclude that the leaf shape is associated with the tree profile in that it
+    maximizes the sunlight exposure.
+
+
+=== PHYSICAL PAGE 5 ===
+   Estimating Total Leaf Mass of a Tree
+    Given a tree, we use the vector tree model to simulate its profile, and use the
+    sunlight model to determine the light irradiance at each leaf. Then, we derive the
+    relationship between light irradiance and the leaf mass per area (LMA) according
+    to a photosynthesis model. Thus, we can derive the LMA for each leaf and
+    calculate the weighted average LMA for the entire tree. We then use the sunlight
+    model again to find the shadow of the tree crown and calculate the total leaf
+    area of the tree using leaf area index (LAI). Finally, the total leaf mass is
+    calculated by multiplying LMA with the total leaf area.
+
+1.2 General Assumptions
+
+   Trees are assumed to be paracladial, i.e. if any branch is cut off, it has the same
+    structural characteristics, apart from size, as the parent from which it is cut.
+   The majority of leaves will grow on the last generation of branches.
+   Sun light is assumed to propagate in a straight line. Diffraction and refraction of
+    lights are ignored.
+   Photosynthesis rate is assumed to be affected only by the rate of light irradiance.
+    Other factors such as CO2 concentration in the air are assumed to be
+    homogeneous at any part of the tree crown.
+   Photosynthesis due to light sources other than the sun is neglected. (e.g.
+    moonlight at night and artificial light)
+   The environmental destructive effects are minimized and thus negligible, such as
+    natural disasters and herbivory.
+   Nutrient supplies are sufficient.
+
+
+2 Vector Tree Model
+
+2.1 Leaf classification
+
+The leaf is a major part of the plant-body plan. How to classify different leaves?
+Traditional plant taxonomy focuses on leaf functions and leaf shape. Recent research
+also suggests that venation is a strong indicator in leaf classification.
+
+The general leaf shape is an important factor for the plant to receive sunlight.
+Traditional parameters in describing leaf shape include presence/absence of leaf
+petiole, flatness, leaf index (a ratio of leaf length to leaf width), margin type, and
+overall size. (Tsukaya, 2006)
+
+Since we are going to construct a computerized simulation of a tree, is it important
+for us to classify leaves quantitatively such that they are easy for representation and
+simulation. Hence we develop a model to classify the leaves into 4 basic shape
+categories.
+
+
+=== PHYSICAL PAGE 6 ===
+To classify a given leaf to one of the four basic shape categories, we focus on 3
+factors of the leaf: shape convexity, leaf index (ratio of leaf length to leaf width), and
+the position of the longest width on a leaf.
+
+To determine the shape convexity, we first simulate a leaf using a polygon. We first fit
+the leaf into a grid with each cell size 0.5cm×0.5cm. Next we select the outmost grids
+that have been covered more than half by the leaf. Then we plot and connect the
+centers of these grids. Hence we have a simulating polygon of the leaf.
+Two illustrations are shown as below.
+
+
+
+
+We are now able to determine the convexity of the polygon of leaf— convex
+polygons are such that all diagonals lie entirely inside the polygon; concave polygons
+are such that some diagonals will lie outside the polygon. Hence we can determine
+the convexity of the leaf.
+
+If a leaf is concave, we immediately classify it as Palmate. Convex leaves are left for
+further determination.
+
+To classify other leaves, the second factor we look at is leaf index, which is the ratio
+
+
+=== PHYSICAL PAGE 7 ===
+of leaf length to leaf width. According to empirical data (Tsukaya, 2006) (Johnson,
+1990), we classify leaves with leaf ratio of 3.5 and above as Linear. Those with leaf
+ratio below 3.5 will be either Elliptic or Deltoid.
+
+To classify Elliptic leaf and Deltoid leaf, we look at the position of longest-width on a
+leaf. In order to have a more quantitative view, we are interested in the ratio of
+distance between leaf tip and longest-width-position (D) to the leaf length (L).
+
+
+
+
+If the ratio (D/L) lies within [1/4, 3/4], we classify the leaf as Elliptic. Leaves whose
+ratio<1/4 or >3/4 are Deltoid.
+
+To summarize the decision rule of classifying a leaf, we provide a decision flow chart.
+
+                               Leaf polygon: convex?
+
+                                   Convex                  Concave
+                                                                     Palmate
+                          Leaf index
+                                             ≥3.5
+                            <3.5                                     Linear
+
+
+                Ratio of distance between leaf tip     ∈[1/4, 3/4]
+                and longest-width-position (D) to                    Elliptic
+                the leaf length (L)
+
+                                            <1/4 or >3/4
+                                                                     Deltoid
+
+
+2.2 Branching Structure
+
+2.2.1 Biological Backgrounds and Existing Models
+
+The existing geometrical models simulating branching structures of trees are
+essentially empirical based on a rule that specifies the relative angular direction and
+length of a daughter branch to its parent branch (Johnson, 1990). In order to obtain a
+more realistic model, studies considering whorls and bifurcations as rule in branching
+simulation have also been carried out (Fisher, 1977) (Fisher, 1979).
+
+
+=== PHYSICAL PAGE 8 ===
+2.2.2 Model Description
+
+
+
+
+(http://www.infovisual.info/01/002_en.html)
+
+In this model, our objective is to represent each branching point and the position of
+each leaf using their position vector (x,y,z) in a 3D coordinate shown above with
+z-axis set to be the main stem of the tree.
+
+2.2.2.1 Child Branch Formation
+
+Given the length and location of a parent branch, we want to find the direction and
+length of the child branch. At this point, the Child branches generated will subject to
+the following:
+
+a) Number of child branches at the branching point N is given by
+                                  N=[𝜃 ∗ 𝜎(𝑘)],
+where
+  𝑘: A species-wise constant coefficient which is related to the mean of the
+   number of child branches for the species.
+  θ: Uncertainty compensator which incorporates the genetic uncertainties and
+   environmental uncertainties.
+  𝜎: A function which maps the species of a tree to the mean number of child
+   branches generated at this branching point.
+
+
+=== PHYSICAL PAGE 9 ===
+b) At each branching point, the length and direction of the N child branches are
+   determined by multiplying the direction vector of the parent branch with
+   transformation matrices 𝐴1 , 𝐴2 , … , 𝐴𝑁 respectively.
+
+𝐴𝑖 is defined as the following:
+
+                                      𝑐𝑜𝑠𝜑𝑖           𝑠𝑖𝑛𝜑𝑖          0
+           𝐴𝑖 (𝜃𝑖 , 𝜑𝑖 ) =   𝜆𝑖 ∗ (−𝑐𝑜𝑠𝜃𝑖 𝑠𝑖𝑛𝜑𝑖    𝑐𝑜𝑠𝜃𝑖 𝑐𝑜𝑠𝜑𝑖     𝑠𝑖𝑛𝜃𝑖 )
+                                    𝑠𝑖𝑛𝜃𝑖 𝑠𝑖𝑛𝜑𝑖    −𝑠𝑖𝑛𝜃𝑖 𝑐𝑜𝑠𝜑𝑖    𝑐𝑜𝑠𝜃𝑖
+
+
+
+
+where 𝜆𝑖 is the length change, 𝜑𝑖 is the rotated angle with respect to the parent
+branch about 𝑂𝑧 and 𝜃𝑖 is the rotated angle with respect to the parent branch
+about local x axis 𝑂𝑥 with respect to the parent branch. Note that at each branching
+point, the coordinate system adopted for this transformation will be the local
+coordinate system with respect to the local parent branch, and the parent branch will
+lie on the z-axis.
+
+c) Now, we are able to determine the coordinate of each branch.
+We first number the branches according to the generating sequence. Let 𝑟𝑁 denotes
+the vector representing the branch of the Nth generated branch. If 𝑟𝑡 is the parent
+branch of 𝑟𝑘 , then the equation:
+                                    𝑟𝑘 = 𝐴𝑗 𝑟𝑡
+is to be satisfied, where 𝐴𝑗 is the transformation matrix that governs the rule
+between tth branch and kth branch (abbreviated as branch t and branch k in later
+context).
+
+Let 𝑅𝑁 denote the coordinate of Nth generated branch.
+Then 𝑅1 = 𝑟1 and 𝑅𝑘 = 𝑅𝑡 + 𝑟𝑘 .
+
+In particular, in the situation where only bifurcations are concerned (Johnson, 1990),
+                                            𝑟 = 𝐴1 𝑟𝑘
+                                          { 2𝑘
+                                           𝑟2𝑘+1 = 𝐴2 𝑟𝑘
+and
+                                          𝑅2𝑘 = 𝑟2𝑘 + 𝑅𝑘
+                                      {
+                                        𝑅2𝑘+1 = 𝑟2𝑘+1 + 𝑅𝑘
+
+2.2.2.2 Leaf Formation
+
+
+=== PHYSICAL PAGE 10 ===
+Now, we are ready to construct leaves on the branches.
+Define set 𝐴 = {𝑟𝑝 𝜖 𝑇𝑟𝑒𝑒| ∀ 𝑟𝑘 𝜖 𝑇𝑟𝑒𝑒, 𝑏𝑟𝑎𝑛𝑐ℎ 𝑝 𝑖𝑠 𝑛𝑜𝑡 𝑡ℎ𝑒 𝑝𝑎𝑟𝑒𝑛𝑡 𝑜𝑓 𝑏𝑟𝑎𝑛𝑐ℎ 𝑘}
+and the growing of leaves is subject to the following:
+
+a)  Basic phyllotaxis patterns:
+    (http://www.math.smith.edu/phyllo//About/Classification.html)
+  Distichous Phyllotaxis, in distichous phyllotaxis, leaves or other botanical
+   elements grow one by one, each at 180 degrees from the previous one.;
+  Whorled Phyllotaxis, In whorled phyllotaxis, two or more elements grow at the
+   same node on the stem.;
+  Spiral Phyllotaxis, In spiral phyllotaxis, botanical elements grow one by one, each
+   at a constant divergence angle d from the previous one.;
+  Multijugate Phyllotaxis, elements in a whorl (group of elements at a node) are
+   spread evenly around the stem and each whorl is at a constant divergence angle
+   d from the previous one.
+b)    The spacing of leaves on the branch is determined by the function d(I)
+      which takes in the intensity of sunlight irradiance and outputs the spacing of
+      the leaves.
+c)    The probability that a leaf grows at a certain spot is determined by the
+      function 𝑝(𝐼) which takes in the intensity of sunlight irradiance and outputs
+      the probability that a leaf is likely to grow on a certain spot of the branch.
+
+In our model, for each 𝑟𝑝 𝜖 𝐴, we grow the leaves on branch p according to the
+archived Basic phyllotaxis patterns for different species. The spacing between two
+different potential leaf-growing spots is d(I) and the probability of a leaf growing at
+a certain spot is 𝑝(𝐼).
+
+2.2.3 Different tree profiles generated by our model
+
+Using the model introduced above, we are able to generate a wide range of tree
+profiles by varying the coefficients in the model. Three examples are shown below.
+
+
+
+
+Zooming in to the picture, the leaves are represented as this:
+
+
+=== PHYSICAL PAGE 11 ===
+3 Sunlight Model
+
+Photosynthesis is important for the growth of leaves, and it is driven by solar energy.
+Thus, in this section, we will consider the light irradiance in a tree crown. By
+modeling the sun radiation using brightness function, and using Monsi-Saeki
+equation (Monsi, 1953) to describe the light attenuation within a tree crown, we will
+be able to calculate light irradiance at any point within the tree crown.
+
+3.1 Orbit of the sun & Brightness function for the sky
+
+Orbit of the sun
+Since the sun moves in a spiral during the course of a year (in the view of an observer
+standing on the earth), we will first model its orbit using celestial sphere. At different
+latitude, the sun will trace out a different trajectory in a year. Three examples are
+shown below.
+
+
+
+
+          North temperate zone         Equator           the Arctic Pole
+
+Brightness function for the sky
+The brightness function (Johnson, 1990) for the sky is defined in terms of spherical
+polar coordinates (r, θ, φ), although it does not involve the r coordinate. When
+defining the position of the sun, θ is known as the zenith angle (when θ = 0, the
+sun is directly overhead) and φ is termed the azimuth angle.
+
+
+
+
+The brightness function of the sky is defined as B(θ, φ), with units W m-2 srad-1. The
+steradian (srad) is the SI unit for solid angle: a solid angle is the area of the surface of
+a portion of sphere divided by the square of the radius of the sphere. Thus the total
+solid angle of a sphere is 4π srad
+
+Deriving the brightness function
+
+
+=== PHYSICAL PAGE 12 ===
+To illustrate the method of deriving B(θ, φ), we use trees on the equator as an
+example. Brightness function for the sky at other latitude and longitude can be
+derived in a similar way with slight modification of the algorithm.
+
+
+
+
+                                          A        B
+On the equator, the orbit of the sun will shift from circle A to circle B from summer
+solstice to winter solstice (strictly speaking it is not a circle but a spiral).
+
+We denote the rate of solar radiation that reaches the earth as E with unit of W m -2
+s-1. E is known from previous research of solar energy.
+
+When the sun is at a certain position (θ, φ) on the celestial sphere, the rate of solar
+energy that is absorbed by the earth surface (Ea) depends on the angle between the
+ground and the light beam (γ).
+                                                   𝜋
+                             𝐸𝑎 ≈ E × sinγ, (γ = 2 − 𝜑)
+
+
+
+
+Thus, since we know the orbit of the sun in the course of a year, the brightness
+function can be derived by integration of Ea over time (t). This should be done by
+computer simulation and discretization of the spiral trajectory is used for ease of
+implementation.
+
+3.2 Sunlight irradiation inside the tree crown
+
+In plant models, light attenuation in a canopy is generally described by the equation
+(known as Monsi and Saeki equation (Monsi, 1953)):
+                                     𝐼(𝑙) = 𝐼0 𝑒 −𝑘𝑠
+
+where 𝐼0 and 𝐼(𝑙) (W (m2 ground)-1) are the irradiances above and within the tree
+crown respectively at path-length s, and 𝑘(m2 ground(m2 leaf)-1) is known as the
+
+
+=== PHYSICAL PAGE 13 ===
+extinction coefficient which is assumed to be constant.
+               B(θ, φ)
+
+
+
+
+                                          s
+                                                        P
+
+
+
+
+For any point P within the tree crown, the path-length s varies with the angles
+θ and φ. Monsi-Saeki equation can be used to describe the attenuation along the
+path-length s that the radiation passes to reach P. And according to our definition of
+brightness function, 𝐼0 = B(θ, φ). Thus, the total irradiation at a point P within the
+plant 𝐼𝑝 is given by the integral
+                              𝜋/2    2𝜋
+                     𝐼𝑝 = ∫         ∫ 𝐵(𝜃, 𝜑)𝑒 −𝑘𝑠 cosθsinφ 𝑑𝜃 𝑑𝜑
+                             0      0
+
+In practice, this integral is evaluated numerically using computer programs.
+
+
+4 Leaf shape & tree profile/branching structure
+
+In this section, we use the model developed in chapter 2 to investigate the
+relationship between leaf shape and tree profile/branching structure. We raise a
+hypothesis that for any tree profile, the leaf shape will maximize its exposure to
+sunlight.
+
+To test this hypothesis, we calculate the sunlight exposure rate for each type of leaf
+shape under a given branching structure. Then, we will choose the leaf shape which
+maximizes sunlight exposure. If the leaf shape chosen coincides with the real life
+shape, our hypothesis is true.
+
+4.1 Sunlight exposure rate
+
+To define the sunlight exposure rate of leaves, we first ignore the motion of the sun
+in the sky and assume that the sun is always directly overhead of the tree. Then, the
+sunlight exposure rate (SE) is defined as
+                                                ∑𝐴
+                                          SE = 𝑇𝐴 𝑖 ,
+Where Ai is the area of shadow casted by an individual leave with index i
+(denoted by pink dots on the graph below), and TA is the total area within the
+
+
+=== PHYSICAL PAGE 14 ===
+borderline of the shadow casted by the tree crown (denoted by the red circle on the
+graph below). SE measures the proportion of sunlight on the tree crown that is
+blocked by leaves.
+
+
+
+
+Now, we consider the motion of the sun in the sky. We have introduced the concept
+of brightness function for the sky B(θ, φ) in section 2.2 which models the motion of
+sun in the course of a year by assigning each point (θ, φ) on the celestial sphere a
+solar irradiance rate.
+
+We define the sunlight exposure rate for each direction (θ, φ) in a similar way to
+the overhead sunlight.
+
+
+
+
+                                            ∑ 𝐴𝑖 (𝜃, 𝜑)
+                                  SE(θ, φ) =
+                                              𝑇𝐴(𝜃, 𝜑)
+Then, the overall sunlight exposure rate for the tree is an integral of SE(θ, φ) over
+the entire celestial sphere with weight B(θ, φ) for each (θ, φ):
+                            𝜋/2    2𝜋
+                           ∫0     ∫0 𝐵(𝜃, 𝜑) ∙ 𝑆𝐸(𝜃, 𝜑)𝑐𝑜𝑠𝜃𝑠𝑖𝑛𝜑dθ𝑑𝜑
+               SEtotal =                                            ,
+                                                 𝑁
+              𝜋/2    2𝜋
+where N = ∫0        ∫0 𝐵(𝜃, 𝜑)𝑐𝑜𝑠𝜃𝑠𝑖𝑛𝜑dθ𝑑𝜑 is a normalization factor. The range of
+
+
+=== PHYSICAL PAGE 15 ===
+SEtotal is [0, 1].
+
+4.2 Matching leaf shape with tree profile
+
+Now, we are ready to investigate the relationship between leaf shape and branching
+structures.
+
+As illustrated in section 2, we classify leaf shapes into the following categories.
+
+
+
+
+We choose three types of tree profiles to study:
+
+
+
+
+Profile 1: pine tree      Profile 2: poplar tree Profile 3: Janpanese banana
+
+For each tree profile, we calculate the SEtotal for the four types of leaves and chose
+the one with the highest SEtotal. We set d (the distance between adjacent leaves on
+the same branch) and S (the size of a leaf) based on data in ‘manual of leaf
+architecture’ (Beth Ellis, 2009) To derive the brightness function of the sky, we
+assume that the tree is located at a place with latitude: 45 oN. The results are shown
+below:
+
+     Tree Profile： Triangular:      pine Elliptic:   poplar Semi-spherical:
+                   tree                  tree               Japanese banana
+     Leaf
+     distribution
+     on
+     branches:
+                   0.53                   0.62                0.82
+
+                       0.67               0.49                0.83
+
+                       0.49               0.63                0.82
+
+
+=== PHYSICAL PAGE 16 ===
+                   0.47                  0.62                  0.85
+
+   Shape
+   chosen
+   Real leaf
+   shape
+
+
+
+
+                                                   This figure is the detailed implementation of poplar
+                                                   tree with Deltoid leaves (numerical discretion is
+                                                   adopted). From the figure we could see that different
+                                                   angles of sun will influence the exposure area of the
+                                                   leaves on the tree. In our implementation, when θ
+                                                   and φ are small, the light irradiance on the tree is
+                                                   largest. We computed the weighted sum according to
+                                                   the method described in the previous sections.
+
+
+
+Since the results are generally expected, our hypothesis stands, i.e. there is
+correlation between leaf shapes and tree structures: leaf shapes tend to maximize
+sunlight exposure of this tree. This provides insights into why leaves have different
+shapes. A larger pool of tree profiles should be studied using this model before we
+can draw a solid conclusion on the exact relationship. However, that is beyond the
+mathematical context of this topic, we leave it for readers who are interested to
+investigate further.
+
+
+5 Leaf Mass of a Tree
+In this section, we will use the vector tree model and sunlight model to estimate the
+total leaf mass of a tree. The general formula to calculate total leaf mass of a tree is
+    Total leaf mass = weighted Leaf mass per area ratio(LMA) × total leaf area
+The computation of LMA and leaf area will be introduced.
+
+
+=== PHYSICAL PAGE 17 ===
+5.1 Leaf Mass per Area Ratio (LMA)
+
+Leaf Mass per Area (LMA) is defined as the ratio of leaf mass over its area (g m-2).
+
+In this section, we describe a method to calculate the average LMA for the tree.
+Since Leaves on a tree have different thicknesses due to different photosynthesis rate
+determined by the sunlight irradiance at the leaf (SARAH J. COOKSON1, 2005), they
+tend to have different LMA. Thus, we need to calculate LMA for each leaf based on
+their photosynthesis rate and then calculate the weighted average of all the
+individual LMAs.
+
+5.1.1 Photosynthesis Rate
+
+We adopted the model in (Johnson, 1990) which relates the internal gross
+photosynthetic rate P with sunlight irradiance Il , internal 𝐶𝑂2 concentration of
+the plant 𝐶𝑖 and the 𝐶𝑂2 concentration in the air 𝐶𝑎 .
+                                                    𝛼𝐼𝑙 𝐶𝑖
+                                                     𝑟𝑥
+                                             𝑃=          𝐶    (*)
+                                                   𝛼𝐼𝑙 + 𝑖
+                                                         𝑟𝑥
+
+where α is known as the photochemical efficiency (𝑘𝑔 𝐶𝑂2 J-1) and 𝑟𝑥 as the
+carboxylation resistance (𝑠𝑚−1).
+Next, denote Pn as the net photosynthetic rate, and the following equation is
+
+satisfied
+                                          Pn = P - Rd           (**)
+
+and
+                                                Ca - Ci
+                                         Pn =                  (***)
+                                                  rd
+
+where Rd is the constant dart respiration rate, rd is the diffusion rate.
+
+Use (*) (**) and (***) to solve for P and 𝑃𝑛 , we get
+              0 = Pn2rd - Pn [a I1(rx + rd ) + Ca - Rd rd ]+ a I1Ca - Rd (a I1rx + Ca )
+Therefore, we get
+             -[a I1 (rx + rd ) + Ca - Rd rd ] ± [a I1 (rx + rd ) + Ca - Rd rd ]2 + 4rd Rd (a I1rx + Ca )
+      Pn =
+                                                        2rd
+However, by (Johnson, 1990) only the negative root is biologically valid, thus we can
+solve for Pn. In our model, Il is obtained from the sunlight model in section 3, Ca rx rd
+Rd are all assumed to be constant at any position in the tree crown.
+
+5.1.2 Leaf Mass Per Area Ratio (LMA) Affected by Venation Networks
+
+
+=== PHYSICAL PAGE 18 ===
+In modern ecology, LMA is an important measure in classifying different kinds of
+leaves. By observing the venation network of a given leaf area, one can also find a
+surprisingly correlated relationship between three venation functional traits and LMA
+(Benjamin Blonder, 2011). We follow the modeling process of the derivation of LMA
+with respect to the following functional traits:
+   Density σ : total path length of veins in the area of interest (ROI) divided by
+    the ROI area;
+   Distance d : the mean diameter of the largest circular masks that fit in each
+    closed loop
+   Loopiness x : the mean number of closed loops in ROI
+
+In (Benjamin Blonder, 2011) the derivation of the relationship between LMA and
+three functional traits shows the following relationship:
+                                            d = k0 d         (1)
+
+                                                                2rLd
+                                LMA = p rV2 ( rV - r L )s +          (2)
+                                                                 k0
+Where
+  ρ𝑣 is the inner radius of the veins in the ROI
+  r𝑣 is mass density of the terminal veins
+  ρ𝑙 is the mass density of the lamina
+  𝛿 is the thickness of the leaf at ROI
+  k 0 is a constant which relates d and δ
+
+5.1.3 Peak Carbon Assimilation Rate Per Mass
+
+In [BB], a detailed model is given to derive the Peak Carbon Assimilation Rate per
+Mass (𝐴𝑚 )
+                                        [p c0 (1- h)k0 ns asWUE]s                               (3)
+          Am =
+                                                                                       d
+                 [2 r L d + k0p r ( rV - r L )s ][(p ts + sqrt(p as ))s + 2as ns log(
+                                V
+                                 2
+                                                                                           )]
+                                                                                      k0rV
+
+where 𝑎𝑠 is the maximum aperture of a stomate, 𝑛𝑠 is the number density of open
+stomata, 𝑡𝑠 is the thickness of a stomatal pore, D is the temperature and pressure
+dependent diffusion constant of water in air, 𝐶0 is the temperature and pressure
+dependent saturation vapor concentration of water in air, WUE is water-use
+efficiency and h is the relative humidity ( (Buck, 1981) (Nobel, 1999).
+
+5.1.4 Derivation of LMA
+Now we use the results in the above sections to derive LMA. One observation we
+make is 𝑃𝑛 ≤ 𝐴𝑚 , since 𝐴𝑚 is the peak photosynthetic rate. Therefore, we use m
+
+which accounts for environmental factor such that
+
+
+=== PHYSICAL PAGE 19 ===
+                                   m Pn = Am (4) .
+Therefore, by assumption, we can solve for LMA combining equations (1) – (4) even if
+the thickness of the leaf d is unknown. Then we can get the desired LMA. By
+applying the above method for each leaf, we will be able to get the average LMA for
+the tree.
+
+5.2 Total leaf Area
+
+We will calculate the total leaf area of a tree by the following formula:
+ Total leaf area = Leaf Area Index(LAI) × ground area covered by the tree crown
+In the following sections, we will introduce the concept of LAI and the method of
+getting the ground area covered by the tree crown from our vector tree model.
+
+5.2.1 Leaf Area Index
+
+Leaf Area Index (LAI) is defined as the one sided green leaf area per unit ground area
+in broadleaf canopies, or as the projected needle leaf area per unit ground area in
+needle canopies.
+
+It is an indispensable parameter in studying plant physiology, since vegetation
+surface is an important determinant of various plant functions such as
+photosynthesis and transpiration. Methods used for measuring LAI in hardwood
+forests include destructive sampling, allometric equations, litter fall, and light
+interception based techniques. (Vose et al, 1995)
+
+A data set for LAI has been compiled containing 1008 records of worldwide data on
+leaf area index for the time period 1945-2000. (Scurlock, 2001)
+
+5.2.2 Ground area of a tree
+
+We can derive the ground area of a tree from the vector tree model introduced in
+section 2.2. By computer simulation, we project the tree crown onto the ground, and
+plot the margin of the projection. Hence calculate the ground surface area according
+to the projected polygon hull in the computer. Below is an illustration of a simulated
+tree and its crown projection.
+
+
+=== PHYSICAL PAGE 20 ===
+Once we know the ground area coved by the tree crown, we multiply it with LAI to
+get the total leaf area of the tree. And then, we multiply it to the LMA ratio to get the
+total leaf mass.
+
+5.3 Case study: a real tree— Cinnamomum camphora
+
+
+=== PHYSICAL PAGE 21 ===
+We would like to test our model by studying a real tree (Cinnamomum camphora)
+and estimate its total leaf mass. A picture of the tree is shown above.
+
+5.3.1 Simulation of the tree in computer
+
+In order to simulate the branching structure of this tree, we need to know the angles
+(θ1, ф1, θ2, ф2) of transformation stated in model 2.2. Since there are no empirical
+data for these parameters, we need to conduct a field measurement. The major
+difficulty is to determine the direction of our imaginary x-axis and y-axis: a wrong
+direction of coordinates will result in wrong angles and hence a twisted shape of tree
+profile.
+
+In our measurement, we first set the trunk to be z-axis, and the origin is at where the
+z-axis touches the ground (our xy-plane). We equally divide the ground using 32
+outgoing rays. (See illustration below)
+
+
+
+
+Setting each outgoing ray as x-axis, we then have 32 possible coordinate systems. In
+each coordinate system, we can directly measure and calculate a data set of (θ1, ф1,
+θ2, ф2) by measuring the angle of the branches. We simulate trees using each of
+these 32 data sets; compare the simulated vector tree with the real tree profile. The
+one that matches the real tree most closely will be chosen. The data we get from this
+field measurement and simulation is: θ1=π/12.5, ф1=π/3.7, θ2=－π/6, ф2=π/4.8
+
+The total number of branches of our simulated tree is 2 9, and we assume that the
+function d(I) defined in section 2.2.3.2 which determines the spacing of leaves
+follows the Gaussian distribution with parameters(μ=0.1, σ=0.1).
+
+We classify the shape of this tree leaf as Elliptic, and its average transverse diameter
+is around 5cm. For simplicity of calculation, we represent the leaves using rhombuses
+with average longer diagonal 0.25 in our computer simulation.
+
+Following is our simulated tree.
+
+
+=== PHYSICAL PAGE 22 ===
+5.3.2 Estimating the total leaf mass of the tree
+
+Using the model introduced in section 4.1, our computer simulates the effect of light
+intensity on the Leaf Mass Area (LMA) of leaves in different parts of the tree crown
+and hence derive the average LMA of the tree to be 177.74g/m-2
+
+The ground surface area can be calculated by the computer as introduced in section
+
+The output of the polygon ground surface area is 150.0359. Converting it to scale of
+the tree, the ground surface area is calculated to be around 6m 2 (actual number
+6.001436). This data matches the actual ground area of this tree quite closely.
+
+According to empirical data (Beth Ellis, 2009), Cinnamomum as evergreen
+broadleaved plant usually has a quite high leaf area index (LAI) above 10. We take the
+LAI of this tree to be 12. Hence the total leaf area of this tree is around 6×12=72m2
+
+Therefore, the leaf mass of this tree is estimated as 177.47g/m-2×72m2=12777.84g.
+
+5.4 Correlation between the leaf mass and the size characteristics of the tree
+
+In this section, we investigate the correlation between leaf mass and the size
+characteristics of trees, specifically the height of trees.
+
+We use our vector tree model to simulate trees with 3 different profiles (see
+illustration below) each at height varying from 5m to 10m (with 0.5m intervals), and
+calculate their total leaf area using the method introduced above.
+
+
+=== PHYSICAL PAGE 23 ===
+             Profile 1: Semi-sphere   Profile 2: Cone      Profile 3: Ellipsoid
+
+We conduct a regression analysis for the total 30 data and for each of the 3 profiles
+separately, to study the correlation between total leaf mass and the size characteristics
+of trees.
+
+Following is the plot of data
+General trees:                            Profile 1:
+
+
+
+
+Profile 2:                                  Profile 3:
+
+
+
+
+Hence we may conclude that for trees in general, we can hardly say that there is
+obvious correlation between the leaf mass and the size characteristics of trees.
+However, when considering trees with similar crown profile, it appears that the leaf
+mass may be related with the height of the tree—the total leaf mass tends to increase
+cubically as tree height increases. Since we only have limited data set, the actual
+correlation may be determined and tested through further investigation.
+
+
+=== PHYSICAL PAGE 24 ===
+6 Improving the model
+
+6.1 Leaf classification
+
+The basic building block of our model is the leaf model introduced in section 2.1, in
+which we classify leaves based on their shapes. We can improve this by taking into
+account other biological features of the leaves, such as their photosynthesis
+characteristics (e.g. C3 v.s C4 plants), transpiration patterns, or vein structure.
+
+6.2 Exposure area of leaves
+
+In section 3, when calculating the exposure area of leaves to the sunlight, we
+implement the model by discretizing the x-y plane in to small grids and determine
+whether the leaves block each grid. This algorithm works satisfactorily for small leaf
+size. However, as we have seen in the Japanese banana tree example, when leaf size
+is big, this algorithm tends to generate similar results for different leaf shapes. Thus,
+we may improve our algorithm to calculate leaf shadows for big size leafs.
+
+6.3 Determinants of photosynthesis rate
+
+In section 4.1, we assume that only sunlight irradiance affect the photosynthesis rate.
+Other factors relating to photosynthesis such as concentration of CO 2, water and N2
+may also be incorporated into the model.
+
+
+7 Conclusion
+The problem of investigating the relationship between leaf shapes and branching
+structures tend to be nontrivial given the biological complexity of the plant structure.
+Our approach tackles the problem geometrically since many previous studies in the
+field of plant physiology have shown geometric uniformity. This approach is proved
+to be appropriate and reveals the fact that the leaf shape relates with branching
+structure in that the shape tends to maximize sunlight exposure under the given tree
+profile.
+
+The model can be extended to estimate the total leaf mass of a tree using the
+relationship between photosynthesis rate and leaf mass per area (LMA). Empirical
+test of our model on cinnamomum camphora tree has shown that the method gives
+realistic estimation of the leaf mass.
+
+
+=== PHYSICAL PAGE 25 ===
+8 Letter to a scientific journal editor
+The leaf is an important part of the plant-body plan, and it is the major organ of a
+plant for photosynthesis. Through our research, we proposed a geometrical model to
+investigate the relationship between leaf shapes and tree profiles. We developed
+computerized models to simulate tree structures and sunlight irradiance in tree
+crowns; and incorporated the model with physiological traits of trees. Case studies
+have been carried out and our models are proven to be viable. During our
+investigation, we have discovered some interesting findings.
+    Leaf shapes are closely related with tree profile.
+We discovered that the leaves always adopts the shape which maximizes the sunlight
+exposure under the given tree profile. This finding may have significant importance in
+unfolding the mystery of the efficiency of photosynthesis. This discovery once again
+shows us the stunning power of natural selection.
+    Leaf mass are closely related to venation networks and photosynthesis rate.
+Variations of leaves on a tree are considered as a crucial factor in determining  the
+leaf mass of a tree. There is solid evidence that leaf mass per area and
+photosynthesis rate is strongly related to venation networks. Incorporating a model
+estimating leaf photosynthesis rate, we are able to derive a formula calculating the
+leaf mass per area of a tree.
+
+Our approach is innovative and some of the mathematical models developed in our
+paper may have potential uses in the study of plant physiology.
+
+   Our tree branching simulation model is improved and revised based on some
+    previous branching models. We incorporate the uncertainty into the geometrical
+    simulation of a tree. Besides, leaf budding points on branches are also
+    determined with rules that incorporate the environmental factors and genetic
+    uncertainty. This improvement of the branching model makes it a more realistic
+    representation of the nature’s complexity.
+   We introduce the concept of Sunlight Exposure Rate (SE) as a metric studying the
+    level of exposure of leaves to sunlight. Given a type of leaf shape, strong
+    correlation exists between total leaf area and total ground shade area. The
+    quotient, which is defined as SE can be used to evaluate the relationship
+    between leaf shape, leaf distribution, and sunlight.
+
+
+=== PHYSICAL PAGE 26 ===
+Reference
+Benjamin BlonderViolle, Lisa Patrick Bentley and Brian J. EnquistCyrille. (2011). Venation
+        networks and the origin of the leaf economics spectrum. Ecology Letters, 14, 91–100.
+Beth EllisC. Daly, Leo J. Hickey, Kirk R. Johnson, John D. Mitchell, Peter Wilf, and Scott L.
+        WingDouglas. (2009). Manual of leaf archetecture. The New York Botanic Garden.
+BuckA.L. (1981). New equations for computing vapor pressure and enhancement factor. J. Appl.
+        Meteor., 20, 1527–1532.
+FisherB. and Honda, HJ. (1977). Computer simulation of branching pattern and geometry in
+        Terminalia (combretaceae), a tropical tree. Botanical Gazette, 138, 377-384.
+FisherB. and Honda, HJ. (1979). Branch geometry and effective leaf area: a study of
+        Terminalia-branching pattern (ch 66).
+http://www.infovisual.info/01/002_en.html. .
+http://www.math.smith.edu/phyllo//About/Classification.html. .
+JohnsonH.M. Thornley and Ian R.John. (1990). Plant and Crop Modelling. Oxford Science
+        Publications.
+Monsiand Saeki, TM. (1953). Uber den Lichtfaktor in den Pflanzengesellschaften und seine
+        Bedeutung fur die Stoffproduktion. 14, 22-52.
+NobelP. (1999). Physicochemical and Environmental Plant Physiology.
+SARAH J. COOKSON1VAN LIJSEBETTENS2 & CHRISTINE GRANIERMIEKE. (2005). Correlation
+        between leaf growth variables suggest intrinsic and early controls of leaf size in
+        Arabidopsis thaliana. Plant, Cell and Environment, 28, 1355–1366.
+ScurlockM. O., G. P. Asner, and S. T. GowerJ. (2001). Worldwide Historical Estimates and
+        Bibliography of Leaf Area Index, 1932-2000. ORNL Technical Memorandum TM-2001/268,
+        Oak Ridge National Laboratory.
+TsukayaHirokazu. (2006). Mechanism of Leaf-Shape Determination. The Annual Review of Plant
+        Biology.
+
+
+=== PHYSICAL PAGE 27 ===
+Appendix: Matlab code for implementing our model
+
+%% Geometrical Generation of Vector Tree with Bifurcations
+% @para
+%     theta1,phi1,theta2,phi2: specified angular parameters;
+%     n: number of generations
+%     start: the height of the first branching point
+% output
+%     x,y,z: coordinate of the branching points of a tree
+function [x y z] = treeGeneration( theta1,phi1,theta2,phi2,n,start)
+A=[cos(phi1) sin(phi1) 0;-cos(theta1)*sin(phi1)
+cos(theta1)*cos(phi1) sin(theta1);sin(theta1)*sin(phi1)
+-sin(theta1)*cos(phi1) cos(theta1)];
+B=[cos(phi2) sin(phi2) 0;-cos(theta2)*sin(phi2)
+cos(theta2)*cos(phi2) sin(theta2);sin(theta2)*sin(phi2)
+-sin(theta2)*cos(phi2) cos(theta2)];
+temp=1:2^(n);
+temp=dec2bin(temp);
+[row col]=size(temp);
+result=zeros(3,3,row);
+for p=1:row
+    result(:,:,p)=eye(3,3);
+end
+R=zeros(3,1,row);
+r=zeros(3,1,row);
+r(:,:,1)=[0,0,start]';
+R(:,:,1)=[0,0,start]';
+for i=2:row
+    temp=dec2bin(i);
+    for j=2:length(temp)
+        i_j=double(temp(j))-double('0');
+        G_j=A^(1-i_j)*B^i_j;
+        result(:,:,i)=G_j*result(:,:,i);
+    end
+    r(:,:,i)=result(3,:,i)';
+    r(:,:,i)=normrnd(1,0.1)*r(:,:,i);
+    R(:,:,i)=R(:,:,floor(i/2))+r(:,:,i);
+end;
+
+x=zeros(1,row);
+y=zeros(1,row);
+z=zeros(1,row);
+for p=1:row
+
+
+=== PHYSICAL PAGE 28 ===
+    x(1,p)=R(1,1,p);
+    y(1,p)=R(2,1,p);
+    z(1,p)=R(3,1,p);
+end;
+end
+%% Calculate Orthogonal Projection Given the Direction of the Sun Ray
+% Note: we calculate the area by adding the areas of discrete grids
+on the xy-plane
+%       where there exists overlapping with leaves.
+% @para
+%     inx,iny,inz: coordinates of the branching points of the tree
+%     theta1,phi1: the direction of the sun ray with respect to the
+original coordinates
+%     dimension: the dimension of the cumulating grids
+% Output
+%     area: the area of the projected shade
+function area = usefulArea( inx,iny,inz,theta1,phi1,dimension )
+% change of the coordination system
+matrix=[inx;iny;inz];
+A=[cos(phi1) sin(phi1) 0;-cos(theta1)*sin(phi1)
+cos(theta1)*cos(phi1) sin(theta1);sin(theta1)*sin(phi1)
+-sin(theta1)*cos(phi1) cos(theta1)];
+matrix=A\matrix;
+x=matrix(1,:);
+y=matrix(2,:);
+z=matrix(3,:);
+
+xmin=min(x);
+xmax=max(x);
+ymin=min(y);
+ymax=max(y);
+nx=floor((xmax-xmin)/dimension);
+ny=floor((ymax-ymin)/dimension);
+area=0;
+for i=1:nx
+   lowerx=xmin+(i-1)*dimension;
+   higherx=xmin+i*dimension;
+   temp1=(x >= lowerx & x <= higherx);
+   for j=1:ny
+       lowery=ymin+(j-1)*dimension;
+       highery=ymin+j*dimension;
+       temp2=(y >= lowery & y <= highery);
+       points=sum(temp1 & temp2);
+       if(points>0)
+
+
+=== PHYSICAL PAGE 29 ===
+                  area=area+dimension^2;
+            end
+      end
+end
+end

@@ -1,0 +1,1960 @@
+=== PHYSICAL PAGE 1 ===
+                             Team Control Number
+For office use only                                       For office use only
+T1 _______________
+T2 _______________
+                               28079                      F1 _______________
+                                                          F2 _______________
+T3 _______________                                        F3 _______________
+T4 _______________              Problem Chosen            F4 _______________
+
+                                     A
+
+          2014 Mathematical Contest in Modeling (MCM) Summary Sheet
+
+                                 Summary
+
+
+=== PHYSICAL PAGE 2 ===
+Team # 28079                                                                                                  Page 1 of 35
+
+
+
+                                    The Better Traffic Rule
+
+                                                      Contents
+1    Introduction.............................................................................................................. 0
+2    Nomenclatures.......................................................................................................... 4
+3    Model One：Relation of traffic parameters and indexes .................................... 5
+      3.1      Introduction .................................................................................................... 5
+      3.2      Terminology.................................................................................................... 5
+      3.3      Assumptions ................................................................................................... 6
+      3.4      The tradeoffs between traffic flow and safety ................................................ 6
+              3.3.1 The quantification of safety .................................................................... 6
+              3.3.2 Determination of the safety distance ...................................................... 6
+              3.3.3 Analysis of flow and safety .................................................................... 7
+      3.4      The role of speed limit .................................................................................... 8
+4    Model Two：How the rule affects traffic ............................................................ 10
+      4.1      Introduction .................................................................................................. 10
+      4.2      Assumption ................................................................................................... 10
+      4.3      Analysis ........................................................................................................ 10
+              4.3.1 Constraints ............................................................................................ 10
+              4.3.2 Analysis of overtaking .......................................................................... 11
+              4.3.3 Analysis of time headway ..................................................................... 12
+              4.3.4 Vehicle following model ....................................................................... 13
+      4.4      Model Building ............................................................................................. 14
+      4.5      Simulation and conclusion............................................................................ 15
+              4.5.1 The setting of parameters...................................................................... 15
+              4.5.2 Analysis and Conclusion ...................................................................... 17
+      4.6      New rules to raise traffic flow ...................................................................... 24
+5    Model Three：Traveling on the left ..................................................................... 25
+      5.1      Introduction .................................................................................................. 25
+      5.2      The Coriolis force ......................................................................................... 25
+
+
+=== PHYSICAL PAGE 3 ===
+Team # 28079                                                                                                  Page 2 of 35
+
+
+      5.3      The direction of the force ............................................................................. 26
+      5.4      Additional requirements ............................................................................... 27
+      5.5      Conclusion .................................................................................................... 29
+6    Model Four：Intelligent system model ............................................................... 29
+      6.1      Introduction .................................................................................................. 29
+      6.2      Analysis ........................................................................................................ 29
+      6.3      Intelligent global optimal system ................................................................. 30
+              6.3.1 Model Building ..................................................................................... 30
+              6.3.2 Model Solution ..................................................................................... 30
+              6.3.3 Model Testing ....................................................................................... 31
+      6.4      The Intelligent system’s promotion in part of the road network .................. 32
+              6.4.1 Reduce the response time ..................................................................... 33
+              6.4.2 Increase the data size ............................................................................ 33
+              6.4.3 Control the velocity .............................................................................. 33
+      6.5      conclusion ..................................................................................................... 33
+7    The Evaluation of Model ....................................................................................... 34
+      7.1      Strengths ....................................................................................................... 34
+      7.2      Weaknesses ................................................................................................... 34
+8    References ............................................................................................................... 35
+
+
+=== PHYSICAL PAGE 4 ===
+    Team # 28079                                                                Page 3 of 35
+
+
+
+
+1 Introduction
+
+Generally, overtaking takes place when a car is driven at a higher speed than the car before it.
+In that way, the car can’t move at the speed it expected, so it will try to exceed the car before
+which academic term is overtaking. The drivers can drive their cars at a higher speed on the
+highway in contrast to driving on the normal roads. However the phenomenon of overtaking
+is ubiquity as a result of the personal factors of different drivers and the wide range of speed
+limits.
+It is dangerous to overtake cars for lots of factors affect the process like the way of overtaking,
+the reaction time of driver and environment factors, etc. Also overtaking will affect the traffic
+on the highway because of it need time to adjust when a car exceeds another through which
+might lead to partial blockage and even traffic jam.
+In countries where driving automobile on the right is the rule (that is, USA, China and most
+other countries except for Great Britain Australia and some former British colonies),
+multi-lane freeways often employ a rule that requires drivers to driver in the right-most lane
+unless they are passing another vehicle to ensure the safety of drivers driving on the freeway
+and the traffic of the freeway. As the tradition rule, it is important to improve safety and
+traffic.
+Things change as time passes by. Nowadays there are more and more cars but the number of
+roads and highways didn’t catch the pace. So it is common to see the traffic jam on the roads.
+It inspires us start to think about: How does ‘The Keep-Right-Except-To-Pass-Rule’ influence
+the traffic on the road? What does the speed limit do? Is there any other improved rule or
+alternative rules that may cause better influence? What makes difference of driving on the
+right and driving on the left?
+
+
+In order to address problems above, we conclude four sub-problems to tackle in our paper:
+
+    Model building of the keep right except to pass rule to simulate the traffic. Find out the
+     relation between the safety and flow, the role of speed limit and other factors that may be
+     important.
+
+    Finding out improved rule or alternative rules that may have better influence.
+
+
+    Model building and analysis the influence of rules in the situation of driving automobile
+     on the left and find out what change should be make.
+
+
+    Model building of the intelligent transportation system and analysis what changes it
+     brings to the traffic.
+
+
+=== PHYSICAL PAGE 5 ===
+ Team # 28079                Page 4 of 35
+
+
+
+
+2 Nomenclatures
+
+                 Vehicle
+                X headway
+                 theadway
+                   v
+                    S
+                  MSS
+                    Q
+                    S1
+                    S2
+                    a
+                    ta
+                  hmin
+                   vf
+                  vmax
+                    hs
+                    
+                    V
+                    pn
+                   rule1
+                 vovertake
+                 vchange
+                   
+                   aa
+                   
+                   ae
+                   
+                   ar
+                   
+                   aC
+                   FC
+                    G
+                    vi
+                   wij
+                   d ij
+
+
+=== PHYSICAL PAGE 6 ===
+  Team # 28079                                                                             Page 5 of 35
+
+
+
+
+3 Model One：Relation of traffic parameters and indexes
+
+3.1 Introduction
+
+In order to find out how the overtaking rules affect the traffic, we study some indexes and
+parameters of traffic including safety, traffic flow, limiting of velocity and etc. Then, we
+model and find the relationships between these indexes and parameters. Through the
+equations that represent the relationships of these indexes and parameters, we can obtain how
+they affect the traffic. In other words: the effect is based on the relationships of overtaking
+rules and those parameters and indexes.
+
+
+3.2 Terminology
+
+After observing the performance of the cars on the highway, we make an analogy with traffic
+flow and liquid flows through pipes. The flow velocity of liquid is equal to the traffic flow
+and the quantity of flow is equal to the amount of cars passing through unit length during unit
+time. Then we build a simple model and obtain the relationship among time, traffic flow and
+the amount of cars passing through according the formula of flow:
+                                               Q  vt
+
+Through further study, we find out that the degree of congestion of road might be influenced
+by the amount of cars on the road. So we bring in a new variable: traffic density  vehicle ,
+which represents the amount of cars on the unit length of the road. In this paper, density is
+averaged according to time. So it can be obtained easily through measuring the average
+velocity and flow rate:
+                                                            n
+                                               vehicle 
+                                                            l
+In which vehicle represents traffic density (pcu/km)；
+
+          n stands for the amount of vehicles (pcu)；
+          l means length of freeway(or roadway) (km).
+In the further research of the factors that influence the degree of traffic congestion, we find
+that headway is related to the density of traffic flow directly. Headway means the distance of
+the heads of adjacent cars on the lane.
+In order to analyze the relationship between the degree of traffic congestion and time, we
+bring in a new variable: time headway[1], which means the time required for a car catching up
+with the car ahead:
+
+                                           1000                        3.6X headway
+                            X headway                , theadway                    .
+                                            vehicle                        v
+
+
+=== PHYSICAL PAGE 7 ===
+    Team # 28079                                                               Page 6 of 35
+
+
+In which:
+         X headway stands for space the space between two adjacent vehicles.(m)
+
+         theadway means the time that the vehicle takes to go through the space headway(s)
+
+         v represents the difference in the velocity of the front car and back car(km/h).
+
+
+3.3 Assumptions
+
+    Drivers are not drink-driving or tired-driving.
+    Drivers obey the keep right except to pass rule.
+    One lane of the road can only contain one car in the cross section.
+    The factors of weather, the road surface, the car condition and etc are not considered.
+
+
+3.4 The tradeoffs between traffic flow and safety
+
+3.3.1 The quantification of safety
+To quantitatively analyze the relationship between safety and flow, we quantified the index of
+safety. The safety means the degree of safe when cars driving on the freeway. It depend on
+many factors like the reaction time of different people, the dynamic coefficient of friction 
+which represents the coarseness of the road surface, the quality of cars and the distant of cars
+etc. So we define the index of safety S has following some attributes:
+
+                                         S  f t ,  , m, x...
+
+In which:
+        t represents the reaction time of human in emergency situation,
+         represents the dynamic coefficient of friction,
+        m stands for the total mass of the car and people in the car,
+        x is the distance of two cars.
+
+
+3.3.2 Determination of the safety distance
+
+
+In order to simplify the model, we use the minimum headway MSS [2]to represent safety
+which the greater MSS is, the more safe the safety will be.
+
+
+=== PHYSICAL PAGE 8 ===
+   Team # 28079                                                                   Page 7 of 35
+
+
+
+
+                                            a(O)                              a(B)
+
+                                                   v(O)                           v(B)
+                                 O                                      B
+
+                                                 MSS
+
+
+
+                                     Fig. 1.最小安全距离示意图
+
+
+Assume the car labeled O is the one to overtake and the car labeled B is the one to be
+overtaken. Car O will not have enough space for driving freely and achieve the speed it
+expected when it moves at a higher speed than car B before it. So car O will try to
+overtake car B . The first step to overtake the car before is changing the lane, and then it
+accelerates on the other lane, passes the car before. Finally it returns to the initial lane. It seem
+easy to make overtake come true, but each step of overtake is full of danger because you will
+never know what the driver in the car before think of. To avoid the danger in the process of
+overtake, the distance of cars should no less than MSS which we defined above means the
+minimum headway. According to the lane-changing model proposed by UNIVERSITY OF
+CALIFORNIA, the minimum headway should be:
+                    MSS  Max     t                                          
+                                0 0 aO ( )  aB dxd  (vO (0)  vB (0))t ,0
+                                                                              
+In which,
+     aO , a B stands for the acceleration of car O and car B ,
+
+     vo , v B     represents the velocity of car O and car B .
+
+When car O and car B are moving at a constant speed, the minimum headway has a simple
+form as:
+                                  MSS  Max(vo (0)  vB (0))t ,0.
+
+
+
+3.3.3 Analysis of flow and safety
+In order to analyze the relationship of flow and safety, we establish set of equations. First of
+all, we collect data of the velocity of cars passing a section of the freeway we select. Then we
+calculate the average velocity v . We can obtain average time that the cars spend to pass the
+section of the freeway through the following equation:
+                                                    l
+                                               t
+                                                   v
+In which:
+      l stands for the length of this section of freeway.
+
+
+=== PHYSICAL PAGE 9 ===
+  Team # 28079                                                                 Page 8 of 35
+
+
+After that, according the relation of time and flow, we calculate the number of cars passing
+through the section of freeway during time t as following:
+                                               n  t Q
+Then the average length that each car occupies on the freeway should be:
+
+                                            l  lcar  lheadway
+                                       l     
+                                            n        n
+In which:
+         lcar represents the length of car itself,
+
+         lheadway stands for distance between adjoin cars on the highway.
+
+Since the length of car itself (about 2 to 4 meters) is too small compared to the headway of
+cars(about 100 meters or much), we decide to omit the length of car itself to simplify the
+model. In this way, we can get the approximate average length each car occupies on the
+freeway in the following form:
+
+                                                     l v
+                                              l      
+                                                     n Q
+
+We can draw the conclusion of tradeoffs between traffic flow and safety in the following
+formula:
+                                                           v
+                                            MSS  l 
+                                                           Q
+
+It means when traffic is low, cars can move on the freeway freely to keep away from each
+other at a long length which represents high degree of safety. However, when traffic raise,
+cars have to drive closely to each other that means low degree of safety. In order to obtain
+high traffic flow and also the safety of drivers, we should limit the traffic flow through:
+
+                                                      v
+                                              Q
+                                                     MSS
+
+
+3.4 The role of speed limit
+
+In this part, we omit other factors and consider the relationship among limiting of velocity,
+load and traffic flow. We define the minimum velocity vl and the maximum velocity vh . To
+represent the actual situation of the velocity distribution when define the velocity distribution
+of each lane obey normal distribution. So when adjacent cars move at the maximum and the
+minimum velocity, the safety distance of the two cars should equal to MSS . In that way we
+can draw conclusion that MSS is relative to vl and vh in this condition as the formula
+shown below:
+
+
+=== PHYSICAL PAGE 10 ===
+  Team # 28079                                                                                Page 9 of 35
+
+
+                                              MSSmin  f (vh , vl )
+
+Then considering different degree of safety that required, we can obtain the minimum
+distance of adjacent cars in the following way:
+                                           lcars  MSSmin  const ,
+
+    Where constant const is added to control the degree of safety.
+Then we take a section of a highway lane into consideration, and we assume that there are n
+vehicles. Each of vehicle’s speed is v~ , which represents value of expectation under the
+control of vl , vh and normal distribution. We define the interval time between the first car
+passes section P and the car labeled n passes section p as t . So L in the picture can
+calculate as:
+                                                   L  v~  t
+
+
+
+
+                                 n              ...              2            1
+
+
+
+                                                                                  Section P
+                                         L(interval)                 L(car)
+
+
+                                                    L
+
+
+
+                             Fig. 2.单侧高速公路车流辆示意图
+    Firstly we calculate the traffic flow Q :
+                                                n
+                                                  .Q
+                                               t
+    Next substitute L  v~  t into the equation above, we can get:
+                                             n    v~  t    v~
+                                      Q                       .
+                                             t lcars  t lcars
+
+    Since :
+                                                             n
+                                                vehicle      .
+                                                             l
+    So :
+                                     n    v~  t       1       1
+                        vehicle             ~                      .
+                                     l lcars  v  t lcars MSS  const
+
+    Finally, we can draw the relation that:
+                                                    1        1
+                                      cehicle                      .
+                                                   MSS   f (vh , vl )
+
+
+=== PHYSICAL PAGE 11 ===
+    Team # 28079                                                               Page 10 of 35
+
+
+It means vehicel is inversely proportional to the limiting of velocity. So if we want to ensure
+safety and traffic flow, theoretically we should set higher limiting of velocity on the freeway.
+
+
+4 Model Two：How the rule affects traffic
+
+4.1 Introduction
+
+In our simulation model, we successfully emulate the change of the indexes and parameters in
+different situation of traffic. Now we will study whether the rule is able to promote the traffic
+flow or not. As we know, a change of a rule will change the operation mode, so it will influent
+the traffic condition. To Judge whether it can promote flow, we need to choose an object to
+make comparative analysis. We choose the operation mode which eliminated the rule as the
+object. That means the vehicle could overtake or change lane if they can promise their safety
+on two-lane freeway. In this paper we define the rule that keep on right except to pass as
+Rule1.
+
+
+4.2 Assumption
+
+    Assuming that there is no toll-gate in the road to affect traffic.
+    Assuming that vehicle will accelerate when overtaking.
+    Assuming that the freeway is straight, without any curve.
+    Assuming that there is no car in front of the car which is overtaken.
+    Assuming that the passing lane is absolutely safe, and no accident will happen.
+    Assuming that the speed of the vehicle is under the speed limit.
+
+
+4.3 Analysis
+
+4.3.1 Constraints
+There are many regulations when driving on the highway. Through carefully analyzing we
+determined the problem specifies the following constraints[3]:
+1. The width of each lane is 3.5 meters;
+2. The freeways are two-lane freeways and employ the keep right except to pass rule;
+3. The mass of the car, the bus and the truck are 0.8 tons, 1.1tons and 1.8 tons respectively;
+4. The expected velocity of the car is 50~110 km/h and to the bus and the truck it should be
+   50~90 km/h;
+5. The distance of foresight ought to be 0~250 meters;
+
+
+=== PHYSICAL PAGE 12 ===
+  Team # 28079                                                                            Page 11 of 35
+
+
+6. The speed parameters of the car overtake and the car is overtaken.
+
+
+
+
+                                        Table 1.参数限制
+
+                                         Overtake                         Be overtaken
+            Maximum
+                                              -4                                  -3
+         decelerationm/s2
+            -1m/s2(m)                       100                                  100
+
+         可接受的减速度
+                                              -1                                  -1
+            m/s2
+
+
+
+4.3.2 Analysis of overtaking
+     The performance of overtaking is set as a model. We simplify the passing way as
+overtaking in the condition of constant speed and accelerate[4].
+
+
+                                                    S
+
+                                  S1                       S2
+
+                 Position A            Position B                 Position C
+
+
+
+                                                                               Passing Lane
+
+
+
+
+                                                                               Driveway
+
+
+
+
+                 Position A            Position B                 Position C
+
+
+
+                                 Fig. 3.passing from the left side
+The red square stands for vehicle in high velocity. And the black square stands for vehicle in
+low velocity. The position A is location of the beginning of overtaking. Then red vehicle catch
+up with black vehicle at position B. Finally red vehicle completes the process of overtaking
+and return to their former travel lane at position C.
+In reality situations,we assume performance of overtaking is sum of two conditions.
+    1)    acceleration
+     The red vehicle change the lane and accelerate to overtake black vehicle,the process
+from position A to position B.( a as per acceleration, t a as per time of acceleration’s process)
+
+
+=== PHYSICAL PAGE 13 ===
+   Team # 28079                                                                                    Page 12 of 35
+
+
+                                                  x R (t )        1
+                                           S1               t a  at a2
+                                                    3.6            2
+
+in which x R (t ) velocity of red vehicle at time t [km/h]；
+
+       a acceleration[ m / s 2 ]；
+                                           x R (t  t a )  x R (t )
+       t a time of acceleration[s] t a                                ，if x R (t  ta )  x R (max) ;
+                                                   3.6  a
+         x R (max)  x R (t )
+then t a 
+                3.6  a
+At the end of acceleration,the velocity of red vehicle is a constant.
+                                     x R (t  t a ) x R (t )
+                                                               at a
+                                          3.6          3.6
+     2) constant speed
+At time t  t a ,the red vehicle drives in constant speed and return to the return to the former
+travel lane.( tb as per time of driving in a constant velocity)
+
+                                                   x R (t  t a )
+                                           S2                      tb ，
+                                                         3. 6
+
+
+4.3.3 Analysis of time headway
+     The time headway can be worked out by the function:
+                                              hmin  t1  t2  t3
+
+in which hmin ：minimum time headway[s];
+      t1 ：time of people judgment (about 1s);
+      t 2 ：time Variable deceleration time[s];
+      t3 ：time shortest stopped time [s];
+           L:minimum headway for stopping,
+           V:velocity before stopping.
+Here the function can turn to:
+
+                                                                      L
+                                            hmin  1  t 2 
+                                                                      v
+                                                         a ( v f v ) V f
+                                               t2  e
+                                                                     g
+
+
+in which v f the average velocity of minibus on the roadway;
+        coefficient of friction(value in this section is about 0.35);
+       v velocity of vehicle [m/s]（米/秒;
+       a unknown coefficient,
+
+
+=== PHYSICAL PAGE 14 ===
+  Team # 28079                                                                                                Page 13 of 35
+
+
+                                                        a   / vf
+       average deviation of velocity’s free stream velocity[m/s]
+
+in a word ,the function of headway:
+
+                                                                a ( v f v )   vf       L
+                                                hmin  1  e                              .
+                                                                                g       v
+
+4.3.4 Vehicle following model
+In the process of overtaking,the lateral clearance width produced by different transverse
+location of front vehicle would generate the different nerve stimulation of overtaking and
+influence the driving behaviors. Base on this theory,we develop a model that talk about the
+relation of expectation of overtaking and lateral separation.we search the model’s condition of
+linear stability by the linear stability theory[5]. In the periodic boundary condition,we simulate
+the model by the data,analyze the key property of model and verify the model’s rationality.
+The OV model’s differential equation is raised by Bando in 1995:
+                                    dvn (t )
+                                                [V (xn (t ))  vn (t )]
+                                       dt
+                               V ((xn (t )))  0.5v max [tanh xn (t )  hs ]  tanh(hs )
+                                      xn (t )  xn 1 (t )  xn (t ),
+
+In which
+      ---sensitivity coefficient
+     V (xn (t )) ---function of optimized velocity
+     vn (t ) ---velocity of No.n vehicle in time t
+     xn (t ) ---No.n vehicle’s time headway
+     xn (t ) ---location of No.n vehicle in time
+     vmax ----maximum optimized velocity of vehicle
+     hs ----safe interval
+
+The performance of car-following at present is affected by front vehicle. Due to the lateral
+separation that is influenced by the second front vehicle. And the two kinds of influence’s
+distribution is decided by the lateral separation parameters.
+
+
+    
+                                           aV [xn ,n 1 (t ), xn,n  2 (t )]  vn (t ) G (vn ,n 1 (t ), vn,n  2 (t ))
+                             dvn (t )
+                                 dt
+    
+     V [xn,n 1 (t ), xn ,n  2 (t )]  V [(1  pn )xn ,n 1 (t )  pn xn ,n  2 (t )]                                      .
+    G (v (t ), v
+          n , n 1       n , n  2 (t ))  (1  pn ) vn , n 1 (t )  pn , n  2 (t )
+    
+
+
+In which  ---sensitivity coefficient of velocity difference
+
+
+=== PHYSICAL PAGE 15 ===
+  Team # 28079                                                                                       Page 14 of 35
+
+
+  xn,n1 (t ) ---headway between No.n vehicle and front vehicle in time t
+
+  xn,n 2 (t ) ---headway between No.n vehicle and second front vehicle in time t
+
+          V ---function of optimized velocity
+                                                                     LSn
+          pn ---horizontal separation parameters: pn 
+                                                                    LSmax
+
+         LSn ---horizontal separation to the front vehicle
+
+         LSmax ---maximum horizontal separation
+
+When vehicle’s horizontal separation is maximum,the vehicle has been the different lanes. In
+this condition, the front vehicle do not influences the vehicle. Therefore, the value of LSmax is
+the wide of normal lane---3.5m.
+
+
+4.4 Model Building
+
+
+This process can be described by the following flow chart:
+
+                                                                          Start
+                      Build the vehicle’s
+                             model
+                         And the drive                              Input traffic
+                      behavior’s model                                  flow
+                                                                      Type of
+                                                                       vehicle
+                                                                   (mass,expected
+                     begin the simulation by                       velocity,accele
+                             vissim                                 ration),drive
+                                                                      behavior
+
+
+
+
+                        Is there a vehicle on     Y
+                         the front of model?
+
+
+                                     N                                               Y
+                                                            Is the condition of
+                                                            passing satisfied?
+                 N     Does the velocity arrive
+                          expected speed?
+                                                                      N
+
+
+                                                           Keep safe interval            Over take from the
+                                     N                                                        left lane
+
+
+                            accelerate
+
+
+
+
+                                          Fig. 4. Algorithm Flowchart for
+
+
+=== PHYSICAL PAGE 16 ===
+    Team # 28079                                                                                          Page 15 of 35
+
+
+
+
+                                                                               Start
+                   Build the vehicle’s model
+                    and the drive behavior’s
+                              model                                     Input traffic flow
+                                                                          type of vehicle
+                         run the simulation                              (mass, expected
+                             by vissim                                 velocity,accelerati
+                                                                       on),drive behavior
+
+
+                       Does the vehicle locate         N
+                           the right lane?
+
+                                                                           Is it able to drive into the   N
+                                                                                    right lane?
+                                                           Keep safe
+                                                            interval                        Y
+                          Is there a vehicle on
+                                                   N
+                           the front of model?
+                                                                              Drive into the
+                                                                               right lane
+                                      Y
+
+                         Is the condition of
+                   N     passing satisfied?                                Does the velocity arrive
+                                                                              expected speed?
+
+                                      Y
+                                                                                           N
+
+                            accelerate
+                                                                              accelerate
+
+
+
+
+                                                            Fig. 5.
+
+
+4.5 Simulation and conclusion
+
+Through the analysis above, we selected some main properties and parameters to describe the
+phenomenon of overtake and obtain the relationships between the properties and parameters
+through model building. In this section we use traffic simulation software VISSIM to simulate
+the process of overtake with the method of control variable and verify whether or not our
+model is effective enough in evaluate the traffic.
+4.5.1 The setting of parameters
+To ensure the authenticity of simulation, we firstly set the characteristic of velocity and
+acceleration.
+    velocity characteristic:
+                                                           Table 2.
+                                                  Minimum velocity              Maximum velocity
+
+                        car                             50                                   110
+                       HGV                              50                                    90
+                       BUS                              50                                    90
+
+
+=== PHYSICAL PAGE 17 ===
+    Team # 28079                                                                                                                                Page 16 of 35
+
+
+
+
+The desired speed of car is set to 100[km/h] and the desired speed of HGV and BUS is set to
+80[km/h]. The velocity characteristic has been shown as Fig. 5 and Fig. 6.
+
+                                                                          HGV/BUS's speed                                                                 car's speed
+                  0.8                                                                                           0.6
+
+
+
+                                                                                                                0.5
+
+                  0.6
+
+                                                                                                                0.4
+
+
+
+
+    probability                                                                                   probability
+                  0.4                                                                                           0.3
+
+
+
+                                                                                                                0.2
+
+                  0.2
+
+                                                                                                                0.1
+
+
+
+                  0.0                                                                                           0.0
+                        50   60                            70       80    90                                           60            80          100
+                              HGV/BUS's speed(km/h)                                                                                 speed
+
+
+
+
+                        Fig. 6.大货车速度特性曲线                                                                                      Fig. 7.小汽车速度特性曲线
+          acceleration characteristics:
+In consideration of the difference of vehicle type and vehicle mass, also the interaction of
+mass and acceleration, we set the vehicle type and the mass of vehicle as the following table:
+                                                                                     Table 3.
+
+                    Vehicle type                 Mass of vehicle [t]
+                         car                           1.1~1.5
+                       HGV                              6~10
+                        BUS                              6~8
+Through simulation we can obtain the performance of acceleration in the different velocity as
+shown in the following figure:
+                                                                                                                            car's speed&accelerated
+
+
+
+
+                                                       3
+
+
+
+
+                                  accelerated(m/s^2)
+                                                       2
+
+
+
+
+                                                       1
+
+
+
+
+                                                       0
+                                                                0         50                100                       150                 200
+                                                                                   car's speed(km/h)
+
+
+
+                                                                         Fig. 8.小汽车加速表现图
+
+
+=== PHYSICAL PAGE 18 ===
+    Team # 28079                                                                                                                                                        Page 17 of 35
+
+
+                                                                                                                                                                            BUS's speed&accelerated
+                                                                                           HGV's speed&accelerated
+
+
+
+
+                           2
+
+                                                                                                                                          1
+
+
+
+
+                                                                                                                     accelerated(m/s^2)
+      accelerated(m/s^2)
+                           1
+
+
+
+
+                           0                                                                                                              0
+                               0                                     50                    100                                                0            50                       100
+
+                                                                  HGV's speed(km/h)                                                                 BUS's speed(km/h)
+
+
+
+
+                                                         Fig. 9.货车加速表现图                                                                                         Fig. 10.客车加速表
+现图
+4.5.2 Analysis and Conclusion
+
+
+    simulation of velocity and traffic flow(simulation 1)
+
+
+The vehicle model is put into the freeway model, and starts the simulation. Considering about
+the relation of velocity and lane, we put the velocity collection on the left lane to get obvious
+difference of velocity. We randomly select 150 vehicles as the sample vehicles. And velocity
+collection collects the velocity of sample vehicles in the same location. We analyze the
+relation of velocity and traffic flow. The result of simulation has been shown as figure:
+
+
+                                                 120                                                                                                            1kpcu/h
+                                                                                                                                                                2.5kpcu/h
+                                                                                                                                                                5kpcu/h
+                                                                                                                                                                10kpcu/h
+                                                                                                                                                                99kpcu/h
+
+
+
+
+                                   vehicle speed(km/h)
+                                                         90
+
+
+
+
+                                                         60
+
+
+
+
+                                                              0                       50                      100                             150          200
+                                                                                                       sample car's label
+
+                                                                                       Fig. 11.车流量与速度关系图
+
+
+=== PHYSICAL PAGE 19 ===
+    Team # 28079                                                                               Page 18 of 35
+
+
+
+
+In five different conditions of traffic flow, we average the velocity of sample vehicles and
+summarize in the following table:
+                                                             Table 4.
+
+                   Traffic flow [pcu/h]                 Average velocity of sample vehicles [km/h]
+                        1000pcu/h                                   86.95578947km/h
+                        2500pcu/h                                   78.65684211km/h
+                        5000pcu/h                                   60.18157895km/h
+                       10000pcu/h                                   61.09736842km/h
+                       99000pcu/h                                   61.17947368km/h
+
+
+
+Through the setting of other different values of traffic flow and the process of simulation, we
+obtain the relation between traffic flow and velocity as shown in the following picture:
+                                                                                        speed & flow
+
+
+                                     90
+
+
+
+
+               average speed(km/h)
+                                     80
+
+
+
+
+                                     70
+
+
+
+
+                                     60
+
+
+
+
+                                          0   2000       4000             6000   8000        10000
+                                                          traffic flow(pcu/h)
+
+
+
+                                                     Fig. 12.车流量与速度关系图
+
+
+Conclusion:
+According to the relation of the velocity and traffic flow, it is not difficult to discover the
+velocity of vehicle declines with the raise of traffic flow. In other words, if we promote the
+average velocity by the different rules, the traffic flow in that condition will decline. And the
+method of promote the average velocity will promote the better traffic flow.
+
+
+    Simulation model of freeway rules(simulation 2)
+
+
+=== PHYSICAL PAGE 20 ===
+  Team # 28079                                                                                                                             Page 19 of 35
+
+
+In this section, we analyze how the traffic rules affect the parameters above. The normal rule
+is named rule1. And the method of passing without rules is named free rule. In the free rule,
+the fast vehicle on the left or right lane can passing the slow vehicle like the picture below:
+
+
+
+                                                                     After overtaking         Before overtaking
+
+
+
+
+                                                                                                                                               The direction of traffic
+                                                                                                                  After overtaking
+                                                 Before overtaking
+
+
+
+
+                                                                           Fig. 13.自由超车示意图
+
+
+After building the simulation model of freeway, we analyze the simulation result in the
+different rules. To exclude the influence of different traffic flow and different type of vehicle
+we establish the simple simulation model 2. The traffic flow has been set as 5000puc/h and
+consists of the cars only. The simulation model 2 emulates the traffic situation in the condition
+of rule1and the free rule.
+
+                                                                                                                                           rule 1
+                                                                                                                                           free rule
+                                 100
+
+
+
+                                        90
+
+
+
+
+             vehicle's velocity[km/h]
+                                        80
+
+
+
+                                        70
+
+
+
+                                        60
+
+
+
+                                        50
+
+
+                                             0     10     20     30       40     50     60   70    80     90      100   110 120      130 140       150
+                                                                                      smaple vehicle's label
+
+                                                               Fig. 14.不同规定下车辆速度仿真图
+The average velocity is worked out by the sample vehicle’s velocity.
+
+                                                                             vrule1  80.1696km / h
+                                                                                                     .
+                                                                              v free  72.6264km / h
+
+
+=== PHYSICAL PAGE 21 ===
+    Team # 28079                                                                                                                    Page 20 of 35
+
+
+
+
+Conclusion:
+On the basis analysis of the result, the average velocity is promoted. And the better traffic
+flow is promoted as well. Therefore, the normal rule is effective in the condition of 5000pcu/h
+and without the influence of vehicle’s type.
+    Simulation model in complex traffic flow(simulation 3)
+Considering of the influence of HGV/BUS, we complicate the simulation model and establish
+the simulation model 3. Simulation model emulate the traffic situation in the condition of that
+the HGV/BUS drive on the freeway. The simulation result has been shown as shown below:
+
+                                                                                                                              rule1
+                                                                                                                              free rule
+                                         100
+
+
+
+
+              vehicle's velocity(km/h)
+                                         80
+
+
+
+
+                                         60
+
+
+
+
+                                         40
+
+
+                                               0   10   20   30   40    50     60    70   80    90    100   110   120   130   140    150
+                                                                             sample vehicle's label
+
+
+                                                         Fig. 15.不同规定下多种车辆速度仿真图
+
+We average the velocity of sample vehicles:
+
+                                                                       vrule1  77.1336km / h
+                                                                                               .
+                                                                        v free  67.8264km / h
+Conclusion: According to the analysis of result, the average velocity is promoted. And the
+better traffic flow also is promoted. Therefore, rule1 is effective in the condition of 5000pcu/h
+complex traffic flow.
+
+Then, we define a new variable  rule1 to judge optimization degree of rule1：
+
+                                                                        veffect  vrule1  v free
+                                                                        
+                                                                                   veffect
+                                                                          rule1 
+                                                                                    v free
+
+Where,
+
+
+=== PHYSICAL PAGE 22 ===
+    Team # 28079                                                                                                  Page 21 of 35
+
+
+          rule1 represents the proportion of veffect in v free .
+
+
+
+In the next, we emulate the traffic situation in the condition of different scale of HGV/BUS.
+The data of simulations has been shown as table below:
+
+
+                                                                          Table 5.
+
+                Ratio of
+                                                           vrule1                      v free                 rule1
+               HGV/BUS
+                   0                                      80.1696                    72.6264                0.1039
+                0.2593                                    77.1336                    67.8264                0.1372
+                0.3548                                    73.1452                    63.8256                0.1460
+                0.4286                                    70.3873                    59.6456                0.1801
+                0.4872                                    65.3456                    54.6554                0.1956
+                0.5349                                    62.1364                    52.7645                0.1776
+
+
+                                                                                                      the scale & effect
+
+
+
+                                       0.20
+
+
+
+
+               the effect of HGV/BUS
+                                       0.15
+
+
+
+
+                                       0.10
+
+
+
+
+                                              0.0   0.1             0.2          0.3            0.4         0.5
+                                                             the scale of HGV/BUS in traffic flow
+
+
+                                                                          Fig. 16.
+
+
+Conclusion: According to the result of simulation, it is not difficult to find out the effect of
+rule1 promote with the scale of HGV/BUS in the traffic flow growing.
+
+
+    Complex simulation model in different traffic flow(simulation 4)
+
+
+Considering of the traffic flow is not a constant in the real freeway, we sequentially
+
+
+=== PHYSICAL PAGE 23 ===
+  Team # 28079                                                                                                    Page 22 of 35
+
+
+complicate the simulation model and establish the simulation model 4. We simulate the traffic
+situation in the condition of different traffic flow, complex traffic flow and different rules.
+
+
+
+                             100
+
+
+
+
+                 vehicle's speed
+                                   80
+
+
+
+
+                                   60
+                                                                                                    1kpcu/h(rule1)
+                                                                                                    1kpcu/h(free)
+                                                                                                    5kpcu/h(rule1)
+                                                                                                    5kpcu/h(free)
+                                                                                                    10kpcu/h(rule1)
+                                   40
+                                                                                                    10kpcu/h(free)
+
+
+                                        0   10   20    30   40   50     60   70   80   90   100 110 120 130 140 150
+                                                                      sample vehicle's label
+
+
+                                             Fig. 17.不同规则与不同车辆的速度仿真图
+According to the figure above, we calculate the average of each traffic flow as shown in the
+following table:
+                                                                        Table 6.
+
+             Traffic
+              flow                               vrule1 [km/h]                v free [km/h]                  rule1
+            [pcu/h]
+           1000pcu/h                                  92.3808                     87.6721                 0.0537
+           5000pcu/h                                  77.1336                     67.8264                 0.1372
+          10000pcu/h                                  69.3024                     62.3856                 0.1109
+
+The effect of rule1 in the different traffic flow is variation. We sequentially simulate the traffic
+situation in the different traffic flow and get more data for drawing the curve that fit the
+relation of traffic flow and optimization degree as shown below:
+
+
+=== PHYSICAL PAGE 24 ===
+    Team # 28079                                                                                                                                                                    Page 23 of 35
+
+
+
+                                                                                                                                                                 traffic's effect
+                                                                                  0.14
+
+
+                                                                                  0.12
+
+
+
+
+                                               the optimization degree of rule1
+                                                                                                                                                       point A
+                                                                                  0.10
+
+
+                                                                                  0.08
+
+
+                                                                                  0.06
+
+
+                                                                                  0.04
+
+
+                                                                                  0.02
+
+
+                                                                                  0.00
+                                                                                         0        1000   2000   3000    4000    5000     6000   7000     8000     9000     10000
+                                                                                                                        traffic flow [pcu/h]
+
+
+
+                                                                                                                         Fig. 18.
+Conclusion: According to the curve, we can find out the optimization degree change with the
+traffic flow. And the best optimization degree is about 6703pcu/h base on the intersection
+point of tangent line and curve.
+
+
+    Simulation model in the different rules and limits of vehicle’s velocity(simulation 5)
+Considering of the influence of velocity limits, we sequentially calculate the optimization
+degree of rule1 and establish the simulation model 5. The result of simulation has been shown
+as follows.
+                                         120
+                                                                                                                                                                              rule1
+                                                                                                                                                                              free rule
+                                         110
+
+
+                                         100
+
+
+
+
+             vehicle's velocity [km/h]
+                                         90
+
+
+                                         80
+
+
+                                         70
+
+
+                                         60
+
+
+                                         50
+
+
+                                         40
+
+
+                                         30
+                                               0                                   10        20     30    40    50     60      70   80     90   100      110     120   130    140     150
+                                                                                                                     sample vehicle's label
+
+                 Fig. 19. The relation of velocity and rules in the new limits of velocity
+
+Through the simple calculate, we work out the rule1 .
+
+
+=== PHYSICAL PAGE 25 ===
+  Team # 28079                                                                     Page 24 of 35
+
+
+
+                                          rule1  0.1204 .
+
+
+Conclusion:
+According to the result, rule1 has some optimization degree in the condition of different limits
+of velocity. Therefore, rule1 is effective in the different limits of velocity.
+
+
+4.6 New rules to raise traffic flow
+
+Comparing the result of rule1 and free rule, we can draw the conclusion that the traffic flow
+of keep right except to pass rule is less than that of the free rule. It means rule can not raise
+the traffic flow. In order to obtain higher traffic flow, we develop a new rule.
+We analyze the difference of rule1. It is not difficult to find out that in rule1 cars should drive
+back to the initial lane while in free rule cars just need to change lane. So the total distance
+traveled of rule1 is larger than that of free rule and that’s what causes the difference of traffic
+flow. Also, we can analyze through observing speed change in the picture below：
+
+
+                 v(change)     v(car)
+                                                                     v(overtake)
+
+                                v(overtake)                               v(car)
+                                                         v(change)
+
+
+
+
+                                              Fig. 20.
+Assuming the car’s speed don’t change, we can find from the picture that when it tries to
+overtake another one, it’s velocity along the freeway direction has reduced. It means the
+velocity of the car reduce and cause the limit of traffic flow.
+In order to solve this problem we develop a new rule: The slower car changes lane but the
+faster one go straight. Shown in the picture below, the car in red moves faster than the car in
+black, usually black should take the initiative to change lane and pass the black one in rule1.
+However in our new rule, the white car should take the initiative to change lane to give the
+path to the red one.
+
+
+=== PHYSICAL PAGE 26 ===
+  Team # 28079                                                                    Page 25 of 35
+
+
+
+                                                       S
+                                     S1                        S2
+                 Position A               Position B                 Position C
+
+
+
+
+                 Position A               Position B                 Position C
+
+
+                                              Fig. 21.
+Now let’s take a close look at the new rule. Suppose that the velocity of R and B is v R and v B .
+The value of v R is larger than v B and they will not change during our observation. In our new
+rule, the total distance traveled of R is s as show in the picture above. It is common sense
+that the straight line is shorter than the curve. Also, velocity of the red car along the freeway
+direction will not reduce because of it needn’t to change lane. According to the kinematics
+formula:
+                                                           s
+                                                 t
+                                                           v
+The time t which R spends to achieve overtaking is less than that in rule1. It means car R
+can pass the section of free way in a short time and it can raise the traffic flow.
+In a world, the new rule we develop is effective in raise traffic flow.
+
+
+5 Model Three：Traveling on the left
+
+5.1 Introduction
+
+In most countries driving on the right is the rule. However there are some exception like
+England, Japan, Indian, etc in which they are usually driving on the left. About three quarter
+of the world population is driving on the right and the rest are driving on the left.
+In this section, we will analyze the reason of driving on the left and right and search for some
+improve ways. To describe easily, we name the rule we develop new rule.
+
+
+5.2 The Coriolis force
+
+When we study the motion state of object on the earth surface, we usually simplify the earth
+surface a plane as the reference system. It just a simplified model and the result will not be
+accurate. To obtain accurate result of motion and the force it bear, we should considerate the
+earth as a ball and its rotation is constant. In this way objects’ movement on the earth will be
+
+
+=== PHYSICAL PAGE 27 ===
+  Team # 28079                                                                  Page 26 of 35
+
+
+shown as following picture:
+                                                     ω
+
+                                                Vr
+
+
+
+
+                                                           Fc
+
+
+
+                                                 θ
+                                                     O
+
+
+
+
+                                                Fig. 22.
+
+
+According to the knowledge of theoretical mechanics: when the object has the relative motion
+to the rotation reference system, its force analyze will add an extra force named Coriolis force.
+The direction of Coriolis force is different when the direction of relative motion and the
+location changes. For example, in the northern hemisphere when the relative motion is point
+to the north, the direction of Coriolis force is shown in the picture above.
+Assuming the angular velocity of the earth rotation is  , the velocity of relative motion is v r ,
+then we can obtain the Coriolis force through formula:
+                                           FC  2mvr
+
+Where,
+         m represents for the mass of object.
+
+
+5.3 The direction of the force
+
+The direction of the Coriolis force[6] obeys the right hand law. Since it’s a relation in the
+three-dimensional space and might make mistakes through we have a strong ability of space
+imagination. To make the process of analysis simple, we conclude relationship of the direction
+of Coriolis force, the direction of relative motion and the location as shown in the following
+picture:
+
+
+=== PHYSICAL PAGE 28 ===
+  Team # 28079                                                                                          Page 27 of 35
+
+
+                                                      N                                         N
+
+
+
+
+                                    Fc                        Fc
+
+
+                                          v                        v
+                               v                                               v
+
+
+                                          Fc                                               Fc
+
+
+
+
+                               Driving on the left                 Driving on the right
+
+
+                               Fig. 23.北半球受科里奥利力分析
+
+                                                          N                                         N
+
+
+
+
+                                                     Fc                        Fc
+
+
+
+                                           v                        v
+                                v                                               v
+
+
+
+
+                          Fc                                             Fc
+
+
+
+
+                               Driving on the left                  Driving on the right
+
+
+                               Fig. 24.南半球受科里奥利力分析
+It easy to draw the conclusion that in the northern hemisphere, the direction of Coriolis force
+is on the right when you face to the direction you drive. While it’s on the left when you are in
+the southern hemisphere. However when you are not drive directly to the north or the south, it
+make difference of the direction of the Coriolis force so we do not talk about it here to save
+time.
+Then we draw the conclusion that driving on the right in the northern hemisphere is safer than
+driving on the left, while driving in the southern hemisphere is opposite. So to ensure the
+safety it’s better to drive on the right in the northern hemisphere and left in the southern
+hemisphere.
+
+
+5.4 Additional requirements
+
+Through the analysis above, we know the direction of Coriolis force and details when the cars
+are driving on the right or left and in the northern hemisphere or southern hemisphere. In this
+section, we will discuss about the difference of rule1 and new rule when considering about the
+effect of Coriolis force.
+The process of overtake can be divided into three steps. In the first step, the car changes its
+lane to another. Then it drives on the other lane and pass the car above to some distance.
+Finally it returns to its initial lane. But it makes no difference between the car drives on this
+
+
+=== PHYSICAL PAGE 29 ===
+  Team # 28079                                                                                                         Page 28 of 35
+
+
+lane or another. So we take step1 and step 3 into consideration as show in the following
+pictures:
+
+
+
+                                             L1
+                              C          B                 A
+
+
+
+
+                                                                                     The direction of traffic
+                                                                                                                           N
+                   Step 1
+                                                      Fc
+
+
+
+                                                      L2
+                                             C                           A       B
+
+
+
+
+                                                                                            The direction of traffic
+                   Step 2                                                                                                  N
+
+
+
+                                                                        Fc
+
+
+
+
+                                  Fig. 25.北半球 左行 分析图
+
+
+
+
+                                                                                       The direction of traffic
+                                                                                                                            N
+                 Step 1
+
+                              C          B                          A
+
+                                                 L1
+                                                               Fc
+
+
+
+
+                                                                                         The direction of traffic
+                 Step 2
+                                                                                                                               N
+
+
+
+
+                                                 C                           A   B
+
+                                                      L2
+                                                                        Fc
+                                  Fig. 26.北半球          右行 分析图
+The analysis of overtaking in the northern hemisphere and the southern hemisphere is the
+same. So we analyze the case when it takes place in the northern hemisphere for example. The
+result of case in the southern hemisphere can be obtained through analogy.
+In Fig. 23, we can find out that when car A tries to achieve step 1 in the northern hemisphere
+when driving on the left, because of the Coriolis force pulls it away from the initial lane so
+that accelerate of changing lane is larger. It means that the time it spends to change lane is less.
+In that way, the distance L1 can be shorter. However, when A tries to achieve step 2, the
+Coriolis force pulls it back to the passing lane so that accelerate of changing lane becomes
+smaller. It increases the time of changing lane. So the distance for safety L2 ought to be
+longer.
+In Fig. 24, the cars are in the northern hemisphere and drive on the right. During the step 1,
+the Coriolis force pulls its back to the initial lane that makes the acceleration less. So the time
+spent on the changing lane is longer. It means the longer L1 to ensure safety. While step 2 is
+
+
+=== PHYSICAL PAGE 30 ===
+  Team # 28079                                                                  Page 29 of 35
+
+
+on the contrary that L2 can be shorter.
+
+
+
+
+5.5 Conclusion
+
+To obtain the accurate result of motion on the earth, we consider about the effect of Coriolis
+force. In the motion analysis considering the effect of Coriolis force, we divide the question
+into two part of in the northern hemisphere and southern hemisphere. After analyzing the
+performance of car A as shown in the Fig.23 and Fig.24 and comparing the result, we find out
+that our new rule can be carried over with a little requirement. As talked and defined above,
+when carrying our new rule to the location in the northern hemisphere where travels on the
+left, the L1 can be shorter to travel on the right, however L2 ought to be longer than
+traveling on the right to ensure. When it is in the southern hemisphere, it is opposite.
+
+
+
+
+6 Model Four：Intelligent system model
+
+6.1 Introduction
+
+The vehicles on the normal freeway are manual controlled. In this section, we discuss about
+the influence of the intelligent system – either part of the road network or imbedded in the
+design of all vehicles using the roadway – without changing of the rules. We analyze the
+traffic situation of two conditions: manual control system and intelligent system.
+
+
+6.2 Analysis
+
+Drivers would be limited by some subjective and objective conditions including the emotion,
+sight and some external factors while driving alone. Therefore, drivers can only observe the
+traffic situation nearby the cars. The manual control system has low error as well. But if we
+use the intelligent system to control the traffic, computer will collect the information of traffic
+situations and process the digital signs. Then computers can summarize the information and
+select the shortest route for the drivers. The computer’s computation speed and reaction speed
+are much faster then human being[7].
+In other word，the intelligent system is really a macroscopic and microcosmic refinements of
+manual control. In the next section we will analyze this point by simulating of the system and
+analyzing of data.
+
+
+=== PHYSICAL PAGE 31 ===
+  Team # 28079                                                                                                                     Page 30 of 35
+
+
+
+6.3 Intelligent global optimal system
+
+6.3.1 Model Building
+Because of the extraordinary ability in solving global optimal of the intelligent system, to full
+use of this ability, we consider a more complex condition: the three-lane freeway. When it
+comes to three-lane freeway, cars have more choices to change lane than the two-lane freeway
+as shown in the following picture:
+
+
+                                                                            The direction of traffic   The direction of traffic
+                                   The direction of traffic
+
+
+
+
+                                       Situation 1                              Situation 2                Situation 3
+
+
+                                                     Fig. 27.三车道换车的可能情况
+In the situation of three-lane freeway, when obey the keep right except to pass rule, cars can
+change lane in the example way shown in Fig.26. According to the rule, we build the model of
+three-lane traffic.
+
+
+
+
+                                                                                                                                       Passing lane
+
+
+
+
+        The direction of traffic
+                                                         After overtaking
+
+
+
+                                                                                                                    After overtaking
+                                                                                                                                       Driveway 1
+                                                                               Before overtaking
+
+
+
+
+                                                                                                                                       Driveway 2
+                                    Before overtaking
+
+
+
+
+                                                              Fig. 28.三车道超车示意图
+6.3.2 Model Solution
+To find out the quickest way of overtaking with the help of the intelligent system, firstly we
+make an analogy with the freeway and cells[8]. We divided the freeway into different part and
+cars can only move between the cells according to the regulation we set.
+
+
+=== PHYSICAL PAGE 32 ===
+   Team # 28079                                                                                  Page 31 of 35
+
+
+
+
+                                V1
+
+                               V2
+
+                                V3                                                  Vi
+
+                                                       Fig. 29.
+Then we turn the freeway into a graph model:the roadway is stand for a matrix. Every
+diamond in the graph model is replaced by element in matrix. v i is the coordinate of the
+element in the matrix.
+                           vi  ( xi , yi )   i  1,2,3, , n
+                          V  (v1 , v2 , , vn )
+                           E  (v1v2 , v1v3 , v1v4 , , v1vn , v2 v3 , , v2 vn , , vn 1vn )
+                          G  (V , E )
+
+To simplify the model, we ignore the errors that changing lanes brings. Then we define the
+new variable ij which stands for the weight of vi v j . If the vi and v j are not adjacent,
+the value of ij is infinitely great.
+
+
+Next, we calculate the shortest way to overtake:
+We define distances from vi to v j as d ij and calculate the shortest route by Floyd algorithm [9]
+
+Step1: import the weight matrix d . dij  ij
+
+Step2: update d ij , to all of i , j ,if dik  d kj  dij ,then dij  dik  d kj
+
+Step3: if d ij  0 , then consist a negative loop with top vi and stop, or when k  n stop else
+
+jump to step2.
+
+
+6.3.3 Model Testing
+We use example as shown in the Fig.28 to test feasibility of model. In the picture, the red
+vehicle wants to drive from point 2 to point 14.
+
+
+=== PHYSICAL PAGE 33 ===
+  Team # 28079                                                               Page 32 of 35
+
+
+
+
+                          1         4              7       10        13
+
+                          2         5              8       11
+                                                           11        14
+
+                          3         6              9       12        15
+
+                                             Fig. 30.
+
+
+We calculate the shortest route by Floyd algorithm and the matrix of weight is:
+
+                                    0       d1, 2      d1,31 
+                                   d                    
+                                d 
+                                      2 ,1
+                                                                 ，
+                                                       
+                                                              
+                                   d15,1    d15, 2     0 
+
+Finally we work out the shortest route 2  1  4  7  10  13  14 . Due to the limit of
+foresight, the red vehicle could not see the sky-blue vehicle that locates at the point 11. The
+driver in the red vehicle would select the right lane to pass. The route that is selected by
+human being might be 2  3  6  9  8  7  10  13  14 .
+
+
+
+                          1         4              7        10       13
+
+                          2         5              8        11
+                                                            11       14
+
+                          3          6             9        12       15
+
+                                             Fig. 31.
+Comparing to the route that selected by human, the route obtained through calculate is
+obviously the shorter one. So we can draw the conclusion that intelligent system is better to
+control traffic.
+
+6.4 The Intelligent system’s promotion in part of the road network
+
+The intelligent system spends less time on analyzing the traffic, dealing with the mass of data
+and controlling of vehicle’s velocity compared to manual control system and the result tend to
+be more accurate.
+
+
+=== PHYSICAL PAGE 34 ===
+  Team # 28079                                                                  Page 33 of 35
+
+
+
+6.4.1 Reduce the response time
+
+The average response time of human being is about 1s. But millisecond is the measure of the
+time that intelligent system spends in dealing with the data.
+Comparing with the response time of human being, we can ignore the time that intelligent
+system spends.
+
+6.4.2 Increase the data size
+
+Intelligent system collects the data from all roadways. And the size of data is vast. The
+specific analysis has been told about in the last section. However the size of data that people
+can deal with can be ignored compared to the intelligent system.
+
+6.4.3 Control the velocity
+
+When the vehicle’s velocity is high, the driver has emotional variation:speed illusion. The
+speed illusion is produced by driver himself. It means driver’s ability to feel velocity is
+weaken in a high velocity for a long time as shown in the following table:
+
+
+
+
+                 Table 7. The subjectivity velocity and deviation rate in the test
+
+                                        The actual velocity at
+      The condition of test            subjectivity velocity of             Deviation rate
+                                               60km/h
+ Keep 5s at speed of 100km/h                 66.7 km/h                           11%
+Keep 30km at speed of 100km/h                75.7 km/h                           26%
+Keep 60km at speed of 100km/h                80.1 km/h                           32%
+
+Through the data of intelligent system measured by the velocity collection on the roadway of
+vehicles, the error produced by intelligent system can be ignored.
+
+
+6.5 conclusion
+
+We talk about the situations of global optimum and local optimum in our three-lane freeway
+model. Through modeling, we find that intelligent system can find the shortest route by the
+calculation of global optimum after ignore the reaction time of human being.
+The intelligent system will change rule through method that route with out passing calculated
+by local optimization solving and global optimization solving.
+
+
+=== PHYSICAL PAGE 35 ===
+    Team # 28079                                                             Page 34 of 35
+
+
+
+
+7 The Evaluation of Model
+
+7.1 Strengths
+
+    In Model 1, we use equations to express the relationship between the indexes and
+     attributes precisely and also verify it through simulation.
+
+    In Model 2, after analyzing the attributes and parameters, we simulate the relationship of
+     different parameters and discuss the question fully. Also, we get satisfied result.
+
+    In Model 3，we cleverly make an analogy with traffic flow and river and think of the
+     question through a new sight. Through our analysis, we make a new sense of driving on
+     the right and left.
+
+    In Model 4, considering of intelligent system, we simplify the complex overtaking
+     problem to the problem to the shortest distance using the method of graph theory and
+     obtain the best way to overtaking.
+
+
+
+7.2 Weaknesses
+
+    In Model 1, though we use the equations to show relationships among parameters, but we
+     don’t have enough to draw the curve of the equation to demonstrate the validity of the
+     relationship.
+
+    In Model 2, we only simulate the traffic with theoretical knowledge, rather than
+     according to the actual situation. So we cannot verify the practicability of our model.
+
+    In Model 3, the effect of Coriolis force might be an major reason, but we should extend
+     our mind to think about other possibilities.
+
+    In Model 4, we just verify our model in a small scale of traffic, what performance will it
+     be when facing large scale of traffic needs further study.
+
+
+=== PHYSICAL PAGE 36 ===
+  Team # 28079                                                             Page 35 of 35
+
+
+
+
+8 References
+
+[1] Yang Chao, Hu Yu, Automobile Safety Distance Model on Highway [J]. Journal of East
+China Jiaotong University, 2010, 27(005): 63-66.
+
+
+[2]Wu Fuwei, QIN Jiahe, REN Chao wei, Simulation of automatic overtaking control
+algorithm for intelligent vehicle on highway [J]. Computer Engineering and Design, 2013,
+34(7): 2542-2546.
+
+[3] Zhang Yaping, Pei Yulong, Overview of development and current situation on highway
+capacity research [J]. Journal of Traffic and Transportation Engineering, 2002, 2(2): 94-97.
+
+[4] Liu Shijie, Research of overtaking model on two-lane highway simulation, [D]. Beijing:
+Beijing University of Technology, 2007.
+
+[5] Zhao ChenH, Wen BoS, A new car-following model considering lateral separation and
+overtaking expectation [J]. Act Phys. Sin, 62(10): 108901-108901.
+
+[6]Http://zhidao.baidu.com/link?url=kLKf-wTpq21qjQaQCuqVPWCLDkm-tWmYsECdR70
+EPEdYthAXBRvJ0MS3g6If1Il1XT8jotEirREgJpCDqcTZG_.
+
+
+[7] Li Wei, GAO Dezhi, DUAN Jianmin. Research on Lane Change Model for Intelligent
+Vehicles [J].Journal of Highway and Transportation Research and Development, 2010, 27(2):
+119-123.
+
+[8] Ye Pin, Zhong Chengwen, Li Bingqiang, Two-lane Cellular Automata Traffic Model
+Based on the Characteristic of Initiative Lane Change of Fast and Slow Vehicles [J] Journal
+and computer, 2007, 25(1): 86-89.
+
+[9] Shi Weiren, Wang ka. Floyd algorithm for the shortest path planning of mobile robot
+[J].Chinese Journal of Scientific Instrument, 2009, 30(10): 2088-2092.

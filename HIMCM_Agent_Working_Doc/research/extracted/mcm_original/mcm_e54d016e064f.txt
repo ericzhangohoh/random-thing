@@ -1,0 +1,2262 @@
+=== PHYSICAL PAGE 1 ===
+        Problem Chosen
+                D
+                                            2021
+                                                微信公众号：数学模型
+                                          MCM/ICM
+                                                   Team Control Number
+                                                        2106028
+                                        Summary Sheet
+
+
+
+       Mining the Influence of Music Based on Social
+        Network Analysis and Statistical Methods
+                                           Summary
+
+                                                                          型
+ As the productivity has developed rapidly since last century, people have been paying more
+
+
+                                                           学
+ and more attention to their spiritual life. As an important part of art and culture, music also
+ changes as times goes by, produces many branches and gains popularity all over the world.
+
+
+                                                            模
+    In this paper, we systematically study influence of music through networks and our work
+ can be summarized as following:
+
+
+
+                                                   数
+    • In Problem 1, we construct the influence network as a directed graph, and propose an
+      overall measure for music influence based on several metrics of the network.
+
+
+
+                                    号
+    • In Problem 2, we analyze the correlation between music features and propose to measure
+
+                                                            m
+      the distance and similarity of music in a latent space by using factor analysis.
+
+
+                                     ：                       od
+    • In Problem 3, we discuss the similarity, influence and relation within genre and between
+      genres, propose to distinguish genre by outlier detection, and describe the process of
+      genre changing over time.
+                                                               els
+                            众
+    • In Problem 4, we show by correlation analysis that reported influncers really affect the
+      style of followers. We also find acousticness and valence, which just correspond to the
+
+                    公                        AT
+      first latent variable, are more contagious.
+
+    • In Problem 5, based on the strategy of Bollinger Bands, we identify the signals of revo-
+
+
+     微                                          H
+      lutions as those points outside the band. We observe strong signals of revolution in the
+      1960s and discover that Nat King Cole and The Beatles are the best representatives of
+
+
+      信
+      revolutionary during this period.
+
+                                      M
+    • In Problem 6, we think some artists of high influence and popularity might lead the trend
+      of genre development. Therefore, we select the dynamic influencer according to these
+
+                              ：
+      two indicators and show by visualization that genre leaders do play a guiding role and
+      interact with the whole genre closely.
+
+
+                      号
+    • In Problem 7, we discuss the sociality of music using the music revolution in the 1960s
+      raised by the counterculture movement as an example. We also explore the significant
+      and possible influence of Internet.
+
+
+      微
+    Finally we conduct sensitivity analysis on the hyper-parameters used in our model, which
+
+
+       信
+ proves the stability of our model and shows the rationality of our choice for hyper-parameters.
+ The pros and cons of our model are discussed deeply as well.
+ Keywords: Social network, Factor analysis, Correlation analysis, Bollinger Bands, Music evo-
+ lution
+
+
+
+
+微信号：MATHmodels                                                                              2
+
+                                                                                   MATHmodels
+                                                                                                关注数学模型
+
+                                                                                                获取更多资讯
+
+
+=== PHYSICAL PAGE 2 ===
+ Team # 2106028
+                                                       微信公众号：数学模型                                Page 2 of 25
+
+
+           Mining the Influence of Music Based on Social
+            Network Analysis and Statistical Methods
+
+
+
+                                               Contents
+                                                                                    型
+ 1   Introduction
+                                                                   学                                        4
+     1.1
+     1.2                                                            模
+            Problem Background . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+            Our Work . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                            4
+                                                                                                            4
+
+ 2   Problem 1: Network Building and Measures Development
+     2.1
+                                                          数
+            Network Building . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                            5
+                                                                                                            5
+     2.2
+                                         号
+            Music Influence Measures Development . . . . . . . . . . . . . . . . . . . . . . .
+
+                                                                    m                                       6
+
+
+
+ 3
+     2.3
+
+                                          ：
+            Construct a Subnetwork . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+     Problem 2: Music Similarity Metric                              od
+                                                                       els
+                                                                                                            8
+
+                                                                                                            9
+
+ 4
+                                众
+     Problem 3: Genre Relation and Development                                                             11
+     4.1
+     4.2                公
+            Similarity and Influence Comparison . . . . . . . . . . . . . . . . . . . . . . . . .
+
+                                                   AT
+            Genre Distinguishment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                           11
+                                                                                                           12
+
+
+
+     微
+            4.2.1   Low-Variance Features . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        12
+            4.2.2
+                                                      H
+                    Analyzing Components . . . . . . . . . . . . . . . . . . . . . . . . . . . .           12
+
+
+      信
+     4.3
+            4.2.3   Outlier Detection . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                            M
+            Genre Evolution and Relations . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                           12
+                                                                                                           13
+            4.3.1
+            4.3.2                 ：
+                    How Does the Number of Musicians in a Genre Change Over Time? . .
+                    How Does the Number of Works in a Genre Change Over Time? . . . .
+                                                                                                           13
+                                                                                                           14
+            4.3.3
+                          号
+                    How Do the Features of Each Genre Change Over Time? . . . . . . . . .                  14
+
+
+
+
+       微
+ 5   Problem 4: Similarity Verification and Feature Mining                                                 15
+
+
+
+
+        信
+ 6   Problem 5: Signals and Pioneers of Revolution                                                         16
+     6.1    Identify Signals of Revolutions in Music Evolution . . . . . . . . . . . . . . . . .           16
+     6.2    Discover Musicians Who Can Represent Revolutionary Changes . . . . . . . . .                   17
+
+ 7   Problem 6: Case Study on Dynamic Influencers                                                          18
+     7.1    Music Evolution over Time . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          18
+微信号：MATHmodels                                                                                         2
+
+                                                                                              MATHmodels
+                                                                                                           关注数学模型
+
+                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 3 ===
+ Team # 2106028
+                                                      微信公众号：数学模型                                Page 3 of 25
+
+
+     7.2   Indicators of Dynamic Influencers . . . . . . . . . . . . . . . . . . . . . . . . . .          19
+     7.3   Interaction Between Genre and its Musician . . . . . . . . . . . . . . . . . . . . .           19
+
+ 8   Problem 7: The Sociality of Music                                                                    20
+
+ 9   Sensitivity Analysis                                                                                 21
+     9.1
+     9.2                                                                           型
+           Sensitivity of Moving Average Window . . . . . . . . . . . . . . . . . . . . . . .
+           Sensitivity of Revolutionary Threshold . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                          21
+                                                                                                          22
+
+ 10 Strengths and Weaknesses
+                                                                  学                                       22
+
+
+                                                                   模
+     10.1 Strengths . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+     10.2 Weaknesses . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+                                                                                                          22
+                                                                                                          23
+
+ 11 Conclusion
+
+ 12 Document to the ICM Society
+                                                         数                                                23
+
+                                                                                                          24
+
+                                        号                          m
+                                         ：                          od
+                                                                      els
+                               众
+                       公                          AT
+     微                                               H
+      信                                    M
+                                 ：
+                        号
+       微
+        信
+微信号：MATHmodels                                                                                        2
+
+                                                                                             MATHmodels
+                                                                                                          关注数学模型
+
+                                                                                                          获取更多资讯
+
+
+=== PHYSICAL PAGE 4 ===
+ Team # 2106028
+                                                           微信公众号：数学模型                                                     Page 4 of 25
+
+
+ 1     Introduction
+ 1.1   Problem Background
+
+     The culture and art industry has witnessed an unprecedented boom recently. Delighted
+ with an ample supply of excellent masterpieces of art, audiences around the world are grateful
+ for the effort made by those great artists. Among these popular productions, musical pieces
+ are the most influential.
+     With a burning desire to understand the role of music in the collective human experience,                         型
+                                                                                  学
+ we try to develop a method to quantify musical evolution. There are many factors that can in-
+ fluence artists when they create a new piece of music, including their innate ingenuity, current
+ social or political events, access to new instruments or tools, or other personal experiences.
+ Our goal is to comprehend and measure the influence of previous music productions.
+                                                                                   模
+     Many musicians admit that there are lots of predecessors who influence their works pro-
+
+
+                                                                  数
+ foundly. It has also been suggested that influence can be measured by the degree of similarity
+ between song characteristics, such as structure, rhythm, or lyrics. There are sometimes revolu-
+ tionary shifts in music, offering new sounds or tempos, such as when a new genre emerges, or
+
+
+                                         号
+ there is a reinvention of an existing genre (e.g. classical, pop/rock, jazz, etc.). This can result
+
+
+                                                                                     m
+ from a sequence of small changes, a cooperative effort of artists, a series of influential artists,
+ or a shift within society.
+
+                                          ：                                           od
+     There are many artists who have contributed to the great shifts of music genres. Sometimes
+ these shifts are due to one artist influencing another. Sometimes it is a change that emerges
+
+
+                               众                                                        els
+ in response to external events (such as major world events or technological advances). By
+ considering networks of songs and their musical characteristics, we can begin to capture the
+ influence that musical artists have on each other. And we can also obtain a comprehensive
+
+                     公
+ picture of how music evolves through societies over time.
+
+                                                     AT
+ 1.2
+       微
+       Our Work
+                                                        H
+        信
+     Our work follows the following workflow, as shown in Figure 1.
+
+                                         MBuild a Music Influence Network
+                                                                                    Propose 5 Indicators
+
+                                                                                    Calculate Weights by EWM
+
+
+
+
+                                  ：       Design a Music Similarity Metric
+                                                                                    Construct a Subnetwork
+
+
+
+                                                                                    Factor Analysis
+
+                                                                                    Construct a Similarity Matrix
+
+
+
+
+                       号                  Compare Similarities and Influence           3 Methods for distinguishment
+
+
+
+
+       微
+                       Music Evolution    Verify the actual influence        Discover Contagious Features
+
+
+
+                                                                             Bollinger Band
+
+
+
+
+        信
+                                          Predict a music revolution         Moving Average (MA)
+
+                                                                             Identify Revolution Representatives
+
+
+
+                                          Analyze music-influence process            Seek for Dynamic Influencers
+
+
+
+
+                                          Re-consider the music revolution            Find Social Source
+
+
+
+
+                                         Figure 1: Work Flow
+
+微信号：MATHmodels                                                                                                                  2
+
+                                                                                                                       MATHmodels
+                                                                                                                                    关注数学模型
+
+                                                                                                                                    获取更多资讯
+
+
+=== PHYSICAL PAGE 5 ===
+ Team # 2106028
+                                                微信公众号：数学模型                             Page 5 of 25
+
+
+     • In Problem 1, we build a music influence network and propose 5 indicators to quanti-
+       tively measure the influence of each musician: 1. Betweeness Centrality. 2. Eigenvector
+       Centrality. 3. Three Degree of Influence. 4. Follower Loyalty. 5. Diversity of Influenced
+       Genres. Then we use entropy weight method(EWM) to calculate the weight of each in-
+       dicator and thus formulate the music influence of each musician. Based on Breadth-First
+       Search(BFS) and the indicators above, we easily construct a subnetwork and reveal latent
+       properties of the subnetwork.
+
+
+                                                                           型
+     • In Problem 2, we design a Music Similarity Metric. By applying Factor Analysis to reduce
+       dimensions, we obtain 3 components to describe the music features of each artist and
+
+
+                                                           学
+       further, each genre. We also construct a similarity matrix to quantify the similarity of
+       artists within and between genres.
+
+
+
+                                                            模
+     • In Problem 3, we compare similarities and influences between and within genres. Then
+       we put forward 3 approaches to distinguish a genre and depict genre evolution and
+       relations over time.
+
+
+                                                    数
+     • In Problem 4, we verify whether influencers indeed affect the music features of the
+       followers through hypothesis testing, and discover that ‘acousticness’ and ‘energy’ are
+
+
+                                    号
+       more ‘contagious’ than other features.
+
+
+                                                             m
+     • In Problem 5, we use the three components from Problem 2 to draw time series diagrams.
+
+
+                                     ：
+       We can predict the occurrence of a music revolution by observing whether the Moving
+
+                                                              od
+       Average(MA) crosses the Bollinger Band, and thus infer that 1961-1968 is a potential rev-
+       olution period. We also identify Nat King Cole and The Beatles as representatives of
+       revolutionaries.
+                             众                                  els
+     • In Problem 6, we analyze the process of music influence and seek for dynamic influ-
+
+
+                     公
+       encers, who are considered to play a guiding role in music evolution.
+
+                                             AT
+     • In Problem 7, we re-consider the drastic music revolution in the 1960s, and find its so-
+
+
+       微
+       cial source is the counterculture movement in western countries. We also discuss the
+
+                                                H
+       influence possibly induced by the development of Internet.
+
+
+ 2      信                              M
+       Problem 1: Network Building and Measures Development
+
+ 2.1    Network Building
+                              ：
+                       号
+    First, we create a directed network G = {V, E}(vi ∈ V ) of musical influence, where each
+ vertex vi = hidi , gi , sti i represents a corresponding musician. As is known to all, musicians
+ may be influenced by their predecessors and then influence future generations of musicians,
+
+
+       微
+ so each vertex can be either an influencer or a follower. In fact, this network describes a one-
+ to-many or many-to-one mapping between influencers and followers. Here, musician vi with
+
+
+        信
+ ID idi and main genre gi started to influence others or to follow someone at time sti . We can
+ easily obtain the data above from inf luence_data.
+    Then we connect influencers to followers with directed edges. Suppose e(i, j) denotes the
+ directed edge (and its weight for simplicity) from influencer vi to follower vj . We can get
+ Figure 2, where different colors represent different genres.
+
+
+
+微信号：MATHmodels                                                                               2
+
+                                                                                    MATHmodels
+                                                                                                 关注数学模型
+
+                                                                                                 获取更多资讯
+
+
+=== PHYSICAL PAGE 6 ===
+ Team # 2106028
+                                                                 微信公众号：数学模型                         Page 6 of 25
+
+
+
+                                                                  PJ Harvey
+                                       The Beatles
+
+                                                                  T. Rex
+                                     Chuck Berry
+
+
+                     Doc Watson                                   Alice Cooper     Dead Boys
+
+                                             Bob Dylan
+                   Cisco Houston
+
+
+                                   Mississippi Sheiks
+                                                                  Paolo Conte
+
+                                                                                         型
+                                                                                    Zucchero
+
+
+
+
+                                                                            学
+                                                                  Joe Ely          Steve Earle
+
+                                     Joan Baez
+
+
+
+
+                                                                             模
+                                                                  Planxty
+
+
+
+                      Figure 2: A local example of music influence network
+
+
+ 2.2   Music Influence Measures Development                      数
+                                            号                               m
+     In this paper, we mainly consider the genres and topology of the music influence network
+
+
+                                             ：
+ and propose 5 indicators to quantitatively measure the influence of nodes. We also give the
+ calculation methods of these indicators as follows.
+                                                                             od
+    • Betweenness Centrality (BC)[3, 4]
+
+                                   众                                           els
+       Betweenness Centrality refers to the number of times that one node acts as the short-
+       est bridge between the other two nodes in a network. Obviously, a node with higher
+
+
+                     公
+       betweenness centrality will have more control over the network, as more influence will
+
+                                                           AT
+       pass through that node. We can define the Betweenness Centrality of node v as
+                                                  X σst (v)
+
+
+       微                                BC(v) =
+                                                 s6=v6=t
+                                                         σst
+                                                             .
+
+                                                              H
+        信
+       Here, σst is the total number of shortest paths from node s to node t and σst (v) is the
+
+                                                 M
+       number of those paths that pass through v. Furthermore, we can normalize the results
+       above and obtain a scaled betweenness centrality
+
+
+                                   ：   normal(BC(v)) =
+                                                                  g(v) − min(g)
+                                                                 max(g) − min(g)
+
+
+                       号
+       For simplicity, we denote normal(BC(v)) as BC(v) in the following paragraphs.
+    • Eigenvector Centrality (EC)[5, 6, 7, 1]
+
+
+       微
+       We also take the neighbors’ influence of a node into account. Suppose that nodes with
+       higher-influence neighbor nodes have higher influence on their descendant nodes and
+
+
+        信
+       vise versa. A high eigenvector centrality score means that a node is connected to many
+       nodes who themselves are highly influencial.
+       To calculate this indicator, we define the adjacency matrix of graph G as A = (av,t ), i.e.
+       av,t = 1 if vertex v is linked to vertex t, and av,t = 0 otherwise. The eigenvector centrality
+       of vertex v can be formulated as
+                                            1 X               1X
+                                   EC(v) =          EC(t) =         av,t EC(t)
+                                            λ                 λ t∈G
+
+微信号：MATHmodels
+                                                        t∈I(v)
+                                                                                                          2
+                                                                                                              关注数学模型
+                                                                                                 MATHmodels
+
+
+                                                                                                              获取更多资讯
+
+
+=== PHYSICAL PAGE 7 ===
+ Team # 2106028
+                                                  微信公众号：数学模型                            Page 7 of 25
+
+
+      where I(v) is a set of the influencers of v and λ is the largest eigenvalue of eigenvector
+      equation Ax = λx.
+   • Three Degree of Influence (TDI)[2]
+      Fowler et al.[2] proposed Three Degree of Influence Rule, indicating that nodes can affect
+      not only their neighbor nodes (one degree), but also the neighbor nodes of the neighbor
+      nodes (two degrees), and even the neighbor nodes of the neighbor nodes of the neighbor
+
+
+                                                                            型
+      nodes (three degrees). Influence between nodes will decline or disappear when it comes
+      to more than three degrees.
+      To calculate the exact score of Three Degree of Influence of one node, we adopt Breadth-
+
+
+                                                               学
+      First Search (BFS) on vertex vi with depth equals to 3 and obtain a subnetwork Gi =
+      {V (i) , E (i) }, which contains the subsequent three generations of vi . We define Three De-
+
+
+                                                                模
+      gree of Influence of vi as
+                                               T DI(vi ) = |V (i) |.
+      That is, Three Degree of Influence of vi equals to the number of elements in the subnet-
+
+                                                     数
+      work Gi . The more descendants vi have, the higher influence it holds.
+   • Follower Loyalty (FL)
+
+
+                                    号
+      We can infer that if a follower is influenced by many influencers, then the follower will be
+
+                                                               m
+      less loyal to each influencer compared with the case where a follower is only influenced
+
+
+                                     ：
+      by one influencer. On the other hand, if an influencer can influence more followers, then
+      his music influence should be greater.
+                                                                od
+                                                                  els
+      We assume that the sum of each follower’s loyalty ratios to all his influencers equals to
+
+
+                            众
+      1, and it is evenly distributed to each of his influencers. Namely, the contribution of each
+      follower’s loyalty to the influencer’s Follower Loyalty F L equals to the reciprocal of the
+      follower’s In-Degree. Then we can get the Follower Loyalty of musician v by
+
+                    公                         AT
+                                          F L(v) =
+                                                      X
+
+                                                   t∈F (v)
+                                                          Loy(t)
+
+
+
+    微 where follower t’s loyalty is defined by
+                                                 H
+     信
+                                                         1
+                                            Loy(t) =
+                                       M               ID(t)
+      Here, ID(t) represents In-Degree of node t. F (v) is a set consisting of the immediate suc-
+
+                              ：
+      cessor nodes of node v, namely, the follower set of musician v. Obviously, the higher
+      score of Loy(t) has, the more deeply the follower t was influenced by each of his influ-
+      encer.
+
+                      号
+   • Diversity of Influenced Genres (DIG)
+      It can be noticed from the dataset that follower’s main genre may be different from that of
+
+
+      微
+      the influencer. Suppose that the more genres a musician influences, the more influential
+      he is in the network. So we count the number of different genres in the subsequent three
+
+
+       信
+      generations of each node and define Diversity of Influenced Genres of musician vi as
+
+                                        DIG(vi ) =
+                                                    X
+                                                         1{gj =gi }
+                                                    j∈V (i)
+
+      where                                        (
+                                                    1, if gj = gi ,
+                                      1{gj =gi } =
+                                                    0, if gj 6= gi .
+微信号：MATHmodels                                                                                2
+
+                                                                                     MATHmodels
+                                                                                                  关注数学模型
+
+                                                                                                  获取更多资讯
+
+
+=== PHYSICAL PAGE 8 ===
+ Team # 2106028
+                                                     微信公众号：数学模型                              Page 8 of 25
+
+
+ Apparently, the first four indicators reflect the topology of the network, and the last indicator
+ reflects the influence genres.
+    Now we can use these 5 indicators to develop the measurement of music influence. We
+ adopt the entropy weight method(EWM) to caculate the weights of each indicator, denote
+ by w1 , w2 , w3 , w4 , w5 . To be more specific, the greater the dispersion degree of an indicator is,
+ the greater its information entropy will be, and the greater the influence (i.e. weight) of the
+ indicator on the response variable will be. If all the values of an indicator are equal, the index
+
+                                                                                   型
+ will play no role in the response variable. From this point, our target function Music Influence
+ can be represent in Equation (1).
+
+
+
+                                                                学
+          M I(v) = w1 · BC(v) + w2 · EC(v) + w3 · T DI(v) + w4 · F A(v) + w5 · DIG(v)                       (1)
+
+
+
+                                                                 模
+ Thus, musician v’s influence on follower t can be formulated as
+
+   M I(v)t = M I(v) · Loy(t)
+                                                                                                          (2)
+           = w1 · BC(v) + w2 · EC(v) + w3 · T DI(v) + w4 · F L(v) + w5 · DIG(v) · Loy(t)
+
+ We put the results in Table 1 and Table 2.                数
+                                      号
+                             Table 1: Weights of 5 indicators by EWM
+
+                                                                    m
+                                       ：
+                             w1        w2         w3       w4       w5
+                             0.1801    0.3163     0.2343   0.1152
+                                                                     od
+                                                                    0.1539
+
+
+
+                              众                                        els
+                          Table 2: Music Influence score of several artists
+
+  Name
+  The Beatles         公      Genre
+                         Pop/Rock
+                                           T DI
+                                           3758
+                                                  AT  BC            EC
+                                                    0.017854 2.48E-05
+                                                                             DIG
+                                                                             18
+                                                                                     FL
+                                                                                    72.9157
+                                                                                                       M I score
+                                                                                                       0.587118
+
+
+       微
+  Miles Davis            Jazz              3588     0.024155 2.09E-05        18    19.53379            0.520501
+  Willie Nelson          Country           1453
+                                                     H
+                                                    0.037038 0.000311        14    5.200698            0.479064
+
+
+        信
+  The Kingston Trio      Folk              2195     0.029905 3.05E-05        16    2.317591            0.457585
+  Sly & the Family Stone R&B;
+                                         M 2932     0.021835 4.64E-05        18    6.813955            0.443942
+
+
+
+
+ 2.3   Construct a Subnetwork   ：
+                       号
+     Using measurements in the previous subsection, we can easily create a subnetwork of the
+ directed music influence network above. For influencer vi , we adopt Breadth-First Search
+
+       微
+ (BFS) on vertex vi with depth equals to 3 and obtain a subnetwork Gi = {V (i) , E (i) }, which
+ contains the subsequent three generations of descendants of vi . We have the following de-
+
+
+        信
+ scriptions of subnetwork Gi .
+
+   1. Betweenness Centrality indicates the importance of musician vi in the whole network,
+      thus the importance of the subnetwork compared to the whole network. Furthermore,
+      we can explore Betweenness Centrality of each node in the subnetwork and determine
+      their importance compared to the subnetwork.
+
+
+微信号：MATHmodels                                                                                     2
+
+                                                                                          MATHmodels
+                                                                                                           关注数学模型
+
+                                                                                                           获取更多资讯
+
+
+=== PHYSICAL PAGE 9 ===
+ Team # 2106028
+                                                  微信公众号：数学模型                             Page 9 of 25
+
+
+     2. Eigenvector Centrality reveals how close musician vi connects with influential musi-
+        cians. That is, the followers of more influential musicians have higher influence and
+        therefore higher scores of Eigenvector Centrality. We can also extend this attribute to
+        the subnetwork, measuring whether the musicians in the subnetwork are affected by
+        extremely influential predecessors or not.
+     3. Three Degree of Influence represents the quantity of musicians influenced by musician
+        vi , which exactly equals to |v (i) |. As Three Degree of Influence Rule suggests, we can
+
+                                                                             型
+        conclude that the influence of vi continues to the third generation. Evidently, the more
+        descendants vi have, the higher influence it holds.
+
+
+
+                                                             学
+     4. Follower Loyalty shows the extent of distraction of each follower, and in turn the dis-
+        persion of influence. By applying this property to the subnetwork, we can determine the
+
+
+                                                              模
+        level of influence and the distribution of loyalty of each follower.
+     5. Diversity of Influenced Genres reveals the diversity of genres in the subnetwork. The
+        more genres vi influenced, the higher influence it holds. Judging from this indicator of
+
+                                                     数
+        the subnetwork, we can also gain a general picture of how genres influenced each other
+        and how they evoluted over time.
+
+
+
+ 3                                   号
+       Problem 2: Music Similarity Metric
+                                                              m
+                                      ：                        od
+     In the provided dataset, a music masterpiece is recorded as a group of numerical features,
+
+                                                                 els
+                             众
+ including danceability, valence, acousticness, etc. These features characterize the music from
+ certain perspectives, such as emotion, rhythm and melody, while some of them might be
+ strongly correlated. For example, we learn from common sense that positive emotions are
+
+
+                     公
+ often conveyed by faster tempo in music, which indicates that valence and tempo might have
+
+                                              AT
+ positive correlation. To form an intuition about this, we conduct a correlation analysis on all
+ informative features and the result is shown in Figure 3.
+
+
+      微                                          H
+     From Figure 3, it is clear that some features might have strong correlation with others, and
+ thus the Euclidean distance in original feature space is not a reasonable metric for music simi-
+
+
+       信
+ larity. To address this problem, we adopt Factor Analysis (FA), which views original features as
+                                        M
+ linear combinations of latent variables, to form a lower dimension space, where the Euclidean
+ distance has much better performance as the measurement for music similarity.
+
+
+                               ：
+    FA is a widely-used method for mining latent variables, which is also called components
+ sometimes. For a dataset X ∈ Rm×n , we assume X is produced by some invisible random
+ variables H ∈ Rm×d in a latent space with lower dimension d < n. The relationship between
+
+                       号
+ H and X has the form of Equation (3)
+                                        X = HW + M + E                                             (3)
+
+
+        微
+ where W ∈ Rd×n is weight matrix of latent variables, M is the empirical mean of each feature
+ estimated from the dataset, and E is the stochastic error term with zero mean.
+
+         信
+     Equation (3) indicates that we might conduct a linear transform, which turns X into H, and
+ utilize the distance metric of H space to measure the similarity of music. We then use the stan-
+ dard Factor Analysis function in the scikit-learn python package to obtain the representations of
+ X in a 3-D latent space by setting dimension d = 3. The result is shown as Figure 4.
+     In Figure 4, we visualize each piece of music as a point in the latent space, and use the genre
+ of the first musician (Some of the work was completed by several musicians. In this case, we
+微信号：MATHmodels                                                                                 2
+
+                                                                                      MATHmodels
+                                                                                                   关注数学模型
+
+                                                                                                   获取更多资讯
+
+
+=== PHYSICAL PAGE 10 ===
+ Team # 2106028
+                                                 微信公众号：数学模型                       Page 10 of 25
+
+
+
+
+                                                                           型
+                                                           学
+                                                            模
+                                                    数
+                                     号                       m
+                                      ：                       od
+                                                                els
+                             众
+                    Figure 3: Correlation coefficient matrix of music features
+
+
+                     公                           AT
+     微                                              H
+      信                                 M
+                               ：
+                      号
+      微
+       信                                          Figure 5: Music similarity between genres
+ Figure 4: Representations on 3-D latent space
+
+
+
+微信号：MATHmodels                                                                             2
+
+                                                                                  MATHmodels
+                                                                                               关注数学模型
+
+                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 11 ===
+ Team # 2106028
+                                                 微信公众号：数学模型                         Page 11 of 25
+
+
+ choose only the first musician in the given data to identify the genre of the work) to deter-
+ mine its color. It is obvious that music pieces belonging to the same genre gather at a specific
+ region. Meanwhile, different genres form separate ’clusters’ in the latent space. We can infer
+ from the figure that music pieces of the same genre are more similar than pieces of different
+ genres, which also meets people’s intuitions and confirms the rationality and effectiveness of
+ our solution.
+    At the end of this section, we look into the problem of similarity within genre and between
+
+                                                                            型
+ genres. In total we have ng = 20 genres including an U nknown for unlabelled artists. We
+ construct a similarity matrix S = {Sij } ∈ Rng ×ng satisfy
+
+
+
+                                                             学
+                                            1 XX
+                                  Sij =                    sim (x, y) ,                      (4)
+                                        |gi ||gj | x∈g y∈g
+                                                     i   j
+
+
+ where
+                                      sim (x, y) =
+                                                     hx, yi
+                                                  kxk2 kyk2
+                                                            . 模                               (5)
+
+
+                                                         数
+ Here, x represent a musician from genre gi and y regresent a musician from genre gj . Sij
+ measures the average similarity of artists between music genres gi and gj . We use the cosine
+ function on vectors as the metric sim (·) for music similarity, and show the results by drawing
+ a heat map in Figure 5.
+                                    号                        m
+    From Figure 5, we find that the similarity within genre is usually higher than that between
+
+                                     ：                        od
+ genres, as the elements on the diagonal are relatively larger. However, there are also a few
+ exceptions, which might be due to the profound influence from great masters and influential
+ genres to artists of newborn genres.
+                                                                els
+                             众
+ 4
+                     公
+       Problem 3: Genre Relation and Development
+                                              AT
+ 4.1
+       微
+       Similarity and Influence Comparison
+                                                 H
+        信
+     Although musicians within a genre is prone to communicate more and create masterpieces
+
+                                       M
+ in more similar styles, some newborn genres can also be deeply influenced by that genre and
+ thus highly similar to others. At specific periods in history, a popular genre might form mul-
+ tiple branches and finally be divided into new genres. Both cases shows that the development
+
+                              ：
+ of genres are not isolated, but closely related. In this section, we mainly discuss the relation
+ about derivation, which corresponds to the former case.
+
+
+                      号
+    In Section 3, we have proposed a similarity for music, and obtain the average similarity
+ as plotted in Figure 5. Generally speaking, the more accumulated loyalty a musician pays to a
+ genre, the more he or she might be influenced by musicians of that genre. Therefore, we will
+
+
+       微
+ take these two metric for the following discussion on the similarity and influence with genre
+ and between genres.
+
+
+        信
+     Based on the influence network built in Section 2, we compute the total accumulated loyalty
+ of all artists within genre to another as the weight of edge from the former genre to the latter,
+ and plot the influence between genres in Figure 6. In this figure, we use the width and color
+ of an arc between genres to represent the weight and source genre of the edge. For example,
+ the black arc from R&B to Pop/Rock is wider than the green arc from Pop/Rock to Electronic,
+ and this means the total accumulated loyalty paid to Pop/Rock by R&B artists are larger than
+ that to Electronic by Pop/Rock artists.
+微信号：MATHmodels                                                                               2
+
+                                                                                    MATHmodels
+                                                                                                 关注数学模型
+
+                                                                                                 获取更多资讯
+
+
+=== PHYSICAL PAGE 12 ===
+ Team # 2106028
+                                                                      微信公众号：数学模型                        Page 12 of 25
+
+
+
+                                                                      Electroni
+                                                                                  c
+
+                                                                                      R&
+                                                                                         B;
+
+                                              Fo
+                                                lk
+
+
+
+                                    Jazz
+
+
+
+
+                                 C ou n try
+
+
+
+                                         B lu
+                                              es
+                                                                                              p/
+                                                                                                 R
+                                                                                                   k
+                                                                                                   oc
+                                                                                                        型
+                                                                                         学
+                                                                                              Po
+
+                                                     Vo
+                                                          ca
+                                                               l
+
+
+
+
+                                                                                          模
+                                                                   L a t in
+
+
+
+
+                      Figure 6: Influence within genre and between genres
+
+
+ 4.2     Genre Distinguishment                                                数
+                                                号
+    Now we focus on mining significant features for each genre and employ 3 approaches to
+ distinguish a certain genre.
+                                                                                              m
+ 4.2.1   Low-Variance Features                   ：                                             od
+                                                                                                 els
+                             众
+    For better interpretability, we return to the original high-dimension representation in the
+ given dataset to seek common characteristics. From the theory of statistics, we know that the
+
+                     公
+ common features within a genre tends to have lower variance since its values are close to each
+
+                                                                   AT
+ other. To be specific, assume we have a musical feature c, in a dataset containing m examples,
+ the mathematical expectation of sample variance will be
+
+
+       微                             "
+                                       1 Xm
+                                                      #
+                                             (c − c̄)2 ≈ Var (c)      H
+        信
+                                   E
+                                       m i=1
+
+                                                     M
+ That means we can approximately substitute sample variance for population variance.
+
+
+ 4.2.2   Analyzing Components ：
+                      号
+    We can see from Figure 4 that after factor analysis, the feature coordinates of the same genre
+ are inclined to gather together. By analyzing the distribution characteristics of each genre, we
+
+
+         微
+ can summarize the features of each genre.
+
+
+ 4.2.3
+          信
+         Outlier Detection
+
+    Some genres may be extreme in certain characteristics. Based on this consideration, we
+ propose a method of drawing violin plots to detect whether some genres have extreme per-
+ formance in certain characteristics (outlier detection). To be specific, we draw Figure 7 and
+ Figure 8. from these two figures, we can see that
+
+微信号：MATHmodels                                                                                                   2
+
+                                                                                                        MATHmodels
+                                                                                                                     关注数学模型
+
+                                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 13 ===
+ Team # 2106028
+                                                     微信公众号：数学模型                        Page 13 of 25
+
+
+
+
+                                                                              型
+                                                              学
+ Figure 7: Violin plot of instrumentalness in sev-
+ eral genres
+                                                               模
+                                                     Figure 8: Violin plot of acousticness in several
+                                                     genres
+
+
+
+                                                      数
+    • The acousticness score of Vocal is higher than that of all other genres. So, we can distin-
+      guish Vocal from other genres by identifying acousticness.
+
+
+                                      号
+    • The instrumentalness score of New Age is higher than that of all other genres. So, we
+
+                                                               m
+      can distinguish New Age from other genres by identifying instrumentalness.
+
+
+ 4.3     Genre Evolution and Relations
+                                       ：                        od
+                                                                  els
+                              众
+     We specify the problem into three parts. The number of musicians and the number of works
+ in a genre can reasonably represent the scale of that genre and thus descride genre evolution.
+
+                      公                         AT
+ Furtheremore, we also explore the change of each genre’s components to depict the trend.
+
+
+ 4.3.1
+       微                                           H
+         How Does the Number of Musicians in a Genre Change Over Time?
+
+
+
+        信
+     In this part, we take inf luencer_active_start and f ollower_active_start into account. We
+                                         M
+ have not yet considered the length of time a musician staying active (in fact, there is no data
+ for us to consider). In particular, we select several genres and plot a trend chart of the number
+
+                                ：
+ of musicians in the genres as is shown in Figure 9. Due to incomplete data collection after
+ 2010, Figure 9 is only drawn to 2000 (2000-2010).
+
+
+                       号
+         微
+          信                                          Figure 10: How the number of works in a genre
+ Figure 9: How the number of musicians in a
+ genre changes over time                             changes over time
+
+
+
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                    关注数学模型
+
+                                                                                                    获取更多资讯
+
+
+=== PHYSICAL PAGE 14 ===
+ Team # 2106028
+                                                 微信公众号：数学模型                       Page 14 of 25
+
+
+    We can see from Figure 9 that
+
+    1. Pop/Rock has developed rapidly since 1940 with a large group of musicians.
+
+    2. Vocal, Religious, Electronic music have relatively smaller scales.
+
+    3. All genres peaked in 1990-2000 and declined in 2000-2010.
+
+
+ 4.3.2   How Does the Number of Works in a Genre Change Over Time?          型
+                                                            学
+   On the other hand, we can also identify how genres change by tracking the number of
+ works in them. Similarly, we select several genres and plot a trend chart of the number of
+ works in the genres as is shown in Figure 10.
+    As shown in Figure 10, we can conclude that              模
+                                                    数
+    1. Vocal music flourished between 1920 and 1950, and then its number of works declined.
+
+    2. Pop/Rock has develop rapidly since 1960 and reached its peak between 1970 and 1990.
+
+                                    号                        m
+    3. Musicians-number and works-number of R&B have changed roughly synchronously.
+
+
+                                     ：                        od
+    4. Religious and Electronic are relatively small-scale and produce very limited works.
+
+
+                                                                els
+ 4.3.3
+                             众
+         How Do the Features of Each Genre Change Over Time?
+
+     With time passed, the features of each genre may change dramatically. We use the result of
+
+                     公                        AT
+ factor analysis in Problem 2 to analyze the trend of the three components of different genres.
+ Here, we still take those 5 genres previously selected as examples, and analyze acoustics-
+
+
+     微
+ energy component and valence component to draw Figure 11 and Figure 12.
+
+                                                 H
+      信                                M
+                              ：
+                       号                           Figure 12: How Valence Component of a genre
+
+         微
+ Figure 11: How Acoustics-energy Component of
+ a genre changes over time                         changes over time
+
+
+
+          信
+    Figure 11 shows that in terms of acoustic energy component, Pop/Rock, Electronic, and
+ Religious music had a similar trend from 1920 to 1960, all of which surged in 1920 to 1930 and
+ then fell back in the next 20 years. Acoustic-energy component of all genres fluctuated in a
+ small range from 1980 to 2010.
+     As for Valence component, there has been an overall upward trend in all genres from 1920
+ to the present. Among them, Electronic fluctuated sharply from 1950 to 1980, while Vocal,
+微信号：MATHmodels                                                                             2
+
+                                                                                  MATHmodels
+                                                                                               关注数学模型
+
+                                                                                               获取更多资讯
+
+
+=== PHYSICAL PAGE 15 ===
+ Team # 2106028
+                                                    微信公众号：数学模型                          Page 15 of 25
+
+
+ Religious and R&B approximately increased synchronously. It is worth noting that the Valence
+ component of Pop/Rock dropped after reaching a local maximum value in 1930, but steadily
+ increased since 1950.
+
+
+
+ 5     Problem 4: Similarity Verification and Feature Mining
+
+                                                                                型
+    In this section, we will examine whether followers are indeed influenced by influencers
+ from the network, i.e., whether those interrelated musicians in the directed music influence
+
+
+                                                                 学
+ network will have higher similarities. We will use hypothesis testing to explore this problem.
+                (
+                  H0 : Followers are indeed influenced by influencers.
+
+
+                                                                  模
+                  H1 : Followers are not completely influenced by influencers.
+
+     Before testing this hypothesis, we need to clarify a confusing concept.
+                                                                                              (6)
+
+
+
+
+                                                         数
+ Definition 1. (Similarity between musician x and y) As defined in Equation (5), similarity between
+ musician x and y can be formulated as
+
+                                      号 sim (x, y) =
+                                                         hx, yi
+                                                                 ,
+                                                                     m
+                                       ：
+                                                       kxk2 kyk2
+
+                                                                      od
+ which is a combination of various musical features of the works of musician x and y.
+
+
+                              众                                         els
+   In other words, musician x, y might be similar to each other in a certain feature or another,
+ whereas sim (x, y) measures a comprehensive level of similarities in these features.
+
+
+                      公
+     On the other hand, We hold the opinion that the interrelation between musician x and y on
+
+                                                AT
+ the music influence network is determined by the direct connection betwee x and y. Namely,
+ as long as there exists a directed edge from x to y or from y to x, we consider x and y are
+
+
+      微
+ interrelated.
+                                                   H
+    Then, to test H0 in (6), we only need to verify that both those various features’ similarity
+
+
+       信
+ and the similarity function in Equation (5) of interrelated musicians are higher than that of
+                                         M
+ any two randomly selected musicians. To calculate the similarity function and each feature’s
+ similarity, we put forward the following method.
+
+                                ：
+     1. There are 12 original features and 3 compound features(components), a total of 15 fea-
+        tures. For the sake of storing two musicians to be compared, we set two arrays for each
+
+                        号
+        feature, namely, Ai , Bi (i = 1, 2, · · · , 15).
+     2. Pair the musicians and devide them into two groups:
+
+
+        微(
+           Group 1: Musician-pairs in which direct interrelation exists.
+
+
+         信 Group 2: Randomly-selected musician-pairs, which is considered to be unrelated.
+
+     3. Put the musical features i(i = 1, 2, · · · , 15) of the musicians in Group 1 into the array
+        Ai (i = 1, 2, · · · , 15) and the other one in the pairs into Bi (i = 1, 2, · · · , 15).
+     4. Do Jarque-Bera test to verify whether the data in the array obey normal distribution. If
+        yes, we will use Pearson correlation coefficients in the following step. If no, we will apply
+        Spearman correlation coefficients.
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 16 ===
+ Team # 2106028
+                                                   微信公众号：数学模型                       Page 16 of 25
+
+
+     5. Calculate the correlation coefficients of each feature.
+
+     6. Repeat Step 3-5 for Group 2.
+
+     7. Compare the results using hypothesis testing and draw conclusions.
+
+    We show the results in Figure 13. All of the features have considerably higher Spearman
+ correlation coefficients in Group 1 than in Group2. After hypothesis testing, we can claim that
+
+                                                                            型
+ the similarity caused by the connection between musicians is by no means accidental. There-
+ fore, We can accept the null hypothesis H0 : Followers are indeed influenced by influencers.
+
+
+                                                              学
+                                                               模
+                                                      数
+                                       号                          m
+                                        ：                          od
+                                                                     els
+                              众
+                Figure 13: Spearman correlation coeffients of Group 1 and Group 2
+
+
+                      公                         AT
+ 6
+       微
+       Problem 5: Signals and Pioneers of Revolution
+                                                   H
+ 6.1
+        信
+        Identify Signals of Revolutions in Music Evolution
+                                         M
+     On the one hand, we know that some music genres may change rapidly over time. On
+
+                                ：
+ the other hand, even if the music genre stays the same, we can still find that the intrinsic
+ characteristics of some genres have changed. Music evolution can be interpreted as the change
+ of those three components found in Problem 2. A drastic music revolution is a period in which
+
+                        号
+ these three components change dramatically.
+    So, what is the period of dramatic change? To solve this problem, we draw a time sequence
+
+
+        微
+ diagram of the three components over time, and analyze it by using Bollinger Bands, which is a
+ confidence interval band obtained by statistical methods. We adopt Bollinger Bands and slope of
+
+
+         信
+ Moving Average(MA) as predictors of the musical revolution. In this section, we set the sliding
+ window of the Bollinger Band as 3 years, and the standard deviation factor β = 2. The results
+ are shown in Figure 14a, 14b, 14c.
+     According to the Pauta Criterion, if random variable X ∼ N (µ, σ 2 ), then
+
+                                 P (X ∈ (µ − 3σ, µ + 3σ)) ≈ 0.9973.
+
+
+微信号：MATHmodels                                                                               2
+
+                                                                                    MATHmodels
+                                                                                                 关注数学模型
+
+                                                                                                 获取更多资讯
+
+
+=== PHYSICAL PAGE 17 ===
+ Team # 2106028
+                                                 微信公众号：数学模型                          Page 17 of 25
+
+
+
+
+    (a) Acoustics Component           (b) Valence Component
+                                                                             型
+                                                                      (c) Instrumental Component
+
+
+
+
+                                                             学
+                               Figure 14: Time series of components
+
+
+
+
+                                                              模
+ We claim that a musical revolution occurred when M ovingAverage(M A) broke through the
+ Bollinger Bands with a high slope.
+    By analyzing Bollinger Bands and slope of Moving Average(MA) in Figure 14a, 14b, 14c, we
+
+                                                     数
+ find that all of the 3 components broke through the Bollinger Bands during 1961-1968. Mean-
+ while, the slopes of these three Moving Average(MA) are considerably high. Therefore, 1961-
+ 1968 is very likely to be the musical revolution we are looking for.
+
+                                     号                        m
+ 6.2
+                                      ：                        od
+       Discover Musicians Who Can Represent Revolutionary Changes
+
+
+                                                                 els
+    In Section 6.1, We figure out that 1961-1968 is very likely to be the period in which music
+
+                              众
+ revolution took place. In this section, we will seek for the musicians who may lead the music
+ revolution from those who published their works during 1961-1968.
+
+
+                     公
+    Through the music influence network established in problem 1, we trace the source of
+
+                                              AT
+ these music-revolution-leader candidates to find relatively ‘sophisticated’ musicians. Music
+ revolution leaders are those who have high M usicInf luence(M I) scores and at the same time,
+
+
+       微
+ their features change in sync with that of the whole music industry.
+
+                                                 H
+    As shown in Equation (7), we calculate The First Order of Temporal Correlation Coefficient of
+
+
+        信
+ one musician’s score and music industry’s average with regard to a fixed feature, in order to
+
+                                       M
+ determine whether the feature of that musician changes in sync with that of the whole music
+ industry.
+
+
+                              ：
+        CORT (XT , AverageT ) = r
+                                   PT −1
+                                        PT −1
+                                           t=1 (xt+1 − xt ) · (averaget+1 − averaget )
+                                                         qP
+                                                                T −1
+                                                                                               (7)
+
+
+                      号
+                                                      2                                      2
+                                      t=1 (xt+1 − xt ) ·        t=1 (averaget+1 − averaget )
+
+
+
+    Here, XT represents the time series of a certain characteristic of a musician. AverageT
+
+
+       微
+ denotes the time series of music industry’s average value on this characteristic. xt , averaget is
+ the value of XT , AverageT at time t.
+
+
+        信
+     If CORT (XT , AverageT ) ≈ 1, then the two time series have similar trends and they will
+ rise or fall simultaneously. Namely, that musician are very likely to be the leader of the music
+ revolution in terms of the fixed feature.
+    We can do this with pseudo-code in Algorithm 1.
+     Through looking up for ancestors in the music influence network, analzing of the Music
+ Influence(MI), calculating the The First Order of Temporal Correlation Coefficient between the mu-
+微信号：MATHmodels                                                                                2
+
+                                                                                     MATHmodels
+                                                                                                  关注数学模型
+
+                                                                                                  获取更多资讯
+
+
+=== PHYSICAL PAGE 18 ===
+ Team # 2106028
+                                                   微信公众号：数学模型                          Page 18 of 25
+
+
+     Table 3: Dynamic Influencer Evaluation Index(DIEI) score in 1965 when c1 = 0.3, c2 = 0.5
+
+  Name               Acoustics-energy Component       Valence Component       Instrumental Component
+  The Beatles                 -0.018271926                -0.229203397               0.408461158
+  Nat King Cole                0.142897328                0.040045023                0.052714147
+
+
+
+                                                                              型
+ sicians, and the music industry average, we find the Beatles and Nat King Cole as the pioneers
+ of this musical revolution, as shown in Table 6. As revolutionary might be promoted by sev-
+ eral musicians, we might not observe very strong correlation between the mean of the whole
+ community and a single musician.
+                                                              学
+     Algorithm 1: Algorithm for finding revolutionary artists
+
+                                                               模
+      Input: Influence network G, Influence threshold c1 , Correlation threshold c2 , Artist set
+             S, Artist component matrix by year F = {F (y)}
+
+
+  1
+      Output: List of revolutionary artists L
+    Initialize L to ∅;                                数
+                                       号
+  2 With Bollinger band computed before, select years Y = {y} in which revolutionaries
+     might happen;
+                                                               m
+                                        ：
+  3 for Each y ∈ Y do
+  4
+                                                                od
+        Find all revolutionary artists A = {a} who published their works in y;
+        Mark revolutionary artists in G as candidates;
+  5
+  6
+  7
+  8
+        for Each a ∈ A do
+                               众
+            if An influencer of a is revolutionary then
+                Mark a with an extra eliminated symbol;
+                                                                  els
+  9
+
+ 10     end
+            end
+                       公                        AT
+       微
+        Eliminate all artists a with eliminated symbol from A;
+ 11
+ 12
+                                                   H
+        Compute the influence score for each a remained in A and sort them by score;
+
+
+        信
+ 13     for Each a ∈ A and influence score of a is larger than c1 do
+ 14
+ 15                                      M
+            Compute a trend correlation coefficient s for a;
+            if s is larger than c2 then
+ 16
+ 17
+
+ 18     end
+            end
+                                ：
+                Recognize a as a revolutionary artist and append a to L
+
+
+
+ 19 end
+                         号
+ 20 return The list of revolutionary artists L;
+
+
+
+
+         微
+ 7
+
+ 7.1
+          信
+        Problem 6: Case Study on Dynamic Influencers
+
+         Music Evolution over Time
+
+    We believe that there is(are) one(or many) leader(s) (that is, dynamic influencer) within a
+ genre who lead the evolution of the whole genre. Only musicians with great music influence
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                    关注数学模型
+
+                                                                                                    获取更多资讯
+
+
+=== PHYSICAL PAGE 19 ===
+ Team # 2106028
+                                                    微信公众号：数学模型                              Page 19 of 25
+
+
+ can perform such a role. Therefore, the dynamic influencers must be those contemporary
+ musicians who are most popular and influential. In particular, the evolution trend of the
+ whole genre and the leader should be approximately the same. Many musicians in the genre
+ may follow those leaders in their creation.
+
+
+ 7.2   Indicators of Dynamic Influencers
+
+                                                                                   型
+    Now we take a further step to identify indicators that reveal the leaders(dynamic influ-
+ encers). We raise 3 indicators to sole this problem.
+
+
+                                                                 学
+   1. Music Influence score(M I score). From Problem 1 we obtain Music Influence scores of
+
+
+                                                                  模
+      each musician which are employed as an indicator in this section.
+   2. AverageP opularity score of each musician. Dataset f ull_music_data provide us with he
+      Popularity of each work (P opularity). Suppose that every musician will get the corre-
+
+                                                        数
+      sponding Popularity score as long as he gets involved in the creation of the work.
+   3. T otalP opularity score of each musician.
+
+
+                                       号                          m
+ Note that Music Influence score(M I score) does not vary over time because we do not have
+
+
+                                        ：                          od
+ relevant data as support, whereas P opularity score is measured by year. We still adopt En-
+ tropy Weight Method(EWM) to calculate the weights of the above three indicators, which will
+
+
+                                                                     els
+ change over year. Now we can represent Dynamic Influencer Evaluation Index(DIEI) of mu-
+ sician v in Equation (8).
+                              众
+           DIEI(v) = w1 (t) · M I(v) + w2 (t) · P OPAverage (v, t) + w3 (t) · P OPT otal (v, t)          (8)
+
+
+                       公                         AT
+ Thus, the Dynamic Influencer Evaluation Index(DIEI) score of this question can be obtained,
+ and the musicians with the highest score in each genre will be selected as the dynamic influencer.
+
+
+       微
+ We draw a graph of the weight over time in Figure 15 and Then we take the data in 1965 for
+
+                                                    H
+ example, calculate the weights of 3 indicators as shown in Table 4 and list some of the results
+ in Table 5.
+
+        信                                M
+                                ：                      Table 4: Weights of 3 indicators in 1965
+
+
+
+                       号                                         w1
+                                                              0.09355
+                                                                            w2
+                                                                         0.40601
+                                                                                       w3
+                                                                                    0.50043
+
+
+       微
+    Figure 15: How weights of 3 indicators
+
+
+        信
+    change over time
+
+
+ 7.3   Interaction Between Genre and its Musician
+
+     Based on the approaches in Section 7.2, we can successfully identify those dynamic influ-
+ encers and we show some of our results in Figure 16a and Figure 16b. For visualization, we
+ set 3 years as the Lag of Moving Average(MA), namely, the genre mean.
+微信号：MATHmodels                                                                                       2
+
+                                                                                            MATHmodels
+                                                                                                         关注数学模型
+
+                                                                                                         获取更多资讯
+
+
+=== PHYSICAL PAGE 20 ===
+ Team # 2106028
+                                                  微信公众号：数学模型                           Page 20 of 25
+
+
+      Table 5: Dynamic Influencer Evaluation Index(DIEI) score of several artists in 1965
+
+       name                   genre        M I score   P OPAverage   P OPT otal    DIEI score
+       The Beatles            Pop/Rock     0.587118     59.10714       1655         0.913469
+       Bob Dylan              Pop/Rock     0.428424     28.58571       2001         0.765057
+       Otis Redding           R&B;         0.292864     29.13846       1894         0.720494
+       The Rolling Stones     Pop/Rock     0.392363     29.83333       1790         0.715112
+
+                                                                                 型
+                                                              学
+                                                               模
+           (a) Evolution of acousticness
+                                                       数      (b) Evolution of danceability
+
+
+                                       号                       m
+                        Figure 16: Evolution of Latin’s leaders and genre-mean
+
+
+                                        ：
+     From Figure 16a and Figure 16b, we can clearly see that
+                                                                od
+                                                                  els
+                              众
+     • The leaders (dynamic influencers) in a genre play a guiding role in genre evolution.
+
+     • The evolution of the leaders is basically in sync with that of the genre.
+
+
+                      公                        AT
+     • The features of leaders fluctuate sharply, indicating that leaders are minority groups in
+       each genre, making the indicators of leaders more sensitive to extreme values.
+
+
+      微                                           H
+     • The genre-mean reflects the average level of that indicator within the genre, so the vari-
+       ation is relatively moderate.
+
+
+
+ 8
+       信
+      Problem 7: The Sociality of Music
+                                           M
+                                ：
+     Music world is not an isolated island, as any changes in the real world might have a sig-
+
+                       号
+ nificant and profound influence on the developing trend of music within a period of several
+ years. In this section we will take the revolution happend in the 1960s, which was discussed
+ only from the perspective of music feature above, as an example to show the sociality of music.
+
+
+       微
+     According to the modern western history, there was once a counterculture movement
+ lasted from the 1960s to the 1970s. As the era unfolded, what emerged were new cultural
+
+        信
+ forms and a dynamic subculture that celebrated experimentation, modern incarnations of Bo-
+ hemianism, and the rise of the hippie and other alternative lifestyles. This embrace of creativ-
+ ity is particularly notable in the works of British Invasion bands such as the Beatles [8]. Music,
+ as a sort of culture, get deeply affected during this extraordinary period, and it became more
+ bolshy, more unrestrained and more emotional, which we can also observe from Figure 16a
+ and 16b. It was in this era that Pop/Rock had developed at an astonishing speed and gained
+ much more popularity. We can find the trace of this movement from data in many ways.
+微信号：MATHmodels                                                                                  2
+
+                                                                                       MATHmodels
+                                                                                                    关注数学模型
+
+                                                                                                    获取更多资讯
+
+
+=== PHYSICAL PAGE 21 ===
+ Team # 2106028
+                                                微信公众号：数学模型                         Page 21 of 25
+
+
+    It is worth mentioning that the rapid and wide spread of the Internet is another example
+ which shows reflects the external influence on music. The Internet provides a fast and con-
+ vinient way for music spread, and also promotes fan economy and the leisure industry. The
+ former helps great masterpieces to harvest more popularity while the latter might lead to the
+ formation of many non-mainstream styles. Due to space limitation, we do not discuss it deeply
+ here, and this topic might be fully explored when more sufficient and fresh data are provided.
+
+
+
+ 9     Sensitivity Analysis                                                型
+ 9.1   Sensitivity of Moving Average Window
+                                                             学
+                                                              模
+    In Section 6, we set the moving average window to 3-year to better capture the overall
+ developing trend and the signals of revolution in music community. This is somehow a hyper-
+
+
+                                                    数
+ parameter in our model, and we choose different values here to verify the choice of 3-year.
+    Adjust the window length to 5-year and 9-year, we can obtain the moving average results
+ and corresponding Bollinger Bands as shown in Figure 17.
+
+                                    号                        m
+                                     ：                        od
+                                                                els
+                              众
+                     公
+       (a) Acoustics, W = 5
+                                             AT
+                                        (b) Valence, W = 5            (c) Instrumental, W = 5
+
+
+
+       微                                        H
+        信                              M
+       (d) Acoustics, W = 9
+                              ：         (e) Valence, W = 9            (f) Instrumental W = 9
+
+                       号      Figure 17: Times series of components
+
+
+
+       微
+     From the figures above we can see that as the sliding window becomes longer, the curve
+
+
+        信
+ becomes smoother, and the revolutions are harder to detect. However, the overall trend and
+ the breakthrough made by revolutionaries remains roughly the same, which proves the stabil-
+ ity of our method, as well as the choice of 3-year sliding window, considering the purpose of
+ detect revolutions.
+
+
+
+
+微信号：MATHmodels                                                                              2
+
+                                                                                   MATHmodels
+                                                                                                关注数学模型
+
+                                                                                                获取更多资讯
+
+
+=== PHYSICAL PAGE 22 ===
+ Team # 2106028
+                                                 微信公众号：数学模型                          Page 22 of 25
+
+
+ 9.2    Sensitivity of Revolutionary Threshold
+
+    Another important hyper-parameter in our model is the influence and correlation thresh-
+ old for detecting revolutionary pioneers. In Section 6.2, we critical value c1 = 0.3 and c2 = 0.5,
+ now we take other values for c1 and c2 to verify the stability of our model here.
+
+  Table 6: Dynamic Influencer Evaluation Index(DIEI) score in 1965 when c1 = 0.3, c2 = 0.5
+
+  Name
+  The Beatles
+                   Acoustics-energy Component
+                            -0.018271926
+                                                     Valence Component
+                                                         -0.229203397
+                                                                             型
+                                                                            Instrumental Component
+                                                                                   0.408461158
+  Nat King Cole              0.142897328
+                                                             学
+                                                         0.040045023               0.052714147
+
+
+
+                                                              模
+  Table 7: Dynamic Influencer Evaluation Index(DIEI) score in 1965 when c1 = 0.6, c2 = 0.9
+
+  Name
+  The Beatles
+                   Acoustics-energy Component
+                            -0.019367252             数
+                                                     Valence Component
+                                                         -0.257729132
+                                                                            Instrumental Component
+                                                                                   0.430968754
+
+
+                                     号
+  Nat King Cole              0.127946278                 0.083617453               0.059204672
+
+
+
+
+                                      ：                       m
+    As is clear in Table 6 and Table 7, although the result can possibly change a little bit when
+
+                                                               od
+ the two hyper-parameters are set to different values, our algorithm can always find a decent
+ pioneer the revolutions. This shows that our algorithm is not sensitive to these two parameters
+
+
+                             众
+ and can keep working well in a wide range.
+                                                                 els
+ 10
+                     公
+        Strengths and Weaknesses
+                                              AT
+ 10.1
+       微 Strengths
+                                                 H
+        信
+   1. Comprehensive and reasonable measures for network and music.
+
+                                       M
+      We select several indices for the influence network of musicians, and each of them re-
+      spectively describes the property of network from some different perspectives. As for
+
+
+                              ：
+      the similarity, we analyze the correlation between music features from the dataset and
+      propose a metric based on factor analysis and cosine similarity. Both of the two metrics
+      comes up with full consideration.
+
+
+                      号
+   2. Effective data-driven methods for data insights without human interference.
+      We utilize powerful and effective statistical methods, such as correlation analysis, factor
+
+
+        微
+      analysis, hypothesis test, etc. to explore patterns of data. We also use entropy weight
+      method to determine weights for factors when computing the score of music influence.
+      Most parts of our model are fully data-driven, which rules out possible impacts induced
+
+         信
+      by human interference. We just let data speak.
+
+   3. Analysis from latent and feature spaces with high visual interpretability.
+      As the original features of music locate in a high-dimension space, we can hardly master
+      the mathematical and numerical properties of their distances. Therefore, we lower the
+      number of dimension by extract major factors and visualize the distribution of music
+      in the latent space, which improves the interpretability of our model. In addition, we
+
+微信号：MATHmodels                                                                                2
+
+                                                                                     MATHmodels
+                                                                                                  关注数学模型
+
+                                                                                                  获取更多资讯
+
+
+=== PHYSICAL PAGE 23 ===
+ Team # 2106028
+                                                微信公众号：数学模型                         Page 23 of 25
+
+
+        perform analysis in either space according to our actual demands, and this enhances the
+        expressive power and flexibility.
+
+
+ 10.2    Weaknesses
+   1. Inadequate data for full utilization of data-driven model.
+
+
+                                                                          型
+      As discussed in the strengths of our model, we hear the voice of data without much hu-
+      man interference. However, we have access to only a small part of music dataset, which
+      might lead to problems like distribution mismatch of music works, misjudegement on
+
+
+                                                           学
+      the developing trend of genres, etc. When the dataset is larger and cleaner, these prob-
+      lems are likely to be lessened.
+
+
+                                                            模
+   2. Appropriate simplification of indirect musical influence.
+      In Problem 4, we adopt an alternative approach by defining an REL function, to repre-
+      sent Interrelationship between musician x and y, which is determined by the reciprocal
+
+                                                   数
+      of harmonic mean of shortest path between two points. However, the correlation coef-
+      ficients calculated by this method is very small and the results are not satisfying. So we
+      give up this method, which might be reasonable to some extent.
+
+
+                                    号
+   3. Neglect indirect-connected musicians.
+                                                            m
+                                     ：
+      In Problem 4, we only consider the nodes having direct interrelations whereas neglect the
+
+                                                             od
+      potential interrelations between indirect-connected nodes. As Three Degree of Influence
+      suggests, a musician can influence his successors up to three generations. In fact, we
+
+                                                               els
+      have tried to take three generations of successors into account, the results are still not
+      satisfying.
+                             众
+ 11     Conclusion   公                       AT
+      微                                         H
+     In this paper, we systematically study influence of music through networks and our results:
+ First, we construct music influence network, derive the influence score based on four network
+
+       信
+ metrics. Second, we find strong correlation between music features and thus measure music
+                                       M
+ similarity in a latent space of three main components by factor analysis. Third, we discuss
+ the similarity, influence and relation within genre and between genres, propose to distinguish
+
+                              ：
+ genre by outlier detection, and describe the process of genre changing over time. Fourth, we
+ prove the actual influence of reported influencers and find more contagious features of music.
+ Fifth, we observe revolutionary in the 1960s and discover that Nat King Cole and The Beatles
+
+                       号
+ represents this revolutionary. Sixthly, we claim that there are dynamic influencers playing a
+ leader role of a genre, who guides the trend of genre developing and interact with the whole
+ genre closely. Last, we discuss the sociality of music taking the revolutionary in the 1960s as
+
+        微
+ example and the significant and possible influence of Internet.
+
+
+
+         信
+微信号：MATHmodels                                                                              2
+
+                                                                                   MATHmodels
+                                                                                                关注数学模型
+
+                                                                                                获取更多资讯
+
+
+=== PHYSICAL PAGE 24 ===
+ Team # 2106028
+                                                   微信公众号：数学模型                           Page 24 of 25
+
+
+ 12      Document to the ICM Society
+
+      Dear ICM Society,
+     The culture and art industry has witnessed an unprecedented boom recently. Among these
+ popular productions, musical pieces are the most influential. Accurately identifying music
+ influence and mining important features are of vital importance to understand the evolution
+
+
+                                                                               型
+ of music. As response to your association’s requirement, we are here pretty glad to have the
+ opportunity to introduce our research and findings to you, with the hope that it may give you
+ some insights of future music development.
+
+
+                                                               学
+    It is a great opportunity to build a music influence network through which we have found
+ the factors that affect a musician’s influence in the music industry. By our model we can predict
+
+
+                                                                模
+ the development trend of music well.Music is an important field in culture. If we can predict
+ the development trend of music well, We can quickly complete the transformation of music
+ and culture and maintain a leading position in the music revolution. Therefore, our method
+ has high academic and economic value.
+                                                      数
+     Due to limited time and energy, we mainly use some relatively basic and reliable models
+ for data mining. But as the amount of data increases, ordinary machine learning models can no
+
+                                      号
+ longer meet our demand for higher precision. We can consider using LSTM/VAE to analyze
+
+                                                                m
+ time series, using graph neural network for social network analysis and so on.
+
+
+                                       ：                         od
+     We recognize that the development of music is affected by the social environment. Music
+ and culture both promote and restrict each other. The appearence of music is closely related
+
+                                                                   els
+ to culture. Music is rooted in culture, and it blends with, relies on and promotes each other.
+
+                              众
+ From the music of a period, we can see the specific environment of this period and the cultural
+ characteristics of different ethnic groups and different regions. Music can promote the cultural
+
+
+                     公
+ development of the same period. Good music can inspire and purify the soul. Therefore, music
+
+                                               AT
+ originates from culture, but at the same time it is higher than culture.Culture is the concepts
+ and thoughts formed by a nation or country in a period of time. It represents the values and
+
+
+      微
+ behaviors of this nation and nation, and reflects the state of life of this group in a certain period
+
+                                                  H
+ of time. Music influences and infects people’s thoughts and hearts through the influence of
+
+
+       信
+ beauty. It is a bridge connecting national culture and regional culture and the best way to
+ sustain national culture.
+                                        M
+    We are really appreciated for this opportunity to assist you in exploring music evolution
+
+
+                               ：
+ and comprehending the influence of music by building networks, and we are convinced that
+ our approach can be utilized in future music evolution. Please feel free to contact us for further
+ information on this project.
+
+
+                       号                                                           Sincerely yours,
+                                                                                   MCM 2021 Team
+
+        微
+         信
+微信号：MATHmodels                                                                                   2
+
+                                                                                        MATHmodels
+                                                                                                     关注数学模型
+
+                                                                                                     获取更多资讯
+
+
+=== PHYSICAL PAGE 25 ===
+ Team # 2106028
+                                                微信公众号：数学模型                         Page 25 of 25
+
+
+ References
+
+ [1] Stephen P Borgatti. Centrality and network flow. Social networks, 27(1):55–71, 2005.
+
+ [2] James H Fowler and Nicholas A Christakis. Dynamic spread of happiness in a large social
+     network: longitudinal analysis over 20 years in the framingham heart study. Bmj, 337,
+     2008.
+
+
+                                                                           型
+ [3] Linton C Freeman. A set of measures of centrality based on betweenness. Sociometry, pages
+     35–41, 1977.
+
+
+                                                           学
+ [4] Mark EJ Newman. A measure of betweenness centrality based on random walks. Social
+     networks, 27(1):39–54, 2005.
+
+
+                                                            模
+ [5] Mark EJ Newman. The mathematics of networks. The new palgrave encyclopedia of economics,
+     2(2008):1–12, 2008.
+
+
+                                                     数
+ [6] Britta Ruhnau. Eigenvector-centrality—a node-centrality? Social networks, 22(4):357–365,
+     2000.
+
+
+
+                                    号
+ [7] Karen Stephenson and Marvin Zelen. Rethinking centrality: Methods and examples. Social
+     networks, 11(1):1–37, 1989.
+                                                            m
+                                     ：
+ [8] Wikipedia. Counterculture of the 1960s, 2021.
+                                                             od
+                                                               els
+                            众
+                    公                        AT
+     微                                          H
+      信                               M
+                              ：
+                      号
+      微
+       信
+微信号：MATHmodels                                                                              2
+
+                                                                                   MATHmodels
+                                                                                                关注数学模型
+
+                                                                                                获取更多资讯
