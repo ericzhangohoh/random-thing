@@ -16,7 +16,7 @@ The reusable working document and the active contest project are different thing
 | `models/` | Modeler | Mathematical specifications, candidates, assumptions, validation designs, proposed decisions. |
 | `code/` except `code/visualization/` | Computation | Data-processing, model, experiment and test code. No changes to plot code owned by writer-visuals. |
 | `code/visualization/` | Writer-visuals | Plot and table rendering from named, immutable result tables. No refitting or changing model outputs here. |
-| `runs/<run-id>/` | Assigned computation session | Commands, config, logs, environment, outputs and completion receipt for one invocation. Once closed, immutable. |
+| `runs/<run-id>/` | Assigned computation session | Commands, config, logs, environment, outputs, reproduction snapshots or retrieval inventory, and completion receipt for one invocation. Once closed, immutable. |
 | `qa/` | Independent-reviewer | Version-specific findings, review receipts and isolated verification outputs. Never repair the artifact being reviewed. |
 | `paper/`, `figures/` | Writer-visuals | Manuscript, bibliography, display tables, figure files, export candidates. Final candidates use distinct version names. |
 | `handoffs/<task-id>/` | Each assigned role's own file | Write `<role>-rNN.md`. Never overwrite another role's note. |
@@ -61,7 +61,7 @@ If a receipt is missing, the coordinator follows up through the available relay 
 
 ## Changes and invalidation
 
-An accepted artifact is not edited silently. Its owner proposes a change, identifies the affected dependency chain, writes a new version, and requests review of the affected claims. Preserve the last accepted version until the replacement is accepted.
+An accepted artifact is not edited silently. Its owner proposes a change, identifies the affected dependency chain, writes a new version, and requests review of the affected claims. Preserve the last accepted version until the replacement is accepted. In addition, while any associated run, review or claim is retained, preserve all exact bytes needed to reproduce it, even after a replacement is accepted. This includes failed or superseded runs. A hash without a retrievable copy does not satisfy retention. Use immutable versioned files, a run-local snapshot, or a recoverable commit with separate snapshots for uncommitted/untracked bytes; follow the [computation run contract](../roles/computation.md#run-contract). Git is optional; byte preservation is required. Read-only copying into an assigned reproduction directory does not transfer ownership of or permit edits to the source artifact.
 
 | Change | Minimum affected work |
 |---|---|

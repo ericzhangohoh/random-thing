@@ -183,19 +183,13 @@ The companion directory contains:
 - [results.json](approach_demo/results.json): actual machine-readable results, schedules and detected negative cases.
 - [manifest.json](approach_demo/manifest.json): SHA-256 hashes of the exact source, input and result artifacts.
 
-From the `HIMCM_Agent_Working_Doc` directory, reproduce the accepted fixture with:
+From the `HIMCM_Agent_Working_Doc` directory, reproduce the accepted fixture into a new, unused output directory:
 
 ```bash
-python3 examples/approach_demo/run_demo.py
+python3 examples/approach_demo/run_demo.py --output qa/approach-demo-review/rerun-r01
 ```
 
-For a review without overwriting the recorded artifacts:
-
-```bash
-python3 examples/approach_demo/run_demo.py --output qa/approach-demo-review/rerun
-```
-
-The script does not install dependencies, call a model, contact a service or alter a booking system. The default command rewrites only its generated result and manifest files. In a real contest project, save a new run directory for a changed input or implementation instead of overwriting an accepted run.
+If that directory already exists, choose a new revision before running. The script does not enforce immutability: omitting `--output` rewrites the companion's generated result and manifest files, and reusing an output directory replaces its files. The script does not install dependencies, call a model, contact a service or alter a booking system. Keep the recorded fixture unchanged. In a real contest project, preserve exact source and input bytes under the [run contract](../roles/computation.md#run-contract) and use a new run directory for every invocation.
 
 This is a fixed teaching fixture, not a general validated scheduling application. Its built-in negative checks refer to the supplied request IDs and scenarios. Arbitrary-input validation, general failure handling and target-scale performance are outside its verified scope. The manifest records the actual argument vector, resolved input/output paths, working directory and Python version; its default example command is labeled separately.
 

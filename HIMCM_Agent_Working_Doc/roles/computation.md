@@ -49,7 +49,7 @@ A result that violates a hard constraint is not made acceptable by a better obje
 Use a unique directory such as `runs/T014-20261102T103000Z-r01/`. At minimum preserve:
 
 - The exact command or entry point, working directory and configuration.
-- Input paths and hashes, model-specification version, code commit or code hashes.
+- Input paths and hashes, model-specification version, and the exact executed source version, with retrievable bytes for every reproduction dependency as specified below. A hash alone is insufficient.
 - Software/runtime versions relevant to reproduction and random seeds.
 - Start/end timestamps, resource/time limit and actual exit/completion status.
 - Standard output/error or equivalent logs, including solver status and warnings.
@@ -57,6 +57,10 @@ Use a unique directory such as `runs/T014-20261102T103000Z-r01/`. At minimum pre
 - A concise receipt stating what succeeded, what failed and what the run can establish.
 
 Write a completion receipt only after files have actually been produced and checked. Once closed, a run is immutable. Retry in a new directory; do not fix its CSV by hand. If an existing run must be superseded, preserve it and link the replacement.
+
+Before an invocation, preserve the exact local code, input data, model specification, experiment plan, output schema, configuration and environment/lock records needed to reproduce it. Use immutable versioned files or a run-local `reproduction/` snapshot by default. A recoverable Git commit is also suitable for bytes actually present in that commit; preserve uncommitted and untracked files separately. Do not switch the shared checkout to restore an old run. Hash each dependency and record its retrieval location in the manifest's `retained_artifacts` inventory. Record unavailable inputs and failed preparation honestly rather than inventing a snapshot.
+
+While any run, review or claim is retained, retain its reproduction dependencies too, including superseded and failed-run dependencies. Acceptance of a replacement does not permit deleting those older bytes. Before closing the run, retrieve the inventory into a fresh isolated directory and verify its hashes; record the actual command, outcome and receipt in `retention_check`. This checks recoverability, not mathematical correctness or an executed rerun. If bytes cannot be recovered, report the gap and do not claim the run is reproducible or release it as accepted evidence.
 
 Use temporary files inside the assigned run while writing large outputs, then rename completed outputs. Downstream roles read closed runs only. Avoid expensive simultaneous jobs unless the coordinator has allocated resources. Record if nondeterministic libraries prevent exact bitwise reproduction and describe the reproducibility level that was checked.
 

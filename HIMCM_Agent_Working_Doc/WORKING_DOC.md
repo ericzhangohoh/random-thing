@@ -254,7 +254,7 @@ The computation agent returns ambiguities rather than silently inventing mathema
 
 ### Run acceptance
 
-An accepted run must have traceable inputs, a recorded invocation, readable outputs, relevant feasibility and sanity checks, and an interpretable status. Missing or non-finite metrics require explanation. An optimization timeout can yield a usable feasible incumbent, but its status and bound or unknown gap must remain visible.
+An accepted run must have traceable inputs, a recorded invocation, readable outputs, relevant feasibility and sanity checks, and an interpretable status. Its exact code, inputs, specification, configuration and other reproduction dependencies must remain retrievable, including after a newer version is accepted. Hashes identify these bytes but do not preserve them. Use the [computation run contract](roles/computation.md#run-contract) and the manifest's retained-artifact inventory and recovery check. Missing or non-finite metrics require explanation. An optimization timeout can yield a usable feasible incumbent, but its status and bound or unknown gap must remain visible.
 
 For stochastic models, report replication design and variation. A fixed seed supports reproduction of one realization; it does not establish reliability across realizations.
 

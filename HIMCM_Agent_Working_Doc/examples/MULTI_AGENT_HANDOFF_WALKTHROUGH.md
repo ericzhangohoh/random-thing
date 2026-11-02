@@ -83,7 +83,7 @@ control/
   intake.md
   state.md
   tasks.md
-  tasks/T01.md ... T11.md
+  tasks/T01.md ... T11.md, tasks/T02R.md
   role_assignments.yaml
   requirements-r01.md
   glossary.md
@@ -106,14 +106,15 @@ handoffs/<task-id>/<canonical-role>-rNN.md
 
 These are expected paths, not a claim that they already exist. D admits the actual statement and attachment into `inputs/`, records provenance and hashes, then preserves those bytes. C records current contest requirements separately if this is a live task; this synthetic example does not supply current rules, deadlines, or permission to use a particular service.
 
-Initial task packets use [TASK.md](../templates/TASK.md). Keep one summary board in `control/tasks.md`; individual packet paths contain the detailed assignment.
+Initial task packets use [TASK.md](../templates/TASK.md). Keep one summary board in `control/tasks.md`; individual packet paths contain the detailed assignment. For each assigned task, grant its worker only that role's `handoffs/<task-id>/<canonical-role>-rNN.md` revision pattern: `r00` for acknowledgment, `r01` for first completion, then new revisions for repair or consumer receipts. The specific completed handoff names below are examples within that grant. They do not authorize editing another role's files. Substantive output paths remain bounded by the task; expand those paths through C when a repair requires a new one.
 
 | Task | Owner | Question/output | Dependency before substantive completion |
 |---|---|---|---|
 | T01 | D | What do the statement and attachment actually define? | Actual files accessible |
 | T02 | M | What is the decision, and which interpretations matter? | Statement; T01 definitions may still be pending |
 | T03 | W | What evidence must the paper and memo eventually contain? | Statement and provisional requirement IDs |
-| T04 | M | Which baseline/architecture fits the confirmed problem? | Accepted T01/T02 and recorded G1 |
+| T02R | R | Does the proposed interpretation cover the statement without hiding unsupported choices? | Pinned T01/T02 drafts and C's proposed requirements; before G1 |
+| T04 | M | Which baseline/architecture fits the confirmed problem? | Accepted T01/T02, T02R review and recorded G1 |
 | T05 | X | Can the candidate logic pass a tiny discriminating test? | Pinned T04 candidate and interface |
 | T06 | R | Is the architecture/specification coherent and implementable? | Pinned T04/T05 evidence |
 | T07 | X | Does the accepted target model yield a checked schedule? | G2, accepted specification and data |
@@ -150,7 +151,8 @@ D first acknowledges scope. The acknowledgment may be `handoffs/T01/domain-data-
 ### Dispatch T02 to M and T03 to W in parallel
 
 ```text
-M / T02: Write models/framing-r01.md and handoffs/T02/modeler-r01.md.
+M / T02: Write models/framing-r01.md and your
+handoffs/T02/modeler-rNN.md acknowledgment/completion revisions.
 Restate the required decision without selecting an optimizer. Propose the
 meaning of full completion, timing of expenditures and crew use, carryover,
 priority, and the requested uncertainty scenarios. Mark definitions still
@@ -159,7 +161,8 @@ control/requirements-r01.md yourself.
 ```
 
 ```text
-W / T03: Write paper/outline-r01.md and handoffs/T03/writer-visuals-r01.md.
+W / T03: Write paper/outline-r01.md and your
+handoffs/T03/writer-visuals-rNN.md acknowledgment/completion revisions.
 Map the required schedule, funding plan, justification, uncertainty analysis,
 and council memo to sections and evidence needs. Use PENDING_EVIDENCE markers
 where results are not available. You may create an illustrative architecture
@@ -185,7 +188,20 @@ C records `BLOCKED` for the affected task, its unblock action, and downstream ef
 
 If the unit is explicitly stated in an overlooked sheet note, D resolves it from that source and updates a new revision of its findings. If it remains unknown, C prepares a concrete choice between defensible scenario treatment and obtaining missing information. Only a material unresolved decision goes to the human. Ordinary clarification by reading available evidence requires no additional approval.
 
-After T01/T02 are ready, C copies the accepted interpretation into the requirements map and submits G1. A suitable decision packet is:
+After T01/T02 are ready, C prepares a proposed requirements map and dispatches T02R before requesting G1. T02R reads the pinned drafts; it does not depend on an already approved G1, so this introduces no approval cycle.
+
+```text
+R / T02R: Read the pinned statement, T01 admission/dictionary, T02 framing,
+and control/requirements-r01.md. Check complete prompt coverage, units,
+system boundary, deadline meaning, and whether assumptions or value choices
+are visibly separated from source facts. Write only
+qa/interpretation-r01/review.md and
+handoffs/T02R/independent-reviewer-rNN.md. Return a canonical review verdict,
+exact targets, findings and scope. Do not choose the human's objective,
+repair the reviewed documents, or record G1 approval.
+```
+
+C routes blocking or consequential defects to the respective artifact owners for new revisions, then requests R's affected recheck. R may accept a decision packet with an explicitly unresolved human choice when the alternatives and consequences are complete; acceptance means the packet is fit for that decision, not that any option is approved. C records the review and submits the reviewed requirements at G1. A suitable decision packet is:
 
 ```text
 G1 / requirements-r01.md
@@ -195,7 +211,8 @@ resource limits are hard; priority affects completion timing rather than
 permission to omit low-priority projects. Funding carryover is [supported
 interpretation with source, or explicitly unresolved choice].
 Alternative and consequence: [material alternative, if one remains].
-Evidence: T01 source definitions; T02 framing; exact unresolved issue list.
+Evidence: T01 source definitions; T02 framing; T02R scoped review of these
+exact revisions; exact unresolved issue list.
 Confirmation requested: accept this version, or specify the changed choice.
 Independent work continuing: source checks and evidence-outline preparation.
 ```
@@ -258,6 +275,10 @@ an impossible deadline, a late cost spike, and zero available crews.
 Compare with an independently enumerated small case where feasible.
 Do not fill unspecified mathematical choices yourself. Return them to M.
 Record all actual commands, input/code hashes, environment and outcomes.
+Before executing, snapshot the exact source, inputs, model/experiment/schema
+files and configuration into runs/T05-small-r01/reproduction/ (or inventory
+retained immutable versions). Record their retrieval paths and hashes, then
+verify isolated recovery before closing the run. Preserve them after repairs.
 ```
 
 ### A fixture with an independently checkable failure condition
@@ -292,6 +313,8 @@ Unread/missing: [state any missing sections, files, or scientific choices]
 Outputs:
 - code/modeling/schedule.py [actual hash]
 - code/modeling/check_schedule.py [actual hash]
+- runs/T05-small-r01/reproduction/ [exact retained dependencies; inventory
+  and recovery-check receipt in manifest, not only mutable working paths]
 - runs/T05-small-r01/manifest.json [actual status]
 - runs/T05-small-r01/outputs/checks.csv [exists/not produced]
 - runs/T05-small-r01/receipt.md [actual status]
@@ -389,7 +412,7 @@ runs/T07-target-r01/
   receipt.md
 ```
 
-The [run manifest template](../templates/run_manifest.json.template) starts with `NOT_STARTED` and null results. Populate timestamps, command, input hashes, code hashes or commit, solver status, objective/bound/gap where applicable, and output hashes from actual execution. Hash the actual code if uncommitted changes are used; a repository commit alone does not describe those bytes.
+The [run manifest template](../templates/run_manifest.json.template) starts with `NOT_STARTED` and null results. Populate timestamps, command, input hashes, code identity, solver status, objective/bound/gap where applicable, and output hashes from actual execution. Fill `retained_artifacts` with a retrievable immutable copy of every code/data/specification/experiment/schema/configuration/environment dependency and verify recovery into an isolated directory before closure. A recoverable clean commit can identify committed bytes; preserve uncommitted and untracked bytes separately. Hashes alone and a commit that omits working changes are insufficient. Keep those bytes while the associated runs, reviews or claims are retained, including after repair or supersession. Restoration must not switch the shared working tree.
 
 The schedule should retain source project IDs, start/end months, duration, scenario ID, and decision version. The cash ledger separates expenditure, funding receipt, opening balance, closing balance, and any restrictions. The crew ledger reports demand and available capacity in the same time units. A final check reconstructs those ledgers independently from the source cost profiles and schedule.
 
@@ -498,7 +521,7 @@ W exports a distinct candidate such as `paper/exports/solution-r01.pdf`, records
 
 If R requests layout changes, W creates `solution-r02.pdf` and R inspects the affected pages plus any page-count/flow consequences. If a scientific claim changes during layout repair, route it back through the appropriate evidence review; do not treat it as cosmetic.
 
-C completes [DELIVERY.md](../templates/DELIVERY.md) in `control/delivery-r01.md`, including actual G3 response, accepted data/model/run/claim versions, resolved blocking findings, current requirements, export inspection, final hash, and the person responsible for submission. The latest usable complete export remains identifiable throughout the process.
+C completes [DELIVERY.md](../templates/DELIVERY.md) in `control/delivery-r01.md`, including actual G3 response, accepted data/model/run/claim versions, resolved blocking and consequential findings for that scope, current requirements, export inspection, final hash, and the person responsible for submission. The latest usable complete export remains identifiable throughout the process.
 
 The final user-facing handoff should be concise and factual:
 

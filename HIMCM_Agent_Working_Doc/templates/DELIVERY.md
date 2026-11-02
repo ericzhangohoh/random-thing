@@ -10,7 +10,7 @@
 - All requirements answered or limitations explicitly reported:
 - Summary/body/table/figure/conclusion reconciliation completed:
 - Recommendations supported and appropriately qualified:
-- Reviewer blocking findings resolved:
+- Reviewer blocking and consequential findings resolved for the final scope (or affected claims removed and the narrowed scope independently accepted):
 - Source citations verified:
 - AI-use disclosure prepared from actual records:
 

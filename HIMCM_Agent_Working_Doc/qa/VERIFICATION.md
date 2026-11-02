@@ -1,6 +1,21 @@
 # Verification Record
 
-Checked 2026-11-02, Australia/Sydney. This record describes actual checks and their limits.
+Initial checks: 2026-11-02. Updated 2026-11-03, Australia/Sydney. This record describes actual checks and their limits.
+
+## GPT-6 Astra audit and repair verification — 2026-11-03
+
+Two independent, fresh-context reviewers were actually launched with the `gpt-6-astra` model. The author repaired their findings; neither reviewer edited the targets. Both re-read the changed files and returned **ACCEPTED_FOR_SCOPE**. See the [workflow report](ASTRA_AUDIT_2026-11-03.md) and [cold-start report](ASTRA_COLD_START_AUDIT_2026-11-03.md) for preserved initial findings, repair decisions, exact versions and evidence limits.
+
+- Two consequential gaps were resolved: the detailed walkthrough now assigns independent framing review before G1, and every retained run must keep retrievable exact reproduction dependencies after later revisions are accepted. The manifest records retrieval locations and an actual isolated recovery check; hashes alone are insufficient.
+- Three distinct editorial gaps were resolved: handoff scope permits separate acknowledgment/completion revisions, the lead rerun command uses an unused directory, and delivery checks require resolution of both blocking and consequential findings for the released scope.
+- Astra reran the existing independent checker and the demonstration in a new QA directory. All eight synthetic scenarios passed; reproduced result bytes match the recorded fixture. This was fresh execution of a previously authored independent checker, not a new independent solver implementation by Astra.
+- The cold-start reviewer executed an isolated no-Git source-retention probe: recover A after replacing the working source with B; reject a hash-only record, missing snapshot and wrong-byte retrieval. This verifies a small recovery contract, not real agent context recovery or numerical correctness.
+- Root checked 56 operational Markdown/template files for local-link targets and fence balance, parsed the run JSON and role YAML plus six native frontmatters, and syntax-checked eight Python files. No failures were found. Historical research coverage was not expanded.
+- GitHub's repository connector confirmed `visibility: private` on this date. Remote commit identity is checked separately after upload.
+
+The new audit pins the revised walkthrough; the earlier [demonstration review](APPROACH_DEMO_REVIEW.md) remains a receipt for its earlier versions. Its four numerical source/input/result/manifest artifacts were unchanged by the documentation repairs. README and this verification summary are author-maintained indexes outside the reviewers' frozen substantive targets.
+
+This is acceptance of written operating contracts and finite test evidence. No actual Claude multi-session launch, automatic dispatch, concurrency stress test, full competition-paper PDF, target-scale performance or empirical validity was verified. No biological papers were researched.
 
 ## Document and setup checks
 
