@@ -109,6 +109,8 @@ Prioritize assumptions that could change feasibility, ranking, trend direction o
 
 An assumption can be useful without being literally true. Its justification must show why its approximation is adequate for the question and what happens when it is relaxed. “There was no data” explains a difficulty, not the adequacy of ignoring a mechanism.
 
+Prioritize assumptions that make the favored policy succeed by construction. For example, preventing employees from leaving until replacements exist can make a recruitment restriction appear to preserve staffing. Treat that retention rule as a consequential assumption and test an alternative. Similarly, an observed operating point does not establish an optimal target merely because the objective penalizes deviations from it. The [complete local comparison of 2015 ICM C papers](research/cases/2015_ICM_C_complete_local_comparison.md) shows why these distinctions matter.
+
 ## 7. Guidance by task structure
 
 ### 7.1 Prediction and extrapolation
@@ -158,6 +160,10 @@ Extend to spatial or individual-level models when aggregation hides a mechanism 
 Specify the simulated entities, state, events/transitions, randomness, interaction rules and observation process. Record what is sampled and why its distribution is defensible. Separate modeled uncertainty from arbitrary randomization used for searching.
 
 Verify simulation logic on small cases. Check replication count, convergence or precision of the reported statistic, initialization and warm-up effects where relevant. Preserve seeds, but investigate more than one realization.
+
+Specify which entities persist, which attributes move with them, and which reset after an event. Distinguish waiting work, active work and completed arrivals. Reconcile every rate with its denominator and time exposure. Use tiny counterexamples to check claimed directionality: an older event should receive less weight under a decay rule, a promotion should preserve total headcount, and a probability must remain within its declared range.
+
+Keep solver configuration experiments separate from model uncertainty. Changing a search algorithm's population size does not test an uncertain behavioral response or an assumed optimal staffing target. Map each scenario to the exact requirement it answers; a stronger stress scenario is useful only when its difference from the requested scenario is explicit.
 
 Simulation output tests implications of the assumed model. It is not independent real-world validation of those assumptions. Use external observations or credible benchmarks where available, and describe the remaining evidential limits.
 

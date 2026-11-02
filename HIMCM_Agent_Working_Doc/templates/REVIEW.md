@@ -17,8 +17,10 @@
 ## Checks
 
 - Requirement coverage:
+- Exact scenario, horizon, rate denominator and output categories:
 - Data definitions and provenance:
 - Assumptions and choice justification:
+- Any assumption that makes the preferred result succeed by construction:
 - Formula/code correspondence:
 - Feasibility, numerical status and reproducibility:
 - Appropriate validation and claim strength:

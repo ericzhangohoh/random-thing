@@ -5,6 +5,8 @@
 - Inputs: schema, units, resolution, valid range, source/version:
 - Outputs: schema, units, interpretation and downstream consumer:
 - Which quantities are imposed by construction versus genuinely derived:
+- Persistent entities, moving attributes and event-specific resets:
+- Exact scenario-to-requirement mapping, including any scope differences:
 
 ## Variables and parameters
 
@@ -25,6 +27,7 @@
 - Solver/algorithm and suitability:
 - Calibration and stopping criteria:
 - Uncertainty/randomness:
+- Solver tuning versus uncertainty in model assumptions:
 - Expected resource needs:
 - Failure/status handling:
 
@@ -32,6 +35,7 @@
 
 - Units, bounds and conservation:
 - Hand-checkable or known-answer example:
+- Tiny counterexample for sign, range, decay, normalization or event conservation:
 - Feasibility example and impossible case:
 - Baseline comparison:
 - External/held-out evidence where applicable:
