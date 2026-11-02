@@ -1,5 +1,7 @@
 # MCM 2012 A — Team 16831 — five modules, conditional biological claims and implementation checks
 
+> Archived prior research: this subject is excluded from further work by the current user instruction. Retained for provenance; not active workflow evidence. See [scope](../../SCOPE.md).
+
 - Source ID: `mcm_ec8f03fd20e5`
 - Source: `MCM-ICM-master/2012美赛特等奖/A-16831-Outstanding.pdf`
 - Coverage: **FULL_TEXT_AND_RELEVANT_VISUALS_REVIEWED**, physical pp.1–54, including summary, letter, references, measurements and complete R/MATLAB appendices.

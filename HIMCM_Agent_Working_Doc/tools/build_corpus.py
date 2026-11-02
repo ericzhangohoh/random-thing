@@ -157,7 +157,7 @@ def main():
         w=csv.DictWriter(f,fieldnames=fields,extrasaction="ignore");w.writeheader()
         for row in rows:w.writerow({**row,"low_extraction_pages":json.dumps(row["low_extraction_pages"]),"duplicate_paths":json.dumps(row["duplicate_paths"],ensure_ascii=False)})
     (RESEARCH/"reading_queue.json").write_text(json.dumps(queue,ensure_ascii=False,indent=2))
-    lines=["# Original MCM/ICM reading queue","","This is a machine inventory, not a record of completed reading. Each unique paper requires a real full review; unclassified articles remain in the queue until resolved.","",f"{len(rows)} file occurrences; {len(by_hash)} unique hashes; {len(queue)} queued paper/article records.","","| ID | Year | Family/problem | Team | Pages | Low-extraction pages | Source |","| --- | --- | --- | --- | --- | --- | --- |"]
+    lines=["# Original MCM/ICM reading queue","","This is the original machine inventory, not an active dispatch list or reading-completion record. [Current research scope](SCOPE.md) excludes all biology-related papers and supersedes the earlier all-paper plan. Screen topics before reading. Extraction never counts as full review.","",f"{len(rows)} file occurrences; {len(by_hash)} unique hashes; {len(queue)} queued paper/article records.","","| ID | Year | Family/problem | Team | Pages | Low-extraction pages | Source |","| --- | --- | --- | --- | --- | --- | --- |"]
     for r in queue:
         lines.append(f"| {r['source_id']} | {r['year']} | {r['family'] or '?'} {r['problem'] or '?'} | {r['team'] or '?'} | {r['physical_pages']} | {','.join(map(str,r['low_extraction_pages'])) or '—'} | {r['source_relative_path']} |")
     (RESEARCH/"reading_queue.md").write_text("\n".join(lines)+"\n")

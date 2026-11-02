@@ -1,5 +1,7 @@
 # 2012 MCM A — complete local four-paper comparison
 
+> Archived prior research: excluded from further work under the current instruction. Retained for provenance, not active workflow evidence. See [scope](../SCOPE.md).
+
 ## Scope and evidence status
 
 This comparison covers all four original 2012 Problem A submissions in the local corpus: Teams 14297, 14990, 15065 and 16831, totaling **170 physical pages**. Every paper has a separate full-text-and-relevant-visuals review, including all supplied appendices. None of the complete numerical models was reproduced. Outstanding designations below come from filenames, not independently verified award records. No separate official problem statement was available in the corpus inventory; this comparison is about the submissions' handling of the leaf/branch/tree questions.

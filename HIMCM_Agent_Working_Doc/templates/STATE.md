@@ -3,6 +3,7 @@
 Updated: [timestamp with timezone]. Maintainer: coordinator only.
 
 - Current objective:
+- Active research scope, exclusions and research stop condition:
 - PROJECT_ROOT / DOC_ROOT:
 - Current stage and reason:
 - Selected problem and official input version:
@@ -10,8 +11,11 @@ Updated: [timestamp with timezone]. Maintainer: coordinator only.
 - Latest accepted complete solution:
 - Latest accepted model/data/run/manuscript versions:
 - G1 / G2 / G3 decisions and links:
+- Task board: `control/tasks.md`; full packets: `control/tasks/<T-ID>.md`:
 
-## Task board
+## Current-task summary
+
+Summarize the canonical `control/tasks.md` board here for recovery; do not maintain a second independent task authority. Link each row to its full packet and update it when the canonical state changes.
 
 | Task | Question | Owner/session | State | Dependencies/version | Owned output paths | Review route | Next action |
 |---|---|---|---|---|---|---|---|

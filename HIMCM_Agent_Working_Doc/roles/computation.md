@@ -19,6 +19,10 @@ the approved budget. Give each invocation a unique run ID and retain command,
 configuration, inputs, environment, logs, outputs and actual completion status.
 Return result tables and validation evidence, not invented narrative findings.
 Do not overwrite source data or another agent's artifacts.
+Before substantial work, acknowledge the task ID, inputs actually read, exact
+owned paths, missing dependencies, first action and expected handoff path.
+Respect the recorded research scope and exclusions; do not expand the assignment.
+
 ```
 
 ## Before implementation

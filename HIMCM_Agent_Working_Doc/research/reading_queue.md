@@ -1,6 +1,6 @@
 # Original MCM/ICM reading queue
 
-This is a machine inventory, not a record of completed reading. Each unique paper requires a real full review; unclassified articles remain in the queue until resolved.
+This is the original machine inventory, not an active dispatch list or reading-completion record. [Current research scope](SCOPE.md) excludes all biology-related papers and supersedes the earlier all-paper plan. Screen topics before reading. Extraction never counts as full review.
 
 502 file occurrences; 502 unique hashes; 417 queued paper/article records.
 

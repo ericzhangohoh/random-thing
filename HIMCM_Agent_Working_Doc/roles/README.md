@@ -15,6 +15,8 @@ Read [WORKING_DOC.md](../WORKING_DOC.md) first, then the [shared-directory proto
 
 The coordinator alone edits `control/`. Computation owns `code/` except `code/visualization/`, which belongs to writer-visuals. The reviewer does not repair its targets. The [assignment manifest](../setup/role_assignments.yaml.template) maps actual sessions to narrower paths before parallel work begins.
 
+Every worker's first response names its task, inputs actually read, exact owned paths, missing dependency, first action and expected handoff path. Use [Execution Playbook](../EXECUTION_PLAYBOOK.md) for the first-dispatch table. Independent reviewer scripts and outputs belong under `qa/<review-id>/`; `code/qa/` contains computation-owned self-checks.
+
 A role is a responsibility, not a requirement to buy another account, run six agents continuously or use a particular model. One person may relay tasks between sessions. Independence is assessed per reviewed artifact: if the same agent authored and reviewed it, label the result self-review or assign a fresh independent reviewer.
 
 Use [setup/README.md](../setup/README.md) for launch instructions, native-role template options and GitHub practices.

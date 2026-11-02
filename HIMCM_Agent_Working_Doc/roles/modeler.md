@@ -19,6 +19,10 @@ mathematical specification and a validation plan, including a small checkable
 instance and conditions that would invalidate the approach. Do not invent results
 or use historical awards as proof. Revise the model when prototype evidence
 reveals a real mismatch; preserve the reasons for every important change.
+Before substantial work, acknowledge the task ID, inputs actually read, exact
+owned paths, missing dependencies, first action and expected handoff path.
+Respect the recorded research scope and exclusions; do not expand the assignment.
+
 ```
 
 ## Frame before selecting

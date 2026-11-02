@@ -13,6 +13,7 @@
 - Current AI-use policy URL, retrieval date and record location:
 - Available computation, software, data and export tools:
 - Missing or unreadable inputs:
+- Research scope, excluded subjects and time/decision-based stop condition:
 
 ## Input admission
 

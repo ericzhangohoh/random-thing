@@ -23,3 +23,7 @@
 ## Requested next action
 
 [Review, accept, revise, run a named experiment or obtain a human decision. Include acceptance evidence needed.]
+
+## Consumer receipt — in the consumer's own next handoff
+
+[Name the upstream task and accepted artifact version/hash actually read; the downstream use; agreed units/entity/time/schema; unresolved interface issues; and next bounded action. Do not edit the producer's handoff to add this receipt.]

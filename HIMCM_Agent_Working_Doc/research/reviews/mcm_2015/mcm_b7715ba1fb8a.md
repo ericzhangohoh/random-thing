@@ -1,5 +1,7 @@
 # Full review: 2015 Problem A, Team 32150 — How to Eradicate Ebola
 
+> Archived prior research: this subject is excluded from further work by the current user instruction. Retained for provenance; not active workflow evidence. See [scope](../../SCOPE.md).
+
 - Source ID: `mcm_b7715ba1fb8a`
 - Source: `MCM-ICM-master/2015美赛特等奖/A-32150-Outstanding.pdf`
 - Coverage: **FULL_TEXT_AND_RELEVANT_VISUALS_REVIEWED**, all 36 physical pages, including the public letter and references. Printed pp.1–34 correspond to physical pp.3–36.

@@ -40,6 +40,7 @@ def read_review(path: Path) -> dict:
 
 def main() -> None:
     original = json.loads((DOC / "research/corpus.json").read_text())
+    scope = json.loads((DOC / "research/scope_exclusions.json").read_text())
     papers = [r for r in original["file_records"] if r["kind"] == "competition_paper"]
     reviews = [read_review(p) for p in sorted((DOC / "research/reviews").rglob("*.md"))]
     by_id = {r["source_id"]: r for r in reviews if r["source_id"]}
@@ -64,23 +65,35 @@ def main() -> None:
                      "source_relative_path": rel, "year": None, "problem": None, "team": p.stem,
                      "physical_pages": None, "review_status": review["review_status"] if review else "not_reviewed",
                      "review_path": review["review_path"] if review else None})
+    for row in rows:
+        matches = [rule for rule in scope["known_group_exclusions"]
+                   if rule["corpus"] == row["corpus"]
+                   and str(row.get("year")) == rule["year"]
+                   and str(row.get("problem")) == rule["problem"]]
+        for rule in scope.get("known_path_exclusions", []):
+            if any(token in row["source_relative_path"] for token in rule["path_contains_any"]):
+                matches.append(rule)
+        row["research_scope"] = "EXCLUDED_BIOLOGICAL" if matches else "TOPIC_SCREEN_REQUIRED_BEFORE_NEW_READING"
+        row["scope_reason"] = "; ".join(rule["reason"] for rule in matches) or "No exclusion matched; not a certified non-biological classification"
     summary = {}
     for group in sorted({r["corpus"] for r in rows}):
         sub = [r for r in rows if r["corpus"] == group]
         summary[group] = {"total": len(sub), **dict(Counter(r["review_status"] for r in sub))}
     stamp = datetime.now(ZoneInfo("Australia/Sydney")).isoformat(timespec="seconds")
-    out = {"updated_at": stamp, "status": "IN_PROGRESS", "summary": summary,
+    out = {"updated_at": stamp, "status": "SCOPED_WORKFLOW_RESEARCH", "summary": summary,
+           "scope_policy": scope,
+           "known_excluded_papers": sum(r["research_scope"] == "EXCLUDED_BIOLOGICAL" for r in rows),
            "warning": "Full review labels report reader declarations, not numerical reproduction. Extraction never promotes status.",
            "rows": rows, "review_records": reviews}
-    if all(r["review_status"] == "full_review_recorded" for r in rows):
-        out["status"] = "FULL_READING_RECORDED_PENDING_CORPUS_QA"
     (DOC / "research/review_progress.json").write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")
     with (DOC / "research/review_progress.csv").open("w", encoding="utf-8-sig", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader(); writer.writerows(rows)
     lines = ["# Research Status", "", f"Updated: {stamp}.", "",
-             "**The complete-corpus review is in progress. The working document is an operational edition, not a claim that all historical papers have been reviewed.**", "",
-             "## Coverage", "", "| Collection | Papers | Full review recorded | Partial review recorded | Other review depth | Not reviewed |",
+             "**Current scope excludes all biology-related papers. The earlier all-paper plan is superseded; see [research scope](SCOPE.md).**", "",
+             "This table reports historical archive coverage, not an eligible non-biological denominator or a requirement to finish every archived paper before delivering the workflow.", "",
+             f"Known exclusions currently match {out['known_excluded_papers']} papers. This is not exhaustive topic screening; future reading requires a metadata scope check. Existing review records are preserved.", "",
+             "## Archived coverage", "", "| Collection | Papers | Full review recorded | Partial review recorded | Other review depth | Not reviewed |",
              "|---|---:|---:|---:|---:|---:|"]
     for group, counts in summary.items():
         lines.append(f"| {group} | {counts['total']} | {counts.get('full_review_recorded',0)} | {counts.get('partial_review_recorded',0)} | {counts.get('review_depth_not_machine_classified',0)} | {counts.get('not_reviewed',0)} |")

@@ -14,6 +14,18 @@ Checked 2026-11-02, Australia/Sydney. This record describes actual checks and th
 
 The exercises are protocol walkthroughs, not successful numerical solutions to the historical problems. Claude Code was not installed in this environment; native agents/teams have **not** been live-tested. No settings were changed to bypass permissions.
 
+## Executed non-biological teaching fixture and operational revision
+
+- The [campsite approach example](../examples/APPROACH_DEFENSE_WALKTHROUGH.md) now has executed synthetic inputs, source, results and provenance under `examples/approach_demo/`.
+- Eight scenarios were run and independently enumerated; reported schedules, exact optima, feasible-assignment counts and service-mix accounting matched. A separate reproduction returned byte-identical result bytes.
+- Two negative checks reject an overlong final travel leg and a fixed plan using a newly closed campsite slot.
+- The independent reviewer found invocation-provenance and ownership defects, returned them to the author, and accepted the repaired pinned versions. See the [scoped review receipt](APPROACH_DEMO_REVIEW.md).
+- The [operational gap review](agent_execution_gaps.md) checked the first-dispatch sequence, dependencies, review vocabulary, file ownership, task packets, acceptance evidence and run provenance. Consequential gaps were resolved in the execution playbook and templates.
+- The [equipment-project handoff walkthrough](../examples/MULTI_AGENT_HANDOFF_WALKTHROUGH.md) was read for role/path/state consistency. It is an explicitly unexecuted illustration, not a second numerical trial.
+- Progress reporting preserves all 473 archived paper records, labels 14 currently known topic exclusions without treating the remainder as screened, and retains the interrupted excluded paper as partial. JSON/YAML templates and Python syntax were checked.
+
+These checks support the finite teaching mathematics and the inspected operating contracts. They do **not** establish arbitrary-input solver correctness, empirical validity, target-scale performance, PDF export of a real competition paper, or live Claude orchestration. `claude` was still unavailable during this revision; no installation was performed.
+
 ## Repository checks
 
 - Repository created at [ericzhangohoh/himcm](https://github.com/ericzhangohoh/himcm).
@@ -30,4 +42,4 @@ Later working-document and review commits are identified in Git history. A local
 
 The original 502 PDFs have a classified inventory and page-bounded extraction. **This is not full review completion.** Review progress is computed from explicit reader-authored coverage records, with partial and unread papers retained. See [current status](../research/STATUS.md).
 
-Reviewed papers distinguish author reports, reviewer interpretation, static checks and numerical reproduction. Full numerical reconstruction of every historical paper has not been performed. Complete-corpus synthesis remains unfinished until the required readings and cross-paper analysis are complete.
+Reviewed papers distinguish author reports, reviewer interpretation, static checks and numerical reproduction. Full historical numerical reconstruction has not been performed. The user's [current scope](../research/SCOPE.md) excludes all biology-related papers and supersedes exhaustive archive reading as a delivery requirement. Prior material remains archived; new operational guidance uses non-biological cases.

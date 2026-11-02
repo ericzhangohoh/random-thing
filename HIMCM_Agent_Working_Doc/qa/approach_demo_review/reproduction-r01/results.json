@@ -1,0 +1,623 @@
+{
+  "classification": "EXECUTED_SYNTHETIC_TOY_VERIFICATION_ONLY",
+  "limitations": [
+    "No empirical observations or real contest output.",
+    "No target-scale performance or stochastic reliability evidence.",
+    "No actual Claude session or multi-agent runtime is tested.",
+    "Closure reoptimization assumes information is known before admission.",
+    "An in-transit interruption has no modeled rescue or fallback policy."
+  ],
+  "negative_checks": {
+    "fixed_base_plan_under_closure": [
+      "Closed slot: S4/B/2"
+    ],
+    "overlong_final_leg_at_limit_59": [
+      "Invalid travel leg: S1/2/60"
+    ]
+  },
+  "objective": "Maximize accepted groups; equal optima use booking order only as a deterministic tie-breaker",
+  "scenarios": [
+    {
+      "assignments_enumerated": 162,
+      "baseline": {
+        "accepted_groups": 3,
+        "accepted_mean_trip_days": 2.3333333333333335,
+        "class_counts": {
+          "long": {
+            "accepted": 1,
+            "rejected": 0,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 2,
+            "rejected": 2,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 4,
+        "rejected_groups": 2,
+        "schedule": {
+          "L": [
+            [
+              "A",
+              1
+            ],
+            [
+              "B",
+              2
+            ]
+          ],
+          "S1": [
+            [
+              "B",
+              1
+            ]
+          ],
+          "S3": [
+            [
+              "A",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "candidate_path_counts": {
+        "L": 1,
+        "S1": 2,
+        "S2": 2,
+        "S3": 2,
+        "S4": 2
+      },
+      "exact": {
+        "accepted_groups": 4,
+        "accepted_mean_trip_days": 2.0,
+        "class_counts": {
+          "long": {
+            "accepted": 0,
+            "rejected": 1,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 4,
+            "rejected": 0,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 4,
+        "rejected_groups": 1,
+        "schedule": {
+          "S1": [
+            [
+              "A",
+              1
+            ]
+          ],
+          "S2": [
+            [
+              "B",
+              1
+            ]
+          ],
+          "S3": [
+            [
+              "A",
+              2
+            ]
+          ],
+          "S4": [
+            [
+              "B",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "feasible_assignments": 58,
+      "scenario_id": "base"
+    },
+    {
+      "assignments_enumerated": 162,
+      "baseline": {
+        "accepted_groups": 3,
+        "accepted_mean_trip_days": 2.3333333333333335,
+        "class_counts": {
+          "long": {
+            "accepted": 1,
+            "rejected": 0,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 2,
+            "rejected": 2,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 4,
+        "rejected_groups": 2,
+        "schedule": {
+          "L": [
+            [
+              "A",
+              1
+            ],
+            [
+              "B",
+              2
+            ]
+          ],
+          "S1": [
+            [
+              "B",
+              1
+            ]
+          ],
+          "S3": [
+            [
+              "A",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "candidate_path_counts": {
+        "L": 1,
+        "S1": 2,
+        "S2": 2,
+        "S3": 2,
+        "S4": 2
+      },
+      "exact": {
+        "accepted_groups": 3,
+        "accepted_mean_trip_days": 2.3333333333333335,
+        "class_counts": {
+          "long": {
+            "accepted": 1,
+            "rejected": 0,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 2,
+            "rejected": 2,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 4,
+        "rejected_groups": 2,
+        "schedule": {
+          "L": [
+            [
+              "A",
+              1
+            ],
+            [
+              "B",
+              2
+            ]
+          ],
+          "S1": [
+            [
+              "B",
+              1
+            ]
+          ],
+          "S3": [
+            [
+              "A",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "feasible_assignments": 9,
+      "scenario_id": "long_service_quota"
+    },
+    {
+      "assignments_enumerated": 2,
+      "baseline": {
+        "accepted_groups": 1,
+        "accepted_mean_trip_days": 3.0,
+        "class_counts": {
+          "long": {
+            "accepted": 1,
+            "rejected": 0,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 4,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 2,
+        "rejected_groups": 4,
+        "schedule": {
+          "L": [
+            [
+              "A",
+              1
+            ],
+            [
+              "B",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "candidate_path_counts": {
+        "L": 1,
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0
+      },
+      "exact": {
+        "accepted_groups": 1,
+        "accepted_mean_trip_days": 3.0,
+        "class_counts": {
+          "long": {
+            "accepted": 1,
+            "rejected": 0,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 4,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 2,
+        "rejected_groups": 4,
+        "schedule": {
+          "L": [
+            [
+              "A",
+              1
+            ],
+            [
+              "B",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "feasible_assignments": 2,
+      "scenario_id": "limit_59"
+    },
+    {
+      "assignments_enumerated": 2,
+      "baseline": {
+        "accepted_groups": 1,
+        "accepted_mean_trip_days": 3.0,
+        "class_counts": {
+          "long": {
+            "accepted": 1,
+            "rejected": 0,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 4,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 2,
+        "rejected_groups": 4,
+        "schedule": {
+          "L": [
+            [
+              "A",
+              1
+            ],
+            [
+              "B",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "candidate_path_counts": {
+        "L": 1,
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0
+      },
+      "exact": {
+        "accepted_groups": 1,
+        "accepted_mean_trip_days": 3.0,
+        "class_counts": {
+          "long": {
+            "accepted": 1,
+            "rejected": 0,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 4,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 2,
+        "rejected_groups": 4,
+        "schedule": {
+          "L": [
+            [
+              "A",
+              1
+            ],
+            [
+              "B",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "feasible_assignments": 2,
+      "scenario_id": "limit_30"
+    },
+    {
+      "assignments_enumerated": 1,
+      "baseline": {
+        "accepted_groups": 0,
+        "accepted_mean_trip_days": null,
+        "class_counts": {
+          "long": {
+            "accepted": 0,
+            "rejected": 1,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 4,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 0,
+        "rejected_groups": 5,
+        "schedule": {},
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "candidate_path_counts": {
+        "L": 0,
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0
+      },
+      "exact": {
+        "accepted_groups": 0,
+        "accepted_mean_trip_days": null,
+        "class_counts": {
+          "long": {
+            "accepted": 0,
+            "rejected": 1,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 4,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 0,
+        "rejected_groups": 5,
+        "schedule": {},
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "feasible_assignments": 1,
+      "scenario_id": "limit_29"
+    },
+    {
+      "assignments_enumerated": 36,
+      "baseline": {
+        "accepted_groups": 3,
+        "accepted_mean_trip_days": 2.0,
+        "class_counts": {
+          "long": {
+            "accepted": 0,
+            "rejected": 1,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 3,
+            "rejected": 1,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 3,
+        "rejected_groups": 2,
+        "schedule": {
+          "S1": [
+            [
+              "A",
+              1
+            ]
+          ],
+          "S2": [
+            [
+              "B",
+              1
+            ]
+          ],
+          "S3": [
+            [
+              "A",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "candidate_path_counts": {
+        "L": 0,
+        "S1": 2,
+        "S2": 2,
+        "S3": 1,
+        "S4": 1
+      },
+      "exact": {
+        "accepted_groups": 3,
+        "accepted_mean_trip_days": 2.0,
+        "class_counts": {
+          "long": {
+            "accepted": 0,
+            "rejected": 1,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 3,
+            "rejected": 1,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 3,
+        "rejected_groups": 2,
+        "schedule": {
+          "S1": [
+            [
+              "A",
+              1
+            ]
+          ],
+          "S2": [
+            [
+              "B",
+              1
+            ]
+          ],
+          "S3": [
+            [
+              "A",
+              2
+            ]
+          ]
+        },
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "feasible_assignments": 21,
+      "scenario_id": "known_closure"
+    },
+    {
+      "assignments_enumerated": 1,
+      "baseline": {
+        "accepted_groups": 0,
+        "accepted_mean_trip_days": null,
+        "class_counts": {
+          "long": {
+            "accepted": 0,
+            "rejected": 0,
+            "requested": 0
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 0,
+            "requested": 0
+          }
+        },
+        "occupied_campsite_nights": 0,
+        "rejected_groups": 0,
+        "schedule": {},
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "candidate_path_counts": {},
+      "exact": {
+        "accepted_groups": 0,
+        "accepted_mean_trip_days": null,
+        "class_counts": {
+          "long": {
+            "accepted": 0,
+            "rejected": 0,
+            "requested": 0
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 0,
+            "requested": 0
+          }
+        },
+        "occupied_campsite_nights": 0,
+        "rejected_groups": 0,
+        "schedule": {},
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "feasible_assignments": 1,
+      "scenario_id": "zero_demand"
+    },
+    {
+      "assignments_enumerated": 1,
+      "baseline": {
+        "accepted_groups": 0,
+        "accepted_mean_trip_days": null,
+        "class_counts": {
+          "long": {
+            "accepted": 0,
+            "rejected": 1,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 4,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 0,
+        "rejected_groups": 5,
+        "schedule": {},
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "candidate_path_counts": {
+        "L": 0,
+        "S1": 0,
+        "S2": 0,
+        "S3": 0,
+        "S4": 0
+      },
+      "exact": {
+        "accepted_groups": 0,
+        "accepted_mean_trip_days": null,
+        "class_counts": {
+          "long": {
+            "accepted": 0,
+            "rejected": 1,
+            "requested": 1
+          },
+          "short": {
+            "accepted": 0,
+            "rejected": 4,
+            "requested": 4
+          }
+        },
+        "occupied_campsite_nights": 0,
+        "rejected_groups": 5,
+        "schedule": {},
+        "status": "FEASIBLE",
+        "verification_issues": []
+      },
+      "feasible_assignments": 1,
+      "scenario_id": "all_slots_closed"
+    }
+  ]
+}

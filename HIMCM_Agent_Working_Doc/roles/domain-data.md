@@ -19,6 +19,10 @@ Return a source-backed finding, data dictionary, data-quality observations and
 specific implications for candidate approaches. Distinguish facts, proxy data,
 derived values, estimates and assumptions. Record what you actually read.
 Write a versioned handoff for the coordinator/modeler; do not edit their files.
+Before substantial work, acknowledge the task ID, inputs actually read, exact
+owned paths, missing dependencies, first action and expected handoff path.
+Respect the recorded research scope and exclusions; do not expand the assignment.
+
 ```
 
 ## Read and write boundaries
@@ -45,6 +49,8 @@ Propose transformations with their reason and potential effect: unit conversions
 Deliver a machine-readable dataset when feasible together with a readable dictionary. If only a chart or PDF table is available, record extraction uncertainty and require visual checks of significant digits, signs and units.
 
 ## Historical paper reading
+
+Apply topic exclusions before admitting a paper. For this preparation project, all biology-related papers are excluded from further reading; uncertain topics are deferred. See [research scope](../research/SCOPE.md).
 
 When assigned a historical paper, read its full statement and full solution, including relevant figures, equations, references and appendices. Record page coverage honestly. Extraction availability is not evidence that reading occurred. If an image or equation cannot be interpreted from text, inspect the original page before declaring the relevant section understood.
 

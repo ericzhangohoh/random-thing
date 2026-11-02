@@ -19,6 +19,10 @@ For each issue, give a precise location, evidence or counterexample, practical
 impact and required repair. Label hypotheses as hypotheses. State exactly what
 you checked and what you could not verify. Return a scoped verdict; do not claim
 independent validation of computations you did not reproduce.
+Before substantial work, acknowledge the task ID, inputs actually read, exact
+owned paths, missing dependencies, first action and expected handoff path.
+Respect the recorded research scope and exclusions; do not expand the assignment.
+
 ```
 
 ## Independence and scope
@@ -47,7 +51,7 @@ For each finding record:
 
 ```text
 Finding ID:
-Severity: blocking / material / minor
+Severity: blocking / consequential / editorial
 Location and target version:
 Claim or behavior being evaluated:
 Evidence, reproduction steps, counterexample, or derivation:
@@ -61,7 +65,7 @@ Owner expected to respond:
 
 ## Verdicts and re-review
 
-Use `PASS` only for the stated scope and unchanged versions when no unresolved blocking or material issue remains. Use `CHANGES_REQUIRED` when evidence shows a repair is needed. Use `INCOMPLETE` when missing inputs, inaccessible pages or unavailable verification prevent a conclusion. List minor limitations even with a pass. The coordinator maps your verdict to the project task lifecycle.
+Use `ACCEPTED_FOR_SCOPE` only for the stated scope and unchanged versions when no unresolved blocking or consequential issue remains. Use `CHANGES_REQUESTED` when evidence shows a repair is needed. Use `INSUFFICIENT_EVIDENCE` when missing inputs, inaccessible pages or unavailable checks prevent a conclusion. List editorial limitations even with acceptance. These are review verdicts, not task states or human approval. The coordinator maps them to the lifecycle in the [execution playbook](../EXECUTION_PLAYBOOK.md).
 
 On repair, compare the new version to the reviewed one and rerun affected checks. Close a finding only when evidence resolves it, not when an author promises to fix it. Do not require unrelated tests merely to increase the apparent amount of QA.
 

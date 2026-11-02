@@ -1,5 +1,7 @@
 # MCM 2012 A — Team 15065 — a reusable tree-and-light simulation architecture
 
+> Archived prior research: this subject is excluded from further work by the current user instruction. Retained for provenance; not active workflow evidence. See [scope](../../SCOPE.md).
+
 - Source ID: `mcm_1cbc0cd9b972`
 - Source: `MCM-ICM-master/2012美赛特等奖/A-15065-Outstanding.pdf`
 - Coverage: **FULL_TEXT_AND_RELEVANT_VISUALS_REVIEWED**, physical pp.1–29, including summary, letter, references and complete MATLAB appendix.

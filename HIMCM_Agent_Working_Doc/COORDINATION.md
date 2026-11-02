@@ -2,6 +2,8 @@
 
 The authoritative operational protocol is [Shared directory and handoff protocol](setup/SHARED_DIRECTORY_PROTOCOL.md). It defines directory ownership, task states, handoffs, invalidation, collisions, restart and independent review. Use it together with [the six role instructions](roles/README.md).
 
+For first assignments and the full event sequence, use [Execution Playbook](EXECUTION_PLAYBOOK.md). For concrete cross-session messages and revision handling, use the [handoff walkthrough](examples/MULTI_AGENT_HANDOFF_WALKTHROUGH.md).
+
 ## A normal work cycle
 
 1. **Coordinator:** create a task packet with one answerable question, accepted inputs, write scope, dependencies, completion evidence and reviewer.
@@ -11,8 +13,11 @@ The authoritative operational protocol is [Shared directory and handoff protocol
 5. **Reviewer:** check the pinned version, write a scoped verdict and actionable findings, and leave the artifact itself unchanged.
 6. **Owner:** address findings, create a new revision, and identify which evidence changed.
 7. **Coordinator:** record acceptance, update dependency state and release downstream work. Submit G1, G2 or G3 to the human when required.
+8. **Consumer:** read the accepted upstream revision and acknowledge its hash/version, interpretation and next action in its own handoff before consequential dependent work. A sent notification is not proof of receipt.
 
 Use [task](templates/TASK.md), [handoff](templates/HANDOFF.md), [review](templates/REVIEW.md) and [change](templates/CHANGE_REQUEST.md) templates. Workers propose state changes through their handoff; only the coordinator edits shared control files.
+
+A concrete notification is: `T05 r01 is ready for review. Read handoffs/T05/computation-r01.md; it pins models/M01-r01.md and runs/E01-r01/manifest.json. Please assign the independent reviewer to feasibility and the stated comparison. No downstream claim is released yet.` Replace every example path and ID with the actual artifact. If no receipt arrives, the coordinator follows up through the available relay and assigns independent work; elapsed time is not acceptance.
 
 ## What may run in parallel
 

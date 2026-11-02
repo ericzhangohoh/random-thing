@@ -13,6 +13,7 @@ Mode = [practice or live competition]
 Deadline = [date, time, timezone; or no fixed deadline]
 Human team = [registered team context and division of responsibilities]
 Available tools/languages = [known constraints, or inspect locally]
+Research scope / exclusions = [for this preparation project: exclude all biology-related papers]
 
 Read WORKING_DOC.md, roles/coordinator.md, and setup/SHARED_DIRECTORY_PROTOCOL.md
 under DOC_ROOT. Inspect the current project before creating anything. Preserve
@@ -25,6 +26,12 @@ roles: coordinator, domain-data, modeler, computation, independent-reviewer and
 writer-visuals. You are the only editor of control/. Prepare explicit bounded
 assignments for separate Claude Code sessions; I can relay the assignments and
 handoff paths manually. Do not assume the sessions share conversation context.
+
+Keep control/tasks.md as the board and control/tasks/<T-ID>.md as the full packets.
+Use EXECUTION_PLAYBOOK.md for the first assignments and dependency release rules.
+Record the current research exclusions and a stop condition before literature work.
+Each worker first acknowledges inputs read, exact scope, missing dependencies,
+next action and expected handoff. Consumers acknowledge accepted input versions.
 
 Begin by reading the full statement and attachments, mapping each required
 answer, identifying dependent subproblems, and checking the evidence/data gaps.

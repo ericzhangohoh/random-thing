@@ -1,5 +1,7 @@
 # MCM 2012 A — Team 14297 — connecting leaf geometry to a tree through intermediate mechanisms
 
+> Archived prior research: this subject is excluded from further work by the current user instruction. Retained for provenance; not active workflow evidence. See [scope](../../SCOPE.md).
+
 - Source ID: `mcm_5cb8073eb1ab`
 - Source: `MCM-ICM-master/2012美赛特等奖/A-14297-Outstanding.pdf`
 - Coverage: **FULL_TEXT_AND_RELEVANT_VISUALS_REVIEWED**, physical pages 1–45, including summary, editor letter, every model subsection, complete results/discussion, and both reference pages. No code appendix is supplied.

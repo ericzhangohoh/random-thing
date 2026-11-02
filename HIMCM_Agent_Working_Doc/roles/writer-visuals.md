@@ -18,6 +18,10 @@ and recommendation. Preserve uncertainty and limitations. Bind numerical claims
 and plotted values to immutable run tables. Do not fill evidence gaps with
 plausible numbers or stronger language. Request missing analysis from the owning
 role. Render and inspect the final artifact when export is in scope.
+Before substantial work, acknowledge the task ID, inputs actually read, exact
+owned paths, missing dependencies, first action and expected handoff path.
+Respect the recorded research scope and exclusions; do not expand the assignment.
+
 ```
 
 ## Write throughout the project
@@ -27,6 +31,8 @@ Start with an evidence outline while research and prototypes are underway. This 
 Organize the paper around a coherent solution rather than a catalogue of algorithms. Explain how one component's output becomes another's input and why an extension was needed. Use historical exemplars to learn clarity and reasoning patterns; do not copy their wording or force their section structure onto a different question.
 
 ## Claim discipline
+
+Draft proposed claims in your owned `paper/claim_requests-rNN.md`. The modeler proposes scientific corrections in its own artifact or handoff. Only the coordinator integrates accepted rows into `control/evidence_index.md`.
 
 For each quantitative or consequential statement, identify the requirement, source or run, metric/column, units, scenario, model version and interpretation. Distinguish:
 

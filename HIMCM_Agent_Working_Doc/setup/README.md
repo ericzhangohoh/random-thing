@@ -2,7 +2,7 @@
 
 Use the document directly. No skill installation, plugin, automated agent framework or GitHub connection is required to start.
 
-1. Read [WORKING_DOC.md](../WORKING_DOC.md) and identify a separate active contest/practice project directory.
+1. Read [Execution Playbook](../EXECUTION_PLAYBOOK.md) and [WORKING_DOC.md](../WORKING_DOC.md); identify a separate active contest/practice project directory.
 2. Follow [Claude Code setup](CLAUDE_CODE.md) to start a coordinator session and bounded worker sessions.
 3. Use the [shared-directory protocol](SHARED_DIRECTORY_PROTOCOL.md) and copy/adapt the [assignment manifest](role_assignments.yaml.template) inside the active project.
 4. Paste the [bootstrap prompt](BOOTSTRAP_PROMPT.md), then the relevant role assignment prompt from `roles/`.

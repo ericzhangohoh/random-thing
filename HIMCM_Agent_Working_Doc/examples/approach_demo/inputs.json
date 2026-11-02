@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "classification": "SYNTHETIC_TEACHING_FIXTURE_NOT_OBSERVED_DATA",
+  "title": "A three-day campsite admission and allocation problem",
+  "horizon_days": 3,
+  "river_length_miles": 90,
+  "daily_limit_miles": 60,
+  "camps": [
+    {"id": "A", "position_miles": 30},
+    {"id": "B", "position_miles": 60}
+  ],
+  "requests_in_booking_order": [
+    {"id": "L", "launch_day": 1, "trip_days": 3, "service_class": "long"},
+    {"id": "S1", "launch_day": 1, "trip_days": 2, "service_class": "short"},
+    {"id": "S2", "launch_day": 1, "trip_days": 2, "service_class": "short"},
+    {"id": "S3", "launch_day": 2, "trip_days": 2, "service_class": "short"},
+    {"id": "S4", "launch_day": 2, "trip_days": 2, "service_class": "short"}
+  ],
+  "scenarios": [
+    {"id": "base"},
+    {"id": "long_service_quota", "minimum_long_accepted": 1},
+    {"id": "limit_59", "daily_limit_miles": 59},
+    {"id": "limit_30", "daily_limit_miles": 30},
+    {"id": "limit_29", "daily_limit_miles": 29},
+    {"id": "known_closure", "closed_slots": [["B", 2]]},
+    {"id": "zero_demand", "request_ids": []},
+    {"id": "all_slots_closed", "closed_slots": [["A", 1], ["A", 2], ["B", 1], ["B", 2]]}
+  ]
+}

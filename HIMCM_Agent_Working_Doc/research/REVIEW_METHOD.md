@@ -1,12 +1,14 @@
-# Full-Corpus Review Method
+# Historical Paper Review Method
 
 ## Scope and priority
 
-The original MCM/ICM collection supplied by the user is the central source. Every independently available competition paper is included in the reading queue; stated award categories and the non-MCM/ICM item are retained rather than flattened into a single O-award label. HiMCM papers, official problems and commentary provide complementary evidence and transfer context.
+The original MCM/ICM collection is the central archive. Its inventory retains every independent paper and its award/category distinctions, but [current research scope](SCOPE.md) excludes all biology-related papers from further work. Screen title/problem metadata before reading; defer uncertain topics and choose clearly non-biological cases. Eligible HiMCM papers, official problems and commentary provide complementary context.
 
 The unit of review is an actual document, not a filename. Match paper identity to its cover and content. Pair it with the official problem where available. If the original statement is missing, identify that limitation; a paper's restatement does not independently establish full requirement coverage.
 
 ## Reading procedure
+
+Apply the scope screen before this procedure. Full reading below concerns an admitted, eligible paper; it does not override the user's exclusions or require exhaustive archive completion before workflow delivery.
 
 1. Check source hash, page count, identity, claimed award provenance and available problem statement.
 2. Read every available page in bounded, untruncated batches, including references, appendices and code.

@@ -1,15 +1,19 @@
 # Research Status
 
-Updated: 2026-11-02T11:54:38+11:00.
+Updated: 2026-11-02T14:01:23+11:00.
 
-**The complete-corpus review is in progress. The working document is an operational edition, not a claim that all historical papers have been reviewed.**
+**Current scope excludes all biology-related papers. The earlier all-paper plan is superseded; see [research scope](SCOPE.md).**
 
-## Coverage
+This table reports historical archive coverage, not an eligible non-biological denominator or a requirement to finish every archived paper before delivering the workflow.
+
+Known exclusions currently match 14 papers. This is not exhaustive topic screening; future reading requires a metadata scope check. Existing review records are preserved.
+
+## Archived coverage
 
 | Collection | Papers | Full review recorded | Partial review recorded | Other review depth | Not reviewed |
 |---|---:|---:|---:|---:|---:|
-| himcm_standalone_papers | 56 | 26 | 4 | 0 | 26 |
-| original_mcm_icm_collection | 417 | 62 | 0 | 0 | 355 |
+| himcm_standalone_papers | 56 | 31 | 4 | 0 | 21 |
+| original_mcm_icm_collection | 417 | 70 | 1 | 0 | 346 |
 
 The original collection contains 502 PDFs, including 417 competition papers. Award levels, problem labels and one CUMCM item must retain their recorded distinctions; the folder name does not certify every item as MCM/ICM Outstanding.
 
@@ -59,6 +63,10 @@ The corpus inventory preserves initial extraction status. This progress report j
 - [A-1035-Honorable.pdf](reviews/mcm_2007/mcm_c0ad4e6ad59c.md) — full_review_recorded
 - [A-3694-Outstanding.pdf](reviews/mcm_2008/mcm_16f89d4916a9.md) — full_review_recorded
 - [B-2858-Outstanding.pdf](reviews/mcm_2008/mcm_7bdc6242e203.md) — full_review_recorded
+- [B-3780-Outstanding.pdf](reviews/mcm_2008/mcm_3da11eeffc41.md) — full_review_recorded
+- [C-The Most Expensive is not the Best.pdf](reviews/mcm_2008/mcm_223f167ac1c6.md) — full_review_recorded
+- [A-4339-Outstanding.pdf](reviews/mcm_2009/mcm_e32d833884b2.md) — full_review_recorded
+- [A-6749-Outstanding.pdf](reviews/mcm_2010/mcm_395f556a1085.md) — full_review_recorded
 - [A-11199-Outstanding.pdf](reviews/mcm_2011/mcm_cfe6d809748a.md) — full_review_recorded
 - [A-12149-Outstanding.pdf](reviews/mcm_2011/mcm_cb2b7105a6f3.md) — full_review_recorded
 - [A-9159-Outstanding.pdf](reviews/mcm_2011/mcm_41b0c737a558.md) — full_review_recorded
@@ -80,8 +88,13 @@ The corpus inventory preserves initial extraction status. This progress report j
 - [A-16831-Outstanding.pdf](reviews/mcm_2012/mcm_ec8f03fd20e5.md) — full_review_recorded
 - [B-13074-Outstanding.pdf](reviews/mcm_2012/mcm_8fc549d20a5e.md) — full_review_recorded
 - [B-13955-Outstanding.pdf](reviews/mcm_2012/mcm_a0e5e63c77e2.md) — full_review_recorded
+- [B-15171-Outstanding.pdf](reviews/mcm_2012/mcm_ce2299363867.md) — full_review_recorded
+- [B-15417-Outstanding.pdf](reviews/mcm_2012/mcm_df1dd905398a.md) — full_review_recorded
+- [B-15420-Outstanding.pdf](reviews/mcm_2012/mcm_8b46b9801a80.md) — full_review_recorded
+- [B-15878-Outstanding.pdf](reviews/mcm_2012/mcm_825774eaa5d3.md) — full_review_recorded
 - [A-32150-Outstanding.pdf](reviews/mcm_2015/mcm_b7715ba1fb8a.md) — full_review_recorded
 - [A-32722-Outstanding.pdf](reviews/mcm_2015/mcm_037c369c63c7.md) — full_review_recorded
+- [A-40764-Outstanding.pdf](reviews/mcm_2015/mcm_20552f3436da.md) — partial_review_recorded
 - [C-33572-Outstanding.pdf](reviews/mcm_2015/mcm_b32fb4b143f7.md) — full_review_recorded
 - [C-33900-Outstanding.pdf](reviews/mcm_2015/mcm_7f8065e88c26.md) — full_review_recorded
 - [C-35778-Outstanding.pdf](reviews/mcm_2015/mcm_39d71af2fb5b.md) — full_review_recorded
@@ -121,7 +134,12 @@ The corpus inventory preserves initial extraction status. This progress report j
 - [10656.pdf](reviews/himcm/HIMCM_2020_A_10656.md) — full_review_recorded
 - [10701.pdf](reviews/himcm/HIMCM_2020_A_10701.md) — full_review_recorded
 - [11135.pdf](reviews/himcm/HIMCM_2020_A_11135.md) — full_review_recorded
+- [10839.pdf](reviews/himcm/HIMCM_2020_B_10839.md) — full_review_recorded
+- [10876.pdf](reviews/himcm/HIMCM_2020_B_10876.md) — full_review_recorded
+- [10997.pdf](reviews/himcm/HIMCM_2020_B_10997.md) — full_review_recorded
+- [11462.pdf](reviews/himcm/HIMCM_2021_A_11462.md) — full_review_recorded
 - [12465.pdf](reviews/himcm/HIMCM_2022_B_12465.md) — partial_review_recorded
 - [12646.pdf](reviews/himcm/HIMCM_2022_B_12646.md) — partial_review_recorded
 - [13694.pdf](reviews/himcm/HIMCM_2023_B_13694.md) — partial_review_recorded
 - [13904.pdf](reviews/himcm/HIMCM_2023_B_13904.md) — partial_review_recorded
+- [2020_B_10878_作者公开版.pdf](reviews/himcm/HIMCM_2020_B_10878.md) — full_review_recorded

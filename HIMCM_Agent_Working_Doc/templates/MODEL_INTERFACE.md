@@ -43,7 +43,7 @@ Name fields rather than relying on unexplained column positions. A conversion re
 5. **Uncertainty transfer:** scenario/replication identifiers and correlations preserved; no silent substitution of a mean for a nonlinear uncertain input.
 6. **Alternative representation:** explain whether a simpler conversion changes the decision materially.
 
-Record checks actually run, including failures. Passing a geometric check does not validate a downstream mass estimate; a cumulative-case fit does not validate medicine demand; a schema match does not validate a behavioral relationship.
+Record checks actually run, including failures. Passing a distance check does not validate travel-time estimates; a demand fit does not establish feasible service capacity; a schema match does not validate a behavioral relationship.
 
 ## Failure and recovery
 

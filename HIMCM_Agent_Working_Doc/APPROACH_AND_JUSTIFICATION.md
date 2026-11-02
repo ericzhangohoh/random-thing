@@ -155,7 +155,7 @@ Validate qualitative and quantitative behavior: equilibria, limiting cases, resp
 
 Extend to spatial or individual-level models when aggregation hides a mechanism important to the answer. Additional entities and parameters bring additional evidence and computational obligations.
 
-For a multi-step physical or resource chain, check every conversion and then the final endpoint. Geometric agreement does not validate an inferred mass; a calibrated epidemic curve does not establish treatment demand; an average demand does not establish an inventory-feasible delivery schedule. Use the [interface template](templates/MODEL_INTERFACE.md) to preserve definitions, timing and uncertainty between agents. The [four-paper 2012 leaf/tree comparison](research/cases/2012_MCM_A_complete_local_comparison.md) illustrates alternative chains and their different evidence burdens.
+For a multi-step physical or resource chain, check every conversion and then the final endpoint. A plausible distance calculation does not validate a route's travel time; average demand does not establish an inventory-feasible delivery schedule. Use the [interface template](templates/MODEL_INTERFACE.md) to preserve definitions, timing and uncertainty between agents. The [six-paper 2012 river-scheduling comparison](research/cases/2012_MCM_B_complete_local_comparison.md) shows why a scheduling rule, completed throughput and operational capacity need separate checks.
 
 ### 7.5 Simulation
 
@@ -209,7 +209,7 @@ The [complete local 2015 ICM D comparison](research/cases/2015_ICM_D_complete_lo
 
 Do not climb this ladder through stronger wording alone. Also distinguish absence of a detected failure from evidence that no failure exists.
 
-Maintain a separate implementation-maturity label: proposed mechanism, executed toy example, target-scale implementation, or endpoint evidence checked. These are not interchangeable. A modular design can support future experiments without having executed them. Qualitative claims still need defined scenarios and limits; they do not become universally true merely because no precise number is reported. The [2015 A32722 review](research/reviews/mcm_2015/mcm_037c369c63c7.md) supplies both a useful admission of this boundary and an example of a final bulletin exceeding it.
+Maintain a separate implementation-maturity label: proposed mechanism, executed toy example, target-scale implementation, or endpoint evidence checked. These are not interchangeable. A modular design can support future experiments without having executed them. Qualitative claims still need scenarios and limits; they do not become universally true merely because no precise number is reported. The [2012 B13955 review](research/reviews/mcm_2012/mcm_a0e5e63c77e2.md) distinguishes capacity under a particular heuristic from real operational capacity and a general optimum.
 
 ## 9. Writing justification as an argument
 

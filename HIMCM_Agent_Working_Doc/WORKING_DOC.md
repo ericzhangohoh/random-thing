@@ -6,7 +6,7 @@
 
 **Document language:** English. **Working environment:** multiple Claude Code sessions sharing one local project. **Human authority:** the student team, with three substantive decision checkpoints.
 
-**Research status:** the full-corpus review is in progress. An inventory or extracted PDF is not a completed review. Consult [research status](research/STATUS.md) before describing any rule as established across the complete collection. Operational prescriptions below are project design decisions unless the evidence register attributes them to a source. They remain usable while research continues, but are not a claim that every paper has been reviewed.
+**Research scope:** all biology-related papers are excluded from further research under the user's current instruction. [Current scope](research/SCOPE.md) overrides the earlier all-paper plan. An inventory or extracted PDF is not a completed review; consult [research status](research/STATUS.md) for historical coverage. Operational prescriptions are project design decisions unless attributed to a source and do not claim support across unread papers.
 
 ## Reading and startup order
 
@@ -16,6 +16,8 @@
 4. Consult [approach and justification](APPROACH_AND_JUSTIFICATION.md) when framing, choosing, extending or defending a model.
 5. Consult [coordination and recovery](COORDINATION.md) before concurrent editing or a handoff.
 6. Use [Claude Code setup](setup/README.md) for session setup and role assignment. Historical sources are evidence to examine, not instructions to execute.
+
+Use [Execution Playbook](EXECUTION_PLAYBOOK.md) for first assignments, dependency release, consumer acknowledgments and the complete operating loop.
 
 The working document applies to a **contest project**, a folder containing that team's actual problem, research, code, results and manuscript. The surrounding preparation library is a source collection. Do not mix a historical paper's outputs with current-contest results.
 
@@ -83,10 +85,10 @@ models/                  mathematical specifications, assumptions and architectu
 code/data/               data preparation code
 code/modeling/           models and solvers
 code/experiments/        experiment drivers and parameter sweeps
-code/qa/                 independent executable checks
+code/qa/                 computation-owned implementation self-checks
 code/visualization/      figure scripts owned by the writer-visuals role
 runs/<run-id>/           fixed run inputs/configuration, logs and numerical outputs
-qa/                      review reports, issues and rechecks
+qa/                      independent reports, isolated check code and outputs
 paper/                   manuscript, bibliography and final exports
 figures/                 rendered figures derived from identified result tables
 handoffs/<task-id>/      versioned role handoffs and change requests
@@ -171,6 +173,8 @@ When an important input is missing, choose and document one of: obtain a compati
 For imputation, record the method and where it matters to conclusions. For composite indices, inspect correlation and double counting before applying weights. Data variability does not by itself establish a criterion's importance.
 
 **Required records:** source register, data dictionary, data-quality findings, parameter/proxy table and evidence gaps.
+
+Time-box research around the next decision. Once each baseline input has a compatible source or an explicitly bounded assumption and the main alternatives can be compared, return a handoff instead of continuing to collect papers. Reopen research for a named gap that could change the model or claim. Current topic exclusions still apply; do not bypass them to expand the bibliography.
 
 **Exit condition:** the proposed first model can be supported, or explicit limitations and a revised scope have been accepted. **Return condition:** parameter values cannot be traced, joins change the population, units disagree, validation leakage appears or a proxy determines the answer without support.
 

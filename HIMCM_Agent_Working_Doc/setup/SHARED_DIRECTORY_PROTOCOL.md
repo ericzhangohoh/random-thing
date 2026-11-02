@@ -33,6 +33,7 @@ Use the main working document's phase gates. For individual tasks, use `READY`, 
 4. The worker closes a handoff with exact output paths, versions or hashes, results, limitations and a requested next action. The coordinator records `IN_REVIEW` if review is required.
 5. The reviewer evaluates the pinned artifact, records findings in `qa/`, and identifies a verdict and its scope. The coordinator updates the task; it cannot rewrite the review verdict.
 6. The author repairs findings in a new revision. After the affected checks pass, the coordinator records acceptance and releases dependent tasks.
+7. The consumer acknowledges the exact accepted revision, its units/entity/time/schema and the next action in its own handoff before consequential dependent work.
 
 `BLOCKED` means a specific missing dependency or capability prevents this task. State the smallest unblock action and continue other assigned work that does not depend on it. It is not a synonym for uncertain, unfinished, difficult, or awaiting routine self-checks. `ACCEPTED` means accepted for the named purpose and version, not that the entire project is finished.
 
@@ -55,6 +56,8 @@ Recommended next action and owner:
 Say whether a reported number was computed, copied from a source, estimated, or assumed. Separate a successful command exit from a scientifically supported conclusion. Never substitute “done” for an inspectable output.
 
 The default transport is simple: the human copies the handoff path or short notification into the coordinator's session, and then into the next worker's session. The actual evidence stays in files. A shared folder does not automatically notify another session, and a sent message does not prove its recipient read or accepted it. Native messaging is optional; it still points to the same durable records.
+
+If a receipt is missing, the coordinator follows up through the available relay and assigns other independent work. It does not release the dependency based on elapsed time. Use the [execution playbook](../EXECUTION_PLAYBOOK.md) for canonical review-verdict mappings and first assignments.
 
 ## Changes and invalidation
 

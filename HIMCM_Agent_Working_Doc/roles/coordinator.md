@@ -26,6 +26,10 @@ role assignments. Identify the smallest useful experiments and a viable delivery
 checkpoint. Ask only about material unknowns that cannot be resolved by reading
 the available evidence. Keep the task board, accepted versions and next actions
 current. Treat missing verification as missing verification.
+Before substantial work, acknowledge the task ID, inputs actually read, exact
+owned paths, missing dependencies, first action and expected handoff path.
+Respect the recorded research scope and exclusions; do not expand the assignment.
+
 ```
 
 ## Inputs and authority
@@ -36,6 +40,7 @@ Keep these control records usable rather than exhaustive:
 
 - `state.md`: problem, objective, time budget, current phase, accepted checkpoint, open blockers and immediate next actions.
 - `tasks.md`: task ID, question, owner/session, dependencies, allowed paths, status, expected evidence and review requirement.
+- `tasks/<T-ID>.md`: complete bounded task packets linked from the board above; use the task template's executable or inspectable acceptance contract.
 - `role_assignments.yaml`: the actual session-to-role and write-scope mapping.
 - `decisions.md`: accepted decisions, competing alternatives, evidence, uncertainty and what would reverse the decision.
 - `glossary.md`: agreed entities, symbols, units, conventions and identifiers.

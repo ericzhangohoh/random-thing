@@ -22,6 +22,12 @@
 
 [List observable conditions. Do not require a predetermined numerical result or a preferred model to win.]
 
+| Check ID | Claim or contract | Type: execution / inspection / human decision | Exact command + working directory or inspection procedure | Expected substantive result and tolerance | Evidence receipt | Checker and release owner |
+|---|---|---|---|---|---|---|
+| K01 | | | | | | |
+
+For an executed check, identify pinned inputs, allowed output directory, resource/time limit and failure action. A successful exit or existing file is an integrity check, not scientific acceptance. A human decision must reference the actual human response; an agent cannot fill it on their behalf.
+
 ## Stop / return conditions
 
 [Missing critical input, contradictory requirements, failed feasibility, needed scope change, or other consequential finding.]
