@@ -161,6 +161,8 @@ Verify simulation logic on small cases. Check replication count, convergence or 
 
 Simulation output tests implications of the assumed model. It is not independent real-world validation of those assumptions. Use external observations or credible benchmarks where available, and describe the remaining evidential limits.
 
+Identify which outputs are imposed by construction. If a simulation fixes aggregate turnover and uses a network score only to select who leaves, matching the imposed turnover cannot validate the network's predictive value. Test genuinely derived consequences, such as the distribution of departures or changes in service capacity. An analytical balance calculation can verify internal simulation consistency without becoming independent empirical validation.
+
 ### 7.6 Spatial and network models
 
 Explain node and edge meanings, direction, weights, capacity, connectivity and the relationship between geometric and network distance. Decide whether travel, coverage, flow, assignment or scheduling is the actual problem.

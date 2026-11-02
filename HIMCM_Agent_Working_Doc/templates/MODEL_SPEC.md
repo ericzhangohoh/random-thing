@@ -4,6 +4,7 @@
 - Owner and revision:
 - Inputs: schema, units, resolution, valid range, source/version:
 - Outputs: schema, units, interpretation and downstream consumer:
+- Which quantities are imposed by construction versus genuinely derived:
 
 ## Variables and parameters
 
