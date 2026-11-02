@@ -7,6 +7,9 @@
 - Which quantities are imposed by construction versus genuinely derived:
 - Persistent entities, moving attributes and event-specific resets:
 - Exact scenario-to-requirement mapping, including any scope differences:
+- Model purpose: measurement / forecast / intervention response / decision / surrogate:
+- For interventions: action, actor, cost, capacity, affected state, response evidence, delay and persistence:
+- For a surrogate: direct target function, added benefit and fidelity requirements:
 
 ## Variables and parameters
 
@@ -38,6 +41,8 @@
 - Tiny counterexample for sign, range, decay, normalization or event conservation:
 - Feasibility example and impossible case:
 - Baseline comparison:
+- Zero-intervention recovery of baseline; common initial state and outside conditions:
+- Fixed-plan versus adaptive/reoptimized robustness, if relevant:
 - External/held-out evidence where applicable:
 - Consequential sensitivity or scenario test:
 

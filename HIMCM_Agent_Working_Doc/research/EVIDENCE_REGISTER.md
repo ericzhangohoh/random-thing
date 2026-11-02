@@ -25,6 +25,14 @@ This is a living synthesis of **reviewed cases**, not a completed statistical ac
 | Separate imposed inputs from emergent outputs when validating a simulation | [2015 C, 33572](reviews/mcm_2015/mcm_b32fb4b143f7.md), pp.11–15 | A fixed aggregate churn rate and network-selected departure composition have different evidential roles; analytical flow balance is an internal check | No numerical reconstruction or empirical validation was performed | Simulation guidance and model-specification template |
 | Compare assumptions and scenario definitions before comparing conclusions | [All six local 2015 ICM C papers](cases/2015_ICM_C_complete_local_comparison.md), especially sections 3–6 | Persistent entities, event rules, hiring restrictions and imposed targets can explain differing recommendations; tiny cases can expose formula/meaning mismatches | Complete local same-problem reading; no numerical reproduction or universal award explanation | Assumption guidance, simulation guidance, model-specification and review templates |
 
+## Further complete local comparisons
+
+| Rule / lesson | Inspected support | What it supports | Scope limit | Operational destination |
+|---|---|---|---|---|
+| Separate measurement, forecast, intervention response and decision; justify each connection | [All six local 2015 ICM D papers](cases/2015_ICM_D_complete_local_comparison.md) | Distinct measurement architectures can be useful, but policy claims require feasible actions, costs and response evidence; zero intervention must recover baseline | Full local same-problem reading, not empirical validation or award explanation | Approach section 7.7; model specification and review templates |
+| Check a learned surrogate against the direct function before interpreting its response curves | [2015 D, 35630](reviews/mcm_2015/mcm_4113751a8ab0.md), pp.10–17 | Synthetic data and a low training error do not supply independent evidence; an unexplained reversal can be approximation error | Static review of paper and figures; no network rerun | Approach section 7.7; surrogate purpose and fidelity fields |
+| Define exact policy scope and preserve the accounting chain through substitution | [All four local HiMCM 2019 B papers](cases/himcm_2019_B_complete_comparison.md) | Policy scope, behavior, material quantities and stakeholder outcomes are separate interfaces; survey-to-variable mapping makes a data plan inspectable | Historical case comparison; no numerical reproduction | Requirements, data dictionaries, scenario and review records |
+
 ## Required synthesis after each research batch
 
 1. Compare approaches to the same problem using common task definitions.

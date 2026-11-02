@@ -76,7 +76,7 @@ def main() -> None:
         out["status"] = "FULL_READING_RECORDED_PENDING_CORPUS_QA"
     (DOC / "research/review_progress.json").write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n")
     with (DOC / "research/review_progress.csv").open("w", encoding="utf-8-sig", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(f, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader(); writer.writerows(rows)
     lines = ["# Research Status", "", f"Updated: {stamp}.", "",
              "**The complete-corpus review is in progress. The working document is an operational edition, not a claim that all historical papers have been reviewed.**", "",

@@ -177,6 +177,20 @@ A route must obey operational constraints as well as visit locations. Check obst
 
 Distinguish an exact graph result for a simplified graph from an exact solution to the original physical problem. The abstraction itself requires justification and testing.
 
+### 7.7 Measurement, forecasts and interventions in one problem
+
+Treat these as separate questions: what the current condition is, what would happen under current practice, what a feasible action changes, and which action is preferable. A composite index defines a measurement convention. A forecast estimates an outcome under stated conditions. Neither automatically identifies the effect of spending or changing a policy.
+
+Before a policy experiment, specify `action → resources/capacity → affected state → response and delay → outcomes → decision criterion`. A control coefficient, indicator target or cluster center is not itself a purchasable intervention. Where response evidence is insufficient, use labeled effect-size scenarios and narrow the conclusion accordingly.
+
+Use the same initial state, outside conditions, transition rules, horizon and outcome accounting for the no-plan and proposed-plan futures. Check that a zero intervention recovers the specified baseline. Compare two future outcomes to assess incremental benefit; improvement from today's value alone mixes policy effects with background trends. If different models generate the two scenarios, compare their no-intervention behavior first and disclose any consequential difference.
+
+Carry the realized state between planning stages. A fixed-plan stress test and a test that reoptimizes after a shock answer different questions. Report them separately. Compare costs under a common budget and time basis before claiming cost-effectiveness, and preserve separate outcomes when a scalar objective hides the relevant tradeoff.
+
+If a learned model approximates an existing scoring function, retain that direct function as a baseline. Synthetic training data do not add independent observations. Test fidelity, bounds and expected monotonicity before interpreting surrogate response curves as domain knowledge. A turning point introduced by approximation is not evidence of a real-world optimum.
+
+The [complete local 2015 ICM D comparison](research/cases/2015_ICM_D_complete_local_comparison.md) gives six contrasting architectures, the evidence obligations at their interfaces, role assignments and small verification cases.
+
 ## 8. Claim strength and the evidence ladder
 
 | Supported statement | Evidence obligation |

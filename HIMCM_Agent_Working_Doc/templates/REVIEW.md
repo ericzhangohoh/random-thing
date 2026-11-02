@@ -24,6 +24,9 @@
 - Formula/code correspondence:
 - Feasibility, numerical status and reproducibility:
 - Appropriate validation and claim strength:
+- Measurement versus forecast versus intervention evidence; actual action-to-outcome link:
+- Common future counterfactual, intervention costs and zero-action baseline recovery:
+- Surrogate fidelity versus independent predictive evidence, where applicable:
 - Cross-module and summary/body consistency:
 - Remaining limitations:
 
