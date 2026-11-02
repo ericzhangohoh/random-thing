@@ -12,6 +12,7 @@ Copy only the templates needed for the current stage into the contest project's 
 | [Assumptions](ASSUMPTIONS.md) | `models/assumptions.md`, modeler | Modeling and revision |
 | [Sources and data](SOURCES_AND_DATA.md) | `research/`, domain-data | Evidence admission and data handoff |
 | [Model specification](MODEL_SPEC.md) | `models/`, modeler | Before formal implementation |
+| [Model interface](MODEL_INTERFACE.md) | `models/interfaces/`, modeler | Consequential dependencies between components |
 | [Experiment](EXPERIMENT.md) | `models/experiments/`, modeler; execution via handoff | Before comparing or validating |
 | [Run manifest](run_manifest.json.template) | `runs/<run-id>/manifest.json`, computation | Every accepted numerical run |
 | [Claims](CLAIM_EVIDENCE.md) | Proposed by writer/modeler; accepted index in `control/` | G3 and manuscript checks |

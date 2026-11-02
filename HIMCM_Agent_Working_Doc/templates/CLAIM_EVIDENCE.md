@@ -11,6 +11,8 @@ For a numerical claim, identify the actual result table and row/column or calcul
 - Summary numbers checked against final results:
 - Body / tables / figures / conclusion checked:
 - Nontechnical recommendations traced to claims:
+- Proposed extensions, toy experiments and target applications explicitly distinguished:
+- Summary and letter retain unresolved feasibility and uncertainty qualifications:
 - Superseded claims removed or revised:
 - G3 human confirmation and version:
 

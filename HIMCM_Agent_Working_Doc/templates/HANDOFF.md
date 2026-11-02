@@ -6,6 +6,7 @@
 - Inputs actually read and versions:
 - Unread or missing material:
 - Output paths, versions/hashes and status:
+- Interface contracts used; any unresolved unit, schema, timing or eligibility conversion:
 
 ## Findings and decisions
 

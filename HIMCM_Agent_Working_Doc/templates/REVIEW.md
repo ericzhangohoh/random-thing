@@ -28,6 +28,10 @@
 - Common future counterfactual, intervention costs and zero-action baseline recovery:
 - Surrogate fidelity versus independent predictive evidence, where applicable:
 - Cross-module and summary/body consistency:
+- Interface units, schema, eligibility, time of availability and conserved quantities:
+- Competing events, shared capacity and computational scaling, when relevant:
+- Proposed versus toy versus target implementation; validation of the final endpoint:
+- Public letter and abstract retain the same evidence limits as the technical body:
 - Remaining limitations:
 
 ## Verdict

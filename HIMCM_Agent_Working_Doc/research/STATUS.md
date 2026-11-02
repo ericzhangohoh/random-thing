@@ -1,6 +1,6 @@
 # Research Status
 
-Updated: 2026-11-02T11:44:44+11:00.
+Updated: 2026-11-02T11:54:38+11:00.
 
 **The complete-corpus review is in progress. The working document is an operational edition, not a claim that all historical papers have been reviewed.**
 
@@ -8,8 +8,8 @@ Updated: 2026-11-02T11:44:44+11:00.
 
 | Collection | Papers | Full review recorded | Partial review recorded | Other review depth | Not reviewed |
 |---|---:|---:|---:|---:|---:|
-| himcm_standalone_papers | 56 | 22 | 4 | 0 | 30 |
-| original_mcm_icm_collection | 417 | 54 | 0 | 0 | 363 |
+| himcm_standalone_papers | 56 | 26 | 4 | 0 | 26 |
+| original_mcm_icm_collection | 417 | 62 | 0 | 0 | 355 |
 
 The original collection contains 502 PDFs, including 417 competition papers. Award levels, problem labels and one CUMCM item must retain their recorded distinctions; the folder name does not certify every item as MCM/ICM Outstanding.
 
@@ -55,7 +55,10 @@ The corpus inventory preserves initial extraction status. This progress report j
 - [A-When Topologists Are Politicians.pdf](reviews/mcm_2007/mcm_cdb6befee35e.md) — full_review_recorded
 - [B-2053-Outstanding.pdf](reviews/mcm_2007/mcm_009e1fc87d77.md) — full_review_recorded
 - [B-2056-Outstanding.pdf](reviews/mcm_2007/mcm_e0dcf8bb60f2.md) — full_review_recorded
+- [C-2052-Outstanding.pdf](reviews/mcm_2007/mcm_aaba16bca000.md) — full_review_recorded
 - [A-1035-Honorable.pdf](reviews/mcm_2007/mcm_c0ad4e6ad59c.md) — full_review_recorded
+- [A-3694-Outstanding.pdf](reviews/mcm_2008/mcm_16f89d4916a9.md) — full_review_recorded
+- [B-2858-Outstanding.pdf](reviews/mcm_2008/mcm_7bdc6242e203.md) — full_review_recorded
 - [A-11199-Outstanding.pdf](reviews/mcm_2011/mcm_cfe6d809748a.md) — full_review_recorded
 - [A-12149-Outstanding.pdf](reviews/mcm_2011/mcm_cb2b7105a6f3.md) — full_review_recorded
 - [A-9159-Outstanding.pdf](reviews/mcm_2011/mcm_41b0c737a558.md) — full_review_recorded
@@ -74,6 +77,11 @@ The corpus inventory preserves initial extraction status. This progress report j
 - [A-14297-Outstanding.pdf](reviews/mcm_2012/mcm_5cb8073eb1ab.md) — full_review_recorded
 - [A-14990-Outstanding.pdf](reviews/mcm_2012/mcm_e2428f0d3227.md) — full_review_recorded
 - [A-15065-Outstanding.pdf](reviews/mcm_2012/mcm_1cbc0cd9b972.md) — full_review_recorded
+- [A-16831-Outstanding.pdf](reviews/mcm_2012/mcm_ec8f03fd20e5.md) — full_review_recorded
+- [B-13074-Outstanding.pdf](reviews/mcm_2012/mcm_8fc549d20a5e.md) — full_review_recorded
+- [B-13955-Outstanding.pdf](reviews/mcm_2012/mcm_a0e5e63c77e2.md) — full_review_recorded
+- [A-32150-Outstanding.pdf](reviews/mcm_2015/mcm_b7715ba1fb8a.md) — full_review_recorded
+- [A-32722-Outstanding.pdf](reviews/mcm_2015/mcm_037c369c63c7.md) — full_review_recorded
 - [C-33572-Outstanding.pdf](reviews/mcm_2015/mcm_b32fb4b143f7.md) — full_review_recorded
 - [C-33900-Outstanding.pdf](reviews/mcm_2015/mcm_7f8065e88c26.md) — full_review_recorded
 - [C-35778-Outstanding.pdf](reviews/mcm_2015/mcm_39d71af2fb5b.md) — full_review_recorded
@@ -109,6 +117,10 @@ The corpus inventory preserves initial extraction status. This progress report j
 - [9548.pdf](reviews/himcm/HIMCM_2019_B_9548.md) — full_review_recorded
 - [9869.pdf](reviews/himcm/HIMCM_2019_B_9869.md) — full_review_recorded
 - [10549.pdf](reviews/himcm/HIMCM_2020_A_10549.md) — full_review_recorded
+- [10550.pdf](reviews/himcm/HIMCM_2020_A_10550.md) — full_review_recorded
+- [10656.pdf](reviews/himcm/HIMCM_2020_A_10656.md) — full_review_recorded
+- [10701.pdf](reviews/himcm/HIMCM_2020_A_10701.md) — full_review_recorded
+- [11135.pdf](reviews/himcm/HIMCM_2020_A_11135.md) — full_review_recorded
 - [12465.pdf](reviews/himcm/HIMCM_2022_B_12465.md) — partial_review_recorded
 - [12646.pdf](reviews/himcm/HIMCM_2022_B_12646.md) — partial_review_recorded
 - [13694.pdf](reviews/himcm/HIMCM_2023_B_13694.md) — partial_review_recorded

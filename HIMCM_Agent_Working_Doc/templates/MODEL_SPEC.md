@@ -4,6 +4,7 @@
 - Owner and revision:
 - Inputs: schema, units, resolution, valid range, source/version:
 - Outputs: schema, units, interpretation and downstream consumer:
+- Consequential interface records and implementation maturity (proposed / toy / target / evidence checked):
 - Which quantities are imposed by construction versus genuinely derived:
 - Persistent entities, moving attributes and event-specific resets:
 - Exact scenario-to-requirement mapping, including any scope differences:
@@ -43,6 +44,8 @@
 - Baseline comparison:
 - Zero-intervention recovery of baseline; common initial state and outside conditions:
 - Fixed-plan versus adaptive/reoptimized robustness, if relevant:
+- Event ordering, competing transitions and shared-resource reservation:
+- Scale transformation and invariants preserved, if computation uses a reduced system:
 - External/held-out evidence where applicable:
 - Consequential sensitivity or scenario test:
 

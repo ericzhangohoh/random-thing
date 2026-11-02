@@ -186,6 +186,7 @@ For imputation, record the method and where it matters to conclusions. For compo
 4. Decide evaluation criteria before seeing the preferred result. Criteria can include predictive performance, constraint feasibility, decision stability, explanatory adequacy or resource cost; they must match the task.
 5. Design the smallest experiment capable of discriminating among candidates. Prototype before committing to an elaborate architecture where feasibility is uncertain.
 6. Specify how components communicate. Distinguish a joint model from a sequence of models; check whether feedback is important enough to require iteration.
+   For a consequential dependency, start a [model interface record](templates/MODEL_INTERFACE.md). Identify the producer, consumer, conversion, availability time and failure condition. A named arrow in a diagram is not yet a justified relationship.
 7. Select, retain provisionally or reject candidates on the evidence. Record both the benefit and the sacrifice of the chosen simplification.
 8. Submit G2 with the architecture, baseline, comparison evidence, planned validation and unresolved risks.
 
@@ -225,6 +226,8 @@ The computation agent returns ambiguities rather than silently inventing mathema
 - Boundary cases have sensible behavior: zero demand, zero resources, full capacity or a disconnected system as applicable.
 - Constraints jointly admit at least one plausible feasible case, or infeasibility is itself an intended output.
 - Shared quantities have the same definitions across components.
+- Producer and consumer agree on entity eligibility, stocks versus flows, rate denominators, schema, time of availability and uncertainty. A downstream agent must not silently reinterpret a cumulative count as current demand or a mean capacity as guaranteed daily service.
+- For simulations, competing transitions and the order of state updates, movement, stock consumption and capacity reservation are explicit. Computational rescaling has stated invariants and a planned comparison with the target scale.
 - A proposed empirical relation is not being described as causal without identification or a mechanism-based justification.
 
 **Exit condition:** another agent can implement the specification without making substantive modeling decisions. **Return condition:** contradictory symbols, missing constraints, undefined cases, impossible units or unidentifiable free parameters.
@@ -242,6 +245,7 @@ The computation agent returns ambiguities rather than silently inventing mathema
 5. Save machine-readable results with units and identifiers, not only screenshots or narrative numbers.
 6. Check warning and failure paths. A process exit code of zero is insufficient if a solver reports infeasible, timed out or numerically unstable.
 7. Compare implementation behavior against the mathematical specification. Resolve deviations with the modeler and update both the specification and decision record.
+   Keep one authoritative implementation of each reported relationship. Plotting code should consume saved results or call that implementation; it must not quietly substitute a different equation to produce a smoother figure.
 8. Preserve the latest known-good complete solution before attempting extensions.
 
 ### Run acceptance
@@ -308,6 +312,8 @@ The reviewer checks requirement coverage, key assumptions, data lineage, formula
 7. Explain limitations through their consequences. “Data were limited” must identify which conclusion is less secure and what additional evidence would help.
 8. Submit G3 with the proposed answer, alternatives, reviewer findings and limitations.
 
+For each required output, G3 distinguishes proposed functionality, a completed toy experiment, a target-scale implementation and evidence checked against the intended endpoint. Demonstrating that a framework could select locations does not fulfill a request for actual locations. If the final endpoint remains unsupported, provide the strongest defensible conditional answer and state exactly what is unresolved.
+
 Use precise claim language. “Lowest cost among evaluated feasible plans” is different from “globally optimal.” “Stable over these weight ranges” is different from “objective.” “Associated with” is different from “caused by.” “Projected under this scenario” is different from “will happen.”
 
 **Exit condition:** G3 recorded and the solution's claims match its evidence. **Return condition:** contradictory results across components, unsupported recommendations, or a meaningful unresolved review issue.
@@ -335,6 +341,8 @@ Figure specifications record input table/run, plotted variables, units, transfor
 Write the final summary after results stabilize. It should identify the problem, principal approach, concrete findings, recommendation and meaningful limitations. Reconcile every summary number with the final tables.
 
 For a letter, memo or press release, adapt language and content to the named audience. Translate the mathematical result into practical consequences and choices. Avoid unexplained acronyms and recommendations that are unsupported by the model.
+
+Check claim strength again after simplifying the language. An exploratory scenario must not become an inevitable calendar prediction, and a mean resource requirement must not become a service guarantee. The public-facing document carries the same consequential qualifications as the technical body.
 
 ### 12.4 Delivery checks
 

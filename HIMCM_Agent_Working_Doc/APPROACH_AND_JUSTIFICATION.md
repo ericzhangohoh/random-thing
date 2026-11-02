@@ -155,11 +155,15 @@ Validate qualitative and quantitative behavior: equilibria, limiting cases, resp
 
 Extend to spatial or individual-level models when aggregation hides a mechanism important to the answer. Additional entities and parameters bring additional evidence and computational obligations.
 
+For a multi-step physical or resource chain, check every conversion and then the final endpoint. Geometric agreement does not validate an inferred mass; a calibrated epidemic curve does not establish treatment demand; an average demand does not establish an inventory-feasible delivery schedule. Use the [interface template](templates/MODEL_INTERFACE.md) to preserve definitions, timing and uncertainty between agents. The [four-paper 2012 leaf/tree comparison](research/cases/2012_MCM_A_complete_local_comparison.md) illustrates alternative chains and their different evidence burdens.
+
 ### 7.5 Simulation
 
 Specify the simulated entities, state, events/transitions, randomness, interaction rules and observation process. Record what is sampled and why its distribution is defensible. Separate modeled uncertainty from arbitrary randomization used for searching.
 
 Verify simulation logic on small cases. Check replication count, convergence or precision of the reported statistic, initialization and warm-up effects where relevant. Preserve seeds, but investigate more than one realization.
+
+Define how competing transitions are sampled and when shared resources are reserved. A probability derived from a mean duration must match the actual waiting-time process, including other exits. A smaller computational population must preserve the intended capacity ratios, rates and decision behavior; compare it with the original scale instead of assuming proportional scaling is harmless.
 
 Specify which entities persist, which attributes move with them, and which reset after an event. Distinguish waiting work, active work and completed arrivals. Reconcile every rate with its denominator and time exposure. Use tiny counterexamples to check claimed directionality: an older event should receive less weight under a decay rule, a promotion should preserve total headcount, and a probability must remain within its declared range.
 
@@ -204,6 +208,8 @@ The [complete local 2015 ICM D comparison](research/cases/2015_ICM_D_complete_lo
 | This is globally optimal | A suitable proof or optimization certificate within the stated mathematical problem |
 
 Do not climb this ladder through stronger wording alone. Also distinguish absence of a detected failure from evidence that no failure exists.
+
+Maintain a separate implementation-maturity label: proposed mechanism, executed toy example, target-scale implementation, or endpoint evidence checked. These are not interchangeable. A modular design can support future experiments without having executed them. Qualitative claims still need defined scenarios and limits; they do not become universally true merely because no precise number is reported. The [2015 A32722 review](research/reviews/mcm_2015/mcm_037c369c63c7.md) supplies both a useful admission of this boundary and an example of a final bulletin exceeding it.
 
 ## 9. Writing justification as an argument
 
