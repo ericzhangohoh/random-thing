@@ -1,0 +1,112 @@
+{"phase": "final", "status": "SUCCEEDED", "metrics": [{"phase": "final", "target": "co2", "model_id": "D", "grouping": "overall", "group_value": null, "n": 10, "valid_n": 10, "mae": 2.144499999999971, "rmse": 2.524907226018381, "bias": -2.144499999999971, "unit": "ppm", "status": "OK"}, {"phase": "final", "target": "co2", "model_id": "Q", "grouping": "overall", "group_value": null, "n": 10, "valid_n": 10, "mae": 1.398407671869427, "rmse": 1.6429238719896444, "bias": -1.398407671869427, "unit": "ppm", "status": "OK"}, {"phase": "final", "target": "co2", "model_id": "E", "grouping": "overall", "group_value": null, "n": 10, "valid_n": 10, "mae": 8.241772640185195, "rmse": 8.584285093396257, "bias": -8.241772640185195, "unit": "ppm", "status": "OK"}, {"phase": "final", "target": "temp", "model_id": "T0", "grouping": "overall", "group_value": null, "n": 10, "valid_n": 10, "mae": 0.12480277374617006, "rmse": 0.15573643508980944, "bias": -0.11866473149492038, "unit": "degrees_C_anomaly_1951_1980", "status": "OK"}, {"phase": "final", "target": "temp", "model_id": "T1-D", "grouping": "overall", "group_value": null, "n": 10, "valid_n": 10, "mae": 0.0931465714209956, "rmse": 0.11304989150561875, "bias": -0.05838593542548874, "unit": "degrees_C_anomaly_1951_1980", "status": "OK"}, {"phase": "final", "target": "temp", "model_id": "T1-Q", "grouping": "overall", "group_value": null, "n": 10, "valid_n": 10, "mae": 0.0905255429409475, "rmse": 0.10887736878203871, "bias": -0.05170945761818928, "unit": "degrees_C_anomaly_1951_1980", "status": "OK"}, {"phase": "final", "target": "temp", "model_id": "T1-E", "grouping": "overall", "group_value": null, "n": 10, "valid_n": 10, "mae": 0.1216590421161022, "rmse": 0.15195970124476246, "bias": -0.11383411947798686, "unit": "degrees_C_anomaly_1951_1980", "status": "OK"}], "selection_changed": false}
+{"phase": "production", "status": "SUCCEEDED", "selected": ["D", "T1-D"], "checks_passed": 12, "envelope_misses": {"D": 0, "T1-D": 1}}
+{"phase": "production", "status": "SUCCEEDED", "selected": ["D", "T1-D"], "checks_passed": 12, "envelope_misses": {"D": 0, "T1-D": 1}}
+{"phase": "production", "status": "SUCCEEDED", "selected": ["D", "T1-D"], "checks_passed": 12, "envelope_misses": {"D": 0, "T1-D": 1}}
+{"phase": "production", "status": "SUCCEEDED", "selected": ["D", "T1-D"], "checks_passed": 12, "envelope_misses": {"D": 0, "T1-D": 1}}
+{"phase": "production", "status": "SUCCEEDED", "selected": ["D", "T1-D"], "checks_passed": 12, "envelope_misses": {"D": 0, "T1-D": 1}}
+{
+  "semantic_cases": [
+    {
+      "case": "selected_ids",
+      "rejected": true,
+      "error": "Frozen selection semantic mismatch: selected_co2_id",
+      "no_new_or_changed_stage_outputs": true
+    },
+    {
+      "case": "eligible_pair",
+      "rejected": true,
+      "error": "Frozen selection semantic mismatch: temperature_selection_candidates",
+      "no_new_or_changed_stage_outputs": true
+    },
+    {
+      "case": "score",
+      "rejected": true,
+      "error": "Frozen selection semantic mismatch: development_mae",
+      "no_new_or_changed_stage_outputs": true
+    },
+    {
+      "case": "tie",
+      "rejected": true,
+      "error": "Frozen selection semantic mismatch: selection_rule",
+      "no_new_or_changed_stage_outputs": true
+    },
+    {
+      "case": "exposure",
+      "rejected": true,
+      "error": "Frozen selection semantic mismatch: project_final_scores_previously_exposed_by_A01",
+      "no_new_or_changed_stage_outputs": true
+    },
+    {
+      "case": "ids_production",
+      "rejected": true,
+      "error": "Frozen selection semantic mismatch: selected_co2_id",
+      "no_new_or_changed_stage_outputs": true
+    },
+    {
+      "case": "rehashed_metric",
+      "rejected": true,
+      "error": "Development metrics disagree with forecasts: D/mae",
+      "no_new_or_changed_stage_outputs": true
+    }
+  ],
+  "diagnostic_cases": [
+    {
+      "case": "negative",
+      "completed": true,
+      "expected_direct_nonpositive_count": 1,
+      "observed_counts": [
+        1,
+        1
+      ],
+      "invalid_counts": [
+        278,
+        278
+      ]
+    },
+    {
+      "case": "zero",
+      "completed": true,
+      "expected_direct_nonpositive_count": 1,
+      "observed_counts": [
+        1,
+        1
+      ],
+      "invalid_counts": [
+        278,
+        278
+      ]
+    },
+    {
+      "case": "repeat_negative",
+      "completed": true,
+      "expected_direct_nonpositive_count": 1,
+      "observed_counts": [
+        1,
+        1
+      ],
+      "invalid_counts": [
+        278,
+        278
+      ]
+    },
+    {
+      "case": "nonfinite",
+      "completed": true,
+      "expected_direct_nonpositive_count": 0,
+      "observed_counts": [
+        0,
+        0
+      ],
+      "invalid_counts": [
+        278,
+        278
+      ]
+    }
+  ],
+  "valid_control": {
+    "completed": true,
+    "frozen_receipt_unchanged": true,
+    "positive_path_count_zero": true
+  },
+  "original_targets_unchanged": true
+}

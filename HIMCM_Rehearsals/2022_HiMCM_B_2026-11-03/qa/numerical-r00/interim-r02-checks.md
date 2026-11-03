@@ -1,0 +1,15 @@
+# T10 interim numerical findings on closed scientific r02
+
+Reviewer /root/rehearsal_reviewer, 2026-11-03. This is an interim evidence receipt, not the canonical complete T10 verdict. Root has requested an r03 correctness repair/new run and current T12 source bindings before final acceptance.
+
+Reviewed closed manifest `33beee2a51123a789d83e60ae02f22c05b73acecc69e17d02168d455110e5870` and closed X r04 handoff `aa9169e6b8967d880d622dcff7f9c17e79c72374db1ca68d8f85657e1a77ddd8`. Exact observed outputs, run-local code, trace and handoff are retained in target-inventory-initial.json (46 files).
+
+Independent direct frozen-XLSX XML parsing and separately written covariance/polynomial regression formulas reproduced 4,776 scalar/contract comparisons: all 420 temporal predictions and relevant metrics/coefficients/training windows, every required 2050/2100 output, all 19 crossing rows/raw boundaries/validity, relationship diagnostics, empirical-envelope radii/miss and selected-window sensitivity. Maximum absolute numeric difference 4.10e-12 with absolute tolerance 1e-8. No production model module was imported. Script/results: recompute.py, independent-results.json, all-checks.json, independent-temporal-predictions.json.
+
+132 trace/rank checks passed: frozen D/T1-D selection matches recomputed development rule, per-origin and leave-one-origin-out rank diagnostics agree, actual current receipt hashes and stage timestamps are ordered, accepted G2 bytes unchanged, A01 final MAEs reconcile, and project-wide A01 exposure is explicitly disclosed. Script/results: check_trace_and_ranks.py, trace-rank-checks.json. Source inspection confirms training-local fitting and forecast rather than observed future CO2 inputs.
+
+For new T12 draft residual-fit claims, 155 comparisons passed using the same independent formulas, without repeating the temporal audit. Maximum difference 2.33e-13. Script/results: check_fit_claims.py, fit-claim-checks.json. T12 drafts inspected provisionally have no identified numerical/claim-strength defect; no unfinished claim packet is accepted.
+
+The actual r02 evidence selects D/T1-D; final CO2 MAE favors Q; T1-D has the 2016 envelope miss; all actual paths are finite/valid/nondecreasing. Independently reproduced CO2 685-ppm crossing years D/Q/E=2131/2100/2136 and selected temperature 1.25/1.50/2.00-anomaly years 2036/2048/2076. These are arithmetic under declared empirical paths, not future accuracy certification.
+
+A03 separately demonstrated a stage-boundary selected-ID tamper vulnerability and a false zero nonpositive-count diagnostic on an injected negative path. My recomputation establishes no alteration or wrong selected ID in the actual closed r02 output, but does not excuse those negative-path contract defects. Root repair request requires new code/r03 and recheck. Final T10 must inspect changed guard code, actual r03 chronology/identity, scientific-output equivalence, A03's scoped recheck and closed current T12 bindings. If equivalence is established, unchanged mathematics need not be rerun. Final PDF is outside T10.

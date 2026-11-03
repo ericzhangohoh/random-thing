@@ -2,7 +2,9 @@
 
 ## Chosen arrangement for this project
 
-The user has explicitly chosen **one private repository for the complete substantive project**, including the original PDF libraries, archives, downloaded reference materials, this working document, research notes and code. The chosen target is [ericzhangohoh/himcm](https://github.com/ericzhangohoh/himcm). This supersedes the lighter original suggestion to keep the PDF library outside Git.
+The user has explicitly chosen **one private repository for the complete substantive project**, including the original PDF libraries, archives, downloaded reference materials, this working document, research notes and code. The current target is [ericzhangohoh/himcm-workflow-private](https://github.com/ericzhangohoh/himcm-workflow-private). This supersedes the lighter original suggestion to keep the PDF library outside Git.
+
+On 2026-11-03, the earlier `ericzhangohoh/himcm` address resolved to a renamed public repository. The coordinator verified that change, created this separate private destination under the user's existing authorization and redirected this checkout's origin. The public repository was not modified. Historical audit receipts retain the repository identity they checked at the time; they are not proof of its current visibility.
 
 Keep source manifests, source URLs, retrieval records and original licensing/provenance information with the materials. The chosen full-project upload also retains the extracted text and extraction metadata used for corpus reading. Exclude credentials, local machine state, temporary files and disposable build/runtime caches. Do **not** use a blanket `*.pdf`, `*.zip`, `*.xlsx`, extraction-directory or library-folder exclusion. Private repository storage is the selected distribution scope; it does not change the original materials' provenance.
 
@@ -50,10 +52,12 @@ For an existing checkout/remote, these are useful inspection commands:
 git remote -v
 git status --short
 git log -1 --oneline
-gh repo view ericzhangohoh/himcm --json nameWithOwner,visibility,url
+gh repo view ericzhangohoh/himcm-workflow-private --json nameWithOwner,visibility,url
 ```
 
 If creating a new repository in another project, choose private visibility and avoid prepopulating a conflicting README/history when importing an existing local repository. The official [repository creation guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository) explains the choices. Do not copy account names, remote URLs or prior authorization from this project into an unrelated future project.
+
+Before pushing, verify both the canonical repository identity and private visibility: an old URL can redirect after a rename, and an earlier privacy check can become stale. A public destination does not satisfy a private-upload instruction. Preserve evidence of an unexpected redirect and resolve a private destination within the user's authorization before uploading.
 
 After a push, verify the remote branch points to the intended local commit and that representative substantive files are present. Report the repository URL, visibility, commit and any genuinely excluded material. Do not infer a completed upload from a local commit or a partially transmitted pack.
 

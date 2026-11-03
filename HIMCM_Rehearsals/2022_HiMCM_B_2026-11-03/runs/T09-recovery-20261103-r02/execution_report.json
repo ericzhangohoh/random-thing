@@ -1,0 +1,404 @@
+{
+  "task": "T09",
+  "session": "/root/early_mcm_continue",
+  "started_at": "2026-11-03T12:38:20.889559+00:00",
+  "finished_at": "2026-11-03T12:38:23.885003+00:00",
+  "status": "EXECUTED_CHECKS_COMPLETE_PENDING_INDEPENDENT_REVIEW",
+  "primary_manifest_sha256": "7bc6e1fe3498302d247b45fa97c4d13498edfbf5366cddd078ff7ebfaff4bc00",
+  "retained_artifacts_recovered": 88,
+  "released_artifacts_verified": 23,
+  "declared_outputs": 35,
+  "numeric_files_bitwise_equal": 32,
+  "timestamped_receipts_all_other_fields_equal": 3,
+  "original_artifacts_unchanged": 125,
+  "source_of_commands": "Closed run manifest, producer handoff, retained wrapper and execution log; no agent supplied numerical answers.",
+  "execution_choice": "Execute retained ingestion/tests/stage commands in recovered CWD; do not invoke the T05 wrapper that snapshots current files.",
+  "logical_scientific_run_id": "T05-scientific-20261103-r03",
+  "physical_recovery_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02",
+  "run_id_note": "Retained config preserves original logical ID to enable exact output comparison; T09 execution provenance is recorded here separately.",
+  "commands": [
+    {
+      "label": "recover-retained",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-scientific-20261103-r03/reproduction/code/qa/retrieve_retained_r01.py",
+        "--project-root",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03",
+        "--manifest",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/intake/runs/T05-scientific-20261103-r03/manifest.json",
+        "--destination",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02",
+      "started_at": "2026-11-03T12:38:21.574943+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:21.627525+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/01-recover-retained.stdout.txt",
+      "stderr_path": "commands/01-recover-retained.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "test_ingestion_r01",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/qa/test_ingestion_r01.py"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:21.639163+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:21.840406+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/02-test_ingestion_r01.stdout.txt",
+      "stderr_path": "commands/02-test_ingestion_r01.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "test_models_r03",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/qa/test_models_r03.py"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:21.841038+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:21.932233+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/03-test_models_r03.stdout.txt",
+      "stderr_path": "commands/03-test_models_r03.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "test_repair_r03",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/qa/test_repair_r03.py"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:21.932611+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:22.874688+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/04-test_repair_r03.stdout.txt",
+      "stderr_path": "commands/04-test_repair_r03.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "workbook-reingestion",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/data/ingest_r01.py",
+        "--input",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/inputs/2022_HiMCM_Data.xlsx",
+        "--config",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/data/ingestion_config-r01.json",
+        "--output-dir",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/input-reaudit"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:22.875005+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:23.165452+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/05-workbook-reingestion.stdout.txt",
+      "stderr_path": "commands/05-workbook-reingestion.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "reproduce-development",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/experiments/analysis_r03.py",
+        "--phase",
+        "development",
+        "--snapshot",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+        "--output-dir",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/outputs",
+        "--config",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/config.json"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:23.166159+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:23.246038+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/06-reproduce-development.stdout.txt",
+      "stderr_path": "commands/06-reproduce-development.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "reproduce-final",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/experiments/analysis_r03.py",
+        "--phase",
+        "final",
+        "--snapshot",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+        "--output-dir",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/outputs",
+        "--config",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/config.json"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:23.246642+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:23.333549+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/07-reproduce-final.stdout.txt",
+      "stderr_path": "commands/07-reproduce-final.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "reproduce-production",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/experiments/analysis_r03.py",
+        "--phase",
+        "production",
+        "--snapshot",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+        "--output-dir",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/outputs",
+        "--config",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/config.json"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:23.333891+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:23.478580+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/08-reproduce-production.stdout.txt",
+      "stderr_path": "commands/08-reproduce-production.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "reject-tampered-dependency",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/qa/retrieve_retained_r01.py",
+        "--project-root",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/tampered-dependency-v01/repository-copy",
+        "--manifest",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/tampered-dependency-v01/manifest.json",
+        "--destination",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/tampered-dependency-v01/retrieval-attempt"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/tampered-dependency-v01",
+      "started_at": "2026-11-03T12:38:23.483454+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": "Recovered artifact hash mismatch: data/processed/joined-r01.csv",
+      "finished_at": "2026-11-03T12:38:23.509026+00:00",
+      "exit_code": 1,
+      "stdout_path": "commands/09-reject-tampered-dependency.stdout.txt",
+      "stderr_path": "commands/09-reject-tampered-dependency.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "recover-valid-dependency",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/qa/retrieve_retained_r01.py",
+        "--project-root",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/valid-dependency-v02/repository-copy",
+        "--manifest",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/valid-dependency-v02/manifest.json",
+        "--destination",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/valid-dependency-v02/retrieved"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/valid-dependency-v02",
+      "started_at": "2026-11-03T12:38:23.509920+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:23.536885+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/10-recover-valid-dependency.stdout.txt",
+      "stderr_path": "commands/10-recover-valid-dependency.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "reject-wrong-output-reference",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/experiments/analysis_r03.py",
+        "--phase",
+        "final",
+        "--snapshot",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+        "--output-dir",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/wrong-output-reference-v01/outputs",
+        "--config",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/config.json"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:23.540177+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": "Development evidence changed after freeze",
+      "finished_at": "2026-11-03T12:38:23.612128+00:00",
+      "exit_code": 1,
+      "stdout_path": "commands/11-reject-wrong-output-reference.stdout.txt",
+      "stderr_path": "commands/11-reject-wrong-output-reference.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "recover-valid-reference-final",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/experiments/analysis_r03.py",
+        "--phase",
+        "final",
+        "--snapshot",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+        "--output-dir",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/valid-output-reference-v02/outputs",
+        "--config",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/config.json"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:23.615054+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:23.728521+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/12-recover-valid-reference-final.stdout.txt",
+      "stderr_path": "commands/12-recover-valid-reference-final.stderr.txt",
+      "expected_outcome_observed": true
+    },
+    {
+      "label": "recover-valid-reference-production",
+      "argv": [
+        "/Users/ericzhang/.venvs/default/bin/python3",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/code/experiments/analysis_r03.py",
+        "--phase",
+        "production",
+        "--snapshot",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+        "--output-dir",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/probes/valid-output-reference-v02/outputs",
+        "--config",
+        "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered/config.json"
+      ],
+      "working_directory": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/recovered",
+      "started_at": "2026-11-03T12:38:23.729247+00:00",
+      "environment_overrides": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "MKL_NUM_THREADS": "1",
+        "TMPDIR": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r02/tmp"
+      },
+      "timeout_seconds": 60,
+      "expected_rejection_substring": null,
+      "finished_at": "2026-11-03T12:38:23.875253+00:00",
+      "exit_code": 0,
+      "stdout_path": "commands/13-recover-valid-reference-production.stdout.txt",
+      "stderr_path": "commands/13-recover-valid-reference-production.stderr.txt",
+      "expected_outcome_observed": true
+    }
+  ],
+  "selected_decisions": {
+    "co2": "D",
+    "temperature": "T1-D"
+  },
+  "limitations": [
+    "Existing previously uninvolved agent, not an empty new thread.",
+    "Original mathematical reasoning is not independently revalidated by reproducing the same code.",
+    "Original final-score exposure remains disclosed; no global blindness claim.",
+    "No Claude-native runtime, contest submission, installation, Git operation or biological research.",
+    "Copied-fixture checks are operational integrity checks, not OS permission enforcement.",
+    "Independent reviewer and coordinator disposition required before calling recovery accepted."
+  ]
+}

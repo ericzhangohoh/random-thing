@@ -33,6 +33,8 @@ Inspect the data rather than trusting filenames. Confirm schema, keys, range, un
 
 Use the available environment where practical. Record package versions affecting numerical results and pin dependencies once a working path is established. Do not install arbitrary code from a downloaded paper or repository simply because it appears in the literature library.
 
+In the actual worker session, resolve and record the absolute interpreter/executable path and check required imports before a scientific run. A coordinator's successful `python3` check does not establish which interpreter another shell or worker will use. Use the verified executable in recorded commands. If dependencies are missing, first inspect already available environments; do not silently install or silently switch interpreters. Preserve any failed invocation and its environment diagnostics, then retry under a new run ID.
+
 ## Implementation order
 
 1. Construct a tiny hand-checkable input, a boundary case and a representative ordinary case.

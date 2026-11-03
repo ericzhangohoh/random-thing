@@ -1,6 +1,20 @@
 # Verification Record
 
-Initial checks: 2026-11-02. Updated 2026-11-03, Australia/Sydney. This record describes actual checks and their limits.
+Initial checks: 2026-11-02. Updated 2026-11-04, Australia/Sydney. This record describes actual checks and their limits.
+
+## Executed historical-problem rehearsal — 2026-11-03
+
+The [2022 HiMCM B project](../../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/README.md) adds actual Codex multi-agent work beyond the earlier written-contract and synthetic-fixture audits. See its [rehearsal report](../../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/REHEARSAL_REPORT.md), current state and exact-version review receipts. Earlier sections below remain historical evidence, not claims that later work was still unexecuted.
+
+- Six logical roles were assigned to actual sessions, with separate author/reviewer ownership and versioned handoffs. The main numerical reviewer plus two additional adversarial contexts used GPT-6 Astra. Reused contexts are identified; task count is not inflated into independent reviewer count.
+- Structural and validation attacks exposed selection instability, ranking reversals, shared-trend limitations and a historical-envelope miss. Authors retained these adverse results and repaired claim wording without retuning the frozen selector.
+- Implementation attacks found a frozen-selection semantic-validation defect and a nonpositive-prediction diagnostic defect. The computation author created new r03 source/run versions. Independent negative probes accepted the repairs; all scientific outputs remain equivalent to r02.
+- The repaired run passed 44 unittest methods with further mutation subcases. Independent T10 review accepted current numbers and 17 bounded claims using separate numerical calculations and exact evidence bindings.
+- A previously uninvolved replacement session recovered 88 dependencies and reproduced 32 numerical files exactly plus three timestamped receipt semantics. It executed two stale-dependency rejection/restoration probes, preserved its failed first harness attempt and left primary records unchanged. T13 independently accepted its receipts and comparisons; this is not a second independent execution of those probes.
+- The working document now covers explicit practice delegation, worker-local interpreter checks, project-wide evaluation exposure, evidence-based adversarial repair and atomic completed-handoff publication.
+- The complete 16-page English PDF was accepted after author closure, independent T11 inspection of every page with 299 checks, and A04's ten final-claim attack families. No PDF or claim defects remain open. The [delivery record](../../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/DELIVERY.md) identifies exact bytes, editable sources and scoped reviews. Repository synchronization is separately verified after the release commit.
+
+This tests a finite practice project, not arbitrary-input correctness, general concurrency/load robustness, causal climate validity or reliable long-range forecasting. Actual Claude-native orchestration and live competition submission remain untested. No biological research occurred. The current private target is `ericzhangohoh/himcm-workflow-private`; the previous address was found to redirect to a public repository, so its old privacy receipt was not reused as current authorization evidence.
 
 ## GPT-6 Astra audit and repair verification — 2026-11-03
 

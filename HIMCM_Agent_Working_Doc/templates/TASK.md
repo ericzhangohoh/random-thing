@@ -4,6 +4,7 @@
 - Current state:
 - Requirement IDs and purpose:
 - Accepted inputs and versions:
+- Evaluation-data boundary: allowed development/test use, required freeze records and exposure-log destination:
 - Inputs not yet available:
 - Allowed write paths:
 - Explicitly excluded work:

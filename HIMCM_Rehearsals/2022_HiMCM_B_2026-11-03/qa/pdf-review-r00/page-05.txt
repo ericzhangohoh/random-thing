@@ -1,0 +1,46 @@
+2022 HiMCM B | RETROSPECTIVE PRACTICE
+PRACTICE REPORT
+Complete candidate r03 | Conditional empirical projections
+5
+3 / QUESTION 1.b
+Three concentration continuations
+Write x = (year - 1959)/10 and Cref = 315.98 ppm. One x-unit is a decade. Only observations
+available through each origin enter estimation. Least squares uses a stable SVD solution; full
+precision is retained for forecasts and crossings. Display coefficients are rounded.
+D: continue recent absolute growth
+ CD(t|2021) = 416.45 + 2.46(t - 2021).
+D anchors at the latest concentration and uses average annual growth between 2011 and 2021.
+Generally, so = (Co - Co-10)/10 and CD(t|o) = Co + so(t-o). It is a recent-growth forecast baseline, not
+an explanation fitted to the whole history.
+Q: continue constant absolute acceleration
+ CQ(t) = 315.521509 + 8.057027x + 1.303764x2.
+Q fits concentration to 1, x and x squared. Its quadratic coefficient is not constrained to force
+acceleration. Turning points and nonpositive extrapolated concentrations must remain visible.
+E: continue constant proportional growth
+ CE(t) = 315.98 exp(-0.019627123 + 0.044917135x).
+E fits log(C/Cref) to a linear trend. Its fit loss is in log units, but predictive comparisons use ppm. No
+lognormal error model or mean correction is assumed. Q and E use all 63 years for the production
+refit.
+Path
+Fit years
+n
+Fit RMSE (ppm)
+Lag-one residual r
+D
+2011-2021
+11
+0.301
+0.015
+Q
+1959-2021
+63
+0.720
+0.814
+E
+1959-2021
+63
+2.888
+0.979
+Q follows the historical curve more closely than E, but both retain persistent residual patterns. D's
+smaller fit error covers only 11 observations and cannot be ranked against 63-point errors as if the
+samples matched. Forecast errors, not this fit table, determine selection.

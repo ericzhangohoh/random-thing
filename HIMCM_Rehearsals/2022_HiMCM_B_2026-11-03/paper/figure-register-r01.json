@@ -1,0 +1,86 @@
+{
+  "run_id": "T05-scientific-20261103-r03",
+  "manifest_sha256": "7bc6e1fe3498302d247b45fa97c4d13498edfbf5366cddd078ff7ebfaff4bc00",
+  "purpose": "display only; no modeling",
+  "figures": [
+    {
+      "id": "F01",
+      "question": "Was 2004 an annual ten-year record?",
+      "sources": {
+        "ten_year_changes.csv": "1b32cd52d830e88d6c46e6aacbbbec04f27f1b859e10ad199aacbd99f05fca1b"
+      },
+      "display_transform": "Plot accepted increase_ppm/end_year, highlight2003/2004. No recalculation.",
+      "files": {
+        "figures/F01-r01.png": "e649b3a9634b399a0581aa767652070b90c8f0f4eebcaf2a33b430a4676e6483",
+        "figures/F01-r01.pdf": "551b81378cc831c0c3a25606297f6b0f5abf9cf219ab81e8305b650e4fba7637"
+      }
+    },
+    {
+      "id": "F02",
+      "question": "Does the ranking persist in later assessment?",
+      "sources": {
+        "development_metrics.csv": "a755e4e482fae50d71200ddc6bff39d94f33a141708dd930f233a30027b4df43",
+        "final_metrics.csv": "4ee0d10ae0f178e86084ae549944eec1b1b996914206fb7645a854c4ce974ef3"
+      },
+      "display_transform": "Select co2/overall; accepted mae, three-decimal labels. No new metrics.",
+      "files": {
+        "figures/F02-r01.png": "77b85b6bfc3d41762e90c31121cbeddecda869f10a2d4414b7579a27e018aa7d",
+        "figures/F02-r01.pdf": "2571c4b676ae98866264c5c42db9acd3d13237f9ef3549bbd914412ef23c45af"
+      }
+    },
+    {
+      "id": "F03",
+      "question": "How do concentration paths diverge through2100?",
+      "sources": {
+        "production_forecasts.csv": "6a001f73c52c789bab2784e6ba2a642a9445b98bccaf96c5d178f7909426adb1",
+        "production_residuals.csv": "dd7989b7db8f8fca8327a443f4c79930f20f9e818453c3f10d65e8c6fd2b630f"
+      },
+      "display_transform": "Full-window annual paths; observed values from Q residual table. Forecast starts2022; no fitting/interpolation.",
+      "files": {
+        "figures/F03-r01.png": "8485e6b2a6223cbc720d9d9f242971f6c955b3eb44eda3894e25f7bd0b6f0a03",
+        "figures/F03-r01.pdf": "46f5a5c03e8772cedea2c54fdcab27eac721662ef4113f57b1a2a9e7fa40a6e5"
+      }
+    },
+    {
+      "id": "F04",
+      "question": "How do temperature paths and crossings differ?",
+      "sources": {
+        "production_forecasts.csv": "6a001f73c52c789bab2784e6ba2a642a9445b98bccaf96c5d178f7909426adb1",
+        "production_residuals.csv": "dd7989b7db8f8fca8327a443f4c79930f20f9e818453c3f10d65e8c6fd2b630f",
+        "thresholds.csv": "be97c85bfc53e0ce94376bad2ed43d2ec6ecd74c3f78cf86d9811803feca0a6a"
+      },
+      "display_transform": "Full-window paths, accepted T1-D crossing years/raw values. No threshold recomputation.",
+      "files": {
+        "figures/F04-r01.png": "22b13b8af76814907e9ac4a250d74c0b448392e61fe5518d4e6703a4b3291f48",
+        "figures/F04-r01.pdf": "c8245a6a1a2e6a11fe010676a7162fbe06ea54542ce7fceb1c659dac779989a3"
+      }
+    },
+    {
+      "id": "F05",
+      "question": "How do level association and annual changes differ?",
+      "sources": {
+        "production_residuals.csv": "dd7989b7db8f8fca8327a443f4c79930f20f9e818453c3f10d65e8c6fd2b630f",
+        "relationship_series.csv": "eaaa4f7f56ae22393f3e5969fa00889fb2e58306ef1ff5f721db141371409f9f",
+        "relationship_diagnostics.csv": "c9f915787fe1a8afe5a76f197561daf64ddf13a567946ca552b048b314f7bfa8"
+      },
+      "display_transform": "Join accepted observed/fitted rows byyear; first differences read directly. Diagnostic r labels. No refit/differencing.",
+      "files": {
+        "figures/F05-r01.png": "a8b2066cc9cfce3cea05fcacc0b9ab1336e3648c6b1054eb8bd3c24512aa3efd",
+        "figures/F05-r01.pdf": "d1153a0399cffdd012c748c1b0297b81ab2ed77a38689f219759ef62c8663c7c"
+      }
+    },
+    {
+      "id": "F06",
+      "question": "Do fixed historical envelopes contain later observations?",
+      "sources": {
+        "final_forecasts.csv": "32eabcdee61d49a36f03eb8d70a6783f395742cb695fefab48602f7660282b35",
+        "historical_error_envelopes.csv": "6a8e828a5a65ca06773369c24081cf0914a558d33e2e14e0f0cd4442a4e8e719"
+      },
+      "display_transform": "Accepted lower/upper/predicted/observed values, accepted2016 miss. No widening or coverage probability inference.",
+      "files": {
+        "figures/F06-r01.png": "9667c5dee4804be306bd0d652dc87c055fec4cd5edce4664c5bfe7aa1c474ca7",
+        "figures/F06-r01.pdf": "3765ded04faec7f3bb7383e4e43110a6fae6a138a7167bcc794dabd665cb733e"
+      }
+    }
+  ]
+}

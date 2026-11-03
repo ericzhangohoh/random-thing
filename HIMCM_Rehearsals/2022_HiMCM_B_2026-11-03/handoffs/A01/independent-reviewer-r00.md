@@ -1,0 +1,7 @@
+# A01 independent adversarial review acknowledgement r00
+
+I read A01 task, intake/state, official four-page extracted statement, supplied dictionary, all six r01 model documents and toy self-check script/results. Scope: temporal selection, dependent origins, leakage, frozen holdout, uncertainty and horizon claims. I own only qa/adversarial_validation and handoffs/A01. No prior reviewer conclusions or primary forecast outputs have been inspected. The full statement exposes final observations, but I have not computed final errors.
+
+Pre-probe hypotheses: (H1) pooled 50-pair MAE can conceal origin/horizon rank instability and overweight repeated target years; (H2) selecting the CO2 rule before comparing temperature pipelines may leave a better declared temperature comparator unselected, but this is only a defect if the claim asserts global temperature optimality; (H3) maximum-error envelopes can miss under acceleration/nonstationarity and cannot establish reliability through 2031; (H4) 1–10-year ranking may not transport to 29/79-year forecasts; (H5) specified fold-local fits and predicted future CO2 should prevent ordinary covariate leakage. Independent development probes will run first; final errors, if inspected, will be explicitly logged and no new selection treated as untouched.
+
+No model/code/data/control/paper edits; no external data, biological research, installation or Git. Review is evidence seeking, not acceptance-by-checklist.

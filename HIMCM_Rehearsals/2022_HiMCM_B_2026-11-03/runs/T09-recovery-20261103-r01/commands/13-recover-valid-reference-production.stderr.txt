@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r01/recovered/code/experiments/analysis_r03.py", line 275, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--phase',choices=['development','final','production'],required=True);p.add_argument('--snapshot',required=True);p.add_argument('--output-dir',required=True);p.add_argument('--config',required=True);args=p.parse_args();obj=Analysis(args.snapshot,args.output_dir,args.config);getattr(obj,args.phase)()
+                                                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r01/recovered/code/experiments/analysis_r03.py", line 228, in production
+    self.table('historical_error_envelopes.csv',envelope);self.table('production_error_envelopes.csv',future_envelope);self.table('horizon_evidence.csv',horizon_evidence);self.table('development_error_samples.csv',error_samples)
+                                                                                                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r01/recovered/code/experiments/analysis_r03.py", line 38, in table
+    with (self.out/name).open('x',newline='') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ericzhang/.local/share/uv/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileExistsError: [Errno 17] File exists: '/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r01/probes/valid-output-reference-v02/outputs/development_error_samples.csv'

@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "retained_artifacts_verified": 16,
+  "isolated_command": [
+    "/Users/ericzhang/.venvs/default/bin/python3",
+    "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/qa/adversarial_implementation/isolated-r01/code/data/ingest_r01.py",
+    "--input",
+    "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/qa/adversarial_implementation/isolated-r01/inputs/2022_HiMCM_Data.xlsx",
+    "--config",
+    "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/qa/adversarial_implementation/isolated-r01/code/data/ingestion_config-r01.json",
+    "--output-dir",
+    "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/qa/adversarial_implementation/isolated-r01/fresh-output"
+  ],
+  "isolated_cwd": "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/qa/adversarial_implementation/isolated-r01",
+  "output_comparisons": {
+    "co2-r01.csv": true,
+    "ingestion-checks-r01.json": true,
+    "joined-r01.csv": true,
+    "source-values-r01.json": true,
+    "temperature-r01.csv": true
+  },
+  "fixture_checks": [
+    {
+      "test": "shuffle",
+      "pass": true,
+      "outcome": "same keyed series after independent row reversal"
+    },
+    {
+      "test": "duplicate",
+      "pass": true,
+      "outcome": "CO2 Data Set 1: duplicate year 1959"
+    },
+    {
+      "test": "missing",
+      "pass": true,
+      "outcome": "CO2 Data Set 1: non-finite or nonnumeric value for 1960"
+    },
+    {
+      "test": "formula",
+      "pass": true,
+      "outcome": "Formula forbidden: CO2 Data Set 1!B3"
+    },
+    {
+      "test": "outofrange",
+      "pass": true,
+      "outcome": "Unexpected populated cell: CO2 Data Set 1!Z100"
+    },
+    {
+      "test": "hash_mismatch",
+      "pass": true,
+      "outcome": "Input SHA-256 mismatch: frozen source identity failed"
+    }
+  ],
+  "existing_output_refused_and_unchanged": true,
+  "tampered_recovery_rejected": true,
+  "target_hashes_unchanged": true,
+  "scope": "closed ingestion only; no full model verdict"
+}

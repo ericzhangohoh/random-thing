@@ -1,0 +1,141 @@
+
+START 2026-11-03T11:27:09.518933+00:00
+CWD /Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03
+ARGV ["/Users/ericzhang/.venvs/default/bin/python3", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/reproduction/code/qa/test_ingestion_r01.py"]
+test_binary_serialization_tail_is_not_extra_precision (__main__.IngestionChecks.test_binary_serialization_tail_is_not_extra_precision) ... ok
+test_empty_expected_sample_has_no_spurious_rows (__main__.IngestionChecks.test_empty_expected_sample_has_no_spurious_rows) ... ok
+test_negative_and_zero_are_valid (__main__.IngestionChecks.test_negative_and_zero_are_valid) ... ok
+test_permuted_join_and_extra_temperature_year (__main__.IngestionChecks.test_permuted_join_and_extra_temperature_year) ... ok
+test_rejects_duplicate_year (__main__.IngestionChecks.test_rejects_duplicate_year) ... ok
+test_rejects_fractional_or_boolean_year (__main__.IngestionChecks.test_rejects_fractional_or_boolean_year) ... ok
+test_rejects_invalid_value (__main__.IngestionChecks.test_rejects_invalid_value) ... ok
+test_rejects_missing_or_future_year (__main__.IngestionChecks.test_rejects_missing_or_future_year) ... ok
+test_rejects_unsupported_precision (__main__.IngestionChecks.test_rejects_unsupported_precision) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK
+EXIT 0 2026-11-03T11:27:09.758822+00:00
+
+START 2026-11-03T11:27:09.759028+00:00
+CWD /Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03
+ARGV ["/Users/ericzhang/.venvs/default/bin/python3", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/reproduction/code/data/ingest_r01.py", "--input", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/reproduction/inputs/2022_HiMCM_Data.xlsx", "--config", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/reproduction/code/data/ingestion_config-r01.json", "--output-dir", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/outputs"]
+{
+  "status": "PASS",
+  "source_sha256": "73a4c73433d530cdbd3bb7509131bea528eeffd52d1a66b2ddeddf44543a2a4a",
+  "cutoff": 2021,
+  "co2": {
+    "rows": 63,
+    "year_range": [
+      1959,
+      2021
+    ],
+    "min_ppm": "315.98",
+    "max_ppm": "416.45"
+  },
+  "temperature": {
+    "rows": 64,
+    "year_range": [
+      1958,
+      2021
+    ],
+    "min_anomaly_c": "-0.20",
+    "max_anomaly_c": "1.02",
+    "baseline": "1951-1980"
+  },
+  "join": {
+    "rows": 63,
+    "year_range": [
+      1959,
+      2021
+    ],
+    "co2_only_years": [],
+    "temperature_only_years": [
+      1958
+    ],
+    "method": "inner join by integer year"
+  },
+  "missing_values": 0,
+  "duplicate_years": 0,
+  "formula_cells": 0,
+  "max_serialization_delta": 0.0,
+  "all_127_values_preserved_at_supplied_precision": true,
+  "original_workbook_unchanged": true,
+  "checks_performed": [
+    "expected source hash",
+    "named sheets and headers",
+    "no populated out-of-contract cells",
+    "integer unique complete year keys",
+    "finite numeric observations",
+    "hundredth precision within 1e-10",
+    "63-row year join",
+    "original source hash after reading"
+  ],
+  "scope": "Pre-G2 ingestion only; no model fits or scientific acceptance."
+}
+EXIT 0 2026-11-03T11:27:10.052198+00:00
+
+START 2026-11-03T11:27:10.052398+00:00
+CWD /Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03
+ARGV ["/Users/ericzhang/.venvs/default/bin/python3", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/reproduction/code/qa/retrieve_retained_r01.py", "--project-root", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03", "--manifest", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/manifest.json", "--destination", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/isolated-recovery"]
+{"status": "PASS", "retrieved_count": 16}
+EXIT 0 2026-11-03T11:27:10.092915+00:00
+
+START 2026-11-03T11:27:10.093144+00:00
+CWD /Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/isolated-recovery
+ARGV ["/Users/ericzhang/.venvs/default/bin/python3", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/isolated-recovery/code/data/ingest_r01.py", "--input", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/isolated-recovery/inputs/2022_HiMCM_Data.xlsx", "--config", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/isolated-recovery/code/data/ingestion_config-r01.json", "--output-dir", "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T05-ingestion-20261103-r02/isolated-recovery/rerun-outputs"]
+{
+  "status": "PASS",
+  "source_sha256": "73a4c73433d530cdbd3bb7509131bea528eeffd52d1a66b2ddeddf44543a2a4a",
+  "cutoff": 2021,
+  "co2": {
+    "rows": 63,
+    "year_range": [
+      1959,
+      2021
+    ],
+    "min_ppm": "315.98",
+    "max_ppm": "416.45"
+  },
+  "temperature": {
+    "rows": 64,
+    "year_range": [
+      1958,
+      2021
+    ],
+    "min_anomaly_c": "-0.20",
+    "max_anomaly_c": "1.02",
+    "baseline": "1951-1980"
+  },
+  "join": {
+    "rows": 63,
+    "year_range": [
+      1959,
+      2021
+    ],
+    "co2_only_years": [],
+    "temperature_only_years": [
+      1958
+    ],
+    "method": "inner join by integer year"
+  },
+  "missing_values": 0,
+  "duplicate_years": 0,
+  "formula_cells": 0,
+  "max_serialization_delta": 0.0,
+  "all_127_values_preserved_at_supplied_precision": true,
+  "original_workbook_unchanged": true,
+  "checks_performed": [
+    "expected source hash",
+    "named sheets and headers",
+    "no populated out-of-contract cells",
+    "integer unique complete year keys",
+    "finite numeric observations",
+    "hundredth precision within 1e-10",
+    "63-row year join",
+    "original source hash after reading"
+  ],
+  "scope": "Pre-G2 ingestion only; no model fits or scientific acceptance."
+}
+EXIT 0 2026-11-03T11:27:10.386824+00:00

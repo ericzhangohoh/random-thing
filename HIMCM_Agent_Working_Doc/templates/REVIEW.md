@@ -7,6 +7,9 @@
 - Inputs actually inspected:
 - Checks not performed:
 - Numerical reproduction: none / selected calculations / full specified experiment:
+- Evaluation-data exposure: development/final scores actually inspected or computed; frozen records that preceded access; project-wide log reference:
+
+For an adversarial assignment, state each falsifiable objection, the strongest defense, the discriminating test and its outcome. Separate confirmed defects from risks, disclosed limitations and preferences. Author responses and changed-version rechecks must remain inspectable; do not manufacture findings to meet a quota.
 
 ## Findings
 

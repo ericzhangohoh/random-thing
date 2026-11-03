@@ -8,7 +8,11 @@ The current preparation project excludes all biology-related papers from further
 
 The coordinator inspects the project and establishes `DOC_ROOT` and `PROJECT_ROOT`. The source library is not the active contest's results folder. Record the problem file and hash, attachments, practice/live mode, deadline with timezone, available tools and human team context.
 
+For executable work, record the actual interpreter/tool path. Each worker checks required imports/capabilities in its own session before the scientific invocation; a parent session's environment check is not transferable proof. Missing dependencies trigger a bounded environment check or explicit blocker, not an unrecorded install or a silently different runtime.
+
 If no problem is supplied, the deliverable is a preparation workflow or a labeled practice fixture. Do not invent an official problem or pretend G1–G3 have been approved for a real contest. No new human checkpoint is needed merely to improve this already authorized preparation document.
+
+If the user explicitly delegates problem selection and a complete autonomous practice run, record that authority in intake and use the [delegated-practice rule](WORKING_DOC.md#22-three-human-checkpoints). Keep G1–G3 evidence and independent review; record `DELEGATED_PRACTICE_DECISION` rather than inventing a human response. This exception does not apply automatically to live competitions or external submission.
 
 Use [the bootstrap prompt](setup/BOOTSTRAP_PROMPT.md). Create or recover these records without overwriting existing work:
 

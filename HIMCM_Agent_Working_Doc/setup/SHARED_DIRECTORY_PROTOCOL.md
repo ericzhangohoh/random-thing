@@ -37,6 +37,8 @@ Use the main working document's phase gates. For individual tasks, use `READY`, 
 
 `BLOCKED` means a specific missing dependency or capability prevents this task. State the smallest unblock action and continue other assigned work that does not depend on it. It is not a synonym for uncertain, unfinished, difficult, or awaiting routine self-checks. `ACCEPTED` means accepted for the named purpose and version, not that the entire project is finished.
 
+Avoid exposing a completion filename while its contents are still being written. Assemble a handoff under a temporary sibling name, finish it, then rename it to the new versioned handoff path and notify the coordinator with that path and SHA-256. The recipient verifies the notified bytes and completion scope before accepting the transfer. An empty or partial file, or mere path existence, is not a closed handoff. A separately closed run may be inspected for a specifically authorized review while its narrative handoff is being assembled; this does not authorize treating an unfinished handoff as complete.
+
 ## Handoff content
 
 Use the main document's handoff template where available. Every handoff must contain the following information even if the file format differs:

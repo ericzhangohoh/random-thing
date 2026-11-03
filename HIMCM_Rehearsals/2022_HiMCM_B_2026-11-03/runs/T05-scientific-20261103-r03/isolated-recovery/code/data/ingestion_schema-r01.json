@@ -1,0 +1,17 @@
+{
+  "revision": "T05-ingestion-r01",
+  "grain": "One calendar year per row, sorted ascending, unique key year.",
+  "source": "Frozen supplied 2022_HiMCM_Data.xlsx; no web values admitted.",
+  "fields": {
+    "year": {"type": "integer", "unit": "calendar year"},
+    "co2_ppm": {"type": "number", "unit": "ppm (micromole/mol)", "meaning": "Mauna Loa annual CO2 mean, not March or global spatial mean"},
+    "temp_anomaly_c": {"type": "number", "unit": "degrees Celsius anomaly", "meaning": "Global annual land-ocean index relative to 1951-1980"}
+  },
+  "tables": {
+    "co2-r01.csv": {"columns": ["year", "co2_ppm"], "rows": 63, "years": [1959, 2021]},
+    "temperature-r01.csv": {"columns": ["year", "temp_anomaly_c"], "rows": 64, "years": [1958, 2021]},
+    "joined-r01.csv": {"columns": ["year", "co2_ppm", "temp_anomaly_c"], "rows": 63, "years": [1959, 2021], "join": "inner on integer year"}
+  },
+  "normalization": "CSV preserves supplied hundredths. Raw reader repr and normalization delta are retained per source row. Negative and zero anomalies are valid. No imputation, outlier removal, scaling or baseline shift.",
+  "checks": "ingestion-checks-r01.json records source identity, coverage and normalization checks; source-values-r01.json preserves cell-level provenance."
+}

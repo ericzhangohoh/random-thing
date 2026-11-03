@@ -1,0 +1,69 @@
+--- 
++++ 
+@@ -99,7 +99,49 @@
+         for name,value in [('development_forecasts.csv',rows),('development_metrics.csv',metrics),('development_coefficients.csv',params),('development_residuals.csv',residuals),('development_fit_diagnostics.csv',diagnostics)]:self.table(name,value)
+         scores={r['model_id']:r['mae'] for r in metrics if r['grouping']=='overall'};selected_co2=m.select_minimum(scores,['D','E','Q']);temp_candidates=['T0','T1-'+selected_co2];selected_temp=m.select_minimum(scores,temp_candidates)
+         receipt={**self.identity,'run_id':self.config['run_id'],'status':'FROZEN_BEFORE_FINAL_ASSESSMENT','frozen_at':now(),'co2_candidates':['D','Q','E'],'temperature_comparators':['T0','T1-D','T1-Q','T1-E'],'temperature_selection_candidates':temp_candidates,'development_origins':self.config['development_origins'],'horizons':list(range(1,11)),'development_target_max_year':2011,'eligible_ids':[mid for mid in MODEL_IDS if scores[mid] is not None],'development_mae':scores,'selected_co2_id':selected_co2,'selected_temperature_id':selected_temp,'development_forecasts_sha256':sha(self.out/'development_forecasts.csv'),'development_metrics_sha256':sha(self.out/'development_metrics.csv'),'final_targets_used_for_selection':False,'project_final_scores_previously_exposed_by_A01':True,'selection_rule_changed_after_exposure':False,'note':'Local execution order for unchanged predeclared rules. A01 already consumed final scores; no project-wide unseen holdout claim.'}
++        receipt['selection_rule']=self.selection_rule(temp_candidates)
+         savejson(self.out/'selection_frozen.json',receipt);print(json.dumps({'phase':'development','status':'SUCCEEDED','scores':scores,'selected_co2':selected_co2,'selected_temperature':selected_temp}))
++    @staticmethod
++    def selection_rule(temp_candidates):
++        return {'score':'pooled_development_mae','co2_tie_order':['D','E','Q'],'temperature_tie_order':temp_candidates,'absolute_tie_tolerance':1e-12}
++    def validate_frozen_semantics(self,receipt):
++        """Reconcile the receipt with verified development evidence, without final data."""
++        rows=self.read_forecasts('development_forecasts.csv')
++        expected_keys={(mid,origin,h) for mid in MODEL_IDS for origin in self.config['development_origins'] for h in range(1,11)}
++        actual_keys=[(r['model_id'],r['origin_year'],r['horizon']) for r in rows]
++        if len(actual_keys)!=len(expected_keys) or set(actual_keys)!=expected_keys:
++            raise ValueError('Frozen selection evidence has invalid development grid')
++        if any(r['phase']!='development' or r['target_year']!=r['origin_year']+r['horizon'] or r['target_year']>2011 for r in rows):
++            raise ValueError('Frozen selection evidence has invalid development chronology')
++        recomputed={r['model_id']:r for r in self.metrics(rows) if r['grouping']=='overall'}
++        with (self.out/'development_metrics.csv').open() as f:
++            overall=[r for r in csv.DictReader(f) if r['grouping']=='overall']
++        if len(overall)!=len(MODEL_IDS) or {r['model_id'] for r in overall}!=set(MODEL_IDS):
++            raise ValueError('Frozen selection evidence has invalid overall metrics')
++        scores={}
++        for row in overall:
++            mid=row['model_id'];expected=recomputed[mid]
++            for key in ['phase','target','status','unit']:
++                if row[key]!=expected[key]:raise ValueError('Development metrics disagree with forecasts: '+mid+'/'+key)
++            for key in ['n','valid_n']:
++                if int(row[key])!=expected[key]:raise ValueError('Development metrics disagree with forecasts: '+mid+'/'+key)
++            for key in ['mae','rmse','bias']:
++                value=None if row[key]=='' else float(row[key])
++                if value!=expected[key]:raise ValueError('Development metrics disagree with forecasts: '+mid+'/'+key)
++            scores[mid]=None if row['mae']=='' else float(row['mae'])
++        selected_co2=m.select_minimum(scores,['D','E','Q'])
++        temp_candidates=['T0','T1-'+selected_co2]
++        expected_fields={'run_id':self.config['run_id'],'status':'FROZEN_BEFORE_FINAL_ASSESSMENT',
++            'co2_candidates':['D','Q','E'],'temperature_comparators':['T0','T1-D','T1-Q','T1-E'],
++            'temperature_selection_candidates':temp_candidates,'development_origins':self.config['development_origins'],
++            'horizons':list(range(1,11)),'development_target_max_year':2011,
++            'eligible_ids':[mid for mid in MODEL_IDS if scores[mid] is not None],
++            'development_mae':scores,'selected_co2_id':selected_co2,
++            'selected_temperature_id':m.select_minimum(scores,temp_candidates),
++            'selection_rule':self.selection_rule(temp_candidates),'final_targets_used_for_selection':False,
++            'project_final_scores_previously_exposed_by_A01':True,'selection_rule_changed_after_exposure':False}
++        for key,expected in expected_fields.items():
++            if receipt.get(key)!=expected:raise ValueError('Frozen selection semantic mismatch: '+key)
+     def load_frozen(self):
+         path=self.out/'selection_frozen.json';receipt=json.loads(path.read_text())
+         if receipt['status']!='FROZEN_BEFORE_FINAL_ASSESSMENT':raise ValueError('Missing freeze status')
+@@ -107,6 +149,7 @@
+             if receipt[k]!=v:raise ValueError('Freeze dependency mismatch: '+k)
+         for name in ['development_forecasts','development_metrics']:
+             if sha(self.out/(name+'.csv'))!=receipt[name+'_sha256']:raise ValueError('Development evidence changed after freeze')
++        self.validate_frozen_semantics(receipt)
+         return receipt
+     def final(self):
+         receipt=self.load_frozen();start=now();frozen_hash=sha(self.out/'selection_frozen.json');rows,params,residuals,diagnostics=self.forecasts([2011],'final',self.data);metrics=self.metrics(rows)
+@@ -160,7 +203,7 @@
+                         row.update(gap_from_685_ppm=None if v is None else v-685,relative_gap_percent=None if v is None else 100*(v-685)/685,reaches_685_by_2050=(cross['status']=='AT_OR_BEFORE_ORIGIN' or (cross['first_year'] is not None and cross['first_year']<=2050)))
+                     summary.append(row)
+                 valid=[r for r in values if r['value'] is not None];vv=np.array([r['value'] for r in valid]);dv=np.diff(vv)
+-                diag={**meta,'evaluated_start':2021,'evaluated_end':2300,'invalid_count':sum(r['status']!='OK' for r in values),'decreasing_segments':int(np.sum(dv < -m.TOL)),'minimum_value':float(min(vv)) if len(vv) else None,'nonpositive_co2_count':sum(r['value'] is not None and r['value']<=0 for r in values) if target=='co2' else None,'turning_year':None}
++                diag={**meta,'evaluated_start':2021,'evaluated_end':2300,'invalid_count':sum(r['status']!='OK' for r in values),'decreasing_segments':int(np.sum(dv < -m.TOL)),'minimum_value':float(min(vv)) if len(vv) else None,'nonpositive_co2_count':sum(r['status']=='NONPOSITIVE_CO2' for r in values) if target=='co2' else None,'turning_year':None}
+                 if mid=='Q' and pack['status']=='OK':
+                     pp=pack['fit']['parameters'];q=pp['c_ppm_per_decade_squared'];diag['turning_year']=None if q==0 else 1959+10*(-pp['b_ppm_per_decade']/(2*q));diag['growth_ppm_per_year_2021']=float((pp['b_ppm_per_decade']+2*q*m.xyears(2021))/10);diag['growth_ppm_per_year_2100']=float((pp['b_ppm_per_decade']+2*q*m.xyears(2100))/10)
+                 path_diagnostics.append(diag)

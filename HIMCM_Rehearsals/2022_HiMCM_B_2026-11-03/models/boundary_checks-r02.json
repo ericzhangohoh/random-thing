@@ -1,0 +1,317 @@
+{
+  "purpose": "synthetic modeler self-check; not primary implementation validation or independent review",
+  "source_data_used": false,
+  "python": "3.12.14 (main, Sep  1 2026, 14:09:38) [Clang 22.1.3 ]",
+  "passed": true,
+  "check_count": 14,
+  "checks": [
+    {
+      "name": "fractional_crossing",
+      "passed": true,
+      "expected": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "search_domain_valid": true
+      },
+      "actual": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "search_domain_valid": true,
+        "valid_through_year": 2300,
+        "invalid_from_year": null,
+        "invalid_reason": null,
+        "monotone_flag": true,
+        "monotonicity_end_year": 2300,
+        "value_at_year": 686,
+        "value_previous_year": 684,
+        "beyond_tested_horizon": false
+      }
+    },
+    {
+      "name": "exact_crossing",
+      "passed": true,
+      "expected": {
+        "status": "CROSSED",
+        "first_year": 2023
+      },
+      "actual": {
+        "status": "CROSSED",
+        "first_year": 2023,
+        "search_domain_valid": true,
+        "valid_through_year": 2300,
+        "invalid_from_year": null,
+        "invalid_reason": null,
+        "monotone_flag": true,
+        "monotonicity_end_year": 2300,
+        "value_at_year": 684,
+        "value_previous_year": 682,
+        "beyond_tested_horizon": false
+      }
+    },
+    {
+      "name": "crossing_then_nonpositive",
+      "passed": true,
+      "expected": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "invalid_from_year": 2030,
+        "invalid_reason": "NONPOSITIVE_CO2",
+        "valid_through_year": 2029,
+        "search_domain_valid": false
+      },
+      "actual": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "search_domain_valid": false,
+        "valid_through_year": 2029,
+        "invalid_from_year": 2030,
+        "invalid_reason": "NONPOSITIVE_CO2",
+        "monotone_flag": true,
+        "monotonicity_end_year": 2029,
+        "value_at_year": 686,
+        "value_previous_year": 684,
+        "beyond_tested_horizon": false
+      }
+    },
+    {
+      "name": "crossing_then_nonfinite",
+      "passed": true,
+      "expected": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "invalid_from_year": 2030,
+        "invalid_reason": "NONFINITE_CO2"
+      },
+      "actual": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "search_domain_valid": false,
+        "valid_through_year": 2029,
+        "invalid_from_year": 2030,
+        "invalid_reason": "NONFINITE_CO2",
+        "monotone_flag": true,
+        "monotonicity_end_year": 2029,
+        "value_at_year": 686,
+        "value_previous_year": 684,
+        "beyond_tested_horizon": false
+      }
+    },
+    {
+      "name": "crossing_then_missing",
+      "passed": true,
+      "expected": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "invalid_from_year": 2030,
+        "invalid_reason": "MISSING_REQUIRED_VALUE"
+      },
+      "actual": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "search_domain_valid": false,
+        "valid_through_year": 2029,
+        "invalid_from_year": 2030,
+        "invalid_reason": "MISSING_REQUIRED_VALUE",
+        "monotone_flag": true,
+        "monotonicity_end_year": 2029,
+        "value_at_year": 686,
+        "value_previous_year": 684,
+        "beyond_tested_horizon": false
+      }
+    },
+    {
+      "name": "invalid_before_crossing_and_recovery",
+      "passed": true,
+      "expected": {
+        "status": "INVALID_PATH",
+        "first_year": null,
+        "invalid_from_year": 2023,
+        "valid_through_year": 2022
+      },
+      "actual": {
+        "status": "INVALID_PATH",
+        "first_year": null,
+        "search_domain_valid": false,
+        "valid_through_year": 2022,
+        "invalid_from_year": 2023,
+        "invalid_reason": "NONPOSITIVE_CO2",
+        "monotone_flag": true,
+        "monotonicity_end_year": 2022,
+        "value_at_year": null,
+        "value_previous_year": null,
+        "beyond_tested_horizon": null
+      }
+    },
+    {
+      "name": "invalid_at_apparent_hit",
+      "passed": true,
+      "expected": {
+        "status": "INVALID_PATH",
+        "first_year": null,
+        "invalid_from_year": 2024
+      },
+      "actual": {
+        "status": "INVALID_PATH",
+        "first_year": null,
+        "search_domain_valid": false,
+        "valid_through_year": 2023,
+        "invalid_from_year": 2024,
+        "invalid_reason": "NONPOSITIVE_CO2",
+        "monotone_flag": true,
+        "monotonicity_end_year": 2023,
+        "value_at_year": null,
+        "value_previous_year": null,
+        "beyond_tested_horizon": null
+      }
+    },
+    {
+      "name": "invalid_origin",
+      "passed": true,
+      "expected": {
+        "status": "INVALID_PATH",
+        "first_year": null,
+        "valid_through_year": null,
+        "invalid_from_year": 2021
+      },
+      "actual": {
+        "status": "INVALID_PATH",
+        "first_year": null,
+        "search_domain_valid": false,
+        "valid_through_year": null,
+        "invalid_from_year": 2021,
+        "invalid_reason": "NONPOSITIVE_CO2",
+        "monotone_flag": null,
+        "monotonicity_end_year": null,
+        "value_at_year": null,
+        "value_previous_year": null,
+        "beyond_tested_horizon": null
+      }
+    },
+    {
+      "name": "already_above_then_invalid",
+      "passed": true,
+      "expected": {
+        "status": "AT_OR_BEFORE_ORIGIN",
+        "first_year": null,
+        "invalid_from_year": 2030,
+        "search_domain_valid": false
+      },
+      "actual": {
+        "status": "AT_OR_BEFORE_ORIGIN",
+        "first_year": null,
+        "search_domain_valid": false,
+        "valid_through_year": 2029,
+        "invalid_from_year": 2030,
+        "invalid_reason": "NONPOSITIVE_CO2",
+        "monotone_flag": true,
+        "monotonicity_end_year": 2029,
+        "value_at_year": null,
+        "value_previous_year": null,
+        "beyond_tested_horizon": null
+      }
+    },
+    {
+      "name": "valid_no_crossing",
+      "passed": true,
+      "expected": {
+        "status": "NO_CROSSING_THROUGH_2300",
+        "first_year": null,
+        "search_domain_valid": true,
+        "valid_through_year": 2300,
+        "invalid_from_year": null
+      },
+      "actual": {
+        "status": "NO_CROSSING_THROUGH_2300",
+        "first_year": null,
+        "search_domain_valid": true,
+        "valid_through_year": 2300,
+        "invalid_from_year": null,
+        "invalid_reason": null,
+        "monotone_flag": true,
+        "monotonicity_end_year": 2300,
+        "value_at_year": null,
+        "value_previous_year": null,
+        "beyond_tested_horizon": null
+      }
+    },
+    {
+      "name": "negative_temperature_valid",
+      "passed": true,
+      "expected": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "search_domain_valid": true
+      },
+      "actual": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "search_domain_valid": true,
+        "valid_through_year": 2300,
+        "invalid_from_year": null,
+        "invalid_reason": null,
+        "monotone_flag": true,
+        "monotonicity_end_year": 2300,
+        "value_at_year": 0.05000000000000002,
+        "value_previous_year": 0.0,
+        "beyond_tested_horizon": false
+      }
+    },
+    {
+      "name": "nonmonotone_first_hit",
+      "passed": true,
+      "expected": {
+        "status": "CROSSED",
+        "first_year": 2022,
+        "monotone_flag": false,
+        "search_domain_valid": true
+      },
+      "actual": {
+        "status": "CROSSED",
+        "first_year": 2022,
+        "search_domain_valid": true,
+        "valid_through_year": 2300,
+        "invalid_from_year": null,
+        "invalid_reason": null,
+        "monotone_flag": false,
+        "monotonicity_end_year": 2300,
+        "value_at_year": 690,
+        "value_previous_year": 680,
+        "beyond_tested_horizon": false
+      }
+    },
+    {
+      "name": "crossing_then_evaluation_error",
+      "passed": true,
+      "expected": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "invalid_from_year": 2030,
+        "invalid_reason": "EVALUATION_ERROR"
+      },
+      "actual": {
+        "status": "CROSSED",
+        "first_year": 2024,
+        "search_domain_valid": false,
+        "valid_through_year": 2029,
+        "invalid_from_year": 2030,
+        "invalid_reason": "EVALUATION_ERROR",
+        "monotone_flag": true,
+        "monotonicity_end_year": 2029,
+        "value_at_year": 686,
+        "value_previous_year": 684,
+        "beyond_tested_horizon": false
+      }
+    },
+    {
+      "name": "T1_E_time_linear_identity",
+      "passed": true,
+      "actual": 1.1102230246251565e-16,
+      "expected": "less than 1e-12"
+    }
+  ],
+  "hashes": {
+    "model_spec-r02.md": "ba81a65550193a8775f2275224329d6bad339191ffccf4cf33c9a1094ea1c796",
+    "model_interface-r02.md": "2b93537df100d6a1cb51df5bba8ad7d069aab436c776df22c2b9a390e29bd216",
+    "boundary_selfcheck-r02.py": "c1f1fbcc8e6c6460e6ea824a470e8b2c00bd0a2f97c3c42557dadd9a09745b20"
+  }
+}

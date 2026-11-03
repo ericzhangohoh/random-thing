@@ -17,6 +17,8 @@ For first assignments and the full event sequence, use [Execution Playbook](EXEC
 
 Use [task](templates/TASK.md), [handoff](templates/HANDOFF.md), [review](templates/REVIEW.md) and [change](templates/CHANGE_REQUEST.md) templates. Workers propose state changes through their handoff; only the coordinator edits shared control files.
 
+For an adversarial round, give reviewers different falsifiable questions and disjoint `qa/<attack-id>/` paths. Record actual session identities; reusing a reviewer for another bounded assignment is not a new independent context. Keep an attack-to-author-response-to-recheck ledger. In each assignment state whether final-assessment data may be evaluated and what must be frozen first. Record final-score exposure across all agents, not only inside the main experiment script. Confirmed scientific changes invalidate affected evidence; wording-only qualifications need claim and export review without an automatic numerical rerun.
+
 A concrete notification is: `T05 r01 is ready for review. Read handoffs/T05/computation-r01.md; it pins models/M01-r01.md and runs/E01-r01/manifest.json. Please assign the independent reviewer to feasibility and the stated comparison. No downstream claim is released yet.` Replace every example path and ID with the actual artifact. If no receipt arrives, the coordinator follows up through the available relay and assigns independent work; elapsed time is not acceptance.
 
 ## What may run in parallel

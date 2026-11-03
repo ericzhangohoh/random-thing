@@ -1,0 +1,3 @@
+# T05 numerical execution receipt
+
+Own synthetic/negative/leakage tests preceded historical fits. Original workbook reingestion matched admitted tables. Distinct development, final and production commands ran in order; final loaded saved development-only selection, then production refitted unchanged forms. Exact numerical outputs and frozen decisions reproduced from actual isolated recovered dependencies. See manifest, execution.log and reproduction-check.json. Execution success is candidate evidence; independent review/adversarial resolution remain required. No scientific acceptance or PDF success asserted.

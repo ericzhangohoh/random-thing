@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r01/recovered/code/experiments/analysis_r03.py", line 275, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--phase',choices=['development','final','production'],required=True);p.add_argument('--snapshot',required=True);p.add_argument('--output-dir',required=True);p.add_argument('--config',required=True);args=p.parse_args();obj=Analysis(args.snapshot,args.output_dir,args.config);getattr(obj,args.phase)()
+                                                                                                                                                                                                                                                                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r01/recovered/code/experiments/analysis_r03.py", line 155, in final
+    receipt=self.load_frozen();start=now();frozen_hash=sha(self.out/'selection_frozen.json');rows,params,residuals,diagnostics=self.forecasts([2011],'final',self.data);metrics=self.metrics(rows)
+            ^^^^^^^^^^^^^^^^^^
+  File "/Users/ericzhang/Desktop/himcm/HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/runs/T09-recovery-20261103-r01/recovered/code/experiments/analysis_r03.py", line 151, in load_frozen
+    if sha(self.out/(name+'.csv'))!=receipt[name+'_sha256']:raise ValueError('Development evidence changed after freeze')
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Development evidence changed after freeze

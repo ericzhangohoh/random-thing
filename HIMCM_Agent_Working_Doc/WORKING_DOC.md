@@ -62,6 +62,8 @@ The coordinator submits a concise decision packet: **decision needed; recommende
 
 Record the user's actual answer with a date and affected version. Silence is not approval. Do not repeat a confirmed decision unless new evidence changes its substance. Minor implementation details within the approved architecture remain autonomous.
 
+**Explicitly delegated practice:** when the user asks the coordinator to choose a historical problem and execute a complete autonomous rehearsal, that instruction can authorize reversible practice decisions at G1–G3. Record the exact instruction, date, practice scope and delegated decision-maker in intake. Still prepare each evidence packet, resolve consequential review findings and record the chosen option and limitations. Label its disposition `DELEGATED_PRACTICE_DECISION`; never label it a human approval or fabricate a reply. A generic request for help does not supply this delegation. It does not authorize live-contest submission, external commitments, changes outside the stated scope, or carrying the delegation into a later competition.
+
 Material changes reopening a checkpoint include changing the target population, replacing the objective, dropping a required deliverable, changing the main causal or structural interpretation, or reversing the final recommendation. Correcting a typo or rerunning an approved experiment does not reopen a checkpoint.
 
 ### 2.3 Decision rights among agents
@@ -298,6 +300,10 @@ Add a mechanism or component only when the baseline misses a required feature, d
 ### 10.4 Independent review
 
 The reviewer checks requirement coverage, key assumptions, data lineage, formula-to-code correspondence, numerical evidence and conclusion strength. The reviewer must identify which checks were independently performed and which merely inspect the authors' records. A different agent repeating the same unsupported assumption is not independent corroboration.
+
+For a consequential architecture choice, or when the user requests stronger challenge, assign multiple independent reviewers distinct attacks: temporal evaluation and selection, representation and scientific meaning, and implementation and evidence recovery. They should state falsifiable objections and useful counterexamples before computing results, examine the strongest defense, and distinguish confirmed defects from disclosed limitations or preferences. No quota of findings is required. The author responds to each serious attack with evidence and a proposed repair or reasoned rejection. A reviewer rechecks changed versions; the coordinator records the disposition. More agents voting for a method does not justify it.
+
+Evaluation boundaries apply across the whole team. Record permitted development/test use in each task and keep a project-wide log of final-assessment access, including reviewers' probes. Before releasing numerical final assessment, identify which model forms, selection rules and selection outputs have actually been frozen. A reviewer examining final scores consumes that evidence even when the main computation agent has not yet run it. Later redesign informed by those scores is post-assessment development and needs new evidence or narrower claims; it cannot inherit an “untouched holdout” label. Reading an already supplied table, computing final scores, and using those scores to revise a design are distinct exposures and should be described honestly. Interpretation repairs and correctness repairs must preserve this history too.
 
 **Exit condition:** major claims have appropriate support, blocking issues are resolved, and remaining limitations are visible. **Return condition:** a simpler alternative performs as well with fewer assumptions, the recommendation is fragile to plausible variation, or a structural assumption drives an unsupported conclusion.
 

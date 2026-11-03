@@ -1,0 +1,3 @@
+# A02 acknowledgment r00
+I accept independent adversarial review of model structure, scientific interpretation and full-question coverage. Actual task read: control/tasks/A02.md. Inputs identified: official problem PDF and supplied workbook; control intake/state; research source register, quality and dictionary r01; all six models r01 design documents; available implementation/candidate output evidence. Prior reviewer acceptance will not establish correctness.
+Write ownership: qa/adversarial_structure/ and handoffs/A02/independent-reviewer-rNN.md only. No model/code/data/control repair. Before any empirical probe I will preserve target hashes and hypotheses/evaluation strategy. Holdout exposure will be disclosed. Verdict limited to independently checked scope.

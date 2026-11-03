@@ -1,0 +1,10 @@
+# Workflow findings observed in this rehearsal
+
+| ID | Actual trigger and consequence | Repair and evidence | Current disposition |
+|---|---|---|---|
+| W01 | User delegates a complete autonomous practice run, while the reusable gates originally describe only actual human replies. A literal coordinator could stop unnecessarily or mislabel agent decisions. | Record explicit practice authority, retain G1–G3 packets/review, label DELEGATED_PRACTICE_DECISION. WORKING_DOC/playbook/bootstrap/delivery edits reviewed in T04. | Resolved for practice scope; no live submission authority. |
+| W02 | X's shell `python3` resolved to a different interpreter without scipy. Initial ingestion failed before data output. | Preserve failed r01; use explicitly verified existing interpreter in r02; pass actual checks/recovery. Add worker-local executable/import checks in computation role/playbook; T04 reviewed repair. | Resolved; no installation. |
+| W03 | A01 examined final-period scores before the primary execution produced its numerical selection receipt; original forms/rules were already fixed. | Maintain a project-wide exposure ledger, preserve original selector, qualify subsequent diagnostics/repairs. Add cross-agent evaluation boundaries and attack/response/recheck rules in main document/coordination/task/review templates. T08 reviewed them. | Resolved as honest exposure accounting; no claim of global blindness or fresh validation for a redesign. |
+| W04 | An unfinished zero-byte X r04 handoff path became visible. C, R and M observed it; none treated it as a completed transfer. | X assembled full handoff in a temporary file, renamed it and announced exact hash. C relayed closure. Added atomic handoff publication and notification/hash verification guidance to shared protocol. | Actual race safely handled; reusable wording awaits final integration review. |
+
+Scientific approach attacks and implementation defects are tracked separately in A01/A02/A03 reports, the modeler's author_response-r02 and X's preflight report. A disclosed limitation is not automatically a defect. No biological research was conducted.

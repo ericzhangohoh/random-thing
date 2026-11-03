@@ -2,7 +2,7 @@
 
 - Candidate artifact/path/hash:
 - Accepted model/data/run/claim versions:
-- Human G3 confirmation:
+- G3 decision record and authority (actual human response, or explicitly delegated practice decision under WORKING_DOC section 2.2):
 - Current official rule snapshot:
 
 ## Scientific consistency

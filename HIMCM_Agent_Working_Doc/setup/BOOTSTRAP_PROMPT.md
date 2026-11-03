@@ -10,6 +10,8 @@ DOC_ROOT = [absolute path to HIMCM_Agent_Working_Doc]
 PROJECT_ROOT = [absolute path to the active contest/practice project]
 Problem = [year, competition, problem identifier, and statement path]
 Mode = [practice or live competition]
+Decision authority = [human G1/G2/G3 decisions, or quote the user's explicit
+delegation of a complete autonomous practice run; never infer from silence]
 Deadline = [date, time, timezone; or no fixed deadline]
 Human team = [registered team context and division of responsibilities]
 Available tools/languages = [known constraints, or inspect locally]
@@ -30,6 +32,9 @@ handoff paths manually. Do not assume the sessions share conversation context.
 Keep control/tasks.md as the board and control/tasks/<T-ID>.md as the full packets.
 Use EXECUTION_PLAYBOOK.md for the first assignments and dependency release rules.
 Record the current research exclusions and a stop condition before literature work.
+For explicitly delegated practice only, use WORKING_DOC section 2.2: prepare
+and review the same G1–G3 packets, but label delegated dispositions honestly
+as DELEGATED_PRACTICE_DECISION, not human approval. No live submission is implied.
 Each worker first acknowledges inputs read, exact scope, missing dependencies,
 next action and expected handoff. Consumers acknowledge accepted input versions.
 

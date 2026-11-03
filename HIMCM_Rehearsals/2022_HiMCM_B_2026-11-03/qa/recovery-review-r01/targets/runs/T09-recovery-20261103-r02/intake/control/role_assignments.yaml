@@ -1,0 +1,72 @@
+coordinator:
+  session: /root
+  writes:
+  - control/
+  - handoffs/coordinator/
+domain-data:
+  session: /root/rehearsal_data
+  task: T01
+  state: ACCEPTED_FOR_ASSIGNED_SCOPE
+modeler:
+  session: /root/rehearsal_modeler
+  task: T12
+  state: RUNNING
+writer-visuals:
+  session: /root/rehearsal_writer
+  task: T07
+  state: BLOCKED
+  scope_note: Phase A complete; G3 required for final Phase B
+computation:
+  session: /root/rehearsal_computation
+  task: T05
+  state: IN_REVIEW
+  writes:
+  - code/data/
+  - code/modeling/
+  - code/experiments/
+  - code/qa/
+  - data/processed/
+  - runs/T05-*/
+  - handoffs/T05/computation-rNN.md
+  quiescent: true
+independent-reviewer:
+  session: /root/rehearsal_reviewer
+  task: T10
+  state: RUNNING
+  writes:
+  - qa/framing-rNN/
+  - handoffs/T04/independent-reviewer-rNN.md
+adversarial_reviewers:
+  A01:
+    session: /root/attack_validation
+    model: gpt-6-astra
+    state: CHANGES_REQUESTED
+    writes:
+    - qa/adversarial_validation/
+    - handoffs/A01/
+  A02:
+    session: /root/attack_structure
+    model: gpt-6-astra
+    state: ACCEPTED_FOR_SCOPE
+    writes:
+    - qa/adversarial_structure/
+    - handoffs/A02/
+  A03:
+    session: /root/attack_structure
+    model: gpt-6-astra
+    state: ACCEPTED
+    writes:
+    - qa/adversarial_implementation/
+    - handoffs/A03/
+    note: Same independent reviewer reassigned; no claim of a third new context. Separate
+      fresh spawn hit platform thread limit.
+recovery:
+  role: computation
+  session: /root/early_mcm_continue
+  task: T09
+  state: READY
+  context_note: Previously uninvolved in this rehearsal; existing agent with unrelated
+    prior work, not falsely called an empty new thread
+  writes:
+  - runs/T09-recovery-*/
+  - handoffs/T09/computation-rNN.md

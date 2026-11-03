@@ -1,0 +1,29 @@
+{
+  "version": "T05-scientific-r01",
+  "trace_fields": {"run_id": "logical experiment identifier", "data_sha256": "SHA256 of paired admitted CSV", "spec_sha256": "SHA256 of accepted mathematical specification"},
+  "units": {"co2": "ppm, Mauna Loa annual mole fraction", "temp": "degrees Celsius anomaly relative to1951-1980", "year": "calendar year", "horizon": "elapsed years", "error": "prediction minus observation in target units", "mae": "mean absolute error in target units", "rmse": "root mean square error in target units", "bias": "mean prediction error in target units", "correlation": "dimensionless Pearson correlation", "r_squared": "dimensionless descriptive fraction", "rank": "dimensionless matrix rank or competition rank as labeled"},
+  "tables": {
+    "development_forecasts.csv": "350 origin-target rows,50 per declared model; training years, observed, predicted, error, forecastCO2 input and status",
+    "final_forecasts.csv": "70 rows,10 per model from2011; unchanged frozen rules",
+    "*_metrics.csv": "Overall/per-origin/per-horizon MAE,RMSE,bias; null metric if any required row fails",
+    "*_coefficients.csv": "Named parameters with units encoded in names; x=decades, fixed C_ref ppm, fitting range/count/method/rank and producer identity",
+    "*_residuals.csv": "In-sample fitted minus observed in target units; E also log residual; T1 uses observed trainingC for association residual",
+    "*_fit_diagnostics.csv": "Residual mean/RMSE, lag1 correlation; not selection inputs",
+    "production_forecasts.csv": "2022-2100 full7 paths plus last30 selected2; annual central paths",
+    "threshold_search_paths.csv": "2021-2300 raw paths and statuses",
+    "forecast_summary.csv": "2050/2100 values; CO2 signed gap from685 ppm and percent; first-passage reaches-by2050 flag",
+    "thresholds.csv": "First annual crossing with raw previous/current values; explicit already-reached/no-crossing/invalid statuses; monotonicity,recrossing,later-invalid flags",
+    "path_diagnostics.csv": "Validity/decrease counts through2300; Q turning year and ppm/year growth",
+    "ten_year_changes.csv": "36 intervals ending1969-2004; ten elapsed years; ppm difference and ppm/year growth",
+    "relationship_diagnostics.csv": "Levels,log levels,linear/quadratic detrending,first differences; units/period/n/intercept/slope/correlation/R2; descriptive only",
+    "relationship_series.csv": "Residual logC and anomaly, or annual differences; inspectable plot values",
+    "historical_error_envelopes.csv": "Selected rules B_h=max absolute development error across origins/horizons<=h; final containment separate",
+    "production_error_envelopes.csv": "2022-2031 central paths +/- frozen empirical radii; no coverage guarantee",
+    "development_error_samples.csv": "Five selected-rule origin errors per horizon",
+    "horizon_evidence.csv": "h1-10 developmentMAE/final absolute error/future year; h1/5/10 flagged",
+    "window_sensitivity.csv": "Selected unchanged forms full vs1992-2021; forecast difference target units and crossing-date difference years",
+    "structural_sensitivity.csv": "Full-form min/max/spread2050/2100; not probability interval"
+  },
+  "statuses": "OK means numerical execution only. Failed model rows retain null and reason. No causality, policy effect, probabilistic confidence or validated century prediction is asserted.",
+  "selection": "CO2 developmentMAE ties D,E,Q; temperature only T0 vsT1(selectedCO2), tie T0. Final metrics never select replacement."
+}
