@@ -60,4 +60,4 @@ If a record says a run passed but the output is missing or changed, mark the evi
 
 In a shared checkout, all sessions share the branch, index and working tree. The coordinator owns staging, commits, branch changes and pushes. Workers do not switch branches underneath other workers. Use separate worktrees only when the integration plan and data access paths are explicit.
 
-The selected repository is private and includes the source library. See [GitHub setup](setup/GITHUB.md) for the recorded choice, file handling and publication boundary. Repository visibility does not substitute for task ownership or review.
+The user-selected team repository is now public and includes the existing source library; this sharing choice was explicitly authorized on 2026-11-04. See [GitHub setup](setup/GITHUB.md) for the recorded choice, file handling and publication boundary. Repository visibility does not substitute for task ownership or review.

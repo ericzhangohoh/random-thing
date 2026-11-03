@@ -2,13 +2,13 @@
 
 ## Chosen arrangement for this project
 
-The user has explicitly chosen **one private repository for the complete substantive project**, including the original PDF libraries, archives, downloaded reference materials, this working document, research notes and code. The current target is [ericzhangohoh/himcm-workflow-private](https://github.com/ericzhangohoh/himcm-workflow-private). This supersedes the lighter original suggestion to keep the PDF library outside Git.
+The user explicitly authorized public synchronization of the completed workflow and rehearsal to **[ericzhangohoh/random-thing](https://github.com/ericzhangohoh/random-thing)** on 2026-11-04 so teammates can read them. This supersedes the previous private-only destination for this preparation archive. The full substantive project includes the existing source library, working document, code, results, PDF and audit evidence.
 
-On 2026-11-03, the earlier `ericzhangohoh/himcm` address resolved to a renamed public repository. The coordinator verified that change, created this separate private destination under the user's existing authorization and redirected this checkout's origin. The public repository was not modified. Historical audit receipts retain the repository identity they checked at the time; they are not proof of its current visibility.
+The earlier private delivery to `himcm-workflow-private` remains a historical fact. This checkout retains that URL as `origin` and adds the public destination as `team`; always name the intended remote explicitly. See [the current team-sharing record](../../TEAM_SHARING.md). Prior review/run snapshots are retained without rewriting their original privacy statements.
 
-Keep source manifests, source URLs, retrieval records and original licensing/provenance information with the materials. The chosen full-project upload also retains the extracted text and extraction metadata used for corpus reading. Exclude credentials, local machine state, temporary files and disposable build/runtime caches. Do **not** use a blanket `*.pdf`, `*.zip`, `*.xlsx`, extraction-directory or library-folder exclusion. Private repository storage is the selected distribution scope; it does not change the original materials' provenance.
+Keep source manifests, source URLs, retrieval records and original licensing/provenance information with the materials. The chosen full-project upload also retains the extracted text and extraction metadata used for corpus reading. Exclude credentials, local machine state, temporary files and disposable build/runtime caches. Do **not** use a blanket `*.pdf`, `*.zip`, `*.xlsx`, extraction-directory or library-folder exclusion. The authorized visibility does not change the original materials' provenance.
 
-This guide is not a repository-creation or push receipt. The executing coordinator must verify the actual remote, private visibility and uploaded commit before reporting success. No remote operation is performed merely by reading this document.
+This guide is not a repository-creation or push receipt. The executing coordinator must verify the actual remote, user-authorized visibility and uploaded commit before reporting success. No remote operation is performed merely by reading this document.
 
 ## What belongs in the repository
 
@@ -42,9 +42,9 @@ git diff --cached --name-only
 
 Read the relevant staged changes rather than accepting the statistics alone. Verify that the original library remains included, caches are excluded as intended, and no secrets or unrelated personal files were staged. Preserve original files rather than editing them to make a repository smaller.
 
-## Connecting or verifying the private remote
+## Connecting or verifying the authorized remote
 
-Repository creation and publication are separate from the modeling workflow. The current user has authorized the full private upload for this project. The coordinator should inspect whether the target already exists and whether the local remote already points to it before creating or changing anything. Do not create a second repository because an earlier command's outcome was unclear.
+Repository creation and publication are separate from the modeling workflow. The current user has authorized publication to the existing public `random-thing` repository. The coordinator should inspect whether the target already exists and whether the local remote already points to it before creating or changing anything. Do not create a second repository because an earlier command's outcome was unclear.
 
 For an existing checkout/remote, these are useful inspection commands:
 
@@ -52,12 +52,12 @@ For an existing checkout/remote, these are useful inspection commands:
 git remote -v
 git status --short
 git log -1 --oneline
-gh repo view ericzhangohoh/himcm-workflow-private --json nameWithOwner,visibility,url
+gh repo view ericzhangohoh/random-thing --json nameWithOwner,visibility,url
 ```
 
 If creating a new repository in another project, choose private visibility and avoid prepopulating a conflicting README/history when importing an existing local repository. The official [repository creation guide](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository) explains the choices. Do not copy account names, remote URLs or prior authorization from this project into an unrelated future project.
 
-Before pushing, verify both the canonical repository identity and private visibility: an old URL can redirect after a rename, and an earlier privacy check can become stale. A public destination does not satisfy a private-upload instruction. Preserve evidence of an unexpected redirect and resolve a private destination within the user's authorization before uploading.
+Before pushing, verify both the canonical repository identity and the visibility authorized for the task: an old URL can redirect after a rename, and an earlier visibility check can become stale. Public publication requires explicit authorization; the user has supplied it for this preparation archive. Use `git push team main` for this destination, and preserve teammate commits rather than force-pushing.
 
 After a push, verify the remote branch points to the intended local commit and that representative substantive files are present. Report the repository URL, visibility, commit and any genuinely excluded material. Do not infer a completed upload from a local commit or a partially transmitted pack.
 
@@ -71,7 +71,7 @@ The coordinator reviews and integrates a finished branch, resolves model/result 
 
 ## Competition boundary
 
-Use the repository for private preparation and the team's permitted work. During a live HiMCM contest, follow the current rules restricting discussion/sharing to the registered team; do not turn on public issues/PRs, outside reviewers, public Pages or external AI review integrations as an incidental convenience. Private storage is a project choice, **not a statement that COMAP approves every possible cloud service or sharing arrangement**. The coordinator's current-rule snapshot and AI-use reporting procedure in the main working document govern the live project. See the [official HiMCM instructions](https://www.contest.comap.com/highschool/contests/himcm/instructions.html).
+This public preparation archive is not a live contest workspace. During a live HiMCM contest, follow the current rules restricting discussion/sharing to the registered team; do not turn on public issues/PRs, outside reviewers, public Pages or external AI review integrations as an incidental convenience. Private storage is a project choice, **not a statement that COMAP approves every possible cloud service or sharing arrangement**. The coordinator's current-rule snapshot and AI-use reporting procedure in the main working document govern the live project. See the [official HiMCM instructions](https://www.contest.comap.com/highschool/contests/himcm/instructions.html).
 
 ## Public patterns used in this design
 

@@ -6,7 +6,7 @@ Use the document directly. No skill installation, plugin, automated agent framew
 2. Follow [Claude Code setup](CLAUDE_CODE.md) to start a coordinator session and bounded worker sessions.
 3. Use the [shared-directory protocol](SHARED_DIRECTORY_PROTOCOL.md) and copy/adapt the [assignment manifest](role_assignments.yaml.template) inside the active project.
 4. Paste the [bootstrap prompt](BOOTSTRAP_PROMPT.md), then the relevant role assignment prompt from `roles/`.
-5. Use [GitHub setup](GITHUB.md) for the chosen private repository arrangement and controlled versioning.
+5. Use [GitHub setup](GITHUB.md) for the current user-authorized team repository arrangement and controlled versioning.
 
 The files ending in `.template` are inert examples. They have not been installed into a project root or user configuration. The six optional native role definitions are also inert until deliberately copied. Neither this guide nor the role documents alter permissions, launch agents, create repositories or push changes by being read.
 

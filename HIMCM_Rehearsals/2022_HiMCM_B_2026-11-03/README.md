@@ -4,6 +4,8 @@ This project applies the [working document](../../HIMCM_Agent_Working_Doc/README
 
 **Completed paper:** [16-page English PDF](paper/exports/2022_HiMCM_B_practice-complete-r03.pdf). The [delivery record](DELIVERY.md) identifies its exact hash, independent reviews, editable sources, reproduction instructions and limitations.
 
+Current public team repository: [random-thing](https://github.com/ericzhangohoh/random-thing). The [2026-11-04 sharing instruction](../../TEAM_SHARING.md) supersedes private-only destination text in preserved historical delivery records. The accepted paper and scientific evidence are unchanged.
+
 ## Read in this order
 
 1. [Rehearsal report](REHEARSAL_REPORT.md): assignments, approach justification, attacks, confirmed defects, repairs and verification limits.

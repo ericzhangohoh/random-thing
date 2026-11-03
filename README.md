@@ -1,9 +1,10 @@
 # Mathematical Modeling Preparation and Agent Workflow
 
-Private working repository for HiMCM preparation, historical modeling research and an English multi-agent working document.
+Team repository for HiMCM preparation, historical modeling research and an English multi-agent working document. The user authorized public sharing in `ericzhangohoh/random-thing` on 2026-11-04.
 
 ## Start here
 
+- [Final 16-page English paper](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/paper/exports/2022_HiMCM_B_practice-complete-r03.pdf): independently reviewed historical-problem rehearsal.
 - [Execution playbook](HIMCM_Agent_Working_Doc/EXECUTION_PLAYBOOK.md): first assignments, dependencies and handoffs for actual agent sessions.
 - [Agent working document](HIMCM_Agent_Working_Doc/README.md): the complete English operating manual, role instructions, approach justification and setup.
 - [Executed 2022 HiMCM B rehearsal](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/README.md): actual computation, adversarial attacks, author repairs, recovery and the paper's current delivery status.
@@ -15,9 +16,9 @@ The English working document is implemented and its finite verification scope is
 
 ## Repository contents
 
-The original collections are retained in their existing folders. The user has chosen to store the full substantive project in a private GitHub repository, including source PDFs. Operating-system metadata, temporary render images and interpreter caches are excluded. Original source notices, licenses and provenance remain attached to their respective materials; repository privacy does not change those terms.
+The original collections are retained in their existing folders. The user has chosen to share the completed substantive project in this public team repository, including the existing source library. Operating-system metadata, temporary render images and interpreter caches are excluded. Original source notices, licenses and provenance remain attached to their respective materials; repository privacy does not change those terms.
 
-The current destination is [himcm-workflow-private](https://github.com/ericzhangohoh/himcm-workflow-private). The earlier `himcm` URL was found to redirect to a public renamed repository; the coordinator created this separate private destination under the user's private-upload instruction. Exact delivery status belongs in the rehearsal's final record and Git history.
+The current team destination is **[random-thing](https://github.com/ericzhangohoh/random-thing)**. The earlier private delivery remains recorded in historical receipts. The user's later public-sharing instruction supersedes that destination choice; see [team sharing](TEAM_SHARING.md).
 
 The original MCM/ICM archive includes problem statements, award lists, commentary and papers of several stated award levels. File and folder names sometimes disagree with document contents. The research inventory records these discrepancies rather than treating every PDF as an O-award paper.
 

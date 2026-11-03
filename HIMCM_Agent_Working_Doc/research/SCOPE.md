@@ -2,7 +2,7 @@
 
 **Effective 2026-11-02, Australia/Sydney.** The user explicitly excluded **all biology-related papers**. This overrides the earlier all-paper reading plan.
 
-Improve the English working document through non-biological interpretation, decomposition, data, model choice, optimization, scheduling, forecasting, validation, writing and multi-agent coordination. Deliver a coherent operating document, tested non-biological examples and a verified private-repository upload. Further eligible research can inform later revisions; exhaustive archive reading is not a delivery prerequisite.
+Improve the English working document through non-biological interpretation, decomposition, data, model choice, optimization, scheduling, forecasting, validation, writing and multi-agent coordination. Deliver a coherent operating document, tested non-biological examples and a verified upload to the user-authorized repository. Further eligible research can inform later revisions; exhaustive archive reading is not a delivery prerequisite.
 
 ## Topic screening
 
@@ -17,3 +17,7 @@ Existing files and historical notes remain archived without further development;
 The inventory and reading queue preserve the original archive, not an instruction to read every row regardless of scope. Historical reading statuses remain factual. Exclusion does not promote a paper to full review or block workflow delivery. Known exclusions are recorded separately; the unclassified remainder is not a fully screened non-biological denominator.
 
 The unfinished 2015 A40764 reading stopped after physical page 14. It is not a full review and supplies no new operational recommendation.
+
+## Publication amendment, 2026-11-04
+
+The user explicitly selected the public `ericzhangohoh/random-thing` repository to share the completed work with teammates. This replaces the earlier private-upload destination only. It does not expand the research scope or authorize new biological research.
