@@ -22,3 +22,16 @@ Only the State column carries the canonical task status. Scope limits remain sep
 | T13 | independent-reviewer | ACCEPTED | Recovery receipts and actual independent comparisons | [packet](tasks/T13.md) |
 | A04 | adversarial-reviewer | ACCEPTED | Ten final-claim attack families; zero open defects | [packet](tasks/A04.md) |
 | T14 | independent-reviewer | ACCEPTED | Final dated delivery/index review r03;79 links and14 hashes | [packet](tasks/T14.md) |
+
+## User-requested LaTeX revision, 2026-11-04
+
+| ID | Owner | State | Scope | Packet |
+|---|---|---|---|---|
+| T15 | writer-visuals | ACCEPTED | Final source/PDF r05, register r06, author repairs independently accepted | [packet](tasks/T15.md) |
+| A05 | independent-reviewer | ACCEPTED | Canonical model attack r02, C18 sensitivity independently verified | [packet](tasks/A05.md) |
+| A06 | independent-reviewer | ACCEPTED | Complete 314-record argument ledger bound to final r05/r06 | [packet](tasks/A06.md) |
+| A07 | independent-reviewer | ACCEPTED | Complete 314-record evidence ledger and independent C18 verification | [packet](tasks/A07.md) |
+| A08 | independent-reviewer | ACCEPTED | Complete 314-record reader ledger and omission search | [packet](tasks/A08.md) |
+| T16 | independent-reviewer | ACCEPTED | All 16 final pages, isolated rebuild, fonts, zero semicolons, 1,785 checks | [packet](tasks/T16.md) |
+
+Canonical final versions and closed receipts are in [LaTeX delivery acceptance](latex-delivery-acceptance-r01.json). Earlier task packets and handoffs retain their original publication states.

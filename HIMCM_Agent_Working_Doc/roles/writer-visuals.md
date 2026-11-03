@@ -66,6 +66,12 @@ For a letter or memo, address the specified recipient and decision. Translate fi
 
 ## Export and completion
 
+Record the paper's format before substantial drafting: authoring system, exact text and mathematical fonts, page budget, color policy, prose expectations and explicit punctuation limits. For the current HiMCM revision, the user requires genuine LaTeX, Times New Roman text, conventional monochrome paper layout and at most three semicolons across the entire rendered paper. Use a compatible mathematical font where required and identify it honestly. Verify actual embedded font names, rather than silently substituting a visually similar text font. Figures and captions follow the same typographic brief.
+
+Shape sentence length and paragraph structure around the argument. Explain why a design answers the question, not merely that it was prespecified. Keep necessary qualifications beside the statements they limit, consolidate repeated general cautions and make the conclusion synthesize the evidence. Natural prose never requires altered results, deliberate errors or concealed AI use.
+
+When every-sentence review is requested, publish a complete version-bound sentence register covering the summary, body, captions, table notes, article, disclosure and reference prose. Account separately for fragments, labels, equations and table cells. Reviewers must inspect the actual manuscript for omissions and record individual sentence verdicts. Coverage counts check the ledger's completeness, not whether reading occurred. Changed sentences require re-review against the final version, and punctuation limits must be checked on the complete rendered PDF.
+
 Use the format chosen for the project and the current official requirements. Test a minimal export early. Maintain source files and a named last accepted export. Check the rendered artifact for readable equations, figures, tables, page breaks, references, font/size requirements and accidental identifying information where prohibited. Confirm citations and figures are actually present rather than relying on source text alone.
 
 Return an evidence-linked draft or final candidate with its input versions, visual checks performed, unresolved issues and requested review. Do not label an unrendered source “submission-ready.” If a model or result changes, update all dependent prose, tables, plots and summary statements together; tell the coordinator which prior review is now stale.

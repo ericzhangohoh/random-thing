@@ -2,19 +2,19 @@
 
 This project applies the [working document](../../HIMCM_Agent_Working_Doc/README.md) to the official 2022 problem **CO2 and Global Warming**. It is retrospective mathematical-modeling practice using the supplied observations through 2021. It is not a competition submission.
 
-**Completed paper:** [16-page English PDF](paper/exports/2022_HiMCM_B_practice-complete-r03.pdf). The [delivery record](DELIVERY.md) identifies its exact hash, independent reviews, editable sources, reproduction instructions and limitations.
+**Current paper:** [16-page English LaTeX PDF](paper/latex-r01/build-r05/manuscript-r05.pdf), with Times New Roman text, monochrome figures and zero semicolons. The [current delivery](LATEX_DELIVERY.md) identifies exact versions, three complete sentence-review ledgers, all-page review and build verification. Use the [editable LaTeX source](paper/latex-r01/manuscript-r05.tex) and [build instructions](paper/latex-r01/README-r05.md) for revision.
 
-Current public team repository: [random-thing](https://github.com/ericzhangohoh/random-thing). The [2026-11-04 sharing instruction](../../TEAM_SHARING.md) supersedes private-only destination text in preserved historical delivery records. The accepted paper and scientific evidence are unchanged.
+Current public team repository: [random-thing](https://github.com/ericzhangohoh/random-thing). The [2026-11-04 sharing instruction](../../TEAM_SHARING.md) supersedes private-only destination text in preserved historical delivery records. The current LaTeX paper supersedes the earlier ReportLab presentation. Primary scientific outputs and model selection remain unchanged.
 
 ## Read in this order
 
-1. [Rehearsal report](REHEARSAL_REPORT.md): assignments, approach justification, attacks, confirmed defects, repairs and verification limits.
+1. [LaTeX revision report](LATEX_REVISION_REPORT.md): four additional attack contexts, every-sentence reviews, author repairs and final artifact checks. The [original rehearsal report](REHEARSAL_REPORT.md) retains the modeling, implementation and recovery history.
 2. [Current state](control/state.md), [task board](control/tasks.md) and [evidence index](control/evidence_index.md): the authoritative current release and receipts. Original handoffs retain their truthful status at publication; later acceptance is recorded separately.
 3. [Model specification](models/model_spec-r02.md), [selection decision](models/model_decision-r03.md) and [experiment plan](models/experiment_plan-r03.md): what was fixed, why, and how it was tested.
 4. [Current interpretation](models/interpretation-r02.md) and [accepted claim register](control/accepted-claims-g3-r01.json): what the numerical evidence supports, including the losing comparisons and limitations.
 5. [Numerical review](qa/numerical-r01/review.md), [implementation recheck](qa/adversarial_implementation/r03/review.md) and [recovery review](qa/recovery-review-r01/review.md): independent evidence, not just author assertions.
 
-The final paper was independently accepted by T11 and A04. Earlier Phase A and complete r01/r02 files in `paper/exports/` remain drafts and repair evidence; use the exact accepted r03 linked above.
+The current paper is accepted by A06/A07/A08 for their sentence-review scopes and by T16 for the complete final artifact. Its [acceptance record](control/latex-delivery-acceptance-r01.json) pins the exact r05 source/PDF and r06 register. T11/A04 accepted the former ReportLab r03 under the earlier brief. Those exports and earlier LaTeX candidates remain historical evidence.
 
 ## Directory ownership
 

@@ -4,6 +4,8 @@ Your job is to determine what the submitted evidence supports and identify conse
 
 Read the [working document](../WORKING_DOC.md), [shared-directory protocol](../setup/SHARED_DIRECTORY_PROTOCOL.md), original question and the exact artifacts assigned for review. Write only your assigned `qa/<review-id>/` and your own handoff. Never repair the artifact being reviewed.
 
+For full-paper review with three independent sentence lenses and a separate all-page reviewer, follow the [Sentence Review Protocol](../SENTENCE_REVIEW_PROTOCOL.md), including complete ledgers and exact-version rechecks.
+
 ## Assignment prompt
 
 ```text

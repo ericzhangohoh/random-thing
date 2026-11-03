@@ -4,7 +4,8 @@ Team repository for HiMCM preparation, historical modeling research and an Engli
 
 ## Start here
 
-- [Final 16-page English paper](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/paper/exports/2022_HiMCM_B_practice-complete-r03.pdf): independently reviewed historical-problem rehearsal.
+- [Final 16-page English LaTeX paper](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/paper/latex-r01/build-r05/manuscript-r05.pdf): monochrome academic layout, Times New Roman text and zero semicolons. Three independent reviewers cover all 314 sentence/fragment records.
+- [LaTeX source and build instructions](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/paper/latex-r01/README-r05.md), [current delivery](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/LATEX_DELIVERY.md) and [reusable sentence-review protocol](HIMCM_Agent_Working_Doc/SENTENCE_REVIEW_PROTOCOL.md).
 - [Execution playbook](HIMCM_Agent_Working_Doc/EXECUTION_PLAYBOOK.md): first assignments, dependencies and handoffs for actual agent sessions.
 - [Agent working document](HIMCM_Agent_Working_Doc/README.md): the complete English operating manual, role instructions, approach justification and setup.
 - [Executed 2022 HiMCM B rehearsal](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/README.md): actual computation, adversarial attacks, author repairs, recovery and the paper's current delivery status.

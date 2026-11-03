@@ -19,4 +19,6 @@ Every worker's first response names its task, inputs actually read, exact owned 
 
 A role is a responsibility, not a requirement to buy another account, run six agents continuously or use a particular model. One person may relay tasks between sessions. Independence is assessed per reviewed artifact: if the same agent authored and reviewed it, label the result self-review or assign a fresh independent reviewer.
 
+For three independent every-sentence reviews, model challenge, repair and exact final PDF acceptance, use the [Sentence Review Protocol](../SENTENCE_REVIEW_PROTOCOL.md).
+
 Use [setup/README.md](../setup/README.md) for launch instructions, native-role template options and GitHub practices.

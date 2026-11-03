@@ -2,6 +2,19 @@
 
 Initial checks: 2026-11-02. Updated 2026-11-04, Australia/Sydney. This record describes actual checks and their limits.
 
+## LaTeX and complete sentence review — 2026-11-04
+
+The [current LaTeX delivery](../../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/LATEX_DELIVERY.md) supersedes the earlier ReportLab paper for presentation. Its [acceptance record](../../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/control/latex-delivery-acceptance-r01.json) pins source r05, PDF r05 and sentence register r06.
+
+- Four new independent GPT-6 Astra contexts challenged the approach and paper. Three produced complete final ledgers covering 314 sentence/fragment records each, with individual rationales and an omission search. They read the original 311 records, reviewed 16 changed and three added records with context, and carried unchanged exact text forward into the final layout-only revision.
+- Six consolidated required wording repairs and optional clarity refinements were implemented by the author and rechecked. No required repairs remain open. Natural prose improvements preserved adverse results, evidence strength and AI disclosure.
+- A new target-year weighting diagnostic was independently recomputed by A07. It reverses the D/Q development ranking under the alternate aggregation, is labeled post-assessment sensitivity, and does not change the primary selection.
+- The existing main reviewer directly inspected all 16 final pages, completed three isolated XeLaTeX passes, and verified identical extracted text and all 16 rendered pages against the released PDF. Its 1,785 checks passed, including the three complete ledger bindings, fonts and punctuation.
+- Actual Times New Roman text/plot labels are embedded, with separately disclosed compatible mathematical fonts. The paper is monochrome and contains zero ASCII or fullwidth semicolons. No font files are redistributed.
+- All 35 primary output identities remain unchanged. The earlier 44-test numerical suite and recovery exercise were not rerun during this presentation revision. Earlier evidence retains its stated scope.
+
+The [reusable protocol](../SENTENCE_REVIEW_PROTOCOL.md) documents this workflow for future use. New documentation integration is separate from the frozen paper reviews. Actual execution remains Codex-based, with native Claude orchestration and live submission outside scope. All sections below describe earlier checkpoints.
+
 ## Executed historical-problem rehearsal — 2026-11-03
 
 The [2022 HiMCM B project](../../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/README.md) adds actual Codex multi-agent work beyond the earlier written-contract and synthetic-fixture audits. See its [rehearsal report](../../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/REHEARSAL_REPORT.md), current state and exact-version review receipts. Earlier sections below remain historical evidence, not claims that later work was still unexecuted.
@@ -14,7 +27,7 @@ The [2022 HiMCM B project](../../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/README
 - The working document now covers explicit practice delegation, worker-local interpreter checks, project-wide evaluation exposure, evidence-based adversarial repair and atomic completed-handoff publication.
 - The complete 16-page English PDF was accepted after author closure, independent T11 inspection of every page with 299 checks, and A04's ten final-claim attack families. No PDF or claim defects remain open. The [delivery record](../../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/DELIVERY.md) identifies exact bytes, editable sources and scoped reviews. Repository synchronization is separately verified after the release commit.
 
-This tests a finite practice project, not arbitrary-input correctness, general concurrency/load robustness, causal climate validity or reliable long-range forecasting. Actual Claude-native orchestration and live competition submission remain untested. No biological research occurred. At the initial delivery, the private target was `ericzhangohoh/himcm-workflow-private`; the previous address had redirected to a public repository. On 2026-11-04 the user explicitly chose public sharing in `ericzhangohoh/random-thing`; [the team-sharing record](../../TEAM_SHARING.md) supersedes the earlier destination instruction. Scientific/PDF review bytes are unchanged.
+This tests a finite practice project, not arbitrary-input correctness, general concurrency/load robustness, causal climate validity or reliable long-range forecasting. Actual Claude-native orchestration and live competition submission remain untested. No biological research occurred. At the initial delivery, the private target was `ericzhangohoh/himcm-workflow-private`; the previous address had redirected to a public repository. On 2026-11-04 the user explicitly chose public sharing in `ericzhangohoh/random-thing`; [the team-sharing record](../../TEAM_SHARING.md) supersedes the earlier destination instruction. The old scientific/PDF review bytes are retained unchanged. The current paper and its new review receipts are identified in the LaTeX section above.
 
 ## GPT-6 Astra audit and repair verification — 2026-11-03
 

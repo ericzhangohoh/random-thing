@@ -1,5 +1,11 @@
 # Accepted evidence index
 
+## Current LaTeX delivery, 2026-11-04
+
+Use [latex-delivery-acceptance-r01.json](latex-delivery-acceptance-r01.json) for the current source r05, PDF r05 and register r06. [Final paper](../paper/latex-r01/build-r05/manuscript-r05.pdf), [claim-to-sentence map](../paper/latex-r01/claim-sentence-map-r05.json), [three sentence-review records and delivery](../LATEX_DELIVERY.md), and [T16 all-page review](../qa/latex-pdf-review-r01/review.md) identify the accepted final versions. The 17 primary claims below remain unchanged. [C18](accepted-claims-latex-r01.json) adds independently reviewed post-assessment weighting sensitivity, without changing primary model selection. The older page map at the end describes the historical ReportLab PDF only.
+
+## Primary scientific claims
+
 Current science: G3-r01, repaired primary T05-scientific-20261103-r03. Full row selectors, columns, values, SHA-256 and limits: [accepted claim register](accepted-claims-g3-r01.json). [Writing input identities](accepted-writing-inputs-r01.json).
 
 | Claim | Requirements | Scope | Evidence files |
@@ -22,9 +28,9 @@ Current science: G3-r01, repaired primary T05-scientific-20261103-r03. Full row 
 | C16 | R10, R11 | Local execution retained original selection order and reproducible evidence, while A01 already exposed final scores. | `selection_frozen.json`, `final_assessment_receipt.json`, `handoffs/T05/computation-r05.md` |
 | C17 | R08 | Use consistent measurements, monitor forecast errors and assess multiple scenarios; intervention effects need additional evidence. | `reasoned implication` |
 
-Paper locations and final PDF hash will be added at delivery. Scientific acceptance does not imply rendered-export or external-submission acceptance.
+Current paper locations are in the LaTeX claim-to-sentence map linked above. Scientific acceptance does not imply rendered-export or external-submission acceptance.
 
-## Accepted PDF delivery, 2026-11-04 Australia/Sydney
+## Historical ReportLab PDF delivery, 2026-11-04 Australia/Sydney
 
 Exact acceptance: [delivery-acceptance-r01.json](delivery-acceptance-r01.json). [Final16-page paper](../paper/exports/2022_HiMCM_B_practice-complete-r03.pdf); [T11 all-page review](../qa/pdf-review-r00/review.md); [A04 claim attacks](../qa/adversarial_paper/r01/review.md); [T13 recovery review](../qa/recovery-review-r01/review.md).
 

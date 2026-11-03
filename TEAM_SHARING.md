@@ -4,16 +4,18 @@ On 2026-11-04, Australia/Sydney, the user explicitly selected **[ericzhangohoh/r
 
 ## Teammate entry points
 
-1. [Accepted 16-page English paper](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/paper/exports/2022_HiMCM_B_practice-complete-r03.pdf).
+1. [Current 16-page English LaTeX paper](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/paper/latex-r01/build-r05/manuscript-r05.pdf), [editable source/build instructions](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/paper/latex-r01/README-r05.md) and [current delivery record](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/LATEX_DELIVERY.md).
 2. [Execution playbook](HIMCM_Agent_Working_Doc/EXECUTION_PLAYBOOK.md) and [full working-document index](HIMCM_Agent_Working_Doc/README.md).
 3. [Approach justification](HIMCM_Agent_Working_Doc/APPROACH_AND_JUSTIFICATION.md) and [role assignments](HIMCM_Agent_Working_Doc/roles/README.md).
-4. [Executed rehearsal](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/README.md), [attack/repair report](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/REHEARSAL_REPORT.md) and [scientific/PDF delivery record](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/DELIVERY.md).
+4. [Executed rehearsal](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/README.md), [new attack/repair report](HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/LATEX_REVISION_REPORT.md) and [sentence-review protocol](HIMCM_Agent_Working_Doc/SENTENCE_REVIEW_PROTOCOL.md).
 
 ## What is being shared
 
-The completed, reviewed rehearsal is commit `6dd78e66c392437df6e759b61f56074dc99f9484`. This publication adds current team navigation and destination records; it does not rerun or alter the accepted mathematics or PDF. The paper's SHA-256 remains `27182592954ee011e2c9f94b7c9a86465b3be44e3fba94d7ab1e3e3c3ef39573`.
+The initial completed rehearsal is commit `6dd78e66c392437df6e759b61f56074dc99f9484`, and its public navigation release is `f8b5d419b64c569f8b6c041f6074e06cc067246c`. The user's subsequent revision replaces the current paper with genuine LaTeX, Times New Roman text, monochrome figures, revised prose and three complete independent sentence ledgers. The current PDF's SHA-256 is `2ec474ac04debd26d8acbf4b3393ba46e220536415d19e324597770ec7629aac`.
 
-Earlier delivery reports, run snapshots and review receipts describe the original private publication. They remain historical evidence; this dated sharing record governs the current destination. Their acceptance still applies only to the exact artifacts and scopes they reviewed. A publication-only navigation change does not imply a new scientific review.
+The scientific run, observations and primary model selection remain unchanged. A separately reviewed alternative-weighting diagnostic is added as a disclosed sensitivity result. New LaTeX sources, build logs, sentence records, attack/repair history and independent final-artifact checks accompany the new paper. Earlier PDFs and receipts remain historical evidence for their exact versions. No proprietary font files are redistributed.
+
+Earlier delivery reports, run snapshots and review receipts describe the original private publication. They remain historical evidence; this dated sharing record governs the current destination. Their acceptance applies only to the exact artifacts and scopes they reviewed. The current LaTeX release has its own acceptance record, rather than inheriting the old PDF verdict.
 
 Actual runtime validation covers Codex collaboration for this finite non-biological rehearsal. Native Claude agents/teams and live contest submission remain outside the tested scope. The research exclusions remain in force.
 

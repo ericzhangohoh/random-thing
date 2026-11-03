@@ -69,7 +69,7 @@ adversarial_reviewers:
     writes:
     - qa/adversarial_paper/rNN/
     - handoffs/A04/
-    note: Reuses A01 context; awaits closed final PDF
+    note: Reuses A01 context; accepted former ReportLab final PDF for its pinned scope.
 recovery:
   role: computation
   session: /root/early_mcm_continue
@@ -85,3 +85,39 @@ integration:
   task: T14
   state: ACCEPTED
   note: Same independent context; final delivery/index addendum only
+latex_revision:
+  writer:
+    session: /root/rehearsal_writer
+    task: T15
+    state: ACCEPTED
+    scope_note: Final r05/r06 author packet accepted by three sentence reviewers and
+      T16.
+  new_independent_attackers:
+    A05:
+      session: /root/latex_model_attack
+      model: gpt-6-astra
+      state: ACCEPTED_FOR_SCOPE
+      note: New context. Canonical model attack r02; C18 independently checked by
+        A07.
+    A06:
+      session: /root/latex_argument_attack
+      model: gpt-6-astra
+      state: ACCEPTED_FOR_SCOPE
+      note: New context. Complete final 314-record argument ledger in revised-r03.
+    A07:
+      session: /root/latex_evidence_sentences
+      model: gpt-6-astra
+      state: ACCEPTED_FOR_SCOPE
+      note: New context. Complete final 314-record evidence ledger in sentences-r03;
+        C18 Decimal verification.
+    A08:
+      session: /root/latex_reader_sentences
+      model: gpt-6-astra
+      state: ACCEPTED_FOR_SCOPE
+      note: New context. Complete final 314-record reader ledger in revised-r03.
+  final_artifact_review:
+    task: T16
+    state: ACCEPTED_FOR_SCOPE
+    session: /root/rehearsal_reviewer
+    note: Existing main reviewer context. All 16 pages directly inspected, independent
+      rebuild, 1785 checks.

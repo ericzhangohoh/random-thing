@@ -356,6 +356,8 @@ Check claim strength again after simplifying the language. An exploratory scenar
 
 ### 12.4 Delivery checks
 
+For the current project, use genuine LaTeX with actual Times New Roman text, disclosed compatible mathematical fonts, monochrome figures and at most three combined ASCII/fullwidth semicolons in the entire rendered paper. The [full-sentence review protocol](SENTENCE_REVIEW_PROTOCOL.md) provides assignments for three independent reviewers, a separate model attacker, author repairs and final all-page inspection. Each sentence reviewer covers the complete paper under a different lens. Its sentence/fragment IDs are coverage identifiers, separate from the substantive claim IDs used in the evidence map. Keep natural variation in English while preserving results, qualifications and disclosure.
+
 1. Verify all problem requirements, including nontechnical deliverables.
 2. Reconcile numbers and claims across summary, text, tables, figures and conclusion.
 3. Confirm references exist and support their uses; maintain the required AI-use disclosure from the actual activity record.

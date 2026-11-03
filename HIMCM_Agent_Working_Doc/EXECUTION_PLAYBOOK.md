@@ -102,6 +102,8 @@ The writing outline, source verification and independent diagnostics can overlap
 4. W reconciles summary, body, tables, figures and the required nontechnical document. Its limitations must survive simplification of the language.
 5. R inspects the rendered file. C records its version/hash, review scope and remaining limits. A human handles actual submission unless separately authorized.
 
+For the detailed final-paper route through three independent full-sentence ledgers, model attack, author repair and all-page artifact acceptance, use the [Sentence Review Protocol](SENTENCE_REVIEW_PROTOCOL.md). It also defines exact-version carry-forward and safe public-sync closure.
+
 ## 4. Dispatch work another context can execute
 
 Every packet answers eight questions:
