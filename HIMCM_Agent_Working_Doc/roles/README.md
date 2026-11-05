@@ -4,6 +4,8 @@ These are detailed role instructions inside the working document. They are plain
 
 Read [WORKING_DOC.md](../WORKING_DOC.md) first, then the [shared-directory protocol](../setup/SHARED_DIRECTORY_PROTOCOL.md), then the assigned role. Each role file contains a pasteable assignment prompt, input/output boundaries, procedure, evidence requirements, failure handling and completion conditions.
 
+For one persistent role per visible Codex chat, the [11-chat setup pack](../setup/chat-prompts/README.md) provides initialization-only prompts for these six base roles plus five specialized reviewers. It loads the workflow before accepting a concrete project task.
+
 | Role | Owns | Main handoff |
 |---|---|---|
 | [Coordinator](coordinator.md) | Shared control records and accepted project state | Bounded assignments, integration decisions and deliverable manifest |

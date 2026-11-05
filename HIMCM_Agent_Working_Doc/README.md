@@ -6,7 +6,7 @@ An English operating document for a human-led modeling team, with six assignable
 
 1. Start with [Execution Playbook](EXECUTION_PLAYBOOK.md) for first assignments, dependencies and handoffs; use [WORKING_DOC.md](WORKING_DOC.md) for the full process and human checkpoints.
 2. Read [Approach and Justification](APPROACH_AND_JUSTIFICATION.md) for the reasoning behind model selection, validation and defensible claims.
-3. Use [Claude Code setup](setup/CLAUDE_CODE.md), [the bootstrap prompt](setup/BOOTSTRAP_PROMPT.md) and [role instructions](roles/README.md) to assign real sessions.
+3. For fixed-role chats in the Codex project, use the [11 setup prompts](setup/chat-prompts/COPY_PASTE_PROMPTS.md) and [setup guide](setup/chat-prompts/README.md). For the existing Claude Code route, use [Claude Code setup](setup/CLAUDE_CODE.md), [the project bootstrap](setup/BOOTSTRAP_PROMPT.md) and [role instructions](roles/README.md).
 4. Use [templates](templates/README.md) and [coordination](COORDINATION.md) for tasks, evidence, handoffs and recovery.
 5. Use the [sentence-review protocol](SENTENCE_REVIEW_PROTOCOL.md) to dispatch three independent complete-text reviews, route repairs and check the final LaTeX PDF.
 6. Inspect the [executed 2022 HiMCM B rehearsal](../HIMCM_Rehearsals/2022_HiMCM_B_2026-11-03/README.md), [worked exercises](examples/README.md), [research coverage](research/STATUS.md) and [verification limits](qa/VERIFICATION.md).
